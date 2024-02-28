@@ -1,0 +1,15 @@
+apiVersion: synthetics.datadog.upbound.io/v1alpha1
+kind: PrivateLocation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: synthetics/v1alpha1/privatelocation
+  labels:
+    testing.upbound.io/example-name: private_location
+  name: private-location
+spec:
+  forProvider:
+    description: Description of the private location
+    name: First private location
+    tags:
+    - foo:bar
+    - env:test

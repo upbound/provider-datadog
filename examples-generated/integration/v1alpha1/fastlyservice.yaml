@@ -1,0 +1,30 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: FastlyService
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/fastlyservice
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    accountId: ${datadog_integration_fastly_account.foo.id}
+    serviceId: my-service-id
+    tags:
+    - mytag
+    - mytag2:myvalue
+
+---
+
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: FastlyAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration.datadog/v1alpha1/fastlyservice
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    apiKey: ABCDEFG123
+    name: test-name

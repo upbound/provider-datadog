@@ -1,0 +1,23 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: AWS
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/aws
+  labels:
+    testing.upbound.io/example-name: sandbox
+  name: sandbox
+spec:
+  forProvider:
+    accountId: "1234567890"
+    accountSpecificNamespaceRules:
+      auto_scaling: false
+      opsworks: false
+    excludedRegions:
+    - us-east-1
+    - us-west-2
+    filterTags:
+    - key:value
+    hostTags:
+    - key:value
+    - key2:value2
+    roleName: DatadogAWSIntegrationRole

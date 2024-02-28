@@ -1,0 +1,14 @@
+apiVersion: cloud.datadog.upbound.io/v1alpha1
+kind: WorkloadSecurityAgentRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloud/v1alpha1/workloadsecurityagentrule
+  labels:
+    testing.upbound.io/example-name: my_agent_rule
+  name: my-agent-rule
+spec:
+  forProvider:
+    description: My agent rule
+    enabled: true
+    expression: exec.file.name == "java"
+    name: my_agent_rule

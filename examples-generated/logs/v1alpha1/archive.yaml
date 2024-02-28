@@ -1,0 +1,17 @@
+apiVersion: logs.datadog.upbound.io/v1alpha1
+kind: Archive
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logs/v1alpha1/archive
+  labels:
+    testing.upbound.io/example-name: my_s3_archive
+  name: my-s3-archive
+spec:
+  forProvider:
+    name: my s3 archive
+    query: service:myservice
+    s3Archive:
+    - accountId: "001234567888"
+      bucket: my-bucket
+      path: /path/foo
+      roleName: my-role-name

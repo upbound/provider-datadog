@@ -1,0 +1,14 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/role
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    name: foo
+    permission:
+    - id: ${data.datadog_permissions.bar.permissions.monitors_downtime}
+    - id: ${data.datadog_permissions.bar.permissions.monitors_write}

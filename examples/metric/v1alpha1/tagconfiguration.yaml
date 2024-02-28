@@ -1,0 +1,16 @@
+apiVersion: metric.datadog.upbound.io/v1alpha1
+kind: TagConfiguration
+metadata:
+  annotations:
+    meta.upbound.io/example-id: metric/v1alpha1/tagconfiguration
+  labels:
+    testing.upbound.io/example-name: example_dist_metric
+  name: example-dist-metric
+spec:
+  forProvider:
+    includePercentiles: false
+    metricName: example.crossplane.dist.metric
+    metricType: distribution
+    tags:
+    - sport
+    - datacenter

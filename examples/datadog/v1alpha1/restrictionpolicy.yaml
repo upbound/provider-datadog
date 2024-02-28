@@ -1,0 +1,18 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: RestrictionPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/restrictionpolicy
+  labels:
+    testing.upbound.io/example-name: restriction-policy-foo
+  name: restriction-policy-foo
+spec:
+  forProvider:
+    bindings:
+    - principals:
+      - role:a7233104-d3a5-11ee-9d14-da7ad0900002
+      relation: editor
+    - principals:
+      - org:312aa6bc-ca87-11ed-9894-da7ad0900002
+      relation: viewer
+    resourceId: security-rule:abc-def-ghi

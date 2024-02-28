@@ -1,0 +1,11 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: AppKey
+metadata:
+# annotations:
+#   meta.upbound.io/example-id: datadog/v1alpha1/appkey
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    name: foo

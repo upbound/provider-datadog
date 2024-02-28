@@ -1,0 +1,24 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: DowntimeSchedule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/downtimeschedule
+  labels:
+    testing.upbound.io/example-name: downtime_schedule_example
+  name: downtime-schedule-example
+spec:
+  forProvider:
+    displayTimezone: America/New_York
+    message: Message about the downtime
+    monitorIdentifier:
+    - monitorTags:
+      - test:123
+      - data:test
+    muteFirstRecoveryNotification: true
+    notifyEndStates:
+    - alert
+    - warn
+    notifyEndTypes:
+    - canceled
+    - expired
+    scope: env:us9-prod7 AND team:test123

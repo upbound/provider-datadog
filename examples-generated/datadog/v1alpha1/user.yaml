@@ -1,0 +1,13 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/user
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    email: new@example.com
+    roles:
+    - ${data.datadog_role.ro_role.id}

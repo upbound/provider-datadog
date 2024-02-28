@@ -1,0 +1,18 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Downtime
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/downtime
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    end: 1908796659
+    monitorId: 140215517
+    recurrence:
+    - period: 1
+      type: days
+    scope:
+    - '*'
+    start: 1908756659

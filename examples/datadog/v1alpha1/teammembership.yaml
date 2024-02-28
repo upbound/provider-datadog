@@ -1,0 +1,13 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: TeamMembership
+metadata:
+  annotations:
+    meta.upbound.io/example-id: team/v1alpha1/membership
+  labels:
+    testing.upbound.io/example-name: membership-foo
+  name: membership-foo
+spec:
+  forProvider:
+    role: admin
+    teamId: "fc4fd012-4578-48b5-b8c8-b717fbfb9478"
+    userId: "68fb13cf-d38a-11ee-81b6-72a7aa9f44d8"

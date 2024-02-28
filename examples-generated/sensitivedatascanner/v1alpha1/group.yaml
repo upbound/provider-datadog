@@ -1,0 +1,17 @@
+apiVersion: sensitivedatascanner.datadog.upbound.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sensitivedatascanner/v1alpha1/group
+  labels:
+    testing.upbound.io/example-name: mygroup
+  name: mygroup
+spec:
+  forProvider:
+    description: A relevant description
+    filter:
+    - query: service:my-service
+    isEnabled: true
+    name: My new scanning group
+    productList:
+    - apm

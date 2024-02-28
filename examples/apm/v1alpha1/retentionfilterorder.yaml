@@ -1,0 +1,31 @@
+apiVersion: apm.datadog.upbound.io/v1alpha1
+kind: RetentionFilterOrder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apm/v1alpha1/retentionfilterorder
+  labels:
+    testing.upbound.io/example-name: bar
+  name: bar
+spec:
+  forProvider:
+    filterIds:
+    - ${datadog_apm_retention_filter.foo.id}
+
+---
+
+apiVersion: apm.datadog.upbound.io/v1alpha1
+kind: RetentionFilter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apm.datadog/v1alpha1/retentionfilterorder
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    enabled: false
+    filter:
+    - query: '*'
+    filterType: spans-sampling-processor
+    name: Sample order
+    rate: "1.0"

@@ -1,0 +1,12 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: RUMApplication
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/rumapplication
+  labels:
+    testing.upbound.io/example-name: rum_application
+  name: rum-application
+spec:
+  forProvider:
+    name: my-application
+    type: browser

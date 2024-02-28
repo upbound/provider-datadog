@@ -1,0 +1,30 @@
+apiVersion: logs.datadog.upbound.io/v1alpha1
+kind: Index
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logs/v1alpha1/index
+  labels:
+    testing.upbound.io/example-name: sample_index
+  name: sample-index
+spec:
+  forProvider:
+    dailyLimit: 200000
+    dailyLimitReset:
+    - resetTime: "14:00"
+      resetUtcOffset: "+02:00"
+    dailyLimitWarningThresholdPercentage: 50
+    exclusionFilter:
+    - filter:
+      - query: app:coredns
+        sampleRate: 0.97
+      isEnabled: true
+      name: Filter coredns logs
+    - filter:
+      - query: service:kube_apiserver
+        sampleRate: 1
+      isEnabled: true
+      name: Kubernetes apiserver
+    filter:
+    - query: '*'
+    name: your index
+    retentionDays: 7

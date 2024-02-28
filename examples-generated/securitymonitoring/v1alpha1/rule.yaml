@@ -1,0 +1,35 @@
+apiVersion: securitymonitoring.datadog.upbound.io/v1alpha1
+kind: Rule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: securitymonitoring/v1alpha1/rule
+  labels:
+    testing.upbound.io/example-name: myrule
+  name: myrule
+spec:
+  forProvider:
+    case:
+    - condition: errors > 3 && warnings > 10
+      notifications:
+      - '@user'
+      status: high
+    enabled: true
+    message: The rule has triggered.
+    name: My rule
+    options:
+    - evaluationWindow: 300
+      keepAlive: 600
+      maxSignalDuration: 900
+    query:
+    - aggregation: count
+      groupByFields:
+      - host
+      name: errors
+      query: status:error
+    - aggregation: count
+      groupByFields:
+      - host
+      name: warnings
+      query: status:warning
+    tags:
+    - type:dos

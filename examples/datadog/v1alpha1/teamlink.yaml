@@ -1,0 +1,14 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: TeamLink
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/teamlink
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    label: Link label
+    position: 1
+    teamId: <INSERT_TEAM_ID>
+    url: https://crossplane.io

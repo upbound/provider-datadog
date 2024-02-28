@@ -11,5 +11,5 @@ on:
   # See also commands.yml for the /backport triggered variant of this workflow.
 
 jobs:
-  backport:
-    uses: upbound/uptest/.github/workflows/provider-backport.yml@main
+  - backport:
+  - uses: upbound/uptest/.github/workflows/provider-backport.yml@main

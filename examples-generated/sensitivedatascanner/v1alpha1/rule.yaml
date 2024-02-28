@@ -1,0 +1,48 @@
+apiVersion: sensitivedatascanner.datadog.upbound.io/v1alpha1
+kind: Rule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sensitivedatascanner/v1alpha1/rule
+  labels:
+    testing.upbound.io/example-name: myrule
+  name: myrule
+spec:
+  forProvider:
+    description: Another description
+    excludedNamespaces:
+    - username
+    groupId: ${datadog_sensitive_data_scanner_group.mygroup.id}
+    includedKeywordConfiguration:
+    - characterCount: 30
+      keywords:
+      - cc
+      - credit card
+    isEnabled: true
+    name: My new rule
+    pattern: myregex
+    tags:
+    - sensitive_data:true
+    textReplacement:
+    - numberOfChars: 0
+      replacementString: ""
+      type: hash
+
+---
+
+apiVersion: sensitivedatascanner.datadog.upbound.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sensitivedatascanner.datadog/v1alpha1/rule
+  labels:
+    testing.upbound.io/example-name: mygroup
+  name: mygroup
+spec:
+  forProvider:
+    description: A relevant description
+    filter:
+    - query: service:my-service
+    isEnabled: true
+    name: My new scanning group
+    productList:
+    - apm

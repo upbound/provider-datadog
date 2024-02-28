@@ -1,0 +1,13 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: AuthnMapping
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/authnmapping
+  labels:
+    testing.upbound.io/example-name: dev_ro_role_mapping
+  name: dev-ro-role-mapping
+spec:
+  forProvider:
+    key: Member-of
+    role: ${data.datadog_role.ro_role.id}
+    value: Development

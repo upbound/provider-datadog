@@ -1,0 +1,14 @@
+apiVersion: logs.datadog.upbound.io/v1alpha1
+kind: PipelineOrder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logs/v1alpha1/pipelineorder
+  labels:
+    testing.upbound.io/example-name: sample_pipeline_order
+  name: sample-pipeline-order
+spec:
+  forProvider:
+    name: sample_pipeline_order
+    pipelines:
+    - ${datadog_logs_custom_pipeline.sample_pipeline.id}
+    - ${datadog_logs_integration_pipeline.python.id}

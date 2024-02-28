@@ -1,0 +1,20 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: SpansMetric
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/spansmetric
+  labels:
+    testing.upbound.io/example-name: testing_spans_metric
+  name: testing-spans-metric
+spec:
+  forProvider:
+    compute:
+      aggregationType: "distribution"
+      includePercentiles: false
+      path: "@duration"
+    filter:
+      query: "@http.status_code:200 service:my-service"
+    groupBy:
+    - path: resource_name
+      tagName: resource_name
+    name: testing.span.metric

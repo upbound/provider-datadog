@@ -1,0 +1,13 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: AWSTagFilter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/awstagfilter
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    accountId: "123456789010"
+    namespace: sqs
+    tagFilterStr: key:value

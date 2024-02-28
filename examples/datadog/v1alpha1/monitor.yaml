@@ -1,0 +1,22 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Monitor
+metadata:
+  annotations:
+    meta.upbound.io/example-id: monitor/v1alpha1/monitor
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    escalationMessage: Escalation message @pagerduty
+    includeTags: true
+    message: 'Monitor triggered. Notify: @hipchat-channel'
+    monitorThresholds:
+    - critical: "4"
+      warning: "2"
+    name: Name for monitor foo
+    query: avg(last_1h):avg:aws.ec2.cpu{environment:foo,host:foo} by {host} > 4
+    tags:
+    - foo:bar
+    - team:fooBar
+    type: metric alert

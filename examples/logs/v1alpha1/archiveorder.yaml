@@ -1,0 +1,13 @@
+apiVersion: logs.datadog.upbound.io/v1alpha1
+kind: ArchiveOrder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logs/v1alpha1/archiveorder
+  labels:
+    testing.upbound.io/example-name: sample_archive_order
+  name: sample-archive-order
+spec:
+  forProvider:
+    archiveIds:
+    - ${datadog_logs_archive.sample_archive_1.id}
+    - ${datadog_logs_archive.sample_archive_2.id}
