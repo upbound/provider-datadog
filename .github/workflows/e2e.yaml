@@ -7,6 +7,10 @@ on:
 jobs:
   e2e:
     uses: upbound/uptest/.github/workflows/pr-comment-trigger.yml@main
+    with:
+      go-version: '1.21'
     secrets:
-      UPTEST_CLOUD_CREDENTIALS: ${{ secrets.UPTEST_CLOUD_CREDENTIALS }}
+      UPTEST_CLOUD_CREDENTIALS: "not used"
       UPTEST_DATASOURCE: ${{ secrets.UPTEST_DATASOURCE }}
+      DATADOG_API_KEY: ${{ secrets.DATADOG_API_KEY }}
+      DATADOG_APP_KEY: ${{ secrets.DATADOG_APP_KEY }}
