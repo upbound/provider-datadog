@@ -11,55 +11,6 @@ import (
 
 // A ProviderConfigSpec defines the desired state of a ProviderConfig.
 type ProviderConfigSpec struct {
-	// (String, Sensitive) (Required unless validate is false) Datadog API key.
-	// This can also be set via the DD_API_KEY environment variable.
-	// +optional
-	APIKey string `json:"api_key,omitempty"`
-
-	// (String) The API URL. This can also be set via the DD_HOST environment
-	// variable. Note that this URL must not end with the /api/ path. For
-	// example, https://api.datadoghq.com/ is a correct value, while
-	// https://api.datadoghq.com/api/ is not. And if you're working with
-	// "EU" version of Datadog, use https://api.datadoghq.eu/. Other Datadog
-	// region examples: https://api.us5.datadoghq.com/,
-	// https://api.us3.datadoghq.com/ and https://api.ddog-gov.com/.
-	// See https://docs.datadoghq.com/getting_started/site/ for all available
-	// regions.
-	// +optional
-	APIUrl string `json:"api_url,omitempty"`
-
-	// (String, Sensitive) (Required unless validate is false) Datadog APP key.
-	// This can also be set via the DD_APP_KEY environment variable.
-	// +optional
-	AppKey string `json:"app_key,omitempty"`
-
-	// (Number) The HTTP request retry back off base. Defaults to 2.
-	// +optional
-	HTTPClientRetryBackoffBase int `json:"http_client_retry_backoff_base,omitempty"`
-
-	// (Number) The HTTP request retry back off multiplier. Defaults to 2.
-	// +optional
-	HTTPClientRetryBackoffMultiplier int `json:"http_client_retry_backoff_multiplier,omitempty"`
-
-	// (String) Enables request retries on HTTP status codes 429 and 5xx.
-	// Valid values are [true, false]. Defaults to true.
-	// +optional
-	HTTPClientRetryEnabled string `json:"http_client_retry_enabled,omitempty"`
-
-	// (Number) The HTTP request maximum retry number. Defaults to 3.
-	// +optional
-	HTTPClientRetryMaxRetries int `json:"http_client_retry_max_retries,omitempty"`
-
-	// (Number) The HTTP request retry timeout period. Defaults to 60 seconds.
-	// +optional
-	HTTPClientRetryTimeout int `json:"http_client_retry_timeout,omitempty"`
-
-	// (String) Enables validation of the provided API key during provider
-	// initialization. Valid values are [true, false]. Default is true.
-	// When false, api_key won't be checked.
-	// +optional
-	Validate string `json:"validate,omitempty"`
-
 	// Credentials required to authenticate to this provider.
 	// +optional
 	Credentials ProviderCredentials `json:"credentials"`

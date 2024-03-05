@@ -85,7 +85,7 @@ You can see the API reference [here](https://doc.crds.dev/github.com/upbound/pro
 Run code-generation pipeline:
 
 ```console
-make clean; make gen-clean; make generate
+make clean; make generate
 ```
 
 Run against a Kubernetes cluster:

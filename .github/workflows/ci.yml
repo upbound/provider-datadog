@@ -17,8 +17,6 @@ env:
   # Common users. We can't run a step 'if secrets.XXX != ""' but we can run a
   # step 'if env.XXX != ""', so we copy these to succinctly test whether
   # credentials have been provided before trying to run steps that need them.
-  DATADOG_API_KEY: ${{ secrets.DATADOG_API_KEY }}
-  DATADOG_APP_KEY: ${{ secrets.DATADOG_APP_KEY }}
   UPBOUND_MARKETPLACE_PUSH_ROBOT_USR: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
 
 jobs:
