@@ -49,7 +49,7 @@ GO_SUBDIRS += cmd internal apis
 # ====================================================================================
 # Setup Kubernetes tools
 
-KIND_VERSION = v0.20.0
+KIND_VERSION = v0.22.0
 UP_VERSION = v0.22.1
 UP_CHANNEL = stable
 UPTEST_VERSION = v0.10.0
