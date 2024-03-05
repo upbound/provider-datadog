@@ -1,0 +1,16 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: GCPSTS
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/gcpsts
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    automute: true
+    clientEmail: ${google_service_account.datadog_integration.email}
+    hostFilters:
+    - filter_one
+    - filter_two
+    isCspmEnabled: false

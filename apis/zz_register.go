@@ -14,15 +14,31 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/upbound/upjet-provider-template/apis/null/v1alpha1"
-	v1alpha1apis "github.com/upbound/upjet-provider-template/apis/v1alpha1"
-	v1beta1 "github.com/upbound/upjet-provider-template/apis/v1beta1"
+	v1alpha1 "github.com/upbound/provider-datadog/apis/apm/v1alpha1"
+	v1alpha1cloud "github.com/upbound/provider-datadog/apis/cloud/v1alpha1"
+	v1alpha1datadog "github.com/upbound/provider-datadog/apis/datadog/v1alpha1"
+	v1alpha1integration "github.com/upbound/provider-datadog/apis/integration/v1alpha1"
+	v1alpha1logs "github.com/upbound/provider-datadog/apis/logs/v1alpha1"
+	v1alpha1metric "github.com/upbound/provider-datadog/apis/metric/v1alpha1"
+	v1alpha1securitymonitoring "github.com/upbound/provider-datadog/apis/securitymonitoring/v1alpha1"
+	v1alpha1sensitivedatascanner "github.com/upbound/provider-datadog/apis/sensitivedatascanner/v1alpha1"
+	v1alpha1synthetics "github.com/upbound/provider-datadog/apis/synthetics/v1alpha1"
+	v1alpha1apis "github.com/upbound/provider-datadog/apis/v1alpha1"
+	v1beta1 "github.com/upbound/provider-datadog/apis/v1beta1"
 )
 
 func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
+		v1alpha1cloud.SchemeBuilder.AddToScheme,
+		v1alpha1datadog.SchemeBuilder.AddToScheme,
+		v1alpha1integration.SchemeBuilder.AddToScheme,
+		v1alpha1logs.SchemeBuilder.AddToScheme,
+		v1alpha1metric.SchemeBuilder.AddToScheme,
+		v1alpha1securitymonitoring.SchemeBuilder.AddToScheme,
+		v1alpha1sensitivedatascanner.SchemeBuilder.AddToScheme,
+		v1alpha1synthetics.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
 	)

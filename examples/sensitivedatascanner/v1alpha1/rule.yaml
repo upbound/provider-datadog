@@ -1,0 +1,28 @@
+apiVersion: sensitivedatascanner.datadog.upbound.io/v1alpha1
+kind: Rule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sensitivedatascanner/v1alpha1/rule
+  labels:
+    testing.upbound.io/example-name: myrule
+  name: myrule
+spec:
+  forProvider:
+    description: Another description
+    excludedNamespaces:
+    - username
+    groupId: xFwkbB3BTcmfh0VuHp0gcg
+    includedKeywordConfiguration:
+    - characterCount: 30
+      keywords:
+      - cc
+      - credit card
+    isEnabled: true
+    name: My new rule
+    pattern: myregex
+    tags:
+    - sensitive_data:true
+    textReplacement:
+    - numberOfChars: 0
+      replacementString: ""
+      type: hash

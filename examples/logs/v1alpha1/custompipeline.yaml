@@ -1,0 +1,120 @@
+apiVersion: logs.datadog.upbound.io/v1alpha1
+kind: CustomPipeline
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logs/v1alpha1/custompipeline
+  labels:
+    testing.upbound.io/example-name: sample_pipeline
+  name: sample-pipeline
+spec:
+  forProvider:
+    filter:
+    - query: source:foo
+    isEnabled: true
+    name: sample pipeline
+    processor:
+    - arithmeticProcessor:
+      - expression: (time1 - time2)*1000
+        isEnabled: true
+        isReplaceMissing: true
+        name: sample arithmetic processor
+        target: my_arithmetic
+    - attributeRemapper:
+      - isEnabled: true
+        name: sample attribute processor
+        overrideOnConflict: false
+        preserveSource: true
+        sourceType: tag
+        sources:
+        - db.instance
+        target: db
+        targetFormat: string
+        targetType: attribute
+    - categoryProcessor:
+      - category:
+        - filter:
+          - query: '@severity: "."'
+          name: debug
+        - filter:
+          - query: '@severity: "-"'
+          name: verbose
+        isEnabled: true
+        name: sample category processor
+        target: foo.severity
+    - dateRemapper:
+      - isEnabled: true
+        name: sample date remapper
+        sources:
+        - _timestamp
+        - published_date
+    - geoIpParser:
+      - isEnabled: true
+        name: sample geo ip parser
+        sources:
+        - network.client.ip
+        target: network.client.geoip
+    - grokParser:
+      - grok:
+        - matchRules: Rule %{word:my_word2} %{number:my_float2}
+          supportRules: ""
+        isEnabled: true
+        name: sample grok parser
+        samples:
+        - sample log 1
+        source: message
+    - lookupProcessor:
+      - defaultLookup: unknown service
+        isEnabled: true
+        lookupTable:
+        - 1,my service
+        name: sample lookup processor
+        source: service_id
+        target: service_name
+    - messageRemapper:
+      - isEnabled: true
+        name: sample message remapper
+        sources:
+        - msg
+    - pipeline:
+      - filter:
+        - query: source:foo
+        isEnabled: true
+        name: nested pipeline
+        processor:
+        - urlParser:
+          - name: sample url parser
+            normalizeEndingSlashes: true
+            sources:
+            - url
+            - extra
+            target: http_url
+    - serviceRemapper:
+      - isEnabled: true
+        name: sample service remapper
+        sources:
+        - service
+    - statusRemapper:
+      - isEnabled: true
+        name: sample status remapper
+        sources:
+        - info
+        - trace
+    - stringBuilderProcessor:
+      - isEnabled: true
+        isReplaceMissing: false
+        name: sample string builder processor
+        target: user_activity
+        template: '%{user.name} logged in at %{timestamp}'
+    - traceIdRemapper:
+      - isEnabled: true
+        name: sample trace id remapper
+        sources:
+        - dd.trace_id
+    - userAgentParser:
+      - isEnabled: true
+        isEncoded: false
+        name: sample user agent parser
+        sources:
+        - user
+        - agent
+        target: http_agent

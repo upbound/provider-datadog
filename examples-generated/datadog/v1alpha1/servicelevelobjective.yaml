@@ -1,0 +1,29 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: ServiceLevelObjective
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/servicelevelobjective
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    description: My custom metric SLO
+    name: Example Metric SLO
+    query:
+    - denominator: sum:my.custom.count.metric{*}.as_count()
+      numerator: sum:my.custom.count.metric{type:good_events}.as_count()
+    tags:
+    - foo:bar
+    - baz
+    targetThreshold: 99.9
+    thresholds:
+    - target: 99.9
+      timeframe: 7d
+      warning: 99.99
+    - target: 99.9
+      timeframe: 30d
+      warning: 99.99
+    timeframe: 30d
+    type: metric
+    warningThreshold: 99.99

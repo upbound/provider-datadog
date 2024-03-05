@@ -1,0 +1,19 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: Pagerduty
+metadata:
+  # https://www.pagerduty.com/docs/guides/datadog-integration-guide/
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/pagerduty
+  labels:
+    testing.upbound.io/example-name: pd
+  name: pd
+spec:
+  forProvider:
+    apiTokenSecretRef:
+      key: credentials
+      name: pagerduty-secret
+      namespace: upbound-system
+    schedules:
+    - https://ddog.pagerduty.com/schedules/X123VF
+    - https://ddog.pagerduty.com/schedules/X321XX
+    subdomain: ddog

@@ -1,0 +1,18 @@
+apiVersion: securitymonitoring.datadog.upbound.io/v1alpha1
+kind: Filter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: securitymonitoring/v1alpha1/filter
+  labels:
+    testing.upbound.io/example-name: my_filter
+  name: my-filter
+spec:
+  forProvider:
+    exclusionFilter:
+    - name: first
+      query: exclude some logs
+    - name: second
+      query: exclude some other logs
+    isEnabled: true
+    name: My filter
+    query: The filter is filtering.

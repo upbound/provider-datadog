@@ -1,0 +1,21 @@
+apiVersion: logs.datadog.upbound.io/v1alpha1
+kind: Metric
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logs/v1alpha1/metric
+  labels:
+    testing.upbound.io/example-name: testing_logs_metric
+  name: testing-logs-metric
+spec:
+  forProvider:
+    compute:
+    - aggregationType: distribution
+      path: '@duration'
+    filter:
+    - query: service:test
+    groupBy:
+    - path: '@status'
+      tagName: status
+    - path: '@version'
+      tagName: version
+    name: testing.logs.metric

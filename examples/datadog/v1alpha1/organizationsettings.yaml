@@ -1,0 +1,11 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: OrganizationSettings
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/organizationsettings
+  labels:
+    testing.upbound.io/example-name: organization
+  name: organization-foo
+spec:
+  forProvider:
+    name: organization-foo

@@ -1,0 +1,17 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: SlackChannel
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/slackchannel
+  labels:
+    testing.upbound.io/example-name: test_channel
+  name: test-channel
+spec:
+  forProvider:
+    accountName: foo
+    channelName: '#test_channel'
+    display:
+    - message: true
+      notified: false
+      snapshot: false
+      tags: true

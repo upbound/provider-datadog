@@ -1,0 +1,42 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Powerpack
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/powerpack
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    description: Created using the Datadog provider in terraform
+    layout:
+    - height: 10
+      width: 3
+      x: 1
+      "y": 0
+    liveSpan: 4h
+    templateVariables:
+    - defaults:
+      - defaults
+      name: datacenter
+    widget: |
+      {
+        "id':38493204920,
+        "definition":{
+          "type":"event_stream_definition",
+          "query":"*",
+          "title":"Widget Title",
+          "title_align":"right",
+          "title_size":16
+      }
+---
+apiVersion: datadog.upbound.io/v1alpha1
+kind: OrganizationSettings
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/powerpack
+  labels:
+    testing.upbound.io/example-name: organization
+  name: organization
+spec:
+  forProvider: {}

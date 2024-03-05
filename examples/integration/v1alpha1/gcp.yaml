@@ -1,0 +1,19 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: GCP
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/gcp
+  labels:
+    testing.upbound.io/example-name: awesome_gcp_project_integration
+  name: awesome-gcp-project-integration
+spec:
+  forProvider:
+    clientEmail: awesome-service-account@awesome-project-id.iam.gserviceaccount.com
+    clientId: "123456789012345678901"
+    hostFilters: foo:bar,buzz:lightyear
+    privateKeyId: "1234567890123456789012345678901234567890"
+    privateKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    projectId: awesome-project-id

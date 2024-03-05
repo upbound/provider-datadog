@@ -1,0 +1,16 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: DashboardList
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/dashboardlist
+  labels:
+    testing.upbound.io/example-name: new_list
+  name: new-list
+spec:
+  forProvider:
+    dashItem:
+    - dashId: 9e9-qw9-ngn
+      type: custom_timeboard
+        #- dashId: foo-dash-id-2
+        #type: custom_screenboard
+    name: UXP Created List

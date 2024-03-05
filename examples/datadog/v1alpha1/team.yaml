@@ -1,0 +1,9 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Team
+metadata:
+  name: team-foo
+spec:
+  forProvider:
+    name: team-foo
+    description: Team Foo
+    handle: team-foo-handle

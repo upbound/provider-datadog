@@ -1,0 +1,13 @@
+apiVersion: logs.datadog.upbound.io/v1alpha1
+kind: IndexOrder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logs/v1alpha1/indexorder
+  labels:
+    testing.upbound.io/example-name: sample_index_order
+  name: sample-index-order
+spec:
+  forProvider:
+    indexes:
+    - ${datadog_logs_index.sample_index.id}
+    name: sample_index_order

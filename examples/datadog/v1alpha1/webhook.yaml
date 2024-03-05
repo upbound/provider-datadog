@@ -1,0 +1,15 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Webhook
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/webhook
+  labels:
+    testing.upbound.io/example-name: webhook-foo
+  name: webhook-foo
+spec:
+  forProvider:
+    customHeaders: '${jsonencode({ "custom" : "header" })}'
+    encodeAs: json
+    name: test-webhook
+    payload: '${jsonencode({ "custom" : "payload" })}'
+    url: example.com

@@ -1,0 +1,14 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: TeamPermissionSetting
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/teampermissionsetting
+    crossplane.io/external-name: team-foo-permission-setting
+  labels:
+    testing.upbound.io/example-name: team-foo-permission-setting
+  name: team-foo-permission-setting
+spec:
+  forProvider:
+    action: "manage_membership" # or edit
+    teamId: "ac9b310e-3910-496e-9896-fdd058d65d43"
+    value: "organization" # or admins members organization user_access_manage teams_manage

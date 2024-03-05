@@ -1,0 +1,41 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: SLOCorrection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/slocorrection
+  labels:
+    testing.upbound.io/example-name: example_slo_correction
+  name: example-slo-correction
+spec:
+  forProvider:
+    category: Scheduled Maintenance
+    description: correction example
+    end: 1735718600
+    sloId: ${datadog_service_level_objective.example_slo.id}
+    start: 1735707000
+    timezone: UTC
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: ServiceLevelObjective
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/slocorrection
+  labels:
+    testing.upbound.io/example-name: example_slo
+  name: example-slo
+spec:
+  forProvider:
+    description: some updated description about example_slo SLO
+    name: example slo
+    query:
+    - denominator: sum:my.metric{type:good}.as_count() + sum:my.metric{type:bad}.as_count()
+      numerator: sum:my.metric{type:good}.as_count()
+    tags:
+    - foo:bar
+    thresholds:
+    - target: 99.5
+      timeframe: 7d
+      warning: 99.8
+    type: metric

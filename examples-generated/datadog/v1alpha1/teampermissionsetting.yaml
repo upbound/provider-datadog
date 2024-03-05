@@ -1,0 +1,29 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: TeamPermissionSetting
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/teampermissionsetting
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    action: manage_membership
+    teamId: ${datadog_team.foo.id}
+    value: organization
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/teampermissionsetting
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    description: Example team
+    handle: example-team-updated
+    name: Example Team-updated

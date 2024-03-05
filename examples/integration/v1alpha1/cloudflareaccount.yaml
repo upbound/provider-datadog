@@ -1,0 +1,16 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: CloudflareAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/cloudflareaccount
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    apiKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    email: test-email@example.com
+    name: test-name

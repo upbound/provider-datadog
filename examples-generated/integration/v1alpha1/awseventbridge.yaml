@@ -1,0 +1,14 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: AWSEventBridge
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/awseventbridge
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    accountId: "123456789012"
+    createEventBus: true
+    eventGeneratorName: app-alerts
+    region: us-east-1

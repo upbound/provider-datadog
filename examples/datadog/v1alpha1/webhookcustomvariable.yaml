@@ -1,0 +1,16 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: WebhookCustomVariable
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/webhookcustomvarfoo
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    isSecret: true
+    name: foo
+    valueSecretRef:
+      key: info
+      name: datadog-webhook-secret
+      namespace: upbound-system

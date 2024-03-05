@@ -1,0 +1,15 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: PagerdutyServiceObject
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/pagerdutyserviceobject
+  labels:
+    testing.upbound.io/example-name: testing_foo
+  name: testing-foo
+spec:
+  forProvider:
+    serviceKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    serviceName: testing_foo

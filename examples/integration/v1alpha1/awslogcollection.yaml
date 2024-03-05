@@ -1,0 +1,13 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: AWSLogCollection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/awslogcollection
+  labels:
+    testing.upbound.io/example-name: main
+  name: main
+spec:
+  forProvider:
+    accountId: "INSERT 10 Digit Account ID"
+    services:
+    - lambda

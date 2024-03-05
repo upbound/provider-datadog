@@ -1,0 +1,22 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: Azure
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/azure
+  labels:
+    testing.upbound.io/example-name: sandbox
+  name: sandbox
+spec:
+  forProvider:
+    appServicePlanFilters: examplefilter:true,example:another
+    automute: true
+    clientId: <azure_client_id>
+    clientSecretSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    containerAppFilters: examplefilter:true,example:one_more
+    cspmEnabled: true
+    customMetricsEnabled: false
+    hostFilters: examplefilter:true,example:true
+    tenantName: <azure_tenant_name>
