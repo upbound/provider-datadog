@@ -79,16 +79,14 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"datadog_synthetics_concurrency_cap":           config.IdentifierFromProvider,
 	"datadog_synthetics_global_variable":           config.IdentifierFromProvider,
 	"datadog_synthetics_private_location":          config.IdentifierFromProvider,
-	//  datadog_synthetics_test not supported due to Upjet limitation,
-	//  that causes provider compilation to fail.
-	// "datadog_synthetics_test":                   config.IdentifierFromProvider,
-	"datadog_team":                    datadogExternalNameWithInjectedID(),
-	"datadog_team_link":               datadogExternalNameWithInjectedID(),
-	"datadog_team_membership":         config.IdentifierFromProvider,
-	"datadog_team_permission_setting": datadogExternalNameWithInjectedID(),
-	"datadog_user":                    datadogExternalNameWithInjectedID(),
-	"datadog_webhook":                 config.IdentifierFromProvider,
-	"datadog_webhook_custom_variable": config.IdentifierFromProvider,
+	"datadog_synthetics_test":                      config.IdentifierFromProvider,
+	"datadog_team":                                 datadogExternalNameWithInjectedID(),
+	"datadog_team_link":                            datadogExternalNameWithInjectedID(),
+	"datadog_team_membership":                      config.IdentifierFromProvider,
+	"datadog_team_permission_setting":              datadogExternalNameWithInjectedID(),
+	"datadog_user":                                 datadogExternalNameWithInjectedID(),
+	"datadog_webhook":                              config.IdentifierFromProvider,
+	"datadog_webhook_custom_variable":              config.IdentifierFromProvider,
 }
 
 // datadogExternalNameWithInjectedID injects an id when there is none.

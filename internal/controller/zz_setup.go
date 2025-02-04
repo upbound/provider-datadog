@@ -80,6 +80,7 @@ import (
 	concurrencycap "github.com/upbound/provider-datadog/internal/controller/synthetics/concurrencycap"
 	globalvariable "github.com/upbound/provider-datadog/internal/controller/synthetics/globalvariable"
 	privatelocation "github.com/upbound/provider-datadog/internal/controller/synthetics/privatelocation"
+	test "github.com/upbound/provider-datadog/internal/controller/synthetics/test"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
@@ -157,6 +158,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		concurrencycap.Setup,
 		globalvariable.Setup,
 		privatelocation.Setup,
+		test.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err

@@ -1,0 +1,37 @@
+apiVersion: synthetics.datadog.upbound.io/v1alpha1
+kind: Test
+metadata:
+  annotations:
+    meta.upbound.io/example-id: synthetics/v1alpha1/test
+  labels:
+    testing.upbound.io/example-name: test_uptime
+  name: test-uptime
+spec:
+  forProvider:
+    assertion:
+    - operator: is
+      target: "200"
+      type: statusCode
+    locations:
+    - aws:eu-central-1
+    message: Notify @pagerduty
+    name: An Uptime test on example.org
+    optionsList:
+    - monitorOptions:
+      - renotifyInterval: 120
+      retry:
+      - count: 2
+        interval: 300
+      tickEvery: 900
+    requestDefinition:
+    - method: GET
+      url: https://www.example.org
+    requestHeaders:
+      Content-Type: application/json
+    status: live
+    subtype: http
+    tags:
+    - foo:bar
+    - foo
+    - env:test
+    type: api
