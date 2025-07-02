@@ -1,0 +1,43 @@
+apiVersion: slo.datadog.upbound.io/v1beta1
+kind: Correction
+metadata:
+  annotations:
+    meta.upbound.io/example-id: slo/v1beta1/correction
+  labels:
+    testing.upbound.io/example-name: example_slo_correction
+  name: example-slo-correction
+spec:
+  forProvider:
+    category: Scheduled Maintenance
+    description: correction example
+    end: 1735718600
+    sloIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example_slo
+    start: 1735707000
+    timezone: UTC
+
+---
+
+apiVersion: slo.datadog.upbound.io/v1beta1
+kind: ServiceLevelObjective
+metadata:
+  annotations:
+    meta.upbound.io/example-id: slo/v1beta1/correction
+  labels:
+    testing.upbound.io/example-name: example_slo
+  name: example-slo
+spec:
+  forProvider:
+    description: some updated description about example_slo SLO
+    name: example slo
+    query:
+    - denominator: sum:my.metric{type:good}.as_count() + sum:my.metric{type:bad}.as_count()
+      numerator: sum:my.metric{type:good}.as_count()
+    tags:
+    - foo:bar
+    thresholds:
+    - target: 99.5
+      timeframe: 7d
+      warning: 99.8
+    type: metric

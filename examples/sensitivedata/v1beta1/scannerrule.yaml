@@ -1,0 +1,52 @@
+apiVersion: sensitivedata.datadog.upbound.io/v1beta1
+kind: ScannerRule
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource needs ordered deletion
+    meta.upbound.io/example-id: sensitivedata/v1beta1/scannerrule
+  labels:
+    testing.upbound.io/example-name: myrule
+  name: myrule
+spec:
+  forProvider:
+    description: Another description
+    excludedNamespaces:
+    - username
+    groupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: myrule
+    includedKeywordConfiguration:
+      characterCount: 30
+      keywords:
+        - cc
+        - credit card
+    isEnabled: true
+    name: My new rule
+    pattern: myregex
+    priority: 1
+    tags:
+    - sensitive_data:true
+    textReplacement:
+      numberOfChars: 0
+      replacementString: ""
+      type: hash
+
+---
+
+apiVersion: sensitivedata.datadog.upbound.io/v1beta1
+kind: ScannerGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sensitivedata/v1beta1/scannerrule
+  labels:
+    testing.upbound.io/example-name: myrule
+  name: myrulegroup
+spec:
+  forProvider:
+    description: A relevant description
+    filter:
+      query: service:my-service
+    isEnabled: true
+    name: myrulegroup
+    productList:
+    - apm

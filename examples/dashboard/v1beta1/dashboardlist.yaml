@@ -1,0 +1,15 @@
+apiVersion: dashboard.datadog.upbound.io/v1beta1
+kind: DashboardList
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource needs long running Dashboard
+    meta.upbound.io/example-id: dashboard/v1beta1/dashboardlist
+  labels:
+    testing.upbound.io/example-name: new_list
+  name: new-list
+spec:
+  forProvider:
+    dashItem:
+    - dashId: ry5-dyn-4yv
+      type: custom_screenboard
+    name: Terraform Created List

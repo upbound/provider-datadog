@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
+/*
+Copyright 2022 Upbound Inc.
+*/
 
 package controller
 
@@ -9,40 +9,24 @@ import (
 
 	"github.com/crossplane/upjet/pkg/controller"
 
+	apikey "github.com/upbound/provider-datadog/internal/controller/access/apikey"
+	applicationkey "github.com/upbound/provider-datadog/internal/controller/access/applicationkey"
 	retentionfilter "github.com/upbound/provider-datadog/internal/controller/apm/retentionfilter"
 	retentionfilterorder "github.com/upbound/provider-datadog/internal/controller/apm/retentionfilterorder"
+	authnmapping "github.com/upbound/provider-datadog/internal/controller/authentication/authnmapping"
 	configurationrule "github.com/upbound/provider-datadog/internal/controller/cloud/configurationrule"
-	workloadsecurityagentrule "github.com/upbound/provider-datadog/internal/controller/cloud/workloadsecurityagentrule"
-	apikey "github.com/upbound/provider-datadog/internal/controller/datadog/apikey"
-	appkey "github.com/upbound/provider-datadog/internal/controller/datadog/appkey"
-	authnmapping "github.com/upbound/provider-datadog/internal/controller/datadog/authnmapping"
-	childorganization "github.com/upbound/provider-datadog/internal/controller/datadog/childorganization"
-	dashboardjson "github.com/upbound/provider-datadog/internal/controller/datadog/dashboardjson"
-	dashboardlist "github.com/upbound/provider-datadog/internal/controller/datadog/dashboardlist"
-	downtime "github.com/upbound/provider-datadog/internal/controller/datadog/downtime"
-	downtimeschedule "github.com/upbound/provider-datadog/internal/controller/datadog/downtimeschedule"
-	ipallowlist "github.com/upbound/provider-datadog/internal/controller/datadog/ipallowlist"
-	monitor "github.com/upbound/provider-datadog/internal/controller/datadog/monitor"
-	monitorconfigpolicy "github.com/upbound/provider-datadog/internal/controller/datadog/monitorconfigpolicy"
-	monitorjson "github.com/upbound/provider-datadog/internal/controller/datadog/monitorjson"
-	organizationsettings "github.com/upbound/provider-datadog/internal/controller/datadog/organizationsettings"
-	powerpack "github.com/upbound/provider-datadog/internal/controller/datadog/powerpack"
-	restrictionpolicy "github.com/upbound/provider-datadog/internal/controller/datadog/restrictionpolicy"
-	role "github.com/upbound/provider-datadog/internal/controller/datadog/role"
-	rumapplication "github.com/upbound/provider-datadog/internal/controller/datadog/rumapplication"
-	serviceaccount "github.com/upbound/provider-datadog/internal/controller/datadog/serviceaccount"
-	serviceaccountapplicationkey "github.com/upbound/provider-datadog/internal/controller/datadog/serviceaccountapplicationkey"
-	servicedefinitionyaml "github.com/upbound/provider-datadog/internal/controller/datadog/servicedefinitionyaml"
-	servicelevelobjective "github.com/upbound/provider-datadog/internal/controller/datadog/servicelevelobjective"
-	slocorrection "github.com/upbound/provider-datadog/internal/controller/datadog/slocorrection"
-	spansmetric "github.com/upbound/provider-datadog/internal/controller/datadog/spansmetric"
-	team "github.com/upbound/provider-datadog/internal/controller/datadog/team"
-	teamlink "github.com/upbound/provider-datadog/internal/controller/datadog/teamlink"
-	teammembership "github.com/upbound/provider-datadog/internal/controller/datadog/teammembership"
-	teampermissionsetting "github.com/upbound/provider-datadog/internal/controller/datadog/teampermissionsetting"
-	user "github.com/upbound/provider-datadog/internal/controller/datadog/user"
-	webhook "github.com/upbound/provider-datadog/internal/controller/datadog/webhook"
-	webhookcustomvariable "github.com/upbound/provider-datadog/internal/controller/datadog/webhookcustomvariable"
+	dashboardjson "github.com/upbound/provider-datadog/internal/controller/dashboard/dashboardjson"
+	dashboardlist "github.com/upbound/provider-datadog/internal/controller/dashboard/dashboardlist"
+	powerpack "github.com/upbound/provider-datadog/internal/controller/dashboard/powerpack"
+	restrictionpolicy "github.com/upbound/provider-datadog/internal/controller/iam/restrictionpolicy"
+	role "github.com/upbound/provider-datadog/internal/controller/iam/role"
+	serviceaccount "github.com/upbound/provider-datadog/internal/controller/iam/serviceaccount"
+	serviceaccountapplicationkey "github.com/upbound/provider-datadog/internal/controller/iam/serviceaccountapplicationkey"
+	team "github.com/upbound/provider-datadog/internal/controller/iam/team"
+	teamlink "github.com/upbound/provider-datadog/internal/controller/iam/teamlink"
+	teammembership "github.com/upbound/provider-datadog/internal/controller/iam/teammembership"
+	teampermissionsetting "github.com/upbound/provider-datadog/internal/controller/iam/teampermissionsetting"
+	user "github.com/upbound/provider-datadog/internal/controller/iam/user"
 	aws "github.com/upbound/provider-datadog/internal/controller/integration/aws"
 	awseventbridge "github.com/upbound/provider-datadog/internal/controller/integration/awseventbridge"
 	awslambdaarn "github.com/upbound/provider-datadog/internal/controller/integration/awslambdaarn"
@@ -69,14 +53,29 @@ import (
 	metric "github.com/upbound/provider-datadog/internal/controller/logs/metric"
 	pipelineorder "github.com/upbound/provider-datadog/internal/controller/logs/pipelineorder"
 	metadata "github.com/upbound/provider-datadog/internal/controller/metric/metadata"
+	spansmetric "github.com/upbound/provider-datadog/internal/controller/metric/spansmetric"
 	tagconfiguration "github.com/upbound/provider-datadog/internal/controller/metric/tagconfiguration"
+	configpolicy "github.com/upbound/provider-datadog/internal/controller/monitor/configpolicy"
+	downtime "github.com/upbound/provider-datadog/internal/controller/monitor/downtime"
+	downtimeschedule "github.com/upbound/provider-datadog/internal/controller/monitor/downtimeschedule"
+	monitor "github.com/upbound/provider-datadog/internal/controller/monitor/monitor"
+	monitorjson "github.com/upbound/provider-datadog/internal/controller/monitor/monitorjson"
+	webhook "github.com/upbound/provider-datadog/internal/controller/notification/webhook"
+	webhookcustomvariable "github.com/upbound/provider-datadog/internal/controller/notification/webhookcustomvariable"
+	childorganization "github.com/upbound/provider-datadog/internal/controller/organization/childorganization"
+	settings "github.com/upbound/provider-datadog/internal/controller/organization/settings"
 	providerconfig "github.com/upbound/provider-datadog/internal/controller/providerconfig"
+	application "github.com/upbound/provider-datadog/internal/controller/rum/application"
+	ipallowlist "github.com/upbound/provider-datadog/internal/controller/security/ipallowlist"
 	defaultrule "github.com/upbound/provider-datadog/internal/controller/securitymonitoring/defaultrule"
 	filter "github.com/upbound/provider-datadog/internal/controller/securitymonitoring/filter"
 	rule "github.com/upbound/provider-datadog/internal/controller/securitymonitoring/rule"
-	group "github.com/upbound/provider-datadog/internal/controller/sensitivedatascanner/group"
-	grouporder "github.com/upbound/provider-datadog/internal/controller/sensitivedatascanner/grouporder"
-	rulesensitivedatascanner "github.com/upbound/provider-datadog/internal/controller/sensitivedatascanner/rule"
+	scannergroup "github.com/upbound/provider-datadog/internal/controller/sensitivedata/scannergroup"
+	scannergrouporder "github.com/upbound/provider-datadog/internal/controller/sensitivedata/scannergrouporder"
+	scannerrule "github.com/upbound/provider-datadog/internal/controller/sensitivedata/scannerrule"
+	definitionyaml "github.com/upbound/provider-datadog/internal/controller/service/definitionyaml"
+	correction "github.com/upbound/provider-datadog/internal/controller/slo/correction"
+	servicelevelobjective "github.com/upbound/provider-datadog/internal/controller/slo/servicelevelobjective"
 	concurrencycap "github.com/upbound/provider-datadog/internal/controller/synthetics/concurrencycap"
 	globalvariable "github.com/upbound/provider-datadog/internal/controller/synthetics/globalvariable"
 	privatelocation "github.com/upbound/provider-datadog/internal/controller/synthetics/privatelocation"
@@ -87,40 +86,24 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		apikey.Setup,
+		applicationkey.Setup,
 		retentionfilter.Setup,
 		retentionfilterorder.Setup,
-		configurationrule.Setup,
-		workloadsecurityagentrule.Setup,
-		apikey.Setup,
-		appkey.Setup,
 		authnmapping.Setup,
-		childorganization.Setup,
+		configurationrule.Setup,
 		dashboardjson.Setup,
 		dashboardlist.Setup,
-		downtime.Setup,
-		downtimeschedule.Setup,
-		ipallowlist.Setup,
-		monitor.Setup,
-		monitorconfigpolicy.Setup,
-		monitorjson.Setup,
-		organizationsettings.Setup,
 		powerpack.Setup,
 		restrictionpolicy.Setup,
 		role.Setup,
-		rumapplication.Setup,
 		serviceaccount.Setup,
 		serviceaccountapplicationkey.Setup,
-		servicedefinitionyaml.Setup,
-		servicelevelobjective.Setup,
-		slocorrection.Setup,
-		spansmetric.Setup,
 		team.Setup,
 		teamlink.Setup,
 		teammembership.Setup,
 		teampermissionsetting.Setup,
 		user.Setup,
-		webhook.Setup,
-		webhookcustomvariable.Setup,
 		aws.Setup,
 		awseventbridge.Setup,
 		awslambdaarn.Setup,
@@ -147,14 +130,29 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		metric.Setup,
 		pipelineorder.Setup,
 		metadata.Setup,
+		spansmetric.Setup,
 		tagconfiguration.Setup,
+		configpolicy.Setup,
+		downtime.Setup,
+		downtimeschedule.Setup,
+		monitor.Setup,
+		monitorjson.Setup,
+		webhook.Setup,
+		webhookcustomvariable.Setup,
+		childorganization.Setup,
+		settings.Setup,
 		providerconfig.Setup,
+		application.Setup,
+		ipallowlist.Setup,
 		defaultrule.Setup,
 		filter.Setup,
 		rule.Setup,
-		group.Setup,
-		grouporder.Setup,
-		rulesensitivedatascanner.Setup,
+		scannergroup.Setup,
+		scannergrouporder.Setup,
+		scannerrule.Setup,
+		definitionyaml.Setup,
+		correction.Setup,
+		servicelevelobjective.Setup,
 		concurrencycap.Setup,
 		globalvariable.Setup,
 		privatelocation.Setup,

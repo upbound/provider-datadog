@@ -1,0 +1,16 @@
+apiVersion: integration.datadog.upbound.io/v1beta1
+kind: PagerdutyServiceObject
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource needs PagerDuty integration
+    meta.upbound.io/example-id: integration/v1beta1/pagerdutyserviceobject
+  labels:
+    testing.upbound.io/example-name: testing_foo
+  name: testing-foo
+spec:
+  forProvider:
+    serviceKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    serviceName: testing_foo

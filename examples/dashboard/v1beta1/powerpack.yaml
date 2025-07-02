@@ -1,0 +1,31 @@
+apiVersion: dashboard.datadog.upbound.io/v1beta1
+kind: Powerpack
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dashboard/v1beta1/powerpack
+  labels:
+    testing.upbound.io/example-name: foo
+  name: uptest
+spec:
+  forProvider:
+    description: Created using the Datadog provider in Crossplane
+    layout:
+      height: 10
+      width: 3
+      x: 1
+      "y": 0
+    liveSpan: 4h
+    templateVariables:
+    - defaults:
+      - defaults
+      name: datacenter
+    widget: |
+      {
+        "id':38493204920,
+        "definition":{
+          "type":"event_stream_definition",
+          "query":"*",
+          "title":"Widget Title",
+          "title_align":"right",
+          "title_size":16
+      }

@@ -1,0 +1,13 @@
+apiVersion: iam.datadog.upbound.io/v1beta1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1beta1/role
+  labels:
+    testing.upbound.io/example-name: uptest
+  name: uptest
+spec:
+  forProvider:
+    name: uptest
+    permission:
+      - id: 4d87d5f8-d8b1-11e9-a77a-eb9c8350d04f

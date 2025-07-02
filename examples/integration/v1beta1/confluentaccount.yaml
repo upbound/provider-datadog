@@ -1,0 +1,19 @@
+apiVersion: integration.datadog.upbound.io/v1beta1
+kind: ConfluentAccount
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource needs Confluent integration
+    meta.upbound.io/example-id: integration/v1beta1/confluentaccount
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    apiKey: <Confluent API Key>
+    apiSecretSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    tags:
+    - mytag
+    - mytag2:myvalue

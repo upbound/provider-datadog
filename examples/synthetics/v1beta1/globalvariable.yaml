@@ -1,0 +1,33 @@
+apiVersion: synthetics.datadog.upbound.io/v1beta1
+kind: GlobalVariable
+metadata:
+  annotations:
+    meta.upbound.io/example-id: synthetics/v1beta1/globalvariable
+  labels:
+    testing.upbound.io/example-name: test_variable
+  name: test-variable
+spec:
+  forProvider:
+    description: Description of the variable
+    name: EXAMPLE_VARIABLE
+    tags:
+    - foo:bar
+    - env:test
+    valueSecretRef:
+      key: example-gb
+      name: example-gb
+      namespace: upbound-system
+
+---
+
+apiVersion: v1
+data:
+  secret: c2VjcmV0dmFsCg==
+kind: Secret
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1beta1/externalvpngateway
+  labels:
+    testing.upbound.io/example-name: example-gb
+  name: example-gb
+  namespace: upbound-system

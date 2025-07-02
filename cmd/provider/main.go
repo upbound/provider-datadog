@@ -6,18 +6,22 @@ package main
 
 import (
 	"context"
+	"io"
+	"log"
 	"os"
 	"path/filepath"
 	"time"
 
 	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	"github.com/crossplane/crossplane-runtime/pkg/certificates"
 	xpcontroller "github.com/crossplane/crossplane-runtime/pkg/controller"
 	"github.com/crossplane/crossplane-runtime/pkg/feature"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/ratelimiter"
+	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
+	"github.com/crossplane/crossplane-runtime/pkg/statemetrics"
 	tjcontroller "github.com/crossplane/upjet/pkg/controller"
-	"github.com/crossplane/upjet/pkg/terraform"
 	"github.com/upbound/provider-datadog/apis"
 	"github.com/upbound/provider-datadog/apis/v1alpha1"
 	"github.com/upbound/provider-datadog/config"
@@ -31,6 +35,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
+	"sigs.k8s.io/controller-runtime/pkg/metrics"
 )
 
 func main() {
@@ -42,19 +47,18 @@ func main() {
 		leaderElection   = app.Flag("leader-election", "Use leader election for the controller manager.").Short('l').Default("false").OverrideDefaultFromEnvar("LEADER_ELECTION").Bool()
 		maxReconcileRate = app.Flag("max-reconcile-rate", "The global maximum rate per second at which resources may be checked for drift from the desired state.").Default("10").Int()
 
-		terraformVersion = app.Flag("terraform-version", "Terraform version.").Required().Envar("TERRAFORM_VERSION").String()
-		providerSource   = app.Flag("terraform-provider-source", "Terraform provider source.").Required().Envar("TERRAFORM_PROVIDER_SOURCE").String()
-		providerVersion  = app.Flag("terraform-provider-version", "Terraform provider version.").Required().Envar("TERRAFORM_PROVIDER_VERSION").String()
-
 		namespace                  = app.Flag("namespace", "Namespace used to set as default scope in default secret store config.").Default("crossplane-system").Envar("POD_NAMESPACE").String()
 		enableExternalSecretStores = app.Flag("enable-external-secret-stores", "Enable support for ExternalSecretStores.").Default("false").Envar("ENABLE_EXTERNAL_SECRET_STORES").Bool()
 		enableManagementPolicies   = app.Flag("enable-management-policies", "Enable support for Management Policies.").Default("true").Envar("ENABLE_MANAGEMENT_POLICIES").Bool()
+		essTLSCertsPath            = app.Flag("ess-tls-cert-dir", "Path of ESS TLS certificates.").Envar("ESS_TLS_CERTS_DIR").String()
 	)
 
 	kingpin.MustParse(app.Parse(os.Args[1:]))
+	log.Default().SetOutput(io.Discard)
+	ctrl.SetLogger(zap.New(zap.WriteTo(io.Discard)))
 
 	zl := zap.New(zap.UseDevMode(*debug))
-	log := logging.NewLogrLogger(zl.WithName("provider-datadog"))
+	logr := logging.NewLogrLogger(zl.WithName("provider-datadog"))
 	if *debug {
 		// The controller-runtime runs with a no-op logger by default. It is
 		// *very* verbose even at info level, so we only provide it a real
@@ -62,7 +66,10 @@ func main() {
 		ctrl.SetLogger(zl)
 	}
 
-	log.Debug("Starting", "sync-period", syncPeriod.String(), "poll-interval", pollInterval.String(), "max-reconcile-rate", *maxReconcileRate)
+	// currently, we configure the jitter to be the 5% of the poll interval
+	pollJitter := time.Duration(float64(*pollInterval) * 0.05)
+	logr.Debug("Starting", "sync-period", syncPeriod.String(),
+		"poll-interval", pollInterval.String(), "poll-jitter", pollJitter, "max-reconcile-rate", *maxReconcileRate)
 
 	cfg, err := ctrl.GetConfig()
 	kingpin.FatalIfError(err, "Cannot get API server rest config")
@@ -79,27 +86,46 @@ func main() {
 	})
 	kingpin.FatalIfError(err, "Cannot create controller manager")
 	kingpin.FatalIfError(apis.AddToScheme(mgr.GetScheme()), "Cannot add Datadog APIs to scheme")
+
+	metricRecorder := managed.NewMRMetricRecorder()
+	stateMetrics := statemetrics.NewMRStateMetrics()
+
+	metrics.Registry.MustRegister(metricRecorder)
+	metrics.Registry.MustRegister(stateMetrics)
+
+	provider, err := config.GetProvider(false)
+	kingpin.FatalIfError(err, "Cannot initialize the provider configuration")
 	o := tjcontroller.Options{
 		Options: xpcontroller.Options{
-			Logger:                  log,
+			Logger:                  logr,
 			GlobalRateLimiter:       ratelimiter.NewGlobal(*maxReconcileRate),
 			PollInterval:            *pollInterval,
 			MaxConcurrentReconciles: *maxReconcileRate,
 			Features:                &feature.Flags{},
 		},
-		Provider: config.GetProvider(),
-		// use the following WorkspaceStoreOption to enable the shared gRPC mode
-		// terraform.WithProviderRunner(terraform.NewSharedProvider(log, os.Getenv("TERRAFORM_NATIVE_PROVIDER_PATH"), terraform.WithNativeProviderArgs("-debuggable")))
-		WorkspaceStore: terraform.NewWorkspaceStore(log),
-		SetupFn:        clients.TerraformSetupBuilder(*terraformVersion, *providerSource, *providerVersion),
+		Provider:              provider,
+		SetupFn:               clients.TerraformSetupBuilder(provider.TerraformProvider, provider.TerraformPluginFrameworkProvider),
+		PollJitter:            pollJitter,
+		OperationTrackerStore: tjcontroller.NewOperationStore(logr),
 	}
 
+	ctx := context.Background()
 	if *enableExternalSecretStores {
+		o.Features.Enable(features.EnableAlphaExternalSecretStores)
 		o.SecretStoreConfigGVK = &v1alpha1.StoreConfigGroupVersionKind
-		log.Info("Alpha feature enabled", "flag", features.EnableAlphaExternalSecretStores)
+		logr.Info("Alpha feature enabled", "flag", features.EnableAlphaExternalSecretStores)
+
+		o.ESSOptions = &tjcontroller.ESSOptions{}
+		if *essTLSCertsPath != "" {
+			logr.Info("ESS TLS certificates path is set. Loading mTLS configuration.")
+			tCfg, err := certificates.LoadMTLSConfig(filepath.Join(*essTLSCertsPath, "ca.crt"), filepath.Join(*essTLSCertsPath, "tls.crt"), filepath.Join(*essTLSCertsPath, "tls.key"), false)
+			kingpin.FatalIfError(err, "Cannot load ESS TLS config.")
+
+			o.ESSOptions.TLSConfig = tCfg
+		}
 
 		// Ensure default store config exists.
-		kingpin.FatalIfError(resource.Ignore(kerrors.IsAlreadyExists, mgr.GetClient().Create(context.Background(), &v1alpha1.StoreConfig{
+		kingpin.FatalIfError(resource.Ignore(kerrors.IsAlreadyExists, mgr.GetClient().Create(ctx, &v1alpha1.StoreConfig{
 			ObjectMeta: metav1.ObjectMeta{
 				Name: "default",
 			},
@@ -115,7 +141,7 @@ func main() {
 
 	if *enableManagementPolicies {
 		o.Features.Enable(features.EnableBetaManagementPolicies)
-		log.Info("Beta feature enabled", "flag", features.EnableBetaManagementPolicies)
+		logr.Info("Beta feature enabled", "flag", features.EnableBetaManagementPolicies)
 	}
 
 	kingpin.FatalIfError(controller.Setup(mgr, o), "Cannot setup Datadog controllers")

@@ -1,0 +1,23 @@
+apiVersion: integration.datadog.upbound.io/v1beta1
+kind: GCP
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource needs GCP integration
+    meta.upbound.io/example-id: integration/v1beta1/gcp
+  labels:
+    testing.upbound.io/example-name: awesome_gcp_project_integration
+  name: awesome-gcp-project-integration
+spec:
+  forProvider:
+    clientEmail: awesome-service-account@awesome-project-id.iam.gserviceaccount.com
+    clientId: <gcp-client-id>
+    cloudRunRevisionFilters:
+    - filter_one
+    - filter_two
+    hostFilters: foo:bar,buzz:lightyear
+    privateKeyId: <gcp-private-key-id>
+    privateKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    projectId: awesome-project-id

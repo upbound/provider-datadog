@@ -1,0 +1,17 @@
+apiVersion: notification.datadog.upbound.io/v1beta1
+kind: WebhookCustomVariable
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource depends on Webhook and it needs a valid endpoint
+    meta.upbound.io/example-id: notification/v1beta1/webhookcustomvariable
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    isSecret: true
+    name: <EXAMPLE_VARIABLE>
+    valueSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

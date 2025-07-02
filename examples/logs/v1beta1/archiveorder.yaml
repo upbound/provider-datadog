@@ -1,0 +1,35 @@
+apiVersion: logs.datadog.upbound.io/v1beta1
+kind: ArchiveOrder
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource depends on Archive and it needs AWS integration
+    meta.upbound.io/example-id: logs/v1beta1/archiveorder
+  labels:
+    testing.upbound.io/example-name: sample_archive_order
+  name: sample-archive-order
+spec:
+  forProvider:
+    archiveIdsSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sample_archive_order
+
+---
+
+apiVersion: logs.datadog.upbound.io/v1beta1
+kind: Archive
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource needs AWS integration
+    meta.upbound.io/example-id: logs/v1beta1/archive
+  labels:
+    testing.upbound.io/example-name: sample_archive_order
+  name: my-s3-archive
+spec:
+  forProvider:
+    name: my s3 archive
+    query: service:myservice
+    s3Archive:
+        accountId: <aws-account-id>
+        bucket: <aws-bucket>
+        path: <aws-bucket-path>
+        roleName: <aws-role-name>

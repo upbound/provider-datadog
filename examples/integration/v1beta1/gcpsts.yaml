@@ -1,0 +1,20 @@
+apiVersion: integration.datadog.upbound.io/v1beta1
+kind: GCPSts
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource needs GCP integration
+    meta.upbound.io/example-id: integration/v1beta1/gcpsts
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    automute: true
+    clientEmail: awesome-service-account@awesome-project-id.iam.gserviceaccount.com
+    cloudRunRevisionFilters:
+    - filter_one
+    - filter_two
+    hostFilters:
+    - filter_one
+    - filter_two
+    isCspmEnabled: false

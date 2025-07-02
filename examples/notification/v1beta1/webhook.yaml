@@ -1,0 +1,22 @@
+apiVersion: notification.datadog.upbound.io/v1beta1
+kind: Webhook
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource needs a valid endpoint
+    meta.upbound.io/example-id: notification/v1beta1/webhook
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    customHeaders: |
+      {
+          "custom": "header"
+      }
+    encodeAs: json
+    name: test-webhook
+    payload: |
+      {
+          "custom": "payload"
+      }
+    url: example.com

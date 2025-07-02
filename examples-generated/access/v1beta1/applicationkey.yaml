@@ -1,0 +1,11 @@
+apiVersion: access.datadog.upbound.io/v1beta1
+kind: ApplicationKey
+metadata:
+  annotations:
+    meta.upbound.io/example-id: access/v1beta1/applicationkey
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    name: foo-application

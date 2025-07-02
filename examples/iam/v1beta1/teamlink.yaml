@@ -1,0 +1,32 @@
+apiVersion: iam.datadog.upbound.io/v1beta1
+kind: TeamLink
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1beta1/teamlink
+  labels:
+    testing.upbound.io/example-name: team_link
+  name: team-link
+spec:
+  forProvider:
+    label: Link label
+    position: 0
+    teamIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: team_link
+    url: https://example.com
+
+---
+
+apiVersion: iam.datadog.upbound.io/v1beta1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1beta1/teamlink
+  labels:
+    testing.upbound.io/example-name: team_link
+  name: team-link
+spec:
+  forProvider:
+    description: Link team
+    handle: example-team-link
+    name: Example-Team-Link

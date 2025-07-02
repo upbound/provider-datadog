@@ -1,0 +1,17 @@
+apiVersion: apm.datadog.upbound.io/v1beta1
+kind: RetentionFilter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apm/v1beta1/retentionfilter
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    enabled: false
+    filter:
+    - query: service:sample AND env:production AND @http.method:GET AND app:sampleapp
+        AND @http.status_code:200 AND @duration:>600000000
+    filterType: spans-sampling-processor
+    name: Sample order
+    rate: "1.0"
