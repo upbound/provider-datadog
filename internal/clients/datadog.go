@@ -14,9 +14,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	tfsdk "github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	"github.com/pkg/errors"
-	"github.com/upbound/provider-datadog/apis/v1beta1"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+
+	"github.com/upbound/provider-datadog/apis/v1beta1"
 )
 
 const (
@@ -44,7 +45,7 @@ const (
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
 // returns Terraform provider setup configuration
-func TerraformSetupBuilder(sdkProvider *schema.Provider, fwProvider provider.Provider) terraform.SetupFn {
+func TerraformSetupBuilder(sdkProvider *schema.Provider, fwProvider provider.Provider) terraform.SetupFn { //nolint:gocyclo // easier to follow as a unit
 	return func(ctx context.Context, client client.Client, mg resource.Managed) (terraform.Setup, error) {
 		ps := terraform.Setup{}
 

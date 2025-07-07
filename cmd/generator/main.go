@@ -10,8 +10,9 @@ import (
 	"path/filepath"
 
 	"github.com/crossplane/upjet/pkg/pipeline"
-	"github.com/upbound/provider-datadog/config"
 	"gopkg.in/alecthomas/kingpin.v2"
+
+	"github.com/upbound/provider-datadog/config"
 )
 
 func main() {

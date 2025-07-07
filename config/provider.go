@@ -15,18 +15,18 @@ import (
 	conversiontfjson "github.com/crossplane/upjet/pkg/types/conversion/tfjson"
 	tfjson "github.com/hashicorp/terraform-json"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/upbound/provider-datadog/config/iam"
-	"github.com/upbound/provider-datadog/config/integration"
-	"github.com/upbound/provider-datadog/config/logs"
-	"github.com/upbound/provider-datadog/config/sensitivedata"
-	"github.com/upbound/provider-datadog/config/slo"
 
 	"github.com/upbound/provider-datadog/config/apm"
 	"github.com/upbound/provider-datadog/config/authentication"
 	"github.com/upbound/provider-datadog/config/dashboard"
+	"github.com/upbound/provider-datadog/config/iam"
+	"github.com/upbound/provider-datadog/config/integration"
+	"github.com/upbound/provider-datadog/config/logs"
 	"github.com/upbound/provider-datadog/config/metric"
 	"github.com/upbound/provider-datadog/config/monitor"
 	"github.com/upbound/provider-datadog/config/security"
+	"github.com/upbound/provider-datadog/config/sensitivedata"
+	"github.com/upbound/provider-datadog/config/slo"
 	"github.com/upbound/provider-datadog/config/synthetics"
 )
 

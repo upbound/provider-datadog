@@ -22,12 +22,6 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 	"github.com/crossplane/crossplane-runtime/pkg/statemetrics"
 	tjcontroller "github.com/crossplane/upjet/pkg/controller"
-	"github.com/upbound/provider-datadog/apis"
-	"github.com/upbound/provider-datadog/apis/v1alpha1"
-	"github.com/upbound/provider-datadog/config"
-	"github.com/upbound/provider-datadog/internal/clients"
-	"github.com/upbound/provider-datadog/internal/controller"
-	"github.com/upbound/provider-datadog/internal/features"
 	"gopkg.in/alecthomas/kingpin.v2"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -36,6 +30,13 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/cache"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 	"sigs.k8s.io/controller-runtime/pkg/metrics"
+
+	"github.com/upbound/provider-datadog/apis"
+	"github.com/upbound/provider-datadog/apis/v1alpha1"
+	"github.com/upbound/provider-datadog/config"
+	"github.com/upbound/provider-datadog/internal/clients"
+	"github.com/upbound/provider-datadog/internal/controller"
+	"github.com/upbound/provider-datadog/internal/features"
 )
 
 func main() {
