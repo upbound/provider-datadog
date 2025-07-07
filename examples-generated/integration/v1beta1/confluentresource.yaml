@@ -1,0 +1,39 @@
+apiVersion: integration.datadog.upbound.io/v1beta1
+kind: ConfluentResource
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1beta1/confluentresource
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    accountIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: foo
+    resourceId: "123456"
+    resourceType: kafka
+    tags:
+    - mytag
+    - mytag2:myvalue
+
+---
+
+apiVersion: integration.datadog.upbound.io/v1beta1
+kind: ConfluentAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1beta1/confluentresource
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    apiKey: TESTAPIKEY123
+    apiSecretSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    tags:
+    - mytag
+    - mytag2:myvalue

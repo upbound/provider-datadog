@@ -1,0 +1,12 @@
+apiVersion: logs.datadog.upbound.io/v1beta1
+kind: IntegrationPipeline
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource needs long running Pipeline
+    meta.upbound.io/example-id: logs/v1beta1/integrationpipeline
+  labels:
+    testing.upbound.io/example-name: python
+  name: python
+spec:
+  forProvider:
+    isEnabled: true

@@ -1,0 +1,15 @@
+apiVersion: integration.datadog.upbound.io/v1beta1
+kind: AwsEventBridge
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource needs AWS integration
+    meta.upbound.io/example-id: integration/v1beta1/awseventbridge
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    accountId: <aws-account-id>
+    createEventBus: true
+    eventGeneratorName: app-alerts
+    region: us-east-1

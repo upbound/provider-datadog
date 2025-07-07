@@ -1,0 +1,14 @@
+apiVersion: sensitivedata.datadog.upbound.io/v1beta1
+kind: ScannerGroupOrder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sensitivedata/v1beta1/scannergrouporder
+  labels:
+    testing.upbound.io/example-name: mygrouporder
+  name: mygrouporder
+spec:
+  forProvider:
+    groupIds:
+    - group-id-1
+    - group-id-2
+    - group-id-3

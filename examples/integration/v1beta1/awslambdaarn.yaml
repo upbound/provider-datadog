@@ -1,0 +1,13 @@
+apiVersion: integration.datadog.upbound.io/v1beta1
+kind: AwsLambdaArn
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource needs AWS integration
+    meta.upbound.io/example-id: integration/v1beta1/awslambdaarn
+  labels:
+    testing.upbound.io/example-name: main_collector
+  name: main-collector
+spec:
+  forProvider:
+    accountId: <aws-account-id>
+    lambdaArn: <aws-lambda-arn>

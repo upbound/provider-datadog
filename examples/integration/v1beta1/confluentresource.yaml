@@ -1,0 +1,40 @@
+apiVersion: integration.datadog.upbound.io/v1beta1
+kind: ConfluentResource
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource needs Confluent integration
+    meta.upbound.io/example-id: integration/v1beta1/confluentresource
+  labels:
+    testing.upbound.io/example-name: confluent_resource
+  name: foo
+spec:
+  forProvider:
+    accountIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: confluent_resource
+    resourceId: <confluent-resource-id>
+    resourceType: kafka
+    tags:
+    - mytag
+    - mytag2:myvalue
+
+---
+
+apiVersion: integration.datadog.upbound.io/v1beta1
+kind: ConfluentAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1beta1/confluentresource
+  labels:
+    testing.upbound.io/example-name: confluent_resource
+  name: foo
+spec:
+  forProvider:
+    apiKey: <Confluent API Key>
+    apiSecretSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    tags:
+    - mytag
+    - mytag2:myvalue

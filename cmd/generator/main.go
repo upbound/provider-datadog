@@ -10,6 +10,8 @@ import (
 	"path/filepath"
 
 	"github.com/crossplane/upjet/pkg/pipeline"
+	"gopkg.in/alecthomas/kingpin.v2"
+
 	"github.com/upbound/provider-datadog/config"
 )
 
@@ -22,5 +24,7 @@ func main() {
 	if err != nil {
 		panic(fmt.Sprintf("cannot calculate the absolute path with %s", rootDir))
 	}
-	pipeline.Run(config.GetProvider(), absRootDir)
+	p, err := config.GetProvider(true)
+	kingpin.FatalIfError(err, "Cannot initialize the provider configuration")
+	pipeline.Run(p, absRootDir)
 }

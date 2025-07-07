@@ -1,0 +1,13 @@
+apiVersion: iam.datadog.upbound.io/v1beta1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1beta1/team
+  labels:
+    testing.upbound.io/example-name: example_team
+  name: example-team
+spec:
+  forProvider:
+    description: Team description
+    handle: example-team
+    name: Example Team

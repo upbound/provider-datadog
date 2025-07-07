@@ -1,0 +1,14 @@
+apiVersion: logs.datadog.upbound.io/v1beta1
+kind: PipelineOrder
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource needs long running and hardcoded IDs of Pipelines
+    meta.upbound.io/example-id: logs/v1beta1/pipelineorder
+  labels:
+    testing.upbound.io/example-name: sample_pipeline_order
+  name: sample-pipeline-order
+spec:
+  forProvider:
+    pipelines:
+    - ${datadog_logs_custom_pipeline.sample_pipeline.id}
+    - ${datadog_logs_integration_pipeline.python.id}

@@ -1,0 +1,16 @@
+apiVersion: dashboard.datadog.upbound.io/v1beta1
+kind: DashboardList
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dashboard/v1beta1/dashboardlist
+  labels:
+    testing.upbound.io/example-name: new_list
+  name: new-list
+spec:
+  forProvider:
+    dashItem:
+    - dashId: ${datadog_dashboard.time.id}
+      type: custom_timeboard
+    - dashId: ${datadog_dashboard.screen.id}
+      type: custom_screenboard
+    name: Terraform Created List

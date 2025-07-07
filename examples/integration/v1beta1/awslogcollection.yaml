@@ -1,0 +1,14 @@
+apiVersion: integration.datadog.upbound.io/v1beta1
+kind: AwsLogCollection
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource needs AWS integration
+    meta.upbound.io/example-id: integration/v1beta1/awslogcollection
+  labels:
+    testing.upbound.io/example-name: main
+  name: main
+spec:
+  forProvider:
+    accountId: <aws-account-id>
+    services:
+    - lambda

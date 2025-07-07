@@ -1,0 +1,15 @@
+apiVersion: sensitivedata.datadog.upbound.io/v1beta1
+kind: ScannerGroupOrder
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource needs long running and hardcoded IDs of Groups
+    meta.upbound.io/example-id: sensitivedata/v1beta1/scannergrouporder
+  labels:
+    testing.upbound.io/example-name: scanner
+  name: mygrouporder
+spec:
+  forProvider:
+    groupIds:
+    - group-id-1
+    - group-id-2
+    - group-id-3

@@ -1,0 +1,47 @@
+apiVersion: iam.datadog.upbound.io/v1beta1
+kind: TeamMembership
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1beta1/teammembership
+  labels:
+    testing.upbound.io/example-name: member
+  name: member
+spec:
+  forProvider:
+    role: admin
+    teamIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: member
+    userIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: member
+
+---
+
+apiVersion: iam.datadog.upbound.io/v1beta1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1beta1/teammembership
+  labels:
+    testing.upbound.io/example-name: member
+  name: foo
+spec:
+  forProvider:
+    description: Member team
+    handle: example-team-member
+    name: Example Team-member
+
+---
+
+apiVersion: iam.datadog.upbound.io/v1beta1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1beta1/teammembership
+  labels:
+    testing.upbound.io/example-name: member
+  name: member-user
+spec:
+  forProvider:
+    email: member@example.com

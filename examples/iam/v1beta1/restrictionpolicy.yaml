@@ -1,0 +1,15 @@
+apiVersion: iam.datadog.upbound.io/v1beta1
+kind: RestrictionPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1beta1/restrictionpolicy
+  labels:
+    testing.upbound.io/example-name: rest_policy
+  name: uptest
+spec:
+  forProvider:
+    bindings:
+      - principals:
+        - org:312aa6bc-ca87-11ed-9894-da7ad0900002
+        relation: editor
+    resourceId: security-rule:abc-def-ghi

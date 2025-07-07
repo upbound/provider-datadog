@@ -1,0 +1,33 @@
+apiVersion: apm.datadog.upbound.io/v1beta1
+kind: RetentionFilterOrder
+metadata:
+  annotations:
+    upjet.upbound.io/manual-intervention: This resource needs long running and hardcoded IDs of RetentionFilters
+    meta.upbound.io/example-id: apm/v1beta1/retentionfilterorder
+  labels:
+    testing.upbound.io/example-name: bar
+  name: bar
+spec:
+  forProvider:
+    filterIdsSelector:
+      matchLabels:
+        testing.upbound.io/example-name: foo
+
+---
+
+apiVersion: apm.datadog.upbound.io/v1beta1
+kind: RetentionFilter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apm/v1beta1/retentionfilterorder
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    enabled: false
+    filter:
+      query: '*'
+    filterType: spans-sampling-processor
+    name: Sample order
+    rate: "1.0"

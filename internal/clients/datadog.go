@@ -10,10 +10,14 @@ import (
 
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 	"github.com/crossplane/upjet/pkg/terraform"
+	"github.com/hashicorp/terraform-plugin-framework/provider"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	tfsdk "github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	"github.com/pkg/errors"
-	"github.com/upbound/provider-datadog/apis/v1beta1"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+
+	"github.com/upbound/provider-datadog/apis/v1beta1"
 )
 
 const (
@@ -41,15 +45,9 @@ const (
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
 // returns Terraform provider setup configuration
-func TerraformSetupBuilder(version, providerSource, providerVersion string) terraform.SetupFn {
+func TerraformSetupBuilder(sdkProvider *schema.Provider, fwProvider provider.Provider) terraform.SetupFn { //nolint:gocyclo // easier to follow as a unit
 	return func(ctx context.Context, client client.Client, mg resource.Managed) (terraform.Setup, error) {
-		ps := terraform.Setup{
-			Version: version,
-			Requirement: terraform.ProviderRequirement{
-				Source:  providerSource,
-				Version: providerVersion,
-			},
-		}
+		ps := terraform.Setup{}
 
 		configRef := mg.GetProviderConfigReference()
 		if configRef == nil {
@@ -103,6 +101,24 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		if v, ok := creds[keyValidate]; ok {
 			ps.Configuration[keyValidate] = v
 		}
-		return ps, nil
+		return ps, errors.Wrap(configureNoForkOCIClient(ctx, &ps, sdkProvider, fwProvider), "failed to configure the Terraform datadog provider meta")
 	}
+}
+
+func configureNoForkOCIClient(ctx context.Context, ps *terraform.Setup, sdkProvier *schema.Provider, fwProvider provider.Provider) error {
+	// Please be aware that this implementation relies on the schema.Provider
+	// parameter `p` being a non-pointer. This is because normally
+	// the Terraform plugin SDK normally configures the provider
+	// only once and using a pointer argument here will cause
+	// race conditions between resources referring to different
+	// ProviderConfigs.
+	diag := sdkProvier.Configure(context.WithoutCancel(ctx), &tfsdk.ResourceConfig{
+		Config: ps.Configuration,
+	})
+	if diag != nil && diag.HasError() {
+		return errors.Errorf("failed to configure the provider: %v", diag)
+	}
+	ps.Meta = sdkProvier.Meta()
+	ps.FrameworkProvider = fwProvider
+	return nil
 }

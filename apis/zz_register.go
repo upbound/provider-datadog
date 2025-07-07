@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -14,33 +10,53 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/upbound/provider-datadog/apis/apm/v1alpha1"
-	v1alpha1cloud "github.com/upbound/provider-datadog/apis/cloud/v1alpha1"
-	v1alpha1datadog "github.com/upbound/provider-datadog/apis/datadog/v1alpha1"
-	v1alpha1integration "github.com/upbound/provider-datadog/apis/integration/v1alpha1"
-	v1alpha1logs "github.com/upbound/provider-datadog/apis/logs/v1alpha1"
-	v1alpha1metric "github.com/upbound/provider-datadog/apis/metric/v1alpha1"
-	v1alpha1securitymonitoring "github.com/upbound/provider-datadog/apis/securitymonitoring/v1alpha1"
-	v1alpha1sensitivedatascanner "github.com/upbound/provider-datadog/apis/sensitivedatascanner/v1alpha1"
-	v1alpha1synthetics "github.com/upbound/provider-datadog/apis/synthetics/v1alpha1"
-	v1alpha1apis "github.com/upbound/provider-datadog/apis/v1alpha1"
-	v1beta1 "github.com/upbound/provider-datadog/apis/v1beta1"
+	v1beta1 "github.com/upbound/provider-datadog/apis/access/v1beta1"
+	v1beta1apm "github.com/upbound/provider-datadog/apis/apm/v1beta1"
+	v1beta1authentication "github.com/upbound/provider-datadog/apis/authentication/v1beta1"
+	v1beta1cloud "github.com/upbound/provider-datadog/apis/cloud/v1beta1"
+	v1beta1dashboard "github.com/upbound/provider-datadog/apis/dashboard/v1beta1"
+	v1beta1iam "github.com/upbound/provider-datadog/apis/iam/v1beta1"
+	v1beta1integration "github.com/upbound/provider-datadog/apis/integration/v1beta1"
+	v1beta1logs "github.com/upbound/provider-datadog/apis/logs/v1beta1"
+	v1beta1metric "github.com/upbound/provider-datadog/apis/metric/v1beta1"
+	v1beta1monitor "github.com/upbound/provider-datadog/apis/monitor/v1beta1"
+	v1beta1notification "github.com/upbound/provider-datadog/apis/notification/v1beta1"
+	v1beta1organization "github.com/upbound/provider-datadog/apis/organization/v1beta1"
+	v1beta1rum "github.com/upbound/provider-datadog/apis/rum/v1beta1"
+	v1beta1security "github.com/upbound/provider-datadog/apis/security/v1beta1"
+	v1beta1securitymonitoring "github.com/upbound/provider-datadog/apis/securitymonitoring/v1beta1"
+	v1beta1sensitivedata "github.com/upbound/provider-datadog/apis/sensitivedata/v1beta1"
+	v1beta1service "github.com/upbound/provider-datadog/apis/service/v1beta1"
+	v1beta1slo "github.com/upbound/provider-datadog/apis/slo/v1beta1"
+	v1beta1synthetics "github.com/upbound/provider-datadog/apis/synthetics/v1beta1"
+	v1alpha1 "github.com/upbound/provider-datadog/apis/v1alpha1"
+	v1beta1apis "github.com/upbound/provider-datadog/apis/v1beta1"
 )
 
 func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
-		v1alpha1.SchemeBuilder.AddToScheme,
-		v1alpha1cloud.SchemeBuilder.AddToScheme,
-		v1alpha1datadog.SchemeBuilder.AddToScheme,
-		v1alpha1integration.SchemeBuilder.AddToScheme,
-		v1alpha1logs.SchemeBuilder.AddToScheme,
-		v1alpha1metric.SchemeBuilder.AddToScheme,
-		v1alpha1securitymonitoring.SchemeBuilder.AddToScheme,
-		v1alpha1sensitivedatascanner.SchemeBuilder.AddToScheme,
-		v1alpha1synthetics.SchemeBuilder.AddToScheme,
-		v1alpha1apis.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
+		v1beta1apm.SchemeBuilder.AddToScheme,
+		v1beta1authentication.SchemeBuilder.AddToScheme,
+		v1beta1cloud.SchemeBuilder.AddToScheme,
+		v1beta1dashboard.SchemeBuilder.AddToScheme,
+		v1beta1iam.SchemeBuilder.AddToScheme,
+		v1beta1integration.SchemeBuilder.AddToScheme,
+		v1beta1logs.SchemeBuilder.AddToScheme,
+		v1beta1metric.SchemeBuilder.AddToScheme,
+		v1beta1monitor.SchemeBuilder.AddToScheme,
+		v1beta1notification.SchemeBuilder.AddToScheme,
+		v1beta1organization.SchemeBuilder.AddToScheme,
+		v1beta1rum.SchemeBuilder.AddToScheme,
+		v1beta1security.SchemeBuilder.AddToScheme,
+		v1beta1securitymonitoring.SchemeBuilder.AddToScheme,
+		v1beta1sensitivedata.SchemeBuilder.AddToScheme,
+		v1beta1service.SchemeBuilder.AddToScheme,
+		v1beta1slo.SchemeBuilder.AddToScheme,
+		v1beta1synthetics.SchemeBuilder.AddToScheme,
+		v1alpha1.SchemeBuilder.AddToScheme,
+		v1beta1apis.SchemeBuilder.AddToScheme,
 	)
 }
 

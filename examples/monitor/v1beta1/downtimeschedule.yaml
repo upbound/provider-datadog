@@ -1,0 +1,78 @@
+apiVersion: monitor.datadog.upbound.io/v1beta1
+kind: DowntimeSchedule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: monitor/v1beta1/downtimeschedule
+  labels:
+    testing.upbound.io/example-name: downtime_schedule_example
+  name: downtime-schedule-example
+spec:
+  forProvider:
+    displayTimezone: America/New_York
+    message: Message about the downtime
+    monitorIdentifier:
+      monitorTags:
+      - foo:bar
+      - team:fooBar
+    muteFirstRecoveryNotification: true
+    notifyEndStates:
+    - alert
+    - warn
+    notifyEndTypes:
+    - canceled
+    - expired
+    scope: "*"
+    recurringSchedule:
+      recurrence:
+        - duration: "1h"
+          rrule: "FREQ=DAILY;INTERVAL=1"
+          start: "2050-01-02T03:04:05"
+      timezone: "America/New_York"
+
+---
+
+apiVersion: monitor.datadog.upbound.io/v1beta1
+kind: Downtime
+metadata:
+  annotations:
+    meta.upbound.io/example-id: monitor/v1beta1/downtime
+  labels:
+    testing.upbound.io/example-name: downtime_schedule_example
+  name: foo
+spec:
+  forProvider:
+    monitorIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: downtime_schedule_example
+    recurrence:
+      period: 1
+      type: days
+    scope:
+      - '*'
+    start: 1817631983
+    end: 1820310383
+
+---
+
+apiVersion: monitor.datadog.upbound.io/v1beta1
+kind: Monitor
+metadata:
+  annotations:
+    meta.upbound.io/example-id: monitor/v1beta1/monitor
+  labels:
+    testing.upbound.io/example-name: downtime_schedule_example
+  name: foo
+spec:
+  forProvider:
+    escalationMessage: Escalation message @pagerduty
+    includeTags: true
+    message: 'Monitor triggered. Notify: @hipchat-channel'
+    monitorThresholds:
+      critical: "4"
+      warning: "2"
+    name: Name for monitor foo
+    query: avg(last_1h):avg:aws.ec2.cpu{environment:foo,host:foo} by {host} > 4
+    tags:
+      - foo:bar
+      - team:fooBar
+    type: metric alert

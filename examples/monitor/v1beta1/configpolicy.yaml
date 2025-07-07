@@ -1,0 +1,17 @@
+apiVersion: monitor.datadog.upbound.io/v1beta1
+kind: ConfigPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: monitor/v1beta1/configpolicy
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    policyType: tag
+    tagPolicy:
+      tagKey: env
+      tagKeyRequired: false
+      validTagValues:
+      - staging
+      - prod
