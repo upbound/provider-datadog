@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -25,7 +21,7 @@ func (mg *WebhookCustomVariable) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this WebhookCustomVariable
 func (tr *WebhookCustomVariable) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"value": "spec.forProvider.valueSecretRef"}
+	return map[string]string{"value": "valueSecretRef"}
 }
 
 // GetObservation of this WebhookCustomVariable

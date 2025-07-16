@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -596,6 +592,10 @@ type BrowserVariableParameters struct {
 
 type CertInitParameters struct {
 
+	// (String, Sensitive) Content of the certificate.
+	// Content of the certificate.
+	ContentSecretRef v1.SecretKeySelector `json:"contentSecretRef" tf:"-"`
+
 	// (String) File name for the certificate.
 	// File name for the certificate.
 	Filename *string `json:"filename,omitempty" tf:"filename,omitempty"`
@@ -612,7 +612,7 @@ type CertParameters struct {
 
 	// (String, Sensitive) Content of the certificate.
 	// Content of the certificate.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ContentSecretRef v1.SecretKeySelector `json:"contentSecretRef" tf:"-"`
 
 	// (String) File name for the certificate.
@@ -867,6 +867,10 @@ type ExtractedValueParserParameters struct {
 
 type KeyInitParameters struct {
 
+	// (String, Sensitive) Content of the certificate.
+	// Content of the certificate.
+	ContentSecretRef v1.SecretKeySelector `json:"contentSecretRef" tf:"-"`
+
 	// (String) File name for the certificate.
 	// File name for the certificate.
 	Filename *string `json:"filename,omitempty" tf:"filename,omitempty"`
@@ -883,7 +887,7 @@ type KeyParameters struct {
 
 	// (String, Sensitive) Content of the certificate.
 	// Content of the certificate.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ContentSecretRef v1.SecretKeySelector `json:"contentSecretRef" tf:"-"`
 
 	// (String) File name for the certificate.
@@ -1483,6 +1487,10 @@ type ParamsParameters struct {
 
 type RequestBasicauthInitParameters struct {
 
+	// (String, Sensitive) Access key for SIGV4 authentication.
+	// Access key for `SIGV4` authentication.
+	AccessKeySecretRef *v1.SecretKeySelector `json:"accessKeySecretRef,omitempty" tf:"-"`
+
 	// client or oauth-rop authentication.
 	// Access token url for `oauth-client` or `oauth-rop` authentication.
 	AccessTokenURL *string `json:"accessTokenUrl,omitempty" tf:"access_token_url,omitempty"`
@@ -1495,9 +1503,17 @@ type RequestBasicauthInitParameters struct {
 	// Client ID for `oauth-client` or `oauth-rop` authentication.
 	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
 
+	// client or oauth-rop authentication.
+	// Client secret for `oauth-client` or `oauth-rop` authentication.
+	ClientSecretSecretRef *v1.SecretKeySelector `json:"clientSecretSecretRef,omitempty" tf:"-"`
+
 	// (String) Domain for ntlm authentication.
 	// Domain for `ntlm` authentication.
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
+
+	// (String, Sensitive) Password for authentication.
+	// Password for authentication.
+	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// (String) Region for SIGV4 authentication.
 	// Region for `SIGV4` authentication.
@@ -1510,6 +1526,10 @@ type RequestBasicauthInitParameters struct {
 	// client or oauth-rop authentication. Defaults to "".
 	// Scope for `oauth-client` or `oauth-rop` authentication. Defaults to `""`.
 	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
+
+	// (String, Sensitive) Secret key for SIGV4 authentication.
+	// Secret key for `SIGV4` authentication.
+	SecretKeySecretRef *v1.SecretKeySelector `json:"secretKeySecretRef,omitempty" tf:"-"`
 
 	// (String) Service name for SIGV4 authentication.
 	// Service name for `SIGV4` authentication.
@@ -1681,6 +1701,10 @@ type RequestBasicauthParameters struct {
 
 type RequestClientCertificateCertInitParameters struct {
 
+	// (String, Sensitive) Content of the certificate.
+	// Content of the certificate.
+	ContentSecretRef v1.SecretKeySelector `json:"contentSecretRef" tf:"-"`
+
 	// (String) File name for the certificate.
 	// File name for the certificate.
 	Filename *string `json:"filename,omitempty" tf:"filename,omitempty"`
@@ -1697,7 +1721,7 @@ type RequestClientCertificateCertParameters struct {
 
 	// (String, Sensitive) Content of the certificate.
 	// Content of the certificate.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ContentSecretRef v1.SecretKeySelector `json:"contentSecretRef" tf:"-"`
 
 	// (String) File name for the certificate.
@@ -1717,6 +1741,10 @@ type RequestClientCertificateInitParameters struct {
 
 type RequestClientCertificateKeyInitParameters struct {
 
+	// (String, Sensitive) Content of the certificate.
+	// Content of the certificate.
+	ContentSecretRef v1.SecretKeySelector `json:"contentSecretRef" tf:"-"`
+
 	// (String) File name for the certificate.
 	// File name for the certificate.
 	Filename *string `json:"filename,omitempty" tf:"filename,omitempty"`
@@ -1733,7 +1761,7 @@ type RequestClientCertificateKeyParameters struct {
 
 	// (String, Sensitive) Content of the certificate.
 	// Content of the certificate.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	ContentSecretRef v1.SecretKeySelector `json:"contentSecretRef" tf:"-"`
 
 	// (String) File name for the certificate.
@@ -2674,6 +2702,10 @@ type TestParameters struct {
 
 type TestRequestBasicauthInitParameters struct {
 
+	// (String, Sensitive) Access key for SIGV4 authentication.
+	// Access key for `SIGV4` authentication.
+	AccessKeySecretRef *v1.SecretKeySelector `json:"accessKeySecretRef,omitempty" tf:"-"`
+
 	// client or oauth-rop authentication.
 	// Access token url for `oauth-client` or `oauth-rop` authentication.
 	AccessTokenURL *string `json:"accessTokenUrl,omitempty" tf:"access_token_url,omitempty"`
@@ -2686,9 +2718,17 @@ type TestRequestBasicauthInitParameters struct {
 	// Client ID for `oauth-client` or `oauth-rop` authentication.
 	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
 
+	// client or oauth-rop authentication.
+	// Client secret for `oauth-client` or `oauth-rop` authentication.
+	ClientSecretSecretRef *v1.SecretKeySelector `json:"clientSecretSecretRef,omitempty" tf:"-"`
+
 	// (String) Domain for ntlm authentication.
 	// Domain for `ntlm` authentication.
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
+
+	// (String, Sensitive) Password for authentication.
+	// Password for authentication.
+	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// (String) Region for SIGV4 authentication.
 	// Region for `SIGV4` authentication.
@@ -2701,6 +2741,10 @@ type TestRequestBasicauthInitParameters struct {
 	// client or oauth-rop authentication. Defaults to "".
 	// Scope for `oauth-client` or `oauth-rop` authentication. Defaults to `""`.
 	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
+
+	// (String, Sensitive) Secret key for SIGV4 authentication.
+	// Secret key for `SIGV4` authentication.
+	SecretKeySecretRef *v1.SecretKeySelector `json:"secretKeySecretRef,omitempty" tf:"-"`
 
 	// (String) Service name for SIGV4 authentication.
 	// Service name for `SIGV4` authentication.
@@ -3349,8 +3393,8 @@ type TestStatus struct {
 // +kubebuilder:storageversion
 
 // Test is the Schema for the Tests API. Provides a Datadog synthetics test resource. This can be used to create and manage Datadog synthetics test.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,datadog}

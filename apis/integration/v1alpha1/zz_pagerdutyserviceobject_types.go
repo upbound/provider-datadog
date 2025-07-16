@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -18,6 +14,10 @@ import (
 )
 
 type PagerdutyServiceObjectInitParameters struct {
+
+	// (String, Sensitive) Your Service name associated service key in PagerDuty.
+	// Your Service name associated service key in PagerDuty. This key may also be referred to as an Integration Key or Routing Key in the Pagerduty Integration [documentation](https://www.pagerduty.io/providers/PagerDuty/pagerduty/latest/docs/resources/service_integration#integration_key) Note: Since the Datadog API never returns service keys, it is impossible to detect [drifts](https://www.hashicorp.io/docs/commands/taint.html) to have it destroyed and recreated.
+	ServiceKeySecretRef v1.SecretKeySelector `json:"serviceKeySecretRef" tf:"-"`
 
 	// (String) Your Service name in PagerDuty.
 	// Your Service name in PagerDuty.
@@ -75,8 +75,8 @@ type PagerdutyServiceObjectStatus struct {
 // +kubebuilder:storageversion
 
 // PagerdutyServiceObject is the Schema for the PagerdutyServiceObjects API. Provides access to individual Service Objects of Datadog - PagerDuty integrations. Note that the Datadog - PagerDuty integration must be activated in the Datadog UI in order for this resource to be usable.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,datadog}

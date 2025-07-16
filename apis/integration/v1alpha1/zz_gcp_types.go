@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -42,6 +38,10 @@ type GCPInitParameters struct {
 	// (String) Your private key ID found in your JSON service account key.
 	// Your private key ID found in your JSON service account key.
 	PrivateKeyID *string `json:"privateKeyId,omitempty" tf:"private_key_id,omitempty"`
+
+	// (String, Sensitive) Your private key name found in your JSON service account key.
+	// Your private key name found in your JSON service account key.
+	PrivateKeySecretRef v1.SecretKeySelector `json:"privateKeySecretRef" tf:"-"`
 
 	// (String) Your Google Cloud project ID found in your JSON service account key.
 	// Your Google Cloud project ID found in your JSON service account key.
@@ -153,8 +153,8 @@ type GCPStatus struct {
 // +kubebuilder:storageversion
 
 // GCP is the Schema for the GCPs API. This resource is deprecated — use the datadog_integration_gcp_sts resource instead. Provides a Datadog - Google Cloud Platform integration resource. This can be used to create and manage Datadog - Google Cloud Platform integration.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,datadog}

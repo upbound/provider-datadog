@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -51,6 +47,10 @@ type GlobalVariableInitParameters struct {
 	// (List of String) A list of tags to associate with your synthetics global variable.
 	// A list of tags to associate with your synthetics global variable.
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// (String, Sensitive) The value of the global variable.
+	// The value of the global variable.
+	ValueSecretRef v1.SecretKeySelector `json:"valueSecretRef" tf:"-"`
 }
 
 type GlobalVariableObservation struct {
@@ -319,8 +319,8 @@ type GlobalVariableStatus struct {
 // +kubebuilder:storageversion
 
 // GlobalVariable is the Schema for the GlobalVariables API. Provides a Datadog synthetics global variable resource. This can be used to create and manage Datadog synthetics global variables.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,datadog}

@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -26,6 +22,10 @@ type OpsgenieServiceObjectInitParameters struct {
 	// (String) The name for the Opsgenie service.
 	// The name for the Opsgenie service.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String, Sensitive) The Opsgenie API key for the Opsgenie service. Note: Since the Datadog API never returns Opsgenie API keys, it is impossible to detect drifts.
+	// The Opsgenie API key for the Opsgenie service. Note: Since the Datadog API never returns Opsgenie API keys, it is impossible to detect [drifts](https://www.hashicorp.io/docs/commands/taint.html) to have it destroyed and recreated.
+	OpsgenieAPIKeySecretRef v1.SecretKeySelector `json:"opsgenieApiKeySecretRef" tf:"-"`
 
 	// (String) The region for the Opsgenie service. Valid values are us, eu, custom.
 	// The region for the Opsgenie service. Valid values are `us`, `eu`, `custom`.
@@ -101,8 +101,8 @@ type OpsgenieServiceObjectStatus struct {
 // +kubebuilder:storageversion
 
 // OpsgenieServiceObject is the Schema for the OpsgenieServiceObjects API. Resource for interacting with Datadog Opsgenie Service API.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,datadog}

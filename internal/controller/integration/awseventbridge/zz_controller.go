@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -15,9 +11,11 @@ import (
 
 	"github.com/crossplane/crossplane-runtime/pkg/connection"
 	"github.com/crossplane/crossplane-runtime/pkg/event"
+	xpfeature "github.com/crossplane/crossplane-runtime/pkg/feature"
 	"github.com/crossplane/crossplane-runtime/pkg/ratelimiter"
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
 	xpresource "github.com/crossplane/crossplane-runtime/pkg/resource"
+	"github.com/crossplane/crossplane-runtime/pkg/statemetrics"
 	tjcontroller "github.com/crossplane/upjet/pkg/controller"
 	"github.com/crossplane/upjet/pkg/controller/handler"
 	"github.com/crossplane/upjet/pkg/terraform"
@@ -56,6 +54,9 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 	if o.Features.Enabled(features.EnableBetaManagementPolicies) {
 		opts = append(opts, managed.WithManagementPolicies())
 	}
+	if o.MetricOptions != nil {
+		opts = append(opts, managed.WithMetricRecorder(o.MetricOptions.MRMetrics))
+	}
 
 	// register webhooks for the kind v1alpha1.AWSEventBridge
 	// if they're enabled.
@@ -65,6 +66,19 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 			Complete(); err != nil {
 			return errors.Wrap(err, "cannot register webhook for the kind v1alpha1.AWSEventBridge")
 		}
+	}
+
+	if o.MetricOptions != nil && o.MetricOptions.MRStateMetrics != nil {
+		stateMetricsRecorder := statemetrics.NewMRStateRecorder(
+			mgr.GetClient(), o.Logger, o.MetricOptions.MRStateMetrics, &v1alpha1.AWSEventBridgeList{}, o.MetricOptions.PollStateMetricInterval,
+		)
+		if err := mgr.Add(stateMetricsRecorder); err != nil {
+			return errors.Wrap(err, "cannot register MR state metrics recorder for kind v1alpha1.AWSEventBridgeList")
+		}
+	}
+
+	if o.Features.Enabled(xpfeature.EnableAlphaChangeLogs) {
+		opts = append(opts, managed.WithChangeLogger(o.ChangeLogOptions.ChangeLogger))
 	}
 
 	r := managed.NewReconciler(mgr, xpresource.ManagedKind(v1alpha1.AWSEventBridge_GroupVersionKind), opts...)

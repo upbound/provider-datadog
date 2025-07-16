@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -25,7 +21,7 @@ func (mg *Test) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Test
 func (tr *Test) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"api_step[*].request_basicauth[*].access_key": "spec.forProvider.apiStep[*].requestBasicauth[*].accessKeySecretRef", "api_step[*].request_basicauth[*].client_secret": "spec.forProvider.apiStep[*].requestBasicauth[*].clientSecretSecretRef", "api_step[*].request_basicauth[*].password": "spec.forProvider.apiStep[*].requestBasicauth[*].passwordSecretRef", "api_step[*].request_basicauth[*].secret_key": "spec.forProvider.apiStep[*].requestBasicauth[*].secretKeySecretRef", "api_step[*].request_client_certificate[*].cert[*].content": "spec.forProvider.apiStep[*].requestClientCertificate[*].cert[*].contentSecretRef", "api_step[*].request_client_certificate[*].key[*].content": "spec.forProvider.apiStep[*].requestClientCertificate[*].key[*].contentSecretRef", "request_basicauth[*].access_key": "spec.forProvider.requestBasicauth[*].accessKeySecretRef", "request_basicauth[*].client_secret": "spec.forProvider.requestBasicauth[*].clientSecretSecretRef", "request_basicauth[*].password": "spec.forProvider.requestBasicauth[*].passwordSecretRef", "request_basicauth[*].secret_key": "spec.forProvider.requestBasicauth[*].secretKeySecretRef", "request_client_certificate[*].cert[*].content": "spec.forProvider.requestClientCertificate[*].cert[*].contentSecretRef", "request_client_certificate[*].key[*].content": "spec.forProvider.requestClientCertificate[*].key[*].contentSecretRef"}
+	return map[string]string{"api_step[*].request_basicauth[*].access_key": "apiStep[*].requestBasicauth[*].accessKeySecretRef", "api_step[*].request_basicauth[*].client_secret": "apiStep[*].requestBasicauth[*].clientSecretSecretRef", "api_step[*].request_basicauth[*].password": "apiStep[*].requestBasicauth[*].passwordSecretRef", "api_step[*].request_basicauth[*].secret_key": "apiStep[*].requestBasicauth[*].secretKeySecretRef", "api_step[*].request_client_certificate[*].cert[*].content": "apiStep[*].requestClientCertificate[*].cert[*].contentSecretRef", "api_step[*].request_client_certificate[*].key[*].content": "apiStep[*].requestClientCertificate[*].key[*].contentSecretRef", "request_basicauth[*].access_key": "requestBasicauth[*].accessKeySecretRef", "request_basicauth[*].client_secret": "requestBasicauth[*].clientSecretSecretRef", "request_basicauth[*].password": "requestBasicauth[*].passwordSecretRef", "request_basicauth[*].secret_key": "requestBasicauth[*].secretKeySecretRef", "request_client_certificate[*].cert[*].content": "requestClientCertificate[*].cert[*].contentSecretRef", "request_client_certificate[*].key[*].content": "requestClientCertificate[*].key[*].contentSecretRef"}
 }
 
 // GetObservation of this Test

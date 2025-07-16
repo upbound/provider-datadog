@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -22,6 +18,10 @@ type ConfluentAccountInitParameters struct {
 	// (String) The API key associated with your Confluent account.
 	// The API key associated with your Confluent account.
 	APIKey *string `json:"apiKey,omitempty" tf:"api_key,omitempty"`
+
+	// (String, Sensitive) The API secret associated with your Confluent account.
+	// The API secret associated with your Confluent account.
+	APISecretSecretRef v1.SecretKeySelector `json:"apiSecretSecretRef" tf:"-"`
 
 	// value pairs separated by a colon.
 	// A list of strings representing tags. Can be a single key, or key-value pairs separated by a colon.
@@ -91,8 +91,8 @@ type ConfluentAccountStatus struct {
 // +kubebuilder:storageversion
 
 // ConfluentAccount is the Schema for the ConfluentAccounts API. Provides a Datadog IntegrationConfluentAccount resource. This can be used to create and manage Datadog integrationconfluentaccount.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,datadog}

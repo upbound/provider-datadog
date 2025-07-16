@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -26,6 +22,10 @@ type WebhookCustomVariableInitParameters struct {
 	// (String) The name of the variable. It corresponds with <CUSTOM_VARIABLE_NAME>.
 	// The name of the variable. It corresponds with `<CUSTOM_VARIABLE_NAME>`.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String, Sensitive) The value of the custom variable.
+	// The value of the custom variable.
+	ValueSecretRef v1.SecretKeySelector `json:"valueSecretRef" tf:"-"`
 }
 
 type WebhookCustomVariableObservation struct {
@@ -88,8 +88,8 @@ type WebhookCustomVariableStatus struct {
 // +kubebuilder:storageversion
 
 // WebhookCustomVariable is the Schema for the WebhookCustomVariables API. Provides a Datadog webhooks custom variable resource. This can be used to create and manage Datadog webhooks custom variables.
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,datadog}
