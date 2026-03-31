@@ -12,7 +12,7 @@ on:
 
 jobs:
   tag:
-    uses: upbound/uptest/.github/workflows/provider-tag.yml@main
+    uses: upbound/uptest/.github/workflows/provider-tag.yml@8965579a213ba2b249225fa311178ac66f107daf # main
     with:
       version: ${{ github.event.inputs.version }}
       message: ${{ github.event.inputs.message }}
