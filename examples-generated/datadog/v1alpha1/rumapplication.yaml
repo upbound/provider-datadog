@@ -9,4 +9,6 @@ metadata:
 spec:
   forProvider:
     name: my-application
+    productAnalyticsRetentionState: NONE
+    rumEventProcessingState: ALL
     type: browser

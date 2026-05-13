@@ -1,0 +1,20 @@
+apiVersion: aws.upbound.io/v1alpha1
+kind: CurConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: aws/v1alpha1/curconfig
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    accountFilters:
+    - excludedAccounts:
+      - "123456789123"
+      - "123456789143"
+      includeNewAccounts: true
+    accountId: "123456789123"
+    bucketName: dd-cost-bucket
+    bucketRegion: us-east-1
+    reportName: dd-report-name
+    reportPrefix: dd-report-prefix

@@ -1,0 +1,13 @@
+apiVersion: incident.upbound.io/v1alpha1
+kind: IncidentType
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/incidenttype
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    description: Security-related incidents requiring immediate attention
+    isDefault: false
+    name: Security Incident

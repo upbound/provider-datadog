@@ -23,9 +23,13 @@ type AuthnMappingInitParameters struct {
 	// Identity provider key.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
-	// (String) The ID of a role to attach to all users with the corresponding key and value.
-	// The ID of a role to attach to all users with the corresponding key and value.
+	// (String) The ID of a role to attach to all users with the corresponding key and value. Cannot be used in conjunction with team.
+	// The ID of a role to attach to all users with the corresponding key and value. Cannot be used in conjunction with `team`.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// (String) The ID of a team to add all users with the corresponding key and value to. Cannot be used in conjunction with role.
+	// The ID of a team to add all users with the corresponding key and value to. Cannot be used in conjunction with `role`.
+	Team *string `json:"team,omitempty" tf:"team,omitempty"`
 
 	// (String) Identity provider value.
 	// Identity provider value.
@@ -41,9 +45,13 @@ type AuthnMappingObservation struct {
 	// Identity provider key.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
-	// (String) The ID of a role to attach to all users with the corresponding key and value.
-	// The ID of a role to attach to all users with the corresponding key and value.
+	// (String) The ID of a role to attach to all users with the corresponding key and value. Cannot be used in conjunction with team.
+	// The ID of a role to attach to all users with the corresponding key and value. Cannot be used in conjunction with `team`.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// (String) The ID of a team to add all users with the corresponding key and value to. Cannot be used in conjunction with role.
+	// The ID of a team to add all users with the corresponding key and value to. Cannot be used in conjunction with `role`.
+	Team *string `json:"team,omitempty" tf:"team,omitempty"`
 
 	// (String) Identity provider value.
 	// Identity provider value.
@@ -57,10 +65,15 @@ type AuthnMappingParameters struct {
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
-	// (String) The ID of a role to attach to all users with the corresponding key and value.
-	// The ID of a role to attach to all users with the corresponding key and value.
+	// (String) The ID of a role to attach to all users with the corresponding key and value. Cannot be used in conjunction with team.
+	// The ID of a role to attach to all users with the corresponding key and value. Cannot be used in conjunction with `team`.
 	// +kubebuilder:validation:Optional
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// (String) The ID of a team to add all users with the corresponding key and value to. Cannot be used in conjunction with role.
+	// The ID of a team to add all users with the corresponding key and value to. Cannot be used in conjunction with `role`.
+	// +kubebuilder:validation:Optional
+	Team *string `json:"team,omitempty" tf:"team,omitempty"`
 
 	// (String) Identity provider value.
 	// Identity provider value.
@@ -105,7 +118,6 @@ type AuthnMapping struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.key) || (has(self.initProvider) && has(self.initProvider.key))",message="spec.forProvider.key is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.role) || (has(self.initProvider) && has(self.initProvider.role))",message="spec.forProvider.role is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.value) || (has(self.initProvider) && has(self.initProvider.value))",message="spec.forProvider.value is a required parameter"
 	Spec   AuthnMappingSpec   `json:"spec"`
 	Status AuthnMappingStatus `json:"status,omitempty"`

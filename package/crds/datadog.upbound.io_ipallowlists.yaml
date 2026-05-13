@@ -34,7 +34,9 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: IPAllowList is the Schema for the IPAllowLists API. <no value>
+        description: IPAllowList is the Schema for the IPAllowLists API. Provides
+          the Datadog IP allowlist resource. This can be used to manage the Datadog
+          IP allowlist
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -67,18 +69,26 @@ spec:
               forProvider:
                 properties:
                   enabled:
-                    description: Whether the IP Allowlist is enabled.
+                    description: (Boolean) Whether the IP Allowlist is enabled. Whether
+                      the IP Allowlist is enabled.
                     type: boolean
                   entry:
-                    description: Set of objects containing an IP address or range
-                      of IP addresses in the allowlist and an accompanying note.
+                    description: (Block Set) Set of objects containing an IP address
+                      or range of IP addresses in the allowlist and an accompanying
+                      note. (see below for nested schema) Set of objects containing
+                      an IP address or range of IP addresses in the allowlist and
+                      an accompanying note.
                     items:
                       properties:
                         cidrBlock:
-                          description: IP address or range of addresses.
+                          description: (String) IP address or range of addresses.
+                            String must be a valid CIDR block or IP address. IP address
+                            or range of addresses. String must be a valid CIDR block
+                            or IP address.
                           type: string
                         note:
-                          description: Note accompanying IP address.
+                          description: (String) Note accompanying IP address. Note
+                            accompanying IP address.
                           type: string
                       type: object
                     type: array
@@ -96,18 +106,26 @@ spec:
                   like an autoscaler.
                 properties:
                   enabled:
-                    description: Whether the IP Allowlist is enabled.
+                    description: (Boolean) Whether the IP Allowlist is enabled. Whether
+                      the IP Allowlist is enabled.
                     type: boolean
                   entry:
-                    description: Set of objects containing an IP address or range
-                      of IP addresses in the allowlist and an accompanying note.
+                    description: (Block Set) Set of objects containing an IP address
+                      or range of IP addresses in the allowlist and an accompanying
+                      note. (see below for nested schema) Set of objects containing
+                      an IP address or range of IP addresses in the allowlist and
+                      an accompanying note.
                     items:
                       properties:
                         cidrBlock:
-                          description: IP address or range of addresses.
+                          description: (String) IP address or range of addresses.
+                            String must be a valid CIDR block or IP address. IP address
+                            or range of addresses. String must be a valid CIDR block
+                            or IP address.
                           type: string
                         note:
-                          description: Note accompanying IP address.
+                          description: (String) Note accompanying IP address. Note
+                            accompanying IP address.
                           type: string
                       type: object
                     type: array
@@ -283,22 +301,31 @@ spec:
               atProvider:
                 properties:
                   enabled:
-                    description: Whether the IP Allowlist is enabled.
+                    description: (Boolean) Whether the IP Allowlist is enabled. Whether
+                      the IP Allowlist is enabled.
                     type: boolean
                   entry:
-                    description: Set of objects containing an IP address or range
-                      of IP addresses in the allowlist and an accompanying note.
+                    description: (Block Set) Set of objects containing an IP address
+                      or range of IP addresses in the allowlist and an accompanying
+                      note. (see below for nested schema) Set of objects containing
+                      an IP address or range of IP addresses in the allowlist and
+                      an accompanying note.
                     items:
                       properties:
                         cidrBlock:
-                          description: IP address or range of addresses.
+                          description: (String) IP address or range of addresses.
+                            String must be a valid CIDR block or IP address. IP address
+                            or range of addresses. String must be a valid CIDR block
+                            or IP address.
                           type: string
                         note:
-                          description: Note accompanying IP address.
+                          description: (String) Note accompanying IP address. Note
+                            accompanying IP address.
                           type: string
                       type: object
                     type: array
                   id:
+                    description: (String) The ID of this resource.
                     type: string
                 type: object
               conditions:

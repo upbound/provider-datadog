@@ -26,6 +26,11 @@ type CloudflareAccountInitParameters struct {
 	// (String) The name of the Cloudflare account.
 	// The name of the Cloudflare account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Set of String) An allowlist of resources to pull metrics for. Includes web, dns, lb (load balancer), and worker).
+	// An allowlist of resources to pull metrics for. Includes `web`, `dns`, `lb` (load balancer), and `worker`).
+	// +listType=set
+	Resources []*string `json:"resources,omitempty" tf:"resources,omitempty"`
 }
 
 type CloudflareAccountObservation struct {
@@ -40,6 +45,11 @@ type CloudflareAccountObservation struct {
 	// (String) The name of the Cloudflare account.
 	// The name of the Cloudflare account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Set of String) An allowlist of resources to pull metrics for. Includes web, dns, lb (load balancer), and worker).
+	// An allowlist of resources to pull metrics for. Includes `web`, `dns`, `lb` (load balancer), and `worker`).
+	// +listType=set
+	Resources []*string `json:"resources,omitempty" tf:"resources,omitempty"`
 }
 
 type CloudflareAccountParameters struct {
@@ -58,6 +68,12 @@ type CloudflareAccountParameters struct {
 	// The name of the Cloudflare account.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Set of String) An allowlist of resources to pull metrics for. Includes web, dns, lb (load balancer), and worker).
+	// An allowlist of resources to pull metrics for. Includes `web`, `dns`, `lb` (load balancer), and `worker`).
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	Resources []*string `json:"resources,omitempty" tf:"resources,omitempty"`
 }
 
 // CloudflareAccountSpec defines the desired state of CloudflareAccount
@@ -87,7 +103,7 @@ type CloudflareAccountStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// CloudflareAccount is the Schema for the CloudflareAccounts API. Provides a Datadog IntegrationCloudflareAccount resource. This can be used to create and manage Datadog integrationcloudflareaccount.
+// CloudflareAccount is the Schema for the CloudflareAccounts API. Provides a Datadog IntegrationCloudflareAccount resource. This can be used to create and manage Datadog integration_cloudflare_account.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -26,5 +26,9 @@ spec:
       name: Kubernetes apiserver
     filter:
     - query: '*'
+    flexRetentionDays: 180
     name: your index
     retentionDays: 7
+    tags:
+    - team:backend
+    - env:production

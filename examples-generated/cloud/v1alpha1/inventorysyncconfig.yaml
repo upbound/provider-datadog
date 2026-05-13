@@ -1,0 +1,16 @@
+apiVersion: cloud.upbound.io/v1alpha1
+kind: InventorySyncConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloud/v1alpha1/inventorysyncconfig
+  labels:
+    testing.upbound.io/example-name: aws_example
+  name: aws-example
+spec:
+  forProvider:
+    aws:
+    - awsAccountId: "123456789012"
+      destinationBucketName: my-inventory-bucket
+      destinationBucketRegion: us-east-1
+      destinationPrefix: inventory/
+    cloudProvider: aws

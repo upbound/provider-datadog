@@ -1,0 +1,15 @@
+apiVersion: action.upbound.io/v1alpha1
+kind: Connection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: action/v1alpha1/connection
+  labels:
+    testing.upbound.io/example-name: aws_connection
+  name: aws-connection
+spec:
+  forProvider:
+    aws:
+    - assumeRole:
+      - accountId: "123456789012"
+        role: role2
+    name: My AWS Connection

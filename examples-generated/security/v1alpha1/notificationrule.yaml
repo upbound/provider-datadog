@@ -1,0 +1,15 @@
+apiVersion: security.upbound.io/v1alpha1
+kind: NotificationRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/notificationrule
+  labels:
+    testing.upbound.io/example-name: signal_rule
+  name: signal-rule
+spec:
+  forProvider:
+    enabled: false
+    name: My signal notification rule
+    targets:
+    - '@bob@email.com'
+    - '@alice@email.com'

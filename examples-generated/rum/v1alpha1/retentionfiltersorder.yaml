@@ -1,0 +1,54 @@
+apiVersion: rum.upbound.io/v1alpha1
+kind: RetentionFiltersOrder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rum/v1alpha1/retentionfiltersorder
+  labels:
+    testing.upbound.io/example-name: my_rum_retention_filters_order
+  name: my-rum-retention-filters-order
+spec:
+  forProvider:
+    applicationId: ${resource.datadog_rum_application.my_rum_application.id}
+    retentionFilterIds: |-
+      ${concat(
+          [for rf in data.datadog_rum_retention_filters.my_retention_filters.retention_filters :
+            rf.id if startswith(rf.id, "default")
+          ],
+          [datadog_rum_retention_filter.new_rum_retention_filter.id],
+          [for rf in data.datadog_rum_retention_filters.my_retention_filters.retention_filters :
+            rf.id if !startswith(rf.id, "default") && rf.id != datadog_rum_retention_filter.new_rum_retention_filter.id
+        ])}
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: RUMApplication
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rum/v1alpha1/retentionfiltersorder
+  labels:
+    testing.upbound.io/example-name: my_rum_application
+  name: my-rum-application
+spec:
+  forProvider:
+    name: my-rum-application-test
+    type: browser
+
+---
+
+apiVersion: rum.upbound.io/v1alpha1
+kind: RetentionFilter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rum/v1alpha1/retentionfiltersorder
+  labels:
+    testing.upbound.io/example-name: new_rum_retention_filter
+  name: new-rum-retention-filter
+spec:
+  forProvider:
+    applicationId: ${resource.datadog_rum_application.my_rum_application.id}
+    enabled: true
+    eventType: action
+    name: testing.rum.retention_filter
+    query: '@session.has_replay:true'
+    sampleRate: 60

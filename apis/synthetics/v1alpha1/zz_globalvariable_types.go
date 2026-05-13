@@ -19,15 +19,23 @@ import (
 
 type GlobalVariableInitParameters struct {
 
-	// (String) Description of the global variable.
-	// Description of the global variable.
+	// (String) Description of the global variable. Defaults to "".
+	// Description of the global variable. Defaults to `""`.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String) Synthetics global variable name.
-	// Synthetics global variable name.
+	// (Boolean) If set to true, the global variable is a FIDO variable. Defaults to false.
+	// If set to true, the global variable is a FIDO variable. Defaults to `false`.
+	IsFido *bool `json:"isFido,omitempty" tf:"is_fido,omitempty"`
+
+	// (Boolean) If set to true, the global variable is a TOTP variable. Defaults to false.
+	// If set to true, the global variable is a TOTP variable. Defaults to `false`.
+	IsTotp *bool `json:"isTotp,omitempty" tf:"is_totp,omitempty"`
+
+	// (String) Synthetics global variable name. Must be all uppercase with underscores.
+	// Synthetics global variable name. Must be all uppercase with underscores.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List, Max: 1) Additional options for the variable, such as a MFA token. (see below for nested schema)
+	// (Block List) Additional options for the variable, such as a MFA token. (see below for nested schema)
 	// Additional options for the variable, such as a MFA token.
 	Options []OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
 
@@ -35,38 +43,50 @@ type GlobalVariableInitParameters struct {
 	// Id of the Synthetics test to use for a variable from test.
 	ParseTestID *string `json:"parseTestId,omitempty" tf:"parse_test_id,omitempty"`
 
-	// (Block List, Max: 1) ID of the Synthetics test to use a source of the global variable value. (see below for nested schema)
+	// (Block List) ID of the Synthetics test to use a source of the global variable value. (see below for nested schema)
 	// ID of the Synthetics test to use a source of the global variable value.
 	ParseTestOptions []ParseTestOptionsInitParameters `json:"parseTestOptions,omitempty" tf:"parse_test_options,omitempty"`
 
-	// (Set of String) A list of role identifiers to associate with the Synthetics global variable.
-	// A list of role identifiers to associate with the Synthetics global variable.
+	// (Set of String, Deprecated) A list of role identifiers to associate with the Synthetics global variable. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+	// A list of role identifiers to associate with the Synthetics global variable. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
 	// +listType=set
 	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
 
-	// (Boolean) If set to true, the value of the global variable is hidden. Defaults to false.
-	// If set to true, the value of the global variable is hidden. Defaults to `false`.
+	// (Boolean) If set to true, the value of the global variable is hidden. This setting is automatically set to true if is_totp or is_fido is set to true. Defaults to false.
+	// If set to true, the value of the global variable is hidden. This setting is automatically set to `true` if `is_totp` or `is_fido` is set to `true`. Defaults to `false`.
 	Secure *bool `json:"secure,omitempty" tf:"secure,omitempty"`
 
 	// (List of String) A list of tags to associate with your synthetics global variable.
 	// A list of tags to associate with your synthetics global variable.
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
+	// Version associated with the write-only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
+	ValueWoVersion *string `json:"valueWoVersion,omitempty" tf:"value_wo_version,omitempty"`
 }
 
 type GlobalVariableObservation struct {
 
-	// (String) Description of the global variable.
-	// Description of the global variable.
+	// (String) Description of the global variable. Defaults to "".
+	// Description of the global variable. Defaults to `""`.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) Synthetics global variable name.
-	// Synthetics global variable name.
+	// (Boolean) If set to true, the global variable is a FIDO variable. Defaults to false.
+	// If set to true, the global variable is a FIDO variable. Defaults to `false`.
+	IsFido *bool `json:"isFido,omitempty" tf:"is_fido,omitempty"`
+
+	// (Boolean) If set to true, the global variable is a TOTP variable. Defaults to false.
+	// If set to true, the global variable is a TOTP variable. Defaults to `false`.
+	IsTotp *bool `json:"isTotp,omitempty" tf:"is_totp,omitempty"`
+
+	// (String) Synthetics global variable name. Must be all uppercase with underscores.
+	// Synthetics global variable name. Must be all uppercase with underscores.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List, Max: 1) Additional options for the variable, such as a MFA token. (see below for nested schema)
+	// (Block List) Additional options for the variable, such as a MFA token. (see below for nested schema)
 	// Additional options for the variable, such as a MFA token.
 	Options []OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
 
@@ -74,37 +94,51 @@ type GlobalVariableObservation struct {
 	// Id of the Synthetics test to use for a variable from test.
 	ParseTestID *string `json:"parseTestId,omitempty" tf:"parse_test_id,omitempty"`
 
-	// (Block List, Max: 1) ID of the Synthetics test to use a source of the global variable value. (see below for nested schema)
+	// (Block List) ID of the Synthetics test to use a source of the global variable value. (see below for nested schema)
 	// ID of the Synthetics test to use a source of the global variable value.
 	ParseTestOptions []ParseTestOptionsObservation `json:"parseTestOptions,omitempty" tf:"parse_test_options,omitempty"`
 
-	// (Set of String) A list of role identifiers to associate with the Synthetics global variable.
-	// A list of role identifiers to associate with the Synthetics global variable.
+	// (Set of String, Deprecated) A list of role identifiers to associate with the Synthetics global variable. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+	// A list of role identifiers to associate with the Synthetics global variable. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
 	// +listType=set
 	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
 
-	// (Boolean) If set to true, the value of the global variable is hidden. Defaults to false.
-	// If set to true, the value of the global variable is hidden. Defaults to `false`.
+	// (Boolean) If set to true, the value of the global variable is hidden. This setting is automatically set to true if is_totp or is_fido is set to true. Defaults to false.
+	// If set to true, the value of the global variable is hidden. This setting is automatically set to `true` if `is_totp` or `is_fido` is set to `true`. Defaults to `false`.
 	Secure *bool `json:"secure,omitempty" tf:"secure,omitempty"`
 
 	// (List of String) A list of tags to associate with your synthetics global variable.
 	// A list of tags to associate with your synthetics global variable.
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
+	// Version associated with the write-only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
+	ValueWoVersion *string `json:"valueWoVersion,omitempty" tf:"value_wo_version,omitempty"`
 }
 
 type GlobalVariableParameters struct {
 
-	// (String) Description of the global variable.
-	// Description of the global variable.
+	// (String) Description of the global variable. Defaults to "".
+	// Description of the global variable. Defaults to `""`.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String) Synthetics global variable name.
-	// Synthetics global variable name.
+	// (Boolean) If set to true, the global variable is a FIDO variable. Defaults to false.
+	// If set to true, the global variable is a FIDO variable. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	IsFido *bool `json:"isFido,omitempty" tf:"is_fido,omitempty"`
+
+	// (Boolean) If set to true, the global variable is a TOTP variable. Defaults to false.
+	// If set to true, the global variable is a TOTP variable. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	IsTotp *bool `json:"isTotp,omitempty" tf:"is_totp,omitempty"`
+
+	// (String) Synthetics global variable name. Must be all uppercase with underscores.
+	// Synthetics global variable name. Must be all uppercase with underscores.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List, Max: 1) Additional options for the variable, such as a MFA token. (see below for nested schema)
+	// (Block List) Additional options for the variable, such as a MFA token. (see below for nested schema)
 	// Additional options for the variable, such as a MFA token.
 	// +kubebuilder:validation:Optional
 	Options []OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
@@ -114,19 +148,19 @@ type GlobalVariableParameters struct {
 	// +kubebuilder:validation:Optional
 	ParseTestID *string `json:"parseTestId,omitempty" tf:"parse_test_id,omitempty"`
 
-	// (Block List, Max: 1) ID of the Synthetics test to use a source of the global variable value. (see below for nested schema)
+	// (Block List) ID of the Synthetics test to use a source of the global variable value. (see below for nested schema)
 	// ID of the Synthetics test to use a source of the global variable value.
 	// +kubebuilder:validation:Optional
 	ParseTestOptions []ParseTestOptionsParameters `json:"parseTestOptions,omitempty" tf:"parse_test_options,omitempty"`
 
-	// (Set of String) A list of role identifiers to associate with the Synthetics global variable.
-	// A list of role identifiers to associate with the Synthetics global variable.
+	// (Set of String, Deprecated) A list of role identifiers to associate with the Synthetics global variable. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+	// A list of role identifiers to associate with the Synthetics global variable. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
 
-	// (Boolean) If set to true, the value of the global variable is hidden. Defaults to false.
-	// If set to true, the value of the global variable is hidden. Defaults to `false`.
+	// (Boolean) If set to true, the value of the global variable is hidden. This setting is automatically set to true if is_totp or is_fido is set to true. Defaults to false.
+	// If set to true, the value of the global variable is hidden. This setting is automatically set to `true` if `is_totp` or `is_fido` is set to `true`. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	Secure *bool `json:"secure,omitempty" tf:"secure,omitempty"`
 
@@ -135,29 +169,39 @@ type GlobalVariableParameters struct {
 	// +kubebuilder:validation:Optional
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (String, Sensitive) The value of the global variable.
-	// The value of the global variable.
+	// (String, Sensitive) The value of the global variable. Required unless is_fido is set to true or value_wo is used
+	// The value of the global variable. Required unless `is_fido` is set to `true` or `value_wo` is used
 	// +kubebuilder:validation:Optional
-	ValueSecretRef v1.SecretKeySelector `json:"valueSecretRef" tf:"-"`
+	ValueSecretRef *v1.SecretKeySelector `json:"valueSecretRef,omitempty" tf:"-"`
+
+	// only) Write-only value of the global variable. Must be used with value_wo_version.
+	// Write-only value of the global variable. Must be used with `value_wo_version`.
+	// +kubebuilder:validation:Optional
+	ValueWoSecretRef *v1.SecretKeySelector `json:"valueWoSecretRef,omitempty" tf:"-"`
+
+	// only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
+	// Version associated with the write-only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	ValueWoVersion *string `json:"valueWoVersion,omitempty" tf:"value_wo_version,omitempty"`
 }
 
 type OptionsInitParameters struct {
 
-	// (Block List, Max: 1) Parameters needed for MFA/TOTP. (see below for nested schema)
+	// (Block List) Parameters needed for MFA/TOTP. (see below for nested schema)
 	// Parameters needed for MFA/TOTP.
 	TotpParameters []TotpParametersInitParameters `json:"totpParameters,omitempty" tf:"totp_parameters,omitempty"`
 }
 
 type OptionsObservation struct {
 
-	// (Block List, Max: 1) Parameters needed for MFA/TOTP. (see below for nested schema)
+	// (Block List) Parameters needed for MFA/TOTP. (see below for nested schema)
 	// Parameters needed for MFA/TOTP.
 	TotpParameters []TotpParametersObservation `json:"totpParameters,omitempty" tf:"totp_parameters,omitempty"`
 }
 
 type OptionsParameters struct {
 
-	// (Block List, Max: 1) Parameters needed for MFA/TOTP. (see below for nested schema)
+	// (Block List) Parameters needed for MFA/TOTP. (see below for nested schema)
 	// Parameters needed for MFA/TOTP.
 	// +kubebuilder:validation:Optional
 	TotpParameters []TotpParametersParameters `json:"totpParameters,omitempty" tf:"totp_parameters,omitempty"`
@@ -173,11 +217,11 @@ type ParseTestOptionsInitParameters struct {
 	// When type is `local_variable`, name of the local variable to use to extract the value.
 	LocalVariableName *string `json:"localVariableName,omitempty" tf:"local_variable_name,omitempty"`
 
-	// (Block List, Max: 1) (see below for nested schema)
+	// (Block List) (see below for nested schema)
 	Parser []ParserInitParameters `json:"parser,omitempty" tf:"parser,omitempty"`
 
-	// (String) Defines the source to use to extract the value. Valid values are http_body, http_header, local_variable.
-	// Defines the source to use to extract the value. Valid values are `http_body`, `http_header`, `local_variable`.
+	// (String) Defines the source to use to extract the value. Valid values are http_body, http_header, http_status_code, local_variable.
+	// Defines the source to use to extract the value. Valid values are `http_body`, `http_header`, `http_status_code`, `local_variable`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -191,11 +235,11 @@ type ParseTestOptionsObservation struct {
 	// When type is `local_variable`, name of the local variable to use to extract the value.
 	LocalVariableName *string `json:"localVariableName,omitempty" tf:"local_variable_name,omitempty"`
 
-	// (Block List, Max: 1) (see below for nested schema)
+	// (Block List) (see below for nested schema)
 	Parser []ParserObservation `json:"parser,omitempty" tf:"parser,omitempty"`
 
-	// (String) Defines the source to use to extract the value. Valid values are http_body, http_header, local_variable.
-	// Defines the source to use to extract the value. Valid values are `http_body`, `http_header`, `local_variable`.
+	// (String) Defines the source to use to extract the value. Valid values are http_body, http_header, http_status_code, local_variable.
+	// Defines the source to use to extract the value. Valid values are `http_body`, `http_header`, `http_status_code`, `local_variable`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -211,46 +255,46 @@ type ParseTestOptionsParameters struct {
 	// +kubebuilder:validation:Optional
 	LocalVariableName *string `json:"localVariableName,omitempty" tf:"local_variable_name,omitempty"`
 
-	// (Block List, Max: 1) (see below for nested schema)
+	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Parser []ParserParameters `json:"parser,omitempty" tf:"parser,omitempty"`
 
-	// (String) Defines the source to use to extract the value. Valid values are http_body, http_header, local_variable.
-	// Defines the source to use to extract the value. Valid values are `http_body`, `http_header`, `local_variable`.
+	// (String) Defines the source to use to extract the value. Valid values are http_body, http_header, http_status_code, local_variable.
+	// Defines the source to use to extract the value. Valid values are `http_body`, `http_header`, `http_status_code`, `local_variable`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
 type ParserInitParameters struct {
 
-	// (String) Defines the source to use to extract the value. Valid values are http_body, http_header, local_variable.
+	// (String) Defines the source to use to extract the value. Valid values are http_body, http_header, http_status_code, local_variable.
 	// Type of parser to extract the value. Valid values are `raw`, `json_path`, `regex`, `x_path`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String, Sensitive) The value of the global variable.
+	// (String, Sensitive) The value of the global variable. Required unless is_fido is set to true or value_wo is used
 	// Value for the parser to use, required for type `json_path` or `regex`.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type ParserObservation struct {
 
-	// (String) Defines the source to use to extract the value. Valid values are http_body, http_header, local_variable.
+	// (String) Defines the source to use to extract the value. Valid values are http_body, http_header, http_status_code, local_variable.
 	// Type of parser to extract the value. Valid values are `raw`, `json_path`, `regex`, `x_path`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String, Sensitive) The value of the global variable.
+	// (String, Sensitive) The value of the global variable. Required unless is_fido is set to true or value_wo is used
 	// Value for the parser to use, required for type `json_path` or `regex`.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type ParserParameters struct {
 
-	// (String) Defines the source to use to extract the value. Valid values are http_body, http_header, local_variable.
+	// (String) Defines the source to use to extract the value. Valid values are http_body, http_header, http_status_code, local_variable.
 	// Type of parser to extract the value. Valid values are `raw`, `json_path`, `regex`, `x_path`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 
-	// (String, Sensitive) The value of the global variable.
+	// (String, Sensitive) The value of the global variable. Required unless is_fido is set to true or value_wo is used
 	// Value for the parser to use, required for type `json_path` or `regex`.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
@@ -258,35 +302,35 @@ type ParserParameters struct {
 
 type TotpParametersInitParameters struct {
 
-	// (Number) Number of digits for the OTP.
-	// Number of digits for the OTP.
+	// (Number) Number of digits for the OTP. Value must be between 4 and 10.
+	// Number of digits for the OTP. Value must be between 4 and 10.
 	Digits *float64 `json:"digits,omitempty" tf:"digits,omitempty"`
 
-	// (Number) Interval for which to refresh the token (in seconds).
-	// Interval for which to refresh the token (in seconds).
+	// (Number) Interval for which to refresh the token (in seconds). Value must be between 0 and 999.
+	// Interval for which to refresh the token (in seconds). Value must be between 0 and 999.
 	RefreshInterval *float64 `json:"refreshInterval,omitempty" tf:"refresh_interval,omitempty"`
 }
 
 type TotpParametersObservation struct {
 
-	// (Number) Number of digits for the OTP.
-	// Number of digits for the OTP.
+	// (Number) Number of digits for the OTP. Value must be between 4 and 10.
+	// Number of digits for the OTP. Value must be between 4 and 10.
 	Digits *float64 `json:"digits,omitempty" tf:"digits,omitempty"`
 
-	// (Number) Interval for which to refresh the token (in seconds).
-	// Interval for which to refresh the token (in seconds).
+	// (Number) Interval for which to refresh the token (in seconds). Value must be between 0 and 999.
+	// Interval for which to refresh the token (in seconds). Value must be between 0 and 999.
 	RefreshInterval *float64 `json:"refreshInterval,omitempty" tf:"refresh_interval,omitempty"`
 }
 
 type TotpParametersParameters struct {
 
-	// (Number) Number of digits for the OTP.
-	// Number of digits for the OTP.
+	// (Number) Number of digits for the OTP. Value must be between 4 and 10.
+	// Number of digits for the OTP. Value must be between 4 and 10.
 	// +kubebuilder:validation:Optional
 	Digits *float64 `json:"digits" tf:"digits,omitempty"`
 
-	// (Number) Interval for which to refresh the token (in seconds).
-	// Interval for which to refresh the token (in seconds).
+	// (Number) Interval for which to refresh the token (in seconds). Value must be between 0 and 999.
+	// Interval for which to refresh the token (in seconds). Value must be between 0 and 999.
 	// +kubebuilder:validation:Optional
 	RefreshInterval *float64 `json:"refreshInterval" tf:"refresh_interval,omitempty"`
 }
@@ -328,7 +372,6 @@ type GlobalVariable struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.valueSecretRef)",message="spec.forProvider.valueSecretRef is a required parameter"
 	Spec   GlobalVariableSpec   `json:"spec"`
 	Status GlobalVariableStatus `json:"status,omitempty"`
 }

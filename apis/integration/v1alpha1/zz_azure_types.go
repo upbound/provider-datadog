@@ -49,13 +49,29 @@ type AzureInitParameters struct {
 	// String of host tag(s) (in the form `key:value,key:value`) defines a filter that Datadog will use when collecting metrics from Azure. Limit the Azure instances that are pulled into Datadog by using tags. Only hosts that match one of the defined tags are imported into Datadog. e.x. `env:production,deploymentgroup:red` Defaults to `""`.
 	HostFilters *string `json:"hostFilters,omitempty" tf:"host_filters,omitempty"`
 
+	// (Boolean) Enable Azure metrics for your organization. Defaults to true.
+	// Enable Azure metrics for your organization. Defaults to `true`.
+	MetricsEnabled *bool `json:"metricsEnabled,omitempty" tf:"metrics_enabled,omitempty"`
+
+	// (Boolean) Enable Azure metrics for your organization for resource providers where no resource provider config is specified. Defaults to true.
+	// Enable Azure metrics for your organization for resource providers where no resource provider config is specified. Defaults to `true`.
+	MetricsEnabledDefault *bool `json:"metricsEnabledDefault,omitempty" tf:"metrics_enabled_default,omitempty"`
+
 	// (Boolean) When enabled, Datadog collects metadata and configuration info from cloud resources (such as compute instances, databases, and load balancers) monitored by this app registration.
 	// When enabled, Datadog collects metadata and configuration info from cloud resources (such as compute instances, databases, and load balancers) monitored by this app registration.
 	ResourceCollectionEnabled *bool `json:"resourceCollectionEnabled,omitempty" tf:"resource_collection_enabled,omitempty"`
 
+	// (List of Object) Configuration settings applied to resources from the specified Azure resource providers. (see below for nested schema)
+	// Configuration settings applied to resources from the specified Azure resource providers.
+	ResourceProviderConfigs []ResourceProviderConfigsInitParameters `json:"resourceProviderConfigs,omitempty" tf:"resource_provider_configs,omitempty"`
+
 	// (String) Your Azure Active Directory ID.
 	// Your Azure Active Directory ID.
 	TenantName *string `json:"tenantName,omitempty" tf:"tenant_name,omitempty"`
+
+	// (Boolean) Enable azure.usage metrics for your organization. Defaults to true.
+	// Enable azure.usage metrics for your organization. Defaults to `true`.
+	UsageMetricsEnabled *bool `json:"usageMetricsEnabled,omitempty" tf:"usage_metrics_enabled,omitempty"`
 }
 
 type AzureObservation struct {
@@ -93,13 +109,29 @@ type AzureObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Boolean) Enable Azure metrics for your organization. Defaults to true.
+	// Enable Azure metrics for your organization. Defaults to `true`.
+	MetricsEnabled *bool `json:"metricsEnabled,omitempty" tf:"metrics_enabled,omitempty"`
+
+	// (Boolean) Enable Azure metrics for your organization for resource providers where no resource provider config is specified. Defaults to true.
+	// Enable Azure metrics for your organization for resource providers where no resource provider config is specified. Defaults to `true`.
+	MetricsEnabledDefault *bool `json:"metricsEnabledDefault,omitempty" tf:"metrics_enabled_default,omitempty"`
+
 	// (Boolean) When enabled, Datadog collects metadata and configuration info from cloud resources (such as compute instances, databases, and load balancers) monitored by this app registration.
 	// When enabled, Datadog collects metadata and configuration info from cloud resources (such as compute instances, databases, and load balancers) monitored by this app registration.
 	ResourceCollectionEnabled *bool `json:"resourceCollectionEnabled,omitempty" tf:"resource_collection_enabled,omitempty"`
 
+	// (List of Object) Configuration settings applied to resources from the specified Azure resource providers. (see below for nested schema)
+	// Configuration settings applied to resources from the specified Azure resource providers.
+	ResourceProviderConfigs []ResourceProviderConfigsObservation `json:"resourceProviderConfigs,omitempty" tf:"resource_provider_configs,omitempty"`
+
 	// (String) Your Azure Active Directory ID.
 	// Your Azure Active Directory ID.
 	TenantName *string `json:"tenantName,omitempty" tf:"tenant_name,omitempty"`
+
+	// (Boolean) Enable azure.usage metrics for your organization. Defaults to true.
+	// Enable azure.usage metrics for your organization. Defaults to `true`.
+	UsageMetricsEnabled *bool `json:"usageMetricsEnabled,omitempty" tf:"usage_metrics_enabled,omitempty"`
 }
 
 type AzureParameters struct {
@@ -146,15 +178,64 @@ type AzureParameters struct {
 	// +kubebuilder:validation:Optional
 	HostFilters *string `json:"hostFilters,omitempty" tf:"host_filters,omitempty"`
 
+	// (Boolean) Enable Azure metrics for your organization. Defaults to true.
+	// Enable Azure metrics for your organization. Defaults to `true`.
+	// +kubebuilder:validation:Optional
+	MetricsEnabled *bool `json:"metricsEnabled,omitempty" tf:"metrics_enabled,omitempty"`
+
+	// (Boolean) Enable Azure metrics for your organization for resource providers where no resource provider config is specified. Defaults to true.
+	// Enable Azure metrics for your organization for resource providers where no resource provider config is specified. Defaults to `true`.
+	// +kubebuilder:validation:Optional
+	MetricsEnabledDefault *bool `json:"metricsEnabledDefault,omitempty" tf:"metrics_enabled_default,omitempty"`
+
 	// (Boolean) When enabled, Datadog collects metadata and configuration info from cloud resources (such as compute instances, databases, and load balancers) monitored by this app registration.
 	// When enabled, Datadog collects metadata and configuration info from cloud resources (such as compute instances, databases, and load balancers) monitored by this app registration.
 	// +kubebuilder:validation:Optional
 	ResourceCollectionEnabled *bool `json:"resourceCollectionEnabled,omitempty" tf:"resource_collection_enabled,omitempty"`
 
+	// (List of Object) Configuration settings applied to resources from the specified Azure resource providers. (see below for nested schema)
+	// Configuration settings applied to resources from the specified Azure resource providers.
+	// +kubebuilder:validation:Optional
+	ResourceProviderConfigs []ResourceProviderConfigsParameters `json:"resourceProviderConfigs,omitempty" tf:"resource_provider_configs,omitempty"`
+
 	// (String) Your Azure Active Directory ID.
 	// Your Azure Active Directory ID.
 	// +kubebuilder:validation:Optional
 	TenantName *string `json:"tenantName,omitempty" tf:"tenant_name,omitempty"`
+
+	// (Boolean) Enable azure.usage metrics for your organization. Defaults to true.
+	// Enable azure.usage metrics for your organization. Defaults to `true`.
+	// +kubebuilder:validation:Optional
+	UsageMetricsEnabled *bool `json:"usageMetricsEnabled,omitempty" tf:"usage_metrics_enabled,omitempty"`
+}
+
+type ResourceProviderConfigsInitParameters struct {
+
+	// (Boolean) Enable Azure metrics for your organization. Defaults to true.
+	MetricsEnabled *bool `json:"metricsEnabled,omitempty" tf:"metrics_enabled"`
+
+	// (String)
+	Namespace *string `json:"namespace,omitempty" tf:"namespace"`
+}
+
+type ResourceProviderConfigsObservation struct {
+
+	// (Boolean) Enable Azure metrics for your organization. Defaults to true.
+	MetricsEnabled *bool `json:"metricsEnabled,omitempty" tf:"metrics_enabled,omitempty"`
+
+	// (String)
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+}
+
+type ResourceProviderConfigsParameters struct {
+
+	// (Boolean) Enable Azure metrics for your organization. Defaults to true.
+	// +kubebuilder:validation:Optional
+	MetricsEnabled *bool `json:"metricsEnabled,omitempty" tf:"metrics_enabled"`
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace"`
 }
 
 // AzureSpec defines the desired state of Azure

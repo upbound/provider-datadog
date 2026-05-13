@@ -1,0 +1,13 @@
+apiVersion: agentless.upbound.io/v1alpha1
+kind: ScanningGCPScanOptions
+metadata:
+  annotations:
+    meta.upbound.io/example-id: agentless/v1alpha1/scanninggcpscanoptions
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    gcpProjectId: company-project-prod
+    vulnContainersOs: true
+    vulnHostOs: true

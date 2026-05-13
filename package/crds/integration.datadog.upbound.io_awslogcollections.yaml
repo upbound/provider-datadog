@@ -35,9 +35,10 @@ spec:
     schema:
       openAPIV3Schema:
         description: AWSLogCollection is the Schema for the AWSLogCollections API.
-          Provides a Datadog - Amazon Web Services integration log collection resource.
-          This can be used to manage which AWS services logs are collected from for
-          an account.
+          !>This resource is deprecated - use the datadog_integration_aws_account
+          resource instead. Provides a Datadog - Amazon Web Services integration log
+          collection resource. This can be used to manage which AWS services logs
+          are collected from for an account.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation

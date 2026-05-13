@@ -1,0 +1,10 @@
+apiVersion: app.upbound.io/v1alpha1
+kind: KeyRegistration
+metadata:
+  annotations:
+    meta.upbound.io/example-id: app/v1alpha1/keyregistration
+  labels:
+    testing.upbound.io/example-name: app_key_registration
+  name: app-key-registration
+spec:
+  forProvider: {}

@@ -27,8 +27,8 @@ type TeamPermissionSettingInitParameters struct {
 	// ID of the team the team permission setting is associated with.
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-	// (String) The action value. Valid values are admins, members, organization, user_access_manage, teams_manage.
-	// The action value. Valid values are `admins`, `members`, `organization`, `user_access_manage`, `teams_manage`.
+	// (String) The action value. Valid values are dependent on the action. manage_membership action allows admins, members, organization, user_access_manage values. edit action allows admins, members, teams_manage values.
+	// The action value. Valid values are dependent on the action. `manage_membership` action allows `admins`, `members`, `organization`, `user_access_manage` values. `edit` action allows `admins`, `members`, `teams_manage` values.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
@@ -45,8 +45,8 @@ type TeamPermissionSettingObservation struct {
 	// ID of the team the team permission setting is associated with.
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-	// (String) The action value. Valid values are admins, members, organization, user_access_manage, teams_manage.
-	// The action value. Valid values are `admins`, `members`, `organization`, `user_access_manage`, `teams_manage`.
+	// (String) The action value. Valid values are dependent on the action. manage_membership action allows admins, members, organization, user_access_manage values. edit action allows admins, members, teams_manage values.
+	// The action value. Valid values are dependent on the action. `manage_membership` action allows `admins`, `members`, `organization`, `user_access_manage` values. `edit` action allows `admins`, `members`, `teams_manage` values.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
@@ -62,8 +62,8 @@ type TeamPermissionSettingParameters struct {
 	// +kubebuilder:validation:Optional
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-	// (String) The action value. Valid values are admins, members, organization, user_access_manage, teams_manage.
-	// The action value. Valid values are `admins`, `members`, `organization`, `user_access_manage`, `teams_manage`.
+	// (String) The action value. Valid values are dependent on the action. manage_membership action allows admins, members, organization, user_access_manage values. edit action allows admins, members, teams_manage values.
+	// The action value. Valid values are dependent on the action. `manage_membership` action allows `admins`, `members`, `organization`, `user_access_manage` values. `edit` action allows `admins`, `members`, `teams_manage` values.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
@@ -95,7 +95,7 @@ type TeamPermissionSettingStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// TeamPermissionSetting is the Schema for the TeamPermissionSettings API. Provides a Datadog TeamPermissionSetting resource. This can be used to manage Datadog teampermissionsetting.
+// TeamPermissionSetting is the Schema for the TeamPermissionSettings API. Provides a Datadog TeamPermissionSetting resource. This can be used to manage Datadog team_permission_setting.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

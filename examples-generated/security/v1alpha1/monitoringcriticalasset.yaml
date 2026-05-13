@@ -1,0 +1,18 @@
+apiVersion: security.upbound.io/v1alpha1
+kind: MonitoringCriticalAsset
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/monitoringcriticalasset
+  labels:
+    testing.upbound.io/example-name: my_critical_asset
+  name: my-critical-asset
+spec:
+  forProvider:
+    enabled: true
+    query: source:runtime-security-agent
+    ruleQuery: type:(log_detection OR signal_correlation OR workload_security OR application_security)
+      ruleId:007-d1a-1f3
+    severity: increase
+    tags:
+    - env:production
+    - team:security

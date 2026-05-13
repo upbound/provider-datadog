@@ -124,7 +124,7 @@ type ConfluentResourceStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// ConfluentResource is the Schema for the ConfluentResources API. Provides a Datadog IntegrationConfluentResource resource. This can be used to create and manage Datadog integrationconfluentresource.
+// ConfluentResource is the Schema for the ConfluentResources API. Provides a Datadog IntegrationConfluentResource resource. This can be used to create and manage Datadog integration_confluent_resource.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

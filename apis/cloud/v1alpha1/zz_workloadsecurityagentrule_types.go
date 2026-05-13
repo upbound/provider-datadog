@@ -108,7 +108,7 @@ type WorkloadSecurityAgentRuleStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// WorkloadSecurityAgentRule is the Schema for the WorkloadSecurityAgentRules API. Provides a Datadog Cloud Workload Security Agent Rule API resource for agent rules.
+// WorkloadSecurityAgentRule is the Schema for the WorkloadSecurityAgentRules API. Provides a Datadog Cloud Workload Security Agent Rule API resource for agent rules. Deprecated, use datadog_csm_threats_agent_rules resource instead: https://registry.io/providers/DataDog/datadog/latest/docs/resources/csm_threats_agent_rule
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

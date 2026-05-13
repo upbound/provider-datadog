@@ -34,6 +34,15 @@ func (l *PrivateLocationList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this SuiteList.
+func (l *SuiteList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this TestList.
 func (l *TestList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))

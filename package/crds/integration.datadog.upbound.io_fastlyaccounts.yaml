@@ -36,7 +36,7 @@ spec:
       openAPIV3Schema:
         description: FastlyAccount is the Schema for the FastlyAccounts API. Provides
           a Datadog IntegrationFastlyAccount resource. This can be used to create
-          and manage Datadog integrationfastlyaccount.
+          and manage Datadog integration_fastly_account.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation

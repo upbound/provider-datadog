@@ -1,0 +1,28 @@
+apiVersion: deployment.upbound.io/v1alpha1
+kind: Gate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/gate
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    dryRun: "false"
+    env: production
+    identifier: my-gate
+    rule:
+    - dryRun: false
+      name: fdd
+      options:
+      - duration: 1300
+        excludedResources:
+        - GET api/v1/test
+      type: faulty_deployment_detection
+    - dryRun: false
+      name: monitor
+      options:
+      - duration: 1300
+        query: service:test-service
+      type: monitor
+    service: my-service

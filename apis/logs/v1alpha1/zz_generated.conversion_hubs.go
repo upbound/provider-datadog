@@ -17,6 +17,9 @@ func (tr *Archive) Hub() {}
 func (tr *ArchiveOrder) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *CustomDestination) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *CustomPipeline) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -33,3 +36,6 @@ func (tr *Metric) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *PipelineOrder) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RestrictionQuery) Hub() {}

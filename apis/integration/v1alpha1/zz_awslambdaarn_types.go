@@ -82,7 +82,7 @@ type AWSLambdaARNStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// AWSLambdaARN is the Schema for the AWSLambdaARNs API. Provides a Datadog - Amazon Web Services integration Lambda ARN resource. This can be used to create and manage the log collection Lambdas for an account. Update operations are currently not supported with datadog API so any change forces a new resource.
+// AWSLambdaARN is the Schema for the AWSLambdaARNs API. !>This resource is deprecated - use the datadog_integration_aws_account resource instead. Provides a Datadog - Amazon Web Services integration Lambda ARN resource. This can be used to create and manage the log collection Lambdas for an account. Update operations are currently not supported with datadog API so any change forces a new resource. Note: If you are using AWS GovCloud or the AWS China* region, update the lambda_arn parameter for your environment. *All use of Datadog Services in (or in connection with environments within) mainland China is subject to the disclaimer published in the Restricted Service Locations section on our website.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

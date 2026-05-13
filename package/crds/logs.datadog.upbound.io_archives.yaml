@@ -155,12 +155,31 @@ spec:
                           description: (String) Name of your GCS bucket. Name of your
                             s3 bucket.
                           type: string
+                        encryptionKey:
+                          description: (String) The AWS KMS encryption key. The AWS
+                            KMS encryption key.
+                          type: string
+                        encryptionType:
+                          description: (String) The type of encryption on your archive.
+                            Valid values are NO_OVERRIDE, SSE_S3, SSE_KMS. Defaults
+                            to "NO_OVERRIDE". The type of encryption on your archive.
+                            Valid values are `NO_OVERRIDE`, `SSE_S3`, `SSE_KMS`. Defaults
+                            to `"NO_OVERRIDE"`.
+                          type: string
                         path:
                           description: (String) The path where the archive is stored.
                             Path where the archive is stored.
                           type: string
                         roleName:
                           description: (String) Your AWS role name Your AWS role name
+                          type: string
+                        storageClass:
+                          description: (String) The AWS S3 storage class used to upload
+                            the logs. Valid values are STANDARD, STANDARD_IA, ONEZONE_IA,
+                            INTELLIGENT_TIERING, GLACIER_IR. Defaults to "STANDARD".
+                            The AWS S3 storage class used to upload the logs. Valid
+                            values are `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`,
+                            `GLACIER_IR`. Defaults to `"STANDARD"`.
                           type: string
                       type: object
                     type: array
@@ -264,12 +283,31 @@ spec:
                           description: (String) Name of your GCS bucket. Name of your
                             s3 bucket.
                           type: string
+                        encryptionKey:
+                          description: (String) The AWS KMS encryption key. The AWS
+                            KMS encryption key.
+                          type: string
+                        encryptionType:
+                          description: (String) The type of encryption on your archive.
+                            Valid values are NO_OVERRIDE, SSE_S3, SSE_KMS. Defaults
+                            to "NO_OVERRIDE". The type of encryption on your archive.
+                            Valid values are `NO_OVERRIDE`, `SSE_S3`, `SSE_KMS`. Defaults
+                            to `"NO_OVERRIDE"`.
+                          type: string
                         path:
                           description: (String) The path where the archive is stored.
                             Path where the archive is stored.
                           type: string
                         roleName:
                           description: (String) Your AWS role name Your AWS role name
+                          type: string
+                        storageClass:
+                          description: (String) The AWS S3 storage class used to upload
+                            the logs. Valid values are STANDARD, STANDARD_IA, ONEZONE_IA,
+                            INTELLIGENT_TIERING, GLACIER_IR. Defaults to "STANDARD".
+                            The AWS S3 storage class used to upload the logs. Valid
+                            values are `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`,
+                            `GLACIER_IR`. Defaults to `"STANDARD"`.
                           type: string
                       type: object
                     type: array
@@ -538,12 +576,31 @@ spec:
                           description: (String) Name of your GCS bucket. Name of your
                             s3 bucket.
                           type: string
+                        encryptionKey:
+                          description: (String) The AWS KMS encryption key. The AWS
+                            KMS encryption key.
+                          type: string
+                        encryptionType:
+                          description: (String) The type of encryption on your archive.
+                            Valid values are NO_OVERRIDE, SSE_S3, SSE_KMS. Defaults
+                            to "NO_OVERRIDE". The type of encryption on your archive.
+                            Valid values are `NO_OVERRIDE`, `SSE_S3`, `SSE_KMS`. Defaults
+                            to `"NO_OVERRIDE"`.
+                          type: string
                         path:
                           description: (String) The path where the archive is stored.
                             Path where the archive is stored.
                           type: string
                         roleName:
                           description: (String) Your AWS role name Your AWS role name
+                          type: string
+                        storageClass:
+                          description: (String) The AWS S3 storage class used to upload
+                            the logs. Valid values are STANDARD, STANDARD_IA, ONEZONE_IA,
+                            INTELLIGENT_TIERING, GLACIER_IR. Defaults to "STANDARD".
+                            The AWS S3 storage class used to upload the logs. Valid
+                            values are `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`,
+                            `GLACIER_IR`. Defaults to `"STANDARD"`.
                           type: string
                       type: object
                     type: array

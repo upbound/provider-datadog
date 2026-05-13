@@ -19,24 +19,24 @@ import (
 
 type MetadataInitParameters struct {
 
-	// (Set of String) A list of role identifiers pulled from the Roles API to restrict read and write access.
-	// A list of role identifiers pulled from the Roles API to restrict read and write access.
+	// (Set of String, Deprecated) A set of role identifiers pulled from the Roles API to restrict read and write access. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+	// A set of role identifiers pulled from the Roles API to restrict read and write access. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
 	// +listType=set
 	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
 }
 
 type MetadataObservation struct {
 
-	// (Set of String) A list of role identifiers pulled from the Roles API to restrict read and write access.
-	// A list of role identifiers pulled from the Roles API to restrict read and write access.
+	// (Set of String, Deprecated) A set of role identifiers pulled from the Roles API to restrict read and write access. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+	// A set of role identifiers pulled from the Roles API to restrict read and write access. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
 	// +listType=set
 	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
 }
 
 type MetadataParameters struct {
 
-	// (Set of String) A list of role identifiers pulled from the Roles API to restrict read and write access.
-	// A list of role identifiers pulled from the Roles API to restrict read and write access.
+	// (Set of String, Deprecated) A set of role identifiers pulled from the Roles API to restrict read and write access. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+	// A set of role identifiers pulled from the Roles API to restrict read and write access. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
@@ -44,11 +44,11 @@ type MetadataParameters struct {
 
 type PrivateLocationInitParameters struct {
 
-	// (String) Description of the private location.
-	// Description of the private location.
+	// (String) Description of the private location. Defaults to "".
+	// Description of the private location. Defaults to `""`.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (Block List, Max: 1) The private location metadata (see below for nested schema)
+	// (Block List) The private location metadata (see below for nested schema)
 	// The private location metadata
 	Metadata []MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
@@ -63,20 +63,24 @@ type PrivateLocationInitParameters struct {
 
 type PrivateLocationObservation struct {
 
-	// (String) Description of the private location.
-	// Description of the private location.
+	// (String) Description of the private location. Defaults to "".
+	// Description of the private location. Defaults to `""`.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block List, Max: 1) The private location metadata (see below for nested schema)
+	// (Block List) The private location metadata (see below for nested schema)
 	// The private location metadata
 	Metadata []MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// (String) Synthetics private location name.
 	// Synthetics private location name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Resource ID to use when setting restrictions with a datadog_restriction_policy resource.
+	// Resource ID to use when setting restrictions with a `datadog_restriction_policy` resource.
+	RestrictionPolicyResourceID *string `json:"restrictionPolicyResourceId,omitempty" tf:"restriction_policy_resource_id,omitempty"`
 
 	// (List of String) A list of tags to associate with your synthetics private location.
 	// A list of tags to associate with your synthetics private location.
@@ -85,12 +89,17 @@ type PrivateLocationObservation struct {
 
 type PrivateLocationParameters struct {
 
-	// (String) Description of the private location.
-	// Description of the private location.
+	// (String, Sensitive) API key used to generate the private location configuration.
+	// API key used to generate the private location configuration.
+	// +kubebuilder:validation:Optional
+	APIKeySecretRef *v1.SecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
+
+	// (String) Description of the private location. Defaults to "".
+	// Description of the private location. Defaults to `""`.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (Block List, Max: 1) The private location metadata (see below for nested schema)
+	// (Block List) The private location metadata (see below for nested schema)
 	// The private location metadata
 	// +kubebuilder:validation:Optional
 	Metadata []MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`

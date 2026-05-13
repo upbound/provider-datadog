@@ -1,0 +1,13 @@
+apiVersion: app.upbound.io/v1alpha1
+kind: BuilderApp
+metadata:
+  annotations:
+    meta.upbound.io/example-id: app/v1alpha1/builderapp
+  labels:
+    testing.upbound.io/example-name: example_app_from_file
+  name: example-app-from-file
+spec:
+  forProvider:
+    actionQueryNamesToConnectionIds:
+      listTeams0: ${var.connection_id}
+    appJson: ${file("${path.module}/resource.json")}

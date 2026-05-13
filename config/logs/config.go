@@ -6,6 +6,16 @@ const logsDatadog = "logs.datadog"
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
+	p.AddResourceConfigurator("datadog_logs_custom_destination", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.ShortGroup = logsDatadog
+	})
+	p.AddResourceConfigurator("datadog_logs_restriction_query", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.ShortGroup = logsDatadog
+	})
 	p.AddResourceConfigurator("datadog_logs_archive", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for
 		// this resource, which would be "datadog"

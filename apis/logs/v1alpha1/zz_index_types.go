@@ -96,7 +96,7 @@ type ExclusionFilterInitParameters struct {
 	// A boolean stating if the exclusion is active or not.
 	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
 
-	// (String) The name of the index.
+	// (String) The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
 	// The name of the exclusion filter.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -110,7 +110,7 @@ type ExclusionFilterObservation struct {
 	// A boolean stating if the exclusion is active or not.
 	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
 
-	// (String) The name of the index.
+	// (String) The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
 	// The name of the exclusion filter.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -126,7 +126,7 @@ type ExclusionFilterParameters struct {
 	// +kubebuilder:validation:Optional
 	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
 
-	// (String) The name of the index.
+	// (String) The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
 	// The name of the exclusion filter.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -180,13 +180,22 @@ type IndexInitParameters struct {
 	// Logs filter
 	Filter []IndexFilterInitParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
-	// (String) The name of the index.
-	// The name of the index.
+	// (Number) The total number of days logs are stored in Standard and Flex Tier before being deleted from the index.
+	// The total number of days logs are stored in Standard and Flex Tier before being deleted from the index.
+	FlexRetentionDays *float64 `json:"flexRetentionDays,omitempty" tf:"flex_retention_days,omitempty"`
+
+	// (String) The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
+	// The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Number) The number of days before logs are deleted from this index.
-	// The number of days before logs are deleted from this index.
+	// (Number) The number of days logs are stored in Standard Tier before aging into the Flex Tier or being deleted from the index.
+	// The number of days logs are stored in Standard Tier before aging into the Flex Tier or being deleted from the index.
 	RetentionDays *float64 `json:"retentionDays,omitempty" tf:"retention_days,omitempty"`
+
+	// (Set of String) A list of tags for this index. Tags must be in key:value format. If default tags are present at the provider level, they will be added to this resource.
+	// A list of tags for this index. Tags must be in `key:value` format. If default tags are present at the provider level, they will be added to this resource.
+	// +listType=set
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type IndexObservation struct {
@@ -215,16 +224,25 @@ type IndexObservation struct {
 	// Logs filter
 	Filter []IndexFilterObservation `json:"filter,omitempty" tf:"filter,omitempty"`
 
+	// (Number) The total number of days logs are stored in Standard and Flex Tier before being deleted from the index.
+	// The total number of days logs are stored in Standard and Flex Tier before being deleted from the index.
+	FlexRetentionDays *float64 `json:"flexRetentionDays,omitempty" tf:"flex_retention_days,omitempty"`
+
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the index.
-	// The name of the index.
+	// (String) The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
+	// The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Number) The number of days before logs are deleted from this index.
-	// The number of days before logs are deleted from this index.
+	// (Number) The number of days logs are stored in Standard Tier before aging into the Flex Tier or being deleted from the index.
+	// The number of days logs are stored in Standard Tier before aging into the Flex Tier or being deleted from the index.
 	RetentionDays *float64 `json:"retentionDays,omitempty" tf:"retention_days,omitempty"`
+
+	// (Set of String) A list of tags for this index. Tags must be in key:value format. If default tags are present at the provider level, they will be added to this resource.
+	// A list of tags for this index. Tags must be in `key:value` format. If default tags are present at the provider level, they will be added to this resource.
+	// +listType=set
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type IndexParameters struct {
@@ -259,15 +277,26 @@ type IndexParameters struct {
 	// +kubebuilder:validation:Optional
 	Filter []IndexFilterParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
-	// (String) The name of the index.
-	// The name of the index.
+	// (Number) The total number of days logs are stored in Standard and Flex Tier before being deleted from the index.
+	// The total number of days logs are stored in Standard and Flex Tier before being deleted from the index.
+	// +kubebuilder:validation:Optional
+	FlexRetentionDays *float64 `json:"flexRetentionDays,omitempty" tf:"flex_retention_days,omitempty"`
+
+	// (String) The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
+	// The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Number) The number of days before logs are deleted from this index.
-	// The number of days before logs are deleted from this index.
+	// (Number) The number of days logs are stored in Standard Tier before aging into the Flex Tier or being deleted from the index.
+	// The number of days logs are stored in Standard Tier before aging into the Flex Tier or being deleted from the index.
 	// +kubebuilder:validation:Optional
 	RetentionDays *float64 `json:"retentionDays,omitempty" tf:"retention_days,omitempty"`
+
+	// (Set of String) A list of tags for this index. Tags must be in key:value format. If default tags are present at the provider level, they will be added to this resource.
+	// A list of tags for this index. Tags must be in `key:value` format. If default tags are present at the provider level, they will be added to this resource.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 // IndexSpec defines the desired state of Index
@@ -297,7 +326,7 @@ type IndexStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Index is the Schema for the Indexs API. Provides a Datadog Logs Index API resource. This can be used to create and manage Datadog logs indexes. Reach out to support to delete a logs index.
+// Index is the Schema for the Indexs API. Provides a Datadog Logs Index API resource. This can be used to create and manage Datadog logs indexes.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

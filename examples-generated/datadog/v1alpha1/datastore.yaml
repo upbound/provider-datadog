@@ -1,0 +1,15 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Datastore
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/datastore
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    description: My application datastore
+    name: my-datastore
+    orgAccess: contributor
+    primaryColumnName: id
+    primaryKeyGenerationStrategy: none

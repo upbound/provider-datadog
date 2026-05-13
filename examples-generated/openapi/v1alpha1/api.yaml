@@ -1,0 +1,11 @@
+apiVersion: openapi.upbound.io/v1alpha1
+kind: API
+metadata:
+  annotations:
+    meta.upbound.io/example-id: openapi/v1alpha1/api
+  labels:
+    testing.upbound.io/example-name: my-api
+  name: my-api
+spec:
+  forProvider:
+    spec: ${file("./path/my-api.yaml")}

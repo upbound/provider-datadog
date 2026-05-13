@@ -69,17 +69,23 @@ spec:
               forProvider:
                 properties:
                   aggregations:
-                    description: '(Block Set) A list of queryable aggregation combinations
+                    description: '(Block Set, Deprecated) A list of queryable aggregation
+                      combinations for a count, rate, or gauge metric. By default,
+                      count and rate metrics require the (time: sum, space: sum) aggregation
+                      and gauge metrics require the (time: avg, space: avg) aggregation.
+                      Can only be applied to metrics that have a metric_type of count,
+                      rate, or gauge. Deprecated. The ''aggregations'' field is no
+                      longer supported by the Datadog API and will be ignored. This
+                      field will be removed in a future version of the provider. (see
+                      below for nested schema) A list of queryable aggregation combinations
                       for a count, rate, or gauge metric. By default, count and rate
                       metrics require the (time: sum, space: sum) aggregation and
                       gauge metrics require the (time: avg, space: avg) aggregation.
-                      Can only be applied to metrics that have a metric_type of count,
-                      rate, or gauge. (see below for nested schema) A list of queryable
-                      aggregation combinations for a count, rate, or gauge metric.
-                      By default, count and rate metrics require the (time: sum, space:
-                      sum) aggregation and gauge metrics require the (time: avg, space:
-                      avg) aggregation. Can only be applied to metrics that have a
-                      `metric_type` of count, rate, or gauge.'
+                      Can only be applied to metrics that have a `metric_type` of
+                      count, rate, or gauge. **Deprecated.** The ''aggregations''
+                      field is no longer supported by the Datadog API and will be
+                      ignored. This field will be removed in a future version of the
+                      provider.'
                     items:
                       properties:
                         space:
@@ -143,17 +149,23 @@ spec:
                   like an autoscaler.
                 properties:
                   aggregations:
-                    description: '(Block Set) A list of queryable aggregation combinations
+                    description: '(Block Set, Deprecated) A list of queryable aggregation
+                      combinations for a count, rate, or gauge metric. By default,
+                      count and rate metrics require the (time: sum, space: sum) aggregation
+                      and gauge metrics require the (time: avg, space: avg) aggregation.
+                      Can only be applied to metrics that have a metric_type of count,
+                      rate, or gauge. Deprecated. The ''aggregations'' field is no
+                      longer supported by the Datadog API and will be ignored. This
+                      field will be removed in a future version of the provider. (see
+                      below for nested schema) A list of queryable aggregation combinations
                       for a count, rate, or gauge metric. By default, count and rate
                       metrics require the (time: sum, space: sum) aggregation and
                       gauge metrics require the (time: avg, space: avg) aggregation.
-                      Can only be applied to metrics that have a metric_type of count,
-                      rate, or gauge. (see below for nested schema) A list of queryable
-                      aggregation combinations for a count, rate, or gauge metric.
-                      By default, count and rate metrics require the (time: sum, space:
-                      sum) aggregation and gauge metrics require the (time: avg, space:
-                      avg) aggregation. Can only be applied to metrics that have a
-                      `metric_type` of count, rate, or gauge.'
+                      Can only be applied to metrics that have a `metric_type` of
+                      count, rate, or gauge. **Deprecated.** The ''aggregations''
+                      field is no longer supported by the Datadog API and will be
+                      ignored. This field will be removed in a future version of the
+                      provider.'
                     items:
                       properties:
                         space:
@@ -383,17 +395,23 @@ spec:
               atProvider:
                 properties:
                   aggregations:
-                    description: '(Block Set) A list of queryable aggregation combinations
+                    description: '(Block Set, Deprecated) A list of queryable aggregation
+                      combinations for a count, rate, or gauge metric. By default,
+                      count and rate metrics require the (time: sum, space: sum) aggregation
+                      and gauge metrics require the (time: avg, space: avg) aggregation.
+                      Can only be applied to metrics that have a metric_type of count,
+                      rate, or gauge. Deprecated. The ''aggregations'' field is no
+                      longer supported by the Datadog API and will be ignored. This
+                      field will be removed in a future version of the provider. (see
+                      below for nested schema) A list of queryable aggregation combinations
                       for a count, rate, or gauge metric. By default, count and rate
                       metrics require the (time: sum, space: sum) aggregation and
                       gauge metrics require the (time: avg, space: avg) aggregation.
-                      Can only be applied to metrics that have a metric_type of count,
-                      rate, or gauge. (see below for nested schema) A list of queryable
-                      aggregation combinations for a count, rate, or gauge metric.
-                      By default, count and rate metrics require the (time: sum, space:
-                      sum) aggregation and gauge metrics require the (time: avg, space:
-                      avg) aggregation. Can only be applied to metrics that have a
-                      `metric_type` of count, rate, or gauge.'
+                      Can only be applied to metrics that have a `metric_type` of
+                      count, rate, or gauge. **Deprecated.** The ''aggregations''
+                      field is no longer supported by the Datadog API and will be
+                      ignored. This field will be removed in a future version of the
+                      provider.'
                     items:
                       properties:
                         space:

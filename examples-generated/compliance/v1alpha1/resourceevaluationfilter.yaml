@@ -1,0 +1,14 @@
+apiVersion: compliance.upbound.io/v1alpha1
+kind: ResourceEvaluationFilter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compliance/v1alpha1/resourceevaluationfilter
+  labels:
+    testing.upbound.io/example-name: basic_filter
+  name: basic-filter
+spec:
+  forProvider:
+    cloudProvider: aws
+    resourceId: "000000000000"
+    tags:
+    - tag1:val1

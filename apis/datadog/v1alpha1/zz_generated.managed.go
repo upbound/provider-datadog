@@ -247,6 +247,66 @@ func (mg *ChildOrganization) SetWriteConnectionSecretToReference(r *xpv1.SecretR
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetCondition of this Dashboard.
+func (mg *Dashboard) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this Dashboard.
+func (mg *Dashboard) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this Dashboard.
+func (mg *Dashboard) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this Dashboard.
+func (mg *Dashboard) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this Dashboard.
+func (mg *Dashboard) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this Dashboard.
+func (mg *Dashboard) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this Dashboard.
+func (mg *Dashboard) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this Dashboard.
+func (mg *Dashboard) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this Dashboard.
+func (mg *Dashboard) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this Dashboard.
+func (mg *Dashboard) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this Dashboard.
+func (mg *Dashboard) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this Dashboard.
+func (mg *Dashboard) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this DashboardJSON.
 func (mg *DashboardJSON) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
@@ -307,63 +367,183 @@ func (mg *DashboardJSON) SetWriteConnectionSecretToReference(r *xpv1.SecretRefer
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DashboardList.
-func (mg *DashboardList) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this DashboardListEntry.
+func (mg *DashboardListEntry) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetDeletionPolicy of this DashboardList.
-func (mg *DashboardList) GetDeletionPolicy() xpv1.DeletionPolicy {
+// GetDeletionPolicy of this DashboardListEntry.
+func (mg *DashboardListEntry) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
-// GetManagementPolicies of this DashboardList.
-func (mg *DashboardList) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this DashboardListEntry.
+func (mg *DashboardListEntry) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this DashboardList.
-func (mg *DashboardList) GetProviderConfigReference() *xpv1.Reference {
+// GetProviderConfigReference of this DashboardListEntry.
+func (mg *DashboardListEntry) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this DashboardList.
-func (mg *DashboardList) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+// GetPublishConnectionDetailsTo of this DashboardListEntry.
+func (mg *DashboardListEntry) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
-// GetWriteConnectionSecretToReference of this DashboardList.
-func (mg *DashboardList) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+// GetWriteConnectionSecretToReference of this DashboardListEntry.
+func (mg *DashboardListEntry) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DashboardList.
-func (mg *DashboardList) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this DashboardListEntry.
+func (mg *DashboardListEntry) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetDeletionPolicy of this DashboardList.
-func (mg *DashboardList) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+// SetDeletionPolicy of this DashboardListEntry.
+func (mg *DashboardListEntry) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
-// SetManagementPolicies of this DashboardList.
-func (mg *DashboardList) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this DashboardListEntry.
+func (mg *DashboardListEntry) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this DashboardList.
-func (mg *DashboardList) SetProviderConfigReference(r *xpv1.Reference) {
+// SetProviderConfigReference of this DashboardListEntry.
+func (mg *DashboardListEntry) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetPublishConnectionDetailsTo of this DashboardList.
-func (mg *DashboardList) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+// SetPublishConnectionDetailsTo of this DashboardListEntry.
+func (mg *DashboardListEntry) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
-// SetWriteConnectionSecretToReference of this DashboardList.
-func (mg *DashboardList) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+// SetWriteConnectionSecretToReference of this DashboardListEntry.
+func (mg *DashboardListEntry) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this Dataset.
+func (mg *Dataset) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this Dataset.
+func (mg *Dataset) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this Dataset.
+func (mg *Dataset) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this Dataset.
+func (mg *Dataset) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this Dataset.
+func (mg *Dataset) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this Dataset.
+func (mg *Dataset) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this Dataset.
+func (mg *Dataset) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this Dataset.
+func (mg *Dataset) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this Dataset.
+func (mg *Dataset) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this Dataset.
+func (mg *Dataset) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this Dataset.
+func (mg *Dataset) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this Dataset.
+func (mg *Dataset) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this Datastore.
+func (mg *Datastore) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this Datastore.
+func (mg *Datastore) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this Datastore.
+func (mg *Datastore) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this Datastore.
+func (mg *Datastore) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this Datastore.
+func (mg *Datastore) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this Datastore.
+func (mg *Datastore) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this Datastore.
+func (mg *Datastore) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this Datastore.
+func (mg *Datastore) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this Datastore.
+func (mg *Datastore) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this Datastore.
+func (mg *Datastore) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this Datastore.
+func (mg *Datastore) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this Datastore.
+func (mg *Datastore) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 

@@ -25,7 +25,7 @@ func (mg *PrivateLocation) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this PrivateLocation
 func (tr *PrivateLocation) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"config": "status.atProvider.config"}
+	return map[string]string{"api_key": "spec.forProvider.apiKeySecretRef", "config": "status.atProvider.config"}
 }
 
 // GetObservation of this PrivateLocation

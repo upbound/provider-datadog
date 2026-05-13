@@ -19,8 +19,8 @@ import (
 
 type ConcurrencyCapInitParameters struct {
 
-	// demand concurrency cap, customizing the number of Synthetic tests run in parallel.
-	// Value of the on-demand concurrency cap, customizing the number of Synthetic tests run in parallel.
+	// demand concurrency cap, customizing the number of Synthetic tests run in parallel. Value must be at least 1.
+	// Value of the on-demand concurrency cap, customizing the number of Synthetic tests run in parallel. Value must be at least 1.
 	OnDemandConcurrencyCap *float64 `json:"onDemandConcurrencyCap,omitempty" tf:"on_demand_concurrency_cap,omitempty"`
 }
 
@@ -29,15 +29,15 @@ type ConcurrencyCapObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// demand concurrency cap, customizing the number of Synthetic tests run in parallel.
-	// Value of the on-demand concurrency cap, customizing the number of Synthetic tests run in parallel.
+	// demand concurrency cap, customizing the number of Synthetic tests run in parallel. Value must be at least 1.
+	// Value of the on-demand concurrency cap, customizing the number of Synthetic tests run in parallel. Value must be at least 1.
 	OnDemandConcurrencyCap *float64 `json:"onDemandConcurrencyCap,omitempty" tf:"on_demand_concurrency_cap,omitempty"`
 }
 
 type ConcurrencyCapParameters struct {
 
-	// demand concurrency cap, customizing the number of Synthetic tests run in parallel.
-	// Value of the on-demand concurrency cap, customizing the number of Synthetic tests run in parallel.
+	// demand concurrency cap, customizing the number of Synthetic tests run in parallel. Value must be at least 1.
+	// Value of the on-demand concurrency cap, customizing the number of Synthetic tests run in parallel. Value must be at least 1.
 	// +kubebuilder:validation:Optional
 	OnDemandConcurrencyCap *float64 `json:"onDemandConcurrencyCap,omitempty" tf:"on_demand_concurrency_cap,omitempty"`
 }

@@ -61,6 +61,10 @@ type GroupInitParameters struct {
 	// List of products the scanning group applies. Valid values are `logs`, `rum`, `events`, `apm`.
 	// +listType=set
 	ProductList []*string `json:"productList,omitempty" tf:"product_list,omitempty"`
+
+	// (Block List, Max: 4) List of sampling configurations per product type for the scanning group. (see below for nested schema)
+	// List of sampling configurations per product type for the scanning group.
+	Samplings []SamplingsInitParameters `json:"samplings,omitempty" tf:"samplings,omitempty"`
 }
 
 type GroupObservation struct {
@@ -88,6 +92,10 @@ type GroupObservation struct {
 	// List of products the scanning group applies. Valid values are `logs`, `rum`, `events`, `apm`.
 	// +listType=set
 	ProductList []*string `json:"productList,omitempty" tf:"product_list,omitempty"`
+
+	// (Block List, Max: 4) List of sampling configurations per product type for the scanning group. (see below for nested schema)
+	// List of sampling configurations per product type for the scanning group.
+	Samplings []SamplingsObservation `json:"samplings,omitempty" tf:"samplings,omitempty"`
 }
 
 type GroupParameters struct {
@@ -117,6 +125,46 @@ type GroupParameters struct {
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	ProductList []*string `json:"productList,omitempty" tf:"product_list,omitempty"`
+
+	// (Block List, Max: 4) List of sampling configurations per product type for the scanning group. (see below for nested schema)
+	// List of sampling configurations per product type for the scanning group.
+	// +kubebuilder:validation:Optional
+	Samplings []SamplingsParameters `json:"samplings,omitempty" tf:"samplings,omitempty"`
+}
+
+type SamplingsInitParameters struct {
+
+	// (String) Product that the sampling rate applies to. Valid values are logs, rum, events, apm.
+	// Product that the sampling rate applies to. Valid values are `logs`, `rum`, `events`, `apm`.
+	Product *string `json:"product,omitempty" tf:"product,omitempty"`
+
+	// (Number) Percentage rate at which data for the product type is scanned.
+	// Percentage rate at which data for the product type is scanned.
+	Rate *float64 `json:"rate,omitempty" tf:"rate,omitempty"`
+}
+
+type SamplingsObservation struct {
+
+	// (String) Product that the sampling rate applies to. Valid values are logs, rum, events, apm.
+	// Product that the sampling rate applies to. Valid values are `logs`, `rum`, `events`, `apm`.
+	Product *string `json:"product,omitempty" tf:"product,omitempty"`
+
+	// (Number) Percentage rate at which data for the product type is scanned.
+	// Percentage rate at which data for the product type is scanned.
+	Rate *float64 `json:"rate,omitempty" tf:"rate,omitempty"`
+}
+
+type SamplingsParameters struct {
+
+	// (String) Product that the sampling rate applies to. Valid values are logs, rum, events, apm.
+	// Product that the sampling rate applies to. Valid values are `logs`, `rum`, `events`, `apm`.
+	// +kubebuilder:validation:Optional
+	Product *string `json:"product" tf:"product,omitempty"`
+
+	// (Number) Percentage rate at which data for the product type is scanned.
+	// Percentage rate at which data for the product type is scanned.
+	// +kubebuilder:validation:Optional
+	Rate *float64 `json:"rate" tf:"rate,omitempty"`
 }
 
 // GroupSpec defines the desired state of Group

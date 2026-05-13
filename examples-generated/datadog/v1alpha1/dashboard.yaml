@@ -1,0 +1,282 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Dashboard
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/dashboard
+  labels:
+    testing.upbound.io/example-name: ordered_dashboard
+  name: ordered-dashboard
+spec:
+  forProvider:
+    description: Created using the Datadog provider in Terraform
+    layoutType: ordered
+    templateVariable:
+    - default: aws
+      name: var_1
+      prefix: host
+    - default: autoscaling
+      name: var_2
+      prefix: service_name
+    templateVariablePreset:
+    - name: preset_1
+      templateVariable:
+      - name: var_1
+        value: host.dc
+      - name: var_2
+        value: my_service
+    title: Ordered Layout Dashboard
+    widget:
+    - alert_graph_definition:
+      - alert_id: "895605"
+        live_span: 1h
+        title: Widget Title
+        viz_type: timeseries
+    - alert_value_definition:
+      - alert_id: "895605"
+        precision: 3
+        text_align: center
+        title: Widget Title
+        unit: b
+    - alert_value_definition:
+      - alert_id: "895605"
+        precision: 3
+        text_align: center
+        title: Widget Title
+        unit: b
+    - change_definition:
+      - live_span: 1h
+        request:
+        - change_type: absolute
+          compare_to: week_before
+          increase_good: true
+          order_by: name
+          order_dir: desc
+          q: avg:system.load.1{env:staging} by {account}
+          show_present: true
+        title: Widget Title
+    - distribution_definition:
+      - live_span: 1h
+        request:
+        - q: avg:system.load.1{env:staging} by {account}
+          style:
+          - palette: warm
+        title: Widget Title
+    - check_status_definition:
+      - check: aws.ecs.agent_connected
+        group_by:
+        - account
+        - cluster
+        grouping: cluster
+        live_span: 1h
+        tags:
+        - account:demo
+        - cluster:awseb-ruthebdog-env-8-dn3m6u3gvk
+        title: Widget Title
+    - heatmap_definition:
+      - live_span: 1h
+        request:
+        - q: avg:system.load.1{env:staging} by {account}
+          style:
+          - palette: warm
+        title: Widget Title
+        yaxis:
+        - include_zero: true
+          max: 2
+          min: 1
+          scale: sqrt
+    - hostmap_definition:
+      - group:
+        - host
+        - region
+        no_group_hosts: true
+        no_metric_hosts: true
+        node_type: container
+        request:
+        - fill:
+          - q: avg:system.load.1{*} by {host}
+          size:
+          - q: avg:memcache.uptime{*} by {host}
+        scope:
+        - region:us-east-1
+        - aws_account:727006795293
+        style:
+        - fill_max: "20"
+          fill_min: "10"
+          palette: yellow_to_green
+          palette_flip: true
+        title: Widget Title
+    - note_definition:
+      - background_color: pink
+        content: note text
+        font_size: "14"
+        show_tick: true
+        text_align: center
+        tick_edge: left
+        tick_pos: 50%
+    - query_value_definition:
+      - autoscale: true
+        custom_unit: xx
+        live_span: 1h
+        precision: "4"
+        request:
+        - aggregator: sum
+          conditional_formats:
+          - comparator: <
+            palette: white_on_green
+            value: "2"
+          - comparator: '>'
+            palette: white_on_red
+            value: "2.2"
+          q: avg:system.load.1{env:staging} by {account}
+        text_align: right
+        title: Widget Title
+    - query_table_definition:
+      - live_span: 1h
+        request:
+        - aggregator: sum
+          conditional_formats:
+          - comparator: <
+            palette: white_on_green
+            value: "2"
+          - comparator: '>'
+            palette: white_on_red
+            value: "2.2"
+          limit: "10"
+          q: avg:system.load.1{env:staging} by {account}
+        title: Widget Title
+    - scatterplot_definition:
+      - color_by_groups:
+        - account
+        - apm-role-group
+        live_span: 1h
+        request:
+        - x:
+          - aggregator: max
+            q: avg:system.cpu.user{*} by {service, account}
+          "y":
+          - aggregator: min
+            q: avg:system.mem.used{*} by {service, account}
+        title: Widget Title
+        xaxis:
+        - include_zero: true
+          label: x
+          max: "2000"
+          min: "1"
+          scale: pow
+        yaxis:
+        - include_zero: false
+          label: "y"
+          max: "2222"
+          min: "5"
+          scale: log
+    - servicemap_definition:
+      - filters:
+        - env:prod
+        - datacenter:dc1
+        service: master-db
+        title: 'env: prod, datacenter:dc1, service: master-db'
+        title_align: left
+        title_size: "16"
+    - timeseries_definition:
+      - event:
+        - q: sources:test tags:1
+        - q: sources:test tags:2
+        legend_size: "2"
+        live_span: 1h
+        marker:
+        - display_type: error dashed
+          label: ' z=6 '
+          value: y = 4
+        - display_type: ok solid
+          label: ' x=8 '
+          value: 10 < y < 999
+        request:
+        - display_type: line
+          metadata:
+          - alias_name: Alpha
+            expression: avg:system.cpu.user{app:general} by {env}
+          q: avg:system.cpu.user{app:general} by {env}
+          style:
+          - line_type: dashed
+            line_width: thin
+            palette: warm
+        - display_type: area
+          log_query:
+          - compute_query:
+            - aggregation: avg
+              facet: '@duration'
+              interval: 5000
+            group_by:
+            - facet: host
+              limit: 10
+              sort_query:
+              - aggregation: avg
+                facet: '@duration'
+                order: desc
+            index: mcnulty
+            search_query: status:info
+        - apm_query:
+          - compute_query:
+            - aggregation: avg
+              facet: '@duration'
+              interval: 5000
+            group_by:
+            - facet: resource_name
+              limit: 50
+              sort_query:
+              - aggregation: avg
+                facet: '@string_query.interval'
+                order: desc
+            index: apm-search
+            search_query: type:web
+          display_type: bars
+        - display_type: area
+          process_query:
+          - filter_by:
+            - active
+            limit: 50
+            metric: process.stat.cpu.total_pct
+            search_by: error
+        show_legend: true
+        title: Widget Title
+        yaxis:
+        - include_zero: false
+          max: 100
+          scale: log
+    - toplist_definition:
+      - request:
+        - conditional_formats:
+          - comparator: <
+            palette: white_on_green
+            value: "2"
+          - comparator: '>'
+            palette: white_on_red
+            value: "2.2"
+          q: avg:system.cpu.user{app:general} by {env}
+        title: Widget Title
+    - group_definition:
+      - layout_type: ordered
+        title: Group Widget
+        widget:
+        - note_definition:
+          - background_color: pink
+            content: cluster note widget
+            font_size: "14"
+            show_tick: true
+            text_align: center
+            tick_edge: left
+            tick_pos: 50%
+        - alert_graph_definition:
+          - alert_id: "123"
+            live_span: 1h
+            title: Alert Graph
+            viz_type: toplist
+    - service_level_objective_definition:
+      - show_error_budget: true
+        slo_id: "56789"
+        time_windows:
+        - 7d
+        - previous_week
+        title: Widget Title
+        view_mode: overall
+        view_type: detail

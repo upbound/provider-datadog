@@ -67,7 +67,7 @@ type RuleInitParameters struct {
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
 	// argument to true is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups. (see below for nested schema)
-	// Object defining a set of keywords and a number of characters that help reduce noise. You can provide a list of keywords you would like to check within a defined proximity of the matching pattern. If any of the keywords are found within the proximity check then the match is kept. If none are found, the match is discarded. Setting the `create_before_destroy` lifecycle Meta-argument to `true` is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups.
+	// Object defining a set of keywords and a number of characters that help reduce noise. You can provide a list of keywords you would like to check within a defined proximity of the matching pattern. If any of the keywords are found within the proximity check then the match is kept. If none are found, the match is discarded. If the rule has the `standard_pattern_id` field, then discarding this field will apply the recommended keywords. Setting the `create_before_destroy` lifecycle Meta-argument to `true` is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups.
 	IncludedKeywordConfiguration []IncludedKeywordConfigurationInitParameters `json:"includedKeywordConfiguration,omitempty" tf:"included_keyword_configuration,omitempty"`
 
 	// (Boolean) Whether or not the rule is enabled.
@@ -85,6 +85,10 @@ type RuleInitParameters struct {
 	// (String) Not included if there is a relationship to a standard pattern.
 	// Not included if there is a relationship to a standard pattern.
 	Pattern *string `json:"pattern,omitempty" tf:"pattern,omitempty"`
+
+	// (Number) Priority level of the rule . Used to order sensitive data discovered in the sds summary page. It must be between 1 and 5 (1 being the most important).
+	// Priority level of the rule (optional). Used to order sensitive data discovered in the sds summary page. It must be between 1 and 5 (1 being the most important).
+	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 
 	// (String) Id of the standard pattern the rule refers to. If provided, then pattern must not be provided.
 	// Id of the standard pattern the rule refers to. If provided, then pattern must not be provided.
@@ -117,7 +121,7 @@ type RuleObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// argument to true is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups. (see below for nested schema)
-	// Object defining a set of keywords and a number of characters that help reduce noise. You can provide a list of keywords you would like to check within a defined proximity of the matching pattern. If any of the keywords are found within the proximity check then the match is kept. If none are found, the match is discarded. Setting the `create_before_destroy` lifecycle Meta-argument to `true` is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups.
+	// Object defining a set of keywords and a number of characters that help reduce noise. You can provide a list of keywords you would like to check within a defined proximity of the matching pattern. If any of the keywords are found within the proximity check then the match is kept. If none are found, the match is discarded. If the rule has the `standard_pattern_id` field, then discarding this field will apply the recommended keywords. Setting the `create_before_destroy` lifecycle Meta-argument to `true` is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups.
 	IncludedKeywordConfiguration []IncludedKeywordConfigurationObservation `json:"includedKeywordConfiguration,omitempty" tf:"included_keyword_configuration,omitempty"`
 
 	// (Boolean) Whether or not the rule is enabled.
@@ -135,6 +139,10 @@ type RuleObservation struct {
 	// (String) Not included if there is a relationship to a standard pattern.
 	// Not included if there is a relationship to a standard pattern.
 	Pattern *string `json:"pattern,omitempty" tf:"pattern,omitempty"`
+
+	// (Number) Priority level of the rule . Used to order sensitive data discovered in the sds summary page. It must be between 1 and 5 (1 being the most important).
+	// Priority level of the rule (optional). Used to order sensitive data discovered in the sds summary page. It must be between 1 and 5 (1 being the most important).
+	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 
 	// (String) Id of the standard pattern the rule refers to. If provided, then pattern must not be provided.
 	// Id of the standard pattern the rule refers to. If provided, then pattern must not be provided.
@@ -167,7 +175,7 @@ type RuleParameters struct {
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
 	// argument to true is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups. (see below for nested schema)
-	// Object defining a set of keywords and a number of characters that help reduce noise. You can provide a list of keywords you would like to check within a defined proximity of the matching pattern. If any of the keywords are found within the proximity check then the match is kept. If none are found, the match is discarded. Setting the `create_before_destroy` lifecycle Meta-argument to `true` is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups.
+	// Object defining a set of keywords and a number of characters that help reduce noise. You can provide a list of keywords you would like to check within a defined proximity of the matching pattern. If any of the keywords are found within the proximity check then the match is kept. If none are found, the match is discarded. If the rule has the `standard_pattern_id` field, then discarding this field will apply the recommended keywords. Setting the `create_before_destroy` lifecycle Meta-argument to `true` is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups.
 	// +kubebuilder:validation:Optional
 	IncludedKeywordConfiguration []IncludedKeywordConfigurationParameters `json:"includedKeywordConfiguration,omitempty" tf:"included_keyword_configuration,omitempty"`
 
@@ -190,6 +198,11 @@ type RuleParameters struct {
 	// Not included if there is a relationship to a standard pattern.
 	// +kubebuilder:validation:Optional
 	Pattern *string `json:"pattern,omitempty" tf:"pattern,omitempty"`
+
+	// (Number) Priority level of the rule . Used to order sensitive data discovered in the sds summary page. It must be between 1 and 5 (1 being the most important).
+	// Priority level of the rule (optional). Used to order sensitive data discovered in the sds summary page. It must be between 1 and 5 (1 being the most important).
+	// +kubebuilder:validation:Optional
+	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 
 	// (String) Id of the standard pattern the rule refers to. If provided, then pattern must not be provided.
 	// Id of the standard pattern the rule refers to. If provided, then pattern must not be provided.
@@ -217,6 +230,10 @@ type TextReplacementInitParameters struct {
 	// Required if type == 'replacement_string'.
 	ReplacementString *string `json:"replacementString,omitempty" tf:"replacement_string,omitempty"`
 
+	// sensitive, long-lived data.
+	// Only valid when type == `replacement_string`. When enabled, matches can be unmasked in logs by users with ‘Data Scanner Unmask’ permission. As a security best practice, avoid masking for highly-sensitive, long-lived data.
+	ShouldSaveMatch *bool `json:"shouldSaveMatch,omitempty" tf:"should_save_match,omitempty"`
+
 	// (String) Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are none, hash, replacement_string, partial_replacement_from_beginning, partial_replacement_from_end.
 	// Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are `none`, `hash`, `replacement_string`, `partial_replacement_from_beginning`, `partial_replacement_from_end`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
@@ -231,6 +248,10 @@ type TextReplacementObservation struct {
 	// (String) Required if type == 'replacement_string'.
 	// Required if type == 'replacement_string'.
 	ReplacementString *string `json:"replacementString,omitempty" tf:"replacement_string,omitempty"`
+
+	// sensitive, long-lived data.
+	// Only valid when type == `replacement_string`. When enabled, matches can be unmasked in logs by users with ‘Data Scanner Unmask’ permission. As a security best practice, avoid masking for highly-sensitive, long-lived data.
+	ShouldSaveMatch *bool `json:"shouldSaveMatch,omitempty" tf:"should_save_match,omitempty"`
 
 	// (String) Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are none, hash, replacement_string, partial_replacement_from_beginning, partial_replacement_from_end.
 	// Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are `none`, `hash`, `replacement_string`, `partial_replacement_from_beginning`, `partial_replacement_from_end`.
@@ -248,6 +269,11 @@ type TextReplacementParameters struct {
 	// Required if type == 'replacement_string'.
 	// +kubebuilder:validation:Optional
 	ReplacementString *string `json:"replacementString,omitempty" tf:"replacement_string,omitempty"`
+
+	// sensitive, long-lived data.
+	// Only valid when type == `replacement_string`. When enabled, matches can be unmasked in logs by users with ‘Data Scanner Unmask’ permission. As a security best practice, avoid masking for highly-sensitive, long-lived data.
+	// +kubebuilder:validation:Optional
+	ShouldSaveMatch *bool `json:"shouldSaveMatch,omitempty" tf:"should_save_match,omitempty"`
 
 	// (String) Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are none, hash, replacement_string, partial_replacement_from_beginning, partial_replacement_from_end.
 	// Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are `none`, `hash`, `replacement_string`, `partial_replacement_from_beginning`, `partial_replacement_from_end`.
@@ -282,7 +308,7 @@ type RuleStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Rule is the Schema for the Rules API. Provides a Datadog SensitiveDataScannerRule resource. This can be used to create and manage Datadog sensitivedatascanner_rule. Setting the create_before_destroy lifecycle Meta-argument to true is highly recommended if modifying the included_keyword_configuration field to avoid unexpectedly disabling Sensitive Data Scanner groups.
+// Rule is the Schema for the Rules API. Provides a Datadog SensitiveDataScannerRule resource. This can be used to create and manage Datadog sensitive_data_scanner_rule. Setting the create_before_destroy lifecycle Meta-argument to true is highly recommended if modifying the included_keyword_configuration field to avoid unexpectedly disabling Sensitive Data Scanner groups.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

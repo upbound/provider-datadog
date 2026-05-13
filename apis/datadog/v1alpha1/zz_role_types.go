@@ -45,6 +45,10 @@ type PermissionParameters struct {
 
 type RoleInitParameters struct {
 
+	// (Boolean) If set to true, the role does not have default (restricted) permissions unless they are explicitly set.
+	// If set to `true`, the role does not have default (restricted) permissions unless they are explicitly set.
+	DefaultPermissionsOptOut *bool `json:"defaultPermissionsOptOut,omitempty" tf:"default_permissions_opt_out,omitempty"`
+
 	// (String) Name of the role.
 	// Name of the role.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -59,6 +63,10 @@ type RoleInitParameters struct {
 }
 
 type RoleObservation struct {
+
+	// (Boolean) If set to true, the role does not have default (restricted) permissions unless they are explicitly set.
+	// If set to `true`, the role does not have default (restricted) permissions unless they are explicitly set.
+	DefaultPermissionsOptOut *bool `json:"defaultPermissionsOptOut,omitempty" tf:"default_permissions_opt_out,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -81,6 +89,11 @@ type RoleObservation struct {
 }
 
 type RoleParameters struct {
+
+	// (Boolean) If set to true, the role does not have default (restricted) permissions unless they are explicitly set.
+	// If set to `true`, the role does not have default (restricted) permissions unless they are explicitly set.
+	// +kubebuilder:validation:Optional
+	DefaultPermissionsOptOut *bool `json:"defaultPermissionsOptOut,omitempty" tf:"default_permissions_opt_out,omitempty"`
 
 	// (String) Name of the role.
 	// Name of the role.

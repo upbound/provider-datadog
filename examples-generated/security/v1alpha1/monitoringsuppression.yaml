@@ -1,0 +1,19 @@
+apiVersion: security.upbound.io/v1alpha1
+kind: MonitoringSuppression
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/monitoringsuppression
+  labels:
+    testing.upbound.io/example-name: my_suppression
+  name: my-suppression
+spec:
+  forProvider:
+    dataExclusionQuery: env:test
+    description: Suppression for low severity CloudTrail signals from John Doe, excluding
+      test environments from analysis, limited to 2024
+    enabled: true
+    expirationDate: "2024-12-31T12:00:00Z"
+    name: My suppression
+    ruleQuery: severity:low source:cloudtrail
+    startDate: "2024-12-01T16:00:00Z"
+    suppressionQuery: '@usr.id:john.doe'

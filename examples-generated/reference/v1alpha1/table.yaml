@@ -1,0 +1,17 @@
+apiVersion: reference.upbound.io/v1alpha1
+kind: Table
+metadata:
+  annotations:
+    meta.upbound.io/example-id: reference/v1alpha1/table
+  labels:
+    testing.upbound.io/example-name: s3_table
+  name: s3-table
+spec:
+  forProvider:
+    description: Product catalog synced from S3
+    source: S3
+    tableName: products_catalog
+    tags:
+    - source:s3
+    - team:catalog
+    - env:production

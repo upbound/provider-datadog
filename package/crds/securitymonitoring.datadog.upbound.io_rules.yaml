@@ -36,7 +36,7 @@ spec:
       openAPIV3Schema:
         description: Rule is the Schema for the Rules API. Provides a Datadog Security
           Monitoring Rule API resource. This can be used to create and manage Datadog
-          security monitoring rules. To change settings for a default rule use datadog_security_default_rule
+          security monitoring rules. To change settings for a default rule, use datadog_security_monitoring_default_rule
           instead.
         properties:
           apiVersion:
@@ -69,11 +69,54 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  calculatedField:
+                    description: (Block List) One or more calculated fields. Available
+                      only for scheduled rules (in other words, when scheduling_options
+                      is defined). (see below for nested schema) One or more calculated
+                      fields. Available only for scheduled rules (in other words,
+                      when `scheduling_options` is defined).
+                    items:
+                      properties:
+                        expression:
+                          description: (String) Expression. Expression.
+                          type: string
+                        name:
+                          description: (String) The name of the rule. Field name.
+                          type: string
+                      type: object
+                    type: array
                   case:
                     description: '(Block List, Max: 10) Cases for generating signals.
                       (see below for nested schema) Cases for generating signals.'
                     items:
                       properties:
+                        action:
+                          description: (Block List) Action to perform when the case
+                            trigger (see below for nested schema) Action to perform
+                            when the case trigger
+                          items:
+                            properties:
+                              options:
+                                description: '(Block List, Max: 1) Options on rules.
+                                  (see below for nested schema) Options for the action.'
+                                items:
+                                  properties:
+                                    duration:
+                                      description: (Number) Duration of the action
+                                        in seconds. Duration of the action in seconds.
+                                      type: number
+                                  type: object
+                                type: array
+                              type:
+                                description: (String) The rule type. Valid values
+                                  are application_security, log_detection, workload_security,
+                                  signal_correlation. Defaults to "log_detection".
+                                  Type of action to perform when the case triggers.
+                                  Valid values are `block_ip`, `block_user`, `user_behavior`,
+                                  `flag_ip`.
+                                type: string
+                            type: object
+                          type: array
                         condition:
                           description: (String) A rule case contains logical operations
                             (>,>=, &&, ||) to determine if a signal should be generated
@@ -105,16 +148,19 @@ spec:
                       true. Whether the rule is enabled. Defaults to `true`.
                     type: boolean
                   filter:
-                    description: (Block List) Additional queries to filter matched
-                      events before they are processed. (see below for nested schema)
-                      Additional queries to filter matched events before they are
-                      processed.
+                    description: '(Block List) Additional queries to filter matched
+                      events before they are processed. Note: This field is deprecated
+                      for log detection, signal correlation, and workload security
+                      rules. (see below for nested schema) Additional queries to filter
+                      matched events before they are processed. **Note**: This field
+                      is deprecated for log detection, signal correlation, and workload
+                      security rules.'
                     items:
                       properties:
                         action:
-                          description: (String) The type of filtering action. Valid
-                            values are require, suppress. The type of filtering action.
-                            Valid values are `require`, `suppress`.
+                          description: (Block List) Action to perform when the case
+                            trigger (see below for nested schema) The type of filtering
+                            action. Valid values are `require`, `suppress`.
                           type: string
                         query:
                           description: (Block List) Queries for selecting logs which
@@ -122,6 +168,13 @@ spec:
                             for selecting logs to apply the filtering action.
                           type: string
                       type: object
+                    type: array
+                  groupSignalsBy:
+                    description: (List of String) Additional grouping to perform on
+                      top of the query grouping. Additional grouping to perform on
+                      top of the query grouping.
+                    items:
+                      type: string
                     type: array
                   hasExtendedTitle:
                     description: by values in their title. Defaults to false. Whether
@@ -140,6 +193,68 @@ spec:
                       for nested schema) Options on rules.'
                     items:
                       properties:
+                        anomalyDetectionOptions:
+                          description: '(Block List, Max: 1) Options for rules using
+                            the anomaly detection method. (see below for nested schema)
+                            Options for rules using the anomaly detection method.'
+                          items:
+                            properties:
+                              bucketDuration:
+                                description: (Number) Duration in seconds of the time
+                                  buckets used to aggregate events matched by the
+                                  rule. Valid values are 300, 600, 900, 1800, 3600,
+                                  10800. Valid values are 300, 600, 900, 1800, 3600,
+                                  10800. Duration in seconds of the time buckets used
+                                  to aggregate events matched by the rule. Valid values
+                                  are 300, 600, 900, 1800, 3600, 10800. Valid values
+                                  are `300`, `600`, `900`, `1800`, `3600`, `10800`.
+                                type: number
+                              detectionTolerance:
+                                description: (Number) An optional parameter that sets
+                                  how permissive anomaly detection is. Higher values
+                                  require higher deviations before triggering a signal.
+                                  Valid values are 1, 2, 3, 4, 5. Valid values are
+                                  1, 2, 3, 4, 5. An optional parameter that sets how
+                                  permissive anomaly detection is. Higher values require
+                                  higher deviations before triggering a signal. Valid
+                                  values are 1, 2, 3, 4, 5. Valid values are `1`,
+                                  `2`, `3`, `4`, `5`.
+                                type: number
+                              instantaneousBaseline:
+                                description: (Boolean) When set to true, Datadog uses
+                                  previous values that fall within the defined learning
+                                  window to construct the baseline, enabling the system
+                                  to establish an accurate baseline more rapidly rather
+                                  than relying solely on gradual learning over time.
+                                  Defaults to false. When set to true, Datadog uses
+                                  previous values that fall within the defined learning
+                                  window to construct the baseline, enabling the system
+                                  to establish an accurate baseline more rapidly rather
+                                  than relying solely on gradual learning over time.
+                                  Defaults to `false`.
+                                type: boolean
+                              learningDuration:
+                                description: (Number) Learning duration in hours.
+                                  Anomaly detection waits for at least this amount
+                                  of historical data before it starts evaluating.
+                                  Valid values are 1, 6, 12, 24, 48, 168, 336. Valid
+                                  values are 1, 6, 12, 24, 48, 168, 336. Learning
+                                  duration in hours. Anomaly detection waits for at
+                                  least this amount of historical data before it starts
+                                  evaluating. Valid values are 1, 6, 12, 24, 48, 168,
+                                  336. Valid values are `1`, `6`, `12`, `24`, `48`,
+                                  `168`, `336`.
+                                type: number
+                              learningPeriodBaseline:
+                                description: (Number) An optional override baseline
+                                  to apply while the rule is in the learning period.
+                                  Must be greater than or equal to 0. An optional
+                                  override baseline to apply while the rule is in
+                                  the learning period. Must be greater than or equal
+                                  to 0.
+                                type: number
+                            type: object
+                          type: array
                         decreaseCriticalityBasedOnEnv:
                           description: production environments have a lower severity
                             than what is defined by the rule case, which can reduce
@@ -156,20 +271,22 @@ spec:
                         detectionMethod:
                           description: (String) The detection method. Valid values
                             are threshold, new_value, anomaly_detection, impossible_travel,
-                            hardcoded, third_party. Defaults to "threshold". The detection
-                            method. Valid values are `threshold`, `new_value`, `anomaly_detection`,
-                            `impossible_travel`, `hardcoded`, `third_party`. Defaults
-                            to `"threshold"`.
+                            hardcoded, third_party, anomaly_threshold, sequence_detection.
+                            Defaults to "threshold". The detection method. Valid values
+                            are `threshold`, `new_value`, `anomaly_detection`, `impossible_travel`,
+                            `hardcoded`, `third_party`, `anomaly_threshold`, `sequence_detection`.
+                            Defaults to `"threshold"`.
                           type: string
                         evaluationWindow:
                           description: (Number) A time window is specified to match
                             when at least one of the cases matches true. This is a
                             sliding window and evaluates in real time. Valid values
-                            are 0, 60, 300, 600, 900, 1800, 3600, 7200. A time window
-                            is specified to match when at least one of the cases matches
-                            true. This is a sliding window and evaluates in real time.
-                            Valid values are `0`, `60`, `300`, `600`, `900`, `1800`,
-                            `3600`, `7200`.
+                            are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600,
+                            43200, 86400. A time window is specified to match when
+                            at least one of the cases matches true. This is a sliding
+                            window and evaluates in real time. Valid values are `0`,
+                            `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`,
+                            `21600`, `43200`, `86400`.
                           type: number
                         impossibleTravelOptions:
                           description: '(Block List, Max: 1) Options for rules using
@@ -196,11 +313,12 @@ spec:
                           description: (Number) Once a signal is generated, the signal
                             will remain “open” if a case is matched at least once
                             within this keep alive window (in seconds). Valid values
-                            are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600.
-                            Once a signal is generated, the signal will remain “open”
-                            if a case is matched at least once within this keep alive
-                            window (in seconds). Valid values are `0`, `60`, `300`,
-                            `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`.
+                            are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600,
+                            43200, 86400. Once a signal is generated, the signal will
+                            remain “open” if a case is matched at least once within
+                            this keep alive window (in seconds). Valid values are
+                            `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`,
+                            `10800`, `21600`, `43200`, `86400`.
                           type: number
                         maxSignalDuration:
                           description: (Number) A signal will “close” regardless of
@@ -227,13 +345,25 @@ spec:
                                   a learned value is forgotten. Valid values are `1`,
                                   `2`, `7`, `14`, `21`, `28`.
                                 type: number
+                              instantaneousBaseline:
+                                description: (Boolean) When set to true, Datadog uses
+                                  previous values that fall within the defined learning
+                                  window to construct the baseline, enabling the system
+                                  to establish an accurate baseline more rapidly rather
+                                  than relying solely on gradual learning over time.
+                                  Defaults to false. When set to true, Datadog uses
+                                  previous values that fall within the defined learning
+                                  window to construct the baseline, enabling the system
+                                  to establish an accurate baseline more rapidly rather
+                                  than relying solely on gradual learning over time.
+                                  Defaults to `false`.
+                                type: boolean
                               learningDuration:
-                                description: (Number) The duration in days during
-                                  which values are learned, and after which signals
-                                  will be generated for values that weren't learned.
-                                  If set to 0, a signal will be generated for all
-                                  new values after the first value is learned. Valid
-                                  values are 0, 1, 7. Defaults to 1. The duration
+                                description: (Number) Learning duration in hours.
+                                  Anomaly detection waits for at least this amount
+                                  of historical data before it starts evaluating.
+                                  Valid values are 1, 6, 12, 24, 48, 168, 336. Valid
+                                  values are 1, 6, 12, 24, 48, 168, 336. The duration
                                   in days during which values are learned, and after
                                   which signals will be generated for values that
                                   weren't learned. If set to 0, a signal will be generated
@@ -258,6 +388,70 @@ spec:
                                   for values that weren't learned. Valid values are
                                   `0`, `1`. Defaults to `0`.
                                 type: number
+                            type: object
+                          type: array
+                        sequenceDetectionOptions:
+                          description: '(Block List, Max: 1) Options for rules using
+                            the sequence detection method. (see below for nested schema)
+                            Options for rules using the sequence detection method.'
+                          items:
+                            properties:
+                              stepTransitions:
+                                description: (Block List) Edges of the step graph.
+                                  (see below for nested schema) Edges of the step
+                                  graph.
+                                items:
+                                  properties:
+                                    child:
+                                      description: (String) Child step name. Child
+                                        step name.
+                                      type: string
+                                    evaluationWindow:
+                                      description: (Number) A time window is specified
+                                        to match when at least one of the cases matches
+                                        true. This is a sliding window and evaluates
+                                        in real time. Valid values are 0, 60, 300,
+                                        600, 900, 1800, 3600, 7200, 10800, 21600,
+                                        43200, 86400. Maximum time allowed to transition
+                                        from parent to child. Valid values are `0`,
+                                        `60`, `300`, `600`, `900`, `1800`, `3600`,
+                                        `7200`, `10800`, `21600`, `43200`, `86400`.
+                                      type: number
+                                    parent:
+                                      description: (String) Parent step name. Parent
+                                        step name.
+                                      type: string
+                                  type: object
+                                type: array
+                              steps:
+                                description: (Block List) Sequence steps. (see below
+                                  for nested schema) Sequence steps.
+                                items:
+                                  properties:
+                                    condition:
+                                      description: (String) A rule case contains logical
+                                        operations (>,>=, &&, ||) to determine if
+                                        a signal should be generated based on the
+                                        event counts in the previously defined queries.
+                                        Condition for the step to match.
+                                      type: string
+                                    evaluationWindow:
+                                      description: (Number) A time window is specified
+                                        to match when at least one of the cases matches
+                                        true. This is a sliding window and evaluates
+                                        in real time. Valid values are 0, 60, 300,
+                                        600, 900, 1800, 3600, 7200, 10800, 21600,
+                                        43200, 86400. Evaluation window for the step.
+                                        Valid values are `0`, `60`, `300`, `600`,
+                                        `900`, `1800`, `3600`, `7200`, `10800`, `21600`,
+                                        `43200`, `86400`.
+                                      type: number
+                                    name:
+                                      description: (String) The name of the rule.
+                                        Unique name of the step.
+                                      type: string
+                                  type: object
+                                type: array
                             type: object
                           type: array
                         thirdPartyRuleOptions:
@@ -335,8 +529,8 @@ spec:
                                   anymore. **Deprecated**. It won't be applied anymore.
                                 type: string
                               expression:
-                                description: (String) Deprecated. It won't be applied
-                                  anymore. **Deprecated**. It won't be applied anymore.
+                                description: (String) Expression. **Deprecated**.
+                                  It won't be applied anymore.
                                 type: string
                             type: object
                           type: array
@@ -349,6 +543,13 @@ spec:
                             are `count`, `cardinality`, `sum`, `max`, `new_value`,
                             `geo_data`, `event_count`, `none`. Defaults to `"count"`.
                           type: string
+                        dataSource:
+                          description: (String) Source of events. Valid values are
+                            logs, audit, app_sec_spans, spans, security_runtime, network,
+                            events. Defaults to "logs". Source of events. Valid values
+                            are `logs`, `audit`, `app_sec_spans`, `spans`, `security_runtime`,
+                            `network`, `events`. Defaults to `"logs"`.
+                          type: string
                         distinctFields:
                           description: (List of String) Field for which the cardinality
                             is measured. Sent as an array. Field for which the cardinality
@@ -359,6 +560,26 @@ spec:
                         groupByFields:
                           description: (List of String) Fields to group by. If empty,
                             each log triggers a signal. Fields to group by.
+                          items:
+                            type: string
+                          type: array
+                        hasOptionalGroupByFields:
+                          description: by value are ignored by the rule. When true,
+                            events with missing group-by fields are processed with
+                            N/A, replacing the missing values. Defaults to false.
+                            When false, events without a group-by value are ignored
+                            by the rule. When true, events with missing group-by fields
+                            are processed with `N/A`, replacing the missing values.
+                            Defaults to `false`.
+                          type: boolean
+                        indexes:
+                          description: (List of String) List of indexes to run the
+                            query on when the data source is logs. Supports only one
+                            element. Used only for scheduled rules (in other words,
+                            when scheduling_options is defined). List of indexes to
+                            run the query on when the data source is `logs`. Supports
+                            only one element. Used only for scheduled rules (in other
+                            words, when `scheduling_options` is defined).
                           items:
                             type: string
                           type: array
@@ -394,6 +615,64 @@ spec:
                           description: (Block List) Queries for selecting logs which
                             are part of the rule. (see below for nested schema) Query
                             to run on logs.
+                          type: string
+                      type: object
+                    type: array
+                  referenceTables:
+                    description: (Block List) Reference tables for filtering query
+                      results. (see below for nested schema) Reference tables for
+                      filtering query results.
+                    items:
+                      properties:
+                        checkPresence:
+                          description: (Boolean) Whether to include or exclude logs
+                            that match the reference table. Whether to include or
+                            exclude logs that match the reference table.
+                          type: boolean
+                        columnName:
+                          description: (String) The name of the column in the reference
+                            table. The name of the column in the reference table.
+                          type: string
+                        logFieldPath:
+                          description: (String) The field in the log that should be
+                            matched against the reference table. The field in the
+                            log that should be matched against the reference table.
+                          type: string
+                        ruleQueryName:
+                          description: (String) The name of the query to filter. The
+                            name of the query to filter.
+                          type: string
+                        tableName:
+                          description: (String) The name of the reference table. The
+                            name of the reference table.
+                          type: string
+                      type: object
+                    type: array
+                  schedulingOptions:
+                    description: '(Block List, Max: 1) Options for scheduled rules.
+                      When this field is present, the rule runs based on the schedule.
+                      When absent, it runs in real time on ingested logs. (see below
+                      for nested schema) Options for scheduled rules. When this field
+                      is present, the rule runs based on the schedule. When absent,
+                      it runs in real time on ingested logs.'
+                    items:
+                      properties:
+                        rrule:
+                          description: (String) Schedule for the rule queries, written
+                            in RRULE syntax. See RFC for syntax reference. Schedule
+                            for the rule queries, written in RRULE syntax. See [RFC](https://icalendar.org/iCalendar-RFC-5545/3-8-5-3-recurrence-rule.html)
+                            for syntax reference.
+                          type: string
+                        start:
+                          description: (String) Start date for the schedule, in ISO
+                            8601 format without timezone. Start date for the schedule,
+                            in ISO 8601 format without timezone.
+                          type: string
+                        timezone:
+                          description: (String) Time zone of the start date, in the
+                            tz database format. Time zone of the start date, in the
+                            [tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+                            format.
                           type: string
                       type: object
                     type: array
@@ -440,8 +719,11 @@ spec:
                       type: object
                     type: array
                   tags:
-                    description: (Set of String) Tags for generated signals. Tags
-                      for generated signals.
+                    description: '(Set of String) Tags for generated signals. Note:
+                      if default tags are present at provider level, they will be
+                      added to this resource. Tags for generated signals. Note: if
+                      default tags are present at provider level, they will be added
+                      to this resource.'
                     items:
                       type: string
                     type: array
@@ -483,6 +765,10 @@ spec:
                       `log_detection`, `workload_security`, `signal_correlation`.
                       Defaults to `"log_detection"`.
                     type: string
+                  validate:
+                    description: (Boolean) Whether or not to validate the Rule. Whether
+                      or not to validate the Rule.
+                    type: boolean
                 type: object
               initProvider:
                 description: THIS IS A BETA FIELD. It will be honored unless the Management
@@ -496,11 +782,54 @@ spec:
                   for example because of an external controller is managing them,
                   like an autoscaler.
                 properties:
+                  calculatedField:
+                    description: (Block List) One or more calculated fields. Available
+                      only for scheduled rules (in other words, when scheduling_options
+                      is defined). (see below for nested schema) One or more calculated
+                      fields. Available only for scheduled rules (in other words,
+                      when `scheduling_options` is defined).
+                    items:
+                      properties:
+                        expression:
+                          description: (String) Expression. Expression.
+                          type: string
+                        name:
+                          description: (String) The name of the rule. Field name.
+                          type: string
+                      type: object
+                    type: array
                   case:
                     description: '(Block List, Max: 10) Cases for generating signals.
                       (see below for nested schema) Cases for generating signals.'
                     items:
                       properties:
+                        action:
+                          description: (Block List) Action to perform when the case
+                            trigger (see below for nested schema) Action to perform
+                            when the case trigger
+                          items:
+                            properties:
+                              options:
+                                description: '(Block List, Max: 1) Options on rules.
+                                  (see below for nested schema) Options for the action.'
+                                items:
+                                  properties:
+                                    duration:
+                                      description: (Number) Duration of the action
+                                        in seconds. Duration of the action in seconds.
+                                      type: number
+                                  type: object
+                                type: array
+                              type:
+                                description: (String) The rule type. Valid values
+                                  are application_security, log_detection, workload_security,
+                                  signal_correlation. Defaults to "log_detection".
+                                  Type of action to perform when the case triggers.
+                                  Valid values are `block_ip`, `block_user`, `user_behavior`,
+                                  `flag_ip`.
+                                type: string
+                            type: object
+                          type: array
                         condition:
                           description: (String) A rule case contains logical operations
                             (>,>=, &&, ||) to determine if a signal should be generated
@@ -532,16 +861,19 @@ spec:
                       true. Whether the rule is enabled. Defaults to `true`.
                     type: boolean
                   filter:
-                    description: (Block List) Additional queries to filter matched
-                      events before they are processed. (see below for nested schema)
-                      Additional queries to filter matched events before they are
-                      processed.
+                    description: '(Block List) Additional queries to filter matched
+                      events before they are processed. Note: This field is deprecated
+                      for log detection, signal correlation, and workload security
+                      rules. (see below for nested schema) Additional queries to filter
+                      matched events before they are processed. **Note**: This field
+                      is deprecated for log detection, signal correlation, and workload
+                      security rules.'
                     items:
                       properties:
                         action:
-                          description: (String) The type of filtering action. Valid
-                            values are require, suppress. The type of filtering action.
-                            Valid values are `require`, `suppress`.
+                          description: (Block List) Action to perform when the case
+                            trigger (see below for nested schema) The type of filtering
+                            action. Valid values are `require`, `suppress`.
                           type: string
                         query:
                           description: (Block List) Queries for selecting logs which
@@ -549,6 +881,13 @@ spec:
                             for selecting logs to apply the filtering action.
                           type: string
                       type: object
+                    type: array
+                  groupSignalsBy:
+                    description: (List of String) Additional grouping to perform on
+                      top of the query grouping. Additional grouping to perform on
+                      top of the query grouping.
+                    items:
+                      type: string
                     type: array
                   hasExtendedTitle:
                     description: by values in their title. Defaults to false. Whether
@@ -567,6 +906,68 @@ spec:
                       for nested schema) Options on rules.'
                     items:
                       properties:
+                        anomalyDetectionOptions:
+                          description: '(Block List, Max: 1) Options for rules using
+                            the anomaly detection method. (see below for nested schema)
+                            Options for rules using the anomaly detection method.'
+                          items:
+                            properties:
+                              bucketDuration:
+                                description: (Number) Duration in seconds of the time
+                                  buckets used to aggregate events matched by the
+                                  rule. Valid values are 300, 600, 900, 1800, 3600,
+                                  10800. Valid values are 300, 600, 900, 1800, 3600,
+                                  10800. Duration in seconds of the time buckets used
+                                  to aggregate events matched by the rule. Valid values
+                                  are 300, 600, 900, 1800, 3600, 10800. Valid values
+                                  are `300`, `600`, `900`, `1800`, `3600`, `10800`.
+                                type: number
+                              detectionTolerance:
+                                description: (Number) An optional parameter that sets
+                                  how permissive anomaly detection is. Higher values
+                                  require higher deviations before triggering a signal.
+                                  Valid values are 1, 2, 3, 4, 5. Valid values are
+                                  1, 2, 3, 4, 5. An optional parameter that sets how
+                                  permissive anomaly detection is. Higher values require
+                                  higher deviations before triggering a signal. Valid
+                                  values are 1, 2, 3, 4, 5. Valid values are `1`,
+                                  `2`, `3`, `4`, `5`.
+                                type: number
+                              instantaneousBaseline:
+                                description: (Boolean) When set to true, Datadog uses
+                                  previous values that fall within the defined learning
+                                  window to construct the baseline, enabling the system
+                                  to establish an accurate baseline more rapidly rather
+                                  than relying solely on gradual learning over time.
+                                  Defaults to false. When set to true, Datadog uses
+                                  previous values that fall within the defined learning
+                                  window to construct the baseline, enabling the system
+                                  to establish an accurate baseline more rapidly rather
+                                  than relying solely on gradual learning over time.
+                                  Defaults to `false`.
+                                type: boolean
+                              learningDuration:
+                                description: (Number) Learning duration in hours.
+                                  Anomaly detection waits for at least this amount
+                                  of historical data before it starts evaluating.
+                                  Valid values are 1, 6, 12, 24, 48, 168, 336. Valid
+                                  values are 1, 6, 12, 24, 48, 168, 336. Learning
+                                  duration in hours. Anomaly detection waits for at
+                                  least this amount of historical data before it starts
+                                  evaluating. Valid values are 1, 6, 12, 24, 48, 168,
+                                  336. Valid values are `1`, `6`, `12`, `24`, `48`,
+                                  `168`, `336`.
+                                type: number
+                              learningPeriodBaseline:
+                                description: (Number) An optional override baseline
+                                  to apply while the rule is in the learning period.
+                                  Must be greater than or equal to 0. An optional
+                                  override baseline to apply while the rule is in
+                                  the learning period. Must be greater than or equal
+                                  to 0.
+                                type: number
+                            type: object
+                          type: array
                         decreaseCriticalityBasedOnEnv:
                           description: production environments have a lower severity
                             than what is defined by the rule case, which can reduce
@@ -583,20 +984,22 @@ spec:
                         detectionMethod:
                           description: (String) The detection method. Valid values
                             are threshold, new_value, anomaly_detection, impossible_travel,
-                            hardcoded, third_party. Defaults to "threshold". The detection
-                            method. Valid values are `threshold`, `new_value`, `anomaly_detection`,
-                            `impossible_travel`, `hardcoded`, `third_party`. Defaults
-                            to `"threshold"`.
+                            hardcoded, third_party, anomaly_threshold, sequence_detection.
+                            Defaults to "threshold". The detection method. Valid values
+                            are `threshold`, `new_value`, `anomaly_detection`, `impossible_travel`,
+                            `hardcoded`, `third_party`, `anomaly_threshold`, `sequence_detection`.
+                            Defaults to `"threshold"`.
                           type: string
                         evaluationWindow:
                           description: (Number) A time window is specified to match
                             when at least one of the cases matches true. This is a
                             sliding window and evaluates in real time. Valid values
-                            are 0, 60, 300, 600, 900, 1800, 3600, 7200. A time window
-                            is specified to match when at least one of the cases matches
-                            true. This is a sliding window and evaluates in real time.
-                            Valid values are `0`, `60`, `300`, `600`, `900`, `1800`,
-                            `3600`, `7200`.
+                            are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600,
+                            43200, 86400. A time window is specified to match when
+                            at least one of the cases matches true. This is a sliding
+                            window and evaluates in real time. Valid values are `0`,
+                            `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`,
+                            `21600`, `43200`, `86400`.
                           type: number
                         impossibleTravelOptions:
                           description: '(Block List, Max: 1) Options for rules using
@@ -623,11 +1026,12 @@ spec:
                           description: (Number) Once a signal is generated, the signal
                             will remain “open” if a case is matched at least once
                             within this keep alive window (in seconds). Valid values
-                            are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600.
-                            Once a signal is generated, the signal will remain “open”
-                            if a case is matched at least once within this keep alive
-                            window (in seconds). Valid values are `0`, `60`, `300`,
-                            `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`.
+                            are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600,
+                            43200, 86400. Once a signal is generated, the signal will
+                            remain “open” if a case is matched at least once within
+                            this keep alive window (in seconds). Valid values are
+                            `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`,
+                            `10800`, `21600`, `43200`, `86400`.
                           type: number
                         maxSignalDuration:
                           description: (Number) A signal will “close” regardless of
@@ -654,13 +1058,25 @@ spec:
                                   a learned value is forgotten. Valid values are `1`,
                                   `2`, `7`, `14`, `21`, `28`.
                                 type: number
+                              instantaneousBaseline:
+                                description: (Boolean) When set to true, Datadog uses
+                                  previous values that fall within the defined learning
+                                  window to construct the baseline, enabling the system
+                                  to establish an accurate baseline more rapidly rather
+                                  than relying solely on gradual learning over time.
+                                  Defaults to false. When set to true, Datadog uses
+                                  previous values that fall within the defined learning
+                                  window to construct the baseline, enabling the system
+                                  to establish an accurate baseline more rapidly rather
+                                  than relying solely on gradual learning over time.
+                                  Defaults to `false`.
+                                type: boolean
                               learningDuration:
-                                description: (Number) The duration in days during
-                                  which values are learned, and after which signals
-                                  will be generated for values that weren't learned.
-                                  If set to 0, a signal will be generated for all
-                                  new values after the first value is learned. Valid
-                                  values are 0, 1, 7. Defaults to 1. The duration
+                                description: (Number) Learning duration in hours.
+                                  Anomaly detection waits for at least this amount
+                                  of historical data before it starts evaluating.
+                                  Valid values are 1, 6, 12, 24, 48, 168, 336. Valid
+                                  values are 1, 6, 12, 24, 48, 168, 336. The duration
                                   in days during which values are learned, and after
                                   which signals will be generated for values that
                                   weren't learned. If set to 0, a signal will be generated
@@ -685,6 +1101,70 @@ spec:
                                   for values that weren't learned. Valid values are
                                   `0`, `1`. Defaults to `0`.
                                 type: number
+                            type: object
+                          type: array
+                        sequenceDetectionOptions:
+                          description: '(Block List, Max: 1) Options for rules using
+                            the sequence detection method. (see below for nested schema)
+                            Options for rules using the sequence detection method.'
+                          items:
+                            properties:
+                              stepTransitions:
+                                description: (Block List) Edges of the step graph.
+                                  (see below for nested schema) Edges of the step
+                                  graph.
+                                items:
+                                  properties:
+                                    child:
+                                      description: (String) Child step name. Child
+                                        step name.
+                                      type: string
+                                    evaluationWindow:
+                                      description: (Number) A time window is specified
+                                        to match when at least one of the cases matches
+                                        true. This is a sliding window and evaluates
+                                        in real time. Valid values are 0, 60, 300,
+                                        600, 900, 1800, 3600, 7200, 10800, 21600,
+                                        43200, 86400. Maximum time allowed to transition
+                                        from parent to child. Valid values are `0`,
+                                        `60`, `300`, `600`, `900`, `1800`, `3600`,
+                                        `7200`, `10800`, `21600`, `43200`, `86400`.
+                                      type: number
+                                    parent:
+                                      description: (String) Parent step name. Parent
+                                        step name.
+                                      type: string
+                                  type: object
+                                type: array
+                              steps:
+                                description: (Block List) Sequence steps. (see below
+                                  for nested schema) Sequence steps.
+                                items:
+                                  properties:
+                                    condition:
+                                      description: (String) A rule case contains logical
+                                        operations (>,>=, &&, ||) to determine if
+                                        a signal should be generated based on the
+                                        event counts in the previously defined queries.
+                                        Condition for the step to match.
+                                      type: string
+                                    evaluationWindow:
+                                      description: (Number) A time window is specified
+                                        to match when at least one of the cases matches
+                                        true. This is a sliding window and evaluates
+                                        in real time. Valid values are 0, 60, 300,
+                                        600, 900, 1800, 3600, 7200, 10800, 21600,
+                                        43200, 86400. Evaluation window for the step.
+                                        Valid values are `0`, `60`, `300`, `600`,
+                                        `900`, `1800`, `3600`, `7200`, `10800`, `21600`,
+                                        `43200`, `86400`.
+                                      type: number
+                                    name:
+                                      description: (String) The name of the rule.
+                                        Unique name of the step.
+                                      type: string
+                                  type: object
+                                type: array
                             type: object
                           type: array
                         thirdPartyRuleOptions:
@@ -762,8 +1242,8 @@ spec:
                                   anymore. **Deprecated**. It won't be applied anymore.
                                 type: string
                               expression:
-                                description: (String) Deprecated. It won't be applied
-                                  anymore. **Deprecated**. It won't be applied anymore.
+                                description: (String) Expression. **Deprecated**.
+                                  It won't be applied anymore.
                                 type: string
                             type: object
                           type: array
@@ -776,6 +1256,13 @@ spec:
                             are `count`, `cardinality`, `sum`, `max`, `new_value`,
                             `geo_data`, `event_count`, `none`. Defaults to `"count"`.
                           type: string
+                        dataSource:
+                          description: (String) Source of events. Valid values are
+                            logs, audit, app_sec_spans, spans, security_runtime, network,
+                            events. Defaults to "logs". Source of events. Valid values
+                            are `logs`, `audit`, `app_sec_spans`, `spans`, `security_runtime`,
+                            `network`, `events`. Defaults to `"logs"`.
+                          type: string
                         distinctFields:
                           description: (List of String) Field for which the cardinality
                             is measured. Sent as an array. Field for which the cardinality
@@ -786,6 +1273,26 @@ spec:
                         groupByFields:
                           description: (List of String) Fields to group by. If empty,
                             each log triggers a signal. Fields to group by.
+                          items:
+                            type: string
+                          type: array
+                        hasOptionalGroupByFields:
+                          description: by value are ignored by the rule. When true,
+                            events with missing group-by fields are processed with
+                            N/A, replacing the missing values. Defaults to false.
+                            When false, events without a group-by value are ignored
+                            by the rule. When true, events with missing group-by fields
+                            are processed with `N/A`, replacing the missing values.
+                            Defaults to `false`.
+                          type: boolean
+                        indexes:
+                          description: (List of String) List of indexes to run the
+                            query on when the data source is logs. Supports only one
+                            element. Used only for scheduled rules (in other words,
+                            when scheduling_options is defined). List of indexes to
+                            run the query on when the data source is `logs`. Supports
+                            only one element. Used only for scheduled rules (in other
+                            words, when `scheduling_options` is defined).
                           items:
                             type: string
                           type: array
@@ -821,6 +1328,64 @@ spec:
                           description: (Block List) Queries for selecting logs which
                             are part of the rule. (see below for nested schema) Query
                             to run on logs.
+                          type: string
+                      type: object
+                    type: array
+                  referenceTables:
+                    description: (Block List) Reference tables for filtering query
+                      results. (see below for nested schema) Reference tables for
+                      filtering query results.
+                    items:
+                      properties:
+                        checkPresence:
+                          description: (Boolean) Whether to include or exclude logs
+                            that match the reference table. Whether to include or
+                            exclude logs that match the reference table.
+                          type: boolean
+                        columnName:
+                          description: (String) The name of the column in the reference
+                            table. The name of the column in the reference table.
+                          type: string
+                        logFieldPath:
+                          description: (String) The field in the log that should be
+                            matched against the reference table. The field in the
+                            log that should be matched against the reference table.
+                          type: string
+                        ruleQueryName:
+                          description: (String) The name of the query to filter. The
+                            name of the query to filter.
+                          type: string
+                        tableName:
+                          description: (String) The name of the reference table. The
+                            name of the reference table.
+                          type: string
+                      type: object
+                    type: array
+                  schedulingOptions:
+                    description: '(Block List, Max: 1) Options for scheduled rules.
+                      When this field is present, the rule runs based on the schedule.
+                      When absent, it runs in real time on ingested logs. (see below
+                      for nested schema) Options for scheduled rules. When this field
+                      is present, the rule runs based on the schedule. When absent,
+                      it runs in real time on ingested logs.'
+                    items:
+                      properties:
+                        rrule:
+                          description: (String) Schedule for the rule queries, written
+                            in RRULE syntax. See RFC for syntax reference. Schedule
+                            for the rule queries, written in RRULE syntax. See [RFC](https://icalendar.org/iCalendar-RFC-5545/3-8-5-3-recurrence-rule.html)
+                            for syntax reference.
+                          type: string
+                        start:
+                          description: (String) Start date for the schedule, in ISO
+                            8601 format without timezone. Start date for the schedule,
+                            in ISO 8601 format without timezone.
+                          type: string
+                        timezone:
+                          description: (String) Time zone of the start date, in the
+                            tz database format. Time zone of the start date, in the
+                            [tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+                            format.
                           type: string
                       type: object
                     type: array
@@ -867,8 +1432,11 @@ spec:
                       type: object
                     type: array
                   tags:
-                    description: (Set of String) Tags for generated signals. Tags
-                      for generated signals.
+                    description: '(Set of String) Tags for generated signals. Note:
+                      if default tags are present at provider level, they will be
+                      added to this resource. Tags for generated signals. Note: if
+                      default tags are present at provider level, they will be added
+                      to this resource.'
                     items:
                       type: string
                     type: array
@@ -910,6 +1478,10 @@ spec:
                       `log_detection`, `workload_security`, `signal_correlation`.
                       Defaults to `"log_detection"`.
                     type: string
+                  validate:
+                    description: (Boolean) Whether or not to validate the Rule. Whether
+                      or not to validate the Rule.
+                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -1085,11 +1657,54 @@ spec:
             properties:
               atProvider:
                 properties:
+                  calculatedField:
+                    description: (Block List) One or more calculated fields. Available
+                      only for scheduled rules (in other words, when scheduling_options
+                      is defined). (see below for nested schema) One or more calculated
+                      fields. Available only for scheduled rules (in other words,
+                      when `scheduling_options` is defined).
+                    items:
+                      properties:
+                        expression:
+                          description: (String) Expression. Expression.
+                          type: string
+                        name:
+                          description: (String) The name of the rule. Field name.
+                          type: string
+                      type: object
+                    type: array
                   case:
                     description: '(Block List, Max: 10) Cases for generating signals.
                       (see below for nested schema) Cases for generating signals.'
                     items:
                       properties:
+                        action:
+                          description: (Block List) Action to perform when the case
+                            trigger (see below for nested schema) Action to perform
+                            when the case trigger
+                          items:
+                            properties:
+                              options:
+                                description: '(Block List, Max: 1) Options on rules.
+                                  (see below for nested schema) Options for the action.'
+                                items:
+                                  properties:
+                                    duration:
+                                      description: (Number) Duration of the action
+                                        in seconds. Duration of the action in seconds.
+                                      type: number
+                                  type: object
+                                type: array
+                              type:
+                                description: (String) The rule type. Valid values
+                                  are application_security, log_detection, workload_security,
+                                  signal_correlation. Defaults to "log_detection".
+                                  Type of action to perform when the case triggers.
+                                  Valid values are `block_ip`, `block_user`, `user_behavior`,
+                                  `flag_ip`.
+                                type: string
+                            type: object
+                          type: array
                         condition:
                           description: (String) A rule case contains logical operations
                             (>,>=, &&, ||) to determine if a signal should be generated
@@ -1121,16 +1736,19 @@ spec:
                       true. Whether the rule is enabled. Defaults to `true`.
                     type: boolean
                   filter:
-                    description: (Block List) Additional queries to filter matched
-                      events before they are processed. (see below for nested schema)
-                      Additional queries to filter matched events before they are
-                      processed.
+                    description: '(Block List) Additional queries to filter matched
+                      events before they are processed. Note: This field is deprecated
+                      for log detection, signal correlation, and workload security
+                      rules. (see below for nested schema) Additional queries to filter
+                      matched events before they are processed. **Note**: This field
+                      is deprecated for log detection, signal correlation, and workload
+                      security rules.'
                     items:
                       properties:
                         action:
-                          description: (String) The type of filtering action. Valid
-                            values are require, suppress. The type of filtering action.
-                            Valid values are `require`, `suppress`.
+                          description: (Block List) Action to perform when the case
+                            trigger (see below for nested schema) The type of filtering
+                            action. Valid values are `require`, `suppress`.
                           type: string
                         query:
                           description: (Block List) Queries for selecting logs which
@@ -1138,6 +1756,13 @@ spec:
                             for selecting logs to apply the filtering action.
                           type: string
                       type: object
+                    type: array
+                  groupSignalsBy:
+                    description: (List of String) Additional grouping to perform on
+                      top of the query grouping. Additional grouping to perform on
+                      top of the query grouping.
+                    items:
+                      type: string
                     type: array
                   hasExtendedTitle:
                     description: by values in their title. Defaults to false. Whether
@@ -1159,6 +1784,68 @@ spec:
                       for nested schema) Options on rules.'
                     items:
                       properties:
+                        anomalyDetectionOptions:
+                          description: '(Block List, Max: 1) Options for rules using
+                            the anomaly detection method. (see below for nested schema)
+                            Options for rules using the anomaly detection method.'
+                          items:
+                            properties:
+                              bucketDuration:
+                                description: (Number) Duration in seconds of the time
+                                  buckets used to aggregate events matched by the
+                                  rule. Valid values are 300, 600, 900, 1800, 3600,
+                                  10800. Valid values are 300, 600, 900, 1800, 3600,
+                                  10800. Duration in seconds of the time buckets used
+                                  to aggregate events matched by the rule. Valid values
+                                  are 300, 600, 900, 1800, 3600, 10800. Valid values
+                                  are `300`, `600`, `900`, `1800`, `3600`, `10800`.
+                                type: number
+                              detectionTolerance:
+                                description: (Number) An optional parameter that sets
+                                  how permissive anomaly detection is. Higher values
+                                  require higher deviations before triggering a signal.
+                                  Valid values are 1, 2, 3, 4, 5. Valid values are
+                                  1, 2, 3, 4, 5. An optional parameter that sets how
+                                  permissive anomaly detection is. Higher values require
+                                  higher deviations before triggering a signal. Valid
+                                  values are 1, 2, 3, 4, 5. Valid values are `1`,
+                                  `2`, `3`, `4`, `5`.
+                                type: number
+                              instantaneousBaseline:
+                                description: (Boolean) When set to true, Datadog uses
+                                  previous values that fall within the defined learning
+                                  window to construct the baseline, enabling the system
+                                  to establish an accurate baseline more rapidly rather
+                                  than relying solely on gradual learning over time.
+                                  Defaults to false. When set to true, Datadog uses
+                                  previous values that fall within the defined learning
+                                  window to construct the baseline, enabling the system
+                                  to establish an accurate baseline more rapidly rather
+                                  than relying solely on gradual learning over time.
+                                  Defaults to `false`.
+                                type: boolean
+                              learningDuration:
+                                description: (Number) Learning duration in hours.
+                                  Anomaly detection waits for at least this amount
+                                  of historical data before it starts evaluating.
+                                  Valid values are 1, 6, 12, 24, 48, 168, 336. Valid
+                                  values are 1, 6, 12, 24, 48, 168, 336. Learning
+                                  duration in hours. Anomaly detection waits for at
+                                  least this amount of historical data before it starts
+                                  evaluating. Valid values are 1, 6, 12, 24, 48, 168,
+                                  336. Valid values are `1`, `6`, `12`, `24`, `48`,
+                                  `168`, `336`.
+                                type: number
+                              learningPeriodBaseline:
+                                description: (Number) An optional override baseline
+                                  to apply while the rule is in the learning period.
+                                  Must be greater than or equal to 0. An optional
+                                  override baseline to apply while the rule is in
+                                  the learning period. Must be greater than or equal
+                                  to 0.
+                                type: number
+                            type: object
+                          type: array
                         decreaseCriticalityBasedOnEnv:
                           description: production environments have a lower severity
                             than what is defined by the rule case, which can reduce
@@ -1175,20 +1862,22 @@ spec:
                         detectionMethod:
                           description: (String) The detection method. Valid values
                             are threshold, new_value, anomaly_detection, impossible_travel,
-                            hardcoded, third_party. Defaults to "threshold". The detection
-                            method. Valid values are `threshold`, `new_value`, `anomaly_detection`,
-                            `impossible_travel`, `hardcoded`, `third_party`. Defaults
-                            to `"threshold"`.
+                            hardcoded, third_party, anomaly_threshold, sequence_detection.
+                            Defaults to "threshold". The detection method. Valid values
+                            are `threshold`, `new_value`, `anomaly_detection`, `impossible_travel`,
+                            `hardcoded`, `third_party`, `anomaly_threshold`, `sequence_detection`.
+                            Defaults to `"threshold"`.
                           type: string
                         evaluationWindow:
                           description: (Number) A time window is specified to match
                             when at least one of the cases matches true. This is a
                             sliding window and evaluates in real time. Valid values
-                            are 0, 60, 300, 600, 900, 1800, 3600, 7200. A time window
-                            is specified to match when at least one of the cases matches
-                            true. This is a sliding window and evaluates in real time.
-                            Valid values are `0`, `60`, `300`, `600`, `900`, `1800`,
-                            `3600`, `7200`.
+                            are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600,
+                            43200, 86400. A time window is specified to match when
+                            at least one of the cases matches true. This is a sliding
+                            window and evaluates in real time. Valid values are `0`,
+                            `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`,
+                            `21600`, `43200`, `86400`.
                           type: number
                         impossibleTravelOptions:
                           description: '(Block List, Max: 1) Options for rules using
@@ -1215,11 +1904,12 @@ spec:
                           description: (Number) Once a signal is generated, the signal
                             will remain “open” if a case is matched at least once
                             within this keep alive window (in seconds). Valid values
-                            are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600.
-                            Once a signal is generated, the signal will remain “open”
-                            if a case is matched at least once within this keep alive
-                            window (in seconds). Valid values are `0`, `60`, `300`,
-                            `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`.
+                            are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600,
+                            43200, 86400. Once a signal is generated, the signal will
+                            remain “open” if a case is matched at least once within
+                            this keep alive window (in seconds). Valid values are
+                            `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`,
+                            `10800`, `21600`, `43200`, `86400`.
                           type: number
                         maxSignalDuration:
                           description: (Number) A signal will “close” regardless of
@@ -1246,13 +1936,25 @@ spec:
                                   a learned value is forgotten. Valid values are `1`,
                                   `2`, `7`, `14`, `21`, `28`.
                                 type: number
+                              instantaneousBaseline:
+                                description: (Boolean) When set to true, Datadog uses
+                                  previous values that fall within the defined learning
+                                  window to construct the baseline, enabling the system
+                                  to establish an accurate baseline more rapidly rather
+                                  than relying solely on gradual learning over time.
+                                  Defaults to false. When set to true, Datadog uses
+                                  previous values that fall within the defined learning
+                                  window to construct the baseline, enabling the system
+                                  to establish an accurate baseline more rapidly rather
+                                  than relying solely on gradual learning over time.
+                                  Defaults to `false`.
+                                type: boolean
                               learningDuration:
-                                description: (Number) The duration in days during
-                                  which values are learned, and after which signals
-                                  will be generated for values that weren't learned.
-                                  If set to 0, a signal will be generated for all
-                                  new values after the first value is learned. Valid
-                                  values are 0, 1, 7. Defaults to 1. The duration
+                                description: (Number) Learning duration in hours.
+                                  Anomaly detection waits for at least this amount
+                                  of historical data before it starts evaluating.
+                                  Valid values are 1, 6, 12, 24, 48, 168, 336. Valid
+                                  values are 1, 6, 12, 24, 48, 168, 336. The duration
                                   in days during which values are learned, and after
                                   which signals will be generated for values that
                                   weren't learned. If set to 0, a signal will be generated
@@ -1277,6 +1979,70 @@ spec:
                                   for values that weren't learned. Valid values are
                                   `0`, `1`. Defaults to `0`.
                                 type: number
+                            type: object
+                          type: array
+                        sequenceDetectionOptions:
+                          description: '(Block List, Max: 1) Options for rules using
+                            the sequence detection method. (see below for nested schema)
+                            Options for rules using the sequence detection method.'
+                          items:
+                            properties:
+                              stepTransitions:
+                                description: (Block List) Edges of the step graph.
+                                  (see below for nested schema) Edges of the step
+                                  graph.
+                                items:
+                                  properties:
+                                    child:
+                                      description: (String) Child step name. Child
+                                        step name.
+                                      type: string
+                                    evaluationWindow:
+                                      description: (Number) A time window is specified
+                                        to match when at least one of the cases matches
+                                        true. This is a sliding window and evaluates
+                                        in real time. Valid values are 0, 60, 300,
+                                        600, 900, 1800, 3600, 7200, 10800, 21600,
+                                        43200, 86400. Maximum time allowed to transition
+                                        from parent to child. Valid values are `0`,
+                                        `60`, `300`, `600`, `900`, `1800`, `3600`,
+                                        `7200`, `10800`, `21600`, `43200`, `86400`.
+                                      type: number
+                                    parent:
+                                      description: (String) Parent step name. Parent
+                                        step name.
+                                      type: string
+                                  type: object
+                                type: array
+                              steps:
+                                description: (Block List) Sequence steps. (see below
+                                  for nested schema) Sequence steps.
+                                items:
+                                  properties:
+                                    condition:
+                                      description: (String) A rule case contains logical
+                                        operations (>,>=, &&, ||) to determine if
+                                        a signal should be generated based on the
+                                        event counts in the previously defined queries.
+                                        Condition for the step to match.
+                                      type: string
+                                    evaluationWindow:
+                                      description: (Number) A time window is specified
+                                        to match when at least one of the cases matches
+                                        true. This is a sliding window and evaluates
+                                        in real time. Valid values are 0, 60, 300,
+                                        600, 900, 1800, 3600, 7200, 10800, 21600,
+                                        43200, 86400. Evaluation window for the step.
+                                        Valid values are `0`, `60`, `300`, `600`,
+                                        `900`, `1800`, `3600`, `7200`, `10800`, `21600`,
+                                        `43200`, `86400`.
+                                      type: number
+                                    name:
+                                      description: (String) The name of the rule.
+                                        Unique name of the step.
+                                      type: string
+                                  type: object
+                                type: array
                             type: object
                           type: array
                         thirdPartyRuleOptions:
@@ -1354,8 +2120,8 @@ spec:
                                   anymore. **Deprecated**. It won't be applied anymore.
                                 type: string
                               expression:
-                                description: (String) Deprecated. It won't be applied
-                                  anymore. **Deprecated**. It won't be applied anymore.
+                                description: (String) Expression. **Deprecated**.
+                                  It won't be applied anymore.
                                 type: string
                             type: object
                           type: array
@@ -1368,6 +2134,13 @@ spec:
                             are `count`, `cardinality`, `sum`, `max`, `new_value`,
                             `geo_data`, `event_count`, `none`. Defaults to `"count"`.
                           type: string
+                        dataSource:
+                          description: (String) Source of events. Valid values are
+                            logs, audit, app_sec_spans, spans, security_runtime, network,
+                            events. Defaults to "logs". Source of events. Valid values
+                            are `logs`, `audit`, `app_sec_spans`, `spans`, `security_runtime`,
+                            `network`, `events`. Defaults to `"logs"`.
+                          type: string
                         distinctFields:
                           description: (List of String) Field for which the cardinality
                             is measured. Sent as an array. Field for which the cardinality
@@ -1378,6 +2151,26 @@ spec:
                         groupByFields:
                           description: (List of String) Fields to group by. If empty,
                             each log triggers a signal. Fields to group by.
+                          items:
+                            type: string
+                          type: array
+                        hasOptionalGroupByFields:
+                          description: by value are ignored by the rule. When true,
+                            events with missing group-by fields are processed with
+                            N/A, replacing the missing values. Defaults to false.
+                            When false, events without a group-by value are ignored
+                            by the rule. When true, events with missing group-by fields
+                            are processed with `N/A`, replacing the missing values.
+                            Defaults to `false`.
+                          type: boolean
+                        indexes:
+                          description: (List of String) List of indexes to run the
+                            query on when the data source is logs. Supports only one
+                            element. Used only for scheduled rules (in other words,
+                            when scheduling_options is defined). List of indexes to
+                            run the query on when the data source is `logs`. Supports
+                            only one element. Used only for scheduled rules (in other
+                            words, when `scheduling_options` is defined).
                           items:
                             type: string
                           type: array
@@ -1413,6 +2206,64 @@ spec:
                           description: (Block List) Queries for selecting logs which
                             are part of the rule. (see below for nested schema) Query
                             to run on logs.
+                          type: string
+                      type: object
+                    type: array
+                  referenceTables:
+                    description: (Block List) Reference tables for filtering query
+                      results. (see below for nested schema) Reference tables for
+                      filtering query results.
+                    items:
+                      properties:
+                        checkPresence:
+                          description: (Boolean) Whether to include or exclude logs
+                            that match the reference table. Whether to include or
+                            exclude logs that match the reference table.
+                          type: boolean
+                        columnName:
+                          description: (String) The name of the column in the reference
+                            table. The name of the column in the reference table.
+                          type: string
+                        logFieldPath:
+                          description: (String) The field in the log that should be
+                            matched against the reference table. The field in the
+                            log that should be matched against the reference table.
+                          type: string
+                        ruleQueryName:
+                          description: (String) The name of the query to filter. The
+                            name of the query to filter.
+                          type: string
+                        tableName:
+                          description: (String) The name of the reference table. The
+                            name of the reference table.
+                          type: string
+                      type: object
+                    type: array
+                  schedulingOptions:
+                    description: '(Block List, Max: 1) Options for scheduled rules.
+                      When this field is present, the rule runs based on the schedule.
+                      When absent, it runs in real time on ingested logs. (see below
+                      for nested schema) Options for scheduled rules. When this field
+                      is present, the rule runs based on the schedule. When absent,
+                      it runs in real time on ingested logs.'
+                    items:
+                      properties:
+                        rrule:
+                          description: (String) Schedule for the rule queries, written
+                            in RRULE syntax. See RFC for syntax reference. Schedule
+                            for the rule queries, written in RRULE syntax. See [RFC](https://icalendar.org/iCalendar-RFC-5545/3-8-5-3-recurrence-rule.html)
+                            for syntax reference.
+                          type: string
+                        start:
+                          description: (String) Start date for the schedule, in ISO
+                            8601 format without timezone. Start date for the schedule,
+                            in ISO 8601 format without timezone.
+                          type: string
+                        timezone:
+                          description: (String) Time zone of the start date, in the
+                            tz database format. Time zone of the start date, in the
+                            [tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+                            format.
                           type: string
                       type: object
                     type: array
@@ -1459,8 +2310,11 @@ spec:
                       type: object
                     type: array
                   tags:
-                    description: (Set of String) Tags for generated signals. Tags
-                      for generated signals.
+                    description: '(Set of String) Tags for generated signals. Note:
+                      if default tags are present at provider level, they will be
+                      added to this resource. Tags for generated signals. Note: if
+                      default tags are present at provider level, they will be added
+                      to this resource.'
                     items:
                       type: string
                     type: array
@@ -1502,6 +2356,10 @@ spec:
                       `log_detection`, `workload_security`, `signal_correlation`.
                       Defaults to `"log_detection"`.
                     type: string
+                  validate:
+                    description: (Boolean) Whether or not to validate the Rule. Whether
+                      or not to validate the Rule.
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.

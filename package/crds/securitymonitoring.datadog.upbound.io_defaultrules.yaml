@@ -74,6 +74,12 @@ spec:
                       Cases of the rule, this is used to update notifications.'
                     items:
                       properties:
+                        customStatus:
+                          description: (String) Status of the rule case to override.
+                            Valid values are info, low, medium, high, critical. Status
+                            of the rule case to override. Valid values are `info`,
+                            `low`, `medium`, `high`, `critical`.
+                          type: string
                         notifications:
                           description: (List of String) Notification targets for each
                             rule case. Notification targets for each rule case.
@@ -88,6 +94,22 @@ spec:
                           type: string
                       type: object
                     type: array
+                  customMessage:
+                    description: (String) Custom Message (will override default message)
+                      for generated signals. Custom Message (will override default
+                      message) for generated signals.
+                    type: string
+                  customName:
+                    description: (String) The name (will override default name) of
+                      the rule. The name (will override default name) of the rule.
+                    type: string
+                  customTags:
+                    description: (Set of String) Custom tags for generated signals.
+                      Custom tags for generated signals.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   enabled:
                     description: (Boolean) Enable the rule. Defaults to true. Enable
                       the rule. Defaults to `true`.
@@ -106,9 +128,9 @@ spec:
                             require, suppress Valid values are `require`, `suppress`.'
                           type: string
                         query:
-                          description: (String) Query for selecting logs to apply
-                            the filtering action. Query for selecting logs to apply
-                            the filtering action.
+                          description: (Block List) Queries for selecting logs which
+                            are part of the rule. (see below for nested schema) Query
+                            for selecting logs to apply the filtering action.
                           type: string
                       type: object
                     type: array
@@ -125,14 +147,115 @@ spec:
                             than what is defined by the rule case, which can reduce
                             noise. The decrement is applied when the environment tag
                             of the signal starts with staging, test, or dev. Only
-                            available when the rule type is log_detection. Defaults
-                            to false. If true, signals in non-production environments
-                            have a lower severity than what is defined by the rule
-                            case, which can reduce noise. The decrement is applied
-                            when the environment tag of the signal starts with `staging`,
-                            `test`, or `dev`. Only available when the rule type is
-                            `log_detection`. Defaults to `false`.
+                            available when the rule type is log_detection. If true,
+                            signals in non-production environments have a lower severity
+                            than what is defined by the rule case, which can reduce
+                            noise. The decrement is applied when the environment tag
+                            of the signal starts with `staging`, `test`, or `dev`.
+                            Only available when the rule type is `log_detection`.
                           type: boolean
+                      type: object
+                    type: array
+                  query:
+                    description: (Block List) Queries for selecting logs which are
+                      part of the rule. (see below for nested schema) Queries for
+                      selecting logs which are part of the rule.
+                    items:
+                      properties:
+                        agentRule:
+                          description: (Block List, Deprecated) Deprecated. It won't
+                            be applied anymore. Deprecated. agent_rule has been deprecated
+                            in favor of new Agent Rule resource. (see below for nested
+                            schema) **Deprecated**. It won't be applied anymore. **Deprecated.**
+                            `agent_rule` has been deprecated in favor of new Agent
+                            Rule resource.
+                          items:
+                            properties:
+                              agentRuleId:
+                                description: (String) Deprecated. It won't be applied
+                                  anymore. **Deprecated**. It won't be applied anymore.
+                                type: string
+                              expression:
+                                description: (String) Deprecated. It won't be applied
+                                  anymore. **Deprecated**. It won't be applied anymore.
+                                type: string
+                            type: object
+                          type: array
+                        aggregation:
+                          description: (String) The aggregation type. For Signal Correlation
+                            rules, it must be event_count. Valid values are count,
+                            cardinality, sum, max, new_value, geo_data, event_count,
+                            none. The aggregation type. For Signal Correlation rules,
+                            it must be event_count. Valid values are `count`, `cardinality`,
+                            `sum`, `max`, `new_value`, `geo_data`, `event_count`,
+                            `none`.
+                          type: string
+                        customQueryExtension:
+                          description: (String) Query extension to append to the logs
+                            query. Query extension to append to the logs query.
+                          type: string
+                        dataSource:
+                          description: (String) Source of events. Valid values are
+                            logs, audit, app_sec_spans, spans, security_runtime, network,
+                            events. Source of events. Valid values are `logs`, `audit`,
+                            `app_sec_spans`, `spans`, `security_runtime`, `network`,
+                            `events`.
+                          type: string
+                        distinctFields:
+                          description: (List of String) Field for which the cardinality
+                            is measured. Sent as an array. Field for which the cardinality
+                            is measured. Sent as an array.
+                          items:
+                            type: string
+                          type: array
+                        groupByFields:
+                          description: (List of String) Fields to group by. Fields
+                            to group by.
+                          items:
+                            type: string
+                          type: array
+                        hasOptionalGroupByFields:
+                          description: by value are ignored by the rule. When true,
+                            events with missing group-by fields are processed with
+                            N/A, replacing the missing values. When false, events
+                            without a group-by value are ignored by the rule. When
+                            true, events with missing group-by fields are processed
+                            with `N/A`, replacing the missing values.
+                          type: boolean
+                        metric:
+                          description: (String, Deprecated) The target field to aggregate
+                            over when using the sum, max, or geo_data aggregations.
+                            Deprecated. Configure metrics instead. This attribute
+                            will be removed in the next major version of the provider.
+                            The target field to aggregate over when using the `sum`,
+                            `max`, or `geo_data` aggregations. **Deprecated.** Configure
+                            `metrics` instead. This attribute will be removed in the
+                            next major version of the provider.
+                          type: string
+                        metrics:
+                          description: (List of String) Group of target fields to
+                            aggregate over when using the sum, max, geo_data, or new_value
+                            aggregations. The sum, max, and geo_data aggregations
+                            only accept one value in this list, whereas the new_value
+                            aggregation accepts up to five values. Group of target
+                            fields to aggregate over when using the `sum`, `max`,
+                            `geo_data`, or `new_value` aggregations. The `sum`, `max`,
+                            and `geo_data` aggregations only accept one value in this
+                            list, whereas the `new_value` aggregation accepts up to
+                            five values.
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          description: (String) Name of the query. Not compatible
+                            with new_value aggregations. Name of the query. Not compatible
+                            with `new_value` aggregations.
+                          type: string
+                        query:
+                          description: (Block List) Queries for selecting logs which
+                            are part of the rule. (see below for nested schema) Query
+                            to run on logs.
+                          type: string
                       type: object
                     type: array
                 type: object
@@ -154,6 +277,12 @@ spec:
                       Cases of the rule, this is used to update notifications.'
                     items:
                       properties:
+                        customStatus:
+                          description: (String) Status of the rule case to override.
+                            Valid values are info, low, medium, high, critical. Status
+                            of the rule case to override. Valid values are `info`,
+                            `low`, `medium`, `high`, `critical`.
+                          type: string
                         notifications:
                           description: (List of String) Notification targets for each
                             rule case. Notification targets for each rule case.
@@ -168,6 +297,22 @@ spec:
                           type: string
                       type: object
                     type: array
+                  customMessage:
+                    description: (String) Custom Message (will override default message)
+                      for generated signals. Custom Message (will override default
+                      message) for generated signals.
+                    type: string
+                  customName:
+                    description: (String) The name (will override default name) of
+                      the rule. The name (will override default name) of the rule.
+                    type: string
+                  customTags:
+                    description: (Set of String) Custom tags for generated signals.
+                      Custom tags for generated signals.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   enabled:
                     description: (Boolean) Enable the rule. Defaults to true. Enable
                       the rule. Defaults to `true`.
@@ -186,9 +331,9 @@ spec:
                             require, suppress Valid values are `require`, `suppress`.'
                           type: string
                         query:
-                          description: (String) Query for selecting logs to apply
-                            the filtering action. Query for selecting logs to apply
-                            the filtering action.
+                          description: (Block List) Queries for selecting logs which
+                            are part of the rule. (see below for nested schema) Query
+                            for selecting logs to apply the filtering action.
                           type: string
                       type: object
                     type: array
@@ -205,14 +350,115 @@ spec:
                             than what is defined by the rule case, which can reduce
                             noise. The decrement is applied when the environment tag
                             of the signal starts with staging, test, or dev. Only
-                            available when the rule type is log_detection. Defaults
-                            to false. If true, signals in non-production environments
-                            have a lower severity than what is defined by the rule
-                            case, which can reduce noise. The decrement is applied
-                            when the environment tag of the signal starts with `staging`,
-                            `test`, or `dev`. Only available when the rule type is
-                            `log_detection`. Defaults to `false`.
+                            available when the rule type is log_detection. If true,
+                            signals in non-production environments have a lower severity
+                            than what is defined by the rule case, which can reduce
+                            noise. The decrement is applied when the environment tag
+                            of the signal starts with `staging`, `test`, or `dev`.
+                            Only available when the rule type is `log_detection`.
                           type: boolean
+                      type: object
+                    type: array
+                  query:
+                    description: (Block List) Queries for selecting logs which are
+                      part of the rule. (see below for nested schema) Queries for
+                      selecting logs which are part of the rule.
+                    items:
+                      properties:
+                        agentRule:
+                          description: (Block List, Deprecated) Deprecated. It won't
+                            be applied anymore. Deprecated. agent_rule has been deprecated
+                            in favor of new Agent Rule resource. (see below for nested
+                            schema) **Deprecated**. It won't be applied anymore. **Deprecated.**
+                            `agent_rule` has been deprecated in favor of new Agent
+                            Rule resource.
+                          items:
+                            properties:
+                              agentRuleId:
+                                description: (String) Deprecated. It won't be applied
+                                  anymore. **Deprecated**. It won't be applied anymore.
+                                type: string
+                              expression:
+                                description: (String) Deprecated. It won't be applied
+                                  anymore. **Deprecated**. It won't be applied anymore.
+                                type: string
+                            type: object
+                          type: array
+                        aggregation:
+                          description: (String) The aggregation type. For Signal Correlation
+                            rules, it must be event_count. Valid values are count,
+                            cardinality, sum, max, new_value, geo_data, event_count,
+                            none. The aggregation type. For Signal Correlation rules,
+                            it must be event_count. Valid values are `count`, `cardinality`,
+                            `sum`, `max`, `new_value`, `geo_data`, `event_count`,
+                            `none`.
+                          type: string
+                        customQueryExtension:
+                          description: (String) Query extension to append to the logs
+                            query. Query extension to append to the logs query.
+                          type: string
+                        dataSource:
+                          description: (String) Source of events. Valid values are
+                            logs, audit, app_sec_spans, spans, security_runtime, network,
+                            events. Source of events. Valid values are `logs`, `audit`,
+                            `app_sec_spans`, `spans`, `security_runtime`, `network`,
+                            `events`.
+                          type: string
+                        distinctFields:
+                          description: (List of String) Field for which the cardinality
+                            is measured. Sent as an array. Field for which the cardinality
+                            is measured. Sent as an array.
+                          items:
+                            type: string
+                          type: array
+                        groupByFields:
+                          description: (List of String) Fields to group by. Fields
+                            to group by.
+                          items:
+                            type: string
+                          type: array
+                        hasOptionalGroupByFields:
+                          description: by value are ignored by the rule. When true,
+                            events with missing group-by fields are processed with
+                            N/A, replacing the missing values. When false, events
+                            without a group-by value are ignored by the rule. When
+                            true, events with missing group-by fields are processed
+                            with `N/A`, replacing the missing values.
+                          type: boolean
+                        metric:
+                          description: (String, Deprecated) The target field to aggregate
+                            over when using the sum, max, or geo_data aggregations.
+                            Deprecated. Configure metrics instead. This attribute
+                            will be removed in the next major version of the provider.
+                            The target field to aggregate over when using the `sum`,
+                            `max`, or `geo_data` aggregations. **Deprecated.** Configure
+                            `metrics` instead. This attribute will be removed in the
+                            next major version of the provider.
+                          type: string
+                        metrics:
+                          description: (List of String) Group of target fields to
+                            aggregate over when using the sum, max, geo_data, or new_value
+                            aggregations. The sum, max, and geo_data aggregations
+                            only accept one value in this list, whereas the new_value
+                            aggregation accepts up to five values. Group of target
+                            fields to aggregate over when using the `sum`, `max`,
+                            `geo_data`, or `new_value` aggregations. The `sum`, `max`,
+                            and `geo_data` aggregations only accept one value in this
+                            list, whereas the `new_value` aggregation accepts up to
+                            five values.
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          description: (String) Name of the query. Not compatible
+                            with new_value aggregations. Name of the query. Not compatible
+                            with `new_value` aggregations.
+                          type: string
+                        query:
+                          description: (Block List) Queries for selecting logs which
+                            are part of the rule. (see below for nested schema) Query
+                            to run on logs.
+                          type: string
                       type: object
                     type: array
                 type: object
@@ -387,6 +633,12 @@ spec:
                       Cases of the rule, this is used to update notifications.'
                     items:
                       properties:
+                        customStatus:
+                          description: (String) Status of the rule case to override.
+                            Valid values are info, low, medium, high, critical. Status
+                            of the rule case to override. Valid values are `info`,
+                            `low`, `medium`, `high`, `critical`.
+                          type: string
                         notifications:
                           description: (List of String) Notification targets for each
                             rule case. Notification targets for each rule case.
@@ -401,6 +653,22 @@ spec:
                           type: string
                       type: object
                     type: array
+                  customMessage:
+                    description: (String) Custom Message (will override default message)
+                      for generated signals. Custom Message (will override default
+                      message) for generated signals.
+                    type: string
+                  customName:
+                    description: (String) The name (will override default name) of
+                      the rule. The name (will override default name) of the rule.
+                    type: string
+                  customTags:
+                    description: (Set of String) Custom tags for generated signals.
+                      Custom tags for generated signals.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   enabled:
                     description: (Boolean) Enable the rule. Defaults to true. Enable
                       the rule. Defaults to `true`.
@@ -419,9 +687,9 @@ spec:
                             require, suppress Valid values are `require`, `suppress`.'
                           type: string
                         query:
-                          description: (String) Query for selecting logs to apply
-                            the filtering action. Query for selecting logs to apply
-                            the filtering action.
+                          description: (Block List) Queries for selecting logs which
+                            are part of the rule. (see below for nested schema) Query
+                            for selecting logs to apply the filtering action.
                           type: string
                       type: object
                     type: array
@@ -441,14 +709,115 @@ spec:
                             than what is defined by the rule case, which can reduce
                             noise. The decrement is applied when the environment tag
                             of the signal starts with staging, test, or dev. Only
-                            available when the rule type is log_detection. Defaults
-                            to false. If true, signals in non-production environments
-                            have a lower severity than what is defined by the rule
-                            case, which can reduce noise. The decrement is applied
-                            when the environment tag of the signal starts with `staging`,
-                            `test`, or `dev`. Only available when the rule type is
-                            `log_detection`. Defaults to `false`.
+                            available when the rule type is log_detection. If true,
+                            signals in non-production environments have a lower severity
+                            than what is defined by the rule case, which can reduce
+                            noise. The decrement is applied when the environment tag
+                            of the signal starts with `staging`, `test`, or `dev`.
+                            Only available when the rule type is `log_detection`.
                           type: boolean
+                      type: object
+                    type: array
+                  query:
+                    description: (Block List) Queries for selecting logs which are
+                      part of the rule. (see below for nested schema) Queries for
+                      selecting logs which are part of the rule.
+                    items:
+                      properties:
+                        agentRule:
+                          description: (Block List, Deprecated) Deprecated. It won't
+                            be applied anymore. Deprecated. agent_rule has been deprecated
+                            in favor of new Agent Rule resource. (see below for nested
+                            schema) **Deprecated**. It won't be applied anymore. **Deprecated.**
+                            `agent_rule` has been deprecated in favor of new Agent
+                            Rule resource.
+                          items:
+                            properties:
+                              agentRuleId:
+                                description: (String) Deprecated. It won't be applied
+                                  anymore. **Deprecated**. It won't be applied anymore.
+                                type: string
+                              expression:
+                                description: (String) Deprecated. It won't be applied
+                                  anymore. **Deprecated**. It won't be applied anymore.
+                                type: string
+                            type: object
+                          type: array
+                        aggregation:
+                          description: (String) The aggregation type. For Signal Correlation
+                            rules, it must be event_count. Valid values are count,
+                            cardinality, sum, max, new_value, geo_data, event_count,
+                            none. The aggregation type. For Signal Correlation rules,
+                            it must be event_count. Valid values are `count`, `cardinality`,
+                            `sum`, `max`, `new_value`, `geo_data`, `event_count`,
+                            `none`.
+                          type: string
+                        customQueryExtension:
+                          description: (String) Query extension to append to the logs
+                            query. Query extension to append to the logs query.
+                          type: string
+                        dataSource:
+                          description: (String) Source of events. Valid values are
+                            logs, audit, app_sec_spans, spans, security_runtime, network,
+                            events. Source of events. Valid values are `logs`, `audit`,
+                            `app_sec_spans`, `spans`, `security_runtime`, `network`,
+                            `events`.
+                          type: string
+                        distinctFields:
+                          description: (List of String) Field for which the cardinality
+                            is measured. Sent as an array. Field for which the cardinality
+                            is measured. Sent as an array.
+                          items:
+                            type: string
+                          type: array
+                        groupByFields:
+                          description: (List of String) Fields to group by. Fields
+                            to group by.
+                          items:
+                            type: string
+                          type: array
+                        hasOptionalGroupByFields:
+                          description: by value are ignored by the rule. When true,
+                            events with missing group-by fields are processed with
+                            N/A, replacing the missing values. When false, events
+                            without a group-by value are ignored by the rule. When
+                            true, events with missing group-by fields are processed
+                            with `N/A`, replacing the missing values.
+                          type: boolean
+                        metric:
+                          description: (String, Deprecated) The target field to aggregate
+                            over when using the sum, max, or geo_data aggregations.
+                            Deprecated. Configure metrics instead. This attribute
+                            will be removed in the next major version of the provider.
+                            The target field to aggregate over when using the `sum`,
+                            `max`, or `geo_data` aggregations. **Deprecated.** Configure
+                            `metrics` instead. This attribute will be removed in the
+                            next major version of the provider.
+                          type: string
+                        metrics:
+                          description: (List of String) Group of target fields to
+                            aggregate over when using the sum, max, geo_data, or new_value
+                            aggregations. The sum, max, and geo_data aggregations
+                            only accept one value in this list, whereas the new_value
+                            aggregation accepts up to five values. Group of target
+                            fields to aggregate over when using the `sum`, `max`,
+                            `geo_data`, or `new_value` aggregations. The `sum`, `max`,
+                            and `geo_data` aggregations only accept one value in this
+                            list, whereas the `new_value` aggregation accepts up to
+                            five values.
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          description: (String) Name of the query. Not compatible
+                            with new_value aggregations. Name of the query. Not compatible
+                            with `new_value` aggregations.
+                          type: string
+                        query:
+                          description: (Block List) Queries for selecting logs which
+                            are part of the rule. (see below for nested schema) Query
+                            to run on logs.
+                          type: string
                       type: object
                     type: array
                   type:

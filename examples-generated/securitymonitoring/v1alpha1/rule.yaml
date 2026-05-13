@@ -22,11 +22,13 @@ spec:
       maxSignalDuration: 900
     query:
     - aggregation: count
+      dataSource: logs
       groupByFields:
       - host
       name: errors
       query: status:error
     - aggregation: count
+      dataSource: logs
       groupByFields:
       - host
       name: warnings

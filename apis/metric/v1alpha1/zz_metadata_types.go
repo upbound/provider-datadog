@@ -43,8 +43,8 @@ type MetadataInitParameters struct {
 	// Metric type such as `count`, `gauge`, or `rate`. Updating a metric of type `distribution` is not supported. If you would like to see the `distribution` type returned, contact [Datadog support](https://docs.datadoghq.com/help/).
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) Primary unit of the metric such as byte or operation.
-	// Primary unit of the metric such as `byte` or `operation`.
+	// (String) Primary unit of the metric such as byte or operation. For a list of allowed units, refer to Datadog metric unit documentation.
+	// Primary unit of the metric such as `byte` or `operation`. For a list of allowed units, refer to [Datadog metric unit documentation](https://docs.datadoghq.com/metrics/units/#unit-list).
 	Unit *string `json:"unit,omitempty" tf:"unit,omitempty"`
 }
 
@@ -77,8 +77,8 @@ type MetadataObservation struct {
 	// Metric type such as `count`, `gauge`, or `rate`. Updating a metric of type `distribution` is not supported. If you would like to see the `distribution` type returned, contact [Datadog support](https://docs.datadoghq.com/help/).
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) Primary unit of the metric such as byte or operation.
-	// Primary unit of the metric such as `byte` or `operation`.
+	// (String) Primary unit of the metric such as byte or operation. For a list of allowed units, refer to Datadog metric unit documentation.
+	// Primary unit of the metric such as `byte` or `operation`. For a list of allowed units, refer to [Datadog metric unit documentation](https://docs.datadoghq.com/metrics/units/#unit-list).
 	Unit *string `json:"unit,omitempty" tf:"unit,omitempty"`
 }
 
@@ -114,8 +114,8 @@ type MetadataParameters struct {
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) Primary unit of the metric such as byte or operation.
-	// Primary unit of the metric such as `byte` or `operation`.
+	// (String) Primary unit of the metric such as byte or operation. For a list of allowed units, refer to Datadog metric unit documentation.
+	// Primary unit of the metric such as `byte` or `operation`. For a list of allowed units, refer to [Datadog metric unit documentation](https://docs.datadoghq.com/metrics/units/#unit-list).
 	// +kubebuilder:validation:Optional
 	Unit *string `json:"unit,omitempty" tf:"unit,omitempty"`
 }

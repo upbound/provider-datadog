@@ -1,0 +1,25 @@
+apiVersion: integration.upbound.io/v1alpha1
+kind: AwsAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/awsaccount
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    accountTags:
+    - env:prod
+    authConfig:
+    - awsAuthConfigRole:
+      - roleName: DatadogIntegrationRole
+    awsAccountId: "123456789012"
+    awsPartition: aws
+    awsRegions:
+    - includeAll: true
+    resourcesConfig:
+    - cloudSecurityPostureManagementCollection: true
+      extendedCollection: true
+    tracesConfig:
+    - xrayServices:
+      - includeAll: true

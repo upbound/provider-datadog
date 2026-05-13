@@ -102,6 +102,26 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  samplings:
+                    description: '(Block List, Max: 4) List of sampling configurations
+                      per product type for the scanning group. (see below for nested
+                      schema) List of sampling configurations per product type for
+                      the scanning group.'
+                    items:
+                      properties:
+                        product:
+                          description: (String) Product that the sampling rate applies
+                            to. Valid values are logs, rum, events, apm. Product that
+                            the sampling rate applies to. Valid values are `logs`,
+                            `rum`, `events`, `apm`.
+                          type: string
+                        rate:
+                          description: (Number) Percentage rate at which data for
+                            the product type is scanned. Percentage rate at which
+                            data for the product type is scanned.
+                          type: number
+                      type: object
+                    type: array
                 type: object
               initProvider:
                 description: THIS IS A BETA FIELD. It will be honored unless the Management
@@ -150,6 +170,26 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  samplings:
+                    description: '(Block List, Max: 4) List of sampling configurations
+                      per product type for the scanning group. (see below for nested
+                      schema) List of sampling configurations per product type for
+                      the scanning group.'
+                    items:
+                      properties:
+                        product:
+                          description: (String) Product that the sampling rate applies
+                            to. Valid values are logs, rum, events, apm. Product that
+                            the sampling rate applies to. Valid values are `logs`,
+                            `rum`, `events`, `apm`.
+                          type: string
+                        rate:
+                          description: (Number) Percentage rate at which data for
+                            the product type is scanned. Percentage rate at which
+                            data for the product type is scanned.
+                          type: number
+                      type: object
+                    type: array
                 type: object
               managementPolicies:
                 default:
@@ -371,6 +411,26 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  samplings:
+                    description: '(Block List, Max: 4) List of sampling configurations
+                      per product type for the scanning group. (see below for nested
+                      schema) List of sampling configurations per product type for
+                      the scanning group.'
+                    items:
+                      properties:
+                        product:
+                          description: (String) Product that the sampling rate applies
+                            to. Valid values are logs, rum, events, apm. Product that
+                            the sampling rate applies to. Valid values are `logs`,
+                            `rum`, `events`, `apm`.
+                          type: string
+                        rate:
+                          description: (Number) Percentage rate at which data for
+                            the product type is scanned. Percentage rate at which
+                            data for the product type is scanned.
+                          type: number
+                      type: object
+                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.

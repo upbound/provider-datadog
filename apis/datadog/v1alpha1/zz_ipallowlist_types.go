@@ -19,28 +19,34 @@ import (
 
 type EntryInitParameters struct {
 
-	// IP address or range of addresses.
+	// (String) IP address or range of addresses. String must be a valid CIDR block or IP address.
+	// IP address or range of addresses. String must be a valid CIDR block or IP address.
 	CidrBlock *string `json:"cidrBlock,omitempty" tf:"cidr_block,omitempty"`
 
+	// (String) Note accompanying IP address.
 	// Note accompanying IP address.
 	Note *string `json:"note,omitempty" tf:"note,omitempty"`
 }
 
 type EntryObservation struct {
 
-	// IP address or range of addresses.
+	// (String) IP address or range of addresses. String must be a valid CIDR block or IP address.
+	// IP address or range of addresses. String must be a valid CIDR block or IP address.
 	CidrBlock *string `json:"cidrBlock,omitempty" tf:"cidr_block,omitempty"`
 
+	// (String) Note accompanying IP address.
 	// Note accompanying IP address.
 	Note *string `json:"note,omitempty" tf:"note,omitempty"`
 }
 
 type EntryParameters struct {
 
-	// IP address or range of addresses.
+	// (String) IP address or range of addresses. String must be a valid CIDR block or IP address.
+	// IP address or range of addresses. String must be a valid CIDR block or IP address.
 	// +kubebuilder:validation:Optional
 	CidrBlock *string `json:"cidrBlock" tf:"cidr_block,omitempty"`
 
+	// (String) Note accompanying IP address.
 	// Note accompanying IP address.
 	// +kubebuilder:validation:Optional
 	Note *string `json:"note,omitempty" tf:"note,omitempty"`
@@ -48,30 +54,37 @@ type EntryParameters struct {
 
 type IPAllowListInitParameters struct {
 
+	// (Boolean) Whether the IP Allowlist is enabled.
 	// Whether the IP Allowlist is enabled.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// (Block Set) Set of objects containing an IP address or range of IP addresses in the allowlist and an accompanying note. (see below for nested schema)
 	// Set of objects containing an IP address or range of IP addresses in the allowlist and an accompanying note.
 	Entry []EntryInitParameters `json:"entry,omitempty" tf:"entry,omitempty"`
 }
 
 type IPAllowListObservation struct {
 
+	// (Boolean) Whether the IP Allowlist is enabled.
 	// Whether the IP Allowlist is enabled.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// (Block Set) Set of objects containing an IP address or range of IP addresses in the allowlist and an accompanying note. (see below for nested schema)
 	// Set of objects containing an IP address or range of IP addresses in the allowlist and an accompanying note.
 	Entry []EntryObservation `json:"entry,omitempty" tf:"entry,omitempty"`
 
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type IPAllowListParameters struct {
 
+	// (Boolean) Whether the IP Allowlist is enabled.
 	// Whether the IP Allowlist is enabled.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// (Block Set) Set of objects containing an IP address or range of IP addresses in the allowlist and an accompanying note. (see below for nested schema)
 	// Set of objects containing an IP address or range of IP addresses in the allowlist and an accompanying note.
 	// +kubebuilder:validation:Optional
 	Entry []EntryParameters `json:"entry,omitempty" tf:"entry,omitempty"`
@@ -104,7 +117,7 @@ type IPAllowListStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// IPAllowList is the Schema for the IPAllowLists API. <no value>
+// IPAllowList is the Schema for the IPAllowLists API. Provides the Datadog IP allowlist resource. This can be used to manage the Datadog IP allowlist
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

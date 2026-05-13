@@ -1,0 +1,69 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: DashboardListEntry
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/dashboardlistentry
+  labels:
+    testing.upbound.io/example-name: new_list
+  name: new-list
+spec:
+  forProvider:
+    dashItem:
+    - dashId: ${datadog_dashboard.time.id}
+      type: custom_timeboard
+    - dashId: ${datadog_dashboard.screen.id}
+      type: custom_screenboard
+    name: Terraform Created List
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Dashboard
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/dashboardlistentry
+  labels:
+    testing.upbound.io/example-name: screen
+  name: screen
+spec:
+  forProvider:
+    description: Created using the Datadog provider in Terraform
+    isReadOnly: false
+    layoutType: free
+    title: TF Test Free Layout Dashboard
+    widget:
+    - event_stream_definition:
+      - event_size: l
+        live_span: 1h
+        query: '*'
+        title: Widget Title
+        title_align: left
+        title_size: 16
+      widget_layout:
+      - height: 43
+        width: 32
+        x: 5
+        "y": 5
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Dashboard
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/dashboardlistentry
+  labels:
+    testing.upbound.io/example-name: time
+  name: time
+spec:
+  forProvider:
+    description: Created using the Datadog provider in Terraform
+    isReadOnly: true
+    layoutType: ordered
+    title: TF Test Layout Dashboard
+    widget:
+    - alert_graph_definition:
+      - alert_id: "1234"
+        live_span: 1h
+        title: Widget Title
+        viz_type: timeseries

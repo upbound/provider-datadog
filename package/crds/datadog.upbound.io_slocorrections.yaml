@@ -108,8 +108,13 @@ spec:
                     type: number
                   timezone:
                     description: (String) The timezone to display in the UI for the
-                      correction times (defaults to "UTC") The timezone to display
-                      in the UI for the correction times (defaults to "UTC")
+                      correction times. Prefers IANA timezone name format (for example,
+                      'America/Los_Angeles', 'Europe/Paris'), but some common standard
+                      abbreviations are supported. Defaults to 'UTC'. The timezone
+                      to display in the UI for the correction times. Prefers IANA
+                      timezone name format (for example, 'America/Los_Angeles', 'Europe/Paris'),
+                      but some common standard abbreviations are supported. Defaults
+                      to 'UTC'.
                     type: string
                 type: object
               initProvider:
@@ -165,8 +170,13 @@ spec:
                     type: number
                   timezone:
                     description: (String) The timezone to display in the UI for the
-                      correction times (defaults to "UTC") The timezone to display
-                      in the UI for the correction times (defaults to "UTC")
+                      correction times. Prefers IANA timezone name format (for example,
+                      'America/Los_Angeles', 'Europe/Paris'), but some common standard
+                      abbreviations are supported. Defaults to 'UTC'. The timezone
+                      to display in the UI for the correction times. Prefers IANA
+                      timezone name format (for example, 'America/Los_Angeles', 'Europe/Paris'),
+                      but some common standard abbreviations are supported. Defaults
+                      to 'UTC'.
                     type: string
                 type: object
               managementPolicies:
@@ -391,8 +401,13 @@ spec:
                     type: number
                   timezone:
                     description: (String) The timezone to display in the UI for the
-                      correction times (defaults to "UTC") The timezone to display
-                      in the UI for the correction times (defaults to "UTC")
+                      correction times. Prefers IANA timezone name format (for example,
+                      'America/Los_Angeles', 'Europe/Paris'), but some common standard
+                      abbreviations are supported. Defaults to 'UTC'. The timezone
+                      to display in the UI for the correction times. Prefers IANA
+                      timezone name format (for example, 'America/Los_Angeles', 'Europe/Paris'),
+                      but some common standard abbreviations are supported. Defaults
+                      to 'UTC'.
                     type: string
                 type: object
               conditions:

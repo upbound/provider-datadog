@@ -1,0 +1,14 @@
+apiVersion: org.upbound.io/v1alpha1
+kind: Connection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: org/v1alpha1/connection
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    connectionTypes:
+    - metrics
+    - logs
+    sinkOrgId: 00000000-0000-0000-0000-000000000000

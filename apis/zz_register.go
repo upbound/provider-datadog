@@ -14,33 +14,91 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/upbound/provider-datadog/apis/apm/v1alpha1"
+	v1alpha1 "github.com/upbound/provider-datadog/apis/action/v1alpha1"
+	v1alpha1agentless "github.com/upbound/provider-datadog/apis/agentless/v1alpha1"
+	v1alpha1apm "github.com/upbound/provider-datadog/apis/apm/v1alpha1"
+	v1alpha1app "github.com/upbound/provider-datadog/apis/app/v1alpha1"
+	v1alpha1appsec "github.com/upbound/provider-datadog/apis/appsec/v1alpha1"
+	v1alpha1aws "github.com/upbound/provider-datadog/apis/aws/v1alpha1"
+	v1alpha1azure "github.com/upbound/provider-datadog/apis/azure/v1alpha1"
 	v1alpha1cloud "github.com/upbound/provider-datadog/apis/cloud/v1alpha1"
+	v1alpha1compliance "github.com/upbound/provider-datadog/apis/compliance/v1alpha1"
+	v1alpha1cost "github.com/upbound/provider-datadog/apis/cost/v1alpha1"
+	v1alpha1csm "github.com/upbound/provider-datadog/apis/csm/v1alpha1"
+	v1alpha1custom "github.com/upbound/provider-datadog/apis/custom/v1alpha1"
 	v1alpha1datadog "github.com/upbound/provider-datadog/apis/datadog/v1alpha1"
+	v1alpha1datastore "github.com/upbound/provider-datadog/apis/datastore/v1alpha1"
+	v1alpha1deployment "github.com/upbound/provider-datadog/apis/deployment/v1alpha1"
+	v1alpha1domain "github.com/upbound/provider-datadog/apis/domain/v1alpha1"
+	v1alpha1gcp "github.com/upbound/provider-datadog/apis/gcp/v1alpha1"
+	v1alpha1incident "github.com/upbound/provider-datadog/apis/incident/v1alpha1"
 	v1alpha1integration "github.com/upbound/provider-datadog/apis/integration/v1alpha1"
 	v1alpha1logs "github.com/upbound/provider-datadog/apis/logs/v1alpha1"
 	v1alpha1metric "github.com/upbound/provider-datadog/apis/metric/v1alpha1"
+	v1alpha1monitor "github.com/upbound/provider-datadog/apis/monitor/v1alpha1"
+	v1alpha1observability "github.com/upbound/provider-datadog/apis/observability/v1alpha1"
+	v1alpha1on "github.com/upbound/provider-datadog/apis/on/v1alpha1"
+	v1alpha1openapi "github.com/upbound/provider-datadog/apis/openapi/v1alpha1"
+	v1alpha1org "github.com/upbound/provider-datadog/apis/org/v1alpha1"
+	v1alpha1reference "github.com/upbound/provider-datadog/apis/reference/v1alpha1"
+	v1alpha1rum "github.com/upbound/provider-datadog/apis/rum/v1alpha1"
+	v1alpha1security "github.com/upbound/provider-datadog/apis/security/v1alpha1"
 	v1alpha1securitymonitoring "github.com/upbound/provider-datadog/apis/securitymonitoring/v1alpha1"
 	v1alpha1sensitivedatascanner "github.com/upbound/provider-datadog/apis/sensitivedatascanner/v1alpha1"
+	v1alpha1software "github.com/upbound/provider-datadog/apis/software/v1alpha1"
 	v1alpha1synthetics "github.com/upbound/provider-datadog/apis/synthetics/v1alpha1"
+	v1alpha1tag "github.com/upbound/provider-datadog/apis/tag/v1alpha1"
+	v1alpha1team "github.com/upbound/provider-datadog/apis/team/v1alpha1"
+	v1alpha1user "github.com/upbound/provider-datadog/apis/user/v1alpha1"
 	v1alpha1apis "github.com/upbound/provider-datadog/apis/v1alpha1"
 	v1beta1 "github.com/upbound/provider-datadog/apis/v1beta1"
+	v1alpha1workflow "github.com/upbound/provider-datadog/apis/workflow/v1alpha1"
 )
 
 func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
+		v1alpha1agentless.SchemeBuilder.AddToScheme,
+		v1alpha1apm.SchemeBuilder.AddToScheme,
+		v1alpha1app.SchemeBuilder.AddToScheme,
+		v1alpha1appsec.SchemeBuilder.AddToScheme,
+		v1alpha1aws.SchemeBuilder.AddToScheme,
+		v1alpha1azure.SchemeBuilder.AddToScheme,
 		v1alpha1cloud.SchemeBuilder.AddToScheme,
+		v1alpha1cloud.SchemeBuilder.AddToScheme,
+		v1alpha1compliance.SchemeBuilder.AddToScheme,
+		v1alpha1cost.SchemeBuilder.AddToScheme,
+		v1alpha1csm.SchemeBuilder.AddToScheme,
+		v1alpha1custom.SchemeBuilder.AddToScheme,
 		v1alpha1datadog.SchemeBuilder.AddToScheme,
+		v1alpha1datastore.SchemeBuilder.AddToScheme,
+		v1alpha1deployment.SchemeBuilder.AddToScheme,
+		v1alpha1domain.SchemeBuilder.AddToScheme,
+		v1alpha1gcp.SchemeBuilder.AddToScheme,
+		v1alpha1incident.SchemeBuilder.AddToScheme,
+		v1alpha1integration.SchemeBuilder.AddToScheme,
 		v1alpha1integration.SchemeBuilder.AddToScheme,
 		v1alpha1logs.SchemeBuilder.AddToScheme,
 		v1alpha1metric.SchemeBuilder.AddToScheme,
+		v1alpha1monitor.SchemeBuilder.AddToScheme,
+		v1alpha1observability.SchemeBuilder.AddToScheme,
+		v1alpha1on.SchemeBuilder.AddToScheme,
+		v1alpha1openapi.SchemeBuilder.AddToScheme,
+		v1alpha1org.SchemeBuilder.AddToScheme,
+		v1alpha1reference.SchemeBuilder.AddToScheme,
+		v1alpha1rum.SchemeBuilder.AddToScheme,
+		v1alpha1security.SchemeBuilder.AddToScheme,
 		v1alpha1securitymonitoring.SchemeBuilder.AddToScheme,
 		v1alpha1sensitivedatascanner.SchemeBuilder.AddToScheme,
+		v1alpha1software.SchemeBuilder.AddToScheme,
 		v1alpha1synthetics.SchemeBuilder.AddToScheme,
+		v1alpha1tag.SchemeBuilder.AddToScheme,
+		v1alpha1team.SchemeBuilder.AddToScheme,
+		v1alpha1user.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
+		v1alpha1workflow.SchemeBuilder.AddToScheme,
 	)
 }
 

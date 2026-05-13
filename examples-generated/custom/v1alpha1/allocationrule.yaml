@@ -1,0 +1,26 @@
+apiVersion: custom.upbound.io/v1alpha1
+kind: AllocationRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: custom/v1alpha1/allocationrule
+  labels:
+    testing.upbound.io/example-name: rule_1
+  name: rule-1
+spec:
+  forProvider:
+    costsToAllocate:
+    - condition: is
+      tag: aws_product
+      value: AmazonEC2
+    enabled: true
+    providernames:
+    - aws
+    ruleName: my-custom-rule-1
+    strategy:
+    - allocatedByTagKeys:
+      - team
+      basedOnCosts:
+      - condition: is
+        tag: aws_product
+        value: AmazonEC2
+      method: even

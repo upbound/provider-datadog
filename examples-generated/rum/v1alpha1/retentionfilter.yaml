@@ -1,0 +1,16 @@
+apiVersion: rum.upbound.io/v1alpha1
+kind: RetentionFilter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rum/v1alpha1/retentionfilter
+  labels:
+    testing.upbound.io/example-name: testing_rum_retention_filter
+  name: testing-rum-retention-filter
+spec:
+  forProvider:
+    applicationId: <APPLICATION_ID>
+    enabled: false
+    eventType: session
+    name: testing.rum.retention_filter
+    query: '@session.has_replay:true'
+    sampleRate: 41

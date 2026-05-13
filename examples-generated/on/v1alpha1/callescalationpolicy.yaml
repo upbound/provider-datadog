@@ -1,0 +1,20 @@
+apiVersion: on.upbound.io/v1alpha1
+kind: CallEscalationPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: on/v1alpha1/callescalationpolicy
+  labels:
+    testing.upbound.io/example-name: policy_test
+  name: policy-test
+spec:
+  forProvider:
+    name: Policy Name
+    resolvePageOnPolicyEnd: true
+    retries: 3
+    step:
+    - assignment: round-robin
+      escalateAfterSeconds: 300
+      target:
+      - team: 00000000-aba2-0000-0000-000000000000
+      - user: 00000000-aba2-0000-0000-000000000000
+      - schedule: 00000000-aba2-0000-0000-000000000000

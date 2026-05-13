@@ -1,4 +1,4 @@
-apiVersion: synthetics.datadog.upbound.io/v1alpha1
+apiVersion: synthetics.upbound.io/v1alpha1
 kind: ConcurrencyCap
 metadata:
   annotations:

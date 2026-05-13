@@ -34,10 +34,10 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: GCP is the Schema for the GCPs API. This resource is deprecated
-          — use the datadog_integration_gcp_sts resource instead. Provides a Datadog
-          - Google Cloud Platform integration resource. This can be used to create
-          and manage Datadog - Google Cloud Platform integration.
+        description: GCP is the Schema for the GCPs API. This resource is deprecated—use
+          the datadog_integration_gcp_sts resource instead. Provides a Datadog - Google
+          Cloud Platform integration resource. This can be used to create and manage
+          Datadog - Google Cloud Platform integration.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -82,19 +82,67 @@ spec:
                     description: (String) Your ID found in your JSON service account
                       key. Your ID found in your JSON service account key.
                     type: string
+                  cloudRunRevisionFilters:
+                    description: (Set of String, Deprecated) List of filters to limit
+                      the Cloud Run revisions that are pulled into Datadog by using
+                      tags. Only Cloud Run revision resources that apply to specified
+                      filters are imported into Datadog. List of filters to limit
+                      the Cloud Run revisions that are pulled into Datadog by using
+                      tags. Only Cloud Run revision resources that apply to specified
+                      filters are imported into Datadog.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   cspmResourceCollectionEnabled:
                     description: (Boolean) Whether Datadog collects cloud security
-                      posture management resources from your GCP project. Defaults
+                      posture management resources from your GCP project. If enabled,
+                      requires resource_collection_enabled to also be enabled. Defaults
                       to false. Whether Datadog collects cloud security posture management
-                      resources from your GCP project. Defaults to `false`.
+                      resources from your GCP project. If enabled, requires `resource_collection_enabled`
+                      to also be enabled. Defaults to `false`.
                     type: boolean
                   hostFilters:
-                    description: (String) Limit the GCE instances that are pulled
-                      into Datadog by using tags. Only hosts that match one of the
-                      defined tags are imported into Datadog. Limit the GCE instances
-                      that are pulled into Datadog by using tags. Only hosts that
-                      match one of the defined tags are imported into Datadog.
+                    description: (String, Deprecated) List of filters to limit the
+                      VM instances that are pulled into Datadog by using tags. Only
+                      VM instance resources that apply to specified filters are imported
+                      into Datadog. List of filters to limit the VM instances that
+                      are pulled into Datadog by using tags. Only VM instance resources
+                      that apply to specified filters are imported into Datadog.
                     type: string
+                  isResourceChangeCollectionEnabled:
+                    description: (Boolean) When enabled, Datadog scans for all resource
+                      change data in your Google Cloud environment. When enabled,
+                      Datadog scans for all resource change data in your Google Cloud
+                      environment.
+                    type: boolean
+                  isSecurityCommandCenterEnabled:
+                    description: '(Boolean) When enabled, Datadog will attempt to
+                      collect Security Command Center Findings. Note: This requires
+                      additional permissions on the service account. Defaults to false.
+                      When enabled, Datadog will attempt to collect Security Command
+                      Center Findings. Note: This requires additional permissions
+                      on the service account. Defaults to `false`.'
+                    type: boolean
+                  monitoredResourceConfigs:
+                    description: (Set of Object) Configurations for GCP monitored
+                      resources. Only monitored resources that apply to specified
+                      filters are imported into Datadog. (see below for nested schema)
+                      Configurations for GCP monitored resources. Only monitored resources
+                      that apply to specified filters are imported into Datadog.
+                    items:
+                      properties:
+                        filters:
+                          description: (Set of String)
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        type:
+                          description: (String)
+                          type: string
+                      type: object
+                    type: array
                   privateKeyId:
                     description: (String) Your private key ID found in your JSON service
                       account key. Your private key ID found in your JSON service
@@ -124,6 +172,11 @@ spec:
                       JSON service account key. Your Google Cloud project ID found
                       in your JSON service account key.
                     type: string
+                  resourceCollectionEnabled:
+                    description: (Boolean) When enabled, Datadog scans for all resources
+                      in your GCP environment. When enabled, Datadog scans for all
+                      resources in your GCP environment.
+                    type: boolean
                 type: object
               initProvider:
                 description: THIS IS A BETA FIELD. It will be honored unless the Management
@@ -150,19 +203,67 @@ spec:
                     description: (String) Your ID found in your JSON service account
                       key. Your ID found in your JSON service account key.
                     type: string
+                  cloudRunRevisionFilters:
+                    description: (Set of String, Deprecated) List of filters to limit
+                      the Cloud Run revisions that are pulled into Datadog by using
+                      tags. Only Cloud Run revision resources that apply to specified
+                      filters are imported into Datadog. List of filters to limit
+                      the Cloud Run revisions that are pulled into Datadog by using
+                      tags. Only Cloud Run revision resources that apply to specified
+                      filters are imported into Datadog.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   cspmResourceCollectionEnabled:
                     description: (Boolean) Whether Datadog collects cloud security
-                      posture management resources from your GCP project. Defaults
+                      posture management resources from your GCP project. If enabled,
+                      requires resource_collection_enabled to also be enabled. Defaults
                       to false. Whether Datadog collects cloud security posture management
-                      resources from your GCP project. Defaults to `false`.
+                      resources from your GCP project. If enabled, requires `resource_collection_enabled`
+                      to also be enabled. Defaults to `false`.
                     type: boolean
                   hostFilters:
-                    description: (String) Limit the GCE instances that are pulled
-                      into Datadog by using tags. Only hosts that match one of the
-                      defined tags are imported into Datadog. Limit the GCE instances
-                      that are pulled into Datadog by using tags. Only hosts that
-                      match one of the defined tags are imported into Datadog.
+                    description: (String, Deprecated) List of filters to limit the
+                      VM instances that are pulled into Datadog by using tags. Only
+                      VM instance resources that apply to specified filters are imported
+                      into Datadog. List of filters to limit the VM instances that
+                      are pulled into Datadog by using tags. Only VM instance resources
+                      that apply to specified filters are imported into Datadog.
                     type: string
+                  isResourceChangeCollectionEnabled:
+                    description: (Boolean) When enabled, Datadog scans for all resource
+                      change data in your Google Cloud environment. When enabled,
+                      Datadog scans for all resource change data in your Google Cloud
+                      environment.
+                    type: boolean
+                  isSecurityCommandCenterEnabled:
+                    description: '(Boolean) When enabled, Datadog will attempt to
+                      collect Security Command Center Findings. Note: This requires
+                      additional permissions on the service account. Defaults to false.
+                      When enabled, Datadog will attempt to collect Security Command
+                      Center Findings. Note: This requires additional permissions
+                      on the service account. Defaults to `false`.'
+                    type: boolean
+                  monitoredResourceConfigs:
+                    description: (Set of Object) Configurations for GCP monitored
+                      resources. Only monitored resources that apply to specified
+                      filters are imported into Datadog. (see below for nested schema)
+                      Configurations for GCP monitored resources. Only monitored resources
+                      that apply to specified filters are imported into Datadog.
+                    items:
+                      properties:
+                        filters:
+                          description: (Set of String)
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        type:
+                          description: (String)
+                          type: string
+                      type: object
+                    type: array
                   privateKeyId:
                     description: (String) Your private key ID found in your JSON service
                       account key. Your private key ID found in your JSON service
@@ -173,6 +274,11 @@ spec:
                       JSON service account key. Your Google Cloud project ID found
                       in your JSON service account key.
                     type: string
+                  resourceCollectionEnabled:
+                    description: (Boolean) When enabled, Datadog scans for all resources
+                      in your GCP environment. When enabled, Datadog scans for all
+                      resources in your GCP environment.
+                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -372,22 +478,70 @@ spec:
                     description: (String) Your ID found in your JSON service account
                       key. Your ID found in your JSON service account key.
                     type: string
+                  cloudRunRevisionFilters:
+                    description: (Set of String, Deprecated) List of filters to limit
+                      the Cloud Run revisions that are pulled into Datadog by using
+                      tags. Only Cloud Run revision resources that apply to specified
+                      filters are imported into Datadog. List of filters to limit
+                      the Cloud Run revisions that are pulled into Datadog by using
+                      tags. Only Cloud Run revision resources that apply to specified
+                      filters are imported into Datadog.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   cspmResourceCollectionEnabled:
                     description: (Boolean) Whether Datadog collects cloud security
-                      posture management resources from your GCP project. Defaults
+                      posture management resources from your GCP project. If enabled,
+                      requires resource_collection_enabled to also be enabled. Defaults
                       to false. Whether Datadog collects cloud security posture management
-                      resources from your GCP project. Defaults to `false`.
+                      resources from your GCP project. If enabled, requires `resource_collection_enabled`
+                      to also be enabled. Defaults to `false`.
                     type: boolean
                   hostFilters:
-                    description: (String) Limit the GCE instances that are pulled
-                      into Datadog by using tags. Only hosts that match one of the
-                      defined tags are imported into Datadog. Limit the GCE instances
-                      that are pulled into Datadog by using tags. Only hosts that
-                      match one of the defined tags are imported into Datadog.
+                    description: (String, Deprecated) List of filters to limit the
+                      VM instances that are pulled into Datadog by using tags. Only
+                      VM instance resources that apply to specified filters are imported
+                      into Datadog. List of filters to limit the VM instances that
+                      are pulled into Datadog by using tags. Only VM instance resources
+                      that apply to specified filters are imported into Datadog.
                     type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
+                  isResourceChangeCollectionEnabled:
+                    description: (Boolean) When enabled, Datadog scans for all resource
+                      change data in your Google Cloud environment. When enabled,
+                      Datadog scans for all resource change data in your Google Cloud
+                      environment.
+                    type: boolean
+                  isSecurityCommandCenterEnabled:
+                    description: '(Boolean) When enabled, Datadog will attempt to
+                      collect Security Command Center Findings. Note: This requires
+                      additional permissions on the service account. Defaults to false.
+                      When enabled, Datadog will attempt to collect Security Command
+                      Center Findings. Note: This requires additional permissions
+                      on the service account. Defaults to `false`.'
+                    type: boolean
+                  monitoredResourceConfigs:
+                    description: (Set of Object) Configurations for GCP monitored
+                      resources. Only monitored resources that apply to specified
+                      filters are imported into Datadog. (see below for nested schema)
+                      Configurations for GCP monitored resources. Only monitored resources
+                      that apply to specified filters are imported into Datadog.
+                    items:
+                      properties:
+                        filters:
+                          description: (Set of String)
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        type:
+                          description: (String)
+                          type: string
+                      type: object
+                    type: array
                   privateKeyId:
                     description: (String) Your private key ID found in your JSON service
                       account key. Your private key ID found in your JSON service
@@ -398,6 +552,11 @@ spec:
                       JSON service account key. Your Google Cloud project ID found
                       in your JSON service account key.
                     type: string
+                  resourceCollectionEnabled:
+                    description: (Boolean) When enabled, Datadog scans for all resources
+                      in your GCP environment. When enabled, Datadog scans for all
+                      resources in your GCP environment.
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.

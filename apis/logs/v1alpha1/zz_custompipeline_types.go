@@ -17,6 +17,54 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type AppendInitParameters struct {
+
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
+	// Remove or preserve the remapped source element. Defaults to `true`.
+	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path containing the value to append.
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute path of the array to append to.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type AppendObservation struct {
+
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
+	// Remove or preserve the remapped source element. Defaults to `true`.
+	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path containing the value to append.
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute path of the array to append to.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type AppendParameters struct {
+
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
+	// Remove or preserve the remapped source element. Defaults to `true`.
+	// +kubebuilder:validation:Optional
+	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path containing the value to append.
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute path of the array to append to.
+	// +kubebuilder:validation:Optional
+	Target *string `json:"target" tf:"target,omitempty"`
+}
+
 type ArithmeticProcessorInitParameters struct {
 
 	// (String) Arithmetic operation between one or more log attributes.
@@ -91,6 +139,102 @@ type ArithmeticProcessorParameters struct {
 	Target *string `json:"target" tf:"target,omitempty"`
 }
 
+type ArrayProcessorInitParameters struct {
+
+	// (Boolean)
+	// Boolean value to enable your processor.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Your processor name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Operation to perform on the array. (see below for nested schema)
+	// Operation to perform on the array.
+	Operation []OperationInitParameters `json:"operation,omitempty" tf:"operation,omitempty"`
+}
+
+type ArrayProcessorObservation struct {
+
+	// (Boolean)
+	// Boolean value to enable your processor.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Your processor name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Operation to perform on the array. (see below for nested schema)
+	// Operation to perform on the array.
+	Operation []OperationObservation `json:"operation,omitempty" tf:"operation,omitempty"`
+}
+
+type ArrayProcessorOperationInitParameters struct {
+
+	// (Block List, Max: 1) Operation that appends a value to a target array attribute. (see below for nested schema)
+	// Operation that appends a value to a target array attribute.
+	Append []OperationAppendInitParameters `json:"append,omitempty" tf:"append,omitempty"`
+
+	// (Block List, Max: 1) Operation that computes the length of a source array and stores the result in a target attribute. (see below for nested schema)
+	// Operation that computes the length of a source array and stores the result in a target attribute.
+	Length []OperationLengthInitParameters `json:"length,omitempty" tf:"length,omitempty"`
+
+	// (Block List, Max: 1) Operation that finds an object in a source array using a filter, and then extracts a value from that found object and puts that value into the target attribute. (see below for nested schema)
+	// Operation that finds an object in a source array using a filter, and then extracts a value from that found object and puts that value into the target attribute.
+	Select []OperationSelectInitParameters `json:"select,omitempty" tf:"select,omitempty"`
+}
+
+type ArrayProcessorOperationObservation struct {
+
+	// (Block List, Max: 1) Operation that appends a value to a target array attribute. (see below for nested schema)
+	// Operation that appends a value to a target array attribute.
+	Append []OperationAppendObservation `json:"append,omitempty" tf:"append,omitempty"`
+
+	// (Block List, Max: 1) Operation that computes the length of a source array and stores the result in a target attribute. (see below for nested schema)
+	// Operation that computes the length of a source array and stores the result in a target attribute.
+	Length []OperationLengthObservation `json:"length,omitempty" tf:"length,omitempty"`
+
+	// (Block List, Max: 1) Operation that finds an object in a source array using a filter, and then extracts a value from that found object and puts that value into the target attribute. (see below for nested schema)
+	// Operation that finds an object in a source array using a filter, and then extracts a value from that found object and puts that value into the target attribute.
+	Select []OperationSelectObservation `json:"select,omitempty" tf:"select,omitempty"`
+}
+
+type ArrayProcessorOperationParameters struct {
+
+	// (Block List, Max: 1) Operation that appends a value to a target array attribute. (see below for nested schema)
+	// Operation that appends a value to a target array attribute.
+	// +kubebuilder:validation:Optional
+	Append []OperationAppendParameters `json:"append,omitempty" tf:"append,omitempty"`
+
+	// (Block List, Max: 1) Operation that computes the length of a source array and stores the result in a target attribute. (see below for nested schema)
+	// Operation that computes the length of a source array and stores the result in a target attribute.
+	// +kubebuilder:validation:Optional
+	Length []OperationLengthParameters `json:"length,omitempty" tf:"length,omitempty"`
+
+	// (Block List, Max: 1) Operation that finds an object in a source array using a filter, and then extracts a value from that found object and puts that value into the target attribute. (see below for nested schema)
+	// Operation that finds an object in a source array using a filter, and then extracts a value from that found object and puts that value into the target attribute.
+	// +kubebuilder:validation:Optional
+	Select []OperationSelectParameters `json:"select,omitempty" tf:"select,omitempty"`
+}
+
+type ArrayProcessorParameters struct {
+
+	// (Boolean)
+	// Boolean value to enable your processor.
+	// +kubebuilder:validation:Optional
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Your processor name.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Operation to perform on the array. (see below for nested schema)
+	// Operation to perform on the array.
+	// +kubebuilder:validation:Optional
+	Operation []OperationParameters `json:"operation" tf:"operation,omitempty"`
+}
+
 type AttributeRemapperInitParameters struct {
 
 	// (Boolean)
@@ -105,7 +249,7 @@ type AttributeRemapperInitParameters struct {
 	// Override the target element if already set.
 	OverrideOnConflict *bool `json:"overrideOnConflict,omitempty" tf:"override_on_conflict,omitempty"`
 
-	// (Boolean) Remove or preserve the remapped source element.
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
 	// Remove or preserve the remapped source element.
 	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
 
@@ -144,7 +288,7 @@ type AttributeRemapperObservation struct {
 	// Override the target element if already set.
 	OverrideOnConflict *bool `json:"overrideOnConflict,omitempty" tf:"override_on_conflict,omitempty"`
 
-	// (Boolean) Remove or preserve the remapped source element.
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
 	// Remove or preserve the remapped source element.
 	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
 
@@ -186,7 +330,7 @@ type AttributeRemapperParameters struct {
 	// +kubebuilder:validation:Optional
 	OverrideOnConflict *bool `json:"overrideOnConflict,omitempty" tf:"override_on_conflict,omitempty"`
 
-	// (Boolean) Remove or preserve the remapped source element.
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
 	// Remove or preserve the remapped source element.
 	// +kubebuilder:validation:Optional
 	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
@@ -215,6 +359,73 @@ type AttributeRemapperParameters struct {
 	// Defines if the target is a log `attribute` or `tag`.
 	// +kubebuilder:validation:Optional
 	TargetType *string `json:"targetType" tf:"target_type,omitempty"`
+}
+
+type CategoriesFilterInitParameters struct {
+
+	// (String) Filter criteria of the category.
+	// Filter criteria of the category.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type CategoriesFilterObservation struct {
+
+	// (String) Filter criteria of the category.
+	// Filter criteria of the category.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type CategoriesFilterParameters struct {
+
+	// (String) Filter criteria of the category.
+	// Filter criteria of the category.
+	// +kubebuilder:validation:Optional
+	Query *string `json:"query" tf:"query,omitempty"`
+}
+
+type CategoriesInitParameters struct {
+
+	// (Block List, Min: 1) (see below for nested schema)
+	Filter []CategoriesFilterInitParameters `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// (String) The ID of this resource.
+	// ID to inject into the category.
+	ID *float64 `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String)
+	// Value to assign to target schema field.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type CategoriesObservation struct {
+
+	// (Block List, Min: 1) (see below for nested schema)
+	Filter []CategoriesFilterObservation `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// (String) The ID of this resource.
+	// ID to inject into the category.
+	ID *float64 `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String)
+	// Value to assign to target schema field.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type CategoriesParameters struct {
+
+	// (Block List, Min: 1) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	Filter []CategoriesFilterParameters `json:"filter" tf:"filter,omitempty"`
+
+	// (String) The ID of this resource.
+	// ID to inject into the category.
+	// +kubebuilder:validation:Optional
+	ID *float64 `json:"id" tf:"id,omitempty"`
+
+	// (String)
+	// Value to assign to target schema field.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
 }
 
 type CategoryFilterInitParameters struct {
@@ -382,6 +593,9 @@ type CategoryProcessorParameters struct {
 
 type CustomPipelineInitParameters struct {
 
+	// (String)
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// (Block List, Min: 1) (see below for nested schema)
 	Filter []FilterInitParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
@@ -393,9 +607,16 @@ type CustomPipelineInitParameters struct {
 
 	// (Block List) (see below for nested schema)
 	Processor []ProcessorInitParameters `json:"processor,omitempty" tf:"processor,omitempty"`
+
+	// (Set of String)
+	// +listType=set
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type CustomPipelineObservation struct {
+
+	// (String)
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (Block List, Min: 1) (see below for nested schema)
 	Filter []FilterObservation `json:"filter,omitempty" tf:"filter,omitempty"`
@@ -411,9 +632,17 @@ type CustomPipelineObservation struct {
 
 	// (Block List) (see below for nested schema)
 	Processor []ProcessorObservation `json:"processor,omitempty" tf:"processor,omitempty"`
+
+	// (Set of String)
+	// +listType=set
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type CustomPipelineParameters struct {
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (Block List, Min: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
@@ -430,6 +659,11 @@ type CustomPipelineParameters struct {
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Processor []ProcessorParameters `json:"processor,omitempty" tf:"processor,omitempty"`
+
+	// (Set of String)
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type DateRemapperInitParameters struct {
@@ -478,6 +712,134 @@ type DateRemapperParameters struct {
 	// List of source attributes.
 	// +kubebuilder:validation:Optional
 	Sources []*string `json:"sources" tf:"sources,omitempty"`
+}
+
+type DecoderProcessorInitParameters struct {
+
+	// (String) Encoding type: base64 or base16
+	// Encoding type: base64 or base16
+	BinaryToTextEncoding *string `json:"binaryToTextEncoding,omitempty" tf:"binary_to_text_encoding,omitempty"`
+
+	// 8 or integer
+	// Input representation: utf-8 or integer
+	InputRepresentation *string `json:"inputRepresentation,omitempty" tf:"input_representation,omitempty"`
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Name of the processor.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Encoded message
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Decoded message
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type DecoderProcessorObservation struct {
+
+	// (String) Encoding type: base64 or base16
+	// Encoding type: base64 or base16
+	BinaryToTextEncoding *string `json:"binaryToTextEncoding,omitempty" tf:"binary_to_text_encoding,omitempty"`
+
+	// 8 or integer
+	// Input representation: utf-8 or integer
+	InputRepresentation *string `json:"inputRepresentation,omitempty" tf:"input_representation,omitempty"`
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Name of the processor.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Encoded message
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Decoded message
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type DecoderProcessorParameters struct {
+
+	// (String) Encoding type: base64 or base16
+	// Encoding type: base64 or base16
+	// +kubebuilder:validation:Optional
+	BinaryToTextEncoding *string `json:"binaryToTextEncoding" tf:"binary_to_text_encoding,omitempty"`
+
+	// 8 or integer
+	// Input representation: utf-8 or integer
+	// +kubebuilder:validation:Optional
+	InputRepresentation *string `json:"inputRepresentation" tf:"input_representation,omitempty"`
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	// +kubebuilder:validation:Optional
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Name of the processor.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Encoded message
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Decoded message
+	// +kubebuilder:validation:Optional
+	Target *string `json:"target" tf:"target,omitempty"`
+}
+
+type FallbackInitParameters struct {
+
+	// (List of String) List of source attributes or tags.
+	// Fallback sources used to populate value of field.
+	// +mapType=granular
+	Sources map[string]*string `json:"sources,omitempty" tf:"sources,omitempty"`
+
+	// (Map of String) Values that define when the fallback is used.
+	// Values that define when the fallback is used.
+	// +mapType=granular
+	Values map[string]*string `json:"values,omitempty" tf:"values,omitempty"`
+}
+
+type FallbackObservation struct {
+
+	// (List of String) List of source attributes or tags.
+	// Fallback sources used to populate value of field.
+	// +mapType=granular
+	Sources map[string]*string `json:"sources,omitempty" tf:"sources,omitempty"`
+
+	// (Map of String) Values that define when the fallback is used.
+	// Values that define when the fallback is used.
+	// +mapType=granular
+	Values map[string]*string `json:"values,omitempty" tf:"values,omitempty"`
+}
+
+type FallbackParameters struct {
+
+	// (List of String) List of source attributes or tags.
+	// Fallback sources used to populate value of field.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Sources map[string]*string `json:"sources,omitempty" tf:"sources,omitempty"`
+
+	// (Map of String) Values that define when the fallback is used.
+	// Values that define when the fallback is used.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Values map[string]*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type FilterInitParameters struct {
@@ -650,7 +1012,7 @@ type GrokParserInitParameters struct {
 	// List of sample logs for this parser. It can save up to 5 samples. Each sample takes up to 5000 characters.
 	Samples []*string `json:"samples,omitempty" tf:"samples,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the log attribute to parse.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 }
@@ -672,7 +1034,7 @@ type GrokParserObservation struct {
 	// List of sample logs for this parser. It can save up to 5 samples. Each sample takes up to 5000 characters.
 	Samples []*string `json:"samples,omitempty" tf:"samples,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the log attribute to parse.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 }
@@ -698,10 +1060,45 @@ type GrokParserParameters struct {
 	// +kubebuilder:validation:Optional
 	Samples []*string `json:"samples,omitempty" tf:"samples,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the log attribute to parse.
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source" tf:"source,omitempty"`
+}
+
+type LengthInitParameters struct {
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path of the array to compute the length of.
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute that receives the computed length.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type LengthObservation struct {
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path of the array to compute the length of.
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute that receives the computed length.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type LengthParameters struct {
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path of the array to compute the length of.
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute that receives the computed length.
+	// +kubebuilder:validation:Optional
+	Target *string `json:"target" tf:"target,omitempty"`
 }
 
 type LookupProcessorInitParameters struct {
@@ -722,7 +1119,7 @@ type LookupProcessorInitParameters struct {
 	// Name of the processor
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the source attribute used to do the lookup.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
@@ -749,7 +1146,7 @@ type LookupProcessorObservation struct {
 	// Name of the processor
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the source attribute used to do the lookup.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
@@ -780,7 +1177,7 @@ type LookupProcessorParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the source attribute used to do the lookup.
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source" tf:"source,omitempty"`
@@ -789,6 +1186,189 @@ type LookupProcessorParameters struct {
 	// Name of the attribute that contains the result of the lookup.
 	// +kubebuilder:validation:Optional
 	Target *string `json:"target" tf:"target,omitempty"`
+}
+
+type MappersInitParameters struct {
+
+	// (Block List) Mapper that categorizes log events into enum fields. In the case of OCSF, they can be used to map sibling fields which are composed of an ID and a name. (see below for nested schema)
+	// Mapper that categorizes log events into enum fields. In the case of OCSF, they can be used to map sibling fields which are composed of an ID and a name.
+	SchemaCategoryMapper []SchemaCategoryMapperInitParameters `json:"schemaCategoryMapper,omitempty" tf:"schema_category_mapper,omitempty"`
+
+	// (Block List) Mapper that maps source log fields to their correct fields. (see below for nested schema)
+	// Mapper that maps source log fields to their correct fields.
+	SchemaRemapper []SchemaRemapperInitParameters `json:"schemaRemapper,omitempty" tf:"schema_remapper,omitempty"`
+}
+
+type MappersObservation struct {
+
+	// (Block List) Mapper that categorizes log events into enum fields. In the case of OCSF, they can be used to map sibling fields which are composed of an ID and a name. (see below for nested schema)
+	// Mapper that categorizes log events into enum fields. In the case of OCSF, they can be used to map sibling fields which are composed of an ID and a name.
+	SchemaCategoryMapper []SchemaCategoryMapperObservation `json:"schemaCategoryMapper,omitempty" tf:"schema_category_mapper,omitempty"`
+
+	// (Block List) Mapper that maps source log fields to their correct fields. (see below for nested schema)
+	// Mapper that maps source log fields to their correct fields.
+	SchemaRemapper []SchemaRemapperObservation `json:"schemaRemapper,omitempty" tf:"schema_remapper,omitempty"`
+}
+
+type MappersParameters struct {
+
+	// (Block List) Mapper that categorizes log events into enum fields. In the case of OCSF, they can be used to map sibling fields which are composed of an ID and a name. (see below for nested schema)
+	// Mapper that categorizes log events into enum fields. In the case of OCSF, they can be used to map sibling fields which are composed of an ID and a name.
+	// +kubebuilder:validation:Optional
+	SchemaCategoryMapper []SchemaCategoryMapperParameters `json:"schemaCategoryMapper,omitempty" tf:"schema_category_mapper,omitempty"`
+
+	// (Block List) Mapper that maps source log fields to their correct fields. (see below for nested schema)
+	// Mapper that maps source log fields to their correct fields.
+	// +kubebuilder:validation:Optional
+	SchemaRemapper []SchemaRemapperParameters `json:"schemaRemapper,omitempty" tf:"schema_remapper,omitempty"`
+}
+
+type MappersSchemaCategoryMapperInitParameters struct {
+
+	// (Block List, Min: 1) Object describing the logs filter with corresponding category ID. (see below for nested schema)
+	// Object describing the logs filter with corresponding category ID.
+	Categories []SchemaCategoryMapperCategoriesInitParameters `json:"categories,omitempty" tf:"categories,omitempty"`
+
+	// (Block List, Max: 1) Used to override hardcoded category values with a value pulled from a source attribute on the log. (see below for nested schema)
+	// Used to override hardcoded category values with a value pulled from a source attribute on the log.
+	Fallback []SchemaCategoryMapperFallbackInitParameters `json:"fallback,omitempty" tf:"fallback,omitempty"`
+
+	// (String)
+	// Name of the logs schema category mapper.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Name of the target attributes which value is defined by the matching. (see below for nested schema)
+	// Name of the target attributes which value is defined by the matching.
+	Targets []SchemaCategoryMapperTargetsInitParameters `json:"targets,omitempty" tf:"targets,omitempty"`
+}
+
+type MappersSchemaCategoryMapperObservation struct {
+
+	// (Block List, Min: 1) Object describing the logs filter with corresponding category ID. (see below for nested schema)
+	// Object describing the logs filter with corresponding category ID.
+	Categories []SchemaCategoryMapperCategoriesObservation `json:"categories,omitempty" tf:"categories,omitempty"`
+
+	// (Block List, Max: 1) Used to override hardcoded category values with a value pulled from a source attribute on the log. (see below for nested schema)
+	// Used to override hardcoded category values with a value pulled from a source attribute on the log.
+	Fallback []SchemaCategoryMapperFallbackObservation `json:"fallback,omitempty" tf:"fallback,omitempty"`
+
+	// (String)
+	// Name of the logs schema category mapper.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Name of the target attributes which value is defined by the matching. (see below for nested schema)
+	// Name of the target attributes which value is defined by the matching.
+	Targets []SchemaCategoryMapperTargetsObservation `json:"targets,omitempty" tf:"targets,omitempty"`
+}
+
+type MappersSchemaCategoryMapperParameters struct {
+
+	// (Block List, Min: 1) Object describing the logs filter with corresponding category ID. (see below for nested schema)
+	// Object describing the logs filter with corresponding category ID.
+	// +kubebuilder:validation:Optional
+	Categories []SchemaCategoryMapperCategoriesParameters `json:"categories" tf:"categories,omitempty"`
+
+	// (Block List, Max: 1) Used to override hardcoded category values with a value pulled from a source attribute on the log. (see below for nested schema)
+	// Used to override hardcoded category values with a value pulled from a source attribute on the log.
+	// +kubebuilder:validation:Optional
+	Fallback []SchemaCategoryMapperFallbackParameters `json:"fallback,omitempty" tf:"fallback,omitempty"`
+
+	// (String)
+	// Name of the logs schema category mapper.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Name of the target attributes which value is defined by the matching. (see below for nested schema)
+	// Name of the target attributes which value is defined by the matching.
+	// +kubebuilder:validation:Optional
+	Targets []SchemaCategoryMapperTargetsParameters `json:"targets" tf:"targets,omitempty"`
+}
+
+type MappersSchemaRemapperInitParameters struct {
+
+	// (String)
+	// Name of the logs schema remapper.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Boolean) Override the target element if already set.
+	// Override or not the target element if already set.
+	OverrideOnConflict *bool `json:"overrideOnConflict,omitempty" tf:"override_on_conflict,omitempty"`
+
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
+	// Remove or preserve the remapped source element.
+	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
+
+	// (List of String) List of source attributes or tags.
+	// Array of source attributes.
+	Sources []*string `json:"sources,omitempty" tf:"sources,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Target field to map log source field to
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+
+	// (String) If the target_type of the remapper is attribute, try to cast the value to a new specific type. If the cast is not possible, the original type is kept. string, integer, or double are the possible types. If the target_type is tag, this parameter may not be specified.
+	// If the `target_type` of the remapper is `attribute`, try to cast the value to a new specific type. If the cast is not possible, the original type is kept. `string`, `integer`, or `double` are the possible types. If the `target_type` is `tag`, this parameter may not be specified.
+	TargetFormat *string `json:"targetFormat,omitempty" tf:"target_format,omitempty"`
+}
+
+type MappersSchemaRemapperObservation struct {
+
+	// (String)
+	// Name of the logs schema remapper.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Boolean) Override the target element if already set.
+	// Override or not the target element if already set.
+	OverrideOnConflict *bool `json:"overrideOnConflict,omitempty" tf:"override_on_conflict,omitempty"`
+
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
+	// Remove or preserve the remapped source element.
+	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
+
+	// (List of String) List of source attributes or tags.
+	// Array of source attributes.
+	Sources []*string `json:"sources,omitempty" tf:"sources,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Target field to map log source field to
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+
+	// (String) If the target_type of the remapper is attribute, try to cast the value to a new specific type. If the cast is not possible, the original type is kept. string, integer, or double are the possible types. If the target_type is tag, this parameter may not be specified.
+	// If the `target_type` of the remapper is `attribute`, try to cast the value to a new specific type. If the cast is not possible, the original type is kept. `string`, `integer`, or `double` are the possible types. If the `target_type` is `tag`, this parameter may not be specified.
+	TargetFormat *string `json:"targetFormat,omitempty" tf:"target_format,omitempty"`
+}
+
+type MappersSchemaRemapperParameters struct {
+
+	// (String)
+	// Name of the logs schema remapper.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (Boolean) Override the target element if already set.
+	// Override or not the target element if already set.
+	// +kubebuilder:validation:Optional
+	OverrideOnConflict *bool `json:"overrideOnConflict,omitempty" tf:"override_on_conflict,omitempty"`
+
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
+	// Remove or preserve the remapped source element.
+	// +kubebuilder:validation:Optional
+	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
+
+	// (List of String) List of source attributes or tags.
+	// Array of source attributes.
+	// +kubebuilder:validation:Optional
+	Sources []*string `json:"sources" tf:"sources,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Target field to map log source field to
+	// +kubebuilder:validation:Optional
+	Target *string `json:"target" tf:"target,omitempty"`
+
+	// (String) If the target_type of the remapper is attribute, try to cast the value to a new specific type. If the cast is not possible, the original type is kept. string, integer, or double are the possible types. If the target_type is tag, this parameter may not be specified.
+	// If the `target_type` of the remapper is `attribute`, try to cast the value to a new specific type. If the cast is not possible, the original type is kept. `string`, `integer`, or `double` are the possible types. If the `target_type` is `tag`, this parameter may not be specified.
+	// +kubebuilder:validation:Optional
+	TargetFormat *string `json:"targetFormat,omitempty" tf:"target_format,omitempty"`
 }
 
 type MessageRemapperInitParameters struct {
@@ -839,6 +1419,198 @@ type MessageRemapperParameters struct {
 	Sources []*string `json:"sources" tf:"sources,omitempty"`
 }
 
+type OperationAppendInitParameters struct {
+
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
+	// Remove or preserve the remapped source element. Defaults to `true`.
+	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path containing the value to append.
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute path of the array to append to.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type OperationAppendObservation struct {
+
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
+	// Remove or preserve the remapped source element. Defaults to `true`.
+	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path containing the value to append.
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute path of the array to append to.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type OperationAppendParameters struct {
+
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
+	// Remove or preserve the remapped source element. Defaults to `true`.
+	// +kubebuilder:validation:Optional
+	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path containing the value to append.
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute path of the array to append to.
+	// +kubebuilder:validation:Optional
+	Target *string `json:"target" tf:"target,omitempty"`
+}
+
+type OperationInitParameters struct {
+
+	// (Block List, Max: 1) Operation that appends a value to a target array attribute. (see below for nested schema)
+	// Operation that appends a value to a target array attribute.
+	Append []AppendInitParameters `json:"append,omitempty" tf:"append,omitempty"`
+
+	// (Block List, Max: 1) Operation that computes the length of a source array and stores the result in a target attribute. (see below for nested schema)
+	// Operation that computes the length of a source array and stores the result in a target attribute.
+	Length []LengthInitParameters `json:"length,omitempty" tf:"length,omitempty"`
+
+	// (Block List, Max: 1) Operation that finds an object in a source array using a filter, and then extracts a value from that found object and puts that value into the target attribute. (see below for nested schema)
+	// Operation that finds an object in a source array using a filter, and then extracts a value from that found object and puts that value into the target attribute.
+	Select []SelectInitParameters `json:"select,omitempty" tf:"select,omitempty"`
+}
+
+type OperationLengthInitParameters struct {
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path of the array to compute the length of.
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute that receives the computed length.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type OperationLengthObservation struct {
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path of the array to compute the length of.
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute that receives the computed length.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type OperationLengthParameters struct {
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path of the array to compute the length of.
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute that receives the computed length.
+	// +kubebuilder:validation:Optional
+	Target *string `json:"target" tf:"target,omitempty"`
+}
+
+type OperationObservation struct {
+
+	// (Block List, Max: 1) Operation that appends a value to a target array attribute. (see below for nested schema)
+	// Operation that appends a value to a target array attribute.
+	Append []AppendObservation `json:"append,omitempty" tf:"append,omitempty"`
+
+	// (Block List, Max: 1) Operation that computes the length of a source array and stores the result in a target attribute. (see below for nested schema)
+	// Operation that computes the length of a source array and stores the result in a target attribute.
+	Length []LengthObservation `json:"length,omitempty" tf:"length,omitempty"`
+
+	// (Block List, Max: 1) Operation that finds an object in a source array using a filter, and then extracts a value from that found object and puts that value into the target attribute. (see below for nested schema)
+	// Operation that finds an object in a source array using a filter, and then extracts a value from that found object and puts that value into the target attribute.
+	Select []SelectObservation `json:"select,omitempty" tf:"select,omitempty"`
+}
+
+type OperationParameters struct {
+
+	// (Block List, Max: 1) Operation that appends a value to a target array attribute. (see below for nested schema)
+	// Operation that appends a value to a target array attribute.
+	// +kubebuilder:validation:Optional
+	Append []AppendParameters `json:"append,omitempty" tf:"append,omitempty"`
+
+	// (Block List, Max: 1) Operation that computes the length of a source array and stores the result in a target attribute. (see below for nested schema)
+	// Operation that computes the length of a source array and stores the result in a target attribute.
+	// +kubebuilder:validation:Optional
+	Length []LengthParameters `json:"length,omitempty" tf:"length,omitempty"`
+
+	// (Block List, Max: 1) Operation that finds an object in a source array using a filter, and then extracts a value from that found object and puts that value into the target attribute. (see below for nested schema)
+	// Operation that finds an object in a source array using a filter, and then extracts a value from that found object and puts that value into the target attribute.
+	// +kubebuilder:validation:Optional
+	Select []SelectParameters `json:"select,omitempty" tf:"select,omitempty"`
+}
+
+type OperationSelectInitParameters struct {
+
+	// (Block List, Min: 1) (see below for nested schema)
+	// Filter expression (e.g. key1:value1 OR key2:value2) used to find the matching element.
+	Filter *string `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path of the array to search into.
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute that receives the extracted value.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+
+	// (String) Attribute key from the matching object that should be extracted.
+	// Attribute key from the matching object that should be extracted.
+	ValueToExtract *string `json:"valueToExtract,omitempty" tf:"value_to_extract,omitempty"`
+}
+
+type OperationSelectObservation struct {
+
+	// (Block List, Min: 1) (see below for nested schema)
+	// Filter expression (e.g. key1:value1 OR key2:value2) used to find the matching element.
+	Filter *string `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path of the array to search into.
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute that receives the extracted value.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+
+	// (String) Attribute key from the matching object that should be extracted.
+	// Attribute key from the matching object that should be extracted.
+	ValueToExtract *string `json:"valueToExtract,omitempty" tf:"value_to_extract,omitempty"`
+}
+
+type OperationSelectParameters struct {
+
+	// (Block List, Min: 1) (see below for nested schema)
+	// Filter expression (e.g. key1:value1 OR key2:value2) used to find the matching element.
+	// +kubebuilder:validation:Optional
+	Filter *string `json:"filter" tf:"filter,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path of the array to search into.
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute that receives the extracted value.
+	// +kubebuilder:validation:Optional
+	Target *string `json:"target" tf:"target,omitempty"`
+
+	// (String) Attribute key from the matching object that should be extracted.
+	// Attribute key from the matching object that should be extracted.
+	// +kubebuilder:validation:Optional
+	ValueToExtract *string `json:"valueToExtract" tf:"value_to_extract,omitempty"`
+}
+
 type PipelineFilterInitParameters struct {
 
 	// (String) Filter criteria of the category.
@@ -863,6 +1635,9 @@ type PipelineFilterParameters struct {
 
 type PipelineInitParameters struct {
 
+	// (String)
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// (Block List, Min: 1) (see below for nested schema)
 	Filter []PipelineFilterInitParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
@@ -874,9 +1649,16 @@ type PipelineInitParameters struct {
 
 	// (Block List) (see below for nested schema)
 	Processor []PipelineProcessorInitParameters `json:"processor,omitempty" tf:"processor,omitempty"`
+
+	// (Set of String)
+	// +listType=set
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type PipelineObservation struct {
+
+	// (String)
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (Block List, Min: 1) (see below for nested schema)
 	Filter []PipelineFilterObservation `json:"filter,omitempty" tf:"filter,omitempty"`
@@ -889,9 +1671,17 @@ type PipelineObservation struct {
 
 	// (Block List) (see below for nested schema)
 	Processor []PipelineProcessorObservation `json:"processor,omitempty" tf:"processor,omitempty"`
+
+	// (Set of String)
+	// +listType=set
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type PipelineParameters struct {
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (Block List, Min: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
@@ -908,6 +1698,11 @@ type PipelineParameters struct {
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Processor []PipelineProcessorParameters `json:"processor,omitempty" tf:"processor,omitempty"`
+
+	// (Set of String)
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type PipelineProcessorInitParameters struct {
@@ -915,6 +1710,10 @@ type PipelineProcessorInitParameters struct {
 	// (Block List, Max: 1) Arithmetic Processor. More information can be found in the official docs (see below for nested schema)
 	// Arithmetic Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#arithmetic-processor)
 	ArithmeticProcessor []ProcessorArithmeticProcessorInitParameters `json:"arithmeticProcessor,omitempty" tf:"arithmetic_processor,omitempty"`
+
+	// (Block List, Max: 1) Array Processor. More information can be found in the official docs (see below for nested schema)
+	// Array Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#array-processor)
+	ArrayProcessor []ProcessorArrayProcessorInitParameters `json:"arrayProcessor,omitempty" tf:"array_processor,omitempty"`
 
 	// (Block List, Max: 1) Attribute Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Attribute Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#remapper)
@@ -927,6 +1726,10 @@ type PipelineProcessorInitParameters struct {
 	// (Block List, Max: 1) Date Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Date Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#log-date-remapper)
 	DateRemapper []ProcessorDateRemapperInitParameters `json:"dateRemapper,omitempty" tf:"date_remapper,omitempty"`
+
+	// (Block List, Max: 1) Decoder Processor. More information can be found in the official docs (see below for nested schema)
+	// Decoder Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/log_configuration/processors/?tab=ui#decoder-processor)
+	DecoderProcessor []ProcessorDecoderProcessorInitParameters `json:"decoderProcessor,omitempty" tf:"decoder_processor,omitempty"`
 
 	// (Block List, Max: 1) Date GeoIP Processor. More information can be found in the official docs (see below for nested schema)
 	// Date GeoIP Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#geoip-parser)
@@ -948,9 +1751,17 @@ type PipelineProcessorInitParameters struct {
 	// Reference Table Lookup Processor. Reference Tables are in public beta. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#lookup-processor)
 	ReferenceTableLookupProcessor []ReferenceTableLookupProcessorInitParameters `json:"referenceTableLookupProcessor,omitempty" tf:"reference_table_lookup_processor,omitempty"`
 
+	// (Block List, Max: 1) Schema Processor. More information can be found in the official docs (see below for nested schema)
+	// Schema Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#schema-processor)
+	SchemaProcessor []SchemaProcessorInitParameters `json:"schemaProcessor,omitempty" tf:"schema_processor,omitempty"`
+
 	// (Block List, Max: 1) Service Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Service Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#service-remapper)
 	ServiceRemapper []ServiceRemapperInitParameters `json:"serviceRemapper,omitempty" tf:"service_remapper,omitempty"`
+
+	// (Block List, Max: 1) Span ID Remapper Processor. More information can be found in the official docs (see below for nested schema)
+	// Span ID Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/log_configuration/processors/?tab=ui#span-remapper)
+	SpanIDRemapper []SpanIDRemapperInitParameters `json:"spanIdRemapper,omitempty" tf:"span_id_remapper,omitempty"`
 
 	// (Block List, Max: 1) Status Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Status Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#log-status-remapper)
@@ -979,6 +1790,10 @@ type PipelineProcessorObservation struct {
 	// Arithmetic Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#arithmetic-processor)
 	ArithmeticProcessor []ProcessorArithmeticProcessorObservation `json:"arithmeticProcessor,omitempty" tf:"arithmetic_processor,omitempty"`
 
+	// (Block List, Max: 1) Array Processor. More information can be found in the official docs (see below for nested schema)
+	// Array Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#array-processor)
+	ArrayProcessor []ProcessorArrayProcessorObservation `json:"arrayProcessor,omitempty" tf:"array_processor,omitempty"`
+
 	// (Block List, Max: 1) Attribute Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Attribute Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#remapper)
 	AttributeRemapper []ProcessorAttributeRemapperObservation `json:"attributeRemapper,omitempty" tf:"attribute_remapper,omitempty"`
@@ -990,6 +1805,10 @@ type PipelineProcessorObservation struct {
 	// (Block List, Max: 1) Date Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Date Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#log-date-remapper)
 	DateRemapper []ProcessorDateRemapperObservation `json:"dateRemapper,omitempty" tf:"date_remapper,omitempty"`
+
+	// (Block List, Max: 1) Decoder Processor. More information can be found in the official docs (see below for nested schema)
+	// Decoder Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/log_configuration/processors/?tab=ui#decoder-processor)
+	DecoderProcessor []ProcessorDecoderProcessorObservation `json:"decoderProcessor,omitempty" tf:"decoder_processor,omitempty"`
 
 	// (Block List, Max: 1) Date GeoIP Processor. More information can be found in the official docs (see below for nested schema)
 	// Date GeoIP Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#geoip-parser)
@@ -1011,9 +1830,17 @@ type PipelineProcessorObservation struct {
 	// Reference Table Lookup Processor. Reference Tables are in public beta. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#lookup-processor)
 	ReferenceTableLookupProcessor []ReferenceTableLookupProcessorObservation `json:"referenceTableLookupProcessor,omitempty" tf:"reference_table_lookup_processor,omitempty"`
 
+	// (Block List, Max: 1) Schema Processor. More information can be found in the official docs (see below for nested schema)
+	// Schema Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#schema-processor)
+	SchemaProcessor []SchemaProcessorObservation `json:"schemaProcessor,omitempty" tf:"schema_processor,omitempty"`
+
 	// (Block List, Max: 1) Service Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Service Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#service-remapper)
 	ServiceRemapper []ServiceRemapperObservation `json:"serviceRemapper,omitempty" tf:"service_remapper,omitempty"`
+
+	// (Block List, Max: 1) Span ID Remapper Processor. More information can be found in the official docs (see below for nested schema)
+	// Span ID Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/log_configuration/processors/?tab=ui#span-remapper)
+	SpanIDRemapper []SpanIDRemapperObservation `json:"spanIdRemapper,omitempty" tf:"span_id_remapper,omitempty"`
 
 	// (Block List, Max: 1) Status Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Status Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#log-status-remapper)
@@ -1043,6 +1870,11 @@ type PipelineProcessorParameters struct {
 	// +kubebuilder:validation:Optional
 	ArithmeticProcessor []ProcessorArithmeticProcessorParameters `json:"arithmeticProcessor,omitempty" tf:"arithmetic_processor,omitempty"`
 
+	// (Block List, Max: 1) Array Processor. More information can be found in the official docs (see below for nested schema)
+	// Array Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#array-processor)
+	// +kubebuilder:validation:Optional
+	ArrayProcessor []ProcessorArrayProcessorParameters `json:"arrayProcessor,omitempty" tf:"array_processor,omitempty"`
+
 	// (Block List, Max: 1) Attribute Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Attribute Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#remapper)
 	// +kubebuilder:validation:Optional
@@ -1057,6 +1889,11 @@ type PipelineProcessorParameters struct {
 	// Date Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#log-date-remapper)
 	// +kubebuilder:validation:Optional
 	DateRemapper []ProcessorDateRemapperParameters `json:"dateRemapper,omitempty" tf:"date_remapper,omitempty"`
+
+	// (Block List, Max: 1) Decoder Processor. More information can be found in the official docs (see below for nested schema)
+	// Decoder Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/log_configuration/processors/?tab=ui#decoder-processor)
+	// +kubebuilder:validation:Optional
+	DecoderProcessor []ProcessorDecoderProcessorParameters `json:"decoderProcessor,omitempty" tf:"decoder_processor,omitempty"`
 
 	// (Block List, Max: 1) Date GeoIP Processor. More information can be found in the official docs (see below for nested schema)
 	// Date GeoIP Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#geoip-parser)
@@ -1083,10 +1920,20 @@ type PipelineProcessorParameters struct {
 	// +kubebuilder:validation:Optional
 	ReferenceTableLookupProcessor []ReferenceTableLookupProcessorParameters `json:"referenceTableLookupProcessor,omitempty" tf:"reference_table_lookup_processor,omitempty"`
 
+	// (Block List, Max: 1) Schema Processor. More information can be found in the official docs (see below for nested schema)
+	// Schema Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#schema-processor)
+	// +kubebuilder:validation:Optional
+	SchemaProcessor []SchemaProcessorParameters `json:"schemaProcessor,omitempty" tf:"schema_processor,omitempty"`
+
 	// (Block List, Max: 1) Service Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Service Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#service-remapper)
 	// +kubebuilder:validation:Optional
 	ServiceRemapper []ServiceRemapperParameters `json:"serviceRemapper,omitempty" tf:"service_remapper,omitempty"`
+
+	// (Block List, Max: 1) Span ID Remapper Processor. More information can be found in the official docs (see below for nested schema)
+	// Span ID Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/log_configuration/processors/?tab=ui#span-remapper)
+	// +kubebuilder:validation:Optional
+	SpanIDRemapper []SpanIDRemapperParameters `json:"spanIdRemapper,omitempty" tf:"span_id_remapper,omitempty"`
 
 	// (Block List, Max: 1) Status Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Status Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#log-status-remapper)
@@ -1188,6 +2035,54 @@ type ProcessorArithmeticProcessorParameters struct {
 	Target *string `json:"target" tf:"target,omitempty"`
 }
 
+type ProcessorArrayProcessorInitParameters struct {
+
+	// (Boolean)
+	// Boolean value to enable your processor.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Your processor name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Operation to perform on the array. (see below for nested schema)
+	// Operation to perform on the array.
+	Operation []ArrayProcessorOperationInitParameters `json:"operation,omitempty" tf:"operation,omitempty"`
+}
+
+type ProcessorArrayProcessorObservation struct {
+
+	// (Boolean)
+	// Boolean value to enable your processor.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Your processor name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Operation to perform on the array. (see below for nested schema)
+	// Operation to perform on the array.
+	Operation []ArrayProcessorOperationObservation `json:"operation,omitempty" tf:"operation,omitempty"`
+}
+
+type ProcessorArrayProcessorParameters struct {
+
+	// (Boolean)
+	// Boolean value to enable your processor.
+	// +kubebuilder:validation:Optional
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Your processor name.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Operation to perform on the array. (see below for nested schema)
+	// Operation to perform on the array.
+	// +kubebuilder:validation:Optional
+	Operation []ArrayProcessorOperationParameters `json:"operation" tf:"operation,omitempty"`
+}
+
 type ProcessorAttributeRemapperInitParameters struct {
 
 	// (Boolean)
@@ -1202,7 +2097,7 @@ type ProcessorAttributeRemapperInitParameters struct {
 	// Override the target element if already set.
 	OverrideOnConflict *bool `json:"overrideOnConflict,omitempty" tf:"override_on_conflict,omitempty"`
 
-	// (Boolean) Remove or preserve the remapped source element.
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
 	// Remove or preserve the remapped source element.
 	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
 
@@ -1241,7 +2136,7 @@ type ProcessorAttributeRemapperObservation struct {
 	// Override the target element if already set.
 	OverrideOnConflict *bool `json:"overrideOnConflict,omitempty" tf:"override_on_conflict,omitempty"`
 
-	// (Boolean) Remove or preserve the remapped source element.
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
 	// Remove or preserve the remapped source element.
 	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
 
@@ -1283,7 +2178,7 @@ type ProcessorAttributeRemapperParameters struct {
 	// +kubebuilder:validation:Optional
 	OverrideOnConflict *bool `json:"overrideOnConflict,omitempty" tf:"override_on_conflict,omitempty"`
 
-	// (Boolean) Remove or preserve the remapped source element.
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
 	// Remove or preserve the remapped source element.
 	// +kubebuilder:validation:Optional
 	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
@@ -1423,6 +2318,93 @@ type ProcessorDateRemapperParameters struct {
 	Sources []*string `json:"sources" tf:"sources,omitempty"`
 }
 
+type ProcessorDecoderProcessorInitParameters struct {
+
+	// (String) Encoding type: base64 or base16
+	// Encoding type: base64 or base16
+	BinaryToTextEncoding *string `json:"binaryToTextEncoding,omitempty" tf:"binary_to_text_encoding,omitempty"`
+
+	// 8 or integer
+	// Input representation: utf-8 or integer
+	InputRepresentation *string `json:"inputRepresentation,omitempty" tf:"input_representation,omitempty"`
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Name of the processor.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Encoded message
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Decoded message
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type ProcessorDecoderProcessorObservation struct {
+
+	// (String) Encoding type: base64 or base16
+	// Encoding type: base64 or base16
+	BinaryToTextEncoding *string `json:"binaryToTextEncoding,omitempty" tf:"binary_to_text_encoding,omitempty"`
+
+	// 8 or integer
+	// Input representation: utf-8 or integer
+	InputRepresentation *string `json:"inputRepresentation,omitempty" tf:"input_representation,omitempty"`
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Name of the processor.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Encoded message
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Decoded message
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type ProcessorDecoderProcessorParameters struct {
+
+	// (String) Encoding type: base64 or base16
+	// Encoding type: base64 or base16
+	// +kubebuilder:validation:Optional
+	BinaryToTextEncoding *string `json:"binaryToTextEncoding" tf:"binary_to_text_encoding,omitempty"`
+
+	// 8 or integer
+	// Input representation: utf-8 or integer
+	// +kubebuilder:validation:Optional
+	InputRepresentation *string `json:"inputRepresentation" tf:"input_representation,omitempty"`
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	// +kubebuilder:validation:Optional
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Name of the processor.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Encoded message
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Decoded message
+	// +kubebuilder:validation:Optional
+	Target *string `json:"target" tf:"target,omitempty"`
+}
+
 type ProcessorGeoIPParserInitParameters struct {
 
 	// (Boolean)
@@ -1501,7 +2483,7 @@ type ProcessorGrokParserInitParameters struct {
 	// List of sample logs for this parser. It can save up to 5 samples. Each sample takes up to 5000 characters.
 	Samples []*string `json:"samples,omitempty" tf:"samples,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the log attribute to parse.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 }
@@ -1523,7 +2505,7 @@ type ProcessorGrokParserObservation struct {
 	// List of sample logs for this parser. It can save up to 5 samples. Each sample takes up to 5000 characters.
 	Samples []*string `json:"samples,omitempty" tf:"samples,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the log attribute to parse.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 }
@@ -1549,7 +2531,7 @@ type ProcessorGrokParserParameters struct {
 	// +kubebuilder:validation:Optional
 	Samples []*string `json:"samples,omitempty" tf:"samples,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the log attribute to parse.
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source" tf:"source,omitempty"`
@@ -1560,6 +2542,10 @@ type ProcessorInitParameters struct {
 	// (Block List, Max: 1) Arithmetic Processor. More information can be found in the official docs (see below for nested schema)
 	// Arithmetic Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#arithmetic-processor)
 	ArithmeticProcessor []ArithmeticProcessorInitParameters `json:"arithmeticProcessor,omitempty" tf:"arithmetic_processor,omitempty"`
+
+	// (Block List, Max: 1) Array Processor. More information can be found in the official docs (see below for nested schema)
+	// Array Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#array-processor)
+	ArrayProcessor []ArrayProcessorInitParameters `json:"arrayProcessor,omitempty" tf:"array_processor,omitempty"`
 
 	// (Block List, Max: 1) Attribute Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Attribute Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#remapper)
@@ -1572,6 +2558,10 @@ type ProcessorInitParameters struct {
 	// (Block List, Max: 1) Date Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Date Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#log-date-remapper)
 	DateRemapper []DateRemapperInitParameters `json:"dateRemapper,omitempty" tf:"date_remapper,omitempty"`
+
+	// (Block List, Max: 1) Decoder Processor. More information can be found in the official docs (see below for nested schema)
+	// Decoder Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/log_configuration/processors/?tab=ui#decoder-processor)
+	DecoderProcessor []DecoderProcessorInitParameters `json:"decoderProcessor,omitempty" tf:"decoder_processor,omitempty"`
 
 	// (Block List, Max: 1) Date GeoIP Processor. More information can be found in the official docs (see below for nested schema)
 	// Date GeoIP Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#geoip-parser)
@@ -1596,9 +2586,17 @@ type ProcessorInitParameters struct {
 	// Reference Table Lookup Processor. Reference Tables are in public beta. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#lookup-processor)
 	ReferenceTableLookupProcessor []ProcessorReferenceTableLookupProcessorInitParameters `json:"referenceTableLookupProcessor,omitempty" tf:"reference_table_lookup_processor,omitempty"`
 
+	// (Block List, Max: 1) Schema Processor. More information can be found in the official docs (see below for nested schema)
+	// Schema Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#schema-processor)
+	SchemaProcessor []ProcessorSchemaProcessorInitParameters `json:"schemaProcessor,omitempty" tf:"schema_processor,omitempty"`
+
 	// (Block List, Max: 1) Service Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Service Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#service-remapper)
 	ServiceRemapper []ProcessorServiceRemapperInitParameters `json:"serviceRemapper,omitempty" tf:"service_remapper,omitempty"`
+
+	// (Block List, Max: 1) Span ID Remapper Processor. More information can be found in the official docs (see below for nested schema)
+	// Span ID Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/log_configuration/processors/?tab=ui#span-remapper)
+	SpanIDRemapper []ProcessorSpanIDRemapperInitParameters `json:"spanIdRemapper,omitempty" tf:"span_id_remapper,omitempty"`
 
 	// (Block List, Max: 1) Status Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Status Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#log-status-remapper)
@@ -1639,7 +2637,7 @@ type ProcessorLookupProcessorInitParameters struct {
 	// Name of the processor
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the source attribute used to do the lookup.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
@@ -1666,7 +2664,7 @@ type ProcessorLookupProcessorObservation struct {
 	// Name of the processor
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the source attribute used to do the lookup.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
@@ -1697,7 +2695,7 @@ type ProcessorLookupProcessorParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the source attribute used to do the lookup.
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source" tf:"source,omitempty"`
@@ -1762,6 +2760,10 @@ type ProcessorObservation struct {
 	// Arithmetic Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#arithmetic-processor)
 	ArithmeticProcessor []ArithmeticProcessorObservation `json:"arithmeticProcessor,omitempty" tf:"arithmetic_processor,omitempty"`
 
+	// (Block List, Max: 1) Array Processor. More information can be found in the official docs (see below for nested schema)
+	// Array Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#array-processor)
+	ArrayProcessor []ArrayProcessorObservation `json:"arrayProcessor,omitempty" tf:"array_processor,omitempty"`
+
 	// (Block List, Max: 1) Attribute Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Attribute Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#remapper)
 	AttributeRemapper []AttributeRemapperObservation `json:"attributeRemapper,omitempty" tf:"attribute_remapper,omitempty"`
@@ -1773,6 +2775,10 @@ type ProcessorObservation struct {
 	// (Block List, Max: 1) Date Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Date Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#log-date-remapper)
 	DateRemapper []DateRemapperObservation `json:"dateRemapper,omitempty" tf:"date_remapper,omitempty"`
+
+	// (Block List, Max: 1) Decoder Processor. More information can be found in the official docs (see below for nested schema)
+	// Decoder Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/log_configuration/processors/?tab=ui#decoder-processor)
+	DecoderProcessor []DecoderProcessorObservation `json:"decoderProcessor,omitempty" tf:"decoder_processor,omitempty"`
 
 	// (Block List, Max: 1) Date GeoIP Processor. More information can be found in the official docs (see below for nested schema)
 	// Date GeoIP Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#geoip-parser)
@@ -1797,9 +2803,17 @@ type ProcessorObservation struct {
 	// Reference Table Lookup Processor. Reference Tables are in public beta. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#lookup-processor)
 	ReferenceTableLookupProcessor []ProcessorReferenceTableLookupProcessorObservation `json:"referenceTableLookupProcessor,omitempty" tf:"reference_table_lookup_processor,omitempty"`
 
+	// (Block List, Max: 1) Schema Processor. More information can be found in the official docs (see below for nested schema)
+	// Schema Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#schema-processor)
+	SchemaProcessor []ProcessorSchemaProcessorObservation `json:"schemaProcessor,omitempty" tf:"schema_processor,omitempty"`
+
 	// (Block List, Max: 1) Service Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Service Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#service-remapper)
 	ServiceRemapper []ProcessorServiceRemapperObservation `json:"serviceRemapper,omitempty" tf:"service_remapper,omitempty"`
+
+	// (Block List, Max: 1) Span ID Remapper Processor. More information can be found in the official docs (see below for nested schema)
+	// Span ID Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/log_configuration/processors/?tab=ui#span-remapper)
+	SpanIDRemapper []ProcessorSpanIDRemapperObservation `json:"spanIdRemapper,omitempty" tf:"span_id_remapper,omitempty"`
 
 	// (Block List, Max: 1) Status Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Status Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#log-status-remapper)
@@ -1829,6 +2843,11 @@ type ProcessorParameters struct {
 	// +kubebuilder:validation:Optional
 	ArithmeticProcessor []ArithmeticProcessorParameters `json:"arithmeticProcessor,omitempty" tf:"arithmetic_processor,omitempty"`
 
+	// (Block List, Max: 1) Array Processor. More information can be found in the official docs (see below for nested schema)
+	// Array Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#array-processor)
+	// +kubebuilder:validation:Optional
+	ArrayProcessor []ArrayProcessorParameters `json:"arrayProcessor,omitempty" tf:"array_processor,omitempty"`
+
 	// (Block List, Max: 1) Attribute Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Attribute Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#remapper)
 	// +kubebuilder:validation:Optional
@@ -1843,6 +2862,11 @@ type ProcessorParameters struct {
 	// Date Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#log-date-remapper)
 	// +kubebuilder:validation:Optional
 	DateRemapper []DateRemapperParameters `json:"dateRemapper,omitempty" tf:"date_remapper,omitempty"`
+
+	// (Block List, Max: 1) Decoder Processor. More information can be found in the official docs (see below for nested schema)
+	// Decoder Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/log_configuration/processors/?tab=ui#decoder-processor)
+	// +kubebuilder:validation:Optional
+	DecoderProcessor []DecoderProcessorParameters `json:"decoderProcessor,omitempty" tf:"decoder_processor,omitempty"`
 
 	// (Block List, Max: 1) Date GeoIP Processor. More information can be found in the official docs (see below for nested schema)
 	// Date GeoIP Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#geoip-parser)
@@ -1873,10 +2897,20 @@ type ProcessorParameters struct {
 	// +kubebuilder:validation:Optional
 	ReferenceTableLookupProcessor []ProcessorReferenceTableLookupProcessorParameters `json:"referenceTableLookupProcessor,omitempty" tf:"reference_table_lookup_processor,omitempty"`
 
+	// (Block List, Max: 1) Schema Processor. More information can be found in the official docs (see below for nested schema)
+	// Schema Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#schema-processor)
+	// +kubebuilder:validation:Optional
+	SchemaProcessor []ProcessorSchemaProcessorParameters `json:"schemaProcessor,omitempty" tf:"schema_processor,omitempty"`
+
 	// (Block List, Max: 1) Service Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Service Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#service-remapper)
 	// +kubebuilder:validation:Optional
 	ServiceRemapper []ProcessorServiceRemapperParameters `json:"serviceRemapper,omitempty" tf:"service_remapper,omitempty"`
+
+	// (Block List, Max: 1) Span ID Remapper Processor. More information can be found in the official docs (see below for nested schema)
+	// Span ID Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/log_configuration/processors/?tab=ui#span-remapper)
+	// +kubebuilder:validation:Optional
+	SpanIDRemapper []ProcessorSpanIDRemapperParameters `json:"spanIdRemapper,omitempty" tf:"span_id_remapper,omitempty"`
 
 	// (Block List, Max: 1) Status Remapper Processor. More information can be found in the official docs (see below for nested schema)
 	// Status Remapper Processor. More information can be found in the [official docs](https://docs.datadoghq.com/logs/processing/processors/?tab=ui#log-status-remapper)
@@ -1918,7 +2952,7 @@ type ProcessorReferenceTableLookupProcessorInitParameters struct {
 	// Name of the processor
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the source attribute used to do the lookup.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
@@ -1941,7 +2975,7 @@ type ProcessorReferenceTableLookupProcessorObservation struct {
 	// Name of the processor
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the source attribute used to do the lookup.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
@@ -1967,7 +3001,7 @@ type ProcessorReferenceTableLookupProcessorParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the source attribute used to do the lookup.
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source" tf:"source,omitempty"`
@@ -1976,6 +3010,67 @@ type ProcessorReferenceTableLookupProcessorParameters struct {
 	// Name of the attribute that contains the result of the lookup.
 	// +kubebuilder:validation:Optional
 	Target *string `json:"target" tf:"target,omitempty"`
+}
+
+type ProcessorSchemaProcessorInitParameters struct {
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (Block List, Min: 1) Array of mappers for the schema processor. (see below for nested schema)
+	// Array of mappers for the schema processor.
+	Mappers []SchemaProcessorMappersInitParameters `json:"mappers,omitempty" tf:"mappers,omitempty"`
+
+	// (String)
+	// The name of the processor.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Configuration of the schema data to use. (see below for nested schema)
+	// Configuration of the schema data to use.
+	Schema []SchemaProcessorSchemaInitParameters `json:"schema,omitempty" tf:"schema,omitempty"`
+}
+
+type ProcessorSchemaProcessorObservation struct {
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (Block List, Min: 1) Array of mappers for the schema processor. (see below for nested schema)
+	// Array of mappers for the schema processor.
+	Mappers []SchemaProcessorMappersObservation `json:"mappers,omitempty" tf:"mappers,omitempty"`
+
+	// (String)
+	// The name of the processor.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Configuration of the schema data to use. (see below for nested schema)
+	// Configuration of the schema data to use.
+	Schema []SchemaProcessorSchemaObservation `json:"schema,omitempty" tf:"schema,omitempty"`
+}
+
+type ProcessorSchemaProcessorParameters struct {
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	// +kubebuilder:validation:Optional
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (Block List, Min: 1) Array of mappers for the schema processor. (see below for nested schema)
+	// Array of mappers for the schema processor.
+	// +kubebuilder:validation:Optional
+	Mappers []SchemaProcessorMappersParameters `json:"mappers" tf:"mappers,omitempty"`
+
+	// (String)
+	// The name of the processor.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Configuration of the schema data to use. (see below for nested schema)
+	// Configuration of the schema data to use.
+	// +kubebuilder:validation:Optional
+	Schema []SchemaProcessorSchemaParameters `json:"schema" tf:"schema,omitempty"`
 }
 
 type ProcessorServiceRemapperInitParameters struct {
@@ -2009,6 +3104,54 @@ type ProcessorServiceRemapperObservation struct {
 }
 
 type ProcessorServiceRemapperParameters struct {
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	// +kubebuilder:validation:Optional
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Name of the processor.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (List of String) List of source attributes or tags.
+	// List of source attributes.
+	// +kubebuilder:validation:Optional
+	Sources []*string `json:"sources" tf:"sources,omitempty"`
+}
+
+type ProcessorSpanIDRemapperInitParameters struct {
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Name of the processor.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (List of String) List of source attributes or tags.
+	// List of source attributes.
+	Sources []*string `json:"sources,omitempty" tf:"sources,omitempty"`
+}
+
+type ProcessorSpanIDRemapperObservation struct {
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Name of the processor.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (List of String) List of source attributes or tags.
+	// List of source attributes.
+	Sources []*string `json:"sources,omitempty" tf:"sources,omitempty"`
+}
+
+type ProcessorSpanIDRemapperParameters struct {
 
 	// (Boolean)
 	// If the processor is enabled or not.
@@ -2358,7 +3501,7 @@ type ReferenceTableLookupProcessorInitParameters struct {
 	// Name of the processor
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the source attribute used to do the lookup.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
@@ -2381,7 +3524,7 @@ type ReferenceTableLookupProcessorObservation struct {
 	// Name of the processor
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the source attribute used to do the lookup.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
@@ -2407,7 +3550,7 @@ type ReferenceTableLookupProcessorParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Name of the log attribute to parse.
+	// (String) Attribute path containing the value to append.
 	// Name of the source attribute used to do the lookup.
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source" tf:"source,omitempty"`
@@ -2416,6 +3559,628 @@ type ReferenceTableLookupProcessorParameters struct {
 	// Name of the attribute that contains the result of the lookup.
 	// +kubebuilder:validation:Optional
 	Target *string `json:"target" tf:"target,omitempty"`
+}
+
+type SchemaCategoryMapperCategoriesFilterInitParameters struct {
+
+	// (String) Filter criteria of the category.
+	// Filter criteria of the category.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type SchemaCategoryMapperCategoriesFilterObservation struct {
+
+	// (String) Filter criteria of the category.
+	// Filter criteria of the category.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type SchemaCategoryMapperCategoriesFilterParameters struct {
+
+	// (String) Filter criteria of the category.
+	// Filter criteria of the category.
+	// +kubebuilder:validation:Optional
+	Query *string `json:"query" tf:"query,omitempty"`
+}
+
+type SchemaCategoryMapperCategoriesInitParameters struct {
+
+	// (Block List, Min: 1) (see below for nested schema)
+	Filter []SchemaCategoryMapperCategoriesFilterInitParameters `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// (String) The ID of this resource.
+	// ID to inject into the category.
+	ID *float64 `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String)
+	// Value to assign to target schema field.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type SchemaCategoryMapperCategoriesObservation struct {
+
+	// (Block List, Min: 1) (see below for nested schema)
+	Filter []SchemaCategoryMapperCategoriesFilterObservation `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// (String) The ID of this resource.
+	// ID to inject into the category.
+	ID *float64 `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String)
+	// Value to assign to target schema field.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type SchemaCategoryMapperCategoriesParameters struct {
+
+	// (Block List, Min: 1) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	Filter []SchemaCategoryMapperCategoriesFilterParameters `json:"filter" tf:"filter,omitempty"`
+
+	// (String) The ID of this resource.
+	// ID to inject into the category.
+	// +kubebuilder:validation:Optional
+	ID *float64 `json:"id" tf:"id,omitempty"`
+
+	// (String)
+	// Value to assign to target schema field.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+}
+
+type SchemaCategoryMapperFallbackInitParameters struct {
+
+	// (List of String) List of source attributes or tags.
+	// Fallback sources used to populate value of field.
+	// +mapType=granular
+	Sources map[string]*string `json:"sources,omitempty" tf:"sources,omitempty"`
+
+	// (Map of String) Values that define when the fallback is used.
+	// Values that define when the fallback is used.
+	// +mapType=granular
+	Values map[string]*string `json:"values,omitempty" tf:"values,omitempty"`
+}
+
+type SchemaCategoryMapperFallbackObservation struct {
+
+	// (List of String) List of source attributes or tags.
+	// Fallback sources used to populate value of field.
+	// +mapType=granular
+	Sources map[string]*string `json:"sources,omitempty" tf:"sources,omitempty"`
+
+	// (Map of String) Values that define when the fallback is used.
+	// Values that define when the fallback is used.
+	// +mapType=granular
+	Values map[string]*string `json:"values,omitempty" tf:"values,omitempty"`
+}
+
+type SchemaCategoryMapperFallbackParameters struct {
+
+	// (List of String) List of source attributes or tags.
+	// Fallback sources used to populate value of field.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Sources map[string]*string `json:"sources,omitempty" tf:"sources,omitempty"`
+
+	// (Map of String) Values that define when the fallback is used.
+	// Values that define when the fallback is used.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Values map[string]*string `json:"values,omitempty" tf:"values,omitempty"`
+}
+
+type SchemaCategoryMapperInitParameters struct {
+
+	// (Block List, Min: 1) Object describing the logs filter with corresponding category ID. (see below for nested schema)
+	// Object describing the logs filter with corresponding category ID.
+	Categories []CategoriesInitParameters `json:"categories,omitempty" tf:"categories,omitempty"`
+
+	// (Block List, Max: 1) Used to override hardcoded category values with a value pulled from a source attribute on the log. (see below for nested schema)
+	// Used to override hardcoded category values with a value pulled from a source attribute on the log.
+	Fallback []FallbackInitParameters `json:"fallback,omitempty" tf:"fallback,omitempty"`
+
+	// (String)
+	// Name of the logs schema category mapper.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Name of the target attributes which value is defined by the matching. (see below for nested schema)
+	// Name of the target attributes which value is defined by the matching.
+	Targets []TargetsInitParameters `json:"targets,omitempty" tf:"targets,omitempty"`
+}
+
+type SchemaCategoryMapperObservation struct {
+
+	// (Block List, Min: 1) Object describing the logs filter with corresponding category ID. (see below for nested schema)
+	// Object describing the logs filter with corresponding category ID.
+	Categories []CategoriesObservation `json:"categories,omitempty" tf:"categories,omitempty"`
+
+	// (Block List, Max: 1) Used to override hardcoded category values with a value pulled from a source attribute on the log. (see below for nested schema)
+	// Used to override hardcoded category values with a value pulled from a source attribute on the log.
+	Fallback []FallbackObservation `json:"fallback,omitempty" tf:"fallback,omitempty"`
+
+	// (String)
+	// Name of the logs schema category mapper.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Name of the target attributes which value is defined by the matching. (see below for nested schema)
+	// Name of the target attributes which value is defined by the matching.
+	Targets []TargetsObservation `json:"targets,omitempty" tf:"targets,omitempty"`
+}
+
+type SchemaCategoryMapperParameters struct {
+
+	// (Block List, Min: 1) Object describing the logs filter with corresponding category ID. (see below for nested schema)
+	// Object describing the logs filter with corresponding category ID.
+	// +kubebuilder:validation:Optional
+	Categories []CategoriesParameters `json:"categories" tf:"categories,omitempty"`
+
+	// (Block List, Max: 1) Used to override hardcoded category values with a value pulled from a source attribute on the log. (see below for nested schema)
+	// Used to override hardcoded category values with a value pulled from a source attribute on the log.
+	// +kubebuilder:validation:Optional
+	Fallback []FallbackParameters `json:"fallback,omitempty" tf:"fallback,omitempty"`
+
+	// (String)
+	// Name of the logs schema category mapper.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Name of the target attributes which value is defined by the matching. (see below for nested schema)
+	// Name of the target attributes which value is defined by the matching.
+	// +kubebuilder:validation:Optional
+	Targets []TargetsParameters `json:"targets" tf:"targets,omitempty"`
+}
+
+type SchemaCategoryMapperTargetsInitParameters struct {
+
+	// (String) The ID of this resource.
+	// ID of the field to map log attributes to
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String)
+	// Name of the field to map log attributes to.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type SchemaCategoryMapperTargetsObservation struct {
+
+	// (String) The ID of this resource.
+	// ID of the field to map log attributes to
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String)
+	// Name of the field to map log attributes to.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type SchemaCategoryMapperTargetsParameters struct {
+
+	// (String) The ID of this resource.
+	// ID of the field to map log attributes to
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String)
+	// Name of the field to map log attributes to.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type SchemaInitParameters struct {
+
+	// (String) Class name of the schema to use.
+	// Class name of the schema to use.
+	ClassName *string `json:"className,omitempty" tf:"class_name,omitempty"`
+
+	// (Number) Class UID of the schema to use.
+	// Class UID of the schema to use.
+	ClassUID *float64 `json:"classUid,omitempty" tf:"class_uid,omitempty"`
+
+	// (List of String) Optional list of extensions to modify the schema.
+	// Optional list of extensions to modify the schema.
+	Extensions []*string `json:"extensions,omitempty" tf:"extensions,omitempty"`
+
+	// (List of String) Optional list of profiles to modify the schema.
+	// Optional list of profiles to modify the schema.
+	Profiles []*string `json:"profiles,omitempty" tf:"profiles,omitempty"`
+
+	// (String) Type of schema to use.
+	// Type of schema to use.
+	SchemaType *string `json:"schemaType,omitempty" tf:"schema_type,omitempty"`
+
+	// (String) Version of the schema to use.
+	// Version of the schema to use.
+	Version *string `json:"version,omitempty" tf:"version,omitempty"`
+}
+
+type SchemaObservation struct {
+
+	// (String) Class name of the schema to use.
+	// Class name of the schema to use.
+	ClassName *string `json:"className,omitempty" tf:"class_name,omitempty"`
+
+	// (Number) Class UID of the schema to use.
+	// Class UID of the schema to use.
+	ClassUID *float64 `json:"classUid,omitempty" tf:"class_uid,omitempty"`
+
+	// (List of String) Optional list of extensions to modify the schema.
+	// Optional list of extensions to modify the schema.
+	Extensions []*string `json:"extensions,omitempty" tf:"extensions,omitempty"`
+
+	// (List of String) Optional list of profiles to modify the schema.
+	// Optional list of profiles to modify the schema.
+	Profiles []*string `json:"profiles,omitempty" tf:"profiles,omitempty"`
+
+	// (String) Type of schema to use.
+	// Type of schema to use.
+	SchemaType *string `json:"schemaType,omitempty" tf:"schema_type,omitempty"`
+
+	// (String) Version of the schema to use.
+	// Version of the schema to use.
+	Version *string `json:"version,omitempty" tf:"version,omitempty"`
+}
+
+type SchemaParameters struct {
+
+	// (String) Class name of the schema to use.
+	// Class name of the schema to use.
+	// +kubebuilder:validation:Optional
+	ClassName *string `json:"className" tf:"class_name,omitempty"`
+
+	// (Number) Class UID of the schema to use.
+	// Class UID of the schema to use.
+	// +kubebuilder:validation:Optional
+	ClassUID *float64 `json:"classUid" tf:"class_uid,omitempty"`
+
+	// (List of String) Optional list of extensions to modify the schema.
+	// Optional list of extensions to modify the schema.
+	// +kubebuilder:validation:Optional
+	Extensions []*string `json:"extensions,omitempty" tf:"extensions,omitempty"`
+
+	// (List of String) Optional list of profiles to modify the schema.
+	// Optional list of profiles to modify the schema.
+	// +kubebuilder:validation:Optional
+	Profiles []*string `json:"profiles,omitempty" tf:"profiles,omitempty"`
+
+	// (String) Type of schema to use.
+	// Type of schema to use.
+	// +kubebuilder:validation:Optional
+	SchemaType *string `json:"schemaType" tf:"schema_type,omitempty"`
+
+	// (String) Version of the schema to use.
+	// Version of the schema to use.
+	// +kubebuilder:validation:Optional
+	Version *string `json:"version" tf:"version,omitempty"`
+}
+
+type SchemaProcessorInitParameters struct {
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (Block List, Min: 1) Array of mappers for the schema processor. (see below for nested schema)
+	// Array of mappers for the schema processor.
+	Mappers []MappersInitParameters `json:"mappers,omitempty" tf:"mappers,omitempty"`
+
+	// (String)
+	// The name of the processor.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Configuration of the schema data to use. (see below for nested schema)
+	// Configuration of the schema data to use.
+	Schema []SchemaInitParameters `json:"schema,omitempty" tf:"schema,omitempty"`
+}
+
+type SchemaProcessorMappersInitParameters struct {
+
+	// (Block List) Mapper that categorizes log events into enum fields. In the case of OCSF, they can be used to map sibling fields which are composed of an ID and a name. (see below for nested schema)
+	// Mapper that categorizes log events into enum fields. In the case of OCSF, they can be used to map sibling fields which are composed of an ID and a name.
+	SchemaCategoryMapper []MappersSchemaCategoryMapperInitParameters `json:"schemaCategoryMapper,omitempty" tf:"schema_category_mapper,omitempty"`
+
+	// (Block List) Mapper that maps source log fields to their correct fields. (see below for nested schema)
+	// Mapper that maps source log fields to their correct fields.
+	SchemaRemapper []MappersSchemaRemapperInitParameters `json:"schemaRemapper,omitempty" tf:"schema_remapper,omitempty"`
+}
+
+type SchemaProcessorMappersObservation struct {
+
+	// (Block List) Mapper that categorizes log events into enum fields. In the case of OCSF, they can be used to map sibling fields which are composed of an ID and a name. (see below for nested schema)
+	// Mapper that categorizes log events into enum fields. In the case of OCSF, they can be used to map sibling fields which are composed of an ID and a name.
+	SchemaCategoryMapper []MappersSchemaCategoryMapperObservation `json:"schemaCategoryMapper,omitempty" tf:"schema_category_mapper,omitempty"`
+
+	// (Block List) Mapper that maps source log fields to their correct fields. (see below for nested schema)
+	// Mapper that maps source log fields to their correct fields.
+	SchemaRemapper []MappersSchemaRemapperObservation `json:"schemaRemapper,omitempty" tf:"schema_remapper,omitempty"`
+}
+
+type SchemaProcessorMappersParameters struct {
+
+	// (Block List) Mapper that categorizes log events into enum fields. In the case of OCSF, they can be used to map sibling fields which are composed of an ID and a name. (see below for nested schema)
+	// Mapper that categorizes log events into enum fields. In the case of OCSF, they can be used to map sibling fields which are composed of an ID and a name.
+	// +kubebuilder:validation:Optional
+	SchemaCategoryMapper []MappersSchemaCategoryMapperParameters `json:"schemaCategoryMapper,omitempty" tf:"schema_category_mapper,omitempty"`
+
+	// (Block List) Mapper that maps source log fields to their correct fields. (see below for nested schema)
+	// Mapper that maps source log fields to their correct fields.
+	// +kubebuilder:validation:Optional
+	SchemaRemapper []MappersSchemaRemapperParameters `json:"schemaRemapper,omitempty" tf:"schema_remapper,omitempty"`
+}
+
+type SchemaProcessorObservation struct {
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (Block List, Min: 1) Array of mappers for the schema processor. (see below for nested schema)
+	// Array of mappers for the schema processor.
+	Mappers []MappersObservation `json:"mappers,omitempty" tf:"mappers,omitempty"`
+
+	// (String)
+	// The name of the processor.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Configuration of the schema data to use. (see below for nested schema)
+	// Configuration of the schema data to use.
+	Schema []SchemaObservation `json:"schema,omitempty" tf:"schema,omitempty"`
+}
+
+type SchemaProcessorParameters struct {
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	// +kubebuilder:validation:Optional
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (Block List, Min: 1) Array of mappers for the schema processor. (see below for nested schema)
+	// Array of mappers for the schema processor.
+	// +kubebuilder:validation:Optional
+	Mappers []MappersParameters `json:"mappers" tf:"mappers,omitempty"`
+
+	// (String)
+	// The name of the processor.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Configuration of the schema data to use. (see below for nested schema)
+	// Configuration of the schema data to use.
+	// +kubebuilder:validation:Optional
+	Schema []SchemaParameters `json:"schema" tf:"schema,omitempty"`
+}
+
+type SchemaProcessorSchemaInitParameters struct {
+
+	// (String) Class name of the schema to use.
+	// Class name of the schema to use.
+	ClassName *string `json:"className,omitempty" tf:"class_name,omitempty"`
+
+	// (Number) Class UID of the schema to use.
+	// Class UID of the schema to use.
+	ClassUID *float64 `json:"classUid,omitempty" tf:"class_uid,omitempty"`
+
+	// (List of String) Optional list of extensions to modify the schema.
+	// Optional list of extensions to modify the schema.
+	Extensions []*string `json:"extensions,omitempty" tf:"extensions,omitempty"`
+
+	// (List of String) Optional list of profiles to modify the schema.
+	// Optional list of profiles to modify the schema.
+	Profiles []*string `json:"profiles,omitempty" tf:"profiles,omitempty"`
+
+	// (String) Type of schema to use.
+	// Type of schema to use.
+	SchemaType *string `json:"schemaType,omitempty" tf:"schema_type,omitempty"`
+
+	// (String) Version of the schema to use.
+	// Version of the schema to use.
+	Version *string `json:"version,omitempty" tf:"version,omitempty"`
+}
+
+type SchemaProcessorSchemaObservation struct {
+
+	// (String) Class name of the schema to use.
+	// Class name of the schema to use.
+	ClassName *string `json:"className,omitempty" tf:"class_name,omitempty"`
+
+	// (Number) Class UID of the schema to use.
+	// Class UID of the schema to use.
+	ClassUID *float64 `json:"classUid,omitempty" tf:"class_uid,omitempty"`
+
+	// (List of String) Optional list of extensions to modify the schema.
+	// Optional list of extensions to modify the schema.
+	Extensions []*string `json:"extensions,omitempty" tf:"extensions,omitempty"`
+
+	// (List of String) Optional list of profiles to modify the schema.
+	// Optional list of profiles to modify the schema.
+	Profiles []*string `json:"profiles,omitempty" tf:"profiles,omitempty"`
+
+	// (String) Type of schema to use.
+	// Type of schema to use.
+	SchemaType *string `json:"schemaType,omitempty" tf:"schema_type,omitempty"`
+
+	// (String) Version of the schema to use.
+	// Version of the schema to use.
+	Version *string `json:"version,omitempty" tf:"version,omitempty"`
+}
+
+type SchemaProcessorSchemaParameters struct {
+
+	// (String) Class name of the schema to use.
+	// Class name of the schema to use.
+	// +kubebuilder:validation:Optional
+	ClassName *string `json:"className" tf:"class_name,omitempty"`
+
+	// (Number) Class UID of the schema to use.
+	// Class UID of the schema to use.
+	// +kubebuilder:validation:Optional
+	ClassUID *float64 `json:"classUid" tf:"class_uid,omitempty"`
+
+	// (List of String) Optional list of extensions to modify the schema.
+	// Optional list of extensions to modify the schema.
+	// +kubebuilder:validation:Optional
+	Extensions []*string `json:"extensions,omitempty" tf:"extensions,omitempty"`
+
+	// (List of String) Optional list of profiles to modify the schema.
+	// Optional list of profiles to modify the schema.
+	// +kubebuilder:validation:Optional
+	Profiles []*string `json:"profiles,omitempty" tf:"profiles,omitempty"`
+
+	// (String) Type of schema to use.
+	// Type of schema to use.
+	// +kubebuilder:validation:Optional
+	SchemaType *string `json:"schemaType" tf:"schema_type,omitempty"`
+
+	// (String) Version of the schema to use.
+	// Version of the schema to use.
+	// +kubebuilder:validation:Optional
+	Version *string `json:"version" tf:"version,omitempty"`
+}
+
+type SchemaRemapperInitParameters struct {
+
+	// (String)
+	// Name of the logs schema remapper.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Boolean) Override the target element if already set.
+	// Override or not the target element if already set.
+	OverrideOnConflict *bool `json:"overrideOnConflict,omitempty" tf:"override_on_conflict,omitempty"`
+
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
+	// Remove or preserve the remapped source element.
+	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
+
+	// (List of String) List of source attributes or tags.
+	// Array of source attributes.
+	Sources []*string `json:"sources,omitempty" tf:"sources,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Target field to map log source field to
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+
+	// (String) If the target_type of the remapper is attribute, try to cast the value to a new specific type. If the cast is not possible, the original type is kept. string, integer, or double are the possible types. If the target_type is tag, this parameter may not be specified.
+	// If the `target_type` of the remapper is `attribute`, try to cast the value to a new specific type. If the cast is not possible, the original type is kept. `string`, `integer`, or `double` are the possible types. If the `target_type` is `tag`, this parameter may not be specified.
+	TargetFormat *string `json:"targetFormat,omitempty" tf:"target_format,omitempty"`
+}
+
+type SchemaRemapperObservation struct {
+
+	// (String)
+	// Name of the logs schema remapper.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Boolean) Override the target element if already set.
+	// Override or not the target element if already set.
+	OverrideOnConflict *bool `json:"overrideOnConflict,omitempty" tf:"override_on_conflict,omitempty"`
+
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
+	// Remove or preserve the remapped source element.
+	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
+
+	// (List of String) List of source attributes or tags.
+	// Array of source attributes.
+	Sources []*string `json:"sources,omitempty" tf:"sources,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Target field to map log source field to
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+
+	// (String) If the target_type of the remapper is attribute, try to cast the value to a new specific type. If the cast is not possible, the original type is kept. string, integer, or double are the possible types. If the target_type is tag, this parameter may not be specified.
+	// If the `target_type` of the remapper is `attribute`, try to cast the value to a new specific type. If the cast is not possible, the original type is kept. `string`, `integer`, or `double` are the possible types. If the `target_type` is `tag`, this parameter may not be specified.
+	TargetFormat *string `json:"targetFormat,omitempty" tf:"target_format,omitempty"`
+}
+
+type SchemaRemapperParameters struct {
+
+	// (String)
+	// Name of the logs schema remapper.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (Boolean) Override the target element if already set.
+	// Override or not the target element if already set.
+	// +kubebuilder:validation:Optional
+	OverrideOnConflict *bool `json:"overrideOnConflict,omitempty" tf:"override_on_conflict,omitempty"`
+
+	// (Boolean) Remove or preserve the remapped source element. Defaults to true.
+	// Remove or preserve the remapped source element.
+	// +kubebuilder:validation:Optional
+	PreserveSource *bool `json:"preserveSource,omitempty" tf:"preserve_source,omitempty"`
+
+	// (List of String) List of source attributes or tags.
+	// Array of source attributes.
+	// +kubebuilder:validation:Optional
+	Sources []*string `json:"sources" tf:"sources,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Target field to map log source field to
+	// +kubebuilder:validation:Optional
+	Target *string `json:"target" tf:"target,omitempty"`
+
+	// (String) If the target_type of the remapper is attribute, try to cast the value to a new specific type. If the cast is not possible, the original type is kept. string, integer, or double are the possible types. If the target_type is tag, this parameter may not be specified.
+	// If the `target_type` of the remapper is `attribute`, try to cast the value to a new specific type. If the cast is not possible, the original type is kept. `string`, `integer`, or `double` are the possible types. If the `target_type` is `tag`, this parameter may not be specified.
+	// +kubebuilder:validation:Optional
+	TargetFormat *string `json:"targetFormat,omitempty" tf:"target_format,omitempty"`
+}
+
+type SelectInitParameters struct {
+
+	// (Block List, Min: 1) (see below for nested schema)
+	// Filter expression (e.g. key1:value1 OR key2:value2) used to find the matching element.
+	Filter *string `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path of the array to search into.
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute that receives the extracted value.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+
+	// (String) Attribute key from the matching object that should be extracted.
+	// Attribute key from the matching object that should be extracted.
+	ValueToExtract *string `json:"valueToExtract,omitempty" tf:"value_to_extract,omitempty"`
+}
+
+type SelectObservation struct {
+
+	// (Block List, Min: 1) (see below for nested schema)
+	// Filter expression (e.g. key1:value1 OR key2:value2) used to find the matching element.
+	Filter *string `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path of the array to search into.
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute that receives the extracted value.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+
+	// (String) Attribute key from the matching object that should be extracted.
+	// Attribute key from the matching object that should be extracted.
+	ValueToExtract *string `json:"valueToExtract,omitempty" tf:"value_to_extract,omitempty"`
+}
+
+type SelectParameters struct {
+
+	// (Block List, Min: 1) (see below for nested schema)
+	// Filter expression (e.g. key1:value1 OR key2:value2) used to find the matching element.
+	// +kubebuilder:validation:Optional
+	Filter *string `json:"filter" tf:"filter,omitempty"`
+
+	// (String) Attribute path containing the value to append.
+	// Attribute path of the array to search into.
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source" tf:"source,omitempty"`
+
+	// (String) Name of the attribute that contains the result of the arithmetic operation.
+	// Attribute that receives the extracted value.
+	// +kubebuilder:validation:Optional
+	Target *string `json:"target" tf:"target,omitempty"`
+
+	// (String) Attribute key from the matching object that should be extracted.
+	// Attribute key from the matching object that should be extracted.
+	// +kubebuilder:validation:Optional
+	ValueToExtract *string `json:"valueToExtract" tf:"value_to_extract,omitempty"`
 }
 
 type ServiceRemapperInitParameters struct {
@@ -2449,6 +4214,54 @@ type ServiceRemapperObservation struct {
 }
 
 type ServiceRemapperParameters struct {
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	// +kubebuilder:validation:Optional
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Name of the processor.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (List of String) List of source attributes or tags.
+	// List of source attributes.
+	// +kubebuilder:validation:Optional
+	Sources []*string `json:"sources" tf:"sources,omitempty"`
+}
+
+type SpanIDRemapperInitParameters struct {
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Name of the processor.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (List of String) List of source attributes or tags.
+	// List of source attributes.
+	Sources []*string `json:"sources,omitempty" tf:"sources,omitempty"`
+}
+
+type SpanIDRemapperObservation struct {
+
+	// (Boolean)
+	// If the processor is enabled or not.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+
+	// (String)
+	// Name of the processor.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (List of String) List of source attributes or tags.
+	// List of source attributes.
+	Sources []*string `json:"sources,omitempty" tf:"sources,omitempty"`
+}
+
+type SpanIDRemapperParameters struct {
 
 	// (Boolean)
 	// If the processor is enabled or not.
@@ -2586,6 +4399,41 @@ type StringBuilderProcessorParameters struct {
 	// The formula with one or more attributes and raw text.
 	// +kubebuilder:validation:Optional
 	Template *string `json:"template" tf:"template,omitempty"`
+}
+
+type TargetsInitParameters struct {
+
+	// (String) The ID of this resource.
+	// ID of the field to map log attributes to
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String)
+	// Name of the field to map log attributes to.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type TargetsObservation struct {
+
+	// (String) The ID of this resource.
+	// ID of the field to map log attributes to
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String)
+	// Name of the field to map log attributes to.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type TargetsParameters struct {
+
+	// (String) The ID of this resource.
+	// ID of the field to map log attributes to
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String)
+	// Name of the field to map log attributes to.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type TraceIDRemapperInitParameters struct {

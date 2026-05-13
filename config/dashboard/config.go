@@ -33,7 +33,7 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("datadog_dashboard_list", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for
 		// this resource, which would be "datadog"
-		r.Kind = "DashboardList"
+		r.Kind = "DashboardListEntry"
 		r.ShortGroup = "datadog"
 	})
 }

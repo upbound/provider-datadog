@@ -52,6 +52,24 @@ func (l *AWSTagFilterList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this AwsAccountList.
+func (l *AwsAccountList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this AwsExternalIDList.
+func (l *AwsExternalIDList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this AzureList.
 func (l *AzureList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -117,6 +135,24 @@ func (l *GCPList) GetItems() []resource.Managed {
 
 // GetItems of this GCPSTSList.
 func (l *GCPSTSList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this MsTeamsTenantBasedHandleList.
+func (l *MsTeamsTenantBasedHandleList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this MsTeamsWorkflowsWebhookHandleList.
+func (l *MsTeamsWorkflowsWebhookHandleList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

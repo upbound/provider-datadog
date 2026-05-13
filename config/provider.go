@@ -17,6 +17,7 @@ import (
 	"github.com/upbound/provider-datadog/config/cloud"
 	"github.com/upbound/provider-datadog/config/dashboard"
 	"github.com/upbound/provider-datadog/config/downtime"
+	"github.com/upbound/provider-datadog/config/incident"
 	"github.com/upbound/provider-datadog/config/integration"
 	"github.com/upbound/provider-datadog/config/ip"
 	"github.com/upbound/provider-datadog/config/logs"
@@ -68,6 +69,7 @@ func GetProvider() *ujconfig.Provider {
 		cloud.Configure,
 		dashboard.Configure,
 		downtime.Configure,
+		incident.Configure,
 		integration.Configure,
 		ip.Configure,
 		logs.Configure,

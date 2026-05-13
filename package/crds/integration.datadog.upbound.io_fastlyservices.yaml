@@ -36,7 +36,7 @@ spec:
       openAPIV3Schema:
         description: FastlyService is the Schema for the FastlyServices API. Provides
           a Datadog IntegrationFastlyService resource. This can be used to create
-          and manage Datadog integrationfastlyservice.
+          and manage Datadog integration_fastly_service.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation

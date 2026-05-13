@@ -1,0 +1,28 @@
+apiVersion: appsec.upbound.io/v1alpha1
+kind: WafCustomRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: appsec/v1alpha1/wafcustomrule
+  labels:
+    testing.upbound.io/example-name: ioc000
+  name: ioc000
+spec:
+  forProvider:
+    action:
+    - action: redirect_request
+      parameters:
+      - location: /blocking
+        statusCode: 302
+    blocking: true
+    condition:
+    - operator: match_regex
+      parameters:
+      - input:
+        - address: server.db.statement
+        regex: stmt.*
+    enabled: true
+    name: Block requests from a bad actor
+    pathGlob: /db/*
+    tags:
+      category: attack_attempt
+      type: custom_ioc

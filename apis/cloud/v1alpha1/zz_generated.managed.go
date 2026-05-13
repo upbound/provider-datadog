@@ -67,6 +67,66 @@ func (mg *ConfigurationRule) SetWriteConnectionSecretToReference(r *xpv1.SecretR
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetCondition of this InventorySyncConfig.
+func (mg *InventorySyncConfig) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this InventorySyncConfig.
+func (mg *InventorySyncConfig) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this InventorySyncConfig.
+func (mg *InventorySyncConfig) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this InventorySyncConfig.
+func (mg *InventorySyncConfig) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this InventorySyncConfig.
+func (mg *InventorySyncConfig) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this InventorySyncConfig.
+func (mg *InventorySyncConfig) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this InventorySyncConfig.
+func (mg *InventorySyncConfig) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this InventorySyncConfig.
+func (mg *InventorySyncConfig) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this InventorySyncConfig.
+func (mg *InventorySyncConfig) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this InventorySyncConfig.
+func (mg *InventorySyncConfig) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this InventorySyncConfig.
+func (mg *InventorySyncConfig) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this InventorySyncConfig.
+func (mg *InventorySyncConfig) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this WorkloadSecurityAgentRule.
 func (mg *WorkloadSecurityAgentRule) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)

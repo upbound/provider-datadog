@@ -98,7 +98,7 @@ type FastlyServiceStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// FastlyService is the Schema for the FastlyServices API. Provides a Datadog IntegrationFastlyService resource. This can be used to create and manage Datadog integrationfastlyservice.
+// FastlyService is the Schema for the FastlyServices API. Provides a Datadog IntegrationFastlyService resource. This can be used to create and manage Datadog integration_fastly_service.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

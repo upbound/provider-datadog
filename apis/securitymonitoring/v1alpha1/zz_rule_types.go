@@ -17,39 +17,170 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type AgentRuleInitParameters struct {
+type ActionInitParameters struct {
 
-	// (String) Deprecated. It won't be applied anymore.
-	// **Deprecated**. It won't be applied anymore.
-	AgentRuleID *string `json:"agentRuleId,omitempty" tf:"agent_rule_id,omitempty"`
+	// (Block List, Max: 1) Options on rules. (see below for nested schema)
+	// Options for the action.
+	Options []ActionOptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
 
-	// (String) Deprecated. It won't be applied anymore.
-	// **Deprecated**. It won't be applied anymore.
-	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
+	// (String) The rule type. Valid values are application_security, log_detection, workload_security, signal_correlation. Defaults to "log_detection".
+	// Type of action to perform when the case triggers. Valid values are `block_ip`, `block_user`, `user_behavior`, `flag_ip`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
-type AgentRuleObservation struct {
+type ActionObservation struct {
 
-	// (String) Deprecated. It won't be applied anymore.
-	// **Deprecated**. It won't be applied anymore.
-	AgentRuleID *string `json:"agentRuleId,omitempty" tf:"agent_rule_id,omitempty"`
+	// (Block List, Max: 1) Options on rules. (see below for nested schema)
+	// Options for the action.
+	Options []ActionOptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
 
-	// (String) Deprecated. It won't be applied anymore.
-	// **Deprecated**. It won't be applied anymore.
-	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
+	// (String) The rule type. Valid values are application_security, log_detection, workload_security, signal_correlation. Defaults to "log_detection".
+	// Type of action to perform when the case triggers. Valid values are `block_ip`, `block_user`, `user_behavior`, `flag_ip`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
-type AgentRuleParameters struct {
+type ActionOptionsInitParameters struct {
 
-	// (String) Deprecated. It won't be applied anymore.
-	// **Deprecated**. It won't be applied anymore.
+	// (Number) Duration of the action in seconds.
+	// Duration of the action in seconds.
+	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
+}
+
+type ActionOptionsObservation struct {
+
+	// (Number) Duration of the action in seconds.
+	// Duration of the action in seconds.
+	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
+}
+
+type ActionOptionsParameters struct {
+
+	// (Number) Duration of the action in seconds.
+	// Duration of the action in seconds.
 	// +kubebuilder:validation:Optional
-	AgentRuleID *string `json:"agentRuleId" tf:"agent_rule_id,omitempty"`
+	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
+}
 
-	// (String) Deprecated. It won't be applied anymore.
-	// **Deprecated**. It won't be applied anymore.
+type ActionParameters struct {
+
+	// (Block List, Max: 1) Options on rules. (see below for nested schema)
+	// Options for the action.
+	// +kubebuilder:validation:Optional
+	Options []ActionOptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+
+	// (String) The rule type. Valid values are application_security, log_detection, workload_security, signal_correlation. Defaults to "log_detection".
+	// Type of action to perform when the case triggers. Valid values are `block_ip`, `block_user`, `user_behavior`, `flag_ip`.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type AnomalyDetectionOptionsInitParameters struct {
+
+	// (Number) Duration in seconds of the time buckets used to aggregate events matched by the rule. Valid values are 300, 600, 900, 1800, 3600, 10800. Valid values are 300, 600, 900, 1800, 3600, 10800.
+	// Duration in seconds of the time buckets used to aggregate events matched by the rule. Valid values are 300, 600, 900, 1800, 3600, 10800. Valid values are `300`, `600`, `900`, `1800`, `3600`, `10800`.
+	BucketDuration *float64 `json:"bucketDuration,omitempty" tf:"bucket_duration,omitempty"`
+
+	// (Number) An optional parameter that sets how permissive anomaly detection is. Higher values require higher deviations before triggering a signal. Valid values are 1, 2, 3, 4, 5. Valid values are 1, 2, 3, 4, 5.
+	// An optional parameter that sets how permissive anomaly detection is. Higher values require higher deviations before triggering a signal. Valid values are 1, 2, 3, 4, 5. Valid values are `1`, `2`, `3`, `4`, `5`.
+	DetectionTolerance *float64 `json:"detectionTolerance,omitempty" tf:"detection_tolerance,omitempty"`
+
+	// (Boolean) When set to true, Datadog uses previous values that fall within the defined learning window to construct the baseline, enabling the system to establish an accurate baseline more rapidly rather than relying solely on gradual learning over time. Defaults to false.
+	// When set to true, Datadog uses previous values that fall within the defined learning window to construct the baseline, enabling the system to establish an accurate baseline more rapidly rather than relying solely on gradual learning over time. Defaults to `false`.
+	InstantaneousBaseline *bool `json:"instantaneousBaseline,omitempty" tf:"instantaneous_baseline,omitempty"`
+
+	// (Number) Learning duration in hours. Anomaly detection waits for at least this amount of historical data before it starts evaluating. Valid values are 1, 6, 12, 24, 48, 168, 336. Valid values are 1, 6, 12, 24, 48, 168, 336.
+	// Learning duration in hours. Anomaly detection waits for at least this amount of historical data before it starts evaluating. Valid values are 1, 6, 12, 24, 48, 168, 336. Valid values are `1`, `6`, `12`, `24`, `48`, `168`, `336`.
+	LearningDuration *float64 `json:"learningDuration,omitempty" tf:"learning_duration,omitempty"`
+
+	// (Number) An optional override baseline to apply while the rule is in the learning period. Must be greater than or equal to 0.
+	// An optional override baseline to apply while the rule is in the learning period. Must be greater than or equal to 0.
+	LearningPeriodBaseline *float64 `json:"learningPeriodBaseline,omitempty" tf:"learning_period_baseline,omitempty"`
+}
+
+type AnomalyDetectionOptionsObservation struct {
+
+	// (Number) Duration in seconds of the time buckets used to aggregate events matched by the rule. Valid values are 300, 600, 900, 1800, 3600, 10800. Valid values are 300, 600, 900, 1800, 3600, 10800.
+	// Duration in seconds of the time buckets used to aggregate events matched by the rule. Valid values are 300, 600, 900, 1800, 3600, 10800. Valid values are `300`, `600`, `900`, `1800`, `3600`, `10800`.
+	BucketDuration *float64 `json:"bucketDuration,omitempty" tf:"bucket_duration,omitempty"`
+
+	// (Number) An optional parameter that sets how permissive anomaly detection is. Higher values require higher deviations before triggering a signal. Valid values are 1, 2, 3, 4, 5. Valid values are 1, 2, 3, 4, 5.
+	// An optional parameter that sets how permissive anomaly detection is. Higher values require higher deviations before triggering a signal. Valid values are 1, 2, 3, 4, 5. Valid values are `1`, `2`, `3`, `4`, `5`.
+	DetectionTolerance *float64 `json:"detectionTolerance,omitempty" tf:"detection_tolerance,omitempty"`
+
+	// (Boolean) When set to true, Datadog uses previous values that fall within the defined learning window to construct the baseline, enabling the system to establish an accurate baseline more rapidly rather than relying solely on gradual learning over time. Defaults to false.
+	// When set to true, Datadog uses previous values that fall within the defined learning window to construct the baseline, enabling the system to establish an accurate baseline more rapidly rather than relying solely on gradual learning over time. Defaults to `false`.
+	InstantaneousBaseline *bool `json:"instantaneousBaseline,omitempty" tf:"instantaneous_baseline,omitempty"`
+
+	// (Number) Learning duration in hours. Anomaly detection waits for at least this amount of historical data before it starts evaluating. Valid values are 1, 6, 12, 24, 48, 168, 336. Valid values are 1, 6, 12, 24, 48, 168, 336.
+	// Learning duration in hours. Anomaly detection waits for at least this amount of historical data before it starts evaluating. Valid values are 1, 6, 12, 24, 48, 168, 336. Valid values are `1`, `6`, `12`, `24`, `48`, `168`, `336`.
+	LearningDuration *float64 `json:"learningDuration,omitempty" tf:"learning_duration,omitempty"`
+
+	// (Number) An optional override baseline to apply while the rule is in the learning period. Must be greater than or equal to 0.
+	// An optional override baseline to apply while the rule is in the learning period. Must be greater than or equal to 0.
+	LearningPeriodBaseline *float64 `json:"learningPeriodBaseline,omitempty" tf:"learning_period_baseline,omitempty"`
+}
+
+type AnomalyDetectionOptionsParameters struct {
+
+	// (Number) Duration in seconds of the time buckets used to aggregate events matched by the rule. Valid values are 300, 600, 900, 1800, 3600, 10800. Valid values are 300, 600, 900, 1800, 3600, 10800.
+	// Duration in seconds of the time buckets used to aggregate events matched by the rule. Valid values are 300, 600, 900, 1800, 3600, 10800. Valid values are `300`, `600`, `900`, `1800`, `3600`, `10800`.
+	// +kubebuilder:validation:Optional
+	BucketDuration *float64 `json:"bucketDuration,omitempty" tf:"bucket_duration,omitempty"`
+
+	// (Number) An optional parameter that sets how permissive anomaly detection is. Higher values require higher deviations before triggering a signal. Valid values are 1, 2, 3, 4, 5. Valid values are 1, 2, 3, 4, 5.
+	// An optional parameter that sets how permissive anomaly detection is. Higher values require higher deviations before triggering a signal. Valid values are 1, 2, 3, 4, 5. Valid values are `1`, `2`, `3`, `4`, `5`.
+	// +kubebuilder:validation:Optional
+	DetectionTolerance *float64 `json:"detectionTolerance,omitempty" tf:"detection_tolerance,omitempty"`
+
+	// (Boolean) When set to true, Datadog uses previous values that fall within the defined learning window to construct the baseline, enabling the system to establish an accurate baseline more rapidly rather than relying solely on gradual learning over time. Defaults to false.
+	// When set to true, Datadog uses previous values that fall within the defined learning window to construct the baseline, enabling the system to establish an accurate baseline more rapidly rather than relying solely on gradual learning over time. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	InstantaneousBaseline *bool `json:"instantaneousBaseline,omitempty" tf:"instantaneous_baseline,omitempty"`
+
+	// (Number) Learning duration in hours. Anomaly detection waits for at least this amount of historical data before it starts evaluating. Valid values are 1, 6, 12, 24, 48, 168, 336. Valid values are 1, 6, 12, 24, 48, 168, 336.
+	// Learning duration in hours. Anomaly detection waits for at least this amount of historical data before it starts evaluating. Valid values are 1, 6, 12, 24, 48, 168, 336. Valid values are `1`, `6`, `12`, `24`, `48`, `168`, `336`.
+	// +kubebuilder:validation:Optional
+	LearningDuration *float64 `json:"learningDuration,omitempty" tf:"learning_duration,omitempty"`
+
+	// (Number) An optional override baseline to apply while the rule is in the learning period. Must be greater than or equal to 0.
+	// An optional override baseline to apply while the rule is in the learning period. Must be greater than or equal to 0.
+	// +kubebuilder:validation:Optional
+	LearningPeriodBaseline *float64 `json:"learningPeriodBaseline,omitempty" tf:"learning_period_baseline,omitempty"`
+}
+
+type CalculatedFieldInitParameters struct {
+
+	// (String) Expression.
+	// Expression.
+	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
+
+	// (String) The name of the rule.
+	// Field name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type CalculatedFieldObservation struct {
+
+	// (String) Expression.
+	// Expression.
+	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
+
+	// (String) The name of the rule.
+	// Field name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type CalculatedFieldParameters struct {
+
+	// (String) Expression.
+	// Expression.
 	// +kubebuilder:validation:Optional
 	Expression *string `json:"expression" tf:"expression,omitempty"`
+
+	// (String) The name of the rule.
+	// Field name.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
 }
 
 type ImpossibleTravelOptionsInitParameters struct {
@@ -80,7 +211,11 @@ type NewValueOptionsInitParameters struct {
 	// The duration in days after which a learned value is forgotten. Valid values are `1`, `2`, `7`, `14`, `21`, `28`.
 	ForgetAfter *float64 `json:"forgetAfter,omitempty" tf:"forget_after,omitempty"`
 
-	// (Number) The duration in days during which values are learned, and after which signals will be generated for values that weren't learned. If set to 0, a signal will be generated for all new values after the first value is learned. Valid values are 0, 1, 7. Defaults to 1.
+	// (Boolean) When set to true, Datadog uses previous values that fall within the defined learning window to construct the baseline, enabling the system to establish an accurate baseline more rapidly rather than relying solely on gradual learning over time. Defaults to false.
+	// When set to true, Datadog uses previous values that fall within the defined learning window to construct the baseline, enabling the system to establish an accurate baseline more rapidly rather than relying solely on gradual learning over time. Defaults to `false`.
+	InstantaneousBaseline *bool `json:"instantaneousBaseline,omitempty" tf:"instantaneous_baseline,omitempty"`
+
+	// (Number) Learning duration in hours. Anomaly detection waits for at least this amount of historical data before it starts evaluating. Valid values are 1, 6, 12, 24, 48, 168, 336. Valid values are 1, 6, 12, 24, 48, 168, 336.
 	// The duration in days during which values are learned, and after which signals will be generated for values that weren't learned. If set to 0, a signal will be generated for all new values after the first value is learned. Valid values are `0`, `1`, `7`. Defaults to `1`.
 	LearningDuration *float64 `json:"learningDuration,omitempty" tf:"learning_duration,omitempty"`
 
@@ -99,7 +234,11 @@ type NewValueOptionsObservation struct {
 	// The duration in days after which a learned value is forgotten. Valid values are `1`, `2`, `7`, `14`, `21`, `28`.
 	ForgetAfter *float64 `json:"forgetAfter,omitempty" tf:"forget_after,omitempty"`
 
-	// (Number) The duration in days during which values are learned, and after which signals will be generated for values that weren't learned. If set to 0, a signal will be generated for all new values after the first value is learned. Valid values are 0, 1, 7. Defaults to 1.
+	// (Boolean) When set to true, Datadog uses previous values that fall within the defined learning window to construct the baseline, enabling the system to establish an accurate baseline more rapidly rather than relying solely on gradual learning over time. Defaults to false.
+	// When set to true, Datadog uses previous values that fall within the defined learning window to construct the baseline, enabling the system to establish an accurate baseline more rapidly rather than relying solely on gradual learning over time. Defaults to `false`.
+	InstantaneousBaseline *bool `json:"instantaneousBaseline,omitempty" tf:"instantaneous_baseline,omitempty"`
+
+	// (Number) Learning duration in hours. Anomaly detection waits for at least this amount of historical data before it starts evaluating. Valid values are 1, 6, 12, 24, 48, 168, 336. Valid values are 1, 6, 12, 24, 48, 168, 336.
 	// The duration in days during which values are learned, and after which signals will be generated for values that weren't learned. If set to 0, a signal will be generated for all new values after the first value is learned. Valid values are `0`, `1`, `7`. Defaults to `1`.
 	LearningDuration *float64 `json:"learningDuration,omitempty" tf:"learning_duration,omitempty"`
 
@@ -119,7 +258,12 @@ type NewValueOptionsParameters struct {
 	// +kubebuilder:validation:Optional
 	ForgetAfter *float64 `json:"forgetAfter" tf:"forget_after,omitempty"`
 
-	// (Number) The duration in days during which values are learned, and after which signals will be generated for values that weren't learned. If set to 0, a signal will be generated for all new values after the first value is learned. Valid values are 0, 1, 7. Defaults to 1.
+	// (Boolean) When set to true, Datadog uses previous values that fall within the defined learning window to construct the baseline, enabling the system to establish an accurate baseline more rapidly rather than relying solely on gradual learning over time. Defaults to false.
+	// When set to true, Datadog uses previous values that fall within the defined learning window to construct the baseline, enabling the system to establish an accurate baseline more rapidly rather than relying solely on gradual learning over time. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	InstantaneousBaseline *bool `json:"instantaneousBaseline,omitempty" tf:"instantaneous_baseline,omitempty"`
+
+	// (Number) Learning duration in hours. Anomaly detection waits for at least this amount of historical data before it starts evaluating. Valid values are 1, 6, 12, 24, 48, 168, 336. Valid values are 1, 6, 12, 24, 48, 168, 336.
 	// The duration in days during which values are learned, and after which signals will be generated for values that weren't learned. If set to 0, a signal will be generated for all new values after the first value is learned. Valid values are `0`, `1`, `7`. Defaults to `1`.
 	// +kubebuilder:validation:Optional
 	LearningDuration *float64 `json:"learningDuration,omitempty" tf:"learning_duration,omitempty"`
@@ -135,117 +279,113 @@ type NewValueOptionsParameters struct {
 	LearningThreshold *float64 `json:"learningThreshold,omitempty" tf:"learning_threshold,omitempty"`
 }
 
-type QueryInitParameters struct {
+type QueryAgentRuleInitParameters struct {
 
-	// (Block List, Deprecated) Deprecated. It won't be applied anymore. Deprecated. agent_rule has been deprecated in favor of new Agent Rule resource. (see below for nested schema)
-	// **Deprecated**. It won't be applied anymore. **Deprecated.** `agent_rule` has been deprecated in favor of new Agent Rule resource.
-	AgentRule []AgentRuleInitParameters `json:"agentRule,omitempty" tf:"agent_rule,omitempty"`
+	// (String) Deprecated. It won't be applied anymore.
+	// **Deprecated**. It won't be applied anymore.
+	AgentRuleID *string `json:"agentRuleId,omitempty" tf:"agent_rule_id,omitempty"`
 
-	// (String) The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are count, cardinality, sum, max, new_value, geo_data, event_count, none. Defaults to "count".
-	// The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are `count`, `cardinality`, `sum`, `max`, `new_value`, `geo_data`, `event_count`, `none`. Defaults to `"count"`.
-	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
-
-	// (List of String) Field for which the cardinality is measured. Sent as an array.
-	// Field for which the cardinality is measured. Sent as an array.
-	DistinctFields []*string `json:"distinctFields,omitempty" tf:"distinct_fields,omitempty"`
-
-	// (List of String) Fields to group by. If empty, each log triggers a signal.
-	// Fields to group by.
-	GroupByFields []*string `json:"groupByFields,omitempty" tf:"group_by_fields,omitempty"`
-
-	// (String, Deprecated) The target field to aggregate over when using the sum, max, or geo_data aggregations. Deprecated. Configure metrics instead. This attribute will be removed in the next major version of the provider.
-	// The target field to aggregate over when using the `sum`, `max`, or `geo_data` aggregations. **Deprecated.** Configure `metrics` instead. This attribute will be removed in the next major version of the provider.
-	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
-
-	// (List of String) Group of target fields to aggregate over when using the sum, max, geo_data, or new_value aggregations. The sum, max, and geo_data aggregations only accept one value in this list, whereas the new_value aggregation accepts up to five values.
-	// Group of target fields to aggregate over when using the `sum`, `max`, `geo_data`, or `new_value` aggregations. The `sum`, `max`, and `geo_data` aggregations only accept one value in this list, whereas the `new_value` aggregation accepts up to five values.
-	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
-
-	// (String) The name of the rule.
-	// Name of the query. Not compatible with `new_value` aggregations.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
-	// Query to run on logs.
-	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+	// (String) Expression.
+	// **Deprecated**. It won't be applied anymore.
+	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
 }
 
-type QueryObservation struct {
+type QueryAgentRuleObservation struct {
 
-	// (Block List, Deprecated) Deprecated. It won't be applied anymore. Deprecated. agent_rule has been deprecated in favor of new Agent Rule resource. (see below for nested schema)
-	// **Deprecated**. It won't be applied anymore. **Deprecated.** `agent_rule` has been deprecated in favor of new Agent Rule resource.
-	AgentRule []AgentRuleObservation `json:"agentRule,omitempty" tf:"agent_rule,omitempty"`
+	// (String) Deprecated. It won't be applied anymore.
+	// **Deprecated**. It won't be applied anymore.
+	AgentRuleID *string `json:"agentRuleId,omitempty" tf:"agent_rule_id,omitempty"`
 
-	// (String) The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are count, cardinality, sum, max, new_value, geo_data, event_count, none. Defaults to "count".
-	// The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are `count`, `cardinality`, `sum`, `max`, `new_value`, `geo_data`, `event_count`, `none`. Defaults to `"count"`.
-	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
-
-	// (List of String) Field for which the cardinality is measured. Sent as an array.
-	// Field for which the cardinality is measured. Sent as an array.
-	DistinctFields []*string `json:"distinctFields,omitempty" tf:"distinct_fields,omitempty"`
-
-	// (List of String) Fields to group by. If empty, each log triggers a signal.
-	// Fields to group by.
-	GroupByFields []*string `json:"groupByFields,omitempty" tf:"group_by_fields,omitempty"`
-
-	// (String, Deprecated) The target field to aggregate over when using the sum, max, or geo_data aggregations. Deprecated. Configure metrics instead. This attribute will be removed in the next major version of the provider.
-	// The target field to aggregate over when using the `sum`, `max`, or `geo_data` aggregations. **Deprecated.** Configure `metrics` instead. This attribute will be removed in the next major version of the provider.
-	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
-
-	// (List of String) Group of target fields to aggregate over when using the sum, max, geo_data, or new_value aggregations. The sum, max, and geo_data aggregations only accept one value in this list, whereas the new_value aggregation accepts up to five values.
-	// Group of target fields to aggregate over when using the `sum`, `max`, `geo_data`, or `new_value` aggregations. The `sum`, `max`, and `geo_data` aggregations only accept one value in this list, whereas the `new_value` aggregation accepts up to five values.
-	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
-
-	// (String) The name of the rule.
-	// Name of the query. Not compatible with `new_value` aggregations.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
-	// Query to run on logs.
-	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+	// (String) Expression.
+	// **Deprecated**. It won't be applied anymore.
+	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
 }
 
-type QueryParameters struct {
+type QueryAgentRuleParameters struct {
 
-	// (Block List, Deprecated) Deprecated. It won't be applied anymore. Deprecated. agent_rule has been deprecated in favor of new Agent Rule resource. (see below for nested schema)
-	// **Deprecated**. It won't be applied anymore. **Deprecated.** `agent_rule` has been deprecated in favor of new Agent Rule resource.
+	// (String) Deprecated. It won't be applied anymore.
+	// **Deprecated**. It won't be applied anymore.
 	// +kubebuilder:validation:Optional
-	AgentRule []AgentRuleParameters `json:"agentRule,omitempty" tf:"agent_rule,omitempty"`
+	AgentRuleID *string `json:"agentRuleId" tf:"agent_rule_id,omitempty"`
 
-	// (String) The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are count, cardinality, sum, max, new_value, geo_data, event_count, none. Defaults to "count".
-	// The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are `count`, `cardinality`, `sum`, `max`, `new_value`, `geo_data`, `event_count`, `none`. Defaults to `"count"`.
+	// (String) Expression.
+	// **Deprecated**. It won't be applied anymore.
 	// +kubebuilder:validation:Optional
-	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+	Expression *string `json:"expression" tf:"expression,omitempty"`
+}
 
-	// (List of String) Field for which the cardinality is measured. Sent as an array.
-	// Field for which the cardinality is measured. Sent as an array.
-	// +kubebuilder:validation:Optional
-	DistinctFields []*string `json:"distinctFields,omitempty" tf:"distinct_fields,omitempty"`
+type ReferenceTablesInitParameters struct {
 
-	// (List of String) Fields to group by. If empty, each log triggers a signal.
-	// Fields to group by.
-	// +kubebuilder:validation:Optional
-	GroupByFields []*string `json:"groupByFields,omitempty" tf:"group_by_fields,omitempty"`
+	// (Boolean) Whether to include or exclude logs that match the reference table.
+	// Whether to include or exclude logs that match the reference table.
+	CheckPresence *bool `json:"checkPresence,omitempty" tf:"check_presence,omitempty"`
 
-	// (String, Deprecated) The target field to aggregate over when using the sum, max, or geo_data aggregations. Deprecated. Configure metrics instead. This attribute will be removed in the next major version of the provider.
-	// The target field to aggregate over when using the `sum`, `max`, or `geo_data` aggregations. **Deprecated.** Configure `metrics` instead. This attribute will be removed in the next major version of the provider.
-	// +kubebuilder:validation:Optional
-	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+	// (String) The name of the column in the reference table.
+	// The name of the column in the reference table.
+	ColumnName *string `json:"columnName,omitempty" tf:"column_name,omitempty"`
 
-	// (List of String) Group of target fields to aggregate over when using the sum, max, geo_data, or new_value aggregations. The sum, max, and geo_data aggregations only accept one value in this list, whereas the new_value aggregation accepts up to five values.
-	// Group of target fields to aggregate over when using the `sum`, `max`, `geo_data`, or `new_value` aggregations. The `sum`, `max`, and `geo_data` aggregations only accept one value in this list, whereas the `new_value` aggregation accepts up to five values.
-	// +kubebuilder:validation:Optional
-	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+	// (String) The field in the log that should be matched against the reference table.
+	// The field in the log that should be matched against the reference table.
+	LogFieldPath *string `json:"logFieldPath,omitempty" tf:"log_field_path,omitempty"`
 
-	// (String) The name of the rule.
-	// Name of the query. Not compatible with `new_value` aggregations.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (String) The name of the query to filter.
+	// The name of the query to filter.
+	RuleQueryName *string `json:"ruleQueryName,omitempty" tf:"rule_query_name,omitempty"`
 
-	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
-	// Query to run on logs.
+	// (String) The name of the reference table.
+	// The name of the reference table.
+	TableName *string `json:"tableName,omitempty" tf:"table_name,omitempty"`
+}
+
+type ReferenceTablesObservation struct {
+
+	// (Boolean) Whether to include or exclude logs that match the reference table.
+	// Whether to include or exclude logs that match the reference table.
+	CheckPresence *bool `json:"checkPresence,omitempty" tf:"check_presence,omitempty"`
+
+	// (String) The name of the column in the reference table.
+	// The name of the column in the reference table.
+	ColumnName *string `json:"columnName,omitempty" tf:"column_name,omitempty"`
+
+	// (String) The field in the log that should be matched against the reference table.
+	// The field in the log that should be matched against the reference table.
+	LogFieldPath *string `json:"logFieldPath,omitempty" tf:"log_field_path,omitempty"`
+
+	// (String) The name of the query to filter.
+	// The name of the query to filter.
+	RuleQueryName *string `json:"ruleQueryName,omitempty" tf:"rule_query_name,omitempty"`
+
+	// (String) The name of the reference table.
+	// The name of the reference table.
+	TableName *string `json:"tableName,omitempty" tf:"table_name,omitempty"`
+}
+
+type ReferenceTablesParameters struct {
+
+	// (Boolean) Whether to include or exclude logs that match the reference table.
+	// Whether to include or exclude logs that match the reference table.
 	// +kubebuilder:validation:Optional
-	Query *string `json:"query" tf:"query,omitempty"`
+	CheckPresence *bool `json:"checkPresence" tf:"check_presence,omitempty"`
+
+	// (String) The name of the column in the reference table.
+	// The name of the column in the reference table.
+	// +kubebuilder:validation:Optional
+	ColumnName *string `json:"columnName" tf:"column_name,omitempty"`
+
+	// (String) The field in the log that should be matched against the reference table.
+	// The field in the log that should be matched against the reference table.
+	// +kubebuilder:validation:Optional
+	LogFieldPath *string `json:"logFieldPath" tf:"log_field_path,omitempty"`
+
+	// (String) The name of the query to filter.
+	// The name of the query to filter.
+	// +kubebuilder:validation:Optional
+	RuleQueryName *string `json:"ruleQueryName" tf:"rule_query_name,omitempty"`
+
+	// (String) The name of the reference table.
+	// The name of the reference table.
+	// +kubebuilder:validation:Optional
+	TableName *string `json:"tableName" tf:"table_name,omitempty"`
 }
 
 type RootQueryInitParameters struct {
@@ -285,6 +425,10 @@ type RootQueryParameters struct {
 
 type RuleCaseInitParameters struct {
 
+	// (Block List) Action to perform when the case trigger (see below for nested schema)
+	// Action to perform when the case trigger
+	Action []ActionInitParameters `json:"action,omitempty" tf:"action,omitempty"`
+
 	// (String) A rule case contains logical operations (>,>=, &&, ||) to determine if a signal should be generated based on the event counts in the previously defined queries.
 	// A rule case contains logical operations (`>`,`>=`, `&&`, `||`) to determine if a signal should be generated based on the event counts in the previously defined queries.
 	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
@@ -304,6 +448,10 @@ type RuleCaseInitParameters struct {
 
 type RuleCaseObservation struct {
 
+	// (Block List) Action to perform when the case trigger (see below for nested schema)
+	// Action to perform when the case trigger
+	Action []ActionObservation `json:"action,omitempty" tf:"action,omitempty"`
+
 	// (String) A rule case contains logical operations (>,>=, &&, ||) to determine if a signal should be generated based on the event counts in the previously defined queries.
 	// A rule case contains logical operations (`>`,`>=`, `&&`, `||`) to determine if a signal should be generated based on the event counts in the previously defined queries.
 	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
@@ -322,6 +470,11 @@ type RuleCaseObservation struct {
 }
 
 type RuleCaseParameters struct {
+
+	// (Block List) Action to perform when the case trigger (see below for nested schema)
+	// Action to perform when the case trigger
+	// +kubebuilder:validation:Optional
+	Action []ActionParameters `json:"action,omitempty" tf:"action,omitempty"`
 
 	// (String) A rule case contains logical operations (>,>=, &&, ||) to determine if a signal should be generated based on the event counts in the previously defined queries.
 	// A rule case contains logical operations (`>`,`>=`, `&&`, `||`) to determine if a signal should be generated based on the event counts in the previously defined queries.
@@ -346,7 +499,7 @@ type RuleCaseParameters struct {
 
 type RuleFilterInitParameters struct {
 
-	// (String) The type of filtering action. Valid values are require, suppress.
+	// (Block List) Action to perform when the case trigger (see below for nested schema)
 	// The type of filtering action. Valid values are `require`, `suppress`.
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
@@ -357,7 +510,7 @@ type RuleFilterInitParameters struct {
 
 type RuleFilterObservation struct {
 
-	// (String) The type of filtering action. Valid values are require, suppress.
+	// (Block List) Action to perform when the case trigger (see below for nested schema)
 	// The type of filtering action. Valid values are `require`, `suppress`.
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
@@ -368,7 +521,7 @@ type RuleFilterObservation struct {
 
 type RuleFilterParameters struct {
 
-	// (String) The type of filtering action. Valid values are require, suppress.
+	// (Block List) Action to perform when the case trigger (see below for nested schema)
 	// The type of filtering action. Valid values are `require`, `suppress`.
 	// +kubebuilder:validation:Optional
 	Action *string `json:"action" tf:"action,omitempty"`
@@ -381,6 +534,10 @@ type RuleFilterParameters struct {
 
 type RuleInitParameters struct {
 
+	// (Block List) One or more calculated fields. Available only for scheduled rules (in other words, when scheduling_options is defined). (see below for nested schema)
+	// One or more calculated fields. Available only for scheduled rules (in other words, when `scheduling_options` is defined).
+	CalculatedField []CalculatedFieldInitParameters `json:"calculatedField,omitempty" tf:"calculated_field,omitempty"`
+
 	// (Block List, Max: 10) Cases for generating signals. (see below for nested schema)
 	// Cases for generating signals.
 	Case []RuleCaseInitParameters `json:"case,omitempty" tf:"case,omitempty"`
@@ -389,9 +546,13 @@ type RuleInitParameters struct {
 	// Whether the rule is enabled. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// (Block List) Additional queries to filter matched events before they are processed. (see below for nested schema)
-	// Additional queries to filter matched events before they are processed.
+	// (Block List) Additional queries to filter matched events before they are processed. Note: This field is deprecated for log detection, signal correlation, and workload security rules. (see below for nested schema)
+	// Additional queries to filter matched events before they are processed. **Note**: This field is deprecated for log detection, signal correlation, and workload security rules.
 	Filter []RuleFilterInitParameters `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// (List of String) Additional grouping to perform on top of the query grouping.
+	// Additional grouping to perform on top of the query grouping.
+	GroupSignalsBy []*string `json:"groupSignalsBy,omitempty" tf:"group_signals_by,omitempty"`
 
 	// by values in their title. Defaults to false.
 	// Whether the notifications include the triggering group-by values in their title. Defaults to `false`.
@@ -411,14 +572,22 @@ type RuleInitParameters struct {
 
 	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
 	// Queries for selecting logs which are part of the rule.
-	Query []QueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
+	Query []RuleQueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
+
+	// (Block List) Reference tables for filtering query results. (see below for nested schema)
+	// Reference tables for filtering query results.
+	ReferenceTables []ReferenceTablesInitParameters `json:"referenceTables,omitempty" tf:"reference_tables,omitempty"`
+
+	// (Block List, Max: 1) Options for scheduled rules. When this field is present, the rule runs based on the schedule. When absent, it runs in real time on ingested logs. (see below for nested schema)
+	// Options for scheduled rules. When this field is present, the rule runs based on the schedule. When absent, it runs in real time on ingested logs.
+	SchedulingOptions []SchedulingOptionsInitParameters `json:"schedulingOptions,omitempty" tf:"scheduling_options,omitempty"`
 
 	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
 	// Queries for selecting logs which are part of the rule.
 	SignalQuery []SignalQueryInitParameters `json:"signalQuery,omitempty" tf:"signal_query,omitempty"`
 
-	// (Set of String) Tags for generated signals.
-	// Tags for generated signals.
+	// (Set of String) Tags for generated signals. Note: if default tags are present at provider level, they will be added to this resource.
+	// Tags for generated signals. Note: if default tags are present at provider level, they will be added to this resource.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -429,9 +598,17 @@ type RuleInitParameters struct {
 	// (String) The rule type. Valid values are application_security, log_detection, workload_security, signal_correlation. Defaults to "log_detection".
 	// The rule type. Valid values are `application_security`, `log_detection`, `workload_security`, `signal_correlation`. Defaults to `"log_detection"`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (Boolean) Whether or not to validate the Rule.
+	// Whether or not to validate the Rule.
+	Validate *bool `json:"validate,omitempty" tf:"validate,omitempty"`
 }
 
 type RuleObservation struct {
+
+	// (Block List) One or more calculated fields. Available only for scheduled rules (in other words, when scheduling_options is defined). (see below for nested schema)
+	// One or more calculated fields. Available only for scheduled rules (in other words, when `scheduling_options` is defined).
+	CalculatedField []CalculatedFieldObservation `json:"calculatedField,omitempty" tf:"calculated_field,omitempty"`
 
 	// (Block List, Max: 10) Cases for generating signals. (see below for nested schema)
 	// Cases for generating signals.
@@ -441,9 +618,13 @@ type RuleObservation struct {
 	// Whether the rule is enabled. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// (Block List) Additional queries to filter matched events before they are processed. (see below for nested schema)
-	// Additional queries to filter matched events before they are processed.
+	// (Block List) Additional queries to filter matched events before they are processed. Note: This field is deprecated for log detection, signal correlation, and workload security rules. (see below for nested schema)
+	// Additional queries to filter matched events before they are processed. **Note**: This field is deprecated for log detection, signal correlation, and workload security rules.
 	Filter []RuleFilterObservation `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// (List of String) Additional grouping to perform on top of the query grouping.
+	// Additional grouping to perform on top of the query grouping.
+	GroupSignalsBy []*string `json:"groupSignalsBy,omitempty" tf:"group_signals_by,omitempty"`
 
 	// by values in their title. Defaults to false.
 	// Whether the notifications include the triggering group-by values in their title. Defaults to `false`.
@@ -466,14 +647,22 @@ type RuleObservation struct {
 
 	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
 	// Queries for selecting logs which are part of the rule.
-	Query []QueryObservation `json:"query,omitempty" tf:"query,omitempty"`
+	Query []RuleQueryObservation `json:"query,omitempty" tf:"query,omitempty"`
+
+	// (Block List) Reference tables for filtering query results. (see below for nested schema)
+	// Reference tables for filtering query results.
+	ReferenceTables []ReferenceTablesObservation `json:"referenceTables,omitempty" tf:"reference_tables,omitempty"`
+
+	// (Block List, Max: 1) Options for scheduled rules. When this field is present, the rule runs based on the schedule. When absent, it runs in real time on ingested logs. (see below for nested schema)
+	// Options for scheduled rules. When this field is present, the rule runs based on the schedule. When absent, it runs in real time on ingested logs.
+	SchedulingOptions []SchedulingOptionsObservation `json:"schedulingOptions,omitempty" tf:"scheduling_options,omitempty"`
 
 	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
 	// Queries for selecting logs which are part of the rule.
 	SignalQuery []SignalQueryObservation `json:"signalQuery,omitempty" tf:"signal_query,omitempty"`
 
-	// (Set of String) Tags for generated signals.
-	// Tags for generated signals.
+	// (Set of String) Tags for generated signals. Note: if default tags are present at provider level, they will be added to this resource.
+	// Tags for generated signals. Note: if default tags are present at provider level, they will be added to this resource.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -484,28 +673,36 @@ type RuleObservation struct {
 	// (String) The rule type. Valid values are application_security, log_detection, workload_security, signal_correlation. Defaults to "log_detection".
 	// The rule type. Valid values are `application_security`, `log_detection`, `workload_security`, `signal_correlation`. Defaults to `"log_detection"`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (Boolean) Whether or not to validate the Rule.
+	// Whether or not to validate the Rule.
+	Validate *bool `json:"validate,omitempty" tf:"validate,omitempty"`
 }
 
 type RuleOptionsInitParameters struct {
+
+	// (Block List, Max: 1) Options for rules using the anomaly detection method. (see below for nested schema)
+	// Options for rules using the anomaly detection method.
+	AnomalyDetectionOptions []AnomalyDetectionOptionsInitParameters `json:"anomalyDetectionOptions,omitempty" tf:"anomaly_detection_options,omitempty"`
 
 	// production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with staging, test, or dev. Only available when the rule type is log_detection. Defaults to false.
 	// If true, signals in non-production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with `staging`, `test`, or `dev`. Only available when the rule type is `log_detection`. Defaults to `false`.
 	DecreaseCriticalityBasedOnEnv *bool `json:"decreaseCriticalityBasedOnEnv,omitempty" tf:"decrease_criticality_based_on_env,omitempty"`
 
-	// (String) The detection method. Valid values are threshold, new_value, anomaly_detection, impossible_travel, hardcoded, third_party. Defaults to "threshold".
-	// The detection method. Valid values are `threshold`, `new_value`, `anomaly_detection`, `impossible_travel`, `hardcoded`, `third_party`. Defaults to `"threshold"`.
+	// (String) The detection method. Valid values are threshold, new_value, anomaly_detection, impossible_travel, hardcoded, third_party, anomaly_threshold, sequence_detection. Defaults to "threshold".
+	// The detection method. Valid values are `threshold`, `new_value`, `anomaly_detection`, `impossible_travel`, `hardcoded`, `third_party`, `anomaly_threshold`, `sequence_detection`. Defaults to `"threshold"`.
 	DetectionMethod *string `json:"detectionMethod,omitempty" tf:"detection_method,omitempty"`
 
-	// (Number) A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200.
-	// A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`.
+	// (Number) A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400.
+	// A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`, `43200`, `86400`.
 	EvaluationWindow *float64 `json:"evaluationWindow,omitempty" tf:"evaluation_window,omitempty"`
 
 	// (Block List, Max: 1) Options for rules using the impossible travel detection method. (see below for nested schema)
 	// Options for rules using the impossible travel detection method.
 	ImpossibleTravelOptions []ImpossibleTravelOptionsInitParameters `json:"impossibleTravelOptions,omitempty" tf:"impossible_travel_options,omitempty"`
 
-	// (Number) Once a signal is generated, the signal will remain “open” if a case is matched at least once within this keep alive window (in seconds). Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600.
-	// Once a signal is generated, the signal will remain “open” if a case is matched at least once within this keep alive window (in seconds). Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`.
+	// (Number) Once a signal is generated, the signal will remain “open” if a case is matched at least once within this keep alive window (in seconds). Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400.
+	// Once a signal is generated, the signal will remain “open” if a case is matched at least once within this keep alive window (in seconds). Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`, `43200`, `86400`.
 	KeepAlive *float64 `json:"keepAlive,omitempty" tf:"keep_alive,omitempty"`
 
 	// (Number) A signal will “close” regardless of the query being matched once the time exceeds the maximum duration (in seconds). This time is calculated from the first seen timestamp. Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400.
@@ -516,6 +713,10 @@ type RuleOptionsInitParameters struct {
 	// New value rules specific options.
 	NewValueOptions []NewValueOptionsInitParameters `json:"newValueOptions,omitempty" tf:"new_value_options,omitempty"`
 
+	// (Block List, Max: 1) Options for rules using the sequence detection method. (see below for nested schema)
+	// Options for rules using the sequence detection method.
+	SequenceDetectionOptions []SequenceDetectionOptionsInitParameters `json:"sequenceDetectionOptions,omitempty" tf:"sequence_detection_options,omitempty"`
+
 	// party detection method. (see below for nested schema)
 	// Options for rules using the third-party detection method.
 	ThirdPartyRuleOptions []ThirdPartyRuleOptionsInitParameters `json:"thirdPartyRuleOptions,omitempty" tf:"third_party_rule_options,omitempty"`
@@ -523,24 +724,28 @@ type RuleOptionsInitParameters struct {
 
 type RuleOptionsObservation struct {
 
+	// (Block List, Max: 1) Options for rules using the anomaly detection method. (see below for nested schema)
+	// Options for rules using the anomaly detection method.
+	AnomalyDetectionOptions []AnomalyDetectionOptionsObservation `json:"anomalyDetectionOptions,omitempty" tf:"anomaly_detection_options,omitempty"`
+
 	// production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with staging, test, or dev. Only available when the rule type is log_detection. Defaults to false.
 	// If true, signals in non-production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with `staging`, `test`, or `dev`. Only available when the rule type is `log_detection`. Defaults to `false`.
 	DecreaseCriticalityBasedOnEnv *bool `json:"decreaseCriticalityBasedOnEnv,omitempty" tf:"decrease_criticality_based_on_env,omitempty"`
 
-	// (String) The detection method. Valid values are threshold, new_value, anomaly_detection, impossible_travel, hardcoded, third_party. Defaults to "threshold".
-	// The detection method. Valid values are `threshold`, `new_value`, `anomaly_detection`, `impossible_travel`, `hardcoded`, `third_party`. Defaults to `"threshold"`.
+	// (String) The detection method. Valid values are threshold, new_value, anomaly_detection, impossible_travel, hardcoded, third_party, anomaly_threshold, sequence_detection. Defaults to "threshold".
+	// The detection method. Valid values are `threshold`, `new_value`, `anomaly_detection`, `impossible_travel`, `hardcoded`, `third_party`, `anomaly_threshold`, `sequence_detection`. Defaults to `"threshold"`.
 	DetectionMethod *string `json:"detectionMethod,omitempty" tf:"detection_method,omitempty"`
 
-	// (Number) A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200.
-	// A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`.
+	// (Number) A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400.
+	// A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`, `43200`, `86400`.
 	EvaluationWindow *float64 `json:"evaluationWindow,omitempty" tf:"evaluation_window,omitempty"`
 
 	// (Block List, Max: 1) Options for rules using the impossible travel detection method. (see below for nested schema)
 	// Options for rules using the impossible travel detection method.
 	ImpossibleTravelOptions []ImpossibleTravelOptionsObservation `json:"impossibleTravelOptions,omitempty" tf:"impossible_travel_options,omitempty"`
 
-	// (Number) Once a signal is generated, the signal will remain “open” if a case is matched at least once within this keep alive window (in seconds). Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600.
-	// Once a signal is generated, the signal will remain “open” if a case is matched at least once within this keep alive window (in seconds). Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`.
+	// (Number) Once a signal is generated, the signal will remain “open” if a case is matched at least once within this keep alive window (in seconds). Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400.
+	// Once a signal is generated, the signal will remain “open” if a case is matched at least once within this keep alive window (in seconds). Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`, `43200`, `86400`.
 	KeepAlive *float64 `json:"keepAlive,omitempty" tf:"keep_alive,omitempty"`
 
 	// (Number) A signal will “close” regardless of the query being matched once the time exceeds the maximum duration (in seconds). This time is calculated from the first seen timestamp. Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400.
@@ -551,6 +756,10 @@ type RuleOptionsObservation struct {
 	// New value rules specific options.
 	NewValueOptions []NewValueOptionsObservation `json:"newValueOptions,omitempty" tf:"new_value_options,omitempty"`
 
+	// (Block List, Max: 1) Options for rules using the sequence detection method. (see below for nested schema)
+	// Options for rules using the sequence detection method.
+	SequenceDetectionOptions []SequenceDetectionOptionsObservation `json:"sequenceDetectionOptions,omitempty" tf:"sequence_detection_options,omitempty"`
+
 	// party detection method. (see below for nested schema)
 	// Options for rules using the third-party detection method.
 	ThirdPartyRuleOptions []ThirdPartyRuleOptionsObservation `json:"thirdPartyRuleOptions,omitempty" tf:"third_party_rule_options,omitempty"`
@@ -558,18 +767,23 @@ type RuleOptionsObservation struct {
 
 type RuleOptionsParameters struct {
 
+	// (Block List, Max: 1) Options for rules using the anomaly detection method. (see below for nested schema)
+	// Options for rules using the anomaly detection method.
+	// +kubebuilder:validation:Optional
+	AnomalyDetectionOptions []AnomalyDetectionOptionsParameters `json:"anomalyDetectionOptions,omitempty" tf:"anomaly_detection_options,omitempty"`
+
 	// production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with staging, test, or dev. Only available when the rule type is log_detection. Defaults to false.
 	// If true, signals in non-production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with `staging`, `test`, or `dev`. Only available when the rule type is `log_detection`. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	DecreaseCriticalityBasedOnEnv *bool `json:"decreaseCriticalityBasedOnEnv,omitempty" tf:"decrease_criticality_based_on_env,omitempty"`
 
-	// (String) The detection method. Valid values are threshold, new_value, anomaly_detection, impossible_travel, hardcoded, third_party. Defaults to "threshold".
-	// The detection method. Valid values are `threshold`, `new_value`, `anomaly_detection`, `impossible_travel`, `hardcoded`, `third_party`. Defaults to `"threshold"`.
+	// (String) The detection method. Valid values are threshold, new_value, anomaly_detection, impossible_travel, hardcoded, third_party, anomaly_threshold, sequence_detection. Defaults to "threshold".
+	// The detection method. Valid values are `threshold`, `new_value`, `anomaly_detection`, `impossible_travel`, `hardcoded`, `third_party`, `anomaly_threshold`, `sequence_detection`. Defaults to `"threshold"`.
 	// +kubebuilder:validation:Optional
 	DetectionMethod *string `json:"detectionMethod,omitempty" tf:"detection_method,omitempty"`
 
-	// (Number) A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200.
-	// A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`.
+	// (Number) A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400.
+	// A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`, `43200`, `86400`.
 	// +kubebuilder:validation:Optional
 	EvaluationWindow *float64 `json:"evaluationWindow,omitempty" tf:"evaluation_window,omitempty"`
 
@@ -578,8 +792,8 @@ type RuleOptionsParameters struct {
 	// +kubebuilder:validation:Optional
 	ImpossibleTravelOptions []ImpossibleTravelOptionsParameters `json:"impossibleTravelOptions,omitempty" tf:"impossible_travel_options,omitempty"`
 
-	// (Number) Once a signal is generated, the signal will remain “open” if a case is matched at least once within this keep alive window (in seconds). Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600.
-	// Once a signal is generated, the signal will remain “open” if a case is matched at least once within this keep alive window (in seconds). Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`.
+	// (Number) Once a signal is generated, the signal will remain “open” if a case is matched at least once within this keep alive window (in seconds). Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400.
+	// Once a signal is generated, the signal will remain “open” if a case is matched at least once within this keep alive window (in seconds). Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`, `43200`, `86400`.
 	// +kubebuilder:validation:Optional
 	KeepAlive *float64 `json:"keepAlive,omitempty" tf:"keep_alive,omitempty"`
 
@@ -593,6 +807,11 @@ type RuleOptionsParameters struct {
 	// +kubebuilder:validation:Optional
 	NewValueOptions []NewValueOptionsParameters `json:"newValueOptions,omitempty" tf:"new_value_options,omitempty"`
 
+	// (Block List, Max: 1) Options for rules using the sequence detection method. (see below for nested schema)
+	// Options for rules using the sequence detection method.
+	// +kubebuilder:validation:Optional
+	SequenceDetectionOptions []SequenceDetectionOptionsParameters `json:"sequenceDetectionOptions,omitempty" tf:"sequence_detection_options,omitempty"`
+
 	// party detection method. (see below for nested schema)
 	// Options for rules using the third-party detection method.
 	// +kubebuilder:validation:Optional
@@ -600,6 +819,11 @@ type RuleOptionsParameters struct {
 }
 
 type RuleParameters struct {
+
+	// (Block List) One or more calculated fields. Available only for scheduled rules (in other words, when scheduling_options is defined). (see below for nested schema)
+	// One or more calculated fields. Available only for scheduled rules (in other words, when `scheduling_options` is defined).
+	// +kubebuilder:validation:Optional
+	CalculatedField []CalculatedFieldParameters `json:"calculatedField,omitempty" tf:"calculated_field,omitempty"`
 
 	// (Block List, Max: 10) Cases for generating signals. (see below for nested schema)
 	// Cases for generating signals.
@@ -611,10 +835,15 @@ type RuleParameters struct {
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// (Block List) Additional queries to filter matched events before they are processed. (see below for nested schema)
-	// Additional queries to filter matched events before they are processed.
+	// (Block List) Additional queries to filter matched events before they are processed. Note: This field is deprecated for log detection, signal correlation, and workload security rules. (see below for nested schema)
+	// Additional queries to filter matched events before they are processed. **Note**: This field is deprecated for log detection, signal correlation, and workload security rules.
 	// +kubebuilder:validation:Optional
 	Filter []RuleFilterParameters `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// (List of String) Additional grouping to perform on top of the query grouping.
+	// Additional grouping to perform on top of the query grouping.
+	// +kubebuilder:validation:Optional
+	GroupSignalsBy []*string `json:"groupSignalsBy,omitempty" tf:"group_signals_by,omitempty"`
 
 	// by values in their title. Defaults to false.
 	// Whether the notifications include the triggering group-by values in their title. Defaults to `false`.
@@ -639,15 +868,25 @@ type RuleParameters struct {
 	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
 	// Queries for selecting logs which are part of the rule.
 	// +kubebuilder:validation:Optional
-	Query []QueryParameters `json:"query,omitempty" tf:"query,omitempty"`
+	Query []RuleQueryParameters `json:"query,omitempty" tf:"query,omitempty"`
+
+	// (Block List) Reference tables for filtering query results. (see below for nested schema)
+	// Reference tables for filtering query results.
+	// +kubebuilder:validation:Optional
+	ReferenceTables []ReferenceTablesParameters `json:"referenceTables,omitempty" tf:"reference_tables,omitempty"`
+
+	// (Block List, Max: 1) Options for scheduled rules. When this field is present, the rule runs based on the schedule. When absent, it runs in real time on ingested logs. (see below for nested schema)
+	// Options for scheduled rules. When this field is present, the rule runs based on the schedule. When absent, it runs in real time on ingested logs.
+	// +kubebuilder:validation:Optional
+	SchedulingOptions []SchedulingOptionsParameters `json:"schedulingOptions,omitempty" tf:"scheduling_options,omitempty"`
 
 	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
 	// Queries for selecting logs which are part of the rule.
 	// +kubebuilder:validation:Optional
 	SignalQuery []SignalQueryParameters `json:"signalQuery,omitempty" tf:"signal_query,omitempty"`
 
-	// (Set of String) Tags for generated signals.
-	// Tags for generated signals.
+	// (Set of String) Tags for generated signals. Note: if default tags are present at provider level, they will be added to this resource.
+	// Tags for generated signals. Note: if default tags are present at provider level, they will be added to this resource.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -661,6 +900,246 @@ type RuleParameters struct {
 	// The rule type. Valid values are `application_security`, `log_detection`, `workload_security`, `signal_correlation`. Defaults to `"log_detection"`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (Boolean) Whether or not to validate the Rule.
+	// Whether or not to validate the Rule.
+	// +kubebuilder:validation:Optional
+	Validate *bool `json:"validate,omitempty" tf:"validate,omitempty"`
+}
+
+type RuleQueryInitParameters struct {
+
+	// (Block List, Deprecated) Deprecated. It won't be applied anymore. Deprecated. agent_rule has been deprecated in favor of new Agent Rule resource. (see below for nested schema)
+	// **Deprecated**. It won't be applied anymore. **Deprecated.** `agent_rule` has been deprecated in favor of new Agent Rule resource.
+	AgentRule []QueryAgentRuleInitParameters `json:"agentRule,omitempty" tf:"agent_rule,omitempty"`
+
+	// (String) The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are count, cardinality, sum, max, new_value, geo_data, event_count, none. Defaults to "count".
+	// The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are `count`, `cardinality`, `sum`, `max`, `new_value`, `geo_data`, `event_count`, `none`. Defaults to `"count"`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) Source of events. Valid values are logs, audit, app_sec_spans, spans, security_runtime, network, events. Defaults to "logs".
+	// Source of events. Valid values are `logs`, `audit`, `app_sec_spans`, `spans`, `security_runtime`, `network`, `events`. Defaults to `"logs"`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (List of String) Field for which the cardinality is measured. Sent as an array.
+	// Field for which the cardinality is measured. Sent as an array.
+	DistinctFields []*string `json:"distinctFields,omitempty" tf:"distinct_fields,omitempty"`
+
+	// (List of String) Fields to group by. If empty, each log triggers a signal.
+	// Fields to group by.
+	GroupByFields []*string `json:"groupByFields,omitempty" tf:"group_by_fields,omitempty"`
+
+	// by value are ignored by the rule. When true, events with missing group-by fields are processed with N/A, replacing the missing values. Defaults to false.
+	// When false, events without a group-by value are ignored by the rule. When true, events with missing group-by fields are processed with `N/A`, replacing the missing values. Defaults to `false`.
+	HasOptionalGroupByFields *bool `json:"hasOptionalGroupByFields,omitempty" tf:"has_optional_group_by_fields,omitempty"`
+
+	// (List of String) List of indexes to run the query on when the data source is logs. Supports only one element. Used only for scheduled rules (in other words, when scheduling_options is defined).
+	// List of indexes to run the query on when the data source is `logs`. Supports only one element. Used only for scheduled rules (in other words, when `scheduling_options` is defined).
+	Indexes []*string `json:"indexes,omitempty" tf:"indexes,omitempty"`
+
+	// (String, Deprecated) The target field to aggregate over when using the sum, max, or geo_data aggregations. Deprecated. Configure metrics instead. This attribute will be removed in the next major version of the provider.
+	// The target field to aggregate over when using the `sum`, `max`, or `geo_data` aggregations. **Deprecated.** Configure `metrics` instead. This attribute will be removed in the next major version of the provider.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (List of String) Group of target fields to aggregate over when using the sum, max, geo_data, or new_value aggregations. The sum, max, and geo_data aggregations only accept one value in this list, whereas the new_value aggregation accepts up to five values.
+	// Group of target fields to aggregate over when using the `sum`, `max`, `geo_data`, or `new_value` aggregations. The `sum`, `max`, and `geo_data` aggregations only accept one value in this list, whereas the `new_value` aggregation accepts up to five values.
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	// (String) The name of the rule.
+	// Name of the query. Not compatible with `new_value` aggregations.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
+	// Query to run on logs.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type RuleQueryObservation struct {
+
+	// (Block List, Deprecated) Deprecated. It won't be applied anymore. Deprecated. agent_rule has been deprecated in favor of new Agent Rule resource. (see below for nested schema)
+	// **Deprecated**. It won't be applied anymore. **Deprecated.** `agent_rule` has been deprecated in favor of new Agent Rule resource.
+	AgentRule []QueryAgentRuleObservation `json:"agentRule,omitempty" tf:"agent_rule,omitempty"`
+
+	// (String) The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are count, cardinality, sum, max, new_value, geo_data, event_count, none. Defaults to "count".
+	// The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are `count`, `cardinality`, `sum`, `max`, `new_value`, `geo_data`, `event_count`, `none`. Defaults to `"count"`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) Source of events. Valid values are logs, audit, app_sec_spans, spans, security_runtime, network, events. Defaults to "logs".
+	// Source of events. Valid values are `logs`, `audit`, `app_sec_spans`, `spans`, `security_runtime`, `network`, `events`. Defaults to `"logs"`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (List of String) Field for which the cardinality is measured. Sent as an array.
+	// Field for which the cardinality is measured. Sent as an array.
+	DistinctFields []*string `json:"distinctFields,omitempty" tf:"distinct_fields,omitempty"`
+
+	// (List of String) Fields to group by. If empty, each log triggers a signal.
+	// Fields to group by.
+	GroupByFields []*string `json:"groupByFields,omitempty" tf:"group_by_fields,omitempty"`
+
+	// by value are ignored by the rule. When true, events with missing group-by fields are processed with N/A, replacing the missing values. Defaults to false.
+	// When false, events without a group-by value are ignored by the rule. When true, events with missing group-by fields are processed with `N/A`, replacing the missing values. Defaults to `false`.
+	HasOptionalGroupByFields *bool `json:"hasOptionalGroupByFields,omitempty" tf:"has_optional_group_by_fields,omitempty"`
+
+	// (List of String) List of indexes to run the query on when the data source is logs. Supports only one element. Used only for scheduled rules (in other words, when scheduling_options is defined).
+	// List of indexes to run the query on when the data source is `logs`. Supports only one element. Used only for scheduled rules (in other words, when `scheduling_options` is defined).
+	Indexes []*string `json:"indexes,omitempty" tf:"indexes,omitempty"`
+
+	// (String, Deprecated) The target field to aggregate over when using the sum, max, or geo_data aggregations. Deprecated. Configure metrics instead. This attribute will be removed in the next major version of the provider.
+	// The target field to aggregate over when using the `sum`, `max`, or `geo_data` aggregations. **Deprecated.** Configure `metrics` instead. This attribute will be removed in the next major version of the provider.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (List of String) Group of target fields to aggregate over when using the sum, max, geo_data, or new_value aggregations. The sum, max, and geo_data aggregations only accept one value in this list, whereas the new_value aggregation accepts up to five values.
+	// Group of target fields to aggregate over when using the `sum`, `max`, `geo_data`, or `new_value` aggregations. The `sum`, `max`, and `geo_data` aggregations only accept one value in this list, whereas the `new_value` aggregation accepts up to five values.
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	// (String) The name of the rule.
+	// Name of the query. Not compatible with `new_value` aggregations.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
+	// Query to run on logs.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type RuleQueryParameters struct {
+
+	// (Block List, Deprecated) Deprecated. It won't be applied anymore. Deprecated. agent_rule has been deprecated in favor of new Agent Rule resource. (see below for nested schema)
+	// **Deprecated**. It won't be applied anymore. **Deprecated.** `agent_rule` has been deprecated in favor of new Agent Rule resource.
+	// +kubebuilder:validation:Optional
+	AgentRule []QueryAgentRuleParameters `json:"agentRule,omitempty" tf:"agent_rule,omitempty"`
+
+	// (String) The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are count, cardinality, sum, max, new_value, geo_data, event_count, none. Defaults to "count".
+	// The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are `count`, `cardinality`, `sum`, `max`, `new_value`, `geo_data`, `event_count`, `none`. Defaults to `"count"`.
+	// +kubebuilder:validation:Optional
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) Source of events. Valid values are logs, audit, app_sec_spans, spans, security_runtime, network, events. Defaults to "logs".
+	// Source of events. Valid values are `logs`, `audit`, `app_sec_spans`, `spans`, `security_runtime`, `network`, `events`. Defaults to `"logs"`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (List of String) Field for which the cardinality is measured. Sent as an array.
+	// Field for which the cardinality is measured. Sent as an array.
+	// +kubebuilder:validation:Optional
+	DistinctFields []*string `json:"distinctFields,omitempty" tf:"distinct_fields,omitempty"`
+
+	// (List of String) Fields to group by. If empty, each log triggers a signal.
+	// Fields to group by.
+	// +kubebuilder:validation:Optional
+	GroupByFields []*string `json:"groupByFields,omitempty" tf:"group_by_fields,omitempty"`
+
+	// by value are ignored by the rule. When true, events with missing group-by fields are processed with N/A, replacing the missing values. Defaults to false.
+	// When false, events without a group-by value are ignored by the rule. When true, events with missing group-by fields are processed with `N/A`, replacing the missing values. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	HasOptionalGroupByFields *bool `json:"hasOptionalGroupByFields,omitempty" tf:"has_optional_group_by_fields,omitempty"`
+
+	// (List of String) List of indexes to run the query on when the data source is logs. Supports only one element. Used only for scheduled rules (in other words, when scheduling_options is defined).
+	// List of indexes to run the query on when the data source is `logs`. Supports only one element. Used only for scheduled rules (in other words, when `scheduling_options` is defined).
+	// +kubebuilder:validation:Optional
+	Indexes []*string `json:"indexes,omitempty" tf:"indexes,omitempty"`
+
+	// (String, Deprecated) The target field to aggregate over when using the sum, max, or geo_data aggregations. Deprecated. Configure metrics instead. This attribute will be removed in the next major version of the provider.
+	// The target field to aggregate over when using the `sum`, `max`, or `geo_data` aggregations. **Deprecated.** Configure `metrics` instead. This attribute will be removed in the next major version of the provider.
+	// +kubebuilder:validation:Optional
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (List of String) Group of target fields to aggregate over when using the sum, max, geo_data, or new_value aggregations. The sum, max, and geo_data aggregations only accept one value in this list, whereas the new_value aggregation accepts up to five values.
+	// Group of target fields to aggregate over when using the `sum`, `max`, `geo_data`, or `new_value` aggregations. The `sum`, `max`, and `geo_data` aggregations only accept one value in this list, whereas the `new_value` aggregation accepts up to five values.
+	// +kubebuilder:validation:Optional
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	// (String) The name of the rule.
+	// Name of the query. Not compatible with `new_value` aggregations.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
+	// Query to run on logs.
+	// +kubebuilder:validation:Optional
+	Query *string `json:"query" tf:"query,omitempty"`
+}
+
+type SchedulingOptionsInitParameters struct {
+
+	// (String) Schedule for the rule queries, written in RRULE syntax. See RFC for syntax reference.
+	// Schedule for the rule queries, written in RRULE syntax. See [RFC](https://icalendar.org/iCalendar-RFC-5545/3-8-5-3-recurrence-rule.html) for syntax reference.
+	Rrule *string `json:"rrule,omitempty" tf:"rrule,omitempty"`
+
+	// (String) Start date for the schedule, in ISO 8601 format without timezone.
+	// Start date for the schedule, in ISO 8601 format without timezone.
+	Start *string `json:"start,omitempty" tf:"start,omitempty"`
+
+	// (String) Time zone of the start date, in the tz database format.
+	// Time zone of the start date, in the [tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) format.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+}
+
+type SchedulingOptionsObservation struct {
+
+	// (String) Schedule for the rule queries, written in RRULE syntax. See RFC for syntax reference.
+	// Schedule for the rule queries, written in RRULE syntax. See [RFC](https://icalendar.org/iCalendar-RFC-5545/3-8-5-3-recurrence-rule.html) for syntax reference.
+	Rrule *string `json:"rrule,omitempty" tf:"rrule,omitempty"`
+
+	// (String) Start date for the schedule, in ISO 8601 format without timezone.
+	// Start date for the schedule, in ISO 8601 format without timezone.
+	Start *string `json:"start,omitempty" tf:"start,omitempty"`
+
+	// (String) Time zone of the start date, in the tz database format.
+	// Time zone of the start date, in the [tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) format.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+}
+
+type SchedulingOptionsParameters struct {
+
+	// (String) Schedule for the rule queries, written in RRULE syntax. See RFC for syntax reference.
+	// Schedule for the rule queries, written in RRULE syntax. See [RFC](https://icalendar.org/iCalendar-RFC-5545/3-8-5-3-recurrence-rule.html) for syntax reference.
+	// +kubebuilder:validation:Optional
+	Rrule *string `json:"rrule" tf:"rrule,omitempty"`
+
+	// (String) Start date for the schedule, in ISO 8601 format without timezone.
+	// Start date for the schedule, in ISO 8601 format without timezone.
+	// +kubebuilder:validation:Optional
+	Start *string `json:"start" tf:"start,omitempty"`
+
+	// (String) Time zone of the start date, in the tz database format.
+	// Time zone of the start date, in the [tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) format.
+	// +kubebuilder:validation:Optional
+	Timezone *string `json:"timezone" tf:"timezone,omitempty"`
+}
+
+type SequenceDetectionOptionsInitParameters struct {
+
+	// (Block List) Edges of the step graph. (see below for nested schema)
+	// Edges of the step graph.
+	StepTransitions []StepTransitionsInitParameters `json:"stepTransitions,omitempty" tf:"step_transitions,omitempty"`
+
+	// (Block List) Sequence steps. (see below for nested schema)
+	// Sequence steps.
+	Steps []StepsInitParameters `json:"steps,omitempty" tf:"steps,omitempty"`
+}
+
+type SequenceDetectionOptionsObservation struct {
+
+	// (Block List) Edges of the step graph. (see below for nested schema)
+	// Edges of the step graph.
+	StepTransitions []StepTransitionsObservation `json:"stepTransitions,omitempty" tf:"step_transitions,omitempty"`
+
+	// (Block List) Sequence steps. (see below for nested schema)
+	// Sequence steps.
+	Steps []StepsObservation `json:"steps,omitempty" tf:"steps,omitempty"`
+}
+
+type SequenceDetectionOptionsParameters struct {
+
+	// (Block List) Edges of the step graph. (see below for nested schema)
+	// Edges of the step graph.
+	// +kubebuilder:validation:Optional
+	StepTransitions []StepTransitionsParameters `json:"stepTransitions,omitempty" tf:"step_transitions,omitempty"`
+
+	// (Block List) Sequence steps. (see below for nested schema)
+	// Sequence steps.
+	// +kubebuilder:validation:Optional
+	Steps []StepsParameters `json:"steps,omitempty" tf:"steps,omitempty"`
 }
 
 type SignalQueryInitParameters struct {
@@ -748,6 +1227,102 @@ type SignalQueryParameters struct {
 	// Rule ID of the signal to correlate.
 	// +kubebuilder:validation:Optional
 	RuleID *string `json:"ruleId" tf:"rule_id,omitempty"`
+}
+
+type StepTransitionsInitParameters struct {
+
+	// (String) Child step name.
+	// Child step name.
+	Child *string `json:"child,omitempty" tf:"child,omitempty"`
+
+	// (Number) A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400.
+	// Maximum time allowed to transition from parent to child. Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`, `43200`, `86400`.
+	EvaluationWindow *float64 `json:"evaluationWindow,omitempty" tf:"evaluation_window,omitempty"`
+
+	// (String) Parent step name.
+	// Parent step name.
+	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
+}
+
+type StepTransitionsObservation struct {
+
+	// (String) Child step name.
+	// Child step name.
+	Child *string `json:"child,omitempty" tf:"child,omitempty"`
+
+	// (Number) A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400.
+	// Maximum time allowed to transition from parent to child. Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`, `43200`, `86400`.
+	EvaluationWindow *float64 `json:"evaluationWindow,omitempty" tf:"evaluation_window,omitempty"`
+
+	// (String) Parent step name.
+	// Parent step name.
+	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
+}
+
+type StepTransitionsParameters struct {
+
+	// (String) Child step name.
+	// Child step name.
+	// +kubebuilder:validation:Optional
+	Child *string `json:"child" tf:"child,omitempty"`
+
+	// (Number) A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400.
+	// Maximum time allowed to transition from parent to child. Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`, `43200`, `86400`.
+	// +kubebuilder:validation:Optional
+	EvaluationWindow *float64 `json:"evaluationWindow,omitempty" tf:"evaluation_window,omitempty"`
+
+	// (String) Parent step name.
+	// Parent step name.
+	// +kubebuilder:validation:Optional
+	Parent *string `json:"parent" tf:"parent,omitempty"`
+}
+
+type StepsInitParameters struct {
+
+	// (String) A rule case contains logical operations (>,>=, &&, ||) to determine if a signal should be generated based on the event counts in the previously defined queries.
+	// Condition for the step to match.
+	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
+
+	// (Number) A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400.
+	// Evaluation window for the step. Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`, `43200`, `86400`.
+	EvaluationWindow *float64 `json:"evaluationWindow,omitempty" tf:"evaluation_window,omitempty"`
+
+	// (String) The name of the rule.
+	// Unique name of the step.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type StepsObservation struct {
+
+	// (String) A rule case contains logical operations (>,>=, &&, ||) to determine if a signal should be generated based on the event counts in the previously defined queries.
+	// Condition for the step to match.
+	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
+
+	// (Number) A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400.
+	// Evaluation window for the step. Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`, `43200`, `86400`.
+	EvaluationWindow *float64 `json:"evaluationWindow,omitempty" tf:"evaluation_window,omitempty"`
+
+	// (String) The name of the rule.
+	// Unique name of the step.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type StepsParameters struct {
+
+	// (String) A rule case contains logical operations (>,>=, &&, ||) to determine if a signal should be generated based on the event counts in the previously defined queries.
+	// Condition for the step to match.
+	// +kubebuilder:validation:Optional
+	Condition *string `json:"condition" tf:"condition,omitempty"`
+
+	// (Number) A time window is specified to match when at least one of the cases matches true. This is a sliding window and evaluates in real time. Valid values are 0, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400.
+	// Evaluation window for the step. Valid values are `0`, `60`, `300`, `600`, `900`, `1800`, `3600`, `7200`, `10800`, `21600`, `43200`, `86400`.
+	// +kubebuilder:validation:Optional
+	EvaluationWindow *float64 `json:"evaluationWindow,omitempty" tf:"evaluation_window,omitempty"`
+
+	// (String) The name of the rule.
+	// Unique name of the step.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
 }
 
 type ThirdPartyCaseInitParameters struct {
@@ -899,7 +1474,7 @@ type RuleStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Rule is the Schema for the Rules API. Provides a Datadog Security Monitoring Rule API resource. This can be used to create and manage Datadog security monitoring rules. To change settings for a default rule use datadog_security_default_rule instead.
+// Rule is the Schema for the Rules API. Provides a Datadog Security Monitoring Rule API resource. This can be used to create and manage Datadog security monitoring rules. To change settings for a default rule, use datadog_security_monitoring_default_rule instead.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

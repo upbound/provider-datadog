@@ -1,0 +1,17 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Dataset
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/dataset
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    name: HR Dataset
+    principals:
+    - role:00000000-0000-1111-0000-000000000000
+    productFilters:
+    - filters:
+      - '@application.id:123'
+      product: rum

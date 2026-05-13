@@ -36,7 +36,7 @@ spec:
       openAPIV3Schema:
         description: CloudflareAccount is the Schema for the CloudflareAccounts API.
           Provides a Datadog IntegrationCloudflareAccount resource. This can be used
-          to create and manage Datadog integrationcloudflareaccount.
+          to create and manage Datadog integration_cloudflare_account.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -98,6 +98,15 @@ spec:
                     description: (String) The name of the Cloudflare account. The
                       name of the Cloudflare account.
                     type: string
+                  resources:
+                    description: (Set of String) An allowlist of resources to pull
+                      metrics for. Includes web, dns, lb (load balancer), and worker).
+                      An allowlist of resources to pull metrics for. Includes `web`,
+                      `dns`, `lb` (load balancer), and `worker`).
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                 type: object
               initProvider:
                 description: THIS IS A BETA FIELD. It will be honored unless the Management
@@ -122,6 +131,15 @@ spec:
                     description: (String) The name of the Cloudflare account. The
                       name of the Cloudflare account.
                     type: string
+                  resources:
+                    description: (Set of String) An allowlist of resources to pull
+                      metrics for. Includes web, dns, lb (load balancer), and worker).
+                      An allowlist of resources to pull metrics for. Includes `web`,
+                      `dns`, `lb` (load balancer), and `worker`).
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                 type: object
               managementPolicies:
                 default:
@@ -310,6 +328,15 @@ spec:
                     description: (String) The name of the Cloudflare account. The
                       name of the Cloudflare account.
                     type: string
+                  resources:
+                    description: (Set of String) An allowlist of resources to pull
+                      metrics for. Includes web, dns, lb (load balancer), and worker).
+                      An allowlist of resources to pull metrics for. Includes `web`,
+                      `dns`, `lb` (load balancer), and `worker`).
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                 type: object
               conditions:
                 description: Conditions of the resource.

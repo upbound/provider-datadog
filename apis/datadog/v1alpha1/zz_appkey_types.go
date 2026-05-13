@@ -22,6 +22,11 @@ type AppKeyInitParameters struct {
 	// (String) Name for Application Key.
 	// Name for Application Key.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Set of String) Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+	// Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+	// +listType=set
+	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
 }
 
 type AppKeyObservation struct {
@@ -32,6 +37,11 @@ type AppKeyObservation struct {
 	// (String) Name for Application Key.
 	// Name for Application Key.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Set of String) Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+	// Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+	// +listType=set
+	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
 }
 
 type AppKeyParameters struct {
@@ -40,6 +50,12 @@ type AppKeyParameters struct {
 	// Name for Application Key.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Set of String) Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+	// Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
 }
 
 // AppKeySpec defines the desired state of AppKey
@@ -69,7 +85,7 @@ type AppKeyStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// AppKey is the Schema for the AppKeys API. Provides a Datadog Application Key resource. This can be used to create and manage Datadog Application Keys.
+// AppKey is the Schema for the AppKeys API. Provides a Datadog Application Key resource. This can be used to create and manage Datadog Application Keys. Import functionality for this resource is deprecated and will be removed in a future release with prior notice. Securely store your application keys using a secret management system or use this resource to create and manage new application keys.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

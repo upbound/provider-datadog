@@ -36,7 +36,7 @@ spec:
       openAPIV3Schema:
         description: TeamPermissionSetting is the Schema for the TeamPermissionSettings
           API. Provides a Datadog TeamPermissionSetting resource. This can be used
-          to manage Datadog teampermissionsetting.
+          to manage Datadog team_permission_setting.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -79,10 +79,14 @@ spec:
                       is associated with.
                     type: string
                   value:
-                    description: (String) The action value. Valid values are admins,
-                      members, organization, user_access_manage, teams_manage. The
-                      action value. Valid values are `admins`, `members`, `organization`,
-                      `user_access_manage`, `teams_manage`.
+                    description: (String) The action value. Valid values are dependent
+                      on the action. manage_membership action allows admins, members,
+                      organization, user_access_manage values. edit action allows
+                      admins, members, teams_manage values. The action value. Valid
+                      values are dependent on the action. `manage_membership` action
+                      allows `admins`, `members`, `organization`, `user_access_manage`
+                      values. `edit` action allows `admins`, `members`, `teams_manage`
+                      values.
                     type: string
                 type: object
               initProvider:
@@ -108,10 +112,14 @@ spec:
                       is associated with.
                     type: string
                   value:
-                    description: (String) The action value. Valid values are admins,
-                      members, organization, user_access_manage, teams_manage. The
-                      action value. Valid values are `admins`, `members`, `organization`,
-                      `user_access_manage`, `teams_manage`.
+                    description: (String) The action value. Valid values are dependent
+                      on the action. manage_membership action allows admins, members,
+                      organization, user_access_manage values. edit action allows
+                      admins, members, teams_manage values. The action value. Valid
+                      values are dependent on the action. `manage_membership` action
+                      allows `admins`, `members`, `organization`, `user_access_manage`
+                      values. `edit` action allows `admins`, `members`, `teams_manage`
+                      values.
                     type: string
                 type: object
               managementPolicies:
@@ -307,10 +315,14 @@ spec:
                       is associated with.
                     type: string
                   value:
-                    description: (String) The action value. Valid values are admins,
-                      members, organization, user_access_manage, teams_manage. The
-                      action value. Valid values are `admins`, `members`, `organization`,
-                      `user_access_manage`, `teams_manage`.
+                    description: (String) The action value. Valid values are dependent
+                      on the action. manage_membership action allows admins, members,
+                      organization, user_access_manage values. edit action allows
+                      admins, members, teams_manage values. The action value. Valid
+                      values are dependent on the action. `manage_membership` action
+                      allows `admins`, `members`, `organization`, `user_access_manage`
+                      values. `edit` action allows `admins`, `members`, `teams_manage`
+                      values.
                     type: string
                 type: object
               conditions:

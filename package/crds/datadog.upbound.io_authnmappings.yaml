@@ -74,8 +74,16 @@ spec:
                     type: string
                   role:
                     description: (String) The ID of a role to attach to all users
-                      with the corresponding key and value. The ID of a role to attach
-                      to all users with the corresponding key and value.
+                      with the corresponding key and value. Cannot be used in conjunction
+                      with team. The ID of a role to attach to all users with the
+                      corresponding key and value. Cannot be used in conjunction with
+                      `team`.
+                    type: string
+                  team:
+                    description: (String) The ID of a team to add all users with the
+                      corresponding key and value to. Cannot be used in conjunction
+                      with role. The ID of a team to add all users with the corresponding
+                      key and value to. Cannot be used in conjunction with `role`.
                     type: string
                   value:
                     description: (String) Identity provider value. Identity provider
@@ -100,8 +108,16 @@ spec:
                     type: string
                   role:
                     description: (String) The ID of a role to attach to all users
-                      with the corresponding key and value. The ID of a role to attach
-                      to all users with the corresponding key and value.
+                      with the corresponding key and value. Cannot be used in conjunction
+                      with team. The ID of a role to attach to all users with the
+                      corresponding key and value. Cannot be used in conjunction with
+                      `team`.
+                    type: string
+                  team:
+                    description: (String) The ID of a team to add all users with the
+                      corresponding key and value to. Cannot be used in conjunction
+                      with role. The ID of a team to add all users with the corresponding
+                      key and value to. Cannot be used in conjunction with `role`.
                     type: string
                   value:
                     description: (String) Identity provider value. Identity provider
@@ -273,10 +289,6 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.key)
                 || (has(self.initProvider) && has(self.initProvider.key))'
-            - message: spec.forProvider.role is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.role)
-                || (has(self.initProvider) && has(self.initProvider.role))'
             - message: spec.forProvider.value is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.value)
@@ -295,8 +307,16 @@ spec:
                     type: string
                   role:
                     description: (String) The ID of a role to attach to all users
-                      with the corresponding key and value. The ID of a role to attach
-                      to all users with the corresponding key and value.
+                      with the corresponding key and value. Cannot be used in conjunction
+                      with team. The ID of a role to attach to all users with the
+                      corresponding key and value. Cannot be used in conjunction with
+                      `team`.
+                    type: string
+                  team:
+                    description: (String) The ID of a team to add all users with the
+                      corresponding key and value to. Cannot be used in conjunction
+                      with role. The ID of a team to add all users with the corresponding
+                      key and value to. Cannot be used in conjunction with `role`.
                     type: string
                   value:
                     description: (String) Identity provider value. Identity provider

@@ -78,8 +78,11 @@ spec:
                       indexed and stored.
                     properties:
                       query:
-                        description: following the span search syntax. Defaults to
-                          "*". The search query - following the span search syntax.
+                        description: follow the span search syntax, use AND between
+                          tags and \ to escape special characters, use nanosecond
+                          for duration. Defaults to "*". The search query - follow
+                          the span search syntax, use `AND` between tags and `\` to
+                          escape special characters, use nanosecond for duration.
                           Defaults to `"*"`.
                         type: string
                     type: object
@@ -95,10 +98,20 @@ spec:
                     type: string
                   rate:
                     description: (String) Sample rate to apply to spans going through
-                      this retention filter as a string, a value of 1.0 keeps all
-                      spans matching the query. Sample rate to apply to spans going
-                      through this retention filter as a string, a value of 1.0 keeps
-                      all spans matching the query.
+                      this retention filter as a string; a value of 1.0 keeps all
+                      spans matching the query. Value must be between 0.00 and 1.00.
+                      Sample rate to apply to spans going through this retention filter
+                      as a string; a value of 1.0 keeps all spans matching the query.
+                      Value must be between 0.00 and 1.00.
+                    type: string
+                  traceRate:
+                    description: (String) Sample rate to apply to traces with spans
+                      going through this retention filter as a string; a value of
+                      1.0 keeps all traces matching the query. Value must be between
+                      0.00 and 1.00. Sample rate to apply to traces with spans going
+                      through this retention filter as a string; a value of 1.0 keeps
+                      all traces matching the query. Value must be between 0.00 and
+                      1.00.
                     type: string
                 type: object
               initProvider:
@@ -124,8 +137,11 @@ spec:
                       indexed and stored.
                     properties:
                       query:
-                        description: following the span search syntax. Defaults to
-                          "*". The search query - following the span search syntax.
+                        description: follow the span search syntax, use AND between
+                          tags and \ to escape special characters, use nanosecond
+                          for duration. Defaults to "*". The search query - follow
+                          the span search syntax, use `AND` between tags and `\` to
+                          escape special characters, use nanosecond for duration.
                           Defaults to `"*"`.
                         type: string
                     type: object
@@ -141,10 +157,20 @@ spec:
                     type: string
                   rate:
                     description: (String) Sample rate to apply to spans going through
-                      this retention filter as a string, a value of 1.0 keeps all
-                      spans matching the query. Sample rate to apply to spans going
-                      through this retention filter as a string, a value of 1.0 keeps
-                      all spans matching the query.
+                      this retention filter as a string; a value of 1.0 keeps all
+                      spans matching the query. Value must be between 0.00 and 1.00.
+                      Sample rate to apply to spans going through this retention filter
+                      as a string; a value of 1.0 keeps all spans matching the query.
+                      Value must be between 0.00 and 1.00.
+                    type: string
+                  traceRate:
+                    description: (String) Sample rate to apply to traces with spans
+                      going through this retention filter as a string; a value of
+                      1.0 keeps all traces matching the query. Value must be between
+                      0.00 and 1.00. Sample rate to apply to traces with spans going
+                      through this retention filter as a string; a value of 1.0 keeps
+                      all traces matching the query. Value must be between 0.00 and
+                      1.00.
                     type: string
                 type: object
               managementPolicies:
@@ -340,8 +366,11 @@ spec:
                       indexed and stored.
                     properties:
                       query:
-                        description: following the span search syntax. Defaults to
-                          "*". The search query - following the span search syntax.
+                        description: follow the span search syntax, use AND between
+                          tags and \ to escape special characters, use nanosecond
+                          for duration. Defaults to "*". The search query - follow
+                          the span search syntax, use `AND` between tags and `\` to
+                          escape special characters, use nanosecond for duration.
                           Defaults to `"*"`.
                         type: string
                     type: object
@@ -360,10 +389,20 @@ spec:
                     type: string
                   rate:
                     description: (String) Sample rate to apply to spans going through
-                      this retention filter as a string, a value of 1.0 keeps all
-                      spans matching the query. Sample rate to apply to spans going
-                      through this retention filter as a string, a value of 1.0 keeps
-                      all spans matching the query.
+                      this retention filter as a string; a value of 1.0 keeps all
+                      spans matching the query. Value must be between 0.00 and 1.00.
+                      Sample rate to apply to spans going through this retention filter
+                      as a string; a value of 1.0 keeps all spans matching the query.
+                      Value must be between 0.00 and 1.00.
+                    type: string
+                  traceRate:
+                    description: (String) Sample rate to apply to traces with spans
+                      going through this retention filter as a string; a value of
+                      1.0 keeps all traces matching the query. Value must be between
+                      0.00 and 1.00. Sample rate to apply to traces with spans going
+                      through this retention filter as a string; a value of 1.0 keeps
+                      all traces matching the query. Value must be between 0.00 and
+                      1.00.
                     type: string
                 type: object
               conditions:

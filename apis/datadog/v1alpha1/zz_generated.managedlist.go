@@ -52,8 +52,35 @@ func (l *DashboardJSONList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DashboardListList.
-func (l *DashboardListList) GetItems() []resource.Managed {
+// GetItems of this DashboardList.
+func (l *DashboardList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this DashboardListEntryList.
+func (l *DashboardListEntryList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this DatasetList.
+func (l *DatasetList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this DatastoreList.
+func (l *DatastoreList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

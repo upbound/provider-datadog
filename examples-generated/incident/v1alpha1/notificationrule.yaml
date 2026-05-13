@@ -1,0 +1,72 @@
+apiVersion: incident.upbound.io/v1alpha1
+kind: NotificationRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/notificationrule
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    conditions:
+    - field: severity
+      values:
+      - SEV-1
+      - SEV-2
+    - field: services
+      values:
+      - web-service
+      - api-service
+      - database-service
+    enabled: true
+    handles:
+    - '@team-email@company.com'
+    - '@slack-channel-alerts'
+    - '@pagerduty-service'
+    incidentType: ${datadog_incident_type.example.id}
+    notificationTemplate: ${datadog_incident_notification_template.example.id}
+    renotifyOn:
+    - status
+    - severity
+    trigger: incident_created_trigger
+    visibility: organization
+
+---
+
+apiVersion: incident.upbound.io/v1alpha1
+kind: NotificationTemplate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/notificationrule
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    category: alert
+    content: |
+      An incident has been declared.
+
+      Title: {{incident.title}}
+      Severity: {{incident.severity}}
+      Status: {{incident.status}}
+
+      Please join the incident channel for updates.
+    incidentType: ${datadog_incident_type.example.id}
+    name: My Notification Template
+    subject: 'SEV-1 Incident: {{incident.title}}'
+
+---
+
+apiVersion: incident.upbound.io/v1alpha1
+kind: IncidentType
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/notificationrule
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    description: Incident type for critical production issues
+    name: My Incident Type

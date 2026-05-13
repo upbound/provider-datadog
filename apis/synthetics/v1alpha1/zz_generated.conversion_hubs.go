@@ -20,4 +20,7 @@ func (tr *GlobalVariable) Hub() {}
 func (tr *PrivateLocation) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *Suite) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Test) Hub() {}

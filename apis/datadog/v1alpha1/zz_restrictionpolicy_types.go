@@ -19,8 +19,8 @@ import (
 
 type BindingsInitParameters struct {
 
-	// (Set of String) An array of principals. A principal is a subject or group of subjects. Each principal is formatted as type:id. Supported types: role and org. The org ID can be obtained through the api/v2/users API.
-	// An array of principals. A principal is a subject or group of subjects. Each principal is formatted as `type:id`. Supported types: `role` and `org`. The org ID can be obtained through the api/v2/users API.
+	// (Set of String) An array of principals. A principal is a subject or group of subjects. Each principal is formatted as type:id. Supported types: role, team, user, and org. Org ID can be obtained using a GET /api/v2/current_user API request. Find it in the data.relationships.org.data.id field.
+	// An array of principals. A principal is a subject or group of subjects. Each principal is formatted as `type:id`. Supported types: `role`, `team`, `user`, and `org`. Org ID can be obtained using a `GET /api/v2/current_user` API request. Find it in the `data.relationships.org.data.id` field.
 	// +listType=set
 	Principals []*string `json:"principals,omitempty" tf:"principals,omitempty"`
 
@@ -31,8 +31,8 @@ type BindingsInitParameters struct {
 
 type BindingsObservation struct {
 
-	// (Set of String) An array of principals. A principal is a subject or group of subjects. Each principal is formatted as type:id. Supported types: role and org. The org ID can be obtained through the api/v2/users API.
-	// An array of principals. A principal is a subject or group of subjects. Each principal is formatted as `type:id`. Supported types: `role` and `org`. The org ID can be obtained through the api/v2/users API.
+	// (Set of String) An array of principals. A principal is a subject or group of subjects. Each principal is formatted as type:id. Supported types: role, team, user, and org. Org ID can be obtained using a GET /api/v2/current_user API request. Find it in the data.relationships.org.data.id field.
+	// An array of principals. A principal is a subject or group of subjects. Each principal is formatted as `type:id`. Supported types: `role`, `team`, `user`, and `org`. Org ID can be obtained using a `GET /api/v2/current_user` API request. Find it in the `data.relationships.org.data.id` field.
 	// +listType=set
 	Principals []*string `json:"principals,omitempty" tf:"principals,omitempty"`
 
@@ -43,8 +43,8 @@ type BindingsObservation struct {
 
 type BindingsParameters struct {
 
-	// (Set of String) An array of principals. A principal is a subject or group of subjects. Each principal is formatted as type:id. Supported types: role and org. The org ID can be obtained through the api/v2/users API.
-	// An array of principals. A principal is a subject or group of subjects. Each principal is formatted as `type:id`. Supported types: `role` and `org`. The org ID can be obtained through the api/v2/users API.
+	// (Set of String) An array of principals. A principal is a subject or group of subjects. Each principal is formatted as type:id. Supported types: role, team, user, and org. Org ID can be obtained using a GET /api/v2/current_user API request. Find it in the data.relationships.org.data.id field.
+	// An array of principals. A principal is a subject or group of subjects. Each principal is formatted as `type:id`. Supported types: `role`, `team`, `user`, and `org`. Org ID can be obtained using a `GET /api/v2/current_user` API request. Find it in the `data.relationships.org.data.id` field.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Principals []*string `json:"principals" tf:"principals,omitempty"`
@@ -63,7 +63,12 @@ type RestrictionPolicyInitParameters struct {
 	// (String) Identifier for the resource, formatted as resource_type:resource_id.
 	// Identifier for the resource, formatted as resource_type:resource_id.
 	//
-	// Note: Dashboards support is in private beta. Reach out to your Datadog contact or support to enable this.
+	// Resources to define `resource_type` :
+	// * [List of supported resources](https://docs.datadoghq.com/account_management/rbac/granular_access)
+	// * [Resource type definition](https://docs.datadoghq.com/api/latest/restriction-policies/#supported-resources)
+	//
+	// Restrictions :
+	// * Dashboards : support is in private beta. Reach out to your Datadog contact or support to enable this. Please request access via https://docs.datadoghq.com/help
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
 }
 
@@ -78,7 +83,12 @@ type RestrictionPolicyObservation struct {
 	// (String) Identifier for the resource, formatted as resource_type:resource_id.
 	// Identifier for the resource, formatted as resource_type:resource_id.
 	//
-	// Note: Dashboards support is in private beta. Reach out to your Datadog contact or support to enable this.
+	// Resources to define `resource_type` :
+	// * [List of supported resources](https://docs.datadoghq.com/account_management/rbac/granular_access)
+	// * [Resource type definition](https://docs.datadoghq.com/api/latest/restriction-policies/#supported-resources)
+	//
+	// Restrictions :
+	// * Dashboards : support is in private beta. Reach out to your Datadog contact or support to enable this. Please request access via https://docs.datadoghq.com/help
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
 }
 
@@ -91,7 +101,12 @@ type RestrictionPolicyParameters struct {
 	// (String) Identifier for the resource, formatted as resource_type:resource_id.
 	// Identifier for the resource, formatted as resource_type:resource_id.
 	//
-	// Note: Dashboards support is in private beta. Reach out to your Datadog contact or support to enable this.
+	// Resources to define `resource_type` :
+	// * [List of supported resources](https://docs.datadoghq.com/account_management/rbac/granular_access)
+	// * [Resource type definition](https://docs.datadoghq.com/api/latest/restriction-policies/#supported-resources)
+	//
+	// Restrictions :
+	// * Dashboards : support is in private beta. Reach out to your Datadog contact or support to enable this. Please request access via https://docs.datadoghq.com/help
 	// +kubebuilder:validation:Optional
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
 }

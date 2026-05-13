@@ -1,0 +1,18 @@
+apiVersion: csm.upbound.io/v1alpha1
+kind: ThreatsPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: csm/v1alpha1/threatspolicy
+  labels:
+    testing.upbound.io/example-name: my_policy
+  name: my-policy
+spec:
+  forProvider:
+    description: My policy
+    enabled: true
+    hostTagsLists:
+    - - env:prod
+      - team:backend
+    - - env:prod
+      - team:frontend
+    name: my_policy

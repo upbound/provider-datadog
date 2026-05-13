@@ -23,10 +23,19 @@ func (tr *AuthnMapping) Hub() {}
 func (tr *ChildOrganization) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *Dashboard) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *DashboardJSON) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *DashboardList) Hub() {}
+func (tr *DashboardListEntry) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Dataset) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Datastore) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Downtime) Hub() {}

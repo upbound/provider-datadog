@@ -23,6 +23,10 @@ type OrganizationSettingsInitParameters struct {
 	// Name for Organization.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (List of String) List of emails used for security event notifications from the organization.
+	// List of emails used for security event notifications from the organization.
+	SecurityContacts []*string `json:"securityContacts,omitempty" tf:"security_contacts,omitempty"`
+
 	// (Block List, Max: 1) Organization settings (see below for nested schema)
 	// Organization settings
 	Settings []OrganizationSettingsSettingsInitParameters `json:"settings,omitempty" tf:"settings,omitempty"`
@@ -45,6 +49,10 @@ type OrganizationSettingsObservation struct {
 	// The `public_id` of the organization you are operating within.
 	PublicID *string `json:"publicId,omitempty" tf:"public_id,omitempty"`
 
+	// (List of String) List of emails used for security event notifications from the organization.
+	// List of emails used for security event notifications from the organization.
+	SecurityContacts []*string `json:"securityContacts,omitempty" tf:"security_contacts,omitempty"`
+
 	// (Block List, Max: 1) Organization settings (see below for nested schema)
 	// Organization settings
 	Settings []OrganizationSettingsSettingsObservation `json:"settings,omitempty" tf:"settings,omitempty"`
@@ -56,6 +64,11 @@ type OrganizationSettingsParameters struct {
 	// Name for Organization.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (List of String) List of emails used for security event notifications from the organization.
+	// List of emails used for security event notifications from the organization.
+	// +kubebuilder:validation:Optional
+	SecurityContacts []*string `json:"securityContacts,omitempty" tf:"security_contacts,omitempty"`
 
 	// (Block List, Max: 1) Organization settings (see below for nested schema)
 	// Organization settings

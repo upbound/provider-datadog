@@ -19,6 +19,11 @@ import (
 
 type GCPSTSInitParameters struct {
 
+	// (Set of String) Tags to be associated with GCP metrics and service checks from your account.
+	// Tags to be associated with GCP metrics and service checks from your account.
+	// +listType=set
+	AccountTags []*string `json:"accountTags,omitempty" tf:"account_tags,omitempty"`
+
 	// (Boolean) Silence monitors for expected GCE instance shutdowns.
 	// Silence monitors for expected GCE instance shutdowns.
 	Automute *bool `json:"automute,omitempty" tf:"automute,omitempty"`
@@ -27,18 +32,93 @@ type GCPSTSInitParameters struct {
 	// Your service account email address.
 	ClientEmail *string `json:"clientEmail,omitempty" tf:"client_email,omitempty"`
 
-	// (Set of String) Your Host Filters.
-	// Your Host Filters.
+	// (Set of String, Deprecated) List of filters to limit the Cloud Run revisions that are pulled into Datadog by using tags. Only Cloud Run revision resources that apply to specified filters are imported into Datadog.
+	// List of filters to limit the Cloud Run revisions that are pulled into Datadog by using tags. Only Cloud Run revision resources that apply to specified filters are imported into Datadog.
+	// +listType=set
+	CloudRunRevisionFilters []*string `json:"cloudRunRevisionFilters,omitempty" tf:"cloud_run_revision_filters,omitempty"`
+
+	// (Set of String, Deprecated) List of filters to limit the VM instances that are pulled into Datadog by using tags. Only VM instance resources that apply to specified filters are imported into Datadog.
+	// List of filters to limit the VM instances that are pulled into Datadog by using tags. Only VM instance resources that apply to specified filters are imported into Datadog.
 	// +listType=set
 	HostFilters []*string `json:"hostFilters,omitempty" tf:"host_filters,omitempty"`
 
-	// (Boolean) When enabled, Datadog performs configuration checks across your Google Cloud environment by continuously scanning every resource, which may incur additional charges.
-	// When enabled, Datadog performs configuration checks across your Google Cloud environment by continuously scanning every resource, which may incur additional charges.
+	// (Boolean) Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires resource_collection_enabled to also be enabled.
+	// Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires `resource_collection_enabled` to also be enabled.
 	IsCspmEnabled *bool `json:"isCspmEnabled,omitempty" tf:"is_cspm_enabled,omitempty"`
+
+	// (Boolean) When enabled, Datadog collects metrics where location is explicitly stated as 'global' or where location information cannot be deduced from GCP.
+	// When enabled, Datadog collects metrics where location is explicitly stated as 'global' or where location information cannot be deduced from GCP.
+	IsGlobalLocationEnabled *bool `json:"isGlobalLocationEnabled,omitempty" tf:"is_global_location_enabled,omitempty"`
+
+	// Goog-User-Project header to attribute Google Cloud billing and quota usage to the monitored project instead of the default service account project.
+	// When enabled, Datadog includes the `X-Goog-User-Project` header to attribute Google Cloud billing and quota usage to the monitored project instead of the default service account project.
+	IsPerProjectQuotaEnabled *bool `json:"isPerProjectQuotaEnabled,omitempty" tf:"is_per_project_quota_enabled,omitempty"`
+
+	// (Boolean) When enabled, Datadog scans for all resource change data in your Google Cloud environment.
+	// When enabled, Datadog scans for all resource change data in your Google Cloud environment.
+	IsResourceChangeCollectionEnabled *bool `json:"isResourceChangeCollectionEnabled,omitempty" tf:"is_resource_change_collection_enabled,omitempty"`
+
+	// (Boolean) When enabled, Datadog will attempt to collect Security Command Center Findings. Note: This requires additional permissions on the service account. Defaults to false.
+	// When enabled, Datadog will attempt to collect Security Command Center Findings. Note: This requires additional permissions on the service account. Defaults to `false`.
+	IsSecurityCommandCenterEnabled *bool `json:"isSecurityCommandCenterEnabled,omitempty" tf:"is_security_command_center_enabled,omitempty"`
+
+	// (Set of Object) Configurations for GCP metric namespaces. (see below for nested schema)
+	// Configurations for GCP metric namespaces.
+	MetricNamespaceConfigs []MetricNamespaceConfigsInitParameters `json:"metricNamespaceConfigs,omitempty" tf:"metric_namespace_configs,omitempty"`
+
+	// (Set of Object) Configurations for GCP monitored resources. Only monitored resources that apply to specified filters are imported into Datadog. (see below for nested schema)
+	// Configurations for GCP monitored resources. Only monitored resources that apply to specified filters are imported into Datadog.
+	MonitoredResourceConfigs []GCPSTSMonitoredResourceConfigsInitParameters `json:"monitoredResourceConfigs,omitempty" tf:"monitored_resource_configs,omitempty"`
+
+	// region, or zone. Only monitored resources that match the specified regions are imported into Datadog. By default, Datadog collects from all locations.
+	// Configurations for GCP location filtering, such as region, multi-region, or zone. Only monitored resources that match the specified regions are imported into Datadog. By default, Datadog collects from all locations.
+	// +listType=set
+	RegionFilterConfigs []*string `json:"regionFilterConfigs,omitempty" tf:"region_filter_configs,omitempty"`
+
+	// (Boolean) When enabled, Datadog scans for all resources in your GCP environment.
+	// When enabled, Datadog scans for all resources in your GCP environment.
+	ResourceCollectionEnabled *bool `json:"resourceCollectionEnabled,omitempty" tf:"resource_collection_enabled,omitempty"`
+}
+
+type GCPSTSMonitoredResourceConfigsInitParameters struct {
+
+	// (Set of String)
+	// +listType=set
+	Filters []*string `json:"filters,omitempty" tf:"filters"`
+
+	// (String)
+	Type *string `json:"type,omitempty" tf:"type"`
+}
+
+type GCPSTSMonitoredResourceConfigsObservation struct {
+
+	// (Set of String)
+	// +listType=set
+	Filters []*string `json:"filters,omitempty" tf:"filters,omitempty"`
+
+	// (String)
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type GCPSTSMonitoredResourceConfigsParameters struct {
+
+	// (Set of String)
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	Filters []*string `json:"filters,omitempty" tf:"filters"`
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type"`
 }
 
 type GCPSTSObservation struct {
 
+	// (Set of String) Tags to be associated with GCP metrics and service checks from your account.
+	// Tags to be associated with GCP metrics and service checks from your account.
+	// +listType=set
+	AccountTags []*string `json:"accountTags,omitempty" tf:"account_tags,omitempty"`
+
 	// (Boolean) Silence monitors for expected GCE instance shutdowns.
 	// Silence monitors for expected GCE instance shutdowns.
 	Automute *bool `json:"automute,omitempty" tf:"automute,omitempty"`
@@ -46,25 +126,69 @@ type GCPSTSObservation struct {
 	// (String) Your service account email address.
 	// Your service account email address.
 	ClientEmail *string `json:"clientEmail,omitempty" tf:"client_email,omitempty"`
+
+	// (Set of String, Deprecated) List of filters to limit the Cloud Run revisions that are pulled into Datadog by using tags. Only Cloud Run revision resources that apply to specified filters are imported into Datadog.
+	// List of filters to limit the Cloud Run revisions that are pulled into Datadog by using tags. Only Cloud Run revision resources that apply to specified filters are imported into Datadog.
+	// +listType=set
+	CloudRunRevisionFilters []*string `json:"cloudRunRevisionFilters,omitempty" tf:"cloud_run_revision_filters,omitempty"`
 
 	// (String) Datadog's STS Delegate Email.
 	// Datadog's STS Delegate Email.
 	DelegateAccountEmail *string `json:"delegateAccountEmail,omitempty" tf:"delegate_account_email,omitempty"`
 
-	// (Set of String) Your Host Filters.
-	// Your Host Filters.
+	// (Set of String, Deprecated) List of filters to limit the VM instances that are pulled into Datadog by using tags. Only VM instance resources that apply to specified filters are imported into Datadog.
+	// List of filters to limit the VM instances that are pulled into Datadog by using tags. Only VM instance resources that apply to specified filters are imported into Datadog.
 	// +listType=set
 	HostFilters []*string `json:"hostFilters,omitempty" tf:"host_filters,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Boolean) When enabled, Datadog performs configuration checks across your Google Cloud environment by continuously scanning every resource, which may incur additional charges.
-	// When enabled, Datadog performs configuration checks across your Google Cloud environment by continuously scanning every resource, which may incur additional charges.
+	// (Boolean) Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires resource_collection_enabled to also be enabled.
+	// Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires `resource_collection_enabled` to also be enabled.
 	IsCspmEnabled *bool `json:"isCspmEnabled,omitempty" tf:"is_cspm_enabled,omitempty"`
+
+	// (Boolean) When enabled, Datadog collects metrics where location is explicitly stated as 'global' or where location information cannot be deduced from GCP.
+	// When enabled, Datadog collects metrics where location is explicitly stated as 'global' or where location information cannot be deduced from GCP.
+	IsGlobalLocationEnabled *bool `json:"isGlobalLocationEnabled,omitempty" tf:"is_global_location_enabled,omitempty"`
+
+	// Goog-User-Project header to attribute Google Cloud billing and quota usage to the monitored project instead of the default service account project.
+	// When enabled, Datadog includes the `X-Goog-User-Project` header to attribute Google Cloud billing and quota usage to the monitored project instead of the default service account project.
+	IsPerProjectQuotaEnabled *bool `json:"isPerProjectQuotaEnabled,omitempty" tf:"is_per_project_quota_enabled,omitempty"`
+
+	// (Boolean) When enabled, Datadog scans for all resource change data in your Google Cloud environment.
+	// When enabled, Datadog scans for all resource change data in your Google Cloud environment.
+	IsResourceChangeCollectionEnabled *bool `json:"isResourceChangeCollectionEnabled,omitempty" tf:"is_resource_change_collection_enabled,omitempty"`
+
+	// (Boolean) When enabled, Datadog will attempt to collect Security Command Center Findings. Note: This requires additional permissions on the service account. Defaults to false.
+	// When enabled, Datadog will attempt to collect Security Command Center Findings. Note: This requires additional permissions on the service account. Defaults to `false`.
+	IsSecurityCommandCenterEnabled *bool `json:"isSecurityCommandCenterEnabled,omitempty" tf:"is_security_command_center_enabled,omitempty"`
+
+	// (Set of Object) Configurations for GCP metric namespaces. (see below for nested schema)
+	// Configurations for GCP metric namespaces.
+	MetricNamespaceConfigs []MetricNamespaceConfigsObservation `json:"metricNamespaceConfigs,omitempty" tf:"metric_namespace_configs,omitempty"`
+
+	// (Set of Object) Configurations for GCP monitored resources. Only monitored resources that apply to specified filters are imported into Datadog. (see below for nested schema)
+	// Configurations for GCP monitored resources. Only monitored resources that apply to specified filters are imported into Datadog.
+	MonitoredResourceConfigs []GCPSTSMonitoredResourceConfigsObservation `json:"monitoredResourceConfigs,omitempty" tf:"monitored_resource_configs,omitempty"`
+
+	// region, or zone. Only monitored resources that match the specified regions are imported into Datadog. By default, Datadog collects from all locations.
+	// Configurations for GCP location filtering, such as region, multi-region, or zone. Only monitored resources that match the specified regions are imported into Datadog. By default, Datadog collects from all locations.
+	// +listType=set
+	RegionFilterConfigs []*string `json:"regionFilterConfigs,omitempty" tf:"region_filter_configs,omitempty"`
+
+	// (Boolean) When enabled, Datadog scans for all resources in your GCP environment.
+	// When enabled, Datadog scans for all resources in your GCP environment.
+	ResourceCollectionEnabled *bool `json:"resourceCollectionEnabled,omitempty" tf:"resource_collection_enabled,omitempty"`
 }
 
 type GCPSTSParameters struct {
+
+	// (Set of String) Tags to be associated with GCP metrics and service checks from your account.
+	// Tags to be associated with GCP metrics and service checks from your account.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	AccountTags []*string `json:"accountTags,omitempty" tf:"account_tags,omitempty"`
 
 	// (Boolean) Silence monitors for expected GCE instance shutdowns.
 	// Silence monitors for expected GCE instance shutdowns.
@@ -76,16 +200,105 @@ type GCPSTSParameters struct {
 	// +kubebuilder:validation:Optional
 	ClientEmail *string `json:"clientEmail,omitempty" tf:"client_email,omitempty"`
 
-	// (Set of String) Your Host Filters.
-	// Your Host Filters.
+	// (Set of String, Deprecated) List of filters to limit the Cloud Run revisions that are pulled into Datadog by using tags. Only Cloud Run revision resources that apply to specified filters are imported into Datadog.
+	// List of filters to limit the Cloud Run revisions that are pulled into Datadog by using tags. Only Cloud Run revision resources that apply to specified filters are imported into Datadog.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	CloudRunRevisionFilters []*string `json:"cloudRunRevisionFilters,omitempty" tf:"cloud_run_revision_filters,omitempty"`
+
+	// (Set of String, Deprecated) List of filters to limit the VM instances that are pulled into Datadog by using tags. Only VM instance resources that apply to specified filters are imported into Datadog.
+	// List of filters to limit the VM instances that are pulled into Datadog by using tags. Only VM instance resources that apply to specified filters are imported into Datadog.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	HostFilters []*string `json:"hostFilters,omitempty" tf:"host_filters,omitempty"`
 
-	// (Boolean) When enabled, Datadog performs configuration checks across your Google Cloud environment by continuously scanning every resource, which may incur additional charges.
-	// When enabled, Datadog performs configuration checks across your Google Cloud environment by continuously scanning every resource, which may incur additional charges.
+	// (Boolean) Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires resource_collection_enabled to also be enabled.
+	// Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires `resource_collection_enabled` to also be enabled.
 	// +kubebuilder:validation:Optional
 	IsCspmEnabled *bool `json:"isCspmEnabled,omitempty" tf:"is_cspm_enabled,omitempty"`
+
+	// (Boolean) When enabled, Datadog collects metrics where location is explicitly stated as 'global' or where location information cannot be deduced from GCP.
+	// When enabled, Datadog collects metrics where location is explicitly stated as 'global' or where location information cannot be deduced from GCP.
+	// +kubebuilder:validation:Optional
+	IsGlobalLocationEnabled *bool `json:"isGlobalLocationEnabled,omitempty" tf:"is_global_location_enabled,omitempty"`
+
+	// Goog-User-Project header to attribute Google Cloud billing and quota usage to the monitored project instead of the default service account project.
+	// When enabled, Datadog includes the `X-Goog-User-Project` header to attribute Google Cloud billing and quota usage to the monitored project instead of the default service account project.
+	// +kubebuilder:validation:Optional
+	IsPerProjectQuotaEnabled *bool `json:"isPerProjectQuotaEnabled,omitempty" tf:"is_per_project_quota_enabled,omitempty"`
+
+	// (Boolean) When enabled, Datadog scans for all resource change data in your Google Cloud environment.
+	// When enabled, Datadog scans for all resource change data in your Google Cloud environment.
+	// +kubebuilder:validation:Optional
+	IsResourceChangeCollectionEnabled *bool `json:"isResourceChangeCollectionEnabled,omitempty" tf:"is_resource_change_collection_enabled,omitempty"`
+
+	// (Boolean) When enabled, Datadog will attempt to collect Security Command Center Findings. Note: This requires additional permissions on the service account. Defaults to false.
+	// When enabled, Datadog will attempt to collect Security Command Center Findings. Note: This requires additional permissions on the service account. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	IsSecurityCommandCenterEnabled *bool `json:"isSecurityCommandCenterEnabled,omitempty" tf:"is_security_command_center_enabled,omitempty"`
+
+	// (Set of Object) Configurations for GCP metric namespaces. (see below for nested schema)
+	// Configurations for GCP metric namespaces.
+	// +kubebuilder:validation:Optional
+	MetricNamespaceConfigs []MetricNamespaceConfigsParameters `json:"metricNamespaceConfigs,omitempty" tf:"metric_namespace_configs,omitempty"`
+
+	// (Set of Object) Configurations for GCP monitored resources. Only monitored resources that apply to specified filters are imported into Datadog. (see below for nested schema)
+	// Configurations for GCP monitored resources. Only monitored resources that apply to specified filters are imported into Datadog.
+	// +kubebuilder:validation:Optional
+	MonitoredResourceConfigs []GCPSTSMonitoredResourceConfigsParameters `json:"monitoredResourceConfigs,omitempty" tf:"monitored_resource_configs,omitempty"`
+
+	// region, or zone. Only monitored resources that match the specified regions are imported into Datadog. By default, Datadog collects from all locations.
+	// Configurations for GCP location filtering, such as region, multi-region, or zone. Only monitored resources that match the specified regions are imported into Datadog. By default, Datadog collects from all locations.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	RegionFilterConfigs []*string `json:"regionFilterConfigs,omitempty" tf:"region_filter_configs,omitempty"`
+
+	// (Boolean) When enabled, Datadog scans for all resources in your GCP environment.
+	// When enabled, Datadog scans for all resources in your GCP environment.
+	// +kubebuilder:validation:Optional
+	ResourceCollectionEnabled *bool `json:"resourceCollectionEnabled,omitempty" tf:"resource_collection_enabled,omitempty"`
+}
+
+type MetricNamespaceConfigsInitParameters struct {
+
+	// (Boolean)
+	Disabled *bool `json:"disabled,omitempty" tf:"disabled"`
+
+	// (Set of String)
+	// +listType=set
+	Filters []*string `json:"filters,omitempty" tf:"filters"`
+
+	// (String) The ID of this resource.
+	ID *string `json:"id,omitempty" tf:"id"`
+}
+
+type MetricNamespaceConfigsObservation struct {
+
+	// (Boolean)
+	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
+
+	// (Set of String)
+	// +listType=set
+	Filters []*string `json:"filters,omitempty" tf:"filters,omitempty"`
+
+	// (String) The ID of this resource.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type MetricNamespaceConfigsParameters struct {
+
+	// (Boolean)
+	// +kubebuilder:validation:Optional
+	Disabled *bool `json:"disabled,omitempty" tf:"disabled"`
+
+	// (Set of String)
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	Filters []*string `json:"filters,omitempty" tf:"filters"`
+
+	// (String) The ID of this resource.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id"`
 }
 
 // GCPSTSSpec defines the desired state of GCPSTS

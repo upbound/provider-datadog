@@ -17,6 +17,54 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type CountInitParameters struct {
+
+	// (String) The formula that specifies how to compute the good events.
+	// The formula that specifies how to compute the good events.
+	GoodEventsFormula *string `json:"goodEventsFormula,omitempty" tf:"good_events_formula,omitempty"`
+
+	// source-specific queries that are referenced in the formulas. (see below for nested schema)
+	// A list of data-source-specific queries that are referenced in the formulas.
+	Queries []QueriesInitParameters `json:"queries,omitempty" tf:"queries,omitempty"`
+
+	// (String) The formula that specifies how to compute the total events.
+	// The formula that specifies how to compute the total events.
+	TotalEventsFormula *string `json:"totalEventsFormula,omitempty" tf:"total_events_formula,omitempty"`
+}
+
+type CountObservation struct {
+
+	// (String) The formula that specifies how to compute the good events.
+	// The formula that specifies how to compute the good events.
+	GoodEventsFormula *string `json:"goodEventsFormula,omitempty" tf:"good_events_formula,omitempty"`
+
+	// source-specific queries that are referenced in the formulas. (see below for nested schema)
+	// A list of data-source-specific queries that are referenced in the formulas.
+	Queries []QueriesObservation `json:"queries,omitempty" tf:"queries,omitempty"`
+
+	// (String) The formula that specifies how to compute the total events.
+	// The formula that specifies how to compute the total events.
+	TotalEventsFormula *string `json:"totalEventsFormula,omitempty" tf:"total_events_formula,omitempty"`
+}
+
+type CountParameters struct {
+
+	// (String) The formula that specifies how to compute the good events.
+	// The formula that specifies how to compute the good events.
+	// +kubebuilder:validation:Optional
+	GoodEventsFormula *string `json:"goodEventsFormula" tf:"good_events_formula,omitempty"`
+
+	// source-specific queries that are referenced in the formulas. (see below for nested schema)
+	// A list of data-source-specific queries that are referenced in the formulas.
+	// +kubebuilder:validation:Optional
+	Queries []QueriesParameters `json:"queries" tf:"queries,omitempty"`
+
+	// (String) The formula that specifies how to compute the total events.
+	// The formula that specifies how to compute the total events.
+	// +kubebuilder:validation:Optional
+	TotalEventsFormula *string `json:"totalEventsFormula" tf:"total_events_formula,omitempty"`
+}
+
 type FormulaInitParameters struct {
 
 	// (String) The formula string, which is an expression involving named queries.
@@ -49,7 +97,7 @@ type MetricQueryInitParameters struct {
 	// The name of the query for use in formulas.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List, Max: 1) The metric query of good / total events (see below for nested schema)
+	// (Block List, Max: 1) The metric query of good / total events. Use this for metric SLOs as an alternative to sli_specification. (see below for nested schema)
 	// The metrics query definition.
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
 }
@@ -64,7 +112,7 @@ type MetricQueryObservation struct {
 	// The name of the query for use in formulas.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List, Max: 1) The metric query of good / total events (see below for nested schema)
+	// (Block List, Max: 1) The metric query of good / total events. Use this for metric SLOs as an alternative to sli_specification. (see below for nested schema)
 	// The metrics query definition.
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
 }
@@ -81,10 +129,32 @@ type MetricQueryParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// (Block List, Max: 1) The metric query of good / total events (see below for nested schema)
+	// (Block List, Max: 1) The metric query of good / total events. Use this for metric SLOs as an alternative to sli_specification. (see below for nested schema)
 	// The metrics query definition.
 	// +kubebuilder:validation:Optional
 	Query *string `json:"query" tf:"query,omitempty"`
+}
+
+type QueriesInitParameters struct {
+
+	// (Block List, Max: 1) A timeseries formula and functions metrics query. (see below for nested schema)
+	// A timeseries formula and functions metrics query.
+	MetricQuery []MetricQueryInitParameters `json:"metricQuery,omitempty" tf:"metric_query,omitempty"`
+}
+
+type QueriesObservation struct {
+
+	// (Block List, Max: 1) A timeseries formula and functions metrics query. (see below for nested schema)
+	// A timeseries formula and functions metrics query.
+	MetricQuery []MetricQueryObservation `json:"metricQuery,omitempty" tf:"metric_query,omitempty"`
+}
+
+type QueriesParameters struct {
+
+	// (Block List, Max: 1) A timeseries formula and functions metrics query. (see below for nested schema)
+	// A timeseries formula and functions metrics query.
+	// +kubebuilder:validation:Optional
+	MetricQuery []MetricQueryParameters `json:"metricQuery,omitempty" tf:"metric_query,omitempty"`
 }
 
 type QueryInitParameters struct {
@@ -96,6 +166,54 @@ type QueryInitParameters struct {
 	// (String) The sum of all the good events.
 	// The sum of all the `good` events.
 	Numerator *string `json:"numerator,omitempty" tf:"numerator,omitempty"`
+}
+
+type QueryMetricQueryInitParameters struct {
+
+	// (String) The data source for metrics queries. Defaults to "metrics".
+	// The data source for metrics queries. Defaults to `"metrics"`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog service level objective
+	// The name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Max: 1) The metric query of good / total events. Use this for metric SLOs as an alternative to sli_specification. (see below for nested schema)
+	// The metrics query definition.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type QueryMetricQueryObservation struct {
+
+	// (String) The data source for metrics queries. Defaults to "metrics".
+	// The data source for metrics queries. Defaults to `"metrics"`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog service level objective
+	// The name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Max: 1) The metric query of good / total events. Use this for metric SLOs as an alternative to sli_specification. (see below for nested schema)
+	// The metrics query definition.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type QueryMetricQueryParameters struct {
+
+	// (String) The data source for metrics queries. Defaults to "metrics".
+	// The data source for metrics queries. Defaults to `"metrics"`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog service level objective
+	// The name of the query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (Block List, Max: 1) The metric query of good / total events. Use this for metric SLOs as an alternative to sli_specification. (see below for nested schema)
+	// The metrics query definition.
+	// +kubebuilder:validation:Optional
+	Query *string `json:"query" tf:"query,omitempty"`
 }
 
 type QueryObservation struct {
@@ -126,14 +244,14 @@ type QueryQueryInitParameters struct {
 
 	// (Block List, Max: 1) A timeseries formula and functions metrics query. (see below for nested schema)
 	// A timeseries formula and functions metrics query.
-	MetricQuery []MetricQueryInitParameters `json:"metricQuery,omitempty" tf:"metric_query,omitempty"`
+	MetricQuery []QueryMetricQueryInitParameters `json:"metricQuery,omitempty" tf:"metric_query,omitempty"`
 }
 
 type QueryQueryObservation struct {
 
 	// (Block List, Max: 1) A timeseries formula and functions metrics query. (see below for nested schema)
 	// A timeseries formula and functions metrics query.
-	MetricQuery []MetricQueryObservation `json:"metricQuery,omitempty" tf:"metric_query,omitempty"`
+	MetricQuery []QueryMetricQueryObservation `json:"metricQuery,omitempty" tf:"metric_query,omitempty"`
 }
 
 type QueryQueryParameters struct {
@@ -141,7 +259,7 @@ type QueryQueryParameters struct {
 	// (Block List, Max: 1) A timeseries formula and functions metrics query. (see below for nested schema)
 	// A timeseries formula and functions metrics query.
 	// +kubebuilder:validation:Optional
-	MetricQuery []MetricQueryParameters `json:"metricQuery,omitempty" tf:"metric_query,omitempty"`
+	MetricQuery []QueryMetricQueryParameters `json:"metricQuery,omitempty" tf:"metric_query,omitempty"`
 }
 
 type ServiceLevelObjectiveInitParameters struct {
@@ -168,16 +286,16 @@ type ServiceLevelObjectiveInitParameters struct {
 	// Name of Datadog service level objective
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List, Max: 1) The metric query of good / total events (see below for nested schema)
-	// The metric query of good / total events
+	// (Block List, Max: 1) The metric query of good / total events. Use this for metric SLOs as an alternative to sli_specification. (see below for nested schema)
+	// The metric query of good / total events. Use this for metric SLOs as an alternative to `sli_specification`.
 	Query []QueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
 
-	// (Block List, Max: 1) A map of SLI specifications to use as part of the SLO. (see below for nested schema)
-	// A map of SLI specifications to use as part of the SLO.
+	// slice SLOs and count-based (metric) SLOs. (see below for nested schema)
+	// A generic SLI specification. This is used for both time-slice SLOs and count-based (metric) SLOs.
 	SliSpecification []SliSpecificationInitParameters `json:"sliSpecification,omitempty" tf:"sli_specification,omitempty"`
 
-	// (Set of String) A list of tags to associate with your service level objective. This can help you categorize and filter service level objectives in the service level objectives page of the UI. Note: it's not currently possible to filter by these tags when querying via the API
-	// A list of tags to associate with your service level objective. This can help you categorize and filter service level objectives in the service level objectives page of the UI. Note: it's not currently possible to filter by these tags when querying via the API
+	// (Set of String) A list of tags to associate with your service level objective. This can help you categorize and filter service level objectives in the service level objectives page of the UI. Note: it's not currently possible to filter by these tags when querying via the API. If default tags are present at the provider level, they will be added to this resource.
+	// A list of tags to associate with your service level objective. This can help you categorize and filter service level objectives in the service level objectives page of the UI. **Note**: it's not currently possible to filter by these tags when querying via the API. If default tags are present at the provider level, they will be added to this resource.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -197,8 +315,8 @@ type ServiceLevelObjectiveInitParameters struct {
 	// The type of the service level objective. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API [documentation page](https://docs.datadoghq.com/api/v1/service-level-objectives/#create-a-slo-object). Valid values are `metric`, `monitor`, `time_slice`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (Boolean) Whether or not to validate the SLO.
-	// Whether or not to validate the SLO.
+	// (Boolean) Whether or not to validate the SLO. It checks if monitors added to a monitor SLO already exist.
+	// Whether or not to validate the SLO. It checks if monitors added to a monitor SLO already exist.
 	Validate *bool `json:"validate,omitempty" tf:"validate,omitempty"`
 
 	// (Number) The objective's warning value in (0,100). This must be greater than the target value and match the corresponding thresholds of the primary time frame.
@@ -233,16 +351,16 @@ type ServiceLevelObjectiveObservation struct {
 	// Name of Datadog service level objective
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List, Max: 1) The metric query of good / total events (see below for nested schema)
-	// The metric query of good / total events
+	// (Block List, Max: 1) The metric query of good / total events. Use this for metric SLOs as an alternative to sli_specification. (see below for nested schema)
+	// The metric query of good / total events. Use this for metric SLOs as an alternative to `sli_specification`.
 	Query []QueryObservation `json:"query,omitempty" tf:"query,omitempty"`
 
-	// (Block List, Max: 1) A map of SLI specifications to use as part of the SLO. (see below for nested schema)
-	// A map of SLI specifications to use as part of the SLO.
+	// slice SLOs and count-based (metric) SLOs. (see below for nested schema)
+	// A generic SLI specification. This is used for both time-slice SLOs and count-based (metric) SLOs.
 	SliSpecification []SliSpecificationObservation `json:"sliSpecification,omitempty" tf:"sli_specification,omitempty"`
 
-	// (Set of String) A list of tags to associate with your service level objective. This can help you categorize and filter service level objectives in the service level objectives page of the UI. Note: it's not currently possible to filter by these tags when querying via the API
-	// A list of tags to associate with your service level objective. This can help you categorize and filter service level objectives in the service level objectives page of the UI. Note: it's not currently possible to filter by these tags when querying via the API
+	// (Set of String) A list of tags to associate with your service level objective. This can help you categorize and filter service level objectives in the service level objectives page of the UI. Note: it's not currently possible to filter by these tags when querying via the API. If default tags are present at the provider level, they will be added to this resource.
+	// A list of tags to associate with your service level objective. This can help you categorize and filter service level objectives in the service level objectives page of the UI. **Note**: it's not currently possible to filter by these tags when querying via the API. If default tags are present at the provider level, they will be added to this resource.
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -262,8 +380,8 @@ type ServiceLevelObjectiveObservation struct {
 	// The type of the service level objective. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API [documentation page](https://docs.datadoghq.com/api/v1/service-level-objectives/#create-a-slo-object). Valid values are `metric`, `monitor`, `time_slice`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (Boolean) Whether or not to validate the SLO.
-	// Whether or not to validate the SLO.
+	// (Boolean) Whether or not to validate the SLO. It checks if monitors added to a monitor SLO already exist.
+	// Whether or not to validate the SLO. It checks if monitors added to a monitor SLO already exist.
 	Validate *bool `json:"validate,omitempty" tf:"validate,omitempty"`
 
 	// (Number) The objective's warning value in (0,100). This must be greater than the target value and match the corresponding thresholds of the primary time frame.
@@ -300,18 +418,18 @@ type ServiceLevelObjectiveParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List, Max: 1) The metric query of good / total events (see below for nested schema)
-	// The metric query of good / total events
+	// (Block List, Max: 1) The metric query of good / total events. Use this for metric SLOs as an alternative to sli_specification. (see below for nested schema)
+	// The metric query of good / total events. Use this for metric SLOs as an alternative to `sli_specification`.
 	// +kubebuilder:validation:Optional
 	Query []QueryParameters `json:"query,omitempty" tf:"query,omitempty"`
 
-	// (Block List, Max: 1) A map of SLI specifications to use as part of the SLO. (see below for nested schema)
-	// A map of SLI specifications to use as part of the SLO.
+	// slice SLOs and count-based (metric) SLOs. (see below for nested schema)
+	// A generic SLI specification. This is used for both time-slice SLOs and count-based (metric) SLOs.
 	// +kubebuilder:validation:Optional
 	SliSpecification []SliSpecificationParameters `json:"sliSpecification,omitempty" tf:"sli_specification,omitempty"`
 
-	// (Set of String) A list of tags to associate with your service level objective. This can help you categorize and filter service level objectives in the service level objectives page of the UI. Note: it's not currently possible to filter by these tags when querying via the API
-	// A list of tags to associate with your service level objective. This can help you categorize and filter service level objectives in the service level objectives page of the UI. Note: it's not currently possible to filter by these tags when querying via the API
+	// (Set of String) A list of tags to associate with your service level objective. This can help you categorize and filter service level objectives in the service level objectives page of the UI. Note: it's not currently possible to filter by these tags when querying via the API. If default tags are present at the provider level, they will be added to this resource.
+	// A list of tags to associate with your service level objective. This can help you categorize and filter service level objectives in the service level objectives page of the UI. **Note**: it's not currently possible to filter by these tags when querying via the API. If default tags are present at the provider level, they will be added to this resource.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -336,8 +454,8 @@ type ServiceLevelObjectiveParameters struct {
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (Boolean) Whether or not to validate the SLO.
-	// Whether or not to validate the SLO.
+	// (Boolean) Whether or not to validate the SLO. It checks if monitors added to a monitor SLO already exist.
+	// Whether or not to validate the SLO. It checks if monitors added to a monitor SLO already exist.
 	// +kubebuilder:validation:Optional
 	Validate *bool `json:"validate,omitempty" tf:"validate,omitempty"`
 
@@ -349,24 +467,37 @@ type ServiceLevelObjectiveParameters struct {
 
 type SliSpecificationInitParameters struct {
 
-	// (Block List, Min: 1, Max: 1) The time slice condition, composed of 3 parts: 1. The timeseries query, 2. The comparator, and 3. The threshold. (see below for nested schema)
-	// The time slice condition, composed of 3 parts: 1. The timeseries query, 2. The comparator, and 3. The threshold.
+	// based (metric) SLI specification. Composed of a good events formula, a total events formula, and the underlying metric queries. (see below for nested schema)
+	// A count-based (metric) SLI specification. Composed of a good events formula, a total events formula, and the underlying metric queries.
+	Count []CountInitParameters `json:"count,omitempty" tf:"count,omitempty"`
+
+	// (Block List, Max: 1) The time slice condition, composed of 3 parts: 1. The timeseries query, 2. The comparator, and 3. The threshold. Optionally, a fourth part, the query interval, can be provided. (see below for nested schema)
+	// The time slice condition, composed of 3 parts: 1. The timeseries query, 2. The comparator, and 3. The threshold. Optionally, a fourth part, the query interval, can be provided.
 	TimeSlice []TimeSliceInitParameters `json:"timeSlice,omitempty" tf:"time_slice,omitempty"`
 }
 
 type SliSpecificationObservation struct {
 
-	// (Block List, Min: 1, Max: 1) The time slice condition, composed of 3 parts: 1. The timeseries query, 2. The comparator, and 3. The threshold. (see below for nested schema)
-	// The time slice condition, composed of 3 parts: 1. The timeseries query, 2. The comparator, and 3. The threshold.
+	// based (metric) SLI specification. Composed of a good events formula, a total events formula, and the underlying metric queries. (see below for nested schema)
+	// A count-based (metric) SLI specification. Composed of a good events formula, a total events formula, and the underlying metric queries.
+	Count []CountObservation `json:"count,omitempty" tf:"count,omitempty"`
+
+	// (Block List, Max: 1) The time slice condition, composed of 3 parts: 1. The timeseries query, 2. The comparator, and 3. The threshold. Optionally, a fourth part, the query interval, can be provided. (see below for nested schema)
+	// The time slice condition, composed of 3 parts: 1. The timeseries query, 2. The comparator, and 3. The threshold. Optionally, a fourth part, the query interval, can be provided.
 	TimeSlice []TimeSliceObservation `json:"timeSlice,omitempty" tf:"time_slice,omitempty"`
 }
 
 type SliSpecificationParameters struct {
 
-	// (Block List, Min: 1, Max: 1) The time slice condition, composed of 3 parts: 1. The timeseries query, 2. The comparator, and 3. The threshold. (see below for nested schema)
-	// The time slice condition, composed of 3 parts: 1. The timeseries query, 2. The comparator, and 3. The threshold.
+	// based (metric) SLI specification. Composed of a good events formula, a total events formula, and the underlying metric queries. (see below for nested schema)
+	// A count-based (metric) SLI specification. Composed of a good events formula, a total events formula, and the underlying metric queries.
 	// +kubebuilder:validation:Optional
-	TimeSlice []TimeSliceParameters `json:"timeSlice" tf:"time_slice,omitempty"`
+	Count []CountParameters `json:"count,omitempty" tf:"count,omitempty"`
+
+	// (Block List, Max: 1) The time slice condition, composed of 3 parts: 1. The timeseries query, 2. The comparator, and 3. The threshold. Optionally, a fourth part, the query interval, can be provided. (see below for nested schema)
+	// The time slice condition, composed of 3 parts: 1. The timeseries query, 2. The comparator, and 3. The threshold. Optionally, a fourth part, the query interval, can be provided.
+	// +kubebuilder:validation:Optional
+	TimeSlice []TimeSliceParameters `json:"timeSlice,omitempty" tf:"time_slice,omitempty"`
 }
 
 type ThresholdsInitParameters struct {
@@ -431,9 +562,13 @@ type TimeSliceInitParameters struct {
 	// The comparator used to compare the SLI value to the threshold. Valid values are `>`, `>=`, `<`, `<=`.
 	Comparator *string `json:"comparator,omitempty" tf:"comparator,omitempty"`
 
-	// (Block List, Max: 1) The metric query of good / total events (see below for nested schema)
+	// (Block List, Max: 1) The metric query of good / total events. Use this for metric SLOs as an alternative to sli_specification. (see below for nested schema)
 	// A timeseries query, containing named data-source-specific queries and a formula involving the named queries.
 	Query []TimeSliceQueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
+
+	// (Number) The interval used when querying data, which defines the size of a time slice. Valid values are 60, 300. Defaults to 300.
+	// The interval used when querying data, which defines the size of a time slice. Valid values are `60`, `300`. Defaults to `300`.
+	QueryIntervalSeconds *float64 `json:"queryIntervalSeconds,omitempty" tf:"query_interval_seconds,omitempty"`
 
 	// (Number) The threshold value to which each SLI value will be compared.
 	// The threshold value to which each SLI value will be compared.
@@ -446,9 +581,13 @@ type TimeSliceObservation struct {
 	// The comparator used to compare the SLI value to the threshold. Valid values are `>`, `>=`, `<`, `<=`.
 	Comparator *string `json:"comparator,omitempty" tf:"comparator,omitempty"`
 
-	// (Block List, Max: 1) The metric query of good / total events (see below for nested schema)
+	// (Block List, Max: 1) The metric query of good / total events. Use this for metric SLOs as an alternative to sli_specification. (see below for nested schema)
 	// A timeseries query, containing named data-source-specific queries and a formula involving the named queries.
 	Query []TimeSliceQueryObservation `json:"query,omitempty" tf:"query,omitempty"`
+
+	// (Number) The interval used when querying data, which defines the size of a time slice. Valid values are 60, 300. Defaults to 300.
+	// The interval used when querying data, which defines the size of a time slice. Valid values are `60`, `300`. Defaults to `300`.
+	QueryIntervalSeconds *float64 `json:"queryIntervalSeconds,omitempty" tf:"query_interval_seconds,omitempty"`
 
 	// (Number) The threshold value to which each SLI value will be compared.
 	// The threshold value to which each SLI value will be compared.
@@ -462,10 +601,15 @@ type TimeSliceParameters struct {
 	// +kubebuilder:validation:Optional
 	Comparator *string `json:"comparator" tf:"comparator,omitempty"`
 
-	// (Block List, Max: 1) The metric query of good / total events (see below for nested schema)
+	// (Block List, Max: 1) The metric query of good / total events. Use this for metric SLOs as an alternative to sli_specification. (see below for nested schema)
 	// A timeseries query, containing named data-source-specific queries and a formula involving the named queries.
 	// +kubebuilder:validation:Optional
 	Query []TimeSliceQueryParameters `json:"query" tf:"query,omitempty"`
+
+	// (Number) The interval used when querying data, which defines the size of a time slice. Valid values are 60, 300. Defaults to 300.
+	// The interval used when querying data, which defines the size of a time slice. Valid values are `60`, `300`. Defaults to `300`.
+	// +kubebuilder:validation:Optional
+	QueryIntervalSeconds *float64 `json:"queryIntervalSeconds,omitempty" tf:"query_interval_seconds,omitempty"`
 
 	// (Number) The threshold value to which each SLI value will be compared.
 	// The threshold value to which each SLI value will be compared.
@@ -479,7 +623,7 @@ type TimeSliceQueryInitParameters struct {
 	// A list that contains exactly one formula, as only a single formula may be used to define a timeseries query for a time-slice SLO.
 	Formula []FormulaInitParameters `json:"formula,omitempty" tf:"formula,omitempty"`
 
-	// (Block List, Max: 1) The metric query of good / total events (see below for nested schema)
+	// (Block List, Max: 1) The metric query of good / total events. Use this for metric SLOs as an alternative to sli_specification. (see below for nested schema)
 	// A list of data-source-specific queries that are in the formula.
 	Query []QueryQueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
 }
@@ -490,7 +634,7 @@ type TimeSliceQueryObservation struct {
 	// A list that contains exactly one formula, as only a single formula may be used to define a timeseries query for a time-slice SLO.
 	Formula []FormulaObservation `json:"formula,omitempty" tf:"formula,omitempty"`
 
-	// (Block List, Max: 1) The metric query of good / total events (see below for nested schema)
+	// (Block List, Max: 1) The metric query of good / total events. Use this for metric SLOs as an alternative to sli_specification. (see below for nested schema)
 	// A list of data-source-specific queries that are in the formula.
 	Query []QueryQueryObservation `json:"query,omitempty" tf:"query,omitempty"`
 }
@@ -502,7 +646,7 @@ type TimeSliceQueryParameters struct {
 	// +kubebuilder:validation:Optional
 	Formula []FormulaParameters `json:"formula" tf:"formula,omitempty"`
 
-	// (Block List, Max: 1) The metric query of good / total events (see below for nested schema)
+	// (Block List, Max: 1) The metric query of good / total events. Use this for metric SLOs as an alternative to sli_specification. (see below for nested schema)
 	// A list of data-source-specific queries that are in the formula.
 	// +kubebuilder:validation:Optional
 	Query []QueryQueryParameters `json:"query" tf:"query,omitempty"`

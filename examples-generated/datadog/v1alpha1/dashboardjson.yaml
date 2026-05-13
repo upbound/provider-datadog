@@ -474,7 +474,6 @@ spec:
             }
          ],
          "layout_type":"ordered",
-         "is_read_only":true,
          "notify_list":[
 
          ],

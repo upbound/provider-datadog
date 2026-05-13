@@ -88,8 +88,8 @@ type PowerpackInitParameters struct {
 	// The layout of the powerpack on a free-form dashboard.
 	Layout []LayoutInitParameters `json:"layout,omitempty" tf:"layout,omitempty"`
 
-	// (String) The timeframe to use when displaying the widget. Valid values are 1m, 5m, 10m, 15m, 30m, 1h, 4h, 1d, 2d, 1w, 1mo, 3mo, 6mo, week_to_date, month_to_date, 1y, alert.
-	// The timeframe to use when displaying the widget. Valid values are `1m`, `5m`, `10m`, `15m`, `30m`, `1h`, `4h`, `1d`, `2d`, `1w`, `1mo`, `3mo`, `6mo`, `week_to_date`, `month_to_date`, `1y`, `alert`.
+	// (String) The timeframe to use when displaying the powerpack. Valid values are 1m, 5m, 10m, 15m, 30m, 1h, 4h, 1d, 2d, 1w, 1mo, 3mo, 6mo, week_to_date, month_to_date, 1y, alert.
+	// The timeframe to use when displaying the powerpack. Valid values are `1m`, `5m`, `10m`, `15m`, `30m`, `1h`, `4h`, `1d`, `2d`, `1w`, `1mo`, `3mo`, `6mo`, `week_to_date`, `month_to_date`, `1y`, `alert`.
 	LiveSpan *string `json:"liveSpan,omitempty" tf:"live_span,omitempty"`
 
 	// (String) The name for the powerpack.
@@ -123,8 +123,8 @@ type PowerpackObservation struct {
 	// The layout of the powerpack on a free-form dashboard.
 	Layout []LayoutObservation `json:"layout,omitempty" tf:"layout,omitempty"`
 
-	// (String) The timeframe to use when displaying the widget. Valid values are 1m, 5m, 10m, 15m, 30m, 1h, 4h, 1d, 2d, 1w, 1mo, 3mo, 6mo, week_to_date, month_to_date, 1y, alert.
-	// The timeframe to use when displaying the widget. Valid values are `1m`, `5m`, `10m`, `15m`, `30m`, `1h`, `4h`, `1d`, `2d`, `1w`, `1mo`, `3mo`, `6mo`, `week_to_date`, `month_to_date`, `1y`, `alert`.
+	// (String) The timeframe to use when displaying the powerpack. Valid values are 1m, 5m, 10m, 15m, 30m, 1h, 4h, 1d, 2d, 1w, 1mo, 3mo, 6mo, week_to_date, month_to_date, 1y, alert.
+	// The timeframe to use when displaying the powerpack. Valid values are `1m`, `5m`, `10m`, `15m`, `30m`, `1h`, `4h`, `1d`, `2d`, `1w`, `1mo`, `3mo`, `6mo`, `week_to_date`, `month_to_date`, `1y`, `alert`.
 	LiveSpan *string `json:"liveSpan,omitempty" tf:"live_span,omitempty"`
 
 	// (String) The name for the powerpack.
@@ -157,8 +157,8 @@ type PowerpackParameters struct {
 	// +kubebuilder:validation:Optional
 	Layout []LayoutParameters `json:"layout,omitempty" tf:"layout,omitempty"`
 
-	// (String) The timeframe to use when displaying the widget. Valid values are 1m, 5m, 10m, 15m, 30m, 1h, 4h, 1d, 2d, 1w, 1mo, 3mo, 6mo, week_to_date, month_to_date, 1y, alert.
-	// The timeframe to use when displaying the widget. Valid values are `1m`, `5m`, `10m`, `15m`, `30m`, `1h`, `4h`, `1d`, `2d`, `1w`, `1mo`, `3mo`, `6mo`, `week_to_date`, `month_to_date`, `1y`, `alert`.
+	// (String) The timeframe to use when displaying the powerpack. Valid values are 1m, 5m, 10m, 15m, 30m, 1h, 4h, 1d, 2d, 1w, 1mo, 3mo, 6mo, week_to_date, month_to_date, 1y, alert.
+	// The timeframe to use when displaying the powerpack. Valid values are `1m`, `5m`, `10m`, `15m`, `30m`, `1h`, `4h`, `1d`, `2d`, `1w`, `1mo`, `3mo`, `6mo`, `week_to_date`, `month_to_date`, `1y`, `alert`.
 	// +kubebuilder:validation:Optional
 	LiveSpan *string `json:"liveSpan,omitempty" tf:"live_span,omitempty"`
 

@@ -1,0 +1,15 @@
+apiVersion: agentless.upbound.io/v1alpha1
+kind: ScanningAwsScanOptions
+metadata:
+  annotations:
+    meta.upbound.io/example-id: agentless/v1alpha1/scanningawsscanoptions
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    awsAccountId: "123456789012"
+    lambda: true
+    sensitiveData: false
+    vulnContainersOs: true
+    vulnHostOs: true

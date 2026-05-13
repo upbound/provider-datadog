@@ -22,6 +22,10 @@ type APIKeyInitParameters struct {
 	// (String) Name for API Key.
 	// Name for API Key.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// settings/remote-config.
+	// Whether the API key is used for remote config. Set to true only if remote config is enabled in `/organization-settings/remote-config`.
+	RemoteConfigReadEnabled *bool `json:"remoteConfigReadEnabled,omitempty" tf:"remote_config_read_enabled,omitempty"`
 }
 
 type APIKeyObservation struct {
@@ -32,6 +36,10 @@ type APIKeyObservation struct {
 	// (String) Name for API Key.
 	// Name for API Key.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// settings/remote-config.
+	// Whether the API key is used for remote config. Set to true only if remote config is enabled in `/organization-settings/remote-config`.
+	RemoteConfigReadEnabled *bool `json:"remoteConfigReadEnabled,omitempty" tf:"remote_config_read_enabled,omitempty"`
 }
 
 type APIKeyParameters struct {
@@ -40,6 +48,11 @@ type APIKeyParameters struct {
 	// Name for API Key.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// settings/remote-config.
+	// Whether the API key is used for remote config. Set to true only if remote config is enabled in `/organization-settings/remote-config`.
+	// +kubebuilder:validation:Optional
+	RemoteConfigReadEnabled *bool `json:"remoteConfigReadEnabled,omitempty" tf:"remote_config_read_enabled,omitempty"`
 }
 
 // APIKeySpec defines the desired state of APIKey
@@ -69,7 +82,7 @@ type APIKeyStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// APIKey is the Schema for the APIKeys API. Provides a Datadog API Key resource. This can be used to create and manage Datadog API Keys.
+// APIKey is the Schema for the APIKeys API. Provides a Datadog API Key resource. This can be used to create and manage Datadog API Keys. Import functionality for this resource is deprecated and will be removed in a future release with prior notice. Securely store your API keys using a secret management system or use this resource to create and manage new API keys.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

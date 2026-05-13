@@ -34,9 +34,10 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: AWSTagFilter is the Schema for the AWSTagFilters API. Provides
-          a Datadog AWS tag filter resource. This can be used to create and manage
-          Datadog AWS tag filters.
+        description: AWSTagFilter is the Schema for the AWSTagFilters API. !>This
+          resource is deprecated - use the datadog_integration_aws_account resource
+          instead. Provides a Datadog AWS tag filter resource. This can be used to
+          create and manage Datadog AWS tag filters.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -75,9 +76,9 @@ spec:
                   namespace:
                     description: (String) The namespace associated with the tag filter
                       entry. Valid values are elb, application_elb, sqs, rds, custom,
-                      network_elb, lambda. The namespace associated with the tag filter
-                      entry. Valid values are `elb`, `application_elb`, `sqs`, `rds`,
-                      `custom`, `network_elb`, `lambda`.
+                      network_elb, lambda, step_functions. The namespace associated
+                      with the tag filter entry. Valid values are `elb`, `application_elb`,
+                      `sqs`, `rds`, `custom`, `network_elb`, `lambda`, `step_functions`.
                     type: string
                   tagFilterStr:
                     description: (String) The tag filter string. The tag filter string.
@@ -102,9 +103,9 @@ spec:
                   namespace:
                     description: (String) The namespace associated with the tag filter
                       entry. Valid values are elb, application_elb, sqs, rds, custom,
-                      network_elb, lambda. The namespace associated with the tag filter
-                      entry. Valid values are `elb`, `application_elb`, `sqs`, `rds`,
-                      `custom`, `network_elb`, `lambda`.
+                      network_elb, lambda, step_functions. The namespace associated
+                      with the tag filter entry. Valid values are `elb`, `application_elb`,
+                      `sqs`, `rds`, `custom`, `network_elb`, `lambda`, `step_functions`.
                     type: string
                   tagFilterStr:
                     description: (String) The tag filter string. The tag filter string.
@@ -298,9 +299,9 @@ spec:
                   namespace:
                     description: (String) The namespace associated with the tag filter
                       entry. Valid values are elb, application_elb, sqs, rds, custom,
-                      network_elb, lambda. The namespace associated with the tag filter
-                      entry. Valid values are `elb`, `application_elb`, `sqs`, `rds`,
-                      `custom`, `network_elb`, `lambda`.
+                      network_elb, lambda, step_functions. The namespace associated
+                      with the tag filter entry. Valid values are `elb`, `application_elb`,
+                      `sqs`, `rds`, `custom`, `network_elb`, `lambda`, `step_functions`.
                     type: string
                   tagFilterStr:
                     description: (String) The tag filter string. The tag filter string.

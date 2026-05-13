@@ -10,6 +10,9 @@ spec:
   forProvider:
     automute: true
     clientEmail: ${google_service_account.datadog_integration.email}
+    cloudRunRevisionFilters:
+    - filter_one
+    - filter_two
     hostFilters:
     - filter_one
     - filter_two

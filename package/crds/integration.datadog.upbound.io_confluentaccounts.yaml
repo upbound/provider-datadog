@@ -36,7 +36,7 @@ spec:
       openAPIV3Schema:
         description: ConfluentAccount is the Schema for the ConfluentAccounts API.
           Provides a Datadog IntegrationConfluentAccount resource. This can be used
-          to create and manage Datadog integrationconfluentaccount.
+          to create and manage Datadog integration_confluent_account.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation

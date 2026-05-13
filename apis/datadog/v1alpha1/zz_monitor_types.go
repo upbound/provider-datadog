@@ -17,6 +17,141 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type AssetsInitParameters struct {
+
+	// (String) Type of asset the entity represents on a monitor. Valid values are runbook.
+	// Type of asset the entity represents on a monitor. Valid values are `runbook`.
+	Category *string `json:"category,omitempty" tf:"category,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name for the monitor asset.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Identifier of the internal Datadog resource that this asset represents.
+	// Identifier of the internal Datadog resource that this asset represents.
+	ResourceKey *string `json:"resourceKey,omitempty" tf:"resource_key,omitempty"`
+
+	// (String) Type of internal Datadog resource associated with a monitor asset. Valid values are notebook.
+	// Type of internal Datadog resource associated with a monitor asset. Valid values are `notebook`.
+	ResourceType *string `json:"resourceType,omitempty" tf:"resource_type,omitempty"`
+
+	// (String) URL for the asset.
+	// URL for the asset.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type AssetsObservation struct {
+
+	// (String) Type of asset the entity represents on a monitor. Valid values are runbook.
+	// Type of asset the entity represents on a monitor. Valid values are `runbook`.
+	Category *string `json:"category,omitempty" tf:"category,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name for the monitor asset.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Identifier of the internal Datadog resource that this asset represents.
+	// Identifier of the internal Datadog resource that this asset represents.
+	ResourceKey *string `json:"resourceKey,omitempty" tf:"resource_key,omitempty"`
+
+	// (String) Type of internal Datadog resource associated with a monitor asset. Valid values are notebook.
+	// Type of internal Datadog resource associated with a monitor asset. Valid values are `notebook`.
+	ResourceType *string `json:"resourceType,omitempty" tf:"resource_type,omitempty"`
+
+	// (String) URL for the asset.
+	// URL for the asset.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type AssetsParameters struct {
+
+	// (String) Type of asset the entity represents on a monitor. Valid values are runbook.
+	// Type of asset the entity represents on a monitor. Valid values are `runbook`.
+	// +kubebuilder:validation:Optional
+	Category *string `json:"category" tf:"category,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name for the monitor asset.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (String) Identifier of the internal Datadog resource that this asset represents.
+	// Identifier of the internal Datadog resource that this asset represents.
+	// +kubebuilder:validation:Optional
+	ResourceKey *string `json:"resourceKey,omitempty" tf:"resource_key,omitempty"`
+
+	// (String) Type of internal Datadog resource associated with a monitor asset. Valid values are notebook.
+	// Type of internal Datadog resource associated with a monitor asset. Valid values are `notebook`.
+	// +kubebuilder:validation:Optional
+	ResourceType *string `json:"resourceType,omitempty" tf:"resource_type,omitempty"`
+
+	// (String) URL for the asset.
+	// URL for the asset.
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url" tf:"url,omitempty"`
+}
+
+type CloudCostQueryInitParameters struct {
+
+	// (String) The aggregation methods available for cloud cost queries. Valid values are avg, sum, max, min, last, area, l2norm, percentile, stddev.
+	// The aggregation methods available for cloud cost queries. Valid values are `avg`, `sum`, `max`, `min`, `last`, `area`, `l2norm`, `percentile`, `stddev`.
+	Aggregator *string `json:"aggregator,omitempty" tf:"aggregator,omitempty"`
+
+	// (String) The data source for cloud cost queries. Valid values are metrics, cloud_cost, datadog_usage.
+	// The data source for cloud cost queries. Valid values are `metrics`, `cloud_cost`, `datadog_usage`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The cloud cost query definition.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type CloudCostQueryObservation struct {
+
+	// (String) The aggregation methods available for cloud cost queries. Valid values are avg, sum, max, min, last, area, l2norm, percentile, stddev.
+	// The aggregation methods available for cloud cost queries. Valid values are `avg`, `sum`, `max`, `min`, `last`, `area`, `l2norm`, `percentile`, `stddev`.
+	Aggregator *string `json:"aggregator,omitempty" tf:"aggregator,omitempty"`
+
+	// (String) The data source for cloud cost queries. Valid values are metrics, cloud_cost, datadog_usage.
+	// The data source for cloud cost queries. Valid values are `metrics`, `cloud_cost`, `datadog_usage`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The cloud cost query definition.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type CloudCostQueryParameters struct {
+
+	// (String) The aggregation methods available for cloud cost queries. Valid values are avg, sum, max, min, last, area, l2norm, percentile, stddev.
+	// The aggregation methods available for cloud cost queries. Valid values are `avg`, `sum`, `max`, `min`, `last`, `area`, `l2norm`, `percentile`, `stddev`.
+	// +kubebuilder:validation:Optional
+	Aggregator *string `json:"aggregator" tf:"aggregator,omitempty"`
+
+	// (String) The data source for cloud cost queries. Valid values are metrics, cloud_cost, datadog_usage.
+	// The data source for cloud cost queries. Valid values are `metrics`, `cloud_cost`, `datadog_usage`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The cloud cost query definition.
+	// +kubebuilder:validation:Optional
+	Query *string `json:"query" tf:"query,omitempty"`
+}
+
 type ComputeInitParameters struct {
 
 	// (String) The aggregation methods for event platform queries. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
@@ -135,6 +270,119 @@ type CustomScheduleRecurrenceParameters struct {
 	Timezone *string `json:"timezone" tf:"timezone,omitempty"`
 }
 
+type DataQualityQueryInitParameters struct {
+
+	// (String) The data source for cloud cost queries. Valid values are metrics, cloud_cost, datadog_usage.
+	// The data source for data quality queries. Valid value is `data_quality_metrics`. Valid values are `data_quality_metrics`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Filter expression used to match on data entities. Uses AAstra query syntax.
+	// Filter expression used to match on data entities. Uses AAstra query syntax.
+	Filter *string `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// (List of String) Optional grouping fields for aggregation.
+	// Optional grouping fields for aggregation.
+	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (String) The measure to query. Common values include bytes, cardinality, custom, freshness, max, mean, min, nullness, percent_negative, percent_zero, row_count, stddev, sum, uniqueness. Additional values may be supported.
+	// The measure to query. Common values include `bytes`, `cardinality`, `custom`, `freshness`, `max`, `mean`, `min`, `nullness`, `percent_negative`, `percent_zero`, `row_count`, `stddev`, `sum`, `uniqueness`. Additional values may be supported.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// (Block List, Max: 1) Monitor configuration options for data quality queries. (see below for nested schema)
+	// Monitor configuration options for data quality queries.
+	MonitorOptions []MonitorOptionsInitParameters `json:"monitorOptions,omitempty" tf:"monitor_options,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Schema version for the data quality query.
+	// Schema version for the data quality query.
+	SchemaVersion *string `json:"schemaVersion,omitempty" tf:"schema_version,omitempty"`
+
+	// (String) Optional scoping expression to further filter metrics.
+	// Optional scoping expression to further filter metrics.
+	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
+}
+
+type DataQualityQueryObservation struct {
+
+	// (String) The data source for cloud cost queries. Valid values are metrics, cloud_cost, datadog_usage.
+	// The data source for data quality queries. Valid value is `data_quality_metrics`. Valid values are `data_quality_metrics`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Filter expression used to match on data entities. Uses AAstra query syntax.
+	// Filter expression used to match on data entities. Uses AAstra query syntax.
+	Filter *string `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// (List of String) Optional grouping fields for aggregation.
+	// Optional grouping fields for aggregation.
+	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (String) The measure to query. Common values include bytes, cardinality, custom, freshness, max, mean, min, nullness, percent_negative, percent_zero, row_count, stddev, sum, uniqueness. Additional values may be supported.
+	// The measure to query. Common values include `bytes`, `cardinality`, `custom`, `freshness`, `max`, `mean`, `min`, `nullness`, `percent_negative`, `percent_zero`, `row_count`, `stddev`, `sum`, `uniqueness`. Additional values may be supported.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// (Block List, Max: 1) Monitor configuration options for data quality queries. (see below for nested schema)
+	// Monitor configuration options for data quality queries.
+	MonitorOptions []MonitorOptionsObservation `json:"monitorOptions,omitempty" tf:"monitor_options,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Schema version for the data quality query.
+	// Schema version for the data quality query.
+	SchemaVersion *string `json:"schemaVersion,omitempty" tf:"schema_version,omitempty"`
+
+	// (String) Optional scoping expression to further filter metrics.
+	// Optional scoping expression to further filter metrics.
+	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
+}
+
+type DataQualityQueryParameters struct {
+
+	// (String) The data source for cloud cost queries. Valid values are metrics, cloud_cost, datadog_usage.
+	// The data source for data quality queries. Valid value is `data_quality_metrics`. Valid values are `data_quality_metrics`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// (String) Filter expression used to match on data entities. Uses AAstra query syntax.
+	// Filter expression used to match on data entities. Uses AAstra query syntax.
+	// +kubebuilder:validation:Optional
+	Filter *string `json:"filter" tf:"filter,omitempty"`
+
+	// (List of String) Optional grouping fields for aggregation.
+	// Optional grouping fields for aggregation.
+	// +kubebuilder:validation:Optional
+	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (String) The measure to query. Common values include bytes, cardinality, custom, freshness, max, mean, min, nullness, percent_negative, percent_zero, row_count, stddev, sum, uniqueness. Additional values may be supported.
+	// The measure to query. Common values include `bytes`, `cardinality`, `custom`, `freshness`, `max`, `mean`, `min`, `nullness`, `percent_negative`, `percent_zero`, `row_count`, `stddev`, `sum`, `uniqueness`. Additional values may be supported.
+	// +kubebuilder:validation:Optional
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// (Block List, Max: 1) Monitor configuration options for data quality queries. (see below for nested schema)
+	// Monitor configuration options for data quality queries.
+	// +kubebuilder:validation:Optional
+	MonitorOptions []MonitorOptionsParameters `json:"monitorOptions,omitempty" tf:"monitor_options,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (String) Schema version for the data quality query.
+	// Schema version for the data quality query.
+	// +kubebuilder:validation:Optional
+	SchemaVersion *string `json:"schemaVersion,omitempty" tf:"schema_version,omitempty"`
+
+	// (String) Optional scoping expression to further filter metrics.
+	// Optional scoping expression to further filter metrics.
+	// +kubebuilder:validation:Optional
+	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
+}
+
 type EvaluationWindowInitParameters struct {
 
 	// (String) The time of the day at which a one day cumulative evaluation window starts. Must be defined in UTC time in HH:mm format.
@@ -148,6 +396,10 @@ type EvaluationWindowInitParameters struct {
 	// (Number) The day of the month at which a one month cumulative evaluation window starts. Must be a value of 1.
 	// The day of the month at which a one month cumulative evaluation window starts. Must be a value of 1.
 	MonthStarts *float64 `json:"monthStarts,omitempty" tf:"month_starts,omitempty"`
+
+	// (String) 'tz database' format. Example: America/New_York or UTC
+	// The timezone for the cumulative evaluation window start time.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 }
 
 type EvaluationWindowObservation struct {
@@ -163,6 +415,10 @@ type EvaluationWindowObservation struct {
 	// (Number) The day of the month at which a one month cumulative evaluation window starts. Must be a value of 1.
 	// The day of the month at which a one month cumulative evaluation window starts. Must be a value of 1.
 	MonthStarts *float64 `json:"monthStarts,omitempty" tf:"month_starts,omitempty"`
+
+	// (String) 'tz database' format. Example: America/New_York or UTC
+	// The timezone for the cumulative evaluation window start time.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 }
 
 type EvaluationWindowParameters struct {
@@ -181,6 +437,11 @@ type EvaluationWindowParameters struct {
 	// The day of the month at which a one month cumulative evaluation window starts. Must be a value of 1.
 	// +kubebuilder:validation:Optional
 	MonthStarts *float64 `json:"monthStarts,omitempty" tf:"month_starts,omitempty"`
+
+	// (String) 'tz database' format. Example: America/New_York or UTC
+	// The timezone for the cumulative evaluation window start time.
+	// +kubebuilder:validation:Optional
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 }
 
 type EventQueryInitParameters struct {
@@ -189,11 +450,11 @@ type EventQueryInitParameters struct {
 	// The compute options.
 	Compute []ComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
-	// based queries. Valid values are rum, ci_pipelines, ci_tests, audit, events, logs, spans, database_queries.
-	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`.
+	// (String) The data source for cloud cost queries. Valid values are metrics, cloud_cost, datadog_usage.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
 	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
 
-	// (Block List) Group by options. (see below for nested schema)
+	// (List of String) Optional grouping fields for aggregation.
 	// Group by options.
 	GroupBy []GroupByInitParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
@@ -216,11 +477,11 @@ type EventQueryObservation struct {
 	// The compute options.
 	Compute []ComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
 
-	// based queries. Valid values are rum, ci_pipelines, ci_tests, audit, events, logs, spans, database_queries.
-	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`.
+	// (String) The data source for cloud cost queries. Valid values are metrics, cloud_cost, datadog_usage.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
 	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
 
-	// (Block List) Group by options. (see below for nested schema)
+	// (List of String) Optional grouping fields for aggregation.
 	// Group by options.
 	GroupBy []GroupByObservation `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
@@ -244,12 +505,12 @@ type EventQueryParameters struct {
 	// +kubebuilder:validation:Optional
 	Compute []ComputeParameters `json:"compute" tf:"compute,omitempty"`
 
-	// based queries. Valid values are rum, ci_pipelines, ci_tests, audit, events, logs, spans, database_queries.
-	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`.
+	// (String) The data source for cloud cost queries. Valid values are metrics, cloud_cost, datadog_usage.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
 	// +kubebuilder:validation:Optional
 	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
 
-	// (Block List) Group by options. (see below for nested schema)
+	// (List of String) Optional grouping fields for aggregation.
 	// Group by options.
 	// +kubebuilder:validation:Optional
 	GroupBy []GroupByParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
@@ -320,9 +581,21 @@ type GroupByParameters struct {
 
 type MonitorInitParameters struct {
 
+	// (Block List) List of monitor assets (for example, runbooks, dashboards, workflows) tied to this monitor. (see below for nested schema)
+	// List of monitor assets (for example, runbooks, dashboards, workflows) tied to this monitor.
+	Assets []AssetsInitParameters `json:"assets,omitempty" tf:"assets,omitempty"`
+
+	// (String) Indicates whether the monitor is in a draft or published state. When set to draft, the monitor appears as Draft and does not send notifications. When set to published, the monitor is active, and it evaluates conditions and sends notifications as configured. Valid values are draft, published. Defaults to "published".
+	// Indicates whether the monitor is in a draft or published state. When set to `draft`, the monitor appears as Draft and does not send notifications. When set to `published`, the monitor is active, and it evaluates conditions and sends notifications as configured. Valid values are `draft`, `published`. Defaults to `"published"`.
+	DraftStatus *string `json:"draftStatus,omitempty" tf:"draft_status,omitempty"`
+
 	// (Boolean) A boolean indicating whether or not to include a list of log values which triggered the alert. This is only used by log monitors. Defaults to false.
 	// A boolean indicating whether or not to include a list of log values which triggered the alert. This is only used by log monitors. Defaults to `false`.
 	EnableLogsSample *bool `json:"enableLogsSample,omitempty" tf:"enable_logs_sample,omitempty"`
+
+	// (Boolean) Whether or not a list of samples which triggered the alert is included. This is only used by CI Test and Pipeline monitors.
+	// Whether or not a list of samples which triggered the alert is included. This is only used by CI Test and Pipeline monitors.
+	EnableSamples *bool `json:"enableSamples,omitempty" tf:"enable_samples,omitempty"`
 
 	// notification. Supports the @username notification allowed elsewhere.
 	// A message to include with a re-notification. Supports the `@username` notification allowed elsewhere.
@@ -388,8 +661,8 @@ type MonitorInitParameters struct {
 	// We recommend at least 2x the monitor timeframe for metric alerts or 2 minutes for service checks. Defaults to `10`.
 	NoDataTimeframe *float64 `json:"noDataTimeframe,omitempty" tf:"no_data_timeframe,omitempty"`
 
-	// (String) Toggles the display of additional content sent in the monitor notification. Valid values are show_all, hide_query, hide_handles, hide_all.
-	// Toggles the display of additional content sent in the monitor notification. Valid values are `show_all`, `hide_query`, `hide_handles`, `hide_all`.
+	// (String) Toggles the display of additional content sent in the monitor notification. Valid values are show_all, hide_query, hide_handles, hide_all, hide_query_and_handles, show_only_snapshot, hide_handles_and_footer.
+	// Toggles the display of additional content sent in the monitor notification. Valid values are `show_all`, `hide_query`, `hide_handles`, `hide_all`, `hide_query_and_handles`, `show_only_snapshot`, `hide_handles_and_footer`.
 	NotificationPresetName *string `json:"notificationPresetName,omitempty" tf:"notification_preset_name,omitempty"`
 
 	// (Boolean) A boolean indicating whether tagged users will be notified on changes to this monitor. Defaults to false.
@@ -405,13 +678,13 @@ type MonitorInitParameters struct {
 	// A boolean indicating whether this monitor will notify when data stops reporting. Defaults to `false`.
 	NotifyNoData *bool `json:"notifyNoData,omitempty" tf:"notify_no_data,omitempty"`
 
-	// (String) Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using Count queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than Count, for example Gauge, Measure, or Rate, the monitor shows the last known status. This option is only available for APM Trace Analytics, Audit Trail, CI, Error Tracking, Event, Logs, and RUM monitors. Valid values are: show_no_data, show_and_notify_no_data, resolve, and default.
-	// Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using `Count` queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than `Count`, for example `Gauge`, `Measure`, or `Rate`, the monitor shows the last known status. This option is only available for APM Trace Analytics, Audit Trail, CI, Error Tracking, Event, Logs, and RUM monitors. Valid values are: `show_no_data`, `show_and_notify_no_data`, `resolve`, and `default`.
+	// (String) Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using Count queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than Count, for example Gauge, Measure, or Rate, the monitor shows the last known status. This option is not available for Service Check, Composite, or SLO monitors. Valid values are: show_no_data, show_and_notify_no_data, resolve, and default.
+	// Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using `Count` queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than `Count`, for example `Gauge`, `Measure`, or `Rate`, the monitor shows the last known status. This option is not available for Service Check, Composite, or SLO monitors. Valid values are: `show_no_data`, `show_and_notify_no_data`, `resolve`, and `default`.
 	OnMissingData *string `json:"onMissingData,omitempty" tf:"on_missing_data,omitempty"`
 
-	// (Number) Integer from 1 (high) to 5 (low) indicating alert severity.
+	// (String) Integer from 1 (high) to 5 (low) indicating alert severity.
 	// Integer from 1 (high) to 5 (low) indicating alert severity.
-	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
+	Priority *string `json:"priority,omitempty" tf:"priority,omitempty"`
 
 	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
 	// The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the [API Reference](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor) for details.
@@ -437,11 +710,11 @@ type MonitorInitParameters struct {
 	RequireFullWindow *bool `json:"requireFullWindow,omitempty" tf:"require_full_window,omitempty"`
 
 	// (Set of String) A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the Roles API in the data.id field.
-	// A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the [Roles API](https://docs.datadoghq.com/api/latest/roles/#list-roles) in the `data.id` field.
+	// A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the [Roles API](https://docs.datadoghq.com/api/latest/roles/#list-roles) in the `data.id` field. If `restricted_roles` is explicitly set in the configuration, that value always takes precedence over whatever is discovered during the read. This opt-in behaviour lets you migrate responsibility for monitor permissions to the `datadog_restriction_policy` resource.
 	// +listType=set
 	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
 
-	// (Block List) Configuration options for scheduling. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for scheduling. (see below for nested schema)
 	// Configuration options for scheduling.
 	SchedulingOptions []SchedulingOptionsInitParameters `json:"schedulingOptions,omitempty" tf:"scheduling_options,omitempty"`
 
@@ -454,8 +727,8 @@ type MonitorInitParameters struct {
 	// The number of hours of the monitor not reporting data before it automatically resolves from a triggered state. The minimum allowed value is 0 hours. The maximum allowed value is 24 hours.
 	TimeoutH *float64 `json:"timeoutH,omitempty" tf:"timeout_h,omitempty"`
 
-	// analytics alert, slo alert, event-v2 alert, audit alert, ci-pipelines alert, ci-tests alert, error-tracking alert, database-monitoring alert.
-	// The type of the monitor. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API [documentation page](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor). Note: The monitor type cannot be changed after a monitor is created. Valid values are `composite`, `event alert`, `log alert`, `metric alert`, `process alert`, `query alert`, `rum alert`, `service check`, `synthetics alert`, `trace-analytics alert`, `slo alert`, `event-v2 alert`, `audit alert`, `ci-pipelines alert`, `ci-tests alert`, `error-tracking alert`, `database-monitoring alert`.
+	// analytics alert, slo alert, event-v2 alert, audit alert, ci-pipelines alert, ci-tests alert, error-tracking alert, database-monitoring alert, network-performance alert, cost alert, data-quality alert, network-path alert.
+	// The type of the monitor. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API [documentation page](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor). Note: The monitor type cannot be changed after a monitor is created. Valid values are `composite`, `event alert`, `log alert`, `metric alert`, `process alert`, `query alert`, `rum alert`, `service check`, `synthetics alert`, `trace-analytics alert`, `slo alert`, `event-v2 alert`, `audit alert`, `ci-pipelines alert`, `ci-tests alert`, `error-tracking alert`, `database-monitoring alert`, `network-performance alert`, `cost alert`, `data-quality alert`, `network-path alert`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (Boolean) If set to false, skip the validation call done during plan.
@@ -467,6 +740,14 @@ type MonitorInitParameters struct {
 }
 
 type MonitorObservation struct {
+
+	// (Block List) List of monitor assets (for example, runbooks, dashboards, workflows) tied to this monitor. (see below for nested schema)
+	// List of monitor assets (for example, runbooks, dashboards, workflows) tied to this monitor.
+	Assets []AssetsObservation `json:"assets,omitempty" tf:"assets,omitempty"`
+
+	// (String) Indicates whether the monitor is in a draft or published state. When set to draft, the monitor appears as Draft and does not send notifications. When set to published, the monitor is active, and it evaluates conditions and sends notifications as configured. Valid values are draft, published. Defaults to "published".
+	// Indicates whether the monitor is in a draft or published state. When set to `draft`, the monitor appears as Draft and does not send notifications. When set to `published`, the monitor is active, and it evaluates conditions and sends notifications as configured. Valid values are `draft`, `published`. Defaults to `"published"`.
+	DraftStatus *string `json:"draftStatus,omitempty" tf:"draft_status,omitempty"`
 
 	// (Boolean) A boolean indicating whether or not to include a list of log values which triggered the alert. This is only used by log monitors. Defaults to false.
 	// A boolean indicating whether or not to include a list of log values which triggered the alert. This is only used by log monitors. Defaults to `false`.
@@ -543,8 +824,8 @@ type MonitorObservation struct {
 	// We recommend at least 2x the monitor timeframe for metric alerts or 2 minutes for service checks. Defaults to `10`.
 	NoDataTimeframe *float64 `json:"noDataTimeframe,omitempty" tf:"no_data_timeframe,omitempty"`
 
-	// (String) Toggles the display of additional content sent in the monitor notification. Valid values are show_all, hide_query, hide_handles, hide_all.
-	// Toggles the display of additional content sent in the monitor notification. Valid values are `show_all`, `hide_query`, `hide_handles`, `hide_all`.
+	// (String) Toggles the display of additional content sent in the monitor notification. Valid values are show_all, hide_query, hide_handles, hide_all, hide_query_and_handles, show_only_snapshot, hide_handles_and_footer.
+	// Toggles the display of additional content sent in the monitor notification. Valid values are `show_all`, `hide_query`, `hide_handles`, `hide_all`, `hide_query_and_handles`, `show_only_snapshot`, `hide_handles_and_footer`.
 	NotificationPresetName *string `json:"notificationPresetName,omitempty" tf:"notification_preset_name,omitempty"`
 
 	// (Boolean) A boolean indicating whether tagged users will be notified on changes to this monitor. Defaults to false.
@@ -560,13 +841,13 @@ type MonitorObservation struct {
 	// A boolean indicating whether this monitor will notify when data stops reporting. Defaults to `false`.
 	NotifyNoData *bool `json:"notifyNoData,omitempty" tf:"notify_no_data,omitempty"`
 
-	// (String) Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using Count queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than Count, for example Gauge, Measure, or Rate, the monitor shows the last known status. This option is only available for APM Trace Analytics, Audit Trail, CI, Error Tracking, Event, Logs, and RUM monitors. Valid values are: show_no_data, show_and_notify_no_data, resolve, and default.
-	// Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using `Count` queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than `Count`, for example `Gauge`, `Measure`, or `Rate`, the monitor shows the last known status. This option is only available for APM Trace Analytics, Audit Trail, CI, Error Tracking, Event, Logs, and RUM monitors. Valid values are: `show_no_data`, `show_and_notify_no_data`, `resolve`, and `default`.
+	// (String) Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using Count queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than Count, for example Gauge, Measure, or Rate, the monitor shows the last known status. This option is not available for Service Check, Composite, or SLO monitors. Valid values are: show_no_data, show_and_notify_no_data, resolve, and default.
+	// Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using `Count` queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than `Count`, for example `Gauge`, `Measure`, or `Rate`, the monitor shows the last known status. This option is not available for Service Check, Composite, or SLO monitors. Valid values are: `show_no_data`, `show_and_notify_no_data`, `resolve`, and `default`.
 	OnMissingData *string `json:"onMissingData,omitempty" tf:"on_missing_data,omitempty"`
 
-	// (Number) Integer from 1 (high) to 5 (low) indicating alert severity.
+	// (String) Integer from 1 (high) to 5 (low) indicating alert severity.
 	// Integer from 1 (high) to 5 (low) indicating alert severity.
-	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
+	Priority *string `json:"priority,omitempty" tf:"priority,omitempty"`
 
 	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
 	// The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the [API Reference](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor) for details.
@@ -592,11 +873,11 @@ type MonitorObservation struct {
 	RequireFullWindow *bool `json:"requireFullWindow,omitempty" tf:"require_full_window,omitempty"`
 
 	// (Set of String) A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the Roles API in the data.id field.
-	// A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the [Roles API](https://docs.datadoghq.com/api/latest/roles/#list-roles) in the `data.id` field.
+	// A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the [Roles API](https://docs.datadoghq.com/api/latest/roles/#list-roles) in the `data.id` field. If `restricted_roles` is explicitly set in the configuration, that value always takes precedence over whatever is discovered during the read. This opt-in behaviour lets you migrate responsibility for monitor permissions to the `datadog_restriction_policy` resource.
 	// +listType=set
 	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
 
-	// (Block List) Configuration options for scheduling. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for scheduling. (see below for nested schema)
 	// Configuration options for scheduling.
 	SchedulingOptions []SchedulingOptionsObservation `json:"schedulingOptions,omitempty" tf:"scheduling_options,omitempty"`
 
@@ -609,8 +890,8 @@ type MonitorObservation struct {
 	// The number of hours of the monitor not reporting data before it automatically resolves from a triggered state. The minimum allowed value is 0 hours. The maximum allowed value is 24 hours.
 	TimeoutH *float64 `json:"timeoutH,omitempty" tf:"timeout_h,omitempty"`
 
-	// analytics alert, slo alert, event-v2 alert, audit alert, ci-pipelines alert, ci-tests alert, error-tracking alert, database-monitoring alert.
-	// The type of the monitor. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API [documentation page](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor). Note: The monitor type cannot be changed after a monitor is created. Valid values are `composite`, `event alert`, `log alert`, `metric alert`, `process alert`, `query alert`, `rum alert`, `service check`, `synthetics alert`, `trace-analytics alert`, `slo alert`, `event-v2 alert`, `audit alert`, `ci-pipelines alert`, `ci-tests alert`, `error-tracking alert`, `database-monitoring alert`.
+	// analytics alert, slo alert, event-v2 alert, audit alert, ci-pipelines alert, ci-tests alert, error-tracking alert, database-monitoring alert, network-performance alert, cost alert, data-quality alert, network-path alert.
+	// The type of the monitor. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API [documentation page](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor). Note: The monitor type cannot be changed after a monitor is created. Valid values are `composite`, `event alert`, `log alert`, `metric alert`, `process alert`, `query alert`, `rum alert`, `service check`, `synthetics alert`, `trace-analytics alert`, `slo alert`, `event-v2 alert`, `audit alert`, `ci-pipelines alert`, `ci-tests alert`, `error-tracking alert`, `database-monitoring alert`, `network-performance alert`, `cost alert`, `data-quality alert`, `network-path alert`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (Boolean) If set to false, skip the validation call done during plan.
@@ -621,12 +902,101 @@ type MonitorObservation struct {
 	Variables []VariablesObservation `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
+type MonitorOptionsInitParameters struct {
+
+	// (String) Crontab expression to override the default schedule.
+	// Crontab expression to override the default schedule.
+	CrontabOverride *string `json:"crontabOverride,omitempty" tf:"crontab_override,omitempty"`
+
+	// (String) Custom SQL query for the monitor.
+	// Custom SQL query for the monitor.
+	CustomSQL *string `json:"customSql,omitempty" tf:"custom_sql,omitempty"`
+
+	// (String) Custom WHERE clause for the query.
+	// Custom WHERE clause for the query.
+	CustomWhere *string `json:"customWhere,omitempty" tf:"custom_where,omitempty"`
+
+	// (List of String) Columns to group results by.
+	// Columns to group results by.
+	GroupByColumns []*string `json:"groupByColumns,omitempty" tf:"group_by_columns,omitempty"`
+
+	// (String) Override for the model type. Valid values are freshness, percentage, any.
+	// Override for the model type. Valid values are `freshness`, `percentage`, `any`.
+	ModelTypeOverride *string `json:"modelTypeOverride,omitempty" tf:"model_type_override,omitempty"`
+}
+
+type MonitorOptionsObservation struct {
+
+	// (String) Crontab expression to override the default schedule.
+	// Crontab expression to override the default schedule.
+	CrontabOverride *string `json:"crontabOverride,omitempty" tf:"crontab_override,omitempty"`
+
+	// (String) Custom SQL query for the monitor.
+	// Custom SQL query for the monitor.
+	CustomSQL *string `json:"customSql,omitempty" tf:"custom_sql,omitempty"`
+
+	// (String) Custom WHERE clause for the query.
+	// Custom WHERE clause for the query.
+	CustomWhere *string `json:"customWhere,omitempty" tf:"custom_where,omitempty"`
+
+	// (List of String) Columns to group results by.
+	// Columns to group results by.
+	GroupByColumns []*string `json:"groupByColumns,omitempty" tf:"group_by_columns,omitempty"`
+
+	// (String) Override for the model type. Valid values are freshness, percentage, any.
+	// Override for the model type. Valid values are `freshness`, `percentage`, `any`.
+	ModelTypeOverride *string `json:"modelTypeOverride,omitempty" tf:"model_type_override,omitempty"`
+}
+
+type MonitorOptionsParameters struct {
+
+	// (String) Crontab expression to override the default schedule.
+	// Crontab expression to override the default schedule.
+	// +kubebuilder:validation:Optional
+	CrontabOverride *string `json:"crontabOverride,omitempty" tf:"crontab_override,omitempty"`
+
+	// (String) Custom SQL query for the monitor.
+	// Custom SQL query for the monitor.
+	// +kubebuilder:validation:Optional
+	CustomSQL *string `json:"customSql,omitempty" tf:"custom_sql,omitempty"`
+
+	// (String) Custom WHERE clause for the query.
+	// Custom WHERE clause for the query.
+	// +kubebuilder:validation:Optional
+	CustomWhere *string `json:"customWhere,omitempty" tf:"custom_where,omitempty"`
+
+	// (List of String) Columns to group results by.
+	// Columns to group results by.
+	// +kubebuilder:validation:Optional
+	GroupByColumns []*string `json:"groupByColumns,omitempty" tf:"group_by_columns,omitempty"`
+
+	// (String) Override for the model type. Valid values are freshness, percentage, any.
+	// Override for the model type. Valid values are `freshness`, `percentage`, `any`.
+	// +kubebuilder:validation:Optional
+	ModelTypeOverride *string `json:"modelTypeOverride,omitempty" tf:"model_type_override,omitempty"`
+}
+
 type MonitorParameters struct {
+
+	// (Block List) List of monitor assets (for example, runbooks, dashboards, workflows) tied to this monitor. (see below for nested schema)
+	// List of monitor assets (for example, runbooks, dashboards, workflows) tied to this monitor.
+	// +kubebuilder:validation:Optional
+	Assets []AssetsParameters `json:"assets,omitempty" tf:"assets,omitempty"`
+
+	// (String) Indicates whether the monitor is in a draft or published state. When set to draft, the monitor appears as Draft and does not send notifications. When set to published, the monitor is active, and it evaluates conditions and sends notifications as configured. Valid values are draft, published. Defaults to "published".
+	// Indicates whether the monitor is in a draft or published state. When set to `draft`, the monitor appears as Draft and does not send notifications. When set to `published`, the monitor is active, and it evaluates conditions and sends notifications as configured. Valid values are `draft`, `published`. Defaults to `"published"`.
+	// +kubebuilder:validation:Optional
+	DraftStatus *string `json:"draftStatus,omitempty" tf:"draft_status,omitempty"`
 
 	// (Boolean) A boolean indicating whether or not to include a list of log values which triggered the alert. This is only used by log monitors. Defaults to false.
 	// A boolean indicating whether or not to include a list of log values which triggered the alert. This is only used by log monitors. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	EnableLogsSample *bool `json:"enableLogsSample,omitempty" tf:"enable_logs_sample,omitempty"`
+
+	// (Boolean) Whether or not a list of samples which triggered the alert is included. This is only used by CI Test and Pipeline monitors.
+	// Whether or not a list of samples which triggered the alert is included. This is only used by CI Test and Pipeline monitors.
+	// +kubebuilder:validation:Optional
+	EnableSamples *bool `json:"enableSamples,omitempty" tf:"enable_samples,omitempty"`
 
 	// notification. Supports the @username notification allowed elsewhere.
 	// A message to include with a re-notification. Supports the `@username` notification allowed elsewhere.
@@ -706,8 +1076,8 @@ type MonitorParameters struct {
 	// +kubebuilder:validation:Optional
 	NoDataTimeframe *float64 `json:"noDataTimeframe,omitempty" tf:"no_data_timeframe,omitempty"`
 
-	// (String) Toggles the display of additional content sent in the monitor notification. Valid values are show_all, hide_query, hide_handles, hide_all.
-	// Toggles the display of additional content sent in the monitor notification. Valid values are `show_all`, `hide_query`, `hide_handles`, `hide_all`.
+	// (String) Toggles the display of additional content sent in the monitor notification. Valid values are show_all, hide_query, hide_handles, hide_all, hide_query_and_handles, show_only_snapshot, hide_handles_and_footer.
+	// Toggles the display of additional content sent in the monitor notification. Valid values are `show_all`, `hide_query`, `hide_handles`, `hide_all`, `hide_query_and_handles`, `show_only_snapshot`, `hide_handles_and_footer`.
 	// +kubebuilder:validation:Optional
 	NotificationPresetName *string `json:"notificationPresetName,omitempty" tf:"notification_preset_name,omitempty"`
 
@@ -727,15 +1097,15 @@ type MonitorParameters struct {
 	// +kubebuilder:validation:Optional
 	NotifyNoData *bool `json:"notifyNoData,omitempty" tf:"notify_no_data,omitempty"`
 
-	// (String) Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using Count queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than Count, for example Gauge, Measure, or Rate, the monitor shows the last known status. This option is only available for APM Trace Analytics, Audit Trail, CI, Error Tracking, Event, Logs, and RUM monitors. Valid values are: show_no_data, show_and_notify_no_data, resolve, and default.
-	// Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using `Count` queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than `Count`, for example `Gauge`, `Measure`, or `Rate`, the monitor shows the last known status. This option is only available for APM Trace Analytics, Audit Trail, CI, Error Tracking, Event, Logs, and RUM monitors. Valid values are: `show_no_data`, `show_and_notify_no_data`, `resolve`, and `default`.
+	// (String) Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using Count queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than Count, for example Gauge, Measure, or Rate, the monitor shows the last known status. This option is not available for Service Check, Composite, or SLO monitors. Valid values are: show_no_data, show_and_notify_no_data, resolve, and default.
+	// Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using `Count` queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than `Count`, for example `Gauge`, `Measure`, or `Rate`, the monitor shows the last known status. This option is not available for Service Check, Composite, or SLO monitors. Valid values are: `show_no_data`, `show_and_notify_no_data`, `resolve`, and `default`.
 	// +kubebuilder:validation:Optional
 	OnMissingData *string `json:"onMissingData,omitempty" tf:"on_missing_data,omitempty"`
 
-	// (Number) Integer from 1 (high) to 5 (low) indicating alert severity.
+	// (String) Integer from 1 (high) to 5 (low) indicating alert severity.
 	// Integer from 1 (high) to 5 (low) indicating alert severity.
 	// +kubebuilder:validation:Optional
-	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
+	Priority *string `json:"priority,omitempty" tf:"priority,omitempty"`
 
 	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
 	// The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the [API Reference](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor) for details.
@@ -766,12 +1136,12 @@ type MonitorParameters struct {
 	RequireFullWindow *bool `json:"requireFullWindow,omitempty" tf:"require_full_window,omitempty"`
 
 	// (Set of String) A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the Roles API in the data.id field.
-	// A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the [Roles API](https://docs.datadoghq.com/api/latest/roles/#list-roles) in the `data.id` field.
+	// A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the [Roles API](https://docs.datadoghq.com/api/latest/roles/#list-roles) in the `data.id` field. If `restricted_roles` is explicitly set in the configuration, that value always takes precedence over whatever is discovered during the read. This opt-in behaviour lets you migrate responsibility for monitor permissions to the `datadog_restriction_policy` resource.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
 
-	// (Block List) Configuration options for scheduling. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for scheduling. (see below for nested schema)
 	// Configuration options for scheduling.
 	// +kubebuilder:validation:Optional
 	SchedulingOptions []SchedulingOptionsParameters `json:"schedulingOptions,omitempty" tf:"scheduling_options,omitempty"`
@@ -787,8 +1157,8 @@ type MonitorParameters struct {
 	// +kubebuilder:validation:Optional
 	TimeoutH *float64 `json:"timeoutH,omitempty" tf:"timeout_h,omitempty"`
 
-	// analytics alert, slo alert, event-v2 alert, audit alert, ci-pipelines alert, ci-tests alert, error-tracking alert, database-monitoring alert.
-	// The type of the monitor. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API [documentation page](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor). Note: The monitor type cannot be changed after a monitor is created. Valid values are `composite`, `event alert`, `log alert`, `metric alert`, `process alert`, `query alert`, `rum alert`, `service check`, `synthetics alert`, `trace-analytics alert`, `slo alert`, `event-v2 alert`, `audit alert`, `ci-pipelines alert`, `ci-tests alert`, `error-tracking alert`, `database-monitoring alert`.
+	// analytics alert, slo alert, event-v2 alert, audit alert, ci-pipelines alert, ci-tests alert, error-tracking alert, database-monitoring alert, network-performance alert, cost alert, data-quality alert, network-path alert.
+	// The type of the monitor. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API [documentation page](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor). Note: The monitor type cannot be changed after a monitor is created. Valid values are `composite`, `event alert`, `log alert`, `metric alert`, `process alert`, `query alert`, `rum alert`, `service check`, `synthetics alert`, `trace-analytics alert`, `slo alert`, `event-v2 alert`, `audit alert`, `ci-pipelines alert`, `ci-tests alert`, `error-tracking alert`, `database-monitoring alert`, `network-performance alert`, `cost alert`, `data-quality alert`, `network-path alert`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
@@ -926,34 +1296,34 @@ type MonitorThresholdsParameters struct {
 
 type SchedulingOptionsInitParameters struct {
 
-	// (Block List) Configuration options for the custom schedules. If start is omitted, the monitor creation time will be used. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for the custom schedules. If start is omitted, the monitor creation time will be used. (see below for nested schema)
 	// Configuration options for the custom schedules. If `start` is omitted, the monitor creation time will be used.
 	CustomSchedule []CustomScheduleInitParameters `json:"customSchedule,omitempty" tf:"custom_schedule,omitempty"`
 
-	// (Block List) Configuration options for the evaluation window. If hour_starts is set, no other fields may be set. Otherwise, day_starts and month_starts must be set together. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for the evaluation window. If hour_starts is set, no other fields may be set. Otherwise, day_starts and month_starts must be set together. (see below for nested schema)
 	// Configuration options for the evaluation window. If `hour_starts` is set, no other fields may be set. Otherwise, `day_starts` and `month_starts` must be set together.
 	EvaluationWindow []EvaluationWindowInitParameters `json:"evaluationWindow,omitempty" tf:"evaluation_window,omitempty"`
 }
 
 type SchedulingOptionsObservation struct {
 
-	// (Block List) Configuration options for the custom schedules. If start is omitted, the monitor creation time will be used. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for the custom schedules. If start is omitted, the monitor creation time will be used. (see below for nested schema)
 	// Configuration options for the custom schedules. If `start` is omitted, the monitor creation time will be used.
 	CustomSchedule []CustomScheduleObservation `json:"customSchedule,omitempty" tf:"custom_schedule,omitempty"`
 
-	// (Block List) Configuration options for the evaluation window. If hour_starts is set, no other fields may be set. Otherwise, day_starts and month_starts must be set together. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for the evaluation window. If hour_starts is set, no other fields may be set. Otherwise, day_starts and month_starts must be set together. (see below for nested schema)
 	// Configuration options for the evaluation window. If `hour_starts` is set, no other fields may be set. Otherwise, `day_starts` and `month_starts` must be set together.
 	EvaluationWindow []EvaluationWindowObservation `json:"evaluationWindow,omitempty" tf:"evaluation_window,omitempty"`
 }
 
 type SchedulingOptionsParameters struct {
 
-	// (Block List) Configuration options for the custom schedules. If start is omitted, the monitor creation time will be used. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for the custom schedules. If start is omitted, the monitor creation time will be used. (see below for nested schema)
 	// Configuration options for the custom schedules. If `start` is omitted, the monitor creation time will be used.
 	// +kubebuilder:validation:Optional
 	CustomSchedule []CustomScheduleParameters `json:"customSchedule,omitempty" tf:"custom_schedule,omitempty"`
 
-	// (Block List) Configuration options for the evaluation window. If hour_starts is set, no other fields may be set. Otherwise, day_starts and month_starts must be set together. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for the evaluation window. If hour_starts is set, no other fields may be set. Otherwise, day_starts and month_starts must be set together. (see below for nested schema)
 	// Configuration options for the evaluation window. If `hour_starts` is set, no other fields may be set. Otherwise, `day_starts` and `month_starts` must be set together.
 	// +kubebuilder:validation:Optional
 	EvaluationWindow []EvaluationWindowParameters `json:"evaluationWindow,omitempty" tf:"evaluation_window,omitempty"`
@@ -1031,6 +1401,14 @@ type SortParameters struct {
 
 type VariablesInitParameters struct {
 
+	// (Block List, Max: 5) The Cloud Cost query using formulas and functions. (see below for nested schema)
+	// The Cloud Cost query using formulas and functions.
+	CloudCostQuery []CloudCostQueryInitParameters `json:"cloudCostQuery,omitempty" tf:"cloud_cost_query,omitempty"`
+
+	// (Block List, Max: 5) The Data Quality query using formulas and functions. (see below for nested schema)
+	// The Data Quality query using formulas and functions.
+	DataQualityQuery []DataQualityQueryInitParameters `json:"dataQualityQuery,omitempty" tf:"data_quality_query,omitempty"`
+
 	// (Block List) A timeseries formula and functions events query. (see below for nested schema)
 	// A timeseries formula and functions events query.
 	EventQuery []EventQueryInitParameters `json:"eventQuery,omitempty" tf:"event_query,omitempty"`
@@ -1038,12 +1416,30 @@ type VariablesInitParameters struct {
 
 type VariablesObservation struct {
 
+	// (Block List, Max: 5) The Cloud Cost query using formulas and functions. (see below for nested schema)
+	// The Cloud Cost query using formulas and functions.
+	CloudCostQuery []CloudCostQueryObservation `json:"cloudCostQuery,omitempty" tf:"cloud_cost_query,omitempty"`
+
+	// (Block List, Max: 5) The Data Quality query using formulas and functions. (see below for nested schema)
+	// The Data Quality query using formulas and functions.
+	DataQualityQuery []DataQualityQueryObservation `json:"dataQualityQuery,omitempty" tf:"data_quality_query,omitempty"`
+
 	// (Block List) A timeseries formula and functions events query. (see below for nested schema)
 	// A timeseries formula and functions events query.
 	EventQuery []EventQueryObservation `json:"eventQuery,omitempty" tf:"event_query,omitempty"`
 }
 
 type VariablesParameters struct {
+
+	// (Block List, Max: 5) The Cloud Cost query using formulas and functions. (see below for nested schema)
+	// The Cloud Cost query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	CloudCostQuery []CloudCostQueryParameters `json:"cloudCostQuery,omitempty" tf:"cloud_cost_query,omitempty"`
+
+	// (Block List, Max: 5) The Data Quality query using formulas and functions. (see below for nested schema)
+	// The Data Quality query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	DataQualityQuery []DataQualityQueryParameters `json:"dataQualityQuery,omitempty" tf:"data_quality_query,omitempty"`
 
 	// (Block List) A timeseries formula and functions events query. (see below for nested schema)
 	// A timeseries formula and functions events query.

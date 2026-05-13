@@ -1,0 +1,45 @@
+apiVersion: observability.upbound.io/v1alpha1
+kind: Pipeline
+metadata:
+  annotations:
+    meta.upbound.io/example-id: observability/v1alpha1/pipeline
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    config:
+    - destination:
+      - datadogLogs:
+        - {}
+        id: destination-1
+        inputs:
+        - processor-group-1
+      processorGroup:
+      - displayName: processor group
+        enabled: true
+        id: processor-group-1
+        include: service:my-service
+        inputs:
+        - source-1
+        processor:
+        - displayName: json parser
+          enabled: true
+          id: parser-1
+          include: service:my-service
+          parseJson:
+          - field: message
+        - displayName: filter
+          enabled: true
+          filter:
+          - {}
+          id: filter-1
+          include: service:my-service
+      source:
+      - datadogAgent:
+        - tls:
+          - caFile: /etc/certs/ca.crt
+            crtFile: /etc/certs/client.crt
+            keyFile: /etc/certs/client.key
+        id: source-1
+    name: test pipeline

@@ -1,0 +1,43 @@
+apiVersion: user.upbound.io/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: user/v1alpha1/role
+  labels:
+    testing.upbound.io/example-name: new_user_with_api_key_manager_role
+  name: new-user-with-api-key-manager-role
+spec:
+  forProvider:
+    roleId: ${datadog_role.api_key_manager.id}
+    userId: ${datadog_user.new_user.id}
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: user/v1alpha1/role
+  labels:
+    testing.upbound.io/example-name: api_key_manager
+  name: api-key-manager
+spec:
+  forProvider:
+    name: API Key Manager
+    permission:
+    - id: ${data.datadog_permissions.dd_perms.permissions.api_keys_read}
+    - id: ${data.datadog_permissions.dd_perms.permissions.api_keys_write}
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: user/v1alpha1/role
+  labels:
+    testing.upbound.io/example-name: new_user
+  name: new-user
+spec:
+  forProvider:
+    email: new@example.com

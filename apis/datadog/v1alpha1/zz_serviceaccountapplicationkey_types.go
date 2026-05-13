@@ -23,6 +23,11 @@ type ServiceAccountApplicationKeyInitParameters struct {
 	// Name of the application key.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Set of String) Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+	// Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+	// +listType=set
+	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
+
 	// (String) ID of the service account that owns this key.
 	// ID of the service account that owns this key.
 	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
@@ -45,6 +50,11 @@ type ServiceAccountApplicationKeyObservation struct {
 	// Name of the application key.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Set of String) Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+	// Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+	// +listType=set
+	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
+
 	// (String) ID of the service account that owns this key.
 	// ID of the service account that owns this key.
 	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
@@ -56,6 +66,12 @@ type ServiceAccountApplicationKeyParameters struct {
 	// Name of the application key.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Set of String) Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+	// Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
 
 	// (String) ID of the service account that owns this key.
 	// ID of the service account that owns this key.

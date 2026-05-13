@@ -23,8 +23,8 @@ type AWSTagFilterInitParameters struct {
 	// Your AWS Account ID without dashes.
 	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
-	// (String) The namespace associated with the tag filter entry. Valid values are elb, application_elb, sqs, rds, custom, network_elb, lambda.
-	// The namespace associated with the tag filter entry. Valid values are `elb`, `application_elb`, `sqs`, `rds`, `custom`, `network_elb`, `lambda`.
+	// (String) The namespace associated with the tag filter entry. Valid values are elb, application_elb, sqs, rds, custom, network_elb, lambda, step_functions.
+	// The namespace associated with the tag filter entry. Valid values are `elb`, `application_elb`, `sqs`, `rds`, `custom`, `network_elb`, `lambda`, `step_functions`.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
 	// (String) The tag filter string.
@@ -41,8 +41,8 @@ type AWSTagFilterObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The namespace associated with the tag filter entry. Valid values are elb, application_elb, sqs, rds, custom, network_elb, lambda.
-	// The namespace associated with the tag filter entry. Valid values are `elb`, `application_elb`, `sqs`, `rds`, `custom`, `network_elb`, `lambda`.
+	// (String) The namespace associated with the tag filter entry. Valid values are elb, application_elb, sqs, rds, custom, network_elb, lambda, step_functions.
+	// The namespace associated with the tag filter entry. Valid values are `elb`, `application_elb`, `sqs`, `rds`, `custom`, `network_elb`, `lambda`, `step_functions`.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
 	// (String) The tag filter string.
@@ -57,8 +57,8 @@ type AWSTagFilterParameters struct {
 	// +kubebuilder:validation:Optional
 	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
-	// (String) The namespace associated with the tag filter entry. Valid values are elb, application_elb, sqs, rds, custom, network_elb, lambda.
-	// The namespace associated with the tag filter entry. Valid values are `elb`, `application_elb`, `sqs`, `rds`, `custom`, `network_elb`, `lambda`.
+	// (String) The namespace associated with the tag filter entry. Valid values are elb, application_elb, sqs, rds, custom, network_elb, lambda, step_functions.
+	// The namespace associated with the tag filter entry. Valid values are `elb`, `application_elb`, `sqs`, `rds`, `custom`, `network_elb`, `lambda`, `step_functions`.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
@@ -95,7 +95,7 @@ type AWSTagFilterStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// AWSTagFilter is the Schema for the AWSTagFilters API. Provides a Datadog AWS tag filter resource. This can be used to create and manage Datadog AWS tag filters.
+// AWSTagFilter is the Schema for the AWSTagFilters API. !>This resource is deprecated - use the datadog_integration_aws_account resource instead. Provides a Datadog AWS tag filter resource. This can be used to create and manage Datadog AWS tag filters.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -265,7 +265,7 @@ type GcsArchiveParameters struct {
 	// (String) Your project id.
 	// Your project id.
 	// +kubebuilder:validation:Optional
-	ProjectID *string `json:"projectId" tf:"project_id,omitempty"`
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 }
 
 type S3ArchiveInitParameters struct {
@@ -278,6 +278,14 @@ type S3ArchiveInitParameters struct {
 	// Name of your s3 bucket.
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
 
+	// (String) The AWS KMS encryption key.
+	// The AWS KMS encryption key.
+	EncryptionKey *string `json:"encryptionKey,omitempty" tf:"encryption_key,omitempty"`
+
+	// (String) The type of encryption on your archive. Valid values are NO_OVERRIDE, SSE_S3, SSE_KMS. Defaults to "NO_OVERRIDE".
+	// The type of encryption on your archive. Valid values are `NO_OVERRIDE`, `SSE_S3`, `SSE_KMS`. Defaults to `"NO_OVERRIDE"`.
+	EncryptionType *string `json:"encryptionType,omitempty" tf:"encryption_type,omitempty"`
+
 	// (String) The path where the archive is stored.
 	// Path where the archive is stored.
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
@@ -285,6 +293,10 @@ type S3ArchiveInitParameters struct {
 	// (String) Your AWS role name
 	// Your AWS role name
 	RoleName *string `json:"roleName,omitempty" tf:"role_name,omitempty"`
+
+	// (String) The AWS S3 storage class used to upload the logs. Valid values are STANDARD, STANDARD_IA, ONEZONE_IA, INTELLIGENT_TIERING, GLACIER_IR. Defaults to "STANDARD".
+	// The AWS S3 storage class used to upload the logs. Valid values are `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`, `GLACIER_IR`. Defaults to `"STANDARD"`.
+	StorageClass *string `json:"storageClass,omitempty" tf:"storage_class,omitempty"`
 }
 
 type S3ArchiveObservation struct {
@@ -297,6 +309,14 @@ type S3ArchiveObservation struct {
 	// Name of your s3 bucket.
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
 
+	// (String) The AWS KMS encryption key.
+	// The AWS KMS encryption key.
+	EncryptionKey *string `json:"encryptionKey,omitempty" tf:"encryption_key,omitempty"`
+
+	// (String) The type of encryption on your archive. Valid values are NO_OVERRIDE, SSE_S3, SSE_KMS. Defaults to "NO_OVERRIDE".
+	// The type of encryption on your archive. Valid values are `NO_OVERRIDE`, `SSE_S3`, `SSE_KMS`. Defaults to `"NO_OVERRIDE"`.
+	EncryptionType *string `json:"encryptionType,omitempty" tf:"encryption_type,omitempty"`
+
 	// (String) The path where the archive is stored.
 	// Path where the archive is stored.
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
@@ -304,6 +324,10 @@ type S3ArchiveObservation struct {
 	// (String) Your AWS role name
 	// Your AWS role name
 	RoleName *string `json:"roleName,omitempty" tf:"role_name,omitempty"`
+
+	// (String) The AWS S3 storage class used to upload the logs. Valid values are STANDARD, STANDARD_IA, ONEZONE_IA, INTELLIGENT_TIERING, GLACIER_IR. Defaults to "STANDARD".
+	// The AWS S3 storage class used to upload the logs. Valid values are `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`, `GLACIER_IR`. Defaults to `"STANDARD"`.
+	StorageClass *string `json:"storageClass,omitempty" tf:"storage_class,omitempty"`
 }
 
 type S3ArchiveParameters struct {
@@ -318,6 +342,16 @@ type S3ArchiveParameters struct {
 	// +kubebuilder:validation:Optional
 	Bucket *string `json:"bucket" tf:"bucket,omitempty"`
 
+	// (String) The AWS KMS encryption key.
+	// The AWS KMS encryption key.
+	// +kubebuilder:validation:Optional
+	EncryptionKey *string `json:"encryptionKey,omitempty" tf:"encryption_key,omitempty"`
+
+	// (String) The type of encryption on your archive. Valid values are NO_OVERRIDE, SSE_S3, SSE_KMS. Defaults to "NO_OVERRIDE".
+	// The type of encryption on your archive. Valid values are `NO_OVERRIDE`, `SSE_S3`, `SSE_KMS`. Defaults to `"NO_OVERRIDE"`.
+	// +kubebuilder:validation:Optional
+	EncryptionType *string `json:"encryptionType,omitempty" tf:"encryption_type,omitempty"`
+
 	// (String) The path where the archive is stored.
 	// Path where the archive is stored.
 	// +kubebuilder:validation:Optional
@@ -327,6 +361,11 @@ type S3ArchiveParameters struct {
 	// Your AWS role name
 	// +kubebuilder:validation:Optional
 	RoleName *string `json:"roleName" tf:"role_name,omitempty"`
+
+	// (String) The AWS S3 storage class used to upload the logs. Valid values are STANDARD, STANDARD_IA, ONEZONE_IA, INTELLIGENT_TIERING, GLACIER_IR. Defaults to "STANDARD".
+	// The AWS S3 storage class used to upload the logs. Valid values are `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`, `GLACIER_IR`. Defaults to `"STANDARD"`.
+	// +kubebuilder:validation:Optional
+	StorageClass *string `json:"storageClass,omitempty" tf:"storage_class,omitempty"`
 }
 
 // ArchiveSpec defines the desired state of Archive

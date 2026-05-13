@@ -1,0 +1,36 @@
+apiVersion: incident.upbound.io/v1alpha1
+kind: NotificationTemplate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/notificationtemplate
+  labels:
+    testing.upbound.io/example-name: security_incident
+  name: security-incident
+spec:
+  forProvider:
+    category: alert
+    content: "\U0001F6A8 SECURITY INCIDENT DECLARED \U0001F6A8\n\n**Incident Details:**\n-
+      Title: {{incident.title}}\n- Severity: {{incident.severity}}\n- Status: {{incident.status}}\n-
+      Declared at: {{incident.created}}\n\n**Affected Services:**\n{{#each incident.services}}\n-
+      {{name}}\n{{/each}}\n\n**Commander:** {{incident.commander}}\n\n**Next Steps:**\n1.
+      Join the incident Slack channel: #incident-{{incident.id}}\n2. Review the incident
+      details in Datadog\n3. Await further instructions from the incident commander\n\nFor
+      more information: {{incident.url}}\n"
+    incidentType: ${datadog_incident_type.security.id}
+    name: Security Incident Template
+    subject: 'SEV-1 Security Incident: {{incident.title}}'
+
+---
+
+apiVersion: incident.upbound.io/v1alpha1
+kind: IncidentType
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/notificationtemplate
+  labels:
+    testing.upbound.io/example-name: security
+  name: security
+spec:
+  forProvider:
+    description: Security-related incidents requiring immediate attention
+    name: Security Incident

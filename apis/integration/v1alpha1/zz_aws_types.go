@@ -41,6 +41,10 @@ type AWSInitParameters struct {
 	// +listType=set
 	ExcludedRegions []*string `json:"excludedRegions,omitempty" tf:"excluded_regions,omitempty"`
 
+	// (String) Whether Datadog collects additional attributes and configuration information about the resources in your AWS account. Required for cspm_resource_collection_enabled.
+	// Whether Datadog collects additional attributes and configuration information about the resources in your AWS account. Required for `cspm_resource_collection_enabled`.
+	ExtendedResourceCollectionEnabled *string `json:"extendedResourceCollectionEnabled,omitempty" tf:"extended_resource_collection_enabled,omitempty"`
+
 	// type:c1.*,!region:us-east-1.
 	// Array of EC2 tags (in the form `key:value`) defines a filter that Datadog uses when collecting metrics from EC2. Wildcards, such as `?` (for single characters) and `*` (for multiple characters) can also be used. Only hosts that match one of the defined tags will be imported into Datadog. The rest will be ignored. Host matching a given tag can also be excluded by adding `!` before the tag. e.x. `env:production,instance-type:c1.*,!region:us-east-1`.
 	FilterTags []*string `json:"filterTags,omitempty" tf:"filter_tags,omitempty"`
@@ -53,8 +57,8 @@ type AWSInitParameters struct {
 	// Whether Datadog collects metrics for this AWS account.
 	MetricsCollectionEnabled *string `json:"metricsCollectionEnabled,omitempty" tf:"metrics_collection_enabled,omitempty"`
 
-	// (String) Whether Datadog collects a standard set of resources from your AWS account.
-	// Whether Datadog collects a standard set of resources from your AWS account.
+	// (String, Deprecated) Whether Datadog collects a standard set of resources from your AWS account. Deprecated. Deprecated in favor of extended_resource_collection_enabled.
+	// Whether Datadog collects a standard set of resources from your AWS account. **Deprecated.** Deprecated in favor of `extended_resource_collection_enabled`.
 	ResourceCollectionEnabled *string `json:"resourceCollectionEnabled,omitempty" tf:"resource_collection_enabled,omitempty"`
 
 	// (String) Your Datadog role delegation name.
@@ -86,6 +90,10 @@ type AWSObservation struct {
 	// +listType=set
 	ExcludedRegions []*string `json:"excludedRegions,omitempty" tf:"excluded_regions,omitempty"`
 
+	// (String) Whether Datadog collects additional attributes and configuration information about the resources in your AWS account. Required for cspm_resource_collection_enabled.
+	// Whether Datadog collects additional attributes and configuration information about the resources in your AWS account. Required for `cspm_resource_collection_enabled`.
+	ExtendedResourceCollectionEnabled *string `json:"extendedResourceCollectionEnabled,omitempty" tf:"extended_resource_collection_enabled,omitempty"`
+
 	// (String) AWS External ID.
 	// AWS External ID.
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
@@ -105,8 +113,8 @@ type AWSObservation struct {
 	// Whether Datadog collects metrics for this AWS account.
 	MetricsCollectionEnabled *string `json:"metricsCollectionEnabled,omitempty" tf:"metrics_collection_enabled,omitempty"`
 
-	// (String) Whether Datadog collects a standard set of resources from your AWS account.
-	// Whether Datadog collects a standard set of resources from your AWS account.
+	// (String, Deprecated) Whether Datadog collects a standard set of resources from your AWS account. Deprecated. Deprecated in favor of extended_resource_collection_enabled.
+	// Whether Datadog collects a standard set of resources from your AWS account. **Deprecated.** Deprecated in favor of `extended_resource_collection_enabled`.
 	ResourceCollectionEnabled *string `json:"resourceCollectionEnabled,omitempty" tf:"resource_collection_enabled,omitempty"`
 
 	// (String) Your Datadog role delegation name.
@@ -143,6 +151,11 @@ type AWSParameters struct {
 	// +listType=set
 	ExcludedRegions []*string `json:"excludedRegions,omitempty" tf:"excluded_regions,omitempty"`
 
+	// (String) Whether Datadog collects additional attributes and configuration information about the resources in your AWS account. Required for cspm_resource_collection_enabled.
+	// Whether Datadog collects additional attributes and configuration information about the resources in your AWS account. Required for `cspm_resource_collection_enabled`.
+	// +kubebuilder:validation:Optional
+	ExtendedResourceCollectionEnabled *string `json:"extendedResourceCollectionEnabled,omitempty" tf:"extended_resource_collection_enabled,omitempty"`
+
 	// type:c1.*,!region:us-east-1.
 	// Array of EC2 tags (in the form `key:value`) defines a filter that Datadog uses when collecting metrics from EC2. Wildcards, such as `?` (for single characters) and `*` (for multiple characters) can also be used. Only hosts that match one of the defined tags will be imported into Datadog. The rest will be ignored. Host matching a given tag can also be excluded by adding `!` before the tag. e.x. `env:production,instance-type:c1.*,!region:us-east-1`.
 	// +kubebuilder:validation:Optional
@@ -158,8 +171,8 @@ type AWSParameters struct {
 	// +kubebuilder:validation:Optional
 	MetricsCollectionEnabled *string `json:"metricsCollectionEnabled,omitempty" tf:"metrics_collection_enabled,omitempty"`
 
-	// (String) Whether Datadog collects a standard set of resources from your AWS account.
-	// Whether Datadog collects a standard set of resources from your AWS account.
+	// (String, Deprecated) Whether Datadog collects a standard set of resources from your AWS account. Deprecated. Deprecated in favor of extended_resource_collection_enabled.
+	// Whether Datadog collects a standard set of resources from your AWS account. **Deprecated.** Deprecated in favor of `extended_resource_collection_enabled`.
 	// +kubebuilder:validation:Optional
 	ResourceCollectionEnabled *string `json:"resourceCollectionEnabled,omitempty" tf:"resource_collection_enabled,omitempty"`
 
@@ -201,7 +214,7 @@ type AWSStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// AWS is the Schema for the AWSs API. Provides a Datadog - Amazon Web Services integration resource. This can be used to create and manage Datadog - Amazon Web Services integration.
+// AWS is the Schema for the AWSs API. !>This resource is deprecated - use the datadog_integration_aws_account resource instead. Provides a Datadog - Amazon Web Services integration resource. This can be used to create and manage Datadog - Amazon Web Services integration.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

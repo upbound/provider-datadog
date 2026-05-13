@@ -100,8 +100,10 @@ spec:
                     type: string
                   query:
                     description: '(Block List, Max: 1) The metric query of good /
-                      total events (see below for nested schema) The metric query
-                      of good / total events'
+                      total events. Use this for metric SLOs as an alternative to
+                      sli_specification. (see below for nested schema) The metric
+                      query of good / total events. Use this for metric SLOs as an
+                      alternative to `sli_specification`.'
                     items:
                       properties:
                         denominator:
@@ -115,18 +117,77 @@ spec:
                       type: object
                     type: array
                   sliSpecification:
-                    description: '(Block List, Max: 1) A map of SLI specifications
-                      to use as part of the SLO. (see below for nested schema) A map
-                      of SLI specifications to use as part of the SLO.'
+                    description: slice SLOs and count-based (metric) SLOs. (see below
+                      for nested schema) A generic SLI specification. This is used
+                      for both time-slice SLOs and count-based (metric) SLOs.
                     items:
                       properties:
+                        count:
+                          description: based (metric) SLI specification. Composed
+                            of a good events formula, a total events formula, and
+                            the underlying metric queries. (see below for nested schema)
+                            A count-based (metric) SLI specification. Composed of
+                            a good events formula, a total events formula, and the
+                            underlying metric queries.
+                          items:
+                            properties:
+                              goodEventsFormula:
+                                description: (String) The formula that specifies how
+                                  to compute the good events. The formula that specifies
+                                  how to compute the good events.
+                                type: string
+                              queries:
+                                description: source-specific queries that are referenced
+                                  in the formulas. (see below for nested schema) A
+                                  list of data-source-specific queries that are referenced
+                                  in the formulas.
+                                items:
+                                  properties:
+                                    metricQuery:
+                                      description: '(Block List, Max: 1) A timeseries
+                                        formula and functions metrics query. (see
+                                        below for nested schema) A timeseries formula
+                                        and functions metrics query.'
+                                      items:
+                                        properties:
+                                          dataSource:
+                                            description: (String) The data source
+                                              for metrics queries. Defaults to "metrics".
+                                              The data source for metrics queries.
+                                              Defaults to `"metrics"`.
+                                            type: string
+                                          name:
+                                            description: (String) Name of Datadog
+                                              service level objective The name of
+                                              the query for use in formulas.
+                                            type: string
+                                          query:
+                                            description: '(Block List, Max: 1) The
+                                              metric query of good / total events.
+                                              Use this for metric SLOs as an alternative
+                                              to sli_specification. (see below for
+                                              nested schema) The metrics query definition.'
+                                            type: string
+                                        type: object
+                                      type: array
+                                  type: object
+                                type: array
+                              totalEventsFormula:
+                                description: (String) The formula that specifies how
+                                  to compute the total events. The formula that specifies
+                                  how to compute the total events.
+                                type: string
+                            type: object
+                          type: array
                         timeSlice:
-                          description: '(Block List, Min: 1, Max: 1) The time slice
-                            condition, composed of 3 parts: 1. The timeseries query,
-                            2. The comparator, and 3. The threshold. (see below for
-                            nested schema) The time slice condition, composed of 3
-                            parts: 1. The timeseries query, 2. The comparator, and
-                            3. The threshold.'
+                          description: '(Block List, Max: 1) The time slice condition,
+                            composed of 3 parts: 1. The timeseries query, 2. The comparator,
+                            and 3. The threshold. Optionally, a fourth part, the query
+                            interval, can be provided. (see below for nested schema)
+                            The time slice condition, composed of 3 parts: 1. The
+                            timeseries query, 2. The comparator, and 3. The threshold.
+                            Optionally, a fourth part, the query interval, can be
+                            provided.'
                           items:
                             properties:
                               comparator:
@@ -138,9 +199,11 @@ spec:
                                 type: string
                               query:
                                 description: '(Block List, Max: 1) The metric query
-                                  of good / total events (see below for nested schema)
-                                  A timeseries query, containing named data-source-specific
-                                  queries and a formula involving the named queries.'
+                                  of good / total events. Use this for metric SLOs
+                                  as an alternative to sli_specification. (see below
+                                  for nested schema) A timeseries query, containing
+                                  named data-source-specific queries and a formula
+                                  involving the named queries.'
                                 items:
                                   properties:
                                     formula:
@@ -160,8 +223,9 @@ spec:
                                       type: array
                                     query:
                                       description: '(Block List, Max: 1) The metric
-                                        query of good / total events (see below for
-                                        nested schema) A list of data-source-specific
+                                        query of good / total events. Use this for
+                                        metric SLOs as an alternative to sli_specification.
+                                        (see below for nested schema) A list of data-source-specific
                                         queries that are in the formula.'
                                       items:
                                         properties:
@@ -187,8 +251,10 @@ spec:
                                                 query:
                                                   description: '(Block List, Max:
                                                     1) The metric query of good /
-                                                    total events (see below for nested
-                                                    schema) The metrics query definition.'
+                                                    total events. Use this for metric
+                                                    SLOs as an alternative to sli_specification.
+                                                    (see below for nested schema)
+                                                    The metrics query definition.'
                                                   type: string
                                               type: object
                                             type: array
@@ -196,6 +262,14 @@ spec:
                                       type: array
                                   type: object
                                 type: array
+                              queryIntervalSeconds:
+                                description: (Number) The interval used when querying
+                                  data, which defines the size of a time slice. Valid
+                                  values are 60, 300. Defaults to 300. The interval
+                                  used when querying data, which defines the size
+                                  of a time slice. Valid values are `60`, `300`. Defaults
+                                  to `300`.
+                                type: number
                               threshold:
                                 description: (Number) The threshold value to which
                                   each SLI value will be compared. The threshold value
@@ -210,11 +284,14 @@ spec:
                       your service level objective. This can help you categorize and
                       filter service level objectives in the service level objectives
                       page of the UI. Note: it''s not currently possible to filter
-                      by these tags when querying via the API A list of tags to associate
-                      with your service level objective. This can help you categorize
-                      and filter service level objectives in the service level objectives
-                      page of the UI. Note: it''s not currently possible to filter
-                      by these tags when querying via the API'
+                      by these tags when querying via the API. If default tags are
+                      present at the provider level, they will be added to this resource.
+                      A list of tags to associate with your service level objective.
+                      This can help you categorize and filter service level objectives
+                      in the service level objectives page of the UI. **Note**: it''s
+                      not currently possible to filter by these tags when querying
+                      via the API. If default tags are present at the provider level,
+                      they will be added to this resource.'
                     items:
                       type: string
                     type: array
@@ -274,8 +351,10 @@ spec:
                       Valid values are `metric`, `monitor`, `time_slice`.
                     type: string
                   validate:
-                    description: (Boolean) Whether or not to validate the SLO. Whether
-                      or not to validate the SLO.
+                    description: (Boolean) Whether or not to validate the SLO. It
+                      checks if monitors added to a monitor SLO already exist. Whether
+                      or not to validate the SLO. It checks if monitors added to a
+                      monitor SLO already exist.
                     type: boolean
                   warningThreshold:
                     description: (Number) The objective's warning value in (0,100).
@@ -329,8 +408,10 @@ spec:
                     type: string
                   query:
                     description: '(Block List, Max: 1) The metric query of good /
-                      total events (see below for nested schema) The metric query
-                      of good / total events'
+                      total events. Use this for metric SLOs as an alternative to
+                      sli_specification. (see below for nested schema) The metric
+                      query of good / total events. Use this for metric SLOs as an
+                      alternative to `sli_specification`.'
                     items:
                       properties:
                         denominator:
@@ -344,18 +425,77 @@ spec:
                       type: object
                     type: array
                   sliSpecification:
-                    description: '(Block List, Max: 1) A map of SLI specifications
-                      to use as part of the SLO. (see below for nested schema) A map
-                      of SLI specifications to use as part of the SLO.'
+                    description: slice SLOs and count-based (metric) SLOs. (see below
+                      for nested schema) A generic SLI specification. This is used
+                      for both time-slice SLOs and count-based (metric) SLOs.
                     items:
                       properties:
+                        count:
+                          description: based (metric) SLI specification. Composed
+                            of a good events formula, a total events formula, and
+                            the underlying metric queries. (see below for nested schema)
+                            A count-based (metric) SLI specification. Composed of
+                            a good events formula, a total events formula, and the
+                            underlying metric queries.
+                          items:
+                            properties:
+                              goodEventsFormula:
+                                description: (String) The formula that specifies how
+                                  to compute the good events. The formula that specifies
+                                  how to compute the good events.
+                                type: string
+                              queries:
+                                description: source-specific queries that are referenced
+                                  in the formulas. (see below for nested schema) A
+                                  list of data-source-specific queries that are referenced
+                                  in the formulas.
+                                items:
+                                  properties:
+                                    metricQuery:
+                                      description: '(Block List, Max: 1) A timeseries
+                                        formula and functions metrics query. (see
+                                        below for nested schema) A timeseries formula
+                                        and functions metrics query.'
+                                      items:
+                                        properties:
+                                          dataSource:
+                                            description: (String) The data source
+                                              for metrics queries. Defaults to "metrics".
+                                              The data source for metrics queries.
+                                              Defaults to `"metrics"`.
+                                            type: string
+                                          name:
+                                            description: (String) Name of Datadog
+                                              service level objective The name of
+                                              the query for use in formulas.
+                                            type: string
+                                          query:
+                                            description: '(Block List, Max: 1) The
+                                              metric query of good / total events.
+                                              Use this for metric SLOs as an alternative
+                                              to sli_specification. (see below for
+                                              nested schema) The metrics query definition.'
+                                            type: string
+                                        type: object
+                                      type: array
+                                  type: object
+                                type: array
+                              totalEventsFormula:
+                                description: (String) The formula that specifies how
+                                  to compute the total events. The formula that specifies
+                                  how to compute the total events.
+                                type: string
+                            type: object
+                          type: array
                         timeSlice:
-                          description: '(Block List, Min: 1, Max: 1) The time slice
-                            condition, composed of 3 parts: 1. The timeseries query,
-                            2. The comparator, and 3. The threshold. (see below for
-                            nested schema) The time slice condition, composed of 3
-                            parts: 1. The timeseries query, 2. The comparator, and
-                            3. The threshold.'
+                          description: '(Block List, Max: 1) The time slice condition,
+                            composed of 3 parts: 1. The timeseries query, 2. The comparator,
+                            and 3. The threshold. Optionally, a fourth part, the query
+                            interval, can be provided. (see below for nested schema)
+                            The time slice condition, composed of 3 parts: 1. The
+                            timeseries query, 2. The comparator, and 3. The threshold.
+                            Optionally, a fourth part, the query interval, can be
+                            provided.'
                           items:
                             properties:
                               comparator:
@@ -367,9 +507,11 @@ spec:
                                 type: string
                               query:
                                 description: '(Block List, Max: 1) The metric query
-                                  of good / total events (see below for nested schema)
-                                  A timeseries query, containing named data-source-specific
-                                  queries and a formula involving the named queries.'
+                                  of good / total events. Use this for metric SLOs
+                                  as an alternative to sli_specification. (see below
+                                  for nested schema) A timeseries query, containing
+                                  named data-source-specific queries and a formula
+                                  involving the named queries.'
                                 items:
                                   properties:
                                     formula:
@@ -389,8 +531,9 @@ spec:
                                       type: array
                                     query:
                                       description: '(Block List, Max: 1) The metric
-                                        query of good / total events (see below for
-                                        nested schema) A list of data-source-specific
+                                        query of good / total events. Use this for
+                                        metric SLOs as an alternative to sli_specification.
+                                        (see below for nested schema) A list of data-source-specific
                                         queries that are in the formula.'
                                       items:
                                         properties:
@@ -416,8 +559,10 @@ spec:
                                                 query:
                                                   description: '(Block List, Max:
                                                     1) The metric query of good /
-                                                    total events (see below for nested
-                                                    schema) The metrics query definition.'
+                                                    total events. Use this for metric
+                                                    SLOs as an alternative to sli_specification.
+                                                    (see below for nested schema)
+                                                    The metrics query definition.'
                                                   type: string
                                               type: object
                                             type: array
@@ -425,6 +570,14 @@ spec:
                                       type: array
                                   type: object
                                 type: array
+                              queryIntervalSeconds:
+                                description: (Number) The interval used when querying
+                                  data, which defines the size of a time slice. Valid
+                                  values are 60, 300. Defaults to 300. The interval
+                                  used when querying data, which defines the size
+                                  of a time slice. Valid values are `60`, `300`. Defaults
+                                  to `300`.
+                                type: number
                               threshold:
                                 description: (Number) The threshold value to which
                                   each SLI value will be compared. The threshold value
@@ -439,11 +592,14 @@ spec:
                       your service level objective. This can help you categorize and
                       filter service level objectives in the service level objectives
                       page of the UI. Note: it''s not currently possible to filter
-                      by these tags when querying via the API A list of tags to associate
-                      with your service level objective. This can help you categorize
-                      and filter service level objectives in the service level objectives
-                      page of the UI. Note: it''s not currently possible to filter
-                      by these tags when querying via the API'
+                      by these tags when querying via the API. If default tags are
+                      present at the provider level, they will be added to this resource.
+                      A list of tags to associate with your service level objective.
+                      This can help you categorize and filter service level objectives
+                      in the service level objectives page of the UI. **Note**: it''s
+                      not currently possible to filter by these tags when querying
+                      via the API. If default tags are present at the provider level,
+                      they will be added to this resource.'
                     items:
                       type: string
                     type: array
@@ -503,8 +659,10 @@ spec:
                       Valid values are `metric`, `monitor`, `time_slice`.
                     type: string
                   validate:
-                    description: (Boolean) Whether or not to validate the SLO. Whether
-                      or not to validate the SLO.
+                    description: (Boolean) Whether or not to validate the SLO. It
+                      checks if monitors added to a monitor SLO already exist. Whether
+                      or not to validate the SLO. It checks if monitors added to a
+                      monitor SLO already exist.
                     type: boolean
                   warningThreshold:
                     description: (Number) The objective's warning value in (0,100).
@@ -728,8 +886,10 @@ spec:
                     type: string
                   query:
                     description: '(Block List, Max: 1) The metric query of good /
-                      total events (see below for nested schema) The metric query
-                      of good / total events'
+                      total events. Use this for metric SLOs as an alternative to
+                      sli_specification. (see below for nested schema) The metric
+                      query of good / total events. Use this for metric SLOs as an
+                      alternative to `sli_specification`.'
                     items:
                       properties:
                         denominator:
@@ -743,18 +903,77 @@ spec:
                       type: object
                     type: array
                   sliSpecification:
-                    description: '(Block List, Max: 1) A map of SLI specifications
-                      to use as part of the SLO. (see below for nested schema) A map
-                      of SLI specifications to use as part of the SLO.'
+                    description: slice SLOs and count-based (metric) SLOs. (see below
+                      for nested schema) A generic SLI specification. This is used
+                      for both time-slice SLOs and count-based (metric) SLOs.
                     items:
                       properties:
+                        count:
+                          description: based (metric) SLI specification. Composed
+                            of a good events formula, a total events formula, and
+                            the underlying metric queries. (see below for nested schema)
+                            A count-based (metric) SLI specification. Composed of
+                            a good events formula, a total events formula, and the
+                            underlying metric queries.
+                          items:
+                            properties:
+                              goodEventsFormula:
+                                description: (String) The formula that specifies how
+                                  to compute the good events. The formula that specifies
+                                  how to compute the good events.
+                                type: string
+                              queries:
+                                description: source-specific queries that are referenced
+                                  in the formulas. (see below for nested schema) A
+                                  list of data-source-specific queries that are referenced
+                                  in the formulas.
+                                items:
+                                  properties:
+                                    metricQuery:
+                                      description: '(Block List, Max: 1) A timeseries
+                                        formula and functions metrics query. (see
+                                        below for nested schema) A timeseries formula
+                                        and functions metrics query.'
+                                      items:
+                                        properties:
+                                          dataSource:
+                                            description: (String) The data source
+                                              for metrics queries. Defaults to "metrics".
+                                              The data source for metrics queries.
+                                              Defaults to `"metrics"`.
+                                            type: string
+                                          name:
+                                            description: (String) Name of Datadog
+                                              service level objective The name of
+                                              the query for use in formulas.
+                                            type: string
+                                          query:
+                                            description: '(Block List, Max: 1) The
+                                              metric query of good / total events.
+                                              Use this for metric SLOs as an alternative
+                                              to sli_specification. (see below for
+                                              nested schema) The metrics query definition.'
+                                            type: string
+                                        type: object
+                                      type: array
+                                  type: object
+                                type: array
+                              totalEventsFormula:
+                                description: (String) The formula that specifies how
+                                  to compute the total events. The formula that specifies
+                                  how to compute the total events.
+                                type: string
+                            type: object
+                          type: array
                         timeSlice:
-                          description: '(Block List, Min: 1, Max: 1) The time slice
-                            condition, composed of 3 parts: 1. The timeseries query,
-                            2. The comparator, and 3. The threshold. (see below for
-                            nested schema) The time slice condition, composed of 3
-                            parts: 1. The timeseries query, 2. The comparator, and
-                            3. The threshold.'
+                          description: '(Block List, Max: 1) The time slice condition,
+                            composed of 3 parts: 1. The timeseries query, 2. The comparator,
+                            and 3. The threshold. Optionally, a fourth part, the query
+                            interval, can be provided. (see below for nested schema)
+                            The time slice condition, composed of 3 parts: 1. The
+                            timeseries query, 2. The comparator, and 3. The threshold.
+                            Optionally, a fourth part, the query interval, can be
+                            provided.'
                           items:
                             properties:
                               comparator:
@@ -766,9 +985,11 @@ spec:
                                 type: string
                               query:
                                 description: '(Block List, Max: 1) The metric query
-                                  of good / total events (see below for nested schema)
-                                  A timeseries query, containing named data-source-specific
-                                  queries and a formula involving the named queries.'
+                                  of good / total events. Use this for metric SLOs
+                                  as an alternative to sli_specification. (see below
+                                  for nested schema) A timeseries query, containing
+                                  named data-source-specific queries and a formula
+                                  involving the named queries.'
                                 items:
                                   properties:
                                     formula:
@@ -788,8 +1009,9 @@ spec:
                                       type: array
                                     query:
                                       description: '(Block List, Max: 1) The metric
-                                        query of good / total events (see below for
-                                        nested schema) A list of data-source-specific
+                                        query of good / total events. Use this for
+                                        metric SLOs as an alternative to sli_specification.
+                                        (see below for nested schema) A list of data-source-specific
                                         queries that are in the formula.'
                                       items:
                                         properties:
@@ -815,8 +1037,10 @@ spec:
                                                 query:
                                                   description: '(Block List, Max:
                                                     1) The metric query of good /
-                                                    total events (see below for nested
-                                                    schema) The metrics query definition.'
+                                                    total events. Use this for metric
+                                                    SLOs as an alternative to sli_specification.
+                                                    (see below for nested schema)
+                                                    The metrics query definition.'
                                                   type: string
                                               type: object
                                             type: array
@@ -824,6 +1048,14 @@ spec:
                                       type: array
                                   type: object
                                 type: array
+                              queryIntervalSeconds:
+                                description: (Number) The interval used when querying
+                                  data, which defines the size of a time slice. Valid
+                                  values are 60, 300. Defaults to 300. The interval
+                                  used when querying data, which defines the size
+                                  of a time slice. Valid values are `60`, `300`. Defaults
+                                  to `300`.
+                                type: number
                               threshold:
                                 description: (Number) The threshold value to which
                                   each SLI value will be compared. The threshold value
@@ -838,11 +1070,14 @@ spec:
                       your service level objective. This can help you categorize and
                       filter service level objectives in the service level objectives
                       page of the UI. Note: it''s not currently possible to filter
-                      by these tags when querying via the API A list of tags to associate
-                      with your service level objective. This can help you categorize
-                      and filter service level objectives in the service level objectives
-                      page of the UI. Note: it''s not currently possible to filter
-                      by these tags when querying via the API'
+                      by these tags when querying via the API. If default tags are
+                      present at the provider level, they will be added to this resource.
+                      A list of tags to associate with your service level objective.
+                      This can help you categorize and filter service level objectives
+                      in the service level objectives page of the UI. **Note**: it''s
+                      not currently possible to filter by these tags when querying
+                      via the API. If default tags are present at the provider level,
+                      they will be added to this resource.'
                     items:
                       type: string
                     type: array
@@ -916,8 +1151,10 @@ spec:
                       Valid values are `metric`, `monitor`, `time_slice`.
                     type: string
                   validate:
-                    description: (Boolean) Whether or not to validate the SLO. Whether
-                      or not to validate the SLO.
+                    description: (Boolean) Whether or not to validate the SLO. It
+                      checks if monitors added to a monitor SLO already exist. Whether
+                      or not to validate the SLO. It checks if monitors added to a
+                      monitor SLO already exist.
                     type: boolean
                   warningThreshold:
                     description: (Number) The objective's warning value in (0,100).

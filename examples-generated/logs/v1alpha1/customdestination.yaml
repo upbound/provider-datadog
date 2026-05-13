@@ -1,0 +1,24 @@
+apiVersion: logs.datadog.upbound.io/v1alpha1
+kind: CustomDestination
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logs/v1alpha1/customdestination
+  labels:
+    testing.upbound.io/example-name: sample_destination
+  name: sample-destination
+spec:
+  forProvider:
+    enabled: true
+    httpDestination:
+    - basicAuth:
+      - passwordSecretRef:
+          key: example-key
+          name: example-secret
+          namespace: upbound-system
+        usernameSecretRef:
+          key: example-key
+          name: example-secret
+          namespace: upbound-system
+      endpoint: https://example.org
+    name: sample destination
+    query: service:my-service

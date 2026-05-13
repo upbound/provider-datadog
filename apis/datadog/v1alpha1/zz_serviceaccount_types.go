@@ -31,8 +31,8 @@ type ServiceAccountInitParameters struct {
 	// Name for the service account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Set of String) A list a role IDs to assign to the service account.
-	// A list a role IDs to assign to the service account.
+	// (Set of String) A list of role IDs to assign to the service account.
+	// A list of role IDs to assign to the service account.
 	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
 }
@@ -54,8 +54,8 @@ type ServiceAccountObservation struct {
 	// Name for the service account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Set of String) A list a role IDs to assign to the service account.
-	// A list a role IDs to assign to the service account.
+	// (Set of String) A list of role IDs to assign to the service account.
+	// A list of role IDs to assign to the service account.
 	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
 }
@@ -77,8 +77,8 @@ type ServiceAccountParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Set of String) A list a role IDs to assign to the service account.
-	// A list a role IDs to assign to the service account.
+	// (Set of String) A list of role IDs to assign to the service account.
+	// A list of role IDs to assign to the service account.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`

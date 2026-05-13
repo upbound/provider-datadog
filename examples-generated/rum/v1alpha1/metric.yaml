@@ -1,0 +1,19 @@
+apiVersion: rum.upbound.io/v1alpha1
+kind: Metric
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rum/v1alpha1/metric
+  labels:
+    testing.upbound.io/example-name: testing_rum_metric
+  name: testing-rum-metric
+spec:
+  forProvider:
+    eventType: session
+    filter:
+    - query: '@service:web-ui'
+    groupBy:
+    - path: '@browser.name'
+      tagName: browser_name
+    name: testing.rum.metric
+    uniqueness:
+    - when: match

@@ -1,0 +1,36 @@
+apiVersion: team.upbound.io/v1alpha1
+kind: NotificationRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: team/v1alpha1/notificationrule
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    email:
+    - enabled: true
+    msTeams:
+    - connectorName: test-teams-handle
+    pagerduty:
+    - serviceName: my-service
+    slack:
+    - channel: '#test-channel'
+      workspace: Datadog
+    teamId: ${datadog_team.foo.id}
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: team/v1alpha1/notificationrule
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    description: Example team
+    handle: example-team
+    name: Example Team

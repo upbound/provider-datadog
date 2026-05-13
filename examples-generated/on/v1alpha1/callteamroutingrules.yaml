@@ -1,0 +1,25 @@
+apiVersion: on.upbound.io/v1alpha1
+kind: CallTeamRoutingRules
+metadata:
+  annotations:
+    meta.upbound.io/example-id: on/v1alpha1/callteamroutingrules
+  labels:
+    testing.upbound.io/example-name: team_rules_test
+  name: team-rules-test
+spec:
+  forProvider:
+    rule:
+    - action:
+      - sendSlackMessage:
+        - channel: channel
+          workspace: workspace
+      query: tags.service:test
+      timeRestrictions:
+      - restriction:
+        - endDay: monday
+          endTime: "17:00:00"
+          startDay: monday
+          startTime: "09:00:00"
+        timeZone: America/New_York
+    - escalationPolicy: 00000000-aba2-0000-0000-000000000000
+      urgency: dynamic

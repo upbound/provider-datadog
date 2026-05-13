@@ -27,9 +27,17 @@ type APIStepInitParameters struct {
 	// Assertions used for the test. Multiple `assertion` blocks are allowed with the structure below.
 	Assertion []AssertionInitParameters `json:"assertion,omitempty" tf:"assertion,omitempty"`
 
+	// (Boolean) Determines whether or not to exit the test if the step succeeds.
+	// Determines whether or not to exit the test if the step succeeds.
+	ExitIfSucceed *bool `json:"exitIfSucceed,omitempty" tf:"exit_if_succeed,omitempty"`
+
 	// (Block List) Values to parse and save as variables from the response. (see below for nested schema)
 	// Values to parse and save as variables from the response.
 	ExtractedValue []ExtractedValueInitParameters `json:"extractedValue,omitempty" tf:"extracted_value,omitempty"`
+
+	// (String) Generate variables using JavaScript.
+	// Generate variables using JavaScript.
+	ExtractedValuesFromScript *string `json:"extractedValuesFromScript,omitempty" tf:"extracted_values_from_script,omitempty"`
 
 	// (Boolean) Determines whether or not to consider the entire test as failed if this step fails. Can be used only if allow_failure is true.
 	// Determines whether or not to consider the entire test as failed if this step fails. Can be used only if `allow_failure` is `true`.
@@ -48,13 +56,22 @@ type APIStepInitParameters struct {
 	RequestClientCertificate []RequestClientCertificateInitParameters `json:"requestClientCertificate,omitempty" tf:"request_client_certificate,omitempty"`
 
 	// (Block List, Max: 1) Required if type = "api". The synthetics test request. (see below for nested schema)
-	// The request for the api step.
+	// The request for the API step.
 	RequestDefinition []RequestDefinitionInitParameters `json:"requestDefinition,omitempty" tf:"request_definition,omitempty"`
+
+	// (Block List) Files to be used as part of the request in the test. (see below for nested schema)
+	// Files to be used as part of the request in the test.
+	RequestFile []RequestFileInitParameters `json:"requestFile,omitempty" tf:"request_file,omitempty"`
 
 	// (Map of String) Header name and value map.
 	// Header name and value map.
 	// +mapType=granular
 	RequestHeaders map[string]*string `json:"requestHeaders,omitempty" tf:"request_headers,omitempty"`
+
+	// (Map of String) Metadata to include when performing the gRPC request.
+	// Metadata to include when performing the gRPC request.
+	// +mapType=granular
+	RequestMetadata map[string]*string `json:"requestMetadata,omitempty" tf:"request_metadata,omitempty"`
 
 	// (Block List, Max: 1) The proxy to perform the test. (see below for nested schema)
 	// The proxy to perform the test.
@@ -68,9 +85,17 @@ type APIStepInitParameters struct {
 	// (Block List, Max: 1) (see below for nested schema)
 	Retry []RetryInitParameters `json:"retry,omitempty" tf:"retry,omitempty"`
 
-	// (String) The subtype of the Synthetic API test. Defaults to http. Valid values are http, ssl, tcp, dns, multi, icmp, udp, websocket, grpc.
-	// The subtype of the Synthetic multistep API test step. Valid values are `http`, `grpc`. Defaults to `"http"`.
+	// (String) Public ID of the test to be played as part of a playSubTest step type.
+	// Public ID of the test to be played as part of a `playSubTest` step type.
+	SubtestPublicID *string `json:"subtestPublicId,omitempty" tf:"subtest_public_id,omitempty"`
+
+	// (String) The subtype for API or Network Path tests. For API tests, defaults to http. For Network Path tests, only tcp, udp, icmp are available. Valid values are http, ssl, tcp, dns, multi, icmp, udp, websocket, grpc.
+	// The subtype of the Synthetic multistep API test step. Valid values are `http`, `grpc`, `ssl`, `dns`, `tcp`, `udp`, `icmp`, `websocket`, `wait`, `playSubTest`. Defaults to `"http"`.
 	Subtype *string `json:"subtype,omitempty" tf:"subtype,omitempty"`
+
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
+	// The time to wait in seconds. Minimum value: 0. Maximum value: 180.
+	Value *float64 `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type APIStepObservation struct {
@@ -83,9 +108,21 @@ type APIStepObservation struct {
 	// Assertions used for the test. Multiple `assertion` blocks are allowed with the structure below.
 	Assertion []AssertionObservation `json:"assertion,omitempty" tf:"assertion,omitempty"`
 
+	// (Boolean) Determines whether or not to exit the test if the step succeeds.
+	// Determines whether or not to exit the test if the step succeeds.
+	ExitIfSucceed *bool `json:"exitIfSucceed,omitempty" tf:"exit_if_succeed,omitempty"`
+
 	// (Block List) Values to parse and save as variables from the response. (see below for nested schema)
 	// Values to parse and save as variables from the response.
 	ExtractedValue []ExtractedValueObservation `json:"extractedValue,omitempty" tf:"extracted_value,omitempty"`
+
+	// (String) Generate variables using JavaScript.
+	// Generate variables using JavaScript.
+	ExtractedValuesFromScript *string `json:"extractedValuesFromScript,omitempty" tf:"extracted_values_from_script,omitempty"`
+
+	// (String) The ID of this resource.
+	// ID of the step.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (Boolean) Determines whether or not to consider the entire test as failed if this step fails. Can be used only if allow_failure is true.
 	// Determines whether or not to consider the entire test as failed if this step fails. Can be used only if `allow_failure` is `true`.
@@ -104,13 +141,22 @@ type APIStepObservation struct {
 	RequestClientCertificate []RequestClientCertificateObservation `json:"requestClientCertificate,omitempty" tf:"request_client_certificate,omitempty"`
 
 	// (Block List, Max: 1) Required if type = "api". The synthetics test request. (see below for nested schema)
-	// The request for the api step.
+	// The request for the API step.
 	RequestDefinition []RequestDefinitionObservation `json:"requestDefinition,omitempty" tf:"request_definition,omitempty"`
+
+	// (Block List) Files to be used as part of the request in the test. (see below for nested schema)
+	// Files to be used as part of the request in the test.
+	RequestFile []RequestFileObservation `json:"requestFile,omitempty" tf:"request_file,omitempty"`
 
 	// (Map of String) Header name and value map.
 	// Header name and value map.
 	// +mapType=granular
 	RequestHeaders map[string]*string `json:"requestHeaders,omitempty" tf:"request_headers,omitempty"`
+
+	// (Map of String) Metadata to include when performing the gRPC request.
+	// Metadata to include when performing the gRPC request.
+	// +mapType=granular
+	RequestMetadata map[string]*string `json:"requestMetadata,omitempty" tf:"request_metadata,omitempty"`
 
 	// (Block List, Max: 1) The proxy to perform the test. (see below for nested schema)
 	// The proxy to perform the test.
@@ -124,9 +170,17 @@ type APIStepObservation struct {
 	// (Block List, Max: 1) (see below for nested schema)
 	Retry []RetryObservation `json:"retry,omitempty" tf:"retry,omitempty"`
 
-	// (String) The subtype of the Synthetic API test. Defaults to http. Valid values are http, ssl, tcp, dns, multi, icmp, udp, websocket, grpc.
-	// The subtype of the Synthetic multistep API test step. Valid values are `http`, `grpc`. Defaults to `"http"`.
+	// (String) Public ID of the test to be played as part of a playSubTest step type.
+	// Public ID of the test to be played as part of a `playSubTest` step type.
+	SubtestPublicID *string `json:"subtestPublicId,omitempty" tf:"subtest_public_id,omitempty"`
+
+	// (String) The subtype for API or Network Path tests. For API tests, defaults to http. For Network Path tests, only tcp, udp, icmp are available. Valid values are http, ssl, tcp, dns, multi, icmp, udp, websocket, grpc.
+	// The subtype of the Synthetic multistep API test step. Valid values are `http`, `grpc`, `ssl`, `dns`, `tcp`, `udp`, `icmp`, `websocket`, `wait`, `playSubTest`. Defaults to `"http"`.
 	Subtype *string `json:"subtype,omitempty" tf:"subtype,omitempty"`
+
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
+	// The time to wait in seconds. Minimum value: 0. Maximum value: 180.
+	Value *float64 `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type APIStepParameters struct {
@@ -141,10 +195,20 @@ type APIStepParameters struct {
 	// +kubebuilder:validation:Optional
 	Assertion []AssertionParameters `json:"assertion,omitempty" tf:"assertion,omitempty"`
 
+	// (Boolean) Determines whether or not to exit the test if the step succeeds.
+	// Determines whether or not to exit the test if the step succeeds.
+	// +kubebuilder:validation:Optional
+	ExitIfSucceed *bool `json:"exitIfSucceed,omitempty" tf:"exit_if_succeed,omitempty"`
+
 	// (Block List) Values to parse and save as variables from the response. (see below for nested schema)
 	// Values to parse and save as variables from the response.
 	// +kubebuilder:validation:Optional
 	ExtractedValue []ExtractedValueParameters `json:"extractedValue,omitempty" tf:"extracted_value,omitempty"`
+
+	// (String) Generate variables using JavaScript.
+	// Generate variables using JavaScript.
+	// +kubebuilder:validation:Optional
+	ExtractedValuesFromScript *string `json:"extractedValuesFromScript,omitempty" tf:"extracted_values_from_script,omitempty"`
 
 	// (Boolean) Determines whether or not to consider the entire test as failed if this step fails. Can be used only if allow_failure is true.
 	// Determines whether or not to consider the entire test as failed if this step fails. Can be used only if `allow_failure` is `true`.
@@ -167,15 +231,26 @@ type APIStepParameters struct {
 	RequestClientCertificate []RequestClientCertificateParameters `json:"requestClientCertificate,omitempty" tf:"request_client_certificate,omitempty"`
 
 	// (Block List, Max: 1) Required if type = "api". The synthetics test request. (see below for nested schema)
-	// The request for the api step.
+	// The request for the API step.
 	// +kubebuilder:validation:Optional
 	RequestDefinition []RequestDefinitionParameters `json:"requestDefinition,omitempty" tf:"request_definition,omitempty"`
+
+	// (Block List) Files to be used as part of the request in the test. (see below for nested schema)
+	// Files to be used as part of the request in the test.
+	// +kubebuilder:validation:Optional
+	RequestFile []RequestFileParameters `json:"requestFile,omitempty" tf:"request_file,omitempty"`
 
 	// (Map of String) Header name and value map.
 	// Header name and value map.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	RequestHeaders map[string]*string `json:"requestHeaders,omitempty" tf:"request_headers,omitempty"`
+
+	// (Map of String) Metadata to include when performing the gRPC request.
+	// Metadata to include when performing the gRPC request.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	RequestMetadata map[string]*string `json:"requestMetadata,omitempty" tf:"request_metadata,omitempty"`
 
 	// (Block List, Max: 1) The proxy to perform the test. (see below for nested schema)
 	// The proxy to perform the test.
@@ -192,29 +267,47 @@ type APIStepParameters struct {
 	// +kubebuilder:validation:Optional
 	Retry []RetryParameters `json:"retry,omitempty" tf:"retry,omitempty"`
 
-	// (String) The subtype of the Synthetic API test. Defaults to http. Valid values are http, ssl, tcp, dns, multi, icmp, udp, websocket, grpc.
-	// The subtype of the Synthetic multistep API test step. Valid values are `http`, `grpc`. Defaults to `"http"`.
+	// (String) Public ID of the test to be played as part of a playSubTest step type.
+	// Public ID of the test to be played as part of a `playSubTest` step type.
+	// +kubebuilder:validation:Optional
+	SubtestPublicID *string `json:"subtestPublicId,omitempty" tf:"subtest_public_id,omitempty"`
+
+	// (String) The subtype for API or Network Path tests. For API tests, defaults to http. For Network Path tests, only tcp, udp, icmp are available. Valid values are http, ssl, tcp, dns, multi, icmp, udp, websocket, grpc.
+	// The subtype of the Synthetic multistep API test step. Valid values are `http`, `grpc`, `ssl`, `dns`, `tcp`, `udp`, `icmp`, `websocket`, `wait`, `playSubTest`. Defaults to `"http"`.
 	// +kubebuilder:validation:Optional
 	Subtype *string `json:"subtype,omitempty" tf:"subtype,omitempty"`
+
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
+	// The time to wait in seconds. Minimum value: 0. Maximum value: 180.
+	// +kubebuilder:validation:Optional
+	Value *float64 `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type AssertionInitParameters struct {
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
-	// Assertion operator. **Note** Only some combinations of `type` and `operator` are valid (please refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test)).
+	// (String) If assertion type is javascript, this is the JavaScript code that performs the assertions.
+	// If assertion type is `javascript`, this is the JavaScript code that performs the assertions.
+	Code *string `json:"code,omitempty" tf:"code,omitempty"`
+
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
+	// Assertion operator. **Note:** Only some combinations of `type` and `operator` are valid. Refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test). Valid values are `contains`, `doesNotContain`, `is`, `isNot`, `lessThan`, `lessThanOrEqual`, `moreThan`, `moreThanOrEqual`, `matches`, `doesNotMatch`, `validates`, `isInMoreThan`, `isInLessThan`, `doesNotExist`, `isUndefined`, `validatesJSONPath`, `validatesJSONSchema`, `validatesXPath`, `md5`, `sha1`, `sha256`, `is`, `isNot`, `lessThan`, `lessThanOrEqual`, `moreThan`, `moreThanOrEqual`.
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
-	// (String) If assertion type is header, this is the header name.
-	// If assertion type is `header`, this is the header name.
+	// (String) If assertion type is header or grpcMetadata, this is the header name. For other assertion types, this is an aggregation property: avg, min, max, or stddev.
+	// If assertion type is `header` or `grpcMetadata`, this is the header name. For other assertion types, this is an aggregation property: `avg`, `min`, `max`, or `stddev`.
 	Property *string `json:"property,omitempty" tf:"property,omitempty"`
 
-	// (String) Expected value. Depends on the assertion type, refer to Datadog documentation for details.
-	// Expected value. Depends on the assertion type, refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test) for details.
+	// (String) Expected value. Note: Depends on the assertion type. Refer to config.assertions in the Datadog API reference.
+	// Expected value. **Note:** Depends on the assertion type. Refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test).
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 
 	// (Block List, Max: 1) Expected structure if operator is validatesJSONPath. Exactly one nested block is allowed with the structure below. (see below for nested schema)
 	// Expected structure if `operator` is `validatesJSONPath`. Exactly one nested block is allowed with the structure below.
 	Targetjsonpath []TargetjsonpathInitParameters `json:"targetjsonpath,omitempty" tf:"targetjsonpath,omitempty"`
+
+	// (Block List, Max: 1) Expected structure if operator is validatesJSONSchema. Exactly one nested block is allowed with the structure below. (see below for nested schema)
+	// Expected structure if `operator` is `validatesJSONSchema`. Exactly one nested block is allowed with the structure below.
+	Targetjsonschema []TargetjsonschemaInitParameters `json:"targetjsonschema,omitempty" tf:"targetjsonschema,omitempty"`
 
 	// (Block List, Max: 1) Expected structure if operator is validatesXPath. Exactly one nested block is allowed with the structure below. (see below for nested schema)
 	// Expected structure if `operator` is `validatesXPath`. Exactly one nested block is allowed with the structure below.
@@ -224,28 +317,36 @@ type AssertionInitParameters struct {
 	// Timings scope for response time assertions. Valid values are `all`, `withoutDNS`.
 	TimingsScope *string `json:"timingsScope,omitempty" tf:"timings_scope,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Type of assertion. **Note** Only some combinations of `type` and `operator` are valid (please refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test)). Valid values are `body`, `header`, `statusCode`, `certificate`, `responseTime`, `property`, `recordEvery`, `recordSome`, `tlsVersion`, `minTlsVersion`, `latency`, `packetLossPercentage`, `packetsReceived`, `networkHop`, `receivedMessage`, `grpcHealthcheckStatus`, `grpcMetadata`, `grpcProto`, `connection`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of assertion. **Note:** Only some combinations of `type` and `operator` are valid. For API tests, refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test). For Network Path tests, refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-a-network-path-test). Valid values are `body`, `header`, `statusCode`, `certificate`, `responseTime`, `property`, `recordEvery`, `recordSome`, `tlsVersion`, `minTlsVersion`, `latency`, `packetLossPercentage`, `packetsReceived`, `networkHop`, `receivedMessage`, `grpcHealthcheckStatus`, `grpcMetadata`, `grpcProto`, `connection`, `multiNetworkHop`, `jitter`, `bodyHash`, `javascript`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type AssertionObservation struct {
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
-	// Assertion operator. **Note** Only some combinations of `type` and `operator` are valid (please refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test)).
+	// (String) If assertion type is javascript, this is the JavaScript code that performs the assertions.
+	// If assertion type is `javascript`, this is the JavaScript code that performs the assertions.
+	Code *string `json:"code,omitempty" tf:"code,omitempty"`
+
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
+	// Assertion operator. **Note:** Only some combinations of `type` and `operator` are valid. Refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test). Valid values are `contains`, `doesNotContain`, `is`, `isNot`, `lessThan`, `lessThanOrEqual`, `moreThan`, `moreThanOrEqual`, `matches`, `doesNotMatch`, `validates`, `isInMoreThan`, `isInLessThan`, `doesNotExist`, `isUndefined`, `validatesJSONPath`, `validatesJSONSchema`, `validatesXPath`, `md5`, `sha1`, `sha256`, `is`, `isNot`, `lessThan`, `lessThanOrEqual`, `moreThan`, `moreThanOrEqual`.
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
-	// (String) If assertion type is header, this is the header name.
-	// If assertion type is `header`, this is the header name.
+	// (String) If assertion type is header or grpcMetadata, this is the header name. For other assertion types, this is an aggregation property: avg, min, max, or stddev.
+	// If assertion type is `header` or `grpcMetadata`, this is the header name. For other assertion types, this is an aggregation property: `avg`, `min`, `max`, or `stddev`.
 	Property *string `json:"property,omitempty" tf:"property,omitempty"`
 
-	// (String) Expected value. Depends on the assertion type, refer to Datadog documentation for details.
-	// Expected value. Depends on the assertion type, refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test) for details.
+	// (String) Expected value. Note: Depends on the assertion type. Refer to config.assertions in the Datadog API reference.
+	// Expected value. **Note:** Depends on the assertion type. Refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test).
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 
 	// (Block List, Max: 1) Expected structure if operator is validatesJSONPath. Exactly one nested block is allowed with the structure below. (see below for nested schema)
 	// Expected structure if `operator` is `validatesJSONPath`. Exactly one nested block is allowed with the structure below.
 	Targetjsonpath []TargetjsonpathObservation `json:"targetjsonpath,omitempty" tf:"targetjsonpath,omitempty"`
+
+	// (Block List, Max: 1) Expected structure if operator is validatesJSONSchema. Exactly one nested block is allowed with the structure below. (see below for nested schema)
+	// Expected structure if `operator` is `validatesJSONSchema`. Exactly one nested block is allowed with the structure below.
+	Targetjsonschema []TargetjsonschemaObservation `json:"targetjsonschema,omitempty" tf:"targetjsonschema,omitempty"`
 
 	// (Block List, Max: 1) Expected structure if operator is validatesXPath. Exactly one nested block is allowed with the structure below. (see below for nested schema)
 	// Expected structure if `operator` is `validatesXPath`. Exactly one nested block is allowed with the structure below.
@@ -255,25 +356,30 @@ type AssertionObservation struct {
 	// Timings scope for response time assertions. Valid values are `all`, `withoutDNS`.
 	TimingsScope *string `json:"timingsScope,omitempty" tf:"timings_scope,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Type of assertion. **Note** Only some combinations of `type` and `operator` are valid (please refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test)). Valid values are `body`, `header`, `statusCode`, `certificate`, `responseTime`, `property`, `recordEvery`, `recordSome`, `tlsVersion`, `minTlsVersion`, `latency`, `packetLossPercentage`, `packetsReceived`, `networkHop`, `receivedMessage`, `grpcHealthcheckStatus`, `grpcMetadata`, `grpcProto`, `connection`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of assertion. **Note:** Only some combinations of `type` and `operator` are valid. For API tests, refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test). For Network Path tests, refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-a-network-path-test). Valid values are `body`, `header`, `statusCode`, `certificate`, `responseTime`, `property`, `recordEvery`, `recordSome`, `tlsVersion`, `minTlsVersion`, `latency`, `packetLossPercentage`, `packetsReceived`, `networkHop`, `receivedMessage`, `grpcHealthcheckStatus`, `grpcMetadata`, `grpcProto`, `connection`, `multiNetworkHop`, `jitter`, `bodyHash`, `javascript`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type AssertionParameters struct {
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
-	// Assertion operator. **Note** Only some combinations of `type` and `operator` are valid (please refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test)).
+	// (String) If assertion type is javascript, this is the JavaScript code that performs the assertions.
+	// If assertion type is `javascript`, this is the JavaScript code that performs the assertions.
 	// +kubebuilder:validation:Optional
-	Operator *string `json:"operator" tf:"operator,omitempty"`
+	Code *string `json:"code,omitempty" tf:"code,omitempty"`
 
-	// (String) If assertion type is header, this is the header name.
-	// If assertion type is `header`, this is the header name.
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
+	// Assertion operator. **Note:** Only some combinations of `type` and `operator` are valid. Refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test). Valid values are `contains`, `doesNotContain`, `is`, `isNot`, `lessThan`, `lessThanOrEqual`, `moreThan`, `moreThanOrEqual`, `matches`, `doesNotMatch`, `validates`, `isInMoreThan`, `isInLessThan`, `doesNotExist`, `isUndefined`, `validatesJSONPath`, `validatesJSONSchema`, `validatesXPath`, `md5`, `sha1`, `sha256`, `is`, `isNot`, `lessThan`, `lessThanOrEqual`, `moreThan`, `moreThanOrEqual`.
+	// +kubebuilder:validation:Optional
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
+
+	// (String) If assertion type is header or grpcMetadata, this is the header name. For other assertion types, this is an aggregation property: avg, min, max, or stddev.
+	// If assertion type is `header` or `grpcMetadata`, this is the header name. For other assertion types, this is an aggregation property: `avg`, `min`, `max`, or `stddev`.
 	// +kubebuilder:validation:Optional
 	Property *string `json:"property,omitempty" tf:"property,omitempty"`
 
-	// (String) Expected value. Depends on the assertion type, refer to Datadog documentation for details.
-	// Expected value. Depends on the assertion type, refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test) for details.
+	// (String) Expected value. Note: Depends on the assertion type. Refer to config.assertions in the Datadog API reference.
+	// Expected value. **Note:** Depends on the assertion type. Refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test).
 	// +kubebuilder:validation:Optional
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 
@@ -281,6 +387,11 @@ type AssertionParameters struct {
 	// Expected structure if `operator` is `validatesJSONPath`. Exactly one nested block is allowed with the structure below.
 	// +kubebuilder:validation:Optional
 	Targetjsonpath []TargetjsonpathParameters `json:"targetjsonpath,omitempty" tf:"targetjsonpath,omitempty"`
+
+	// (Block List, Max: 1) Expected structure if operator is validatesJSONSchema. Exactly one nested block is allowed with the structure below. (see below for nested schema)
+	// Expected structure if `operator` is `validatesJSONSchema`. Exactly one nested block is allowed with the structure below.
+	// +kubebuilder:validation:Optional
+	Targetjsonschema []TargetjsonschemaParameters `json:"targetjsonschema,omitempty" tf:"targetjsonschema,omitempty"`
 
 	// (Block List, Max: 1) Expected structure if operator is validatesXPath. Exactly one nested block is allowed with the structure below. (see below for nested schema)
 	// Expected structure if `operator` is `validatesXPath`. Exactly one nested block is allowed with the structure below.
@@ -292,19 +403,23 @@ type AssertionParameters struct {
 	// +kubebuilder:validation:Optional
 	TimingsScope *string `json:"timingsScope,omitempty" tf:"timings_scope,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Type of assertion. **Note** Only some combinations of `type` and `operator` are valid (please refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test)). Valid values are `body`, `header`, `statusCode`, `certificate`, `responseTime`, `property`, `recordEvery`, `recordSome`, `tlsVersion`, `minTlsVersion`, `latency`, `packetLossPercentage`, `packetsReceived`, `networkHop`, `receivedMessage`, `grpcHealthcheckStatus`, `grpcMetadata`, `grpcProto`, `connection`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of assertion. **Note:** Only some combinations of `type` and `operator` are valid. For API tests, refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test). For Network Path tests, refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-a-network-path-test). Valid values are `body`, `header`, `statusCode`, `certificate`, `responseTime`, `property`, `recordEvery`, `recordSome`, `tlsVersion`, `minTlsVersion`, `latency`, `packetLossPercentage`, `packetsReceived`, `networkHop`, `receivedMessage`, `grpcHealthcheckStatus`, `grpcMetadata`, `grpcProto`, `connection`, `multiNetworkHop`, `jitter`, `bodyHash`, `javascript`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
 type AssertionTargetjsonpathInitParameters struct {
 
+	// (String) The element from the list of results to assert on. Select from firstElementMatches (the first element in the list), everyElementMatches (every element in the list), atLeastOneElementMatches (at least one element in the list), or serializationMatches (the serialized value of the list). Defaults to "firstElementMatches".
+	// The element from the list of results to assert on. Select from `firstElementMatches` (the first element in the list), `everyElementMatches` (every element in the list), `atLeastOneElementMatches` (at least one element in the list), or `serializationMatches` (the serialized value of the list). Defaults to `"firstElementMatches"`.
+	Elementsoperator *string `json:"elementsoperator,omitempty" tf:"elementsoperator,omitempty"`
+
 	// (String) The JSON path to assert.
 	// The JSON path to assert.
 	Jsonpath *string `json:"jsonpath,omitempty" tf:"jsonpath,omitempty"`
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
 	// The specific operator to use on the path.
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
@@ -315,11 +430,15 @@ type AssertionTargetjsonpathInitParameters struct {
 
 type AssertionTargetjsonpathObservation struct {
 
+	// (String) The element from the list of results to assert on. Select from firstElementMatches (the first element in the list), everyElementMatches (every element in the list), atLeastOneElementMatches (at least one element in the list), or serializationMatches (the serialized value of the list). Defaults to "firstElementMatches".
+	// The element from the list of results to assert on. Select from `firstElementMatches` (the first element in the list), `everyElementMatches` (every element in the list), `atLeastOneElementMatches` (at least one element in the list), or `serializationMatches` (the serialized value of the list). Defaults to `"firstElementMatches"`.
+	Elementsoperator *string `json:"elementsoperator,omitempty" tf:"elementsoperator,omitempty"`
+
 	// (String) The JSON path to assert.
 	// The JSON path to assert.
 	Jsonpath *string `json:"jsonpath,omitempty" tf:"jsonpath,omitempty"`
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
 	// The specific operator to use on the path.
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
@@ -330,12 +449,17 @@ type AssertionTargetjsonpathObservation struct {
 
 type AssertionTargetjsonpathParameters struct {
 
+	// (String) The element from the list of results to assert on. Select from firstElementMatches (the first element in the list), everyElementMatches (every element in the list), atLeastOneElementMatches (at least one element in the list), or serializationMatches (the serialized value of the list). Defaults to "firstElementMatches".
+	// The element from the list of results to assert on. Select from `firstElementMatches` (the first element in the list), `everyElementMatches` (every element in the list), `atLeastOneElementMatches` (at least one element in the list), or `serializationMatches` (the serialized value of the list). Defaults to `"firstElementMatches"`.
+	// +kubebuilder:validation:Optional
+	Elementsoperator *string `json:"elementsoperator,omitempty" tf:"elementsoperator,omitempty"`
+
 	// (String) The JSON path to assert.
 	// The JSON path to assert.
 	// +kubebuilder:validation:Optional
 	Jsonpath *string `json:"jsonpath" tf:"jsonpath,omitempty"`
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
 	// The specific operator to use on the path.
 	// +kubebuilder:validation:Optional
 	Operator *string `json:"operator" tf:"operator,omitempty"`
@@ -346,9 +470,44 @@ type AssertionTargetjsonpathParameters struct {
 	Targetvalue *string `json:"targetvalue,omitempty" tf:"targetvalue,omitempty"`
 }
 
+type AssertionTargetjsonschemaInitParameters struct {
+
+	// (String) The JSON Schema to validate the body against.
+	// The JSON Schema to validate the body against.
+	Jsonschema *string `json:"jsonschema,omitempty" tf:"jsonschema,omitempty"`
+
+	// 07".
+	// The meta schema to use for the JSON Schema. Defaults to `"draft-07"`.
+	Metaschema *string `json:"metaschema,omitempty" tf:"metaschema,omitempty"`
+}
+
+type AssertionTargetjsonschemaObservation struct {
+
+	// (String) The JSON Schema to validate the body against.
+	// The JSON Schema to validate the body against.
+	Jsonschema *string `json:"jsonschema,omitempty" tf:"jsonschema,omitempty"`
+
+	// 07".
+	// The meta schema to use for the JSON Schema. Defaults to `"draft-07"`.
+	Metaschema *string `json:"metaschema,omitempty" tf:"metaschema,omitempty"`
+}
+
+type AssertionTargetjsonschemaParameters struct {
+
+	// (String) The JSON Schema to validate the body against.
+	// The JSON Schema to validate the body against.
+	// +kubebuilder:validation:Optional
+	Jsonschema *string `json:"jsonschema" tf:"jsonschema,omitempty"`
+
+	// 07".
+	// The meta schema to use for the JSON Schema. Defaults to `"draft-07"`.
+	// +kubebuilder:validation:Optional
+	Metaschema *string `json:"metaschema,omitempty" tf:"metaschema,omitempty"`
+}
+
 type AssertionTargetxpathInitParameters struct {
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
 	// The specific operator to use on the path.
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
@@ -363,7 +522,7 @@ type AssertionTargetxpathInitParameters struct {
 
 type AssertionTargetxpathObservation struct {
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
 	// The specific operator to use on the path.
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
@@ -378,7 +537,7 @@ type AssertionTargetxpathObservation struct {
 
 type AssertionTargetxpathParameters struct {
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
 	// The specific operator to use on the path.
 	// +kubebuilder:validation:Optional
 	Operator *string `json:"operator" tf:"operator,omitempty"`
@@ -394,11 +553,51 @@ type AssertionTargetxpathParameters struct {
 	Xpath *string `json:"xpath" tf:"xpath,omitempty"`
 }
 
+type BindingsInitParameters struct {
+
+	// (List of String)
+	Principals []*string `json:"principals,omitempty" tf:"principals,omitempty"`
+
+	// (String) Valid values are editor, viewer.
+	// Valid values are `editor`, `viewer`.
+	Relation *string `json:"relation,omitempty" tf:"relation,omitempty"`
+}
+
+type BindingsObservation struct {
+
+	// (List of String)
+	Principals []*string `json:"principals,omitempty" tf:"principals,omitempty"`
+
+	// (String) Valid values are editor, viewer.
+	// Valid values are `editor`, `viewer`.
+	Relation *string `json:"relation,omitempty" tf:"relation,omitempty"`
+}
+
+type BindingsParameters struct {
+
+	// (List of String)
+	// +kubebuilder:validation:Optional
+	Principals []*string `json:"principals,omitempty" tf:"principals,omitempty"`
+
+	// (String) Valid values are editor, viewer.
+	// Valid values are `editor`, `viewer`.
+	// +kubebuilder:validation:Optional
+	Relation *string `json:"relation,omitempty" tf:"relation,omitempty"`
+}
+
 type BrowserStepInitParameters struct {
 
 	// (Boolean) Determines whether or not to continue with test if this step fails.
 	// Determines if the step should be allowed to fail.
 	AllowFailure *bool `json:"allowFailure,omitempty" tf:"allow_failure,omitempty"`
+
+	// (Boolean) Determines whether or not to always execute this step even if the previous step failed or was skipped.
+	// Determines whether or not to always execute this step even if the previous step failed or was skipped.
+	AlwaysExecute *bool `json:"alwaysExecute,omitempty" tf:"always_execute,omitempty"`
+
+	// (Boolean) Determines whether or not to exit the test if the step succeeds.
+	// Determines whether or not to exit the test if the step succeeds.
+	ExitIfSucceed *bool `json:"exitIfSucceed,omitempty" tf:"exit_if_succeed,omitempty"`
 
 	// (Boolean) Force update of the "element" parameter for the step
 	// Force update of the "element" parameter for the step
@@ -407,6 +606,10 @@ type BrowserStepInitParameters struct {
 	// (Boolean) Determines whether or not to consider the entire test as failed if this step fails. Can be used only if allow_failure is true.
 	// Determines whether or not to consider the entire test as failed if this step fails. Can be used only if `allow_failure` is `true`.
 	IsCritical *bool `json:"isCritical,omitempty" tf:"is_critical,omitempty"`
+
+	// (String) A unique identifier used to track steps after reordering.
+	// A unique identifier used to track steps after reordering.
+	LocalKey *string `json:"localKey,omitempty" tf:"local_key,omitempty"`
 
 	// (String) Name of Datadog synthetics test.
 	// Name of the step.
@@ -420,12 +623,12 @@ type BrowserStepInitParameters struct {
 	// Parameters for the step.
 	Params []ParamsInitParameters `json:"params,omitempty" tf:"params,omitempty"`
 
-	// (Number) Timeout in seconds for the test. Defaults to 60.
+	// (Number) Timeout in seconds for the test.
 	// Used to override the default timeout of a step.
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Type of the step. Valid values are `assertCurrentUrl`, `assertElementAttribute`, `assertElementContent`, `assertElementPresent`, `assertEmail`, `assertFileDownload`, `assertFromJavascript`, `assertPageContains`, `assertPageLacks`, `click`, `extractFromJavascript`, `extractVariable`, `goToEmailLink`, `goToUrl`, `goToUrlAndMeasureTti`, `hover`, `playSubTest`, `pressKey`, `refresh`, `runApiTest`, `scroll`, `selectOption`, `typeText`, `uploadFiles`, `wait`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of the step. Valid values are `assertCurrentUrl`, `assertElementAttribute`, `assertElementContent`, `assertElementPresent`, `assertEmail`, `assertFileDownload`, `assertFromJavascript`, `assertPageContains`, `assertPageLacks`, `assertRequests`, `click`, `extractFromJavascript`, `extractFromEmailBody`, `extractVariable`, `goToEmailLink`, `goToUrl`, `goToUrlAndMeasureTti`, `hover`, `playSubTest`, `pressKey`, `refresh`, `runApiTest`, `scroll`, `selectOption`, `typeText`, `uploadFiles`, `wait`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -435,6 +638,14 @@ type BrowserStepObservation struct {
 	// Determines if the step should be allowed to fail.
 	AllowFailure *bool `json:"allowFailure,omitempty" tf:"allow_failure,omitempty"`
 
+	// (Boolean) Determines whether or not to always execute this step even if the previous step failed or was skipped.
+	// Determines whether or not to always execute this step even if the previous step failed or was skipped.
+	AlwaysExecute *bool `json:"alwaysExecute,omitempty" tf:"always_execute,omitempty"`
+
+	// (Boolean) Determines whether or not to exit the test if the step succeeds.
+	// Determines whether or not to exit the test if the step succeeds.
+	ExitIfSucceed *bool `json:"exitIfSucceed,omitempty" tf:"exit_if_succeed,omitempty"`
+
 	// (Boolean) Force update of the "element" parameter for the step
 	// Force update of the "element" parameter for the step
 	ForceElementUpdate *bool `json:"forceElementUpdate,omitempty" tf:"force_element_update,omitempty"`
@@ -442,6 +653,10 @@ type BrowserStepObservation struct {
 	// (Boolean) Determines whether or not to consider the entire test as failed if this step fails. Can be used only if allow_failure is true.
 	// Determines whether or not to consider the entire test as failed if this step fails. Can be used only if `allow_failure` is `true`.
 	IsCritical *bool `json:"isCritical,omitempty" tf:"is_critical,omitempty"`
+
+	// (String) A unique identifier used to track steps after reordering.
+	// A unique identifier used to track steps after reordering.
+	LocalKey *string `json:"localKey,omitempty" tf:"local_key,omitempty"`
 
 	// (String) Name of Datadog synthetics test.
 	// Name of the step.
@@ -455,12 +670,16 @@ type BrowserStepObservation struct {
 	// Parameters for the step.
 	Params []ParamsObservation `json:"params,omitempty" tf:"params,omitempty"`
 
-	// (Number) Timeout in seconds for the test. Defaults to 60.
+	// (String) The identifier of the step on the backend.
+	// The identifier of the step on the backend.
+	PublicID *string `json:"publicId,omitempty" tf:"public_id,omitempty"`
+
+	// (Number) Timeout in seconds for the test.
 	// Used to override the default timeout of a step.
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Type of the step. Valid values are `assertCurrentUrl`, `assertElementAttribute`, `assertElementContent`, `assertElementPresent`, `assertEmail`, `assertFileDownload`, `assertFromJavascript`, `assertPageContains`, `assertPageLacks`, `click`, `extractFromJavascript`, `extractVariable`, `goToEmailLink`, `goToUrl`, `goToUrlAndMeasureTti`, `hover`, `playSubTest`, `pressKey`, `refresh`, `runApiTest`, `scroll`, `selectOption`, `typeText`, `uploadFiles`, `wait`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of the step. Valid values are `assertCurrentUrl`, `assertElementAttribute`, `assertElementContent`, `assertElementPresent`, `assertEmail`, `assertFileDownload`, `assertFromJavascript`, `assertPageContains`, `assertPageLacks`, `assertRequests`, `click`, `extractFromJavascript`, `extractFromEmailBody`, `extractVariable`, `goToEmailLink`, `goToUrl`, `goToUrlAndMeasureTti`, `hover`, `playSubTest`, `pressKey`, `refresh`, `runApiTest`, `scroll`, `selectOption`, `typeText`, `uploadFiles`, `wait`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -471,6 +690,16 @@ type BrowserStepParameters struct {
 	// +kubebuilder:validation:Optional
 	AllowFailure *bool `json:"allowFailure,omitempty" tf:"allow_failure,omitempty"`
 
+	// (Boolean) Determines whether or not to always execute this step even if the previous step failed or was skipped.
+	// Determines whether or not to always execute this step even if the previous step failed or was skipped.
+	// +kubebuilder:validation:Optional
+	AlwaysExecute *bool `json:"alwaysExecute,omitempty" tf:"always_execute,omitempty"`
+
+	// (Boolean) Determines whether or not to exit the test if the step succeeds.
+	// Determines whether or not to exit the test if the step succeeds.
+	// +kubebuilder:validation:Optional
+	ExitIfSucceed *bool `json:"exitIfSucceed,omitempty" tf:"exit_if_succeed,omitempty"`
+
 	// (Boolean) Force update of the "element" parameter for the step
 	// Force update of the "element" parameter for the step
 	// +kubebuilder:validation:Optional
@@ -480,6 +709,11 @@ type BrowserStepParameters struct {
 	// Determines whether or not to consider the entire test as failed if this step fails. Can be used only if `allow_failure` is `true`.
 	// +kubebuilder:validation:Optional
 	IsCritical *bool `json:"isCritical,omitempty" tf:"is_critical,omitempty"`
+
+	// (String) A unique identifier used to track steps after reordering.
+	// A unique identifier used to track steps after reordering.
+	// +kubebuilder:validation:Optional
+	LocalKey *string `json:"localKey,omitempty" tf:"local_key,omitempty"`
 
 	// (String) Name of Datadog synthetics test.
 	// Name of the step.
@@ -496,13 +730,13 @@ type BrowserStepParameters struct {
 	// +kubebuilder:validation:Optional
 	Params []ParamsParameters `json:"params" tf:"params,omitempty"`
 
-	// (Number) Timeout in seconds for the test. Defaults to 60.
+	// (Number) Timeout in seconds for the test.
 	// Used to override the default timeout of a step.
 	// +kubebuilder:validation:Optional
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Type of the step. Valid values are `assertCurrentUrl`, `assertElementAttribute`, `assertElementContent`, `assertElementPresent`, `assertEmail`, `assertFileDownload`, `assertFromJavascript`, `assertPageContains`, `assertPageLacks`, `click`, `extractFromJavascript`, `extractVariable`, `goToEmailLink`, `goToUrl`, `goToUrlAndMeasureTti`, `hover`, `playSubTest`, `pressKey`, `refresh`, `runApiTest`, `scroll`, `selectOption`, `typeText`, `uploadFiles`, `wait`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of the step. Valid values are `assertCurrentUrl`, `assertElementAttribute`, `assertElementContent`, `assertElementPresent`, `assertEmail`, `assertFileDownload`, `assertFromJavascript`, `assertPageContains`, `assertPageLacks`, `assertRequests`, `click`, `extractFromJavascript`, `extractFromEmailBody`, `extractVariable`, `goToEmailLink`, `goToUrl`, `goToUrlAndMeasureTti`, `hover`, `playSubTest`, `pressKey`, `refresh`, `runApiTest`, `scroll`, `selectOption`, `typeText`, `uploadFiles`, `wait`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 }
@@ -521,7 +755,7 @@ type BrowserVariableInitParameters struct {
 	// Name of the variable.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Pattern of the variable. Defaults to "".
+	// (Block List, Max: 1) Pattern to use for an "extractFromEmailBody" step. (see below for nested schema)
 	// Pattern of the variable. Defaults to `""`.
 	Pattern *string `json:"pattern,omitempty" tf:"pattern,omitempty"`
 
@@ -529,8 +763,8 @@ type BrowserVariableInitParameters struct {
 	// Determines whether or not the browser test variable is obfuscated. Can only be used with a browser variable of type `text`
 	Secure *bool `json:"secure,omitempty" tf:"secure,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Type of browser test variable. Valid values are `element`, `email`, `global`, `javascript`, `text`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of browser test variable. Valid values are `element`, `email`, `global`, `text`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -548,7 +782,7 @@ type BrowserVariableObservation struct {
 	// Name of the variable.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Pattern of the variable. Defaults to "".
+	// (Block List, Max: 1) Pattern to use for an "extractFromEmailBody" step. (see below for nested schema)
 	// Pattern of the variable. Defaults to `""`.
 	Pattern *string `json:"pattern,omitempty" tf:"pattern,omitempty"`
 
@@ -556,8 +790,8 @@ type BrowserVariableObservation struct {
 	// Determines whether or not the browser test variable is obfuscated. Can only be used with a browser variable of type `text`
 	Secure *bool `json:"secure,omitempty" tf:"secure,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Type of browser test variable. Valid values are `element`, `email`, `global`, `javascript`, `text`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of browser test variable. Valid values are `element`, `email`, `global`, `text`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -578,7 +812,7 @@ type BrowserVariableParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// (String) Pattern of the variable. Defaults to "".
+	// (Block List, Max: 1) Pattern to use for an "extractFromEmailBody" step. (see below for nested schema)
 	// Pattern of the variable. Defaults to `""`.
 	// +kubebuilder:validation:Optional
 	Pattern *string `json:"pattern,omitempty" tf:"pattern,omitempty"`
@@ -588,8 +822,8 @@ type BrowserVariableParameters struct {
 	// +kubebuilder:validation:Optional
 	Secure *bool `json:"secure,omitempty" tf:"secure,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Type of browser test variable. Valid values are `element`, `email`, `global`, `javascript`, `text`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of browser test variable. Valid values are `element`, `email`, `global`, `text`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 }
@@ -612,8 +846,8 @@ type CertParameters struct {
 
 	// (String, Sensitive) Content of the certificate.
 	// Content of the certificate.
-	// +kubebuilder:validation:Required
-	ContentSecretRef v1.SecretKeySelector `json:"contentSecretRef" tf:"-"`
+	// +kubebuilder:validation:Optional
+	ContentSecretRef *v1.SecretKeySelector `json:"contentSecretRef,omitempty" tf:"-"`
 
 	// (String) File name for the certificate.
 	// File name for the certificate.
@@ -640,13 +874,13 @@ type CiParameters struct {
 	// (String) Execution rule for a Synthetics test. Valid values are blocking, non_blocking, skipped.
 	// Execution rule for a Synthetics test. Valid values are `blocking`, `non_blocking`, `skipped`.
 	// +kubebuilder:validation:Optional
-	ExecutionRule *string `json:"executionRule,omitempty" tf:"execution_rule,omitempty"`
+	ExecutionRule *string `json:"executionRule" tf:"execution_rule,omitempty"`
 }
 
 type ConfigVariableInitParameters struct {
 
 	// (String) Example of the extracted variable. Defaults to "".
-	// Example for the variable. This value is not returned by the api when `secure = true`.
+	// Example for the variable. This value is not returned by the API when `secure = true`.
 	Example *string `json:"example,omitempty" tf:"example,omitempty"`
 
 	// (String) The ID of this resource.
@@ -657,23 +891,23 @@ type ConfigVariableInitParameters struct {
 	// Name of the variable.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Pattern of the variable. Defaults to "".
-	// Pattern of the variable. This value is not returned by the api when `secure = true`.
+	// (Block List, Max: 1) Pattern to use for an "extractFromEmailBody" step. (see below for nested schema)
+	// Pattern of the variable. This value is not returned by the API when `secure = true`.
 	Pattern *string `json:"pattern,omitempty" tf:"pattern,omitempty"`
 
 	// (Boolean) Determines whether or not the extracted value will be obfuscated.
 	// Whether the value of this variable will be obfuscated in test results. Defaults to `false`.
 	Secure *bool `json:"secure,omitempty" tf:"secure,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Type of test configuration variable. Valid values are `global`, `text`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of test configuration variable. Valid values are `global`, `text`, `email`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type ConfigVariableObservation struct {
 
 	// (String) Example of the extracted variable. Defaults to "".
-	// Example for the variable. This value is not returned by the api when `secure = true`.
+	// Example for the variable. This value is not returned by the API when `secure = true`.
 	Example *string `json:"example,omitempty" tf:"example,omitempty"`
 
 	// (String) The ID of this resource.
@@ -684,23 +918,23 @@ type ConfigVariableObservation struct {
 	// Name of the variable.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Pattern of the variable. Defaults to "".
-	// Pattern of the variable. This value is not returned by the api when `secure = true`.
+	// (Block List, Max: 1) Pattern to use for an "extractFromEmailBody" step. (see below for nested schema)
+	// Pattern of the variable. This value is not returned by the API when `secure = true`.
 	Pattern *string `json:"pattern,omitempty" tf:"pattern,omitempty"`
 
 	// (Boolean) Determines whether or not the extracted value will be obfuscated.
 	// Whether the value of this variable will be obfuscated in test results. Defaults to `false`.
 	Secure *bool `json:"secure,omitempty" tf:"secure,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Type of test configuration variable. Valid values are `global`, `text`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of test configuration variable. Valid values are `global`, `text`, `email`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type ConfigVariableParameters struct {
 
 	// (String) Example of the extracted variable. Defaults to "".
-	// Example for the variable. This value is not returned by the api when `secure = true`.
+	// Example for the variable. This value is not returned by the API when `secure = true`.
 	// +kubebuilder:validation:Optional
 	Example *string `json:"example,omitempty" tf:"example,omitempty"`
 
@@ -714,8 +948,8 @@ type ConfigVariableParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// (String) Pattern of the variable. Defaults to "".
-	// Pattern of the variable. This value is not returned by the api when `secure = true`.
+	// (Block List, Max: 1) Pattern to use for an "extractFromEmailBody" step. (see below for nested schema)
+	// Pattern of the variable. This value is not returned by the API when `secure = true`.
 	// +kubebuilder:validation:Optional
 	Pattern *string `json:"pattern,omitempty" tf:"pattern,omitempty"`
 
@@ -724,10 +958,105 @@ type ConfigVariableParameters struct {
 	// +kubebuilder:validation:Optional
 	Secure *bool `json:"secure,omitempty" tf:"secure,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Type of test configuration variable. Valid values are `global`, `text`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of test configuration variable. Valid values are `global`, `text`, `email`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type ElementInitParameters struct {
+
+	// (String)
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// (String) Valid values are native, web.
+	// Valid values are `native`, `web`.
+	ContextType *string `json:"contextType,omitempty" tf:"context_type,omitempty"`
+
+	// (String)
+	ElementDescription *string `json:"elementDescription,omitempty" tf:"element_description,omitempty"`
+
+	// (Map of String)
+	// +mapType=granular
+	MultiLocator map[string]*string `json:"multiLocator,omitempty" tf:"multi_locator,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	RelativePosition []RelativePositionInitParameters `json:"relativePosition,omitempty" tf:"relative_position,omitempty"`
+
+	// (String)
+	TextContent *string `json:"textContent,omitempty" tf:"text_content,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	UserLocator []UserLocatorInitParameters `json:"userLocator,omitempty" tf:"user_locator,omitempty"`
+
+	// (String)
+	ViewName *string `json:"viewName,omitempty" tf:"view_name,omitempty"`
+}
+
+type ElementObservation struct {
+
+	// (String)
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// (String) Valid values are native, web.
+	// Valid values are `native`, `web`.
+	ContextType *string `json:"contextType,omitempty" tf:"context_type,omitempty"`
+
+	// (String)
+	ElementDescription *string `json:"elementDescription,omitempty" tf:"element_description,omitempty"`
+
+	// (Map of String)
+	// +mapType=granular
+	MultiLocator map[string]*string `json:"multiLocator,omitempty" tf:"multi_locator,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	RelativePosition []RelativePositionObservation `json:"relativePosition,omitempty" tf:"relative_position,omitempty"`
+
+	// (String)
+	TextContent *string `json:"textContent,omitempty" tf:"text_content,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	UserLocator []UserLocatorObservation `json:"userLocator,omitempty" tf:"user_locator,omitempty"`
+
+	// (String)
+	ViewName *string `json:"viewName,omitempty" tf:"view_name,omitempty"`
+}
+
+type ElementParameters struct {
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	Context *string `json:"context,omitempty" tf:"context,omitempty"`
+
+	// (String) Valid values are native, web.
+	// Valid values are `native`, `web`.
+	// +kubebuilder:validation:Optional
+	ContextType *string `json:"contextType,omitempty" tf:"context_type,omitempty"`
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	ElementDescription *string `json:"elementDescription,omitempty" tf:"element_description,omitempty"`
+
+	// (Map of String)
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	MultiLocator map[string]*string `json:"multiLocator,omitempty" tf:"multi_locator,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	RelativePosition []RelativePositionParameters `json:"relativePosition,omitempty" tf:"relative_position,omitempty"`
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	TextContent *string `json:"textContent,omitempty" tf:"text_content,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	UserLocator []UserLocatorParameters `json:"userLocator,omitempty" tf:"user_locator,omitempty"`
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	ViewName *string `json:"viewName,omitempty" tf:"view_name,omitempty"`
 }
 
 type ElementUserLocatorInitParameters struct {
@@ -736,7 +1065,7 @@ type ElementUserLocatorInitParameters struct {
 	// Defaults to `false`.
 	FailTestOnCannotLocate *bool `json:"failTestOnCannotLocate,omitempty" tf:"fail_test_on_cannot_locate,omitempty"`
 
-	// (String) Regex or JSON path used for the parser. Not used with type raw.
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
 	Value []ValueInitParameters `json:"value,omitempty" tf:"value,omitempty"`
 }
 
@@ -746,7 +1075,7 @@ type ElementUserLocatorObservation struct {
 	// Defaults to `false`.
 	FailTestOnCannotLocate *bool `json:"failTestOnCannotLocate,omitempty" tf:"fail_test_on_cannot_locate,omitempty"`
 
-	// (String) Regex or JSON path used for the parser. Not used with type raw.
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
 	Value []ValueObservation `json:"value,omitempty" tf:"value,omitempty"`
 }
 
@@ -757,15 +1086,15 @@ type ElementUserLocatorParameters struct {
 	// +kubebuilder:validation:Optional
 	FailTestOnCannotLocate *bool `json:"failTestOnCannotLocate,omitempty" tf:"fail_test_on_cannot_locate,omitempty"`
 
-	// (String) Regex or JSON path used for the parser. Not used with type raw.
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
 	// +kubebuilder:validation:Optional
 	Value []ValueParameters `json:"value" tf:"value,omitempty"`
 }
 
 type ExtractedValueInitParameters struct {
 
-	// (String) When type is http_header, name of the header to use to extract the value.
-	// When type is `http_header`, name of the header to use to extract the value.
+	// (String) When type is http_header or grpc_metadata, name of the header or metadatum to extract.
+	// When type is `http_header` or `grpc_metadata`, name of the header or metadatum to extract.
 	Field *string `json:"field,omitempty" tf:"field,omitempty"`
 
 	// (String) Name of Datadog synthetics test.
@@ -778,15 +1107,15 @@ type ExtractedValueInitParameters struct {
 	// Determines whether or not the extracted value will be obfuscated.
 	Secure *bool `json:"secure,omitempty" tf:"secure,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Property of the Synthetics Test Response to use for the variable. Valid values are `http_body`, `http_header`, `local_variable`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Property of the Synthetics Test Response to use for the variable. Valid values are `grpc_message`, `grpc_metadata`, `http_body`, `http_header`, `http_status_code`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type ExtractedValueObservation struct {
 
-	// (String) When type is http_header, name of the header to use to extract the value.
-	// When type is `http_header`, name of the header to use to extract the value.
+	// (String) When type is http_header or grpc_metadata, name of the header or metadatum to extract.
+	// When type is `http_header` or `grpc_metadata`, name of the header or metadatum to extract.
 	Field *string `json:"field,omitempty" tf:"field,omitempty"`
 
 	// (String) Name of Datadog synthetics test.
@@ -799,15 +1128,15 @@ type ExtractedValueObservation struct {
 	// Determines whether or not the extracted value will be obfuscated.
 	Secure *bool `json:"secure,omitempty" tf:"secure,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Property of the Synthetics Test Response to use for the variable. Valid values are `http_body`, `http_header`, `local_variable`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Property of the Synthetics Test Response to use for the variable. Valid values are `grpc_message`, `grpc_metadata`, `http_body`, `http_header`, `http_status_code`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type ExtractedValueParameters struct {
 
-	// (String) When type is http_header, name of the header to use to extract the value.
-	// When type is `http_header`, name of the header to use to extract the value.
+	// (String) When type is http_header or grpc_metadata, name of the header or metadatum to extract.
+	// When type is `http_header` or `grpc_metadata`, name of the header or metadatum to extract.
 	// +kubebuilder:validation:Optional
 	Field *string `json:"field,omitempty" tf:"field,omitempty"`
 
@@ -824,42 +1153,42 @@ type ExtractedValueParameters struct {
 	// +kubebuilder:validation:Optional
 	Secure *bool `json:"secure,omitempty" tf:"secure,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Property of the Synthetics Test Response to use for the variable. Valid values are `http_body`, `http_header`, `local_variable`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Property of the Synthetics Test Response to use for the variable. Valid values are `grpc_message`, `grpc_metadata`, `http_body`, `http_header`, `http_status_code`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
 type ExtractedValueParserInitParameters struct {
 
-	// (String) Synthetics test type. Valid values are api, browser.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
 	// Type of parser for a Synthetics global variable from a synthetics test. Valid values are `raw`, `json_path`, `regex`, `x_path`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) Regex or JSON path used for the parser. Not used with type raw.
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
 	// Regex or JSON path used for the parser. Not used with type `raw`.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type ExtractedValueParserObservation struct {
 
-	// (String) Synthetics test type. Valid values are api, browser.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
 	// Type of parser for a Synthetics global variable from a synthetics test. Valid values are `raw`, `json_path`, `regex`, `x_path`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) Regex or JSON path used for the parser. Not used with type raw.
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
 	// Regex or JSON path used for the parser. Not used with type `raw`.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type ExtractedValueParserParameters struct {
 
-	// (String) Synthetics test type. Valid values are api, browser.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
 	// Type of parser for a Synthetics global variable from a synthetics test. Valid values are `raw`, `json_path`, `regex`, `x_path`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 
-	// (String) Regex or JSON path used for the parser. Not used with type raw.
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
 	// Regex or JSON path used for the parser. Not used with type `raw`.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
@@ -883,8 +1212,8 @@ type KeyParameters struct {
 
 	// (String, Sensitive) Content of the certificate.
 	// Content of the certificate.
-	// +kubebuilder:validation:Required
-	ContentSecretRef v1.SecretKeySelector `json:"contentSecretRef" tf:"-"`
+	// +kubebuilder:validation:Optional
+	ContentSecretRef *v1.SecretKeySelector `json:"contentSecretRef,omitempty" tf:"-"`
 
 	// (String) File name for the certificate.
 	// File name for the certificate.
@@ -892,77 +1221,76 @@ type KeyParameters struct {
 	Filename *string `json:"filename,omitempty" tf:"filename,omitempty"`
 }
 
-type MonitorOptionsInitParameters struct {
+type MobileApplicationInitParameters struct {
 
-	// (Number) Specify a renotification frequency in minutes. Values available by default are 0, 10, 20, 30, 40, 50, 60, 90, 120, 180, 240, 300, 360, 720, 1440. Defaults to 0.
-	// Specify a renotification frequency in minutes. Values available by default are `0`, `10`, `20`, `30`, `40`, `50`, `60`, `90`, `120`, `180`, `240`, `300`, `360`, `720`, `1440`. Defaults to `0`.
-	RenotifyInterval *float64 `json:"renotifyInterval,omitempty" tf:"renotify_interval,omitempty"`
+	// (String)
+	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
+
+	// (String)
+	ReferenceID *string `json:"referenceId,omitempty" tf:"reference_id,omitempty"`
+
+	// (String) Valid values are latest, version.
+	// Valid values are `latest`, `version`.
+	ReferenceType *string `json:"referenceType,omitempty" tf:"reference_type,omitempty"`
 }
 
-type MonitorOptionsObservation struct {
+type MobileApplicationObservation struct {
 
-	// (Number) Specify a renotification frequency in minutes. Values available by default are 0, 10, 20, 30, 40, 50, 60, 90, 120, 180, 240, 300, 360, 720, 1440. Defaults to 0.
-	// Specify a renotification frequency in minutes. Values available by default are `0`, `10`, `20`, `30`, `40`, `50`, `60`, `90`, `120`, `180`, `240`, `300`, `360`, `720`, `1440`. Defaults to `0`.
-	RenotifyInterval *float64 `json:"renotifyInterval,omitempty" tf:"renotify_interval,omitempty"`
+	// (String)
+	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
+
+	// (String)
+	ReferenceID *string `json:"referenceId,omitempty" tf:"reference_id,omitempty"`
+
+	// (String) Valid values are latest, version.
+	// Valid values are `latest`, `version`.
+	ReferenceType *string `json:"referenceType,omitempty" tf:"reference_type,omitempty"`
 }
 
-type MonitorOptionsParameters struct {
+type MobileApplicationParameters struct {
 
-	// (Number) Specify a renotification frequency in minutes. Values available by default are 0, 10, 20, 30, 40, 50, 60, 90, 120, 180, 240, 300, 360, 720, 1440. Defaults to 0.
-	// Specify a renotification frequency in minutes. Values available by default are `0`, `10`, `20`, `30`, `40`, `50`, `60`, `90`, `120`, `180`, `240`, `300`, `360`, `720`, `1440`. Defaults to `0`.
+	// (String)
 	// +kubebuilder:validation:Optional
-	RenotifyInterval *float64 `json:"renotifyInterval,omitempty" tf:"renotify_interval,omitempty"`
+	ApplicationID *string `json:"applicationId" tf:"application_id,omitempty"`
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	ReferenceID *string `json:"referenceId" tf:"reference_id,omitempty"`
+
+	// (String) Valid values are latest, version.
+	// Valid values are `latest`, `version`.
+	// +kubebuilder:validation:Optional
+	ReferenceType *string `json:"referenceType" tf:"reference_type,omitempty"`
 }
 
-type OptionsListInitParameters struct {
+type MobileOptionsListInitParameters struct {
 
-	// (Boolean) For SSL test, whether or not the test should allow self signed certificates.
-	// For SSL test, whether or not the test should allow self signed certificates.
-	AcceptSelfSigned *bool `json:"acceptSelfSigned,omitempty" tf:"accept_self_signed,omitempty"`
+	// (Boolean)
+	AllowApplicationCrash *bool `json:"allowApplicationCrash,omitempty" tf:"allow_application_crash,omitempty"`
 
-	// (Boolean) Allows loading insecure content for an HTTP request in an API test or in a multistep API test step.
-	// Allows loading insecure content for an HTTP request in an API test or in a multistep API test step.
-	AllowInsecure *bool `json:"allowInsecure,omitempty" tf:"allow_insecure,omitempty"`
-
-	// (Boolean) For SSL test, whether or not the test should fail on revoked certificate in stapled OCSP.
-	// For SSL test, whether or not the test should fail on revoked certificate in stapled OCSP.
-	CheckCertificateRevocation *bool `json:"checkCertificateRevocation,omitempty" tf:"check_certificate_revocation,omitempty"`
+	// (Block List) Restriction policy bindings for the Synthetic mobile test. Should not be used in parallel with a datadog_restriction_policy resource (see below for nested schema)
+	// Restriction policy bindings for the Synthetic mobile test. Should not be used in parallel with a `datadog_restriction_policy` resource
+	Bindings []BindingsInitParameters `json:"bindings,omitempty" tf:"bindings,omitempty"`
 
 	// (Block List, Max: 1) CI/CD options for a Synthetic test. (see below for nested schema)
 	// CI/CD options for a Synthetic test.
 	Ci []CiInitParameters `json:"ci,omitempty" tf:"ci,omitempty"`
 
-	// Origin Resource Sharing for browser tests.
-	// Disable Cross-Origin Resource Sharing for browser tests.
-	DisableCors *bool `json:"disableCors,omitempty" tf:"disable_cors,omitempty"`
+	// (Number)
+	DefaultStepTimeout *float64 `json:"defaultStepTimeout,omitempty" tf:"default_step_timeout,omitempty"`
 
-	// (Boolean) Disable Content Security Policy for browser tests.
-	// Disable Content Security Policy for browser tests.
-	DisableCsp *bool `json:"disableCsp,omitempty" tf:"disable_csp,omitempty"`
+	// (List of String) Required if type = "browser". Array with the different device IDs used to run the test.
+	DeviceIds []*string `json:"deviceIds,omitempty" tf:"device_ids,omitempty"`
 
-	// (Boolean) Determines whether or not the API HTTP test should follow redirects.
-	// Determines whether or not the API HTTP test should follow redirects.
-	FollowRedirects *bool `json:"followRedirects,omitempty" tf:"follow_redirects,omitempty"`
-
-	// (String) HTTP version to use for a Synthetics API test. Valid values are http1, http2, any.
-	// HTTP version to use for a Synthetics API test. Valid values are `http1`, `http2`, `any`.
-	HTTPVersion *string `json:"httpVersion,omitempty" tf:"http_version,omitempty"`
-
-	// (Boolean) Ignore server certificate error for browser tests.
-	// Ignore server certificate error for browser tests.
-	IgnoreServerCertificateError *bool `json:"ignoreServerCertificateError,omitempty" tf:"ignore_server_certificate_error,omitempty"`
-
-	// (Number) Timeout before declaring the initial step as failed (in seconds) for browser tests.
-	// Timeout before declaring the initial step as failed (in seconds) for browser tests.
-	InitialNavigationTimeout *float64 `json:"initialNavigationTimeout,omitempty" tf:"initial_navigation_timeout,omitempty"`
+	// (Boolean)
+	DisableAutoAcceptAlert *bool `json:"disableAutoAcceptAlert,omitempty" tf:"disable_auto_accept_alert,omitempty"`
 
 	// (Number) Minimum amount of time in failure required to trigger an alert (in seconds). Default is 0.
 	// Minimum amount of time in failure required to trigger an alert (in seconds). Default is `0`.
 	MinFailureDuration *float64 `json:"minFailureDuration,omitempty" tf:"min_failure_duration,omitempty"`
 
-	// (Number) Minimum number of locations in failure required to trigger an alert. Defaults to 1.
-	// Minimum number of locations in failure required to trigger an alert. Defaults to `1`.
-	MinLocationFailed *float64 `json:"minLocationFailed,omitempty" tf:"min_location_failed,omitempty"`
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	MobileApplication []MobileApplicationInitParameters `json:"mobileApplication,omitempty" tf:"mobile_application,omitempty"`
 
 	// (String) The monitor name is used for the alert title as well as for all monitor dashboard widgets and SLOs.
 	// The monitor name is used for the alert title as well as for all monitor dashboard widgets and SLOs.
@@ -978,76 +1306,54 @@ type OptionsListInitParameters struct {
 	// Prevents saving screenshots of the steps.
 	NoScreenshot *bool `json:"noScreenshot,omitempty" tf:"no_screenshot,omitempty"`
 
-	// (Set of String) A list of role identifiers pulled from the Roles API to restrict read and write access.
-	// A list of role identifiers pulled from the Roles API to restrict read and write access.
+	// (Set of String, Deprecated) A list of role identifiers pulled from the Roles API to restrict read and write access. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+	// A list of role identifiers pulled from the Roles API to restrict read and write access. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
 	// +listType=set
 	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
 
 	// (Block List, Max: 1) (see below for nested schema)
-	Retry []OptionsListRetryInitParameters `json:"retry,omitempty" tf:"retry,omitempty"`
-
-	// (Block List, Max: 1) The RUM data collection settings for the Synthetic browser test. (see below for nested schema)
-	// The RUM data collection settings for the Synthetic browser test.
-	RumSettings []string `json:"rumSettings,omitempty" tf:"rum_settings,omitempty"`
+	Retry []MobileOptionsListRetryInitParameters `json:"retry,omitempty" tf:"retry,omitempty"`
 
 	// (Block List, Max: 1) Object containing timeframes and timezone used for advanced scheduling. (see below for nested schema)
 	// Object containing timeframes and timezone used for advanced scheduling.
 	Scheduling []SchedulingInitParameters `json:"scheduling,omitempty" tf:"scheduling,omitempty"`
 
-	// (Number) How often the test should run (in seconds).
-	// How often the test should run (in seconds).
+	// 604800 for mobile tests.
+	// How often the test should run (in seconds). Valid range is `300-604800` for mobile tests.
 	TickEvery *float64 `json:"tickEvery,omitempty" tf:"tick_every,omitempty"`
+
+	// (Number)
+	Verbosity *float64 `json:"verbosity,omitempty" tf:"verbosity,omitempty"`
 }
 
-type OptionsListObservation struct {
+type MobileOptionsListObservation struct {
 
-	// (Boolean) For SSL test, whether or not the test should allow self signed certificates.
-	// For SSL test, whether or not the test should allow self signed certificates.
-	AcceptSelfSigned *bool `json:"acceptSelfSigned,omitempty" tf:"accept_self_signed,omitempty"`
+	// (Boolean)
+	AllowApplicationCrash *bool `json:"allowApplicationCrash,omitempty" tf:"allow_application_crash,omitempty"`
 
-	// (Boolean) Allows loading insecure content for an HTTP request in an API test or in a multistep API test step.
-	// Allows loading insecure content for an HTTP request in an API test or in a multistep API test step.
-	AllowInsecure *bool `json:"allowInsecure,omitempty" tf:"allow_insecure,omitempty"`
-
-	// (Boolean) For SSL test, whether or not the test should fail on revoked certificate in stapled OCSP.
-	// For SSL test, whether or not the test should fail on revoked certificate in stapled OCSP.
-	CheckCertificateRevocation *bool `json:"checkCertificateRevocation,omitempty" tf:"check_certificate_revocation,omitempty"`
+	// (Block List) Restriction policy bindings for the Synthetic mobile test. Should not be used in parallel with a datadog_restriction_policy resource (see below for nested schema)
+	// Restriction policy bindings for the Synthetic mobile test. Should not be used in parallel with a `datadog_restriction_policy` resource
+	Bindings []BindingsObservation `json:"bindings,omitempty" tf:"bindings,omitempty"`
 
 	// (Block List, Max: 1) CI/CD options for a Synthetic test. (see below for nested schema)
 	// CI/CD options for a Synthetic test.
 	Ci []CiObservation `json:"ci,omitempty" tf:"ci,omitempty"`
 
-	// Origin Resource Sharing for browser tests.
-	// Disable Cross-Origin Resource Sharing for browser tests.
-	DisableCors *bool `json:"disableCors,omitempty" tf:"disable_cors,omitempty"`
+	// (Number)
+	DefaultStepTimeout *float64 `json:"defaultStepTimeout,omitempty" tf:"default_step_timeout,omitempty"`
 
-	// (Boolean) Disable Content Security Policy for browser tests.
-	// Disable Content Security Policy for browser tests.
-	DisableCsp *bool `json:"disableCsp,omitempty" tf:"disable_csp,omitempty"`
+	// (List of String) Required if type = "browser". Array with the different device IDs used to run the test.
+	DeviceIds []*string `json:"deviceIds,omitempty" tf:"device_ids,omitempty"`
 
-	// (Boolean) Determines whether or not the API HTTP test should follow redirects.
-	// Determines whether or not the API HTTP test should follow redirects.
-	FollowRedirects *bool `json:"followRedirects,omitempty" tf:"follow_redirects,omitempty"`
-
-	// (String) HTTP version to use for a Synthetics API test. Valid values are http1, http2, any.
-	// HTTP version to use for a Synthetics API test. Valid values are `http1`, `http2`, `any`.
-	HTTPVersion *string `json:"httpVersion,omitempty" tf:"http_version,omitempty"`
-
-	// (Boolean) Ignore server certificate error for browser tests.
-	// Ignore server certificate error for browser tests.
-	IgnoreServerCertificateError *bool `json:"ignoreServerCertificateError,omitempty" tf:"ignore_server_certificate_error,omitempty"`
-
-	// (Number) Timeout before declaring the initial step as failed (in seconds) for browser tests.
-	// Timeout before declaring the initial step as failed (in seconds) for browser tests.
-	InitialNavigationTimeout *float64 `json:"initialNavigationTimeout,omitempty" tf:"initial_navigation_timeout,omitempty"`
+	// (Boolean)
+	DisableAutoAcceptAlert *bool `json:"disableAutoAcceptAlert,omitempty" tf:"disable_auto_accept_alert,omitempty"`
 
 	// (Number) Minimum amount of time in failure required to trigger an alert (in seconds). Default is 0.
 	// Minimum amount of time in failure required to trigger an alert (in seconds). Default is `0`.
 	MinFailureDuration *float64 `json:"minFailureDuration,omitempty" tf:"min_failure_duration,omitempty"`
 
-	// (Number) Minimum number of locations in failure required to trigger an alert. Defaults to 1.
-	// Minimum number of locations in failure required to trigger an alert. Defaults to `1`.
-	MinLocationFailed *float64 `json:"minLocationFailed,omitempty" tf:"min_location_failed,omitempty"`
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
+	MobileApplication []MobileApplicationObservation `json:"mobileApplication,omitempty" tf:"mobile_application,omitempty"`
 
 	// (String) The monitor name is used for the alert title as well as for all monitor dashboard widgets and SLOs.
 	// The monitor name is used for the alert title as well as for all monitor dashboard widgets and SLOs.
@@ -1063,88 +1369,62 @@ type OptionsListObservation struct {
 	// Prevents saving screenshots of the steps.
 	NoScreenshot *bool `json:"noScreenshot,omitempty" tf:"no_screenshot,omitempty"`
 
-	// (Set of String) A list of role identifiers pulled from the Roles API to restrict read and write access.
-	// A list of role identifiers pulled from the Roles API to restrict read and write access.
+	// (Set of String, Deprecated) A list of role identifiers pulled from the Roles API to restrict read and write access. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+	// A list of role identifiers pulled from the Roles API to restrict read and write access. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
 	// +listType=set
 	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
 
 	// (Block List, Max: 1) (see below for nested schema)
-	Retry []OptionsListRetryObservation `json:"retry,omitempty" tf:"retry,omitempty"`
-
-	// (Block List, Max: 1) The RUM data collection settings for the Synthetic browser test. (see below for nested schema)
-	// The RUM data collection settings for the Synthetic browser test.
-	RumSettings []string `json:"rumSettings,omitempty" tf:"rum_settings,omitempty"`
+	Retry []MobileOptionsListRetryObservation `json:"retry,omitempty" tf:"retry,omitempty"`
 
 	// (Block List, Max: 1) Object containing timeframes and timezone used for advanced scheduling. (see below for nested schema)
 	// Object containing timeframes and timezone used for advanced scheduling.
 	Scheduling []SchedulingObservation `json:"scheduling,omitempty" tf:"scheduling,omitempty"`
 
-	// (Number) How often the test should run (in seconds).
-	// How often the test should run (in seconds).
+	// 604800 for mobile tests.
+	// How often the test should run (in seconds). Valid range is `300-604800` for mobile tests.
 	TickEvery *float64 `json:"tickEvery,omitempty" tf:"tick_every,omitempty"`
+
+	// (Number)
+	Verbosity *float64 `json:"verbosity,omitempty" tf:"verbosity,omitempty"`
 }
 
-type OptionsListParameters struct {
+type MobileOptionsListParameters struct {
 
-	// (Boolean) For SSL test, whether or not the test should allow self signed certificates.
-	// For SSL test, whether or not the test should allow self signed certificates.
+	// (Boolean)
 	// +kubebuilder:validation:Optional
-	AcceptSelfSigned *bool `json:"acceptSelfSigned,omitempty" tf:"accept_self_signed,omitempty"`
+	AllowApplicationCrash *bool `json:"allowApplicationCrash,omitempty" tf:"allow_application_crash,omitempty"`
 
-	// (Boolean) Allows loading insecure content for an HTTP request in an API test or in a multistep API test step.
-	// Allows loading insecure content for an HTTP request in an API test or in a multistep API test step.
+	// (Block List) Restriction policy bindings for the Synthetic mobile test. Should not be used in parallel with a datadog_restriction_policy resource (see below for nested schema)
+	// Restriction policy bindings for the Synthetic mobile test. Should not be used in parallel with a `datadog_restriction_policy` resource
 	// +kubebuilder:validation:Optional
-	AllowInsecure *bool `json:"allowInsecure,omitempty" tf:"allow_insecure,omitempty"`
-
-	// (Boolean) For SSL test, whether or not the test should fail on revoked certificate in stapled OCSP.
-	// For SSL test, whether or not the test should fail on revoked certificate in stapled OCSP.
-	// +kubebuilder:validation:Optional
-	CheckCertificateRevocation *bool `json:"checkCertificateRevocation,omitempty" tf:"check_certificate_revocation,omitempty"`
+	Bindings []BindingsParameters `json:"bindings,omitempty" tf:"bindings,omitempty"`
 
 	// (Block List, Max: 1) CI/CD options for a Synthetic test. (see below for nested schema)
 	// CI/CD options for a Synthetic test.
 	// +kubebuilder:validation:Optional
 	Ci []CiParameters `json:"ci,omitempty" tf:"ci,omitempty"`
 
-	// Origin Resource Sharing for browser tests.
-	// Disable Cross-Origin Resource Sharing for browser tests.
+	// (Number)
 	// +kubebuilder:validation:Optional
-	DisableCors *bool `json:"disableCors,omitempty" tf:"disable_cors,omitempty"`
+	DefaultStepTimeout *float64 `json:"defaultStepTimeout,omitempty" tf:"default_step_timeout,omitempty"`
 
-	// (Boolean) Disable Content Security Policy for browser tests.
-	// Disable Content Security Policy for browser tests.
+	// (List of String) Required if type = "browser". Array with the different device IDs used to run the test.
 	// +kubebuilder:validation:Optional
-	DisableCsp *bool `json:"disableCsp,omitempty" tf:"disable_csp,omitempty"`
+	DeviceIds []*string `json:"deviceIds" tf:"device_ids,omitempty"`
 
-	// (Boolean) Determines whether or not the API HTTP test should follow redirects.
-	// Determines whether or not the API HTTP test should follow redirects.
+	// (Boolean)
 	// +kubebuilder:validation:Optional
-	FollowRedirects *bool `json:"followRedirects,omitempty" tf:"follow_redirects,omitempty"`
-
-	// (String) HTTP version to use for a Synthetics API test. Valid values are http1, http2, any.
-	// HTTP version to use for a Synthetics API test. Valid values are `http1`, `http2`, `any`.
-	// +kubebuilder:validation:Optional
-	HTTPVersion *string `json:"httpVersion,omitempty" tf:"http_version,omitempty"`
-
-	// (Boolean) Ignore server certificate error for browser tests.
-	// Ignore server certificate error for browser tests.
-	// +kubebuilder:validation:Optional
-	IgnoreServerCertificateError *bool `json:"ignoreServerCertificateError,omitempty" tf:"ignore_server_certificate_error,omitempty"`
-
-	// (Number) Timeout before declaring the initial step as failed (in seconds) for browser tests.
-	// Timeout before declaring the initial step as failed (in seconds) for browser tests.
-	// +kubebuilder:validation:Optional
-	InitialNavigationTimeout *float64 `json:"initialNavigationTimeout,omitempty" tf:"initial_navigation_timeout,omitempty"`
+	DisableAutoAcceptAlert *bool `json:"disableAutoAcceptAlert,omitempty" tf:"disable_auto_accept_alert,omitempty"`
 
 	// (Number) Minimum amount of time in failure required to trigger an alert (in seconds). Default is 0.
 	// Minimum amount of time in failure required to trigger an alert (in seconds). Default is `0`.
 	// +kubebuilder:validation:Optional
 	MinFailureDuration *float64 `json:"minFailureDuration,omitempty" tf:"min_failure_duration,omitempty"`
 
-	// (Number) Minimum number of locations in failure required to trigger an alert. Defaults to 1.
-	// Minimum number of locations in failure required to trigger an alert. Defaults to `1`.
+	// (Block List, Min: 1, Max: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	MinLocationFailed *float64 `json:"minLocationFailed,omitempty" tf:"min_location_failed,omitempty"`
+	MobileApplication []MobileApplicationParameters `json:"mobileApplication" tf:"mobile_application,omitempty"`
 
 	// (String) The monitor name is used for the alert title as well as for all monitor dashboard widgets and SLOs.
 	// The monitor name is used for the alert title as well as for all monitor dashboard widgets and SLOs.
@@ -1164,8 +1444,780 @@ type OptionsListParameters struct {
 	// +kubebuilder:validation:Optional
 	NoScreenshot *bool `json:"noScreenshot,omitempty" tf:"no_screenshot,omitempty"`
 
-	// (Set of String) A list of role identifiers pulled from the Roles API to restrict read and write access.
-	// A list of role identifiers pulled from the Roles API to restrict read and write access.
+	// (Set of String, Deprecated) A list of role identifiers pulled from the Roles API to restrict read and write access. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+	// A list of role identifiers pulled from the Roles API to restrict read and write access. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	Retry []MobileOptionsListRetryParameters `json:"retry,omitempty" tf:"retry,omitempty"`
+
+	// (Block List, Max: 1) Object containing timeframes and timezone used for advanced scheduling. (see below for nested schema)
+	// Object containing timeframes and timezone used for advanced scheduling.
+	// +kubebuilder:validation:Optional
+	Scheduling []SchedulingParameters `json:"scheduling,omitempty" tf:"scheduling,omitempty"`
+
+	// 604800 for mobile tests.
+	// How often the test should run (in seconds). Valid range is `300-604800` for mobile tests.
+	// +kubebuilder:validation:Optional
+	TickEvery *float64 `json:"tickEvery" tf:"tick_every,omitempty"`
+
+	// (Number)
+	// +kubebuilder:validation:Optional
+	Verbosity *float64 `json:"verbosity,omitempty" tf:"verbosity,omitempty"`
+}
+
+type MobileOptionsListRetryInitParameters struct {
+
+	// (Number) Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: 3 for api tests, 2 for browser and mobile tests. Defaults to 0.
+	// Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: `3` for `api` tests, `2` for `browser` and `mobile` tests. Defaults to `0`.
+	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
+
+	// (Number) Interval between a failed test and the next retry in milliseconds. Maximum value: 5000. Defaults to 300.
+	// Interval between a failed test and the next retry in milliseconds. Maximum value: `5000`. Defaults to `300`.
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+}
+
+type MobileOptionsListRetryObservation struct {
+
+	// (Number) Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: 3 for api tests, 2 for browser and mobile tests. Defaults to 0.
+	// Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: `3` for `api` tests, `2` for `browser` and `mobile` tests. Defaults to `0`.
+	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
+
+	// (Number) Interval between a failed test and the next retry in milliseconds. Maximum value: 5000. Defaults to 300.
+	// Interval between a failed test and the next retry in milliseconds. Maximum value: `5000`. Defaults to `300`.
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+}
+
+type MobileOptionsListRetryParameters struct {
+
+	// (Number) Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: 3 for api tests, 2 for browser and mobile tests. Defaults to 0.
+	// Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: `3` for `api` tests, `2` for `browser` and `mobile` tests. Defaults to `0`.
+	// +kubebuilder:validation:Optional
+	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
+
+	// (Number) Interval between a failed test and the next retry in milliseconds. Maximum value: 5000. Defaults to 300.
+	// Interval between a failed test and the next retry in milliseconds. Maximum value: `5000`. Defaults to `300`.
+	// +kubebuilder:validation:Optional
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+}
+
+type MobileStepInitParameters struct {
+
+	// (Boolean) Determines whether or not to continue with test if this step fails.
+	// A boolean set to allow this step to fail.
+	AllowFailure *bool `json:"allowFailure,omitempty" tf:"allow_failure,omitempty"`
+
+	// (Boolean) A boolean set to determine if the step has a new step element.
+	// A boolean set to determine if the step has a new step element.
+	HasNewStepElement *bool `json:"hasNewStepElement,omitempty" tf:"has_new_step_element,omitempty"`
+
+	// (Boolean) Determines whether or not to consider the entire test as failed if this step fails. Can be used only if allow_failure is true.
+	// A boolean to use in addition to `allowFailure` to determine if the test should be marked as failed when the step fails.
+	IsCritical *bool `json:"isCritical,omitempty" tf:"is_critical,omitempty"`
+
+	// (String) Name of Datadog synthetics test.
+	// The name of the step.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Boolean) Prevents saving screenshots of the step.
+	// A boolean set to not take a screenshot for the step.
+	NoScreenshot *bool `json:"noScreenshot,omitempty" tf:"no_screenshot,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Parameters for the step. (see below for nested schema)
+	// Parameters for the step.
+	Params []MobileStepParamsInitParameters `json:"params,omitempty" tf:"params,omitempty"`
+
+	// (String) The identifier of the step on the backend.
+	// The public ID of the step.
+	PublicID *string `json:"publicId,omitempty" tf:"public_id,omitempty"`
+
+	// (Number) Timeout in seconds for the test.
+	// The time before declaring a step failed.
+	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// The type of the step. Valid values are `assertElementContent`, `assertScreenContains`, `assertScreenLacks`, `doubleTap`, `extractVariable`, `flick`, `openDeeplink`, `playSubTest`, `pressBack`, `restartApplication`, `rotate`, `scroll`, `scrollToElement`, `tap`, `toggleWiFi`, `typeText`, `wait`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type MobileStepObservation struct {
+
+	// (Boolean) Determines whether or not to continue with test if this step fails.
+	// A boolean set to allow this step to fail.
+	AllowFailure *bool `json:"allowFailure,omitempty" tf:"allow_failure,omitempty"`
+
+	// (Boolean) A boolean set to determine if the step has a new step element.
+	// A boolean set to determine if the step has a new step element.
+	HasNewStepElement *bool `json:"hasNewStepElement,omitempty" tf:"has_new_step_element,omitempty"`
+
+	// (Boolean) Determines whether or not to consider the entire test as failed if this step fails. Can be used only if allow_failure is true.
+	// A boolean to use in addition to `allowFailure` to determine if the test should be marked as failed when the step fails.
+	IsCritical *bool `json:"isCritical,omitempty" tf:"is_critical,omitempty"`
+
+	// (String) Name of Datadog synthetics test.
+	// The name of the step.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Boolean) Prevents saving screenshots of the step.
+	// A boolean set to not take a screenshot for the step.
+	NoScreenshot *bool `json:"noScreenshot,omitempty" tf:"no_screenshot,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Parameters for the step. (see below for nested schema)
+	// Parameters for the step.
+	Params []MobileStepParamsObservation `json:"params,omitempty" tf:"params,omitempty"`
+
+	// (String) The identifier of the step on the backend.
+	// The public ID of the step.
+	PublicID *string `json:"publicId,omitempty" tf:"public_id,omitempty"`
+
+	// (Number) Timeout in seconds for the test.
+	// The time before declaring a step failed.
+	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// The type of the step. Valid values are `assertElementContent`, `assertScreenContains`, `assertScreenLacks`, `doubleTap`, `extractVariable`, `flick`, `openDeeplink`, `playSubTest`, `pressBack`, `restartApplication`, `rotate`, `scroll`, `scrollToElement`, `tap`, `toggleWiFi`, `typeText`, `wait`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type MobileStepParameters struct {
+
+	// (Boolean) Determines whether or not to continue with test if this step fails.
+	// A boolean set to allow this step to fail.
+	// +kubebuilder:validation:Optional
+	AllowFailure *bool `json:"allowFailure,omitempty" tf:"allow_failure,omitempty"`
+
+	// (Boolean) A boolean set to determine if the step has a new step element.
+	// A boolean set to determine if the step has a new step element.
+	// +kubebuilder:validation:Optional
+	HasNewStepElement *bool `json:"hasNewStepElement,omitempty" tf:"has_new_step_element,omitempty"`
+
+	// (Boolean) Determines whether or not to consider the entire test as failed if this step fails. Can be used only if allow_failure is true.
+	// A boolean to use in addition to `allowFailure` to determine if the test should be marked as failed when the step fails.
+	// +kubebuilder:validation:Optional
+	IsCritical *bool `json:"isCritical,omitempty" tf:"is_critical,omitempty"`
+
+	// (String) Name of Datadog synthetics test.
+	// The name of the step.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (Boolean) Prevents saving screenshots of the step.
+	// A boolean set to not take a screenshot for the step.
+	// +kubebuilder:validation:Optional
+	NoScreenshot *bool `json:"noScreenshot,omitempty" tf:"no_screenshot,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Parameters for the step. (see below for nested schema)
+	// Parameters for the step.
+	// +kubebuilder:validation:Optional
+	Params []MobileStepParamsParameters `json:"params" tf:"params,omitempty"`
+
+	// (String) The identifier of the step on the backend.
+	// The public ID of the step.
+	// +kubebuilder:validation:Optional
+	PublicID *string `json:"publicId,omitempty" tf:"public_id,omitempty"`
+
+	// (Number) Timeout in seconds for the test.
+	// The time before declaring a step failed.
+	// +kubebuilder:validation:Optional
+	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// The type of the step. Valid values are `assertElementContent`, `assertScreenContains`, `assertScreenLacks`, `doubleTap`, `extractVariable`, `flick`, `openDeeplink`, `playSubTest`, `pressBack`, `restartApplication`, `rotate`, `scroll`, `scrollToElement`, `tap`, `toggleWiFi`, `typeText`, `wait`.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type MobileStepParamsInitParameters struct {
+
+	// (String) Check type to use for an assertion step. Valid values are equals, notEquals, contains, notContains, startsWith, notStartsWith, greater, lower, greaterEquals, lowerEquals, matchRegex, between, isEmpty, notIsEmpty.
+	// Check type to use for an assertion step. Valid values are `equals`, `notEquals`, `contains`, `notContains`, `startsWith`, `notStartsWith`, `greater`, `lower`, `greaterEquals`, `lowerEquals`, `matchRegex`, `between`, `isEmpty`, `notIsEmpty`.
+	Check *string `json:"check,omitempty" tf:"check,omitempty"`
+
+	// (Number) Delay between each key stroke for a "type test" step.
+	// Delay between each key stroke for a "type test" step.
+	Delay *float64 `json:"delay,omitempty" tf:"delay,omitempty"`
+
+	// (String) Valid values are up, down, left, right.
+	// Valid values are `up`, `down`, `left`, `right`.
+	Direction *string `json:"direction,omitempty" tf:"direction,omitempty"`
+
+	// (String) Element to use for the step, JSON encoded string. Refer to the examples for a usage example showing the schema.
+	// Element to use for the step
+	Element []ElementInitParameters `json:"element,omitempty" tf:"element,omitempty"`
+
+	// (Boolean)
+	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
+
+	// (Number)
+	MaxScrolls *float64 `json:"maxScrolls,omitempty" tf:"max_scrolls,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Positions []PositionsInitParameters `json:"positions,omitempty" tf:"positions,omitempty"`
+
+	// (String) Public ID of the test to be played as part of a playSubTest step type.
+	// ID of the Synthetics test to use as subtest.
+	SubtestPublicID *string `json:"subtestPublicId,omitempty" tf:"subtest_public_id,omitempty"`
+
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
+	// Value of the step.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+
+	// (Block List, Max: 1) Details of the variable to extract. (see below for nested schema)
+	// Details of the variable to extract.
+	Variable []ParamsVariableInitParameters `json:"variable,omitempty" tf:"variable,omitempty"`
+
+	// (Boolean)
+	WithEnter *bool `json:"withEnter,omitempty" tf:"with_enter,omitempty"`
+
+	// (Number) X coordinates for a "scroll step".
+	// X coordinates for a "scroll step".
+	X *float64 `json:"x,omitempty" tf:"x,omitempty"`
+
+	// (Number) Y coordinates for a "scroll step".
+	// Y coordinates for a "scroll step".
+	Y *float64 `json:"y,omitempty" tf:"y,omitempty"`
+}
+
+type MobileStepParamsObservation struct {
+
+	// (String) Check type to use for an assertion step. Valid values are equals, notEquals, contains, notContains, startsWith, notStartsWith, greater, lower, greaterEquals, lowerEquals, matchRegex, between, isEmpty, notIsEmpty.
+	// Check type to use for an assertion step. Valid values are `equals`, `notEquals`, `contains`, `notContains`, `startsWith`, `notStartsWith`, `greater`, `lower`, `greaterEquals`, `lowerEquals`, `matchRegex`, `between`, `isEmpty`, `notIsEmpty`.
+	Check *string `json:"check,omitempty" tf:"check,omitempty"`
+
+	// (Number) Delay between each key stroke for a "type test" step.
+	// Delay between each key stroke for a "type test" step.
+	Delay *float64 `json:"delay,omitempty" tf:"delay,omitempty"`
+
+	// (String) Valid values are up, down, left, right.
+	// Valid values are `up`, `down`, `left`, `right`.
+	Direction *string `json:"direction,omitempty" tf:"direction,omitempty"`
+
+	// (String) Element to use for the step, JSON encoded string. Refer to the examples for a usage example showing the schema.
+	// Element to use for the step
+	Element []ElementObservation `json:"element,omitempty" tf:"element,omitempty"`
+
+	// (Boolean)
+	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
+
+	// (Number)
+	MaxScrolls *float64 `json:"maxScrolls,omitempty" tf:"max_scrolls,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	Positions []PositionsObservation `json:"positions,omitempty" tf:"positions,omitempty"`
+
+	// (String) Public ID of the test to be played as part of a playSubTest step type.
+	// ID of the Synthetics test to use as subtest.
+	SubtestPublicID *string `json:"subtestPublicId,omitempty" tf:"subtest_public_id,omitempty"`
+
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
+	// Value of the step.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+
+	// (Block List, Max: 1) Details of the variable to extract. (see below for nested schema)
+	// Details of the variable to extract.
+	Variable []ParamsVariableObservation `json:"variable,omitempty" tf:"variable,omitempty"`
+
+	// (Boolean)
+	WithEnter *bool `json:"withEnter,omitempty" tf:"with_enter,omitempty"`
+
+	// (Number) X coordinates for a "scroll step".
+	// X coordinates for a "scroll step".
+	X *float64 `json:"x,omitempty" tf:"x,omitempty"`
+
+	// (Number) Y coordinates for a "scroll step".
+	// Y coordinates for a "scroll step".
+	Y *float64 `json:"y,omitempty" tf:"y,omitempty"`
+}
+
+type MobileStepParamsParameters struct {
+
+	// (String) Check type to use for an assertion step. Valid values are equals, notEquals, contains, notContains, startsWith, notStartsWith, greater, lower, greaterEquals, lowerEquals, matchRegex, between, isEmpty, notIsEmpty.
+	// Check type to use for an assertion step. Valid values are `equals`, `notEquals`, `contains`, `notContains`, `startsWith`, `notStartsWith`, `greater`, `lower`, `greaterEquals`, `lowerEquals`, `matchRegex`, `between`, `isEmpty`, `notIsEmpty`.
+	// +kubebuilder:validation:Optional
+	Check *string `json:"check,omitempty" tf:"check,omitempty"`
+
+	// (Number) Delay between each key stroke for a "type test" step.
+	// Delay between each key stroke for a "type test" step.
+	// +kubebuilder:validation:Optional
+	Delay *float64 `json:"delay,omitempty" tf:"delay,omitempty"`
+
+	// (String) Valid values are up, down, left, right.
+	// Valid values are `up`, `down`, `left`, `right`.
+	// +kubebuilder:validation:Optional
+	Direction *string `json:"direction,omitempty" tf:"direction,omitempty"`
+
+	// (String) Element to use for the step, JSON encoded string. Refer to the examples for a usage example showing the schema.
+	// Element to use for the step
+	// +kubebuilder:validation:Optional
+	Element []ElementParameters `json:"element,omitempty" tf:"element,omitempty"`
+
+	// (Boolean)
+	// +kubebuilder:validation:Optional
+	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
+
+	// (Number)
+	// +kubebuilder:validation:Optional
+	MaxScrolls *float64 `json:"maxScrolls,omitempty" tf:"max_scrolls,omitempty"`
+
+	// (Block List) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	Positions []PositionsParameters `json:"positions,omitempty" tf:"positions,omitempty"`
+
+	// (String) Public ID of the test to be played as part of a playSubTest step type.
+	// ID of the Synthetics test to use as subtest.
+	// +kubebuilder:validation:Optional
+	SubtestPublicID *string `json:"subtestPublicId,omitempty" tf:"subtest_public_id,omitempty"`
+
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
+	// Value of the step.
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+
+	// (Block List, Max: 1) Details of the variable to extract. (see below for nested schema)
+	// Details of the variable to extract.
+	// +kubebuilder:validation:Optional
+	Variable []ParamsVariableParameters `json:"variable,omitempty" tf:"variable,omitempty"`
+
+	// (Boolean)
+	// +kubebuilder:validation:Optional
+	WithEnter *bool `json:"withEnter,omitempty" tf:"with_enter,omitempty"`
+
+	// (Number) X coordinates for a "scroll step".
+	// X coordinates for a "scroll step".
+	// +kubebuilder:validation:Optional
+	X *float64 `json:"x,omitempty" tf:"x,omitempty"`
+
+	// (Number) Y coordinates for a "scroll step".
+	// Y coordinates for a "scroll step".
+	// +kubebuilder:validation:Optional
+	Y *float64 `json:"y,omitempty" tf:"y,omitempty"`
+}
+
+type MonitorOptionsInitParameters struct {
+
+	// notification.
+	// A message to include with a re-notification.
+	EscalationMessage *string `json:"escalationMessage,omitempty" tf:"escalation_message,omitempty"`
+
+	// (String) The name of the preset for the notification for the monitor. Valid values are show_all, hide_all, hide_query, hide_handles, hide_query_and_handles, show_only_snapshot, hide_handles_and_footer.
+	// The name of the preset for the notification for the monitor. Valid values are `show_all`, `hide_all`, `hide_query`, `hide_handles`, `hide_query_and_handles`, `show_only_snapshot`, `hide_handles_and_footer`.
+	NotificationPresetName *string `json:"notificationPresetName,omitempty" tf:"notification_preset_name,omitempty"`
+
+	// (Number) Specify a renotification frequency in minutes. Values available by default are 0, 10, 20, 30, 40, 50, 60, 90, 120, 180, 240, 300, 360, 720, 1440. Defaults to 0.
+	// Specify a renotification frequency in minutes. Values available by default are `0`, `10`, `20`, `30`, `40`, `50`, `60`, `90`, `120`, `180`, `240`, `300`, `360`, `720`, `1440`. Defaults to `0`.
+	RenotifyInterval *float64 `json:"renotifyInterval,omitempty" tf:"renotify_interval,omitempty"`
+
+	// (Number) The number of times a monitor renotifies. It can only be set if renotify_interval is set.
+	// The number of times a monitor renotifies. It can only be set if `renotify_interval` is set.
+	RenotifyOccurrences *float64 `json:"renotifyOccurrences,omitempty" tf:"renotify_occurrences,omitempty"`
+}
+
+type MonitorOptionsObservation struct {
+
+	// notification.
+	// A message to include with a re-notification.
+	EscalationMessage *string `json:"escalationMessage,omitempty" tf:"escalation_message,omitempty"`
+
+	// (String) The name of the preset for the notification for the monitor. Valid values are show_all, hide_all, hide_query, hide_handles, hide_query_and_handles, show_only_snapshot, hide_handles_and_footer.
+	// The name of the preset for the notification for the monitor. Valid values are `show_all`, `hide_all`, `hide_query`, `hide_handles`, `hide_query_and_handles`, `show_only_snapshot`, `hide_handles_and_footer`.
+	NotificationPresetName *string `json:"notificationPresetName,omitempty" tf:"notification_preset_name,omitempty"`
+
+	// (Number) Specify a renotification frequency in minutes. Values available by default are 0, 10, 20, 30, 40, 50, 60, 90, 120, 180, 240, 300, 360, 720, 1440. Defaults to 0.
+	// Specify a renotification frequency in minutes. Values available by default are `0`, `10`, `20`, `30`, `40`, `50`, `60`, `90`, `120`, `180`, `240`, `300`, `360`, `720`, `1440`. Defaults to `0`.
+	RenotifyInterval *float64 `json:"renotifyInterval,omitempty" tf:"renotify_interval,omitempty"`
+
+	// (Number) The number of times a monitor renotifies. It can only be set if renotify_interval is set.
+	// The number of times a monitor renotifies. It can only be set if `renotify_interval` is set.
+	RenotifyOccurrences *float64 `json:"renotifyOccurrences,omitempty" tf:"renotify_occurrences,omitempty"`
+}
+
+type MonitorOptionsParameters struct {
+
+	// notification.
+	// A message to include with a re-notification.
+	// +kubebuilder:validation:Optional
+	EscalationMessage *string `json:"escalationMessage,omitempty" tf:"escalation_message,omitempty"`
+
+	// (String) The name of the preset for the notification for the monitor. Valid values are show_all, hide_all, hide_query, hide_handles, hide_query_and_handles, show_only_snapshot, hide_handles_and_footer.
+	// The name of the preset for the notification for the monitor. Valid values are `show_all`, `hide_all`, `hide_query`, `hide_handles`, `hide_query_and_handles`, `show_only_snapshot`, `hide_handles_and_footer`.
+	// +kubebuilder:validation:Optional
+	NotificationPresetName *string `json:"notificationPresetName,omitempty" tf:"notification_preset_name,omitempty"`
+
+	// (Number) Specify a renotification frequency in minutes. Values available by default are 0, 10, 20, 30, 40, 50, 60, 90, 120, 180, 240, 300, 360, 720, 1440. Defaults to 0.
+	// Specify a renotification frequency in minutes. Values available by default are `0`, `10`, `20`, `30`, `40`, `50`, `60`, `90`, `120`, `180`, `240`, `300`, `360`, `720`, `1440`. Defaults to `0`.
+	// +kubebuilder:validation:Optional
+	RenotifyInterval *float64 `json:"renotifyInterval,omitempty" tf:"renotify_interval,omitempty"`
+
+	// (Number) The number of times a monitor renotifies. It can only be set if renotify_interval is set.
+	// The number of times a monitor renotifies. It can only be set if `renotify_interval` is set.
+	// +kubebuilder:validation:Optional
+	RenotifyOccurrences *float64 `json:"renotifyOccurrences,omitempty" tf:"renotify_occurrences,omitempty"`
+}
+
+type OptionsListCiInitParameters struct {
+
+	// (String) Execution rule for a Synthetics test. Valid values are blocking, non_blocking, skipped.
+	// Execution rule for a Synthetics test. Valid values are `blocking`, `non_blocking`, `skipped`.
+	ExecutionRule *string `json:"executionRule,omitempty" tf:"execution_rule,omitempty"`
+}
+
+type OptionsListCiObservation struct {
+
+	// (String) Execution rule for a Synthetics test. Valid values are blocking, non_blocking, skipped.
+	// Execution rule for a Synthetics test. Valid values are `blocking`, `non_blocking`, `skipped`.
+	ExecutionRule *string `json:"executionRule,omitempty" tf:"execution_rule,omitempty"`
+}
+
+type OptionsListCiParameters struct {
+
+	// (String) Execution rule for a Synthetics test. Valid values are blocking, non_blocking, skipped.
+	// Execution rule for a Synthetics test. Valid values are `blocking`, `non_blocking`, `skipped`.
+	// +kubebuilder:validation:Optional
+	ExecutionRule *string `json:"executionRule,omitempty" tf:"execution_rule,omitempty"`
+}
+
+type OptionsListInitParameters struct {
+
+	// (Boolean) For SSL tests, whether or not the test should allow self signed certificates.
+	// For SSL tests, whether or not the test should allow self signed certificates.
+	AcceptSelfSigned *bool `json:"acceptSelfSigned,omitempty" tf:"accept_self_signed,omitempty"`
+
+	// (Boolean) Allows loading insecure content for a request in an API test or in a multistep API test step.
+	// Allows loading insecure content for a request in an API test or in a multistep API test step.
+	AllowInsecure *bool `json:"allowInsecure,omitempty" tf:"allow_insecure,omitempty"`
+
+	// (List of String) Blocked URL patterns. Requests made to URLs matching any of the patterns listed here will be blocked.
+	// Blocked URL patterns. Requests made to URLs matching any of the patterns listed here will be blocked.
+	BlockedRequestPatterns []*string `json:"blockedRequestPatterns,omitempty" tf:"blocked_request_patterns,omitempty"`
+
+	// (Boolean) For SSL tests, whether or not the test should fail on revoked certificate in stapled OCSP.
+	// For SSL tests, whether or not the test should fail on revoked certificate in stapled OCSP.
+	CheckCertificateRevocation *bool `json:"checkCertificateRevocation,omitempty" tf:"check_certificate_revocation,omitempty"`
+
+	// (Block List, Max: 1) CI/CD options for a Synthetic test. (see below for nested schema)
+	// CI/CD options for a Synthetic test.
+	Ci []OptionsListCiInitParameters `json:"ci,omitempty" tf:"ci,omitempty"`
+
+	// (Boolean) For SSL tests, whether or not the test should disable fetching intermediate certificates from AIA
+	// For SSL tests, whether or not the test should disable fetching intermediate certificates from AIA
+	DisableAiaIntermediateFetching *bool `json:"disableAiaIntermediateFetching,omitempty" tf:"disable_aia_intermediate_fetching,omitempty"`
+
+	// Origin Resource Sharing for browser tests.
+	// Disable Cross-Origin Resource Sharing for browser tests.
+	DisableCors *bool `json:"disableCors,omitempty" tf:"disable_cors,omitempty"`
+
+	// (Boolean) Disable Content Security Policy for browser tests.
+	// Disable Content Security Policy for browser tests.
+	DisableCsp *bool `json:"disableCsp,omitempty" tf:"disable_csp,omitempty"`
+
+	// (Boolean) Determines whether or not the API HTTP test should follow redirects.
+	// Determines whether or not the API HTTP test should follow redirects.
+	FollowRedirects *bool `json:"followRedirects,omitempty" tf:"follow_redirects,omitempty"`
+
+	// (String) HTTP version to use for an HTTP request in an API test or step. Valid values are http1, http2, any. Defaults to "any".
+	// HTTP version to use for an HTTP request in an API test or step. Valid values are `http1`, `http2`, `any`. Defaults to `"any"`.
+	HTTPVersion *string `json:"httpVersion,omitempty" tf:"http_version,omitempty"`
+
+	// (Boolean) Ignore server certificate error for browser tests.
+	// Ignore server certificate error for browser tests.
+	IgnoreServerCertificateError *bool `json:"ignoreServerCertificateError,omitempty" tf:"ignore_server_certificate_error,omitempty"`
+
+	// (Number) Timeout before declaring the initial step as failed (in seconds) for browser tests.
+	// Timeout before declaring the initial step as failed (in seconds) for browser tests.
+	InitialNavigationTimeout *float64 `json:"initialNavigationTimeout,omitempty" tf:"initial_navigation_timeout,omitempty"`
+
+	// (Number) Minimum amount of time in failure required to trigger an alert (in seconds). Default is 0.
+	// Minimum amount of time in failure required to trigger an alert (in seconds). Default is `0`.
+	MinFailureDuration *float64 `json:"minFailureDuration,omitempty" tf:"min_failure_duration,omitempty"`
+
+	// (Number) Minimum number of locations in failure required to trigger an alert. Defaults to 1.
+	// Minimum number of locations in failure required to trigger an alert. Defaults to `1`.
+	MinLocationFailed *float64 `json:"minLocationFailed,omitempty" tf:"min_location_failed,omitempty"`
+
+	// (String) The monitor name is used for the alert title as well as for all monitor dashboard widgets and SLOs.
+	// The monitor name is used for the alert title as well as for all monitor dashboard widgets and SLOs.
+	MonitorName *string `json:"monitorName,omitempty" tf:"monitor_name,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	MonitorOptions []OptionsListMonitorOptionsInitParameters `json:"monitorOptions,omitempty" tf:"monitor_options,omitempty"`
+
+	// (Number)
+	MonitorPriority *float64 `json:"monitorPriority,omitempty" tf:"monitor_priority,omitempty"`
+
+	// (Boolean) Prevents saving screenshots of the step.
+	// Prevents saving screenshots of the steps.
+	NoScreenshot *bool `json:"noScreenshot,omitempty" tf:"no_screenshot,omitempty"`
+
+	// (Set of String, Deprecated) A list of role identifiers pulled from the Roles API to restrict read and write access. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+	// A list of role identifiers pulled from the Roles API to restrict read and write access. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
+	// +listType=set
+	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	Retry []OptionsListRetryInitParameters `json:"retry,omitempty" tf:"retry,omitempty"`
+
+	// (Block List, Max: 1) The RUM data collection settings for the Synthetic browser test. (see below for nested schema)
+	// The RUM data collection settings for the Synthetic browser test.
+	RumSettings []RumSettingsInitParameters `json:"rumSettings,omitempty" tf:"rum_settings,omitempty"`
+
+	// (Block List, Max: 1) Object containing timeframes and timezone used for advanced scheduling. (see below for nested schema)
+	// Object containing timeframes and timezone used for advanced scheduling.
+	Scheduling []OptionsListSchedulingInitParameters `json:"scheduling,omitempty" tf:"scheduling,omitempty"`
+
+	// 604800 for mobile tests.
+	// How often the test should run (in seconds). Valid range is `30-604800` for API tests and `60-604800` for browser tests.
+	TickEvery *float64 `json:"tickEvery,omitempty" tf:"tick_every,omitempty"`
+}
+
+type OptionsListMonitorOptionsInitParameters struct {
+
+	// notification.
+	// A message to include with a re-notification.
+	EscalationMessage *string `json:"escalationMessage,omitempty" tf:"escalation_message,omitempty"`
+
+	// (String) The name of the preset for the notification for the monitor. Valid values are show_all, hide_all, hide_query, hide_handles, hide_query_and_handles, show_only_snapshot, hide_handles_and_footer.
+	// The name of the preset for the notification for the monitor. Valid values are `show_all`, `hide_all`, `hide_query`, `hide_handles`, `hide_query_and_handles`, `show_only_snapshot`, `hide_handles_and_footer`.
+	NotificationPresetName *string `json:"notificationPresetName,omitempty" tf:"notification_preset_name,omitempty"`
+
+	// (Number) Specify a renotification frequency in minutes. Values available by default are 0, 10, 20, 30, 40, 50, 60, 90, 120, 180, 240, 300, 360, 720, 1440. Defaults to 0.
+	// Specify a renotification frequency in minutes. Values available by default are `0`, `10`, `20`, `30`, `40`, `50`, `60`, `90`, `120`, `180`, `240`, `300`, `360`, `720`, `1440`. Defaults to `0`.
+	RenotifyInterval *float64 `json:"renotifyInterval,omitempty" tf:"renotify_interval,omitempty"`
+
+	// (Number) The number of times a monitor renotifies. It can only be set if renotify_interval is set.
+	// The number of times a monitor renotifies. It can only be set if `renotify_interval` is set.
+	RenotifyOccurrences *float64 `json:"renotifyOccurrences,omitempty" tf:"renotify_occurrences,omitempty"`
+}
+
+type OptionsListMonitorOptionsObservation struct {
+
+	// notification.
+	// A message to include with a re-notification.
+	EscalationMessage *string `json:"escalationMessage,omitempty" tf:"escalation_message,omitempty"`
+
+	// (String) The name of the preset for the notification for the monitor. Valid values are show_all, hide_all, hide_query, hide_handles, hide_query_and_handles, show_only_snapshot, hide_handles_and_footer.
+	// The name of the preset for the notification for the monitor. Valid values are `show_all`, `hide_all`, `hide_query`, `hide_handles`, `hide_query_and_handles`, `show_only_snapshot`, `hide_handles_and_footer`.
+	NotificationPresetName *string `json:"notificationPresetName,omitempty" tf:"notification_preset_name,omitempty"`
+
+	// (Number) Specify a renotification frequency in minutes. Values available by default are 0, 10, 20, 30, 40, 50, 60, 90, 120, 180, 240, 300, 360, 720, 1440. Defaults to 0.
+	// Specify a renotification frequency in minutes. Values available by default are `0`, `10`, `20`, `30`, `40`, `50`, `60`, `90`, `120`, `180`, `240`, `300`, `360`, `720`, `1440`. Defaults to `0`.
+	RenotifyInterval *float64 `json:"renotifyInterval,omitempty" tf:"renotify_interval,omitempty"`
+
+	// (Number) The number of times a monitor renotifies. It can only be set if renotify_interval is set.
+	// The number of times a monitor renotifies. It can only be set if `renotify_interval` is set.
+	RenotifyOccurrences *float64 `json:"renotifyOccurrences,omitempty" tf:"renotify_occurrences,omitempty"`
+}
+
+type OptionsListMonitorOptionsParameters struct {
+
+	// notification.
+	// A message to include with a re-notification.
+	// +kubebuilder:validation:Optional
+	EscalationMessage *string `json:"escalationMessage,omitempty" tf:"escalation_message,omitempty"`
+
+	// (String) The name of the preset for the notification for the monitor. Valid values are show_all, hide_all, hide_query, hide_handles, hide_query_and_handles, show_only_snapshot, hide_handles_and_footer.
+	// The name of the preset for the notification for the monitor. Valid values are `show_all`, `hide_all`, `hide_query`, `hide_handles`, `hide_query_and_handles`, `show_only_snapshot`, `hide_handles_and_footer`.
+	// +kubebuilder:validation:Optional
+	NotificationPresetName *string `json:"notificationPresetName,omitempty" tf:"notification_preset_name,omitempty"`
+
+	// (Number) Specify a renotification frequency in minutes. Values available by default are 0, 10, 20, 30, 40, 50, 60, 90, 120, 180, 240, 300, 360, 720, 1440. Defaults to 0.
+	// Specify a renotification frequency in minutes. Values available by default are `0`, `10`, `20`, `30`, `40`, `50`, `60`, `90`, `120`, `180`, `240`, `300`, `360`, `720`, `1440`. Defaults to `0`.
+	// +kubebuilder:validation:Optional
+	RenotifyInterval *float64 `json:"renotifyInterval,omitempty" tf:"renotify_interval,omitempty"`
+
+	// (Number) The number of times a monitor renotifies. It can only be set if renotify_interval is set.
+	// The number of times a monitor renotifies. It can only be set if `renotify_interval` is set.
+	// +kubebuilder:validation:Optional
+	RenotifyOccurrences *float64 `json:"renotifyOccurrences,omitempty" tf:"renotify_occurrences,omitempty"`
+}
+
+type OptionsListObservation struct {
+
+	// (Boolean) For SSL tests, whether or not the test should allow self signed certificates.
+	// For SSL tests, whether or not the test should allow self signed certificates.
+	AcceptSelfSigned *bool `json:"acceptSelfSigned,omitempty" tf:"accept_self_signed,omitempty"`
+
+	// (Boolean) Allows loading insecure content for a request in an API test or in a multistep API test step.
+	// Allows loading insecure content for a request in an API test or in a multistep API test step.
+	AllowInsecure *bool `json:"allowInsecure,omitempty" tf:"allow_insecure,omitempty"`
+
+	// (List of String) Blocked URL patterns. Requests made to URLs matching any of the patterns listed here will be blocked.
+	// Blocked URL patterns. Requests made to URLs matching any of the patterns listed here will be blocked.
+	BlockedRequestPatterns []*string `json:"blockedRequestPatterns,omitempty" tf:"blocked_request_patterns,omitempty"`
+
+	// (Boolean) For SSL tests, whether or not the test should fail on revoked certificate in stapled OCSP.
+	// For SSL tests, whether or not the test should fail on revoked certificate in stapled OCSP.
+	CheckCertificateRevocation *bool `json:"checkCertificateRevocation,omitempty" tf:"check_certificate_revocation,omitempty"`
+
+	// (Block List, Max: 1) CI/CD options for a Synthetic test. (see below for nested schema)
+	// CI/CD options for a Synthetic test.
+	Ci []OptionsListCiObservation `json:"ci,omitempty" tf:"ci,omitempty"`
+
+	// (Boolean) For SSL tests, whether or not the test should disable fetching intermediate certificates from AIA
+	// For SSL tests, whether or not the test should disable fetching intermediate certificates from AIA
+	DisableAiaIntermediateFetching *bool `json:"disableAiaIntermediateFetching,omitempty" tf:"disable_aia_intermediate_fetching,omitempty"`
+
+	// Origin Resource Sharing for browser tests.
+	// Disable Cross-Origin Resource Sharing for browser tests.
+	DisableCors *bool `json:"disableCors,omitempty" tf:"disable_cors,omitempty"`
+
+	// (Boolean) Disable Content Security Policy for browser tests.
+	// Disable Content Security Policy for browser tests.
+	DisableCsp *bool `json:"disableCsp,omitempty" tf:"disable_csp,omitempty"`
+
+	// (Boolean) Determines whether or not the API HTTP test should follow redirects.
+	// Determines whether or not the API HTTP test should follow redirects.
+	FollowRedirects *bool `json:"followRedirects,omitempty" tf:"follow_redirects,omitempty"`
+
+	// (String) HTTP version to use for an HTTP request in an API test or step. Valid values are http1, http2, any. Defaults to "any".
+	// HTTP version to use for an HTTP request in an API test or step. Valid values are `http1`, `http2`, `any`. Defaults to `"any"`.
+	HTTPVersion *string `json:"httpVersion,omitempty" tf:"http_version,omitempty"`
+
+	// (Boolean) Ignore server certificate error for browser tests.
+	// Ignore server certificate error for browser tests.
+	IgnoreServerCertificateError *bool `json:"ignoreServerCertificateError,omitempty" tf:"ignore_server_certificate_error,omitempty"`
+
+	// (Number) Timeout before declaring the initial step as failed (in seconds) for browser tests.
+	// Timeout before declaring the initial step as failed (in seconds) for browser tests.
+	InitialNavigationTimeout *float64 `json:"initialNavigationTimeout,omitempty" tf:"initial_navigation_timeout,omitempty"`
+
+	// (Number) Minimum amount of time in failure required to trigger an alert (in seconds). Default is 0.
+	// Minimum amount of time in failure required to trigger an alert (in seconds). Default is `0`.
+	MinFailureDuration *float64 `json:"minFailureDuration,omitempty" tf:"min_failure_duration,omitempty"`
+
+	// (Number) Minimum number of locations in failure required to trigger an alert. Defaults to 1.
+	// Minimum number of locations in failure required to trigger an alert. Defaults to `1`.
+	MinLocationFailed *float64 `json:"minLocationFailed,omitempty" tf:"min_location_failed,omitempty"`
+
+	// (String) The monitor name is used for the alert title as well as for all monitor dashboard widgets and SLOs.
+	// The monitor name is used for the alert title as well as for all monitor dashboard widgets and SLOs.
+	MonitorName *string `json:"monitorName,omitempty" tf:"monitor_name,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	MonitorOptions []OptionsListMonitorOptionsObservation `json:"monitorOptions,omitempty" tf:"monitor_options,omitempty"`
+
+	// (Number)
+	MonitorPriority *float64 `json:"monitorPriority,omitempty" tf:"monitor_priority,omitempty"`
+
+	// (Boolean) Prevents saving screenshots of the step.
+	// Prevents saving screenshots of the steps.
+	NoScreenshot *bool `json:"noScreenshot,omitempty" tf:"no_screenshot,omitempty"`
+
+	// (Set of String, Deprecated) A list of role identifiers pulled from the Roles API to restrict read and write access. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+	// A list of role identifiers pulled from the Roles API to restrict read and write access. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
+	// +listType=set
+	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	Retry []OptionsListRetryObservation `json:"retry,omitempty" tf:"retry,omitempty"`
+
+	// (Block List, Max: 1) The RUM data collection settings for the Synthetic browser test. (see below for nested schema)
+	// The RUM data collection settings for the Synthetic browser test.
+	RumSettings []RumSettingsObservation `json:"rumSettings,omitempty" tf:"rum_settings,omitempty"`
+
+	// (Block List, Max: 1) Object containing timeframes and timezone used for advanced scheduling. (see below for nested schema)
+	// Object containing timeframes and timezone used for advanced scheduling.
+	Scheduling []OptionsListSchedulingObservation `json:"scheduling,omitempty" tf:"scheduling,omitempty"`
+
+	// 604800 for mobile tests.
+	// How often the test should run (in seconds). Valid range is `30-604800` for API tests and `60-604800` for browser tests.
+	TickEvery *float64 `json:"tickEvery,omitempty" tf:"tick_every,omitempty"`
+}
+
+type OptionsListParameters struct {
+
+	// (Boolean) For SSL tests, whether or not the test should allow self signed certificates.
+	// For SSL tests, whether or not the test should allow self signed certificates.
+	// +kubebuilder:validation:Optional
+	AcceptSelfSigned *bool `json:"acceptSelfSigned,omitempty" tf:"accept_self_signed,omitempty"`
+
+	// (Boolean) Allows loading insecure content for a request in an API test or in a multistep API test step.
+	// Allows loading insecure content for a request in an API test or in a multistep API test step.
+	// +kubebuilder:validation:Optional
+	AllowInsecure *bool `json:"allowInsecure,omitempty" tf:"allow_insecure,omitempty"`
+
+	// (List of String) Blocked URL patterns. Requests made to URLs matching any of the patterns listed here will be blocked.
+	// Blocked URL patterns. Requests made to URLs matching any of the patterns listed here will be blocked.
+	// +kubebuilder:validation:Optional
+	BlockedRequestPatterns []*string `json:"blockedRequestPatterns,omitempty" tf:"blocked_request_patterns,omitempty"`
+
+	// (Boolean) For SSL tests, whether or not the test should fail on revoked certificate in stapled OCSP.
+	// For SSL tests, whether or not the test should fail on revoked certificate in stapled OCSP.
+	// +kubebuilder:validation:Optional
+	CheckCertificateRevocation *bool `json:"checkCertificateRevocation,omitempty" tf:"check_certificate_revocation,omitempty"`
+
+	// (Block List, Max: 1) CI/CD options for a Synthetic test. (see below for nested schema)
+	// CI/CD options for a Synthetic test.
+	// +kubebuilder:validation:Optional
+	Ci []OptionsListCiParameters `json:"ci,omitempty" tf:"ci,omitempty"`
+
+	// (Boolean) For SSL tests, whether or not the test should disable fetching intermediate certificates from AIA
+	// For SSL tests, whether or not the test should disable fetching intermediate certificates from AIA
+	// +kubebuilder:validation:Optional
+	DisableAiaIntermediateFetching *bool `json:"disableAiaIntermediateFetching,omitempty" tf:"disable_aia_intermediate_fetching,omitempty"`
+
+	// Origin Resource Sharing for browser tests.
+	// Disable Cross-Origin Resource Sharing for browser tests.
+	// +kubebuilder:validation:Optional
+	DisableCors *bool `json:"disableCors,omitempty" tf:"disable_cors,omitempty"`
+
+	// (Boolean) Disable Content Security Policy for browser tests.
+	// Disable Content Security Policy for browser tests.
+	// +kubebuilder:validation:Optional
+	DisableCsp *bool `json:"disableCsp,omitempty" tf:"disable_csp,omitempty"`
+
+	// (Boolean) Determines whether or not the API HTTP test should follow redirects.
+	// Determines whether or not the API HTTP test should follow redirects.
+	// +kubebuilder:validation:Optional
+	FollowRedirects *bool `json:"followRedirects,omitempty" tf:"follow_redirects,omitempty"`
+
+	// (String) HTTP version to use for an HTTP request in an API test or step. Valid values are http1, http2, any. Defaults to "any".
+	// HTTP version to use for an HTTP request in an API test or step. Valid values are `http1`, `http2`, `any`. Defaults to `"any"`.
+	// +kubebuilder:validation:Optional
+	HTTPVersion *string `json:"httpVersion,omitempty" tf:"http_version,omitempty"`
+
+	// (Boolean) Ignore server certificate error for browser tests.
+	// Ignore server certificate error for browser tests.
+	// +kubebuilder:validation:Optional
+	IgnoreServerCertificateError *bool `json:"ignoreServerCertificateError,omitempty" tf:"ignore_server_certificate_error,omitempty"`
+
+	// (Number) Timeout before declaring the initial step as failed (in seconds) for browser tests.
+	// Timeout before declaring the initial step as failed (in seconds) for browser tests.
+	// +kubebuilder:validation:Optional
+	InitialNavigationTimeout *float64 `json:"initialNavigationTimeout,omitempty" tf:"initial_navigation_timeout,omitempty"`
+
+	// (Number) Minimum amount of time in failure required to trigger an alert (in seconds). Default is 0.
+	// Minimum amount of time in failure required to trigger an alert (in seconds). Default is `0`.
+	// +kubebuilder:validation:Optional
+	MinFailureDuration *float64 `json:"minFailureDuration,omitempty" tf:"min_failure_duration,omitempty"`
+
+	// (Number) Minimum number of locations in failure required to trigger an alert. Defaults to 1.
+	// Minimum number of locations in failure required to trigger an alert. Defaults to `1`.
+	// +kubebuilder:validation:Optional
+	MinLocationFailed *float64 `json:"minLocationFailed,omitempty" tf:"min_location_failed,omitempty"`
+
+	// (String) The monitor name is used for the alert title as well as for all monitor dashboard widgets and SLOs.
+	// The monitor name is used for the alert title as well as for all monitor dashboard widgets and SLOs.
+	// +kubebuilder:validation:Optional
+	MonitorName *string `json:"monitorName,omitempty" tf:"monitor_name,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	MonitorOptions []OptionsListMonitorOptionsParameters `json:"monitorOptions,omitempty" tf:"monitor_options,omitempty"`
+
+	// (Number)
+	// +kubebuilder:validation:Optional
+	MonitorPriority *float64 `json:"monitorPriority,omitempty" tf:"monitor_priority,omitempty"`
+
+	// (Boolean) Prevents saving screenshots of the step.
+	// Prevents saving screenshots of the steps.
+	// +kubebuilder:validation:Optional
+	NoScreenshot *bool `json:"noScreenshot,omitempty" tf:"no_screenshot,omitempty"`
+
+	// (Set of String, Deprecated) A list of role identifiers pulled from the Roles API to restrict read and write access. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+	// A list of role identifiers pulled from the Roles API to restrict read and write access. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
@@ -1177,55 +2229,94 @@ type OptionsListParameters struct {
 	// (Block List, Max: 1) The RUM data collection settings for the Synthetic browser test. (see below for nested schema)
 	// The RUM data collection settings for the Synthetic browser test.
 	// +kubebuilder:validation:Optional
-	RumSettings []string `json:"rumSettings,omitempty" tf:"rum_settings,omitempty"`
+	RumSettings []RumSettingsParameters `json:"rumSettings,omitempty" tf:"rum_settings,omitempty"`
 
 	// (Block List, Max: 1) Object containing timeframes and timezone used for advanced scheduling. (see below for nested schema)
 	// Object containing timeframes and timezone used for advanced scheduling.
 	// +kubebuilder:validation:Optional
-	Scheduling []SchedulingParameters `json:"scheduling,omitempty" tf:"scheduling,omitempty"`
+	Scheduling []OptionsListSchedulingParameters `json:"scheduling,omitempty" tf:"scheduling,omitempty"`
 
-	// (Number) How often the test should run (in seconds).
-	// How often the test should run (in seconds).
+	// 604800 for mobile tests.
+	// How often the test should run (in seconds). Valid range is `30-604800` for API tests and `60-604800` for browser tests.
 	// +kubebuilder:validation:Optional
 	TickEvery *float64 `json:"tickEvery" tf:"tick_every,omitempty"`
 }
 
 type OptionsListRetryInitParameters struct {
 
-	// (Number) Number of retries needed to consider a location as failed before sending a notification alert. Defaults to 0.
-	// Number of retries needed to consider a location as failed before sending a notification alert. Defaults to `0`.
+	// (Number) Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: 3 for api tests, 2 for browser and mobile tests. Defaults to 0.
+	// Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: `3` for `api` tests, `2` for `browser` and `mobile` tests. Defaults to `0`.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// (Number) Interval between a failed test and the next retry in milliseconds. Defaults to 300.
-	// Interval between a failed test and the next retry in milliseconds. Defaults to `300`.
+	// (Number) Interval between a failed test and the next retry in milliseconds. Maximum value: 5000. Defaults to 300.
+	// Interval between a failed test and the next retry in milliseconds. Maximum value: `5000`. Defaults to `300`.
 	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
 }
 
 type OptionsListRetryObservation struct {
 
-	// (Number) Number of retries needed to consider a location as failed before sending a notification alert. Defaults to 0.
-	// Number of retries needed to consider a location as failed before sending a notification alert. Defaults to `0`.
+	// (Number) Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: 3 for api tests, 2 for browser and mobile tests. Defaults to 0.
+	// Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: `3` for `api` tests, `2` for `browser` and `mobile` tests. Defaults to `0`.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// (Number) Interval between a failed test and the next retry in milliseconds. Defaults to 300.
-	// Interval between a failed test and the next retry in milliseconds. Defaults to `300`.
+	// (Number) Interval between a failed test and the next retry in milliseconds. Maximum value: 5000. Defaults to 300.
+	// Interval between a failed test and the next retry in milliseconds. Maximum value: `5000`. Defaults to `300`.
 	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
 }
 
 type OptionsListRetryParameters struct {
 
-	// (Number) Number of retries needed to consider a location as failed before sending a notification alert. Defaults to 0.
-	// Number of retries needed to consider a location as failed before sending a notification alert. Defaults to `0`.
+	// (Number) Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: 3 for api tests, 2 for browser and mobile tests. Defaults to 0.
+	// Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: `3` for `api` tests, `2` for `browser` and `mobile` tests. Defaults to `0`.
 	// +kubebuilder:validation:Optional
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// (Number) Interval between a failed test and the next retry in milliseconds. Defaults to 300.
-	// Interval between a failed test and the next retry in milliseconds. Defaults to `300`.
+	// (Number) Interval between a failed test and the next retry in milliseconds. Maximum value: 5000. Defaults to 300.
+	// Interval between a failed test and the next retry in milliseconds. Maximum value: `5000`. Defaults to `300`.
 	// +kubebuilder:validation:Optional
 	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
 }
 
+type OptionsListSchedulingInitParameters struct {
+
+	// (Block Set, Min: 1) Array containing objects describing the scheduling pattern to apply to each day. (see below for nested schema)
+	// Array containing objects describing the scheduling pattern to apply to each day.
+	Timeframes []SchedulingTimeframesInitParameters `json:"timeframes,omitempty" tf:"timeframes,omitempty"`
+
+	// (String) Timezone in which the timeframe is based.
+	// Timezone in which the timeframe is based.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+}
+
+type OptionsListSchedulingObservation struct {
+
+	// (Block Set, Min: 1) Array containing objects describing the scheduling pattern to apply to each day. (see below for nested schema)
+	// Array containing objects describing the scheduling pattern to apply to each day.
+	Timeframes []SchedulingTimeframesObservation `json:"timeframes,omitempty" tf:"timeframes,omitempty"`
+
+	// (String) Timezone in which the timeframe is based.
+	// Timezone in which the timeframe is based.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+}
+
+type OptionsListSchedulingParameters struct {
+
+	// (Block Set, Min: 1) Array containing objects describing the scheduling pattern to apply to each day. (see below for nested schema)
+	// Array containing objects describing the scheduling pattern to apply to each day.
+	// +kubebuilder:validation:Optional
+	Timeframes []SchedulingTimeframesParameters `json:"timeframes" tf:"timeframes,omitempty"`
+
+	// (String) Timezone in which the timeframe is based.
+	// Timezone in which the timeframe is based.
+	// +kubebuilder:validation:Optional
+	Timezone *string `json:"timezone" tf:"timezone,omitempty"`
+}
+
 type ParamsInitParameters struct {
+
+	// (Boolean) Whether to append the value to existing text input content for a "typeText" step. By default, content is cleared before text input.
+	// Whether to append the `value` to existing text input content for a "typeText" step. By default, content is cleared before text input.
+	AppendToContent *bool `json:"appendToContent,omitempty" tf:"append_to_content,omitempty"`
 
 	// (String) Name of the attribute to use for an "assert attribute" step.
 	// Name of the attribute to use for an "assert attribute" step.
@@ -1239,7 +2330,11 @@ type ParamsInitParameters struct {
 	// Type of click to use for a "click" step.
 	ClickType *string `json:"clickType,omitempty" tf:"click_type,omitempty"`
 
-	// (String) Javascript code to use for the step.
+	// (Boolean) Whether to use element.click() for a "click" step. This is a more reliable way to interact with elements but does not emulate a real user interaction.
+	// Whether to use `element.click()` for a "click" step. This is a more reliable way to interact with elements but does not emulate a real user interaction.
+	ClickWithJavascript *bool `json:"clickWithJavascript,omitempty" tf:"click_with_javascript,omitempty"`
+
+	// (String) If assertion type is javascript, this is the JavaScript code that performs the assertions.
 	// Javascript code to use for the step.
 	Code *string `json:"code,omitempty" tf:"code,omitempty"`
 
@@ -1247,29 +2342,33 @@ type ParamsInitParameters struct {
 	// Delay between each key stroke for a "type test" step.
 	Delay *float64 `json:"delay,omitempty" tf:"delay,omitempty"`
 
-	// (String) Element to use for the step, json encoded string.
-	// Element to use for the step, json encoded string.
+	// (String) Element to use for the step, JSON encoded string. Refer to the examples for a usage example showing the schema.
+	// Element to use for the step, JSON encoded string. Refer to the examples for a usage example showing the schema.
 	Element *string `json:"element,omitempty" tf:"element,omitempty"`
 
 	// (Block List, Max: 1) Custom user selector to use for the step. (see below for nested schema)
 	// Custom user selector to use for the step.
 	ElementUserLocator []ElementUserLocatorInitParameters `json:"elementUserLocator,omitempty" tf:"element_user_locator,omitempty"`
 
-	// (String) Details of the email for an "assert email" step.
-	// Details of the email for an "assert email" step.
+	// (String) Details of the email for an "assert email" step, JSON encoded string.
+	// Details of the email for an "assert email" step, JSON encoded string.
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
 	// (String) JSON encoded string used for an "assert download" step. Refer to the examples for a usage example showing the schema.
 	// JSON encoded string used for an "assert download" step. Refer to the examples for a usage example showing the schema.
 	File *string `json:"file,omitempty" tf:"file,omitempty"`
 
-	// (String) Details of the files for an "upload files" step, json encoded string.
-	// Details of the files for an "upload files" step, json encoded string.
+	// (String) Details of the files for an "upload files" step, JSON encoded string. Refer to the examples for a usage example showing the schema.
+	// Details of the files for an "upload files" step, JSON encoded string. Refer to the examples for a usage example showing the schema.
 	Files *string `json:"files,omitempty" tf:"files,omitempty"`
 
 	// (List of String) Modifier to use for a "press key" step.
 	// Modifier to use for a "press key" step.
 	Modifiers []*string `json:"modifiers,omitempty" tf:"modifiers,omitempty"`
+
+	// (Block List, Max: 1) Pattern to use for an "extractFromEmailBody" step. (see below for nested schema)
+	// Pattern to use for an "extractFromEmailBody" step.
+	Pattern []PatternInitParameters `json:"pattern,omitempty" tf:"pattern,omitempty"`
 
 	// (String) ID of the tab to play the subtest.
 	// ID of the tab to play the subtest.
@@ -1279,11 +2378,15 @@ type ParamsInitParameters struct {
 	// Request for an API step.
 	Request *string `json:"request,omitempty" tf:"request,omitempty"`
 
-	// (String) ID of the Synthetics test to use as subtest.
+	// (String) Details of the requests for an "assert request" step, JSON encoded string. Refer to the examples for a usage example showing the schema.
+	// Details of the requests for an "assert request" step, JSON encoded string. Refer to the examples for a usage example showing the schema.
+	Requests *string `json:"requests,omitempty" tf:"requests,omitempty"`
+
+	// (String) Public ID of the test to be played as part of a playSubTest step type.
 	// ID of the Synthetics test to use as subtest.
 	SubtestPublicID *string `json:"subtestPublicId,omitempty" tf:"subtest_public_id,omitempty"`
 
-	// (String) Regex or JSON path used for the parser. Not used with type raw.
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
 	// Value of the step.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 
@@ -1306,6 +2409,10 @@ type ParamsInitParameters struct {
 
 type ParamsObservation struct {
 
+	// (Boolean) Whether to append the value to existing text input content for a "typeText" step. By default, content is cleared before text input.
+	// Whether to append the `value` to existing text input content for a "typeText" step. By default, content is cleared before text input.
+	AppendToContent *bool `json:"appendToContent,omitempty" tf:"append_to_content,omitempty"`
+
 	// (String) Name of the attribute to use for an "assert attribute" step.
 	// Name of the attribute to use for an "assert attribute" step.
 	Attribute *string `json:"attribute,omitempty" tf:"attribute,omitempty"`
@@ -1318,7 +2425,11 @@ type ParamsObservation struct {
 	// Type of click to use for a "click" step.
 	ClickType *string `json:"clickType,omitempty" tf:"click_type,omitempty"`
 
-	// (String) Javascript code to use for the step.
+	// (Boolean) Whether to use element.click() for a "click" step. This is a more reliable way to interact with elements but does not emulate a real user interaction.
+	// Whether to use `element.click()` for a "click" step. This is a more reliable way to interact with elements but does not emulate a real user interaction.
+	ClickWithJavascript *bool `json:"clickWithJavascript,omitempty" tf:"click_with_javascript,omitempty"`
+
+	// (String) If assertion type is javascript, this is the JavaScript code that performs the assertions.
 	// Javascript code to use for the step.
 	Code *string `json:"code,omitempty" tf:"code,omitempty"`
 
@@ -1326,29 +2437,33 @@ type ParamsObservation struct {
 	// Delay between each key stroke for a "type test" step.
 	Delay *float64 `json:"delay,omitempty" tf:"delay,omitempty"`
 
-	// (String) Element to use for the step, json encoded string.
-	// Element to use for the step, json encoded string.
+	// (String) Element to use for the step, JSON encoded string. Refer to the examples for a usage example showing the schema.
+	// Element to use for the step, JSON encoded string. Refer to the examples for a usage example showing the schema.
 	Element *string `json:"element,omitempty" tf:"element,omitempty"`
 
 	// (Block List, Max: 1) Custom user selector to use for the step. (see below for nested schema)
 	// Custom user selector to use for the step.
 	ElementUserLocator []ElementUserLocatorObservation `json:"elementUserLocator,omitempty" tf:"element_user_locator,omitempty"`
 
-	// (String) Details of the email for an "assert email" step.
-	// Details of the email for an "assert email" step.
+	// (String) Details of the email for an "assert email" step, JSON encoded string.
+	// Details of the email for an "assert email" step, JSON encoded string.
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
 	// (String) JSON encoded string used for an "assert download" step. Refer to the examples for a usage example showing the schema.
 	// JSON encoded string used for an "assert download" step. Refer to the examples for a usage example showing the schema.
 	File *string `json:"file,omitempty" tf:"file,omitempty"`
 
-	// (String) Details of the files for an "upload files" step, json encoded string.
-	// Details of the files for an "upload files" step, json encoded string.
+	// (String) Details of the files for an "upload files" step, JSON encoded string. Refer to the examples for a usage example showing the schema.
+	// Details of the files for an "upload files" step, JSON encoded string. Refer to the examples for a usage example showing the schema.
 	Files *string `json:"files,omitempty" tf:"files,omitempty"`
 
 	// (List of String) Modifier to use for a "press key" step.
 	// Modifier to use for a "press key" step.
 	Modifiers []*string `json:"modifiers,omitempty" tf:"modifiers,omitempty"`
+
+	// (Block List, Max: 1) Pattern to use for an "extractFromEmailBody" step. (see below for nested schema)
+	// Pattern to use for an "extractFromEmailBody" step.
+	Pattern []PatternObservation `json:"pattern,omitempty" tf:"pattern,omitempty"`
 
 	// (String) ID of the tab to play the subtest.
 	// ID of the tab to play the subtest.
@@ -1358,11 +2473,15 @@ type ParamsObservation struct {
 	// Request for an API step.
 	Request *string `json:"request,omitempty" tf:"request,omitempty"`
 
-	// (String) ID of the Synthetics test to use as subtest.
+	// (String) Details of the requests for an "assert request" step, JSON encoded string. Refer to the examples for a usage example showing the schema.
+	// Details of the requests for an "assert request" step, JSON encoded string. Refer to the examples for a usage example showing the schema.
+	Requests *string `json:"requests,omitempty" tf:"requests,omitempty"`
+
+	// (String) Public ID of the test to be played as part of a playSubTest step type.
 	// ID of the Synthetics test to use as subtest.
 	SubtestPublicID *string `json:"subtestPublicId,omitempty" tf:"subtest_public_id,omitempty"`
 
-	// (String) Regex or JSON path used for the parser. Not used with type raw.
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
 	// Value of the step.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 
@@ -1385,6 +2504,11 @@ type ParamsObservation struct {
 
 type ParamsParameters struct {
 
+	// (Boolean) Whether to append the value to existing text input content for a "typeText" step. By default, content is cleared before text input.
+	// Whether to append the `value` to existing text input content for a "typeText" step. By default, content is cleared before text input.
+	// +kubebuilder:validation:Optional
+	AppendToContent *bool `json:"appendToContent,omitempty" tf:"append_to_content,omitempty"`
+
 	// (String) Name of the attribute to use for an "assert attribute" step.
 	// Name of the attribute to use for an "assert attribute" step.
 	// +kubebuilder:validation:Optional
@@ -1400,7 +2524,12 @@ type ParamsParameters struct {
 	// +kubebuilder:validation:Optional
 	ClickType *string `json:"clickType,omitempty" tf:"click_type,omitempty"`
 
-	// (String) Javascript code to use for the step.
+	// (Boolean) Whether to use element.click() for a "click" step. This is a more reliable way to interact with elements but does not emulate a real user interaction.
+	// Whether to use `element.click()` for a "click" step. This is a more reliable way to interact with elements but does not emulate a real user interaction.
+	// +kubebuilder:validation:Optional
+	ClickWithJavascript *bool `json:"clickWithJavascript,omitempty" tf:"click_with_javascript,omitempty"`
+
+	// (String) If assertion type is javascript, this is the JavaScript code that performs the assertions.
 	// Javascript code to use for the step.
 	// +kubebuilder:validation:Optional
 	Code *string `json:"code,omitempty" tf:"code,omitempty"`
@@ -1410,8 +2539,8 @@ type ParamsParameters struct {
 	// +kubebuilder:validation:Optional
 	Delay *float64 `json:"delay,omitempty" tf:"delay,omitempty"`
 
-	// (String) Element to use for the step, json encoded string.
-	// Element to use for the step, json encoded string.
+	// (String) Element to use for the step, JSON encoded string. Refer to the examples for a usage example showing the schema.
+	// Element to use for the step, JSON encoded string. Refer to the examples for a usage example showing the schema.
 	// +kubebuilder:validation:Optional
 	Element *string `json:"element,omitempty" tf:"element,omitempty"`
 
@@ -1420,8 +2549,8 @@ type ParamsParameters struct {
 	// +kubebuilder:validation:Optional
 	ElementUserLocator []ElementUserLocatorParameters `json:"elementUserLocator,omitempty" tf:"element_user_locator,omitempty"`
 
-	// (String) Details of the email for an "assert email" step.
-	// Details of the email for an "assert email" step.
+	// (String) Details of the email for an "assert email" step, JSON encoded string.
+	// Details of the email for an "assert email" step, JSON encoded string.
 	// +kubebuilder:validation:Optional
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
@@ -1430,8 +2559,8 @@ type ParamsParameters struct {
 	// +kubebuilder:validation:Optional
 	File *string `json:"file,omitempty" tf:"file,omitempty"`
 
-	// (String) Details of the files for an "upload files" step, json encoded string.
-	// Details of the files for an "upload files" step, json encoded string.
+	// (String) Details of the files for an "upload files" step, JSON encoded string. Refer to the examples for a usage example showing the schema.
+	// Details of the files for an "upload files" step, JSON encoded string. Refer to the examples for a usage example showing the schema.
 	// +kubebuilder:validation:Optional
 	Files *string `json:"files,omitempty" tf:"files,omitempty"`
 
@@ -1439,6 +2568,11 @@ type ParamsParameters struct {
 	// Modifier to use for a "press key" step.
 	// +kubebuilder:validation:Optional
 	Modifiers []*string `json:"modifiers,omitempty" tf:"modifiers,omitempty"`
+
+	// (Block List, Max: 1) Pattern to use for an "extractFromEmailBody" step. (see below for nested schema)
+	// Pattern to use for an "extractFromEmailBody" step.
+	// +kubebuilder:validation:Optional
+	Pattern []PatternParameters `json:"pattern,omitempty" tf:"pattern,omitempty"`
 
 	// (String) ID of the tab to play the subtest.
 	// ID of the tab to play the subtest.
@@ -1450,12 +2584,17 @@ type ParamsParameters struct {
 	// +kubebuilder:validation:Optional
 	Request *string `json:"request,omitempty" tf:"request,omitempty"`
 
-	// (String) ID of the Synthetics test to use as subtest.
+	// (String) Details of the requests for an "assert request" step, JSON encoded string. Refer to the examples for a usage example showing the schema.
+	// Details of the requests for an "assert request" step, JSON encoded string. Refer to the examples for a usage example showing the schema.
+	// +kubebuilder:validation:Optional
+	Requests *string `json:"requests,omitempty" tf:"requests,omitempty"`
+
+	// (String) Public ID of the test to be played as part of a playSubTest step type.
 	// ID of the Synthetics test to use as subtest.
 	// +kubebuilder:validation:Optional
 	SubtestPublicID *string `json:"subtestPublicId,omitempty" tf:"subtest_public_id,omitempty"`
 
-	// (String) Regex or JSON path used for the parser. Not used with type raw.
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
 	// Value of the step.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
@@ -1477,6 +2616,134 @@ type ParamsParameters struct {
 
 	// (Number) Y coordinates for a "scroll step".
 	// Y coordinates for a "scroll step".
+	// +kubebuilder:validation:Optional
+	Y *float64 `json:"y,omitempty" tf:"y,omitempty"`
+}
+
+type ParamsVariableInitParameters struct {
+
+	// (String) Example of the extracted variable. Defaults to "".
+	// Example of the extracted variable. Defaults to `""`.
+	Example *string `json:"example,omitempty" tf:"example,omitempty"`
+
+	// (String) Name of Datadog synthetics test.
+	// Name of the extracted variable.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type ParamsVariableObservation struct {
+
+	// (String) Example of the extracted variable. Defaults to "".
+	// Example of the extracted variable. Defaults to `""`.
+	Example *string `json:"example,omitempty" tf:"example,omitempty"`
+
+	// (String) Name of Datadog synthetics test.
+	// Name of the extracted variable.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type ParamsVariableParameters struct {
+
+	// (String) Example of the extracted variable. Defaults to "".
+	// Example of the extracted variable. Defaults to `""`.
+	// +kubebuilder:validation:Optional
+	Example *string `json:"example,omitempty" tf:"example,omitempty"`
+
+	// (String) Name of Datadog synthetics test.
+	// Name of the extracted variable.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+}
+
+type PatternInitParameters struct {
+
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of pattern to use for the step. Valid values are `regex`, `x_path`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
+	// Pattern to use for the step.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type PatternObservation struct {
+
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of pattern to use for the step. Valid values are `regex`, `x_path`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
+	// Pattern to use for the step.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type PatternParameters struct {
+
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of pattern to use for the step. Valid values are `regex`, `x_path`.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
+	// Pattern to use for the step.
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type PositionsInitParameters struct {
+
+	// (Number) X coordinates for a "scroll step".
+	X *float64 `json:"x,omitempty" tf:"x,omitempty"`
+
+	// (Number) Y coordinates for a "scroll step".
+	Y *float64 `json:"y,omitempty" tf:"y,omitempty"`
+}
+
+type PositionsObservation struct {
+
+	// (Number) X coordinates for a "scroll step".
+	X *float64 `json:"x,omitempty" tf:"x,omitempty"`
+
+	// (Number) Y coordinates for a "scroll step".
+	Y *float64 `json:"y,omitempty" tf:"y,omitempty"`
+}
+
+type PositionsParameters struct {
+
+	// (Number) X coordinates for a "scroll step".
+	// +kubebuilder:validation:Optional
+	X *float64 `json:"x,omitempty" tf:"x,omitempty"`
+
+	// (Number) Y coordinates for a "scroll step".
+	// +kubebuilder:validation:Optional
+	Y *float64 `json:"y,omitempty" tf:"y,omitempty"`
+}
+
+type RelativePositionInitParameters struct {
+
+	// (Number) X coordinates for a "scroll step".
+	X *float64 `json:"x,omitempty" tf:"x,omitempty"`
+
+	// (Number) Y coordinates for a "scroll step".
+	Y *float64 `json:"y,omitempty" tf:"y,omitempty"`
+}
+
+type RelativePositionObservation struct {
+
+	// (Number) X coordinates for a "scroll step".
+	X *float64 `json:"x,omitempty" tf:"x,omitempty"`
+
+	// (Number) Y coordinates for a "scroll step".
+	Y *float64 `json:"y,omitempty" tf:"y,omitempty"`
+}
+
+type RelativePositionParameters struct {
+
+	// (Number) X coordinates for a "scroll step".
+	// +kubebuilder:validation:Optional
+	X *float64 `json:"x,omitempty" tf:"x,omitempty"`
+
+	// (Number) Y coordinates for a "scroll step".
 	// +kubebuilder:validation:Optional
 	Y *float64 `json:"y,omitempty" tf:"y,omitempty"`
 }
@@ -1523,7 +2790,7 @@ type RequestBasicauthInitParameters struct {
 	// Token API Authentication for `oauth-client` or `oauth-rop` authentication. Valid values are `header`, `body`.
 	TokenAPIAuthentication *string `json:"tokenApiAuthentication,omitempty" tf:"token_api_authentication,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
 	// Type of basic authentication to use when performing the test. Defaults to `"web"`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
@@ -1578,7 +2845,7 @@ type RequestBasicauthObservation struct {
 	// Token API Authentication for `oauth-client` or `oauth-rop` authentication. Valid values are `header`, `body`.
 	TokenAPIAuthentication *string `json:"tokenApiAuthentication,omitempty" tf:"token_api_authentication,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
 	// Type of basic authentication to use when performing the test. Defaults to `"web"`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
@@ -1663,7 +2930,7 @@ type RequestBasicauthParameters struct {
 	// +kubebuilder:validation:Optional
 	TokenAPIAuthentication *string `json:"tokenApiAuthentication,omitempty" tf:"token_api_authentication,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
 	// Type of basic authentication to use when performing the test. Defaults to `"web"`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
@@ -1697,8 +2964,8 @@ type RequestClientCertificateCertParameters struct {
 
 	// (String, Sensitive) Content of the certificate.
 	// Content of the certificate.
-	// +kubebuilder:validation:Required
-	ContentSecretRef v1.SecretKeySelector `json:"contentSecretRef" tf:"-"`
+	// +kubebuilder:validation:Optional
+	ContentSecretRef *v1.SecretKeySelector `json:"contentSecretRef,omitempty" tf:"-"`
 
 	// (String) File name for the certificate.
 	// File name for the certificate.
@@ -1733,8 +3000,8 @@ type RequestClientCertificateKeyParameters struct {
 
 	// (String, Sensitive) Content of the certificate.
 	// Content of the certificate.
-	// +kubebuilder:validation:Required
-	ContentSecretRef v1.SecretKeySelector `json:"contentSecretRef" tf:"-"`
+	// +kubebuilder:validation:Optional
+	ContentSecretRef *v1.SecretKeySelector `json:"contentSecretRef,omitempty" tf:"-"`
 
 	// (String) File name for the certificate.
 	// File name for the certificate.
@@ -1764,16 +3031,20 @@ type RequestClientCertificateParameters struct {
 
 type RequestDefinitionInitParameters struct {
 
-	// (Boolean) Allows loading insecure content for an HTTP request in an API test or in a multistep API test step.
-	// Allows loading insecure content for an HTTP request in an API test or in a multistep API test step.
+	// (Boolean) For SSL tests, whether or not the test should allow self signed certificates.
+	// For SSL tests, whether or not the test should allow self signed certificates.
+	AcceptSelfSigned *bool `json:"acceptSelfSigned,omitempty" tf:"accept_self_signed,omitempty"`
+
+	// (Boolean) Allows loading insecure content for a request in an API test or in a multistep API test step.
+	// Allows loading insecure content for a request in an API test or in a multistep API test step.
 	AllowInsecure *bool `json:"allowInsecure,omitempty" tf:"allow_insecure,omitempty"`
 
 	// (String) The request body.
 	// The request body.
 	Body *string `json:"body,omitempty" tf:"body,omitempty"`
 
-	// www-form-urlencoded, graphql.
-	// Type of the request body. Valid values are `text/plain`, `application/json`, `text/xml`, `text/html`, `application/x-www-form-urlencoded`, `graphql`.
+	// www-form-urlencoded, graphql, application/octet-stream, multipart/form-data.
+	// Type of the request body. Valid values are `text/plain`, `application/json`, `text/xml`, `text/html`, `application/x-www-form-urlencoded`, `graphql`, `application/octet-stream`, `multipart/form-data`.
 	BodyType *string `json:"bodyType,omitempty" tf:"body_type,omitempty"`
 
 	// (String) The type of gRPC call to perform. Valid values are healthcheck, unary.
@@ -1784,24 +3055,57 @@ type RequestDefinitionInitParameters struct {
 	// By default, the client certificate is applied on the domain of the starting URL for browser tests. If you want your client certificate to be applied on other domains instead, add them in `certificate_domains`.
 	CertificateDomains []*string `json:"certificateDomains,omitempty" tf:"certificate_domains,omitempty"`
 
+	// (Boolean) For SSL tests, whether or not the test should fail on revoked certificate in stapled OCSP.
+	// For SSL tests, whether or not the test should fail on revoked certificate in stapled OCSP.
+	CheckCertificateRevocation *bool `json:"checkCertificateRevocation,omitempty" tf:"check_certificate_revocation,omitempty"`
+
 	// (String) DNS server to use for DNS tests (subtype = "dns").
 	// DNS server to use for DNS tests (`subtype = "dns"`).
 	DNSServer *string `json:"dnsServer,omitempty" tf:"dns_server,omitempty"`
 
-	// (Number) DNS server port to use for DNS tests.
+	// (String) DNS server port to use for DNS tests.
 	// DNS server port to use for DNS tests.
-	DNSServerPort *float64 `json:"dnsServerPort,omitempty" tf:"dns_server_port,omitempty"`
+	DNSServerPort *string `json:"dnsServerPort,omitempty" tf:"dns_server_port,omitempty"`
+
+	// (String) For Network Path tests, an optional label displayed for the destination host in the Network Path visualization.
+	// For Network Path tests, an optional label displayed for the destination host in the Network Path visualization.
+	DestinationService *string `json:"destinationService,omitempty" tf:"destination_service,omitempty"`
+
+	// (Boolean) For SSL tests, whether or not the test should disable fetching intermediate certificates from AIA
+	// For SSL tests, whether or not the test should disable fetching intermediate certificates from AIA
+	DisableAiaIntermediateFetching *bool `json:"disableAiaIntermediateFetching,omitempty" tf:"disable_aia_intermediate_fetching,omitempty"`
+
+	// (Number) For Network Path tests, the number of packets sent to probe the destination to measure packet loss, latency, and jitter.
+	// For Network Path tests, the number of packets sent to probe the destination to measure packet loss, latency, and jitter.
+	E2EQueries *float64 `json:"e2eQueries,omitempty" tf:"e2e_queries,omitempty"`
 
 	// (Boolean) Determines whether or not the API HTTP test should follow redirects.
 	// Determines whether or not the API HTTP test should follow redirects.
 	FollowRedirects *bool `json:"followRedirects,omitempty" tf:"follow_redirects,omitempty"`
 
+	// data.
+	// Form data to be sent when `body_type` is `multipart/form-data`.
+	// +mapType=granular
+	Form map[string]*string `json:"form,omitempty" tf:"form,omitempty"`
+
+	// (String) HTTP version to use for an HTTP request in an API test or step. Valid values are http1, http2, any. Defaults to "any".
+	// HTTP version to use for an HTTP request in an API test or step. Valid values are `http1`, `http2`, `any`. Defaults to `"any"`.
+	HTTPVersion *string `json:"httpVersion,omitempty" tf:"http_version,omitempty"`
+
 	// (String) Host name to perform the test with.
 	// Host name to perform the test with.
 	Host *string `json:"host,omitempty" tf:"host,omitempty"`
 
+	// encoded string in the server.
+	// For Websocket tests, whether the message is treated as a base64-encoded string in the server.
+	IsMessageBase64Encoded *bool `json:"isMessageBase64Encoded,omitempty" tf:"is_message_base64_encoded,omitempty"`
+
+	// to-live (max number of hops) used in outgoing probe packets.
+	// For Network Path tests, the maximum time-to-live (max number of hops) used in outgoing probe packets.
+	MaxTTL *float64 `json:"maxTtl,omitempty" tf:"max_ttl,omitempty"`
+
 	// (String) A message to include with notifications for this synthetics test. Email notifications can be sent to specific users by using the same @username notation as events. Defaults to "".
-	// For UDP and websocket tests, message to send with the request.
+	// For gRPC, UDP, and Websocket tests, message to send with the request.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
 	// (String) Either the HTTP method/verb to use or a gRPC method available on the service set in the service field. Required if subtype is HTTP or if subtype is grpc and callType is unary.
@@ -1824,9 +3128,9 @@ type RequestDefinitionInitParameters struct {
 	// The content of a proto file as a string.
 	PlainProtoFile *string `json:"plainProtoFile,omitempty" tf:"plain_proto_file,omitempty"`
 
-	// (Number) Port to use when performing the test.
+	// (String) Port to use when performing the test.
 	// Port to use when performing the test.
-	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+	Port *string `json:"port,omitempty" tf:"port,omitempty"`
 
 	// (String, Deprecated) A protobuf JSON descriptor. Deprecated. Use plain_proto_file instead.
 	// A protobuf JSON descriptor. **Deprecated.** Use `plain_proto_file` instead.
@@ -1844,9 +3148,21 @@ type RequestDefinitionInitParameters struct {
 	// This will turn on a traceroute probe to discover all gateways along the path to the host destination. For ICMP tests (`subtype = "icmp"`).
 	ShouldTrackHops *bool `json:"shouldTrackHops,omitempty" tf:"should_track_hops,omitempty"`
 
-	// (Number) Timeout in seconds for the test. Defaults to 60.
-	// Timeout in seconds for the test. Defaults to `60`.
+	// (String) For Network Path tests, an optional label displayed for the source host in the Network Path visualization
+	// For Network Path tests, an optional label displayed for the source host in the Network Path visualization
+	SourceService *string `json:"sourceService,omitempty" tf:"source_service,omitempty"`
+
+	// (String) For TCP Network Path tests, the TCP traceroute strategy.
+	// For TCP Network Path tests, the TCP traceroute strategy.
+	TCPMethod *string `json:"tcpMethod,omitempty" tf:"tcp_method,omitempty"`
+
+	// (Number) Timeout in seconds for the test.
+	// Timeout in seconds for the test.
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// (Number) For Network Path tests, the number of traceroute path tracings.
+	// For Network Path tests, the number of traceroute path tracings.
+	TracerouteQueries *float64 `json:"tracerouteQueries,omitempty" tf:"traceroute_queries,omitempty"`
 
 	// (String) The URL to send the request to.
 	// The URL to send the request to.
@@ -1855,16 +3171,20 @@ type RequestDefinitionInitParameters struct {
 
 type RequestDefinitionObservation struct {
 
-	// (Boolean) Allows loading insecure content for an HTTP request in an API test or in a multistep API test step.
-	// Allows loading insecure content for an HTTP request in an API test or in a multistep API test step.
+	// (Boolean) For SSL tests, whether or not the test should allow self signed certificates.
+	// For SSL tests, whether or not the test should allow self signed certificates.
+	AcceptSelfSigned *bool `json:"acceptSelfSigned,omitempty" tf:"accept_self_signed,omitempty"`
+
+	// (Boolean) Allows loading insecure content for a request in an API test or in a multistep API test step.
+	// Allows loading insecure content for a request in an API test or in a multistep API test step.
 	AllowInsecure *bool `json:"allowInsecure,omitempty" tf:"allow_insecure,omitempty"`
 
 	// (String) The request body.
 	// The request body.
 	Body *string `json:"body,omitempty" tf:"body,omitempty"`
 
-	// www-form-urlencoded, graphql.
-	// Type of the request body. Valid values are `text/plain`, `application/json`, `text/xml`, `text/html`, `application/x-www-form-urlencoded`, `graphql`.
+	// www-form-urlencoded, graphql, application/octet-stream, multipart/form-data.
+	// Type of the request body. Valid values are `text/plain`, `application/json`, `text/xml`, `text/html`, `application/x-www-form-urlencoded`, `graphql`, `application/octet-stream`, `multipart/form-data`.
 	BodyType *string `json:"bodyType,omitempty" tf:"body_type,omitempty"`
 
 	// (String) The type of gRPC call to perform. Valid values are healthcheck, unary.
@@ -1875,24 +3195,57 @@ type RequestDefinitionObservation struct {
 	// By default, the client certificate is applied on the domain of the starting URL for browser tests. If you want your client certificate to be applied on other domains instead, add them in `certificate_domains`.
 	CertificateDomains []*string `json:"certificateDomains,omitempty" tf:"certificate_domains,omitempty"`
 
+	// (Boolean) For SSL tests, whether or not the test should fail on revoked certificate in stapled OCSP.
+	// For SSL tests, whether or not the test should fail on revoked certificate in stapled OCSP.
+	CheckCertificateRevocation *bool `json:"checkCertificateRevocation,omitempty" tf:"check_certificate_revocation,omitempty"`
+
 	// (String) DNS server to use for DNS tests (subtype = "dns").
 	// DNS server to use for DNS tests (`subtype = "dns"`).
 	DNSServer *string `json:"dnsServer,omitempty" tf:"dns_server,omitempty"`
 
-	// (Number) DNS server port to use for DNS tests.
+	// (String) DNS server port to use for DNS tests.
 	// DNS server port to use for DNS tests.
-	DNSServerPort *float64 `json:"dnsServerPort,omitempty" tf:"dns_server_port,omitempty"`
+	DNSServerPort *string `json:"dnsServerPort,omitempty" tf:"dns_server_port,omitempty"`
+
+	// (String) For Network Path tests, an optional label displayed for the destination host in the Network Path visualization.
+	// For Network Path tests, an optional label displayed for the destination host in the Network Path visualization.
+	DestinationService *string `json:"destinationService,omitempty" tf:"destination_service,omitempty"`
+
+	// (Boolean) For SSL tests, whether or not the test should disable fetching intermediate certificates from AIA
+	// For SSL tests, whether or not the test should disable fetching intermediate certificates from AIA
+	DisableAiaIntermediateFetching *bool `json:"disableAiaIntermediateFetching,omitempty" tf:"disable_aia_intermediate_fetching,omitempty"`
+
+	// (Number) For Network Path tests, the number of packets sent to probe the destination to measure packet loss, latency, and jitter.
+	// For Network Path tests, the number of packets sent to probe the destination to measure packet loss, latency, and jitter.
+	E2EQueries *float64 `json:"e2eQueries,omitempty" tf:"e2e_queries,omitempty"`
 
 	// (Boolean) Determines whether or not the API HTTP test should follow redirects.
 	// Determines whether or not the API HTTP test should follow redirects.
 	FollowRedirects *bool `json:"followRedirects,omitempty" tf:"follow_redirects,omitempty"`
 
+	// data.
+	// Form data to be sent when `body_type` is `multipart/form-data`.
+	// +mapType=granular
+	Form map[string]*string `json:"form,omitempty" tf:"form,omitempty"`
+
+	// (String) HTTP version to use for an HTTP request in an API test or step. Valid values are http1, http2, any. Defaults to "any".
+	// HTTP version to use for an HTTP request in an API test or step. Valid values are `http1`, `http2`, `any`. Defaults to `"any"`.
+	HTTPVersion *string `json:"httpVersion,omitempty" tf:"http_version,omitempty"`
+
 	// (String) Host name to perform the test with.
 	// Host name to perform the test with.
 	Host *string `json:"host,omitempty" tf:"host,omitempty"`
 
+	// encoded string in the server.
+	// For Websocket tests, whether the message is treated as a base64-encoded string in the server.
+	IsMessageBase64Encoded *bool `json:"isMessageBase64Encoded,omitempty" tf:"is_message_base64_encoded,omitempty"`
+
+	// to-live (max number of hops) used in outgoing probe packets.
+	// For Network Path tests, the maximum time-to-live (max number of hops) used in outgoing probe packets.
+	MaxTTL *float64 `json:"maxTtl,omitempty" tf:"max_ttl,omitempty"`
+
 	// (String) A message to include with notifications for this synthetics test. Email notifications can be sent to specific users by using the same @username notation as events. Defaults to "".
-	// For UDP and websocket tests, message to send with the request.
+	// For gRPC, UDP, and Websocket tests, message to send with the request.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
 	// (String) Either the HTTP method/verb to use or a gRPC method available on the service set in the service field. Required if subtype is HTTP or if subtype is grpc and callType is unary.
@@ -1915,9 +3268,9 @@ type RequestDefinitionObservation struct {
 	// The content of a proto file as a string.
 	PlainProtoFile *string `json:"plainProtoFile,omitempty" tf:"plain_proto_file,omitempty"`
 
-	// (Number) Port to use when performing the test.
+	// (String) Port to use when performing the test.
 	// Port to use when performing the test.
-	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+	Port *string `json:"port,omitempty" tf:"port,omitempty"`
 
 	// (String, Deprecated) A protobuf JSON descriptor. Deprecated. Use plain_proto_file instead.
 	// A protobuf JSON descriptor. **Deprecated.** Use `plain_proto_file` instead.
@@ -1935,9 +3288,21 @@ type RequestDefinitionObservation struct {
 	// This will turn on a traceroute probe to discover all gateways along the path to the host destination. For ICMP tests (`subtype = "icmp"`).
 	ShouldTrackHops *bool `json:"shouldTrackHops,omitempty" tf:"should_track_hops,omitempty"`
 
-	// (Number) Timeout in seconds for the test. Defaults to 60.
-	// Timeout in seconds for the test. Defaults to `60`.
+	// (String) For Network Path tests, an optional label displayed for the source host in the Network Path visualization
+	// For Network Path tests, an optional label displayed for the source host in the Network Path visualization
+	SourceService *string `json:"sourceService,omitempty" tf:"source_service,omitempty"`
+
+	// (String) For TCP Network Path tests, the TCP traceroute strategy.
+	// For TCP Network Path tests, the TCP traceroute strategy.
+	TCPMethod *string `json:"tcpMethod,omitempty" tf:"tcp_method,omitempty"`
+
+	// (Number) Timeout in seconds for the test.
+	// Timeout in seconds for the test.
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// (Number) For Network Path tests, the number of traceroute path tracings.
+	// For Network Path tests, the number of traceroute path tracings.
+	TracerouteQueries *float64 `json:"tracerouteQueries,omitempty" tf:"traceroute_queries,omitempty"`
 
 	// (String) The URL to send the request to.
 	// The URL to send the request to.
@@ -1946,8 +3311,13 @@ type RequestDefinitionObservation struct {
 
 type RequestDefinitionParameters struct {
 
-	// (Boolean) Allows loading insecure content for an HTTP request in an API test or in a multistep API test step.
-	// Allows loading insecure content for an HTTP request in an API test or in a multistep API test step.
+	// (Boolean) For SSL tests, whether or not the test should allow self signed certificates.
+	// For SSL tests, whether or not the test should allow self signed certificates.
+	// +kubebuilder:validation:Optional
+	AcceptSelfSigned *bool `json:"acceptSelfSigned,omitempty" tf:"accept_self_signed,omitempty"`
+
+	// (Boolean) Allows loading insecure content for a request in an API test or in a multistep API test step.
+	// Allows loading insecure content for a request in an API test or in a multistep API test step.
 	// +kubebuilder:validation:Optional
 	AllowInsecure *bool `json:"allowInsecure,omitempty" tf:"allow_insecure,omitempty"`
 
@@ -1956,8 +3326,8 @@ type RequestDefinitionParameters struct {
 	// +kubebuilder:validation:Optional
 	Body *string `json:"body,omitempty" tf:"body,omitempty"`
 
-	// www-form-urlencoded, graphql.
-	// Type of the request body. Valid values are `text/plain`, `application/json`, `text/xml`, `text/html`, `application/x-www-form-urlencoded`, `graphql`.
+	// www-form-urlencoded, graphql, application/octet-stream, multipart/form-data.
+	// Type of the request body. Valid values are `text/plain`, `application/json`, `text/xml`, `text/html`, `application/x-www-form-urlencoded`, `graphql`, `application/octet-stream`, `multipart/form-data`.
 	// +kubebuilder:validation:Optional
 	BodyType *string `json:"bodyType,omitempty" tf:"body_type,omitempty"`
 
@@ -1971,28 +3341,69 @@ type RequestDefinitionParameters struct {
 	// +kubebuilder:validation:Optional
 	CertificateDomains []*string `json:"certificateDomains,omitempty" tf:"certificate_domains,omitempty"`
 
+	// (Boolean) For SSL tests, whether or not the test should fail on revoked certificate in stapled OCSP.
+	// For SSL tests, whether or not the test should fail on revoked certificate in stapled OCSP.
+	// +kubebuilder:validation:Optional
+	CheckCertificateRevocation *bool `json:"checkCertificateRevocation,omitempty" tf:"check_certificate_revocation,omitempty"`
+
 	// (String) DNS server to use for DNS tests (subtype = "dns").
 	// DNS server to use for DNS tests (`subtype = "dns"`).
 	// +kubebuilder:validation:Optional
 	DNSServer *string `json:"dnsServer,omitempty" tf:"dns_server,omitempty"`
 
-	// (Number) DNS server port to use for DNS tests.
+	// (String) DNS server port to use for DNS tests.
 	// DNS server port to use for DNS tests.
 	// +kubebuilder:validation:Optional
-	DNSServerPort *float64 `json:"dnsServerPort,omitempty" tf:"dns_server_port,omitempty"`
+	DNSServerPort *string `json:"dnsServerPort,omitempty" tf:"dns_server_port,omitempty"`
+
+	// (String) For Network Path tests, an optional label displayed for the destination host in the Network Path visualization.
+	// For Network Path tests, an optional label displayed for the destination host in the Network Path visualization.
+	// +kubebuilder:validation:Optional
+	DestinationService *string `json:"destinationService,omitempty" tf:"destination_service,omitempty"`
+
+	// (Boolean) For SSL tests, whether or not the test should disable fetching intermediate certificates from AIA
+	// For SSL tests, whether or not the test should disable fetching intermediate certificates from AIA
+	// +kubebuilder:validation:Optional
+	DisableAiaIntermediateFetching *bool `json:"disableAiaIntermediateFetching,omitempty" tf:"disable_aia_intermediate_fetching,omitempty"`
+
+	// (Number) For Network Path tests, the number of packets sent to probe the destination to measure packet loss, latency, and jitter.
+	// For Network Path tests, the number of packets sent to probe the destination to measure packet loss, latency, and jitter.
+	// +kubebuilder:validation:Optional
+	E2EQueries *float64 `json:"e2eQueries,omitempty" tf:"e2e_queries,omitempty"`
 
 	// (Boolean) Determines whether or not the API HTTP test should follow redirects.
 	// Determines whether or not the API HTTP test should follow redirects.
 	// +kubebuilder:validation:Optional
 	FollowRedirects *bool `json:"followRedirects,omitempty" tf:"follow_redirects,omitempty"`
 
+	// data.
+	// Form data to be sent when `body_type` is `multipart/form-data`.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Form map[string]*string `json:"form,omitempty" tf:"form,omitempty"`
+
+	// (String) HTTP version to use for an HTTP request in an API test or step. Valid values are http1, http2, any. Defaults to "any".
+	// HTTP version to use for an HTTP request in an API test or step. Valid values are `http1`, `http2`, `any`. Defaults to `"any"`.
+	// +kubebuilder:validation:Optional
+	HTTPVersion *string `json:"httpVersion,omitempty" tf:"http_version,omitempty"`
+
 	// (String) Host name to perform the test with.
 	// Host name to perform the test with.
 	// +kubebuilder:validation:Optional
 	Host *string `json:"host,omitempty" tf:"host,omitempty"`
 
+	// encoded string in the server.
+	// For Websocket tests, whether the message is treated as a base64-encoded string in the server.
+	// +kubebuilder:validation:Optional
+	IsMessageBase64Encoded *bool `json:"isMessageBase64Encoded,omitempty" tf:"is_message_base64_encoded,omitempty"`
+
+	// to-live (max number of hops) used in outgoing probe packets.
+	// For Network Path tests, the maximum time-to-live (max number of hops) used in outgoing probe packets.
+	// +kubebuilder:validation:Optional
+	MaxTTL *float64 `json:"maxTtl,omitempty" tf:"max_ttl,omitempty"`
+
 	// (String) A message to include with notifications for this synthetics test. Email notifications can be sent to specific users by using the same @username notation as events. Defaults to "".
-	// For UDP and websocket tests, message to send with the request.
+	// For gRPC, UDP, and Websocket tests, message to send with the request.
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
@@ -2021,10 +3432,10 @@ type RequestDefinitionParameters struct {
 	// +kubebuilder:validation:Optional
 	PlainProtoFile *string `json:"plainProtoFile,omitempty" tf:"plain_proto_file,omitempty"`
 
-	// (Number) Port to use when performing the test.
+	// (String) Port to use when performing the test.
 	// Port to use when performing the test.
 	// +kubebuilder:validation:Optional
-	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+	Port *string `json:"port,omitempty" tf:"port,omitempty"`
 
 	// (String, Deprecated) A protobuf JSON descriptor. Deprecated. Use plain_proto_file instead.
 	// A protobuf JSON descriptor. **Deprecated.** Use `plain_proto_file` instead.
@@ -2046,15 +3457,108 @@ type RequestDefinitionParameters struct {
 	// +kubebuilder:validation:Optional
 	ShouldTrackHops *bool `json:"shouldTrackHops,omitempty" tf:"should_track_hops,omitempty"`
 
-	// (Number) Timeout in seconds for the test. Defaults to 60.
-	// Timeout in seconds for the test. Defaults to `60`.
+	// (String) For Network Path tests, an optional label displayed for the source host in the Network Path visualization
+	// For Network Path tests, an optional label displayed for the source host in the Network Path visualization
+	// +kubebuilder:validation:Optional
+	SourceService *string `json:"sourceService,omitempty" tf:"source_service,omitempty"`
+
+	// (String) For TCP Network Path tests, the TCP traceroute strategy.
+	// For TCP Network Path tests, the TCP traceroute strategy.
+	// +kubebuilder:validation:Optional
+	TCPMethod *string `json:"tcpMethod,omitempty" tf:"tcp_method,omitempty"`
+
+	// (Number) Timeout in seconds for the test.
+	// Timeout in seconds for the test.
 	// +kubebuilder:validation:Optional
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// (Number) For Network Path tests, the number of traceroute path tracings.
+	// For Network Path tests, the number of traceroute path tracings.
+	// +kubebuilder:validation:Optional
+	TracerouteQueries *float64 `json:"tracerouteQueries,omitempty" tf:"traceroute_queries,omitempty"`
 
 	// (String) The URL to send the request to.
 	// The URL to send the request to.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type RequestFileInitParameters struct {
+
+	// (String, Sensitive) Content of the certificate.
+	// Content of the file.
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// (String) Name of Datadog synthetics test.
+	// Name of the file.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Original name of the file.
+	// Original name of the file.
+	OriginalFileName *string `json:"originalFileName,omitempty" tf:"original_file_name,omitempty"`
+
+	// (Number) Size of the file.
+	// Size of the file.
+	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
+
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of the file.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type RequestFileObservation struct {
+
+	// (String) Bucket key of the file.
+	// Bucket key of the file.
+	BucketKey *string `json:"bucketKey,omitempty" tf:"bucket_key,omitempty"`
+
+	// (String, Sensitive) Content of the certificate.
+	// Content of the file.
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// (String) Name of Datadog synthetics test.
+	// Name of the file.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Original name of the file.
+	// Original name of the file.
+	OriginalFileName *string `json:"originalFileName,omitempty" tf:"original_file_name,omitempty"`
+
+	// (Number) Size of the file.
+	// Size of the file.
+	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
+
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of the file.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type RequestFileParameters struct {
+
+	// (String, Sensitive) Content of the certificate.
+	// Content of the file.
+	// +kubebuilder:validation:Optional
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// (String) Name of Datadog synthetics test.
+	// Name of the file.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (String) Original name of the file.
+	// Original name of the file.
+	// +kubebuilder:validation:Optional
+	OriginalFileName *string `json:"originalFileName,omitempty" tf:"original_file_name,omitempty"`
+
+	// (Number) Size of the file.
+	// Size of the file.
+	// +kubebuilder:validation:Optional
+	Size *float64 `json:"size" tf:"size,omitempty"`
+
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of the file.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
 }
 
 type RequestProxyInitParameters struct {
@@ -2097,37 +3601,77 @@ type RequestProxyParameters struct {
 
 type RetryInitParameters struct {
 
-	// (Number) Number of retries needed to consider a location as failed before sending a notification alert. Defaults to 0.
-	// Number of retries needed to consider a location as failed before sending a notification alert. Defaults to `0`.
+	// (Number) Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: 3 for api tests, 2 for browser and mobile tests. Defaults to 0.
+	// Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: `3` for `api` tests, `2` for `browser` and `mobile` tests. Defaults to `0`.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// (Number) Interval between a failed test and the next retry in milliseconds. Defaults to 300.
-	// Interval between a failed test and the next retry in milliseconds. Defaults to `300`.
+	// (Number) Interval between a failed test and the next retry in milliseconds. Maximum value: 5000. Defaults to 300.
+	// Interval between a failed test and the next retry in milliseconds. Maximum value: `5000`. Defaults to `300`.
 	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
 }
 
 type RetryObservation struct {
 
-	// (Number) Number of retries needed to consider a location as failed before sending a notification alert. Defaults to 0.
-	// Number of retries needed to consider a location as failed before sending a notification alert. Defaults to `0`.
+	// (Number) Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: 3 for api tests, 2 for browser and mobile tests. Defaults to 0.
+	// Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: `3` for `api` tests, `2` for `browser` and `mobile` tests. Defaults to `0`.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// (Number) Interval between a failed test and the next retry in milliseconds. Defaults to 300.
-	// Interval between a failed test and the next retry in milliseconds. Defaults to `300`.
+	// (Number) Interval between a failed test and the next retry in milliseconds. Maximum value: 5000. Defaults to 300.
+	// Interval between a failed test and the next retry in milliseconds. Maximum value: `5000`. Defaults to `300`.
 	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
 }
 
 type RetryParameters struct {
 
-	// (Number) Number of retries needed to consider a location as failed before sending a notification alert. Defaults to 0.
-	// Number of retries needed to consider a location as failed before sending a notification alert. Defaults to `0`.
+	// (Number) Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: 3 for api tests, 2 for browser and mobile tests. Defaults to 0.
+	// Number of retries needed to consider a location as failed before sending a notification alert. Maximum value: `3` for `api` tests, `2` for `browser` and `mobile` tests. Defaults to `0`.
 	// +kubebuilder:validation:Optional
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// (Number) Interval between a failed test and the next retry in milliseconds. Defaults to 300.
-	// Interval between a failed test and the next retry in milliseconds. Defaults to `300`.
+	// (Number) Interval between a failed test and the next retry in milliseconds. Maximum value: 5000. Defaults to 300.
+	// Interval between a failed test and the next retry in milliseconds. Maximum value: `5000`. Defaults to `300`.
 	// +kubebuilder:validation:Optional
 	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+}
+
+type RumSettingsInitParameters struct {
+
+	// (String)
+	// RUM application ID used to collect RUM data for the browser test.
+	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
+
+	// (Boolean) Determines whether RUM data is collected during test runs.
+	// Determines whether RUM data is collected during test runs.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+}
+
+type RumSettingsObservation struct {
+
+	// (String)
+	// RUM application ID used to collect RUM data for the browser test.
+	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
+
+	// (Boolean) Determines whether RUM data is collected during test runs.
+	// Determines whether RUM data is collected during test runs.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+}
+
+type RumSettingsParameters struct {
+
+	// (String)
+	// RUM application ID used to collect RUM data for the browser test.
+	// +kubebuilder:validation:Optional
+	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
+
+	// (Number, Sensitive) RUM application API key ID used to collect RUM data for the browser test.
+	// RUM application API key ID used to collect RUM data for the browser test.
+	// +kubebuilder:validation:Optional
+	ClientTokenIDSecretRef *v1.SecretKeySelector `json:"clientTokenIdSecretRef,omitempty" tf:"-"`
+
+	// (Boolean) Determines whether RUM data is collected during test runs.
+	// Determines whether RUM data is collected during test runs.
+	// +kubebuilder:validation:Optional
+	IsEnabled *bool `json:"isEnabled" tf:"is_enabled,omitempty"`
 }
 
 type SchedulingInitParameters struct {
@@ -2165,13 +3709,65 @@ type SchedulingParameters struct {
 	Timezone *string `json:"timezone" tf:"timezone,omitempty"`
 }
 
+type SchedulingTimeframesInitParameters struct {
+
+	// (Number) Number representing the day of the week
+	// Number representing the day of the week
+	Day *float64 `json:"day,omitempty" tf:"day,omitempty"`
+
+	// (String) The hour of the day on which scheduling starts.
+	// The hour of the day on which scheduling starts.
+	From *string `json:"from,omitempty" tf:"from,omitempty"`
+
+	// (String) The hour of the day on which scheduling ends.
+	// The hour of the day on which scheduling ends.
+	To *string `json:"to,omitempty" tf:"to,omitempty"`
+}
+
+type SchedulingTimeframesObservation struct {
+
+	// (Number) Number representing the day of the week
+	// Number representing the day of the week
+	Day *float64 `json:"day,omitempty" tf:"day,omitempty"`
+
+	// (String) The hour of the day on which scheduling starts.
+	// The hour of the day on which scheduling starts.
+	From *string `json:"from,omitempty" tf:"from,omitempty"`
+
+	// (String) The hour of the day on which scheduling ends.
+	// The hour of the day on which scheduling ends.
+	To *string `json:"to,omitempty" tf:"to,omitempty"`
+}
+
+type SchedulingTimeframesParameters struct {
+
+	// (Number) Number representing the day of the week
+	// Number representing the day of the week
+	// +kubebuilder:validation:Optional
+	Day *float64 `json:"day" tf:"day,omitempty"`
+
+	// (String) The hour of the day on which scheduling starts.
+	// The hour of the day on which scheduling starts.
+	// +kubebuilder:validation:Optional
+	From *string `json:"from" tf:"from,omitempty"`
+
+	// (String) The hour of the day on which scheduling ends.
+	// The hour of the day on which scheduling ends.
+	// +kubebuilder:validation:Optional
+	To *string `json:"to" tf:"to,omitempty"`
+}
+
 type TargetjsonpathInitParameters struct {
+
+	// (String) The element from the list of results to assert on. Select from firstElementMatches (the first element in the list), everyElementMatches (every element in the list), atLeastOneElementMatches (at least one element in the list), or serializationMatches (the serialized value of the list). Defaults to "firstElementMatches".
+	// The element from the list of results to assert on. Select from `firstElementMatches` (the first element in the list), `everyElementMatches` (every element in the list), `atLeastOneElementMatches` (at least one element in the list), or `serializationMatches` (the serialized value of the list). Defaults to `"firstElementMatches"`.
+	Elementsoperator *string `json:"elementsoperator,omitempty" tf:"elementsoperator,omitempty"`
 
 	// (String) The JSON path to assert.
 	// The JSON path to assert.
 	Jsonpath *string `json:"jsonpath,omitempty" tf:"jsonpath,omitempty"`
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
 	// The specific operator to use on the path.
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
@@ -2182,11 +3778,15 @@ type TargetjsonpathInitParameters struct {
 
 type TargetjsonpathObservation struct {
 
+	// (String) The element from the list of results to assert on. Select from firstElementMatches (the first element in the list), everyElementMatches (every element in the list), atLeastOneElementMatches (at least one element in the list), or serializationMatches (the serialized value of the list). Defaults to "firstElementMatches".
+	// The element from the list of results to assert on. Select from `firstElementMatches` (the first element in the list), `everyElementMatches` (every element in the list), `atLeastOneElementMatches` (at least one element in the list), or `serializationMatches` (the serialized value of the list). Defaults to `"firstElementMatches"`.
+	Elementsoperator *string `json:"elementsoperator,omitempty" tf:"elementsoperator,omitempty"`
+
 	// (String) The JSON path to assert.
 	// The JSON path to assert.
 	Jsonpath *string `json:"jsonpath,omitempty" tf:"jsonpath,omitempty"`
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
 	// The specific operator to use on the path.
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
@@ -2197,12 +3797,17 @@ type TargetjsonpathObservation struct {
 
 type TargetjsonpathParameters struct {
 
+	// (String) The element from the list of results to assert on. Select from firstElementMatches (the first element in the list), everyElementMatches (every element in the list), atLeastOneElementMatches (at least one element in the list), or serializationMatches (the serialized value of the list). Defaults to "firstElementMatches".
+	// The element from the list of results to assert on. Select from `firstElementMatches` (the first element in the list), `everyElementMatches` (every element in the list), `atLeastOneElementMatches` (at least one element in the list), or `serializationMatches` (the serialized value of the list). Defaults to `"firstElementMatches"`.
+	// +kubebuilder:validation:Optional
+	Elementsoperator *string `json:"elementsoperator,omitempty" tf:"elementsoperator,omitempty"`
+
 	// (String) The JSON path to assert.
 	// The JSON path to assert.
 	// +kubebuilder:validation:Optional
 	Jsonpath *string `json:"jsonpath" tf:"jsonpath,omitempty"`
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
 	// The specific operator to use on the path.
 	// +kubebuilder:validation:Optional
 	Operator *string `json:"operator" tf:"operator,omitempty"`
@@ -2213,9 +3818,44 @@ type TargetjsonpathParameters struct {
 	Targetvalue *string `json:"targetvalue,omitempty" tf:"targetvalue,omitempty"`
 }
 
+type TargetjsonschemaInitParameters struct {
+
+	// (String) The JSON Schema to validate the body against.
+	// The JSON Schema to validate the body against.
+	Jsonschema *string `json:"jsonschema,omitempty" tf:"jsonschema,omitempty"`
+
+	// 07".
+	// The meta schema to use for the JSON Schema. Defaults to `"draft-07"`.
+	Metaschema *string `json:"metaschema,omitempty" tf:"metaschema,omitempty"`
+}
+
+type TargetjsonschemaObservation struct {
+
+	// (String) The JSON Schema to validate the body against.
+	// The JSON Schema to validate the body against.
+	Jsonschema *string `json:"jsonschema,omitempty" tf:"jsonschema,omitempty"`
+
+	// 07".
+	// The meta schema to use for the JSON Schema. Defaults to `"draft-07"`.
+	Metaschema *string `json:"metaschema,omitempty" tf:"metaschema,omitempty"`
+}
+
+type TargetjsonschemaParameters struct {
+
+	// (String) The JSON Schema to validate the body against.
+	// The JSON Schema to validate the body against.
+	// +kubebuilder:validation:Optional
+	Jsonschema *string `json:"jsonschema" tf:"jsonschema,omitempty"`
+
+	// 07".
+	// The meta schema to use for the JSON Schema. Defaults to `"draft-07"`.
+	// +kubebuilder:validation:Optional
+	Metaschema *string `json:"metaschema,omitempty" tf:"metaschema,omitempty"`
+}
+
 type TargetxpathInitParameters struct {
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
 	// The specific operator to use on the path.
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
@@ -2230,7 +3870,7 @@ type TargetxpathInitParameters struct {
 
 type TargetxpathObservation struct {
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
 	// The specific operator to use on the path.
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
@@ -2245,7 +3885,7 @@ type TargetxpathObservation struct {
 
 type TargetxpathParameters struct {
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
 	// The specific operator to use on the path.
 	// +kubebuilder:validation:Optional
 	Operator *string `json:"operator" tf:"operator,omitempty"`
@@ -2263,21 +3903,29 @@ type TargetxpathParameters struct {
 
 type TestAssertionInitParameters struct {
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
-	// Assertion operator. **Note** Only some combinations of `type` and `operator` are valid (please refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test)).
+	// (String) If assertion type is javascript, this is the JavaScript code that performs the assertions.
+	// If assertion type is `javascript`, this is the JavaScript code that performs the assertions.
+	Code *string `json:"code,omitempty" tf:"code,omitempty"`
+
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
+	// Assertion operator. **Note:** Only some combinations of `type` and `operator` are valid. Refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test). Valid values are `contains`, `doesNotContain`, `is`, `isNot`, `lessThan`, `lessThanOrEqual`, `moreThan`, `moreThanOrEqual`, `matches`, `doesNotMatch`, `validates`, `isInMoreThan`, `isInLessThan`, `doesNotExist`, `isUndefined`, `validatesJSONPath`, `validatesJSONSchema`, `validatesXPath`, `md5`, `sha1`, `sha256`, `is`, `isNot`, `lessThan`, `lessThanOrEqual`, `moreThan`, `moreThanOrEqual`.
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
-	// (String) If assertion type is header, this is the header name.
-	// If assertion type is `header`, this is the header name.
+	// (String) If assertion type is header or grpcMetadata, this is the header name. For other assertion types, this is an aggregation property: avg, min, max, or stddev.
+	// If assertion type is `header` or `grpcMetadata`, this is the header name. For other assertion types, this is an aggregation property: `avg`, `min`, `max`, or `stddev`.
 	Property *string `json:"property,omitempty" tf:"property,omitempty"`
 
-	// (String) Expected value. Depends on the assertion type, refer to Datadog documentation for details.
-	// Expected value. Depends on the assertion type, refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test) for details.
+	// (String) Expected value. Note: Depends on the assertion type. Refer to config.assertions in the Datadog API reference.
+	// Expected value. **Note:** Depends on the assertion type. Refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test).
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 
 	// (Block List, Max: 1) Expected structure if operator is validatesJSONPath. Exactly one nested block is allowed with the structure below. (see below for nested schema)
 	// Expected structure if `operator` is `validatesJSONPath`. Exactly one nested block is allowed with the structure below.
 	Targetjsonpath []AssertionTargetjsonpathInitParameters `json:"targetjsonpath,omitempty" tf:"targetjsonpath,omitempty"`
+
+	// (Block List, Max: 1) Expected structure if operator is validatesJSONSchema. Exactly one nested block is allowed with the structure below. (see below for nested schema)
+	// Expected structure if `operator` is `validatesJSONSchema`. Exactly one nested block is allowed with the structure below.
+	Targetjsonschema []AssertionTargetjsonschemaInitParameters `json:"targetjsonschema,omitempty" tf:"targetjsonschema,omitempty"`
 
 	// (Block List, Max: 1) Expected structure if operator is validatesXPath. Exactly one nested block is allowed with the structure below. (see below for nested schema)
 	// Expected structure if `operator` is `validatesXPath`. Exactly one nested block is allowed with the structure below.
@@ -2287,28 +3935,36 @@ type TestAssertionInitParameters struct {
 	// Timings scope for response time assertions. Valid values are `all`, `withoutDNS`.
 	TimingsScope *string `json:"timingsScope,omitempty" tf:"timings_scope,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Type of assertion. **Note** Only some combinations of `type` and `operator` are valid (please refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test)). Valid values are `body`, `header`, `statusCode`, `certificate`, `responseTime`, `property`, `recordEvery`, `recordSome`, `tlsVersion`, `minTlsVersion`, `latency`, `packetLossPercentage`, `packetsReceived`, `networkHop`, `receivedMessage`, `grpcHealthcheckStatus`, `grpcMetadata`, `grpcProto`, `connection`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of assertion. **Note:** Only some combinations of `type` and `operator` are valid. For API tests, refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test). For Network Path tests, refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-a-network-path-test). Valid values are `body`, `header`, `statusCode`, `certificate`, `responseTime`, `property`, `recordEvery`, `recordSome`, `tlsVersion`, `minTlsVersion`, `latency`, `packetLossPercentage`, `packetsReceived`, `networkHop`, `receivedMessage`, `grpcHealthcheckStatus`, `grpcMetadata`, `grpcProto`, `connection`, `multiNetworkHop`, `jitter`, `bodyHash`, `javascript`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type TestAssertionObservation struct {
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
-	// Assertion operator. **Note** Only some combinations of `type` and `operator` are valid (please refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test)).
+	// (String) If assertion type is javascript, this is the JavaScript code that performs the assertions.
+	// If assertion type is `javascript`, this is the JavaScript code that performs the assertions.
+	Code *string `json:"code,omitempty" tf:"code,omitempty"`
+
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
+	// Assertion operator. **Note:** Only some combinations of `type` and `operator` are valid. Refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test). Valid values are `contains`, `doesNotContain`, `is`, `isNot`, `lessThan`, `lessThanOrEqual`, `moreThan`, `moreThanOrEqual`, `matches`, `doesNotMatch`, `validates`, `isInMoreThan`, `isInLessThan`, `doesNotExist`, `isUndefined`, `validatesJSONPath`, `validatesJSONSchema`, `validatesXPath`, `md5`, `sha1`, `sha256`, `is`, `isNot`, `lessThan`, `lessThanOrEqual`, `moreThan`, `moreThanOrEqual`.
 	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
-	// (String) If assertion type is header, this is the header name.
-	// If assertion type is `header`, this is the header name.
+	// (String) If assertion type is header or grpcMetadata, this is the header name. For other assertion types, this is an aggregation property: avg, min, max, or stddev.
+	// If assertion type is `header` or `grpcMetadata`, this is the header name. For other assertion types, this is an aggregation property: `avg`, `min`, `max`, or `stddev`.
 	Property *string `json:"property,omitempty" tf:"property,omitempty"`
 
-	// (String) Expected value. Depends on the assertion type, refer to Datadog documentation for details.
-	// Expected value. Depends on the assertion type, refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test) for details.
+	// (String) Expected value. Note: Depends on the assertion type. Refer to config.assertions in the Datadog API reference.
+	// Expected value. **Note:** Depends on the assertion type. Refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test).
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 
 	// (Block List, Max: 1) Expected structure if operator is validatesJSONPath. Exactly one nested block is allowed with the structure below. (see below for nested schema)
 	// Expected structure if `operator` is `validatesJSONPath`. Exactly one nested block is allowed with the structure below.
 	Targetjsonpath []AssertionTargetjsonpathObservation `json:"targetjsonpath,omitempty" tf:"targetjsonpath,omitempty"`
+
+	// (Block List, Max: 1) Expected structure if operator is validatesJSONSchema. Exactly one nested block is allowed with the structure below. (see below for nested schema)
+	// Expected structure if `operator` is `validatesJSONSchema`. Exactly one nested block is allowed with the structure below.
+	Targetjsonschema []AssertionTargetjsonschemaObservation `json:"targetjsonschema,omitempty" tf:"targetjsonschema,omitempty"`
 
 	// (Block List, Max: 1) Expected structure if operator is validatesXPath. Exactly one nested block is allowed with the structure below. (see below for nested schema)
 	// Expected structure if `operator` is `validatesXPath`. Exactly one nested block is allowed with the structure below.
@@ -2318,25 +3974,30 @@ type TestAssertionObservation struct {
 	// Timings scope for response time assertions. Valid values are `all`, `withoutDNS`.
 	TimingsScope *string `json:"timingsScope,omitempty" tf:"timings_scope,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Type of assertion. **Note** Only some combinations of `type` and `operator` are valid (please refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test)). Valid values are `body`, `header`, `statusCode`, `certificate`, `responseTime`, `property`, `recordEvery`, `recordSome`, `tlsVersion`, `minTlsVersion`, `latency`, `packetLossPercentage`, `packetsReceived`, `networkHop`, `receivedMessage`, `grpcHealthcheckStatus`, `grpcMetadata`, `grpcProto`, `connection`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of assertion. **Note:** Only some combinations of `type` and `operator` are valid. For API tests, refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test). For Network Path tests, refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-a-network-path-test). Valid values are `body`, `header`, `statusCode`, `certificate`, `responseTime`, `property`, `recordEvery`, `recordSome`, `tlsVersion`, `minTlsVersion`, `latency`, `packetLossPercentage`, `packetsReceived`, `networkHop`, `receivedMessage`, `grpcHealthcheckStatus`, `grpcMetadata`, `grpcProto`, `connection`, `multiNetworkHop`, `jitter`, `bodyHash`, `javascript`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type TestAssertionParameters struct {
 
-	// (String) Assertion operator. Note Only some combinations of type and operator are valid (please refer to Datadog documentation).
-	// Assertion operator. **Note** Only some combinations of `type` and `operator` are valid (please refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test)).
+	// (String) If assertion type is javascript, this is the JavaScript code that performs the assertions.
+	// If assertion type is `javascript`, this is the JavaScript code that performs the assertions.
 	// +kubebuilder:validation:Optional
-	Operator *string `json:"operator" tf:"operator,omitempty"`
+	Code *string `json:"code,omitempty" tf:"code,omitempty"`
 
-	// (String) If assertion type is header, this is the header name.
-	// If assertion type is `header`, this is the header name.
+	// (String) Assertion operator. Note: Only some combinations of type and operator are valid. Refer to config.assertions in the Datadog API reference. Valid values are contains, doesNotContain, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual, matches, doesNotMatch, validates, isInMoreThan, isInLessThan, doesNotExist, isUndefined, validatesJSONPath, validatesJSONSchema, validatesXPath, md5, sha1, sha256, is, isNot, lessThan, lessThanOrEqual, moreThan, moreThanOrEqual.
+	// Assertion operator. **Note:** Only some combinations of `type` and `operator` are valid. Refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test). Valid values are `contains`, `doesNotContain`, `is`, `isNot`, `lessThan`, `lessThanOrEqual`, `moreThan`, `moreThanOrEqual`, `matches`, `doesNotMatch`, `validates`, `isInMoreThan`, `isInLessThan`, `doesNotExist`, `isUndefined`, `validatesJSONPath`, `validatesJSONSchema`, `validatesXPath`, `md5`, `sha1`, `sha256`, `is`, `isNot`, `lessThan`, `lessThanOrEqual`, `moreThan`, `moreThanOrEqual`.
+	// +kubebuilder:validation:Optional
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
+
+	// (String) If assertion type is header or grpcMetadata, this is the header name. For other assertion types, this is an aggregation property: avg, min, max, or stddev.
+	// If assertion type is `header` or `grpcMetadata`, this is the header name. For other assertion types, this is an aggregation property: `avg`, `min`, `max`, or `stddev`.
 	// +kubebuilder:validation:Optional
 	Property *string `json:"property,omitempty" tf:"property,omitempty"`
 
-	// (String) Expected value. Depends on the assertion type, refer to Datadog documentation for details.
-	// Expected value. Depends on the assertion type, refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test) for details.
+	// (String) Expected value. Note: Depends on the assertion type. Refer to config.assertions in the Datadog API reference.
+	// Expected value. **Note:** Depends on the assertion type. Refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test).
 	// +kubebuilder:validation:Optional
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 
@@ -2344,6 +4005,11 @@ type TestAssertionParameters struct {
 	// Expected structure if `operator` is `validatesJSONPath`. Exactly one nested block is allowed with the structure below.
 	// +kubebuilder:validation:Optional
 	Targetjsonpath []AssertionTargetjsonpathParameters `json:"targetjsonpath,omitempty" tf:"targetjsonpath,omitempty"`
+
+	// (Block List, Max: 1) Expected structure if operator is validatesJSONSchema. Exactly one nested block is allowed with the structure below. (see below for nested schema)
+	// Expected structure if `operator` is `validatesJSONSchema`. Exactly one nested block is allowed with the structure below.
+	// +kubebuilder:validation:Optional
+	Targetjsonschema []AssertionTargetjsonschemaParameters `json:"targetjsonschema,omitempty" tf:"targetjsonschema,omitempty"`
 
 	// (Block List, Max: 1) Expected structure if operator is validatesXPath. Exactly one nested block is allowed with the structure below. (see below for nested schema)
 	// Expected structure if `operator` is `validatesXPath`. Exactly one nested block is allowed with the structure below.
@@ -2355,16 +4021,16 @@ type TestAssertionParameters struct {
 	// +kubebuilder:validation:Optional
 	TimingsScope *string `json:"timingsScope,omitempty" tf:"timings_scope,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Type of assertion. **Note** Only some combinations of `type` and `operator` are valid (please refer to [Datadog documentation](https://docs.datadoghq.com/api/latest/synthetics/#create-a-test)). Valid values are `body`, `header`, `statusCode`, `certificate`, `responseTime`, `property`, `recordEvery`, `recordSome`, `tlsVersion`, `minTlsVersion`, `latency`, `packetLossPercentage`, `packetsReceived`, `networkHop`, `receivedMessage`, `grpcHealthcheckStatus`, `grpcMetadata`, `grpcProto`, `connection`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of assertion. **Note:** Only some combinations of `type` and `operator` are valid. For API tests, refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-an-api-test). For Network Path tests, refer to `config.assertions` in the [Datadog API reference](https://docs.datadoghq.com/api/latest/synthetics/#create-a-network-path-test). Valid values are `body`, `header`, `statusCode`, `certificate`, `responseTime`, `property`, `recordEvery`, `recordSome`, `tlsVersion`, `minTlsVersion`, `latency`, `packetLossPercentage`, `packetsReceived`, `networkHop`, `receivedMessage`, `grpcHealthcheckStatus`, `grpcMetadata`, `grpcProto`, `connection`, `multiNetworkHop`, `jitter`, `bodyHash`, `javascript`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
 type TestInitParameters struct {
 
-	// (Block List) Steps for multistep api tests (see below for nested schema)
-	// Steps for multistep api tests
+	// (Block List) Steps for multistep API tests (see below for nested schema)
+	// Steps for multistep API tests
 	APIStep []APIStepInitParameters `json:"apiStep,omitempty" tf:"api_step,omitempty"`
 
 	// (Block List) Assertions used for the test. Multiple assertion blocks are allowed with the structure below. (see below for nested schema)
@@ -2379,22 +4045,38 @@ type TestInitParameters struct {
 	// Variables used for a browser test steps. Multiple `variable` blocks are allowed with the structure below.
 	BrowserVariable []BrowserVariableInitParameters `json:"browserVariable,omitempty" tf:"browser_variable,omitempty"`
 
+	// (Map of String) Initial application arguments for the mobile test.
+	// Initial application arguments for the mobile test.
+	// +mapType=granular
+	ConfigInitialApplicationArguments map[string]*string `json:"configInitialApplicationArguments,omitempty" tf:"config_initial_application_arguments,omitempty"`
+
 	// (Block List) Variables used for the test configuration. Multiple config_variable blocks are allowed with the structure below. (see below for nested schema)
 	// Variables used for the test configuration. Multiple `config_variable` blocks are allowed with the structure below.
 	ConfigVariable []ConfigVariableInitParameters `json:"configVariable,omitempty" tf:"config_variable,omitempty"`
 
-	// (List of String) Required if type = "browser". Array with the different device IDs used to run the test. Valid values are laptop_large, tablet, mobile_small, chrome.laptop_large, chrome.tablet, chrome.mobile_small, firefox.laptop_large, firefox.tablet, firefox.mobile_small, edge.laptop_large, edge.tablet, edge.mobile_small.
-	// Required if `type = "browser"`. Array with the different device IDs used to run the test. Valid values are `laptop_large`, `tablet`, `mobile_small`, `chrome.laptop_large`, `chrome.tablet`, `chrome.mobile_small`, `firefox.laptop_large`, `firefox.tablet`, `firefox.mobile_small`, `edge.laptop_large`, `edge.tablet`, `edge.mobile_small`.
+	// (List of String) Required if type = "browser". Array with the different device IDs used to run the test.
+	// Required if `type = "browser"`. Array with the different device IDs used to run the test.
 	DeviceIds []*string `json:"deviceIds,omitempty" tf:"device_ids,omitempty"`
 
-	// (Set of String) Array of locations used to run the test. Refer to the Datadog Synthetics location data source to retrieve the list of locations.
-	// Array of locations used to run the test. Refer to [the Datadog Synthetics location data source](https://registry.io/providers/DataDog/datadog/latest/docs/data-sources/synthetics_locations) to retrieve the list of locations.
+	// (Boolean) A boolean indicating whether this synthetics test can be deleted even if it's referenced by other resources (for example, SLOs and composite monitors).
+	// A boolean indicating whether this synthetics test can be deleted even if it's referenced by other resources (for example, SLOs and composite monitors).
+	ForceDeleteDependencies *bool `json:"forceDeleteDependencies,omitempty" tf:"force_delete_dependencies,omitempty"`
+
+	// (Set of String) Array of locations used to run the test. Refer to the Datadog Synthetics location data source to retrieve the list of locations or find the possible values listed in this API response.
+	// Array of locations used to run the test. Refer to [the Datadog Synthetics location data source](https://registry.io/providers/DataDog/datadog/latest/docs/data-sources/synthetics_locations) to retrieve the list of locations or find the possible values listed in [this API response](https://app.datadoghq.com/api/v1/synthetics/locations?only_public=true).
 	// +listType=set
 	Locations []*string `json:"locations,omitempty" tf:"locations,omitempty"`
 
 	// (String) A message to include with notifications for this synthetics test. Email notifications can be sent to specific users by using the same @username notation as events. Defaults to "".
 	// A message to include with notifications for this synthetics test. Email notifications can be sent to specific users by using the same `@username` notation as events. Defaults to `""`.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	MobileOptionsList []MobileOptionsListInitParameters `json:"mobileOptionsList,omitempty" tf:"mobile_options_list,omitempty"`
+
+	// (Block List) Steps for mobile tests (see below for nested schema)
+	// Steps for mobile tests
+	MobileStep []MobileStepInitParameters `json:"mobileStep,omitempty" tf:"mobile_step,omitempty"`
 
 	// (String) Name of Datadog synthetics test.
 	// Name of Datadog synthetics test.
@@ -2415,13 +4097,17 @@ type TestInitParameters struct {
 	// Required if `type = "api"`. The synthetics test request.
 	RequestDefinition []TestRequestDefinitionInitParameters `json:"requestDefinition,omitempty" tf:"request_definition,omitempty"`
 
+	// (Block List) Files to be used as part of the request in the test. (see below for nested schema)
+	// Files to be used as part of the request in the test.
+	RequestFile []TestRequestFileInitParameters `json:"requestFile,omitempty" tf:"request_file,omitempty"`
+
 	// (Map of String) Header name and value map.
 	// Header name and value map.
 	// +mapType=granular
 	RequestHeaders map[string]*string `json:"requestHeaders,omitempty" tf:"request_headers,omitempty"`
 
-	// (Map of String) Metadata to include when performing the gRPC test.
-	// Metadata to include when performing the gRPC test.
+	// (Map of String) Metadata to include when performing the gRPC request.
+	// Metadata to include when performing the gRPC request.
 	// +mapType=granular
 	RequestMetadata map[string]*string `json:"requestMetadata,omitempty" tf:"request_metadata,omitempty"`
 
@@ -2442,23 +4128,27 @@ type TestInitParameters struct {
 	// Define whether you want to start (`live`) or pause (`paused`) a Synthetic test. Valid values are `live`, `paused`.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
-	// (String) The subtype of the Synthetic API test. Defaults to http. Valid values are http, ssl, tcp, dns, multi, icmp, udp, websocket, grpc.
-	// The subtype of the Synthetic API test. Defaults to `http`. Valid values are `http`, `ssl`, `tcp`, `dns`, `multi`, `icmp`, `udp`, `websocket`, `grpc`.
+	// (String) The subtype for API or Network Path tests. For API tests, defaults to http. For Network Path tests, only tcp, udp, icmp are available. Valid values are http, ssl, tcp, dns, multi, icmp, udp, websocket, grpc.
+	// The subtype for API or Network Path tests. For API tests, defaults to `http`. For Network Path tests, only `tcp`, `udp`, `icmp` are available. Valid values are `http`, `ssl`, `tcp`, `dns`, `multi`, `icmp`, `udp`, `websocket`, `grpc`.
 	Subtype *string `json:"subtype,omitempty" tf:"subtype,omitempty"`
 
 	// (List of String) A list of tags to associate with your synthetics test. This can help you categorize and filter tests in the manage synthetics page of the UI. Default is an empty list ([]).
 	// A list of tags to associate with your synthetics test. This can help you categorize and filter tests in the manage synthetics page of the UI. Default is an empty list (`[]`).
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Synthetics test type. Valid values are `api`, `browser`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// The type of Synthetics test. Valid values are `api`, `browser`, `mobile`, `network`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) Variables defined from JavaScript code for API HTTP tests.
+	// Variables defined from JavaScript code for API HTTP tests.
+	VariablesFromScript *string `json:"variablesFromScript,omitempty" tf:"variables_from_script,omitempty"`
 }
 
 type TestObservation struct {
 
-	// (Block List) Steps for multistep api tests (see below for nested schema)
-	// Steps for multistep api tests
+	// (Block List) Steps for multistep API tests (see below for nested schema)
+	// Steps for multistep API tests
 	APIStep []APIStepObservation `json:"apiStep,omitempty" tf:"api_step,omitempty"`
 
 	// (Block List) Assertions used for the test. Multiple assertion blocks are allowed with the structure below. (see below for nested schema)
@@ -2473,25 +4163,41 @@ type TestObservation struct {
 	// Variables used for a browser test steps. Multiple `variable` blocks are allowed with the structure below.
 	BrowserVariable []BrowserVariableObservation `json:"browserVariable,omitempty" tf:"browser_variable,omitempty"`
 
+	// (Map of String) Initial application arguments for the mobile test.
+	// Initial application arguments for the mobile test.
+	// +mapType=granular
+	ConfigInitialApplicationArguments map[string]*string `json:"configInitialApplicationArguments,omitempty" tf:"config_initial_application_arguments,omitempty"`
+
 	// (Block List) Variables used for the test configuration. Multiple config_variable blocks are allowed with the structure below. (see below for nested schema)
 	// Variables used for the test configuration. Multiple `config_variable` blocks are allowed with the structure below.
 	ConfigVariable []ConfigVariableObservation `json:"configVariable,omitempty" tf:"config_variable,omitempty"`
 
-	// (List of String) Required if type = "browser". Array with the different device IDs used to run the test. Valid values are laptop_large, tablet, mobile_small, chrome.laptop_large, chrome.tablet, chrome.mobile_small, firefox.laptop_large, firefox.tablet, firefox.mobile_small, edge.laptop_large, edge.tablet, edge.mobile_small.
-	// Required if `type = "browser"`. Array with the different device IDs used to run the test. Valid values are `laptop_large`, `tablet`, `mobile_small`, `chrome.laptop_large`, `chrome.tablet`, `chrome.mobile_small`, `firefox.laptop_large`, `firefox.tablet`, `firefox.mobile_small`, `edge.laptop_large`, `edge.tablet`, `edge.mobile_small`.
+	// (List of String) Required if type = "browser". Array with the different device IDs used to run the test.
+	// Required if `type = "browser"`. Array with the different device IDs used to run the test.
 	DeviceIds []*string `json:"deviceIds,omitempty" tf:"device_ids,omitempty"`
+
+	// (Boolean) A boolean indicating whether this synthetics test can be deleted even if it's referenced by other resources (for example, SLOs and composite monitors).
+	// A boolean indicating whether this synthetics test can be deleted even if it's referenced by other resources (for example, SLOs and composite monitors).
+	ForceDeleteDependencies *bool `json:"forceDeleteDependencies,omitempty" tf:"force_delete_dependencies,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Set of String) Array of locations used to run the test. Refer to the Datadog Synthetics location data source to retrieve the list of locations.
-	// Array of locations used to run the test. Refer to [the Datadog Synthetics location data source](https://registry.io/providers/DataDog/datadog/latest/docs/data-sources/synthetics_locations) to retrieve the list of locations.
+	// (Set of String) Array of locations used to run the test. Refer to the Datadog Synthetics location data source to retrieve the list of locations or find the possible values listed in this API response.
+	// Array of locations used to run the test. Refer to [the Datadog Synthetics location data source](https://registry.io/providers/DataDog/datadog/latest/docs/data-sources/synthetics_locations) to retrieve the list of locations or find the possible values listed in [this API response](https://app.datadoghq.com/api/v1/synthetics/locations?only_public=true).
 	// +listType=set
 	Locations []*string `json:"locations,omitempty" tf:"locations,omitempty"`
 
 	// (String) A message to include with notifications for this synthetics test. Email notifications can be sent to specific users by using the same @username notation as events. Defaults to "".
 	// A message to include with notifications for this synthetics test. Email notifications can be sent to specific users by using the same `@username` notation as events. Defaults to `""`.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	MobileOptionsList []MobileOptionsListObservation `json:"mobileOptionsList,omitempty" tf:"mobile_options_list,omitempty"`
+
+	// (Block List) Steps for mobile tests (see below for nested schema)
+	// Steps for mobile tests
+	MobileStep []MobileStepObservation `json:"mobileStep,omitempty" tf:"mobile_step,omitempty"`
 
 	// (Number) ID of the monitor associated with the Datadog synthetics test.
 	// ID of the monitor associated with the Datadog synthetics test.
@@ -2516,13 +4222,17 @@ type TestObservation struct {
 	// Required if `type = "api"`. The synthetics test request.
 	RequestDefinition []TestRequestDefinitionObservation `json:"requestDefinition,omitempty" tf:"request_definition,omitempty"`
 
+	// (Block List) Files to be used as part of the request in the test. (see below for nested schema)
+	// Files to be used as part of the request in the test.
+	RequestFile []TestRequestFileObservation `json:"requestFile,omitempty" tf:"request_file,omitempty"`
+
 	// (Map of String) Header name and value map.
 	// Header name and value map.
 	// +mapType=granular
 	RequestHeaders map[string]*string `json:"requestHeaders,omitempty" tf:"request_headers,omitempty"`
 
-	// (Map of String) Metadata to include when performing the gRPC test.
-	// Metadata to include when performing the gRPC test.
+	// (Map of String) Metadata to include when performing the gRPC request.
+	// Metadata to include when performing the gRPC request.
 	// +mapType=granular
 	RequestMetadata map[string]*string `json:"requestMetadata,omitempty" tf:"request_metadata,omitempty"`
 
@@ -2543,23 +4253,27 @@ type TestObservation struct {
 	// Define whether you want to start (`live`) or pause (`paused`) a Synthetic test. Valid values are `live`, `paused`.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
-	// (String) The subtype of the Synthetic API test. Defaults to http. Valid values are http, ssl, tcp, dns, multi, icmp, udp, websocket, grpc.
-	// The subtype of the Synthetic API test. Defaults to `http`. Valid values are `http`, `ssl`, `tcp`, `dns`, `multi`, `icmp`, `udp`, `websocket`, `grpc`.
+	// (String) The subtype for API or Network Path tests. For API tests, defaults to http. For Network Path tests, only tcp, udp, icmp are available. Valid values are http, ssl, tcp, dns, multi, icmp, udp, websocket, grpc.
+	// The subtype for API or Network Path tests. For API tests, defaults to `http`. For Network Path tests, only `tcp`, `udp`, `icmp` are available. Valid values are `http`, `ssl`, `tcp`, `dns`, `multi`, `icmp`, `udp`, `websocket`, `grpc`.
 	Subtype *string `json:"subtype,omitempty" tf:"subtype,omitempty"`
 
 	// (List of String) A list of tags to associate with your synthetics test. This can help you categorize and filter tests in the manage synthetics page of the UI. Default is an empty list ([]).
 	// A list of tags to associate with your synthetics test. This can help you categorize and filter tests in the manage synthetics page of the UI. Default is an empty list (`[]`).
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Synthetics test type. Valid values are `api`, `browser`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// The type of Synthetics test. Valid values are `api`, `browser`, `mobile`, `network`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) Variables defined from JavaScript code for API HTTP tests.
+	// Variables defined from JavaScript code for API HTTP tests.
+	VariablesFromScript *string `json:"variablesFromScript,omitempty" tf:"variables_from_script,omitempty"`
 }
 
 type TestParameters struct {
 
-	// (Block List) Steps for multistep api tests (see below for nested schema)
-	// Steps for multistep api tests
+	// (Block List) Steps for multistep API tests (see below for nested schema)
+	// Steps for multistep API tests
 	// +kubebuilder:validation:Optional
 	APIStep []APIStepParameters `json:"apiStep,omitempty" tf:"api_step,omitempty"`
 
@@ -2578,18 +4292,29 @@ type TestParameters struct {
 	// +kubebuilder:validation:Optional
 	BrowserVariable []BrowserVariableParameters `json:"browserVariable,omitempty" tf:"browser_variable,omitempty"`
 
+	// (Map of String) Initial application arguments for the mobile test.
+	// Initial application arguments for the mobile test.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	ConfigInitialApplicationArguments map[string]*string `json:"configInitialApplicationArguments,omitempty" tf:"config_initial_application_arguments,omitempty"`
+
 	// (Block List) Variables used for the test configuration. Multiple config_variable blocks are allowed with the structure below. (see below for nested schema)
 	// Variables used for the test configuration. Multiple `config_variable` blocks are allowed with the structure below.
 	// +kubebuilder:validation:Optional
 	ConfigVariable []ConfigVariableParameters `json:"configVariable,omitempty" tf:"config_variable,omitempty"`
 
-	// (List of String) Required if type = "browser". Array with the different device IDs used to run the test. Valid values are laptop_large, tablet, mobile_small, chrome.laptop_large, chrome.tablet, chrome.mobile_small, firefox.laptop_large, firefox.tablet, firefox.mobile_small, edge.laptop_large, edge.tablet, edge.mobile_small.
-	// Required if `type = "browser"`. Array with the different device IDs used to run the test. Valid values are `laptop_large`, `tablet`, `mobile_small`, `chrome.laptop_large`, `chrome.tablet`, `chrome.mobile_small`, `firefox.laptop_large`, `firefox.tablet`, `firefox.mobile_small`, `edge.laptop_large`, `edge.tablet`, `edge.mobile_small`.
+	// (List of String) Required if type = "browser". Array with the different device IDs used to run the test.
+	// Required if `type = "browser"`. Array with the different device IDs used to run the test.
 	// +kubebuilder:validation:Optional
 	DeviceIds []*string `json:"deviceIds,omitempty" tf:"device_ids,omitempty"`
 
-	// (Set of String) Array of locations used to run the test. Refer to the Datadog Synthetics location data source to retrieve the list of locations.
-	// Array of locations used to run the test. Refer to [the Datadog Synthetics location data source](https://registry.io/providers/DataDog/datadog/latest/docs/data-sources/synthetics_locations) to retrieve the list of locations.
+	// (Boolean) A boolean indicating whether this synthetics test can be deleted even if it's referenced by other resources (for example, SLOs and composite monitors).
+	// A boolean indicating whether this synthetics test can be deleted even if it's referenced by other resources (for example, SLOs and composite monitors).
+	// +kubebuilder:validation:Optional
+	ForceDeleteDependencies *bool `json:"forceDeleteDependencies,omitempty" tf:"force_delete_dependencies,omitempty"`
+
+	// (Set of String) Array of locations used to run the test. Refer to the Datadog Synthetics location data source to retrieve the list of locations or find the possible values listed in this API response.
+	// Array of locations used to run the test. Refer to [the Datadog Synthetics location data source](https://registry.io/providers/DataDog/datadog/latest/docs/data-sources/synthetics_locations) to retrieve the list of locations or find the possible values listed in [this API response](https://app.datadoghq.com/api/v1/synthetics/locations?only_public=true).
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Locations []*string `json:"locations,omitempty" tf:"locations,omitempty"`
@@ -2598,6 +4323,15 @@ type TestParameters struct {
 	// A message to include with notifications for this synthetics test. Email notifications can be sent to specific users by using the same `@username` notation as events. Defaults to `""`.
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	MobileOptionsList []MobileOptionsListParameters `json:"mobileOptionsList,omitempty" tf:"mobile_options_list,omitempty"`
+
+	// (Block List) Steps for mobile tests (see below for nested schema)
+	// Steps for mobile tests
+	// +kubebuilder:validation:Optional
+	MobileStep []MobileStepParameters `json:"mobileStep,omitempty" tf:"mobile_step,omitempty"`
 
 	// (String) Name of Datadog synthetics test.
 	// Name of Datadog synthetics test.
@@ -2623,14 +4357,19 @@ type TestParameters struct {
 	// +kubebuilder:validation:Optional
 	RequestDefinition []TestRequestDefinitionParameters `json:"requestDefinition,omitempty" tf:"request_definition,omitempty"`
 
+	// (Block List) Files to be used as part of the request in the test. (see below for nested schema)
+	// Files to be used as part of the request in the test.
+	// +kubebuilder:validation:Optional
+	RequestFile []TestRequestFileParameters `json:"requestFile,omitempty" tf:"request_file,omitempty"`
+
 	// (Map of String) Header name and value map.
 	// Header name and value map.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	RequestHeaders map[string]*string `json:"requestHeaders,omitempty" tf:"request_headers,omitempty"`
 
-	// (Map of String) Metadata to include when performing the gRPC test.
-	// Metadata to include when performing the gRPC test.
+	// (Map of String) Metadata to include when performing the gRPC request.
+	// Metadata to include when performing the gRPC request.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	RequestMetadata map[string]*string `json:"requestMetadata,omitempty" tf:"request_metadata,omitempty"`
@@ -2656,8 +4395,8 @@ type TestParameters struct {
 	// +kubebuilder:validation:Optional
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
-	// (String) The subtype of the Synthetic API test. Defaults to http. Valid values are http, ssl, tcp, dns, multi, icmp, udp, websocket, grpc.
-	// The subtype of the Synthetic API test. Defaults to `http`. Valid values are `http`, `ssl`, `tcp`, `dns`, `multi`, `icmp`, `udp`, `websocket`, `grpc`.
+	// (String) The subtype for API or Network Path tests. For API tests, defaults to http. For Network Path tests, only tcp, udp, icmp are available. Valid values are http, ssl, tcp, dns, multi, icmp, udp, websocket, grpc.
+	// The subtype for API or Network Path tests. For API tests, defaults to `http`. For Network Path tests, only `tcp`, `udp`, `icmp` are available. Valid values are `http`, `ssl`, `tcp`, `dns`, `multi`, `icmp`, `udp`, `websocket`, `grpc`.
 	// +kubebuilder:validation:Optional
 	Subtype *string `json:"subtype,omitempty" tf:"subtype,omitempty"`
 
@@ -2666,10 +4405,15 @@ type TestParameters struct {
 	// +kubebuilder:validation:Optional
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
-	// Synthetics test type. Valid values are `api`, `browser`.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// The type of Synthetics test. Valid values are `api`, `browser`, `mobile`, `network`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) Variables defined from JavaScript code for API HTTP tests.
+	// Variables defined from JavaScript code for API HTTP tests.
+	// +kubebuilder:validation:Optional
+	VariablesFromScript *string `json:"variablesFromScript,omitempty" tf:"variables_from_script,omitempty"`
 }
 
 type TestRequestBasicauthInitParameters struct {
@@ -2714,7 +4458,7 @@ type TestRequestBasicauthInitParameters struct {
 	// Token API Authentication for `oauth-client` or `oauth-rop` authentication. Valid values are `header`, `body`.
 	TokenAPIAuthentication *string `json:"tokenApiAuthentication,omitempty" tf:"token_api_authentication,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
 	// Type of basic authentication to use when performing the test. Defaults to `"web"`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
@@ -2769,7 +4513,7 @@ type TestRequestBasicauthObservation struct {
 	// Token API Authentication for `oauth-client` or `oauth-rop` authentication. Valid values are `header`, `body`.
 	TokenAPIAuthentication *string `json:"tokenApiAuthentication,omitempty" tf:"token_api_authentication,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
 	// Type of basic authentication to use when performing the test. Defaults to `"web"`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
@@ -2854,7 +4598,7 @@ type TestRequestBasicauthParameters struct {
 	// +kubebuilder:validation:Optional
 	TokenAPIAuthentication *string `json:"tokenApiAuthentication,omitempty" tf:"token_api_authentication,omitempty"`
 
-	// (String) Synthetics test type. Valid values are api, browser.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
 	// Type of basic authentication to use when performing the test. Defaults to `"web"`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
@@ -2905,8 +4649,8 @@ type TestRequestDefinitionInitParameters struct {
 	// The request body.
 	Body *string `json:"body,omitempty" tf:"body,omitempty"`
 
-	// www-form-urlencoded, graphql.
-	// Type of the request body. Valid values are `text/plain`, `application/json`, `text/xml`, `text/html`, `application/x-www-form-urlencoded`, `graphql`.
+	// www-form-urlencoded, graphql, application/octet-stream, multipart/form-data.
+	// Type of the request body. Valid values are `text/plain`, `application/json`, `text/xml`, `text/html`, `application/x-www-form-urlencoded`, `graphql`, `application/octet-stream`, `multipart/form-data`.
 	BodyType *string `json:"bodyType,omitempty" tf:"body_type,omitempty"`
 
 	// (String) The type of gRPC call to perform. Valid values are healthcheck, unary.
@@ -2921,16 +4665,41 @@ type TestRequestDefinitionInitParameters struct {
 	// DNS server to use for DNS tests (`subtype = "dns"`).
 	DNSServer *string `json:"dnsServer,omitempty" tf:"dns_server,omitempty"`
 
-	// (Number) DNS server port to use for DNS tests.
+	// (String) DNS server port to use for DNS tests.
 	// DNS server port to use for DNS tests.
-	DNSServerPort *float64 `json:"dnsServerPort,omitempty" tf:"dns_server_port,omitempty"`
+	DNSServerPort *string `json:"dnsServerPort,omitempty" tf:"dns_server_port,omitempty"`
+
+	// (String) For Network Path tests, an optional label displayed for the destination host in the Network Path visualization.
+	// For Network Path tests, an optional label displayed for the destination host in the Network Path visualization.
+	DestinationService *string `json:"destinationService,omitempty" tf:"destination_service,omitempty"`
+
+	// (Number) For Network Path tests, the number of packets sent to probe the destination to measure packet loss, latency, and jitter.
+	// For Network Path tests, the number of packets sent to probe the destination to measure packet loss, latency, and jitter.
+	E2EQueries *float64 `json:"e2eQueries,omitempty" tf:"e2e_queries,omitempty"`
+
+	// data.
+	// Form data to be sent when `body_type` is `multipart/form-data`.
+	// +mapType=granular
+	Form map[string]*string `json:"form,omitempty" tf:"form,omitempty"`
+
+	// (String) HTTP version to use for an HTTP request in an API test or step. Valid values are http1, http2, any. Defaults to "any".
+	// HTTP version to use for an HTTP request in an API test or step. **Deprecated.** Use `http_version` in the `options_list` field instead.
+	HTTPVersion *string `json:"httpVersion,omitempty" tf:"http_version,omitempty"`
 
 	// (String) Host name to perform the test with.
 	// Host name to perform the test with.
 	Host *string `json:"host,omitempty" tf:"host,omitempty"`
 
+	// encoded string in the server.
+	// For Websocket tests, whether the message is treated as a base64-encoded string in the server.
+	IsMessageBase64Encoded *bool `json:"isMessageBase64Encoded,omitempty" tf:"is_message_base64_encoded,omitempty"`
+
+	// to-live (max number of hops) used in outgoing probe packets.
+	// For Network Path tests, the maximum time-to-live (max number of hops) used in outgoing probe packets.
+	MaxTTL *float64 `json:"maxTtl,omitempty" tf:"max_ttl,omitempty"`
+
 	// (String) A message to include with notifications for this synthetics test. Email notifications can be sent to specific users by using the same @username notation as events. Defaults to "".
-	// For UDP and websocket tests, message to send with the request.
+	// For gRPC, UDP, and Websocket tests, message to send with the request.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
 	// (String) Either the HTTP method/verb to use or a gRPC method available on the service set in the service field. Required if subtype is HTTP or if subtype is grpc and callType is unary.
@@ -2953,9 +4722,9 @@ type TestRequestDefinitionInitParameters struct {
 	// The content of a proto file as a string.
 	PlainProtoFile *string `json:"plainProtoFile,omitempty" tf:"plain_proto_file,omitempty"`
 
-	// (Number) Port to use when performing the test.
+	// (String) Port to use when performing the test.
 	// Port to use when performing the test.
-	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+	Port *string `json:"port,omitempty" tf:"port,omitempty"`
 
 	// (String, Deprecated) A protobuf JSON descriptor. Deprecated. Use plain_proto_file instead.
 	// A protobuf JSON descriptor. **Deprecated.** Use `plain_proto_file` instead.
@@ -2973,9 +4742,21 @@ type TestRequestDefinitionInitParameters struct {
 	// This will turn on a traceroute probe to discover all gateways along the path to the host destination. For ICMP tests (`subtype = "icmp"`).
 	ShouldTrackHops *bool `json:"shouldTrackHops,omitempty" tf:"should_track_hops,omitempty"`
 
-	// (Number) Timeout in seconds for the test. Defaults to 60.
-	// Timeout in seconds for the test. Defaults to `60`.
+	// (String) For Network Path tests, an optional label displayed for the source host in the Network Path visualization
+	// For Network Path tests, an optional label displayed for the source host in the Network Path visualization
+	SourceService *string `json:"sourceService,omitempty" tf:"source_service,omitempty"`
+
+	// (String) For TCP Network Path tests, the TCP traceroute strategy.
+	// For TCP Network Path tests, the TCP traceroute strategy.
+	TCPMethod *string `json:"tcpMethod,omitempty" tf:"tcp_method,omitempty"`
+
+	// (Number) Timeout in seconds for the test.
+	// Timeout in seconds for the test.
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// (Number) For Network Path tests, the number of traceroute path tracings.
+	// For Network Path tests, the number of traceroute path tracings.
+	TracerouteQueries *float64 `json:"tracerouteQueries,omitempty" tf:"traceroute_queries,omitempty"`
 
 	// (String) The URL to send the request to.
 	// The URL to send the request to.
@@ -2988,8 +4769,8 @@ type TestRequestDefinitionObservation struct {
 	// The request body.
 	Body *string `json:"body,omitempty" tf:"body,omitempty"`
 
-	// www-form-urlencoded, graphql.
-	// Type of the request body. Valid values are `text/plain`, `application/json`, `text/xml`, `text/html`, `application/x-www-form-urlencoded`, `graphql`.
+	// www-form-urlencoded, graphql, application/octet-stream, multipart/form-data.
+	// Type of the request body. Valid values are `text/plain`, `application/json`, `text/xml`, `text/html`, `application/x-www-form-urlencoded`, `graphql`, `application/octet-stream`, `multipart/form-data`.
 	BodyType *string `json:"bodyType,omitempty" tf:"body_type,omitempty"`
 
 	// (String) The type of gRPC call to perform. Valid values are healthcheck, unary.
@@ -3004,16 +4785,41 @@ type TestRequestDefinitionObservation struct {
 	// DNS server to use for DNS tests (`subtype = "dns"`).
 	DNSServer *string `json:"dnsServer,omitempty" tf:"dns_server,omitempty"`
 
-	// (Number) DNS server port to use for DNS tests.
+	// (String) DNS server port to use for DNS tests.
 	// DNS server port to use for DNS tests.
-	DNSServerPort *float64 `json:"dnsServerPort,omitempty" tf:"dns_server_port,omitempty"`
+	DNSServerPort *string `json:"dnsServerPort,omitempty" tf:"dns_server_port,omitempty"`
+
+	// (String) For Network Path tests, an optional label displayed for the destination host in the Network Path visualization.
+	// For Network Path tests, an optional label displayed for the destination host in the Network Path visualization.
+	DestinationService *string `json:"destinationService,omitempty" tf:"destination_service,omitempty"`
+
+	// (Number) For Network Path tests, the number of packets sent to probe the destination to measure packet loss, latency, and jitter.
+	// For Network Path tests, the number of packets sent to probe the destination to measure packet loss, latency, and jitter.
+	E2EQueries *float64 `json:"e2eQueries,omitempty" tf:"e2e_queries,omitempty"`
+
+	// data.
+	// Form data to be sent when `body_type` is `multipart/form-data`.
+	// +mapType=granular
+	Form map[string]*string `json:"form,omitempty" tf:"form,omitempty"`
+
+	// (String) HTTP version to use for an HTTP request in an API test or step. Valid values are http1, http2, any. Defaults to "any".
+	// HTTP version to use for an HTTP request in an API test or step. **Deprecated.** Use `http_version` in the `options_list` field instead.
+	HTTPVersion *string `json:"httpVersion,omitempty" tf:"http_version,omitempty"`
 
 	// (String) Host name to perform the test with.
 	// Host name to perform the test with.
 	Host *string `json:"host,omitempty" tf:"host,omitempty"`
 
+	// encoded string in the server.
+	// For Websocket tests, whether the message is treated as a base64-encoded string in the server.
+	IsMessageBase64Encoded *bool `json:"isMessageBase64Encoded,omitempty" tf:"is_message_base64_encoded,omitempty"`
+
+	// to-live (max number of hops) used in outgoing probe packets.
+	// For Network Path tests, the maximum time-to-live (max number of hops) used in outgoing probe packets.
+	MaxTTL *float64 `json:"maxTtl,omitempty" tf:"max_ttl,omitempty"`
+
 	// (String) A message to include with notifications for this synthetics test. Email notifications can be sent to specific users by using the same @username notation as events. Defaults to "".
-	// For UDP and websocket tests, message to send with the request.
+	// For gRPC, UDP, and Websocket tests, message to send with the request.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
 	// (String) Either the HTTP method/verb to use or a gRPC method available on the service set in the service field. Required if subtype is HTTP or if subtype is grpc and callType is unary.
@@ -3036,9 +4842,9 @@ type TestRequestDefinitionObservation struct {
 	// The content of a proto file as a string.
 	PlainProtoFile *string `json:"plainProtoFile,omitempty" tf:"plain_proto_file,omitempty"`
 
-	// (Number) Port to use when performing the test.
+	// (String) Port to use when performing the test.
 	// Port to use when performing the test.
-	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+	Port *string `json:"port,omitempty" tf:"port,omitempty"`
 
 	// (String, Deprecated) A protobuf JSON descriptor. Deprecated. Use plain_proto_file instead.
 	// A protobuf JSON descriptor. **Deprecated.** Use `plain_proto_file` instead.
@@ -3056,9 +4862,21 @@ type TestRequestDefinitionObservation struct {
 	// This will turn on a traceroute probe to discover all gateways along the path to the host destination. For ICMP tests (`subtype = "icmp"`).
 	ShouldTrackHops *bool `json:"shouldTrackHops,omitempty" tf:"should_track_hops,omitempty"`
 
-	// (Number) Timeout in seconds for the test. Defaults to 60.
-	// Timeout in seconds for the test. Defaults to `60`.
+	// (String) For Network Path tests, an optional label displayed for the source host in the Network Path visualization
+	// For Network Path tests, an optional label displayed for the source host in the Network Path visualization
+	SourceService *string `json:"sourceService,omitempty" tf:"source_service,omitempty"`
+
+	// (String) For TCP Network Path tests, the TCP traceroute strategy.
+	// For TCP Network Path tests, the TCP traceroute strategy.
+	TCPMethod *string `json:"tcpMethod,omitempty" tf:"tcp_method,omitempty"`
+
+	// (Number) Timeout in seconds for the test.
+	// Timeout in seconds for the test.
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// (Number) For Network Path tests, the number of traceroute path tracings.
+	// For Network Path tests, the number of traceroute path tracings.
+	TracerouteQueries *float64 `json:"tracerouteQueries,omitempty" tf:"traceroute_queries,omitempty"`
 
 	// (String) The URL to send the request to.
 	// The URL to send the request to.
@@ -3072,8 +4890,8 @@ type TestRequestDefinitionParameters struct {
 	// +kubebuilder:validation:Optional
 	Body *string `json:"body,omitempty" tf:"body,omitempty"`
 
-	// www-form-urlencoded, graphql.
-	// Type of the request body. Valid values are `text/plain`, `application/json`, `text/xml`, `text/html`, `application/x-www-form-urlencoded`, `graphql`.
+	// www-form-urlencoded, graphql, application/octet-stream, multipart/form-data.
+	// Type of the request body. Valid values are `text/plain`, `application/json`, `text/xml`, `text/html`, `application/x-www-form-urlencoded`, `graphql`, `application/octet-stream`, `multipart/form-data`.
 	// +kubebuilder:validation:Optional
 	BodyType *string `json:"bodyType,omitempty" tf:"body_type,omitempty"`
 
@@ -3092,18 +4910,49 @@ type TestRequestDefinitionParameters struct {
 	// +kubebuilder:validation:Optional
 	DNSServer *string `json:"dnsServer,omitempty" tf:"dns_server,omitempty"`
 
-	// (Number) DNS server port to use for DNS tests.
+	// (String) DNS server port to use for DNS tests.
 	// DNS server port to use for DNS tests.
 	// +kubebuilder:validation:Optional
-	DNSServerPort *float64 `json:"dnsServerPort,omitempty" tf:"dns_server_port,omitempty"`
+	DNSServerPort *string `json:"dnsServerPort,omitempty" tf:"dns_server_port,omitempty"`
+
+	// (String) For Network Path tests, an optional label displayed for the destination host in the Network Path visualization.
+	// For Network Path tests, an optional label displayed for the destination host in the Network Path visualization.
+	// +kubebuilder:validation:Optional
+	DestinationService *string `json:"destinationService,omitempty" tf:"destination_service,omitempty"`
+
+	// (Number) For Network Path tests, the number of packets sent to probe the destination to measure packet loss, latency, and jitter.
+	// For Network Path tests, the number of packets sent to probe the destination to measure packet loss, latency, and jitter.
+	// +kubebuilder:validation:Optional
+	E2EQueries *float64 `json:"e2eQueries,omitempty" tf:"e2e_queries,omitempty"`
+
+	// data.
+	// Form data to be sent when `body_type` is `multipart/form-data`.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Form map[string]*string `json:"form,omitempty" tf:"form,omitempty"`
+
+	// (String) HTTP version to use for an HTTP request in an API test or step. Valid values are http1, http2, any. Defaults to "any".
+	// HTTP version to use for an HTTP request in an API test or step. **Deprecated.** Use `http_version` in the `options_list` field instead.
+	// +kubebuilder:validation:Optional
+	HTTPVersion *string `json:"httpVersion,omitempty" tf:"http_version,omitempty"`
 
 	// (String) Host name to perform the test with.
 	// Host name to perform the test with.
 	// +kubebuilder:validation:Optional
 	Host *string `json:"host,omitempty" tf:"host,omitempty"`
 
+	// encoded string in the server.
+	// For Websocket tests, whether the message is treated as a base64-encoded string in the server.
+	// +kubebuilder:validation:Optional
+	IsMessageBase64Encoded *bool `json:"isMessageBase64Encoded,omitempty" tf:"is_message_base64_encoded,omitempty"`
+
+	// to-live (max number of hops) used in outgoing probe packets.
+	// For Network Path tests, the maximum time-to-live (max number of hops) used in outgoing probe packets.
+	// +kubebuilder:validation:Optional
+	MaxTTL *float64 `json:"maxTtl,omitempty" tf:"max_ttl,omitempty"`
+
 	// (String) A message to include with notifications for this synthetics test. Email notifications can be sent to specific users by using the same @username notation as events. Defaults to "".
-	// For UDP and websocket tests, message to send with the request.
+	// For gRPC, UDP, and Websocket tests, message to send with the request.
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
@@ -3132,10 +4981,10 @@ type TestRequestDefinitionParameters struct {
 	// +kubebuilder:validation:Optional
 	PlainProtoFile *string `json:"plainProtoFile,omitempty" tf:"plain_proto_file,omitempty"`
 
-	// (Number) Port to use when performing the test.
+	// (String) Port to use when performing the test.
 	// Port to use when performing the test.
 	// +kubebuilder:validation:Optional
-	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+	Port *string `json:"port,omitempty" tf:"port,omitempty"`
 
 	// (String, Deprecated) A protobuf JSON descriptor. Deprecated. Use plain_proto_file instead.
 	// A protobuf JSON descriptor. **Deprecated.** Use `plain_proto_file` instead.
@@ -3157,15 +5006,108 @@ type TestRequestDefinitionParameters struct {
 	// +kubebuilder:validation:Optional
 	ShouldTrackHops *bool `json:"shouldTrackHops,omitempty" tf:"should_track_hops,omitempty"`
 
-	// (Number) Timeout in seconds for the test. Defaults to 60.
-	// Timeout in seconds for the test. Defaults to `60`.
+	// (String) For Network Path tests, an optional label displayed for the source host in the Network Path visualization
+	// For Network Path tests, an optional label displayed for the source host in the Network Path visualization
+	// +kubebuilder:validation:Optional
+	SourceService *string `json:"sourceService,omitempty" tf:"source_service,omitempty"`
+
+	// (String) For TCP Network Path tests, the TCP traceroute strategy.
+	// For TCP Network Path tests, the TCP traceroute strategy.
+	// +kubebuilder:validation:Optional
+	TCPMethod *string `json:"tcpMethod,omitempty" tf:"tcp_method,omitempty"`
+
+	// (Number) Timeout in seconds for the test.
+	// Timeout in seconds for the test.
 	// +kubebuilder:validation:Optional
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// (Number) For Network Path tests, the number of traceroute path tracings.
+	// For Network Path tests, the number of traceroute path tracings.
+	// +kubebuilder:validation:Optional
+	TracerouteQueries *float64 `json:"tracerouteQueries,omitempty" tf:"traceroute_queries,omitempty"`
 
 	// (String) The URL to send the request to.
 	// The URL to send the request to.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type TestRequestFileInitParameters struct {
+
+	// (String, Sensitive) Content of the certificate.
+	// Content of the file.
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// (String) Name of Datadog synthetics test.
+	// Name of the file.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Original name of the file.
+	// Original name of the file.
+	OriginalFileName *string `json:"originalFileName,omitempty" tf:"original_file_name,omitempty"`
+
+	// (Number) Size of the file.
+	// Size of the file.
+	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
+
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of the file.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type TestRequestFileObservation struct {
+
+	// (String) Bucket key of the file.
+	// Bucket key of the file.
+	BucketKey *string `json:"bucketKey,omitempty" tf:"bucket_key,omitempty"`
+
+	// (String, Sensitive) Content of the certificate.
+	// Content of the file.
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// (String) Name of Datadog synthetics test.
+	// Name of the file.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Original name of the file.
+	// Original name of the file.
+	OriginalFileName *string `json:"originalFileName,omitempty" tf:"original_file_name,omitempty"`
+
+	// (Number) Size of the file.
+	// Size of the file.
+	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
+
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of the file.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type TestRequestFileParameters struct {
+
+	// (String, Sensitive) Content of the certificate.
+	// Content of the file.
+	// +kubebuilder:validation:Optional
+	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// (String) Name of Datadog synthetics test.
+	// Name of the file.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (String) Original name of the file.
+	// Original name of the file.
+	// +kubebuilder:validation:Optional
+	OriginalFileName *string `json:"originalFileName,omitempty" tf:"original_file_name,omitempty"`
+
+	// (Number) Size of the file.
+	// Size of the file.
+	// +kubebuilder:validation:Optional
+	Size *float64 `json:"size" tf:"size,omitempty"`
+
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Type of the file.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
 }
 
 type TestRequestProxyInitParameters struct {
@@ -3254,36 +5196,97 @@ type TimeframesParameters struct {
 	To *string `json:"to" tf:"to,omitempty"`
 }
 
+type UserLocatorInitParameters struct {
+
+	// (Boolean) Defaults to false.
+	FailTestOnCannotLocate *bool `json:"failTestOnCannotLocate,omitempty" tf:"fail_test_on_cannot_locate,omitempty"`
+
+	// (Block List, Max: 5) (see below for nested schema)
+	Values []ValuesInitParameters `json:"values,omitempty" tf:"values,omitempty"`
+}
+
+type UserLocatorObservation struct {
+
+	// (Boolean) Defaults to false.
+	FailTestOnCannotLocate *bool `json:"failTestOnCannotLocate,omitempty" tf:"fail_test_on_cannot_locate,omitempty"`
+
+	// (Block List, Max: 5) (see below for nested schema)
+	Values []ValuesObservation `json:"values,omitempty" tf:"values,omitempty"`
+}
+
+type UserLocatorParameters struct {
+
+	// (Boolean) Defaults to false.
+	// +kubebuilder:validation:Optional
+	FailTestOnCannotLocate *bool `json:"failTestOnCannotLocate,omitempty" tf:"fail_test_on_cannot_locate,omitempty"`
+
+	// (Block List, Max: 5) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	Values []ValuesParameters `json:"values,omitempty" tf:"values,omitempty"`
+}
+
 type ValueInitParameters struct {
 
-	// (String) Synthetics test type. Valid values are api, browser.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
 	// Defaults to `"css"`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) Regex or JSON path used for the parser. Not used with type raw.
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type ValueObservation struct {
 
-	// (String) Synthetics test type. Valid values are api, browser.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
 	// Defaults to `"css"`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) Regex or JSON path used for the parser. Not used with type raw.
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type ValueParameters struct {
 
-	// (String) Synthetics test type. Valid values are api, browser.
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
 	// Defaults to `"css"`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) Regex or JSON path used for the parser. Not used with type raw.
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
+}
+
+type ValuesInitParameters struct {
+
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Valid values are `accessibility-id`, `id`, `ios-predicate-string`, `ios-class-chain`, `xpath`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type ValuesObservation struct {
+
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Valid values are `accessibility-id`, `id`, `ios-predicate-string`, `ios-class-chain`, `xpath`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type ValuesParameters struct {
+
+	// (String) The type of Synthetics test. Valid values are api, browser, mobile, network.
+	// Valid values are `accessibility-id`, `id`, `ios-predicate-string`, `ios-class-chain`, `xpath`.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (Number) The time to wait in seconds. Minimum value: 0. Maximum value: 180.
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type VariableInitParameters struct {
@@ -3295,6 +5298,10 @@ type VariableInitParameters struct {
 	// (String) Name of Datadog synthetics test.
 	// Name of the extracted variable.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Boolean) Determines whether or not the extracted value will be obfuscated.
+	// Whether the value of this variable will be obfuscated in test results. Defaults to `false`.
+	Secure *bool `json:"secure,omitempty" tf:"secure,omitempty"`
 }
 
 type VariableObservation struct {
@@ -3306,6 +5313,10 @@ type VariableObservation struct {
 	// (String) Name of Datadog synthetics test.
 	// Name of the extracted variable.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Boolean) Determines whether or not the extracted value will be obfuscated.
+	// Whether the value of this variable will be obfuscated in test results. Defaults to `false`.
+	Secure *bool `json:"secure,omitempty" tf:"secure,omitempty"`
 }
 
 type VariableParameters struct {
@@ -3319,6 +5330,11 @@ type VariableParameters struct {
 	// Name of the extracted variable.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Boolean) Determines whether or not the extracted value will be obfuscated.
+	// Whether the value of this variable will be obfuscated in test results. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	Secure *bool `json:"secure,omitempty" tf:"secure,omitempty"`
 }
 
 // TestSpec defines the desired state of Test

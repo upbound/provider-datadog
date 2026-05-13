@@ -27,8 +27,8 @@ type ConfigurationRuleInitParameters struct {
 	// Additional queries to filter matched events before they are processed. Defaults to empty list
 	Filter []FilterInitParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
-	// (List of String) Fields to group by when generating signals, e.g. @resource. Defaults to empty list.
-	// Fields to group by when generating signals, e.g. @resource. Defaults to empty list.
+	// (List of String) Defaults to empty list. This function will be deprecated soon. Use the notification rules function instead. Fields to group by when generating signals, e.g. @resource.
+	// Defaults to empty list. This function will be deprecated soon. Use the notification rules function instead. Fields to group by when generating signals, e.g. @resource.
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
 	// (String) The message associated to the rule that will be shown in findings and signals.
@@ -39,8 +39,8 @@ type ConfigurationRuleInitParameters struct {
 	// The name of the cloud configuration rule.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (List of String) Notification targets for signals. Defaults to empty list.
-	// Notification targets for signals. Defaults to empty list.
+	// (List of String) This function will be deprecated soon. Use the notification rules function instead. Notification targets for signals. Defaults to empty list.
+	// This function will be deprecated soon. Use the notification rules function instead. Notification targets for signals. Defaults to empty list.
 	Notifications []*string `json:"notifications,omitempty" tf:"notifications,omitempty"`
 
 	// (String) Policy written in Rego format.
@@ -74,8 +74,8 @@ type ConfigurationRuleObservation struct {
 	// Additional queries to filter matched events before they are processed. Defaults to empty list
 	Filter []FilterObservation `json:"filter,omitempty" tf:"filter,omitempty"`
 
-	// (List of String) Fields to group by when generating signals, e.g. @resource. Defaults to empty list.
-	// Fields to group by when generating signals, e.g. @resource. Defaults to empty list.
+	// (List of String) Defaults to empty list. This function will be deprecated soon. Use the notification rules function instead. Fields to group by when generating signals, e.g. @resource.
+	// Defaults to empty list. This function will be deprecated soon. Use the notification rules function instead. Fields to group by when generating signals, e.g. @resource.
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
 	// (String) The ID of this resource.
@@ -89,8 +89,8 @@ type ConfigurationRuleObservation struct {
 	// The name of the cloud configuration rule.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (List of String) Notification targets for signals. Defaults to empty list.
-	// Notification targets for signals. Defaults to empty list.
+	// (List of String) This function will be deprecated soon. Use the notification rules function instead. Notification targets for signals. Defaults to empty list.
+	// This function will be deprecated soon. Use the notification rules function instead. Notification targets for signals. Defaults to empty list.
 	Notifications []*string `json:"notifications,omitempty" tf:"notifications,omitempty"`
 
 	// (String) Policy written in Rego format.
@@ -126,8 +126,8 @@ type ConfigurationRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	Filter []FilterParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
-	// (List of String) Fields to group by when generating signals, e.g. @resource. Defaults to empty list.
-	// Fields to group by when generating signals, e.g. @resource. Defaults to empty list.
+	// (List of String) Defaults to empty list. This function will be deprecated soon. Use the notification rules function instead. Fields to group by when generating signals, e.g. @resource.
+	// Defaults to empty list. This function will be deprecated soon. Use the notification rules function instead. Fields to group by when generating signals, e.g. @resource.
 	// +kubebuilder:validation:Optional
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
@@ -141,8 +141,8 @@ type ConfigurationRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (List of String) Notification targets for signals. Defaults to empty list.
-	// Notification targets for signals. Defaults to empty list.
+	// (List of String) This function will be deprecated soon. Use the notification rules function instead. Notification targets for signals. Defaults to empty list.
+	// This function will be deprecated soon. Use the notification rules function instead. Notification targets for signals. Defaults to empty list.
 	// +kubebuilder:validation:Optional
 	Notifications []*string `json:"notifications,omitempty" tf:"notifications,omitempty"`
 

@@ -1,0 +1,21 @@
+apiVersion: tag.upbound.io/v1alpha1
+kind: PipelineRuleset
+metadata:
+  annotations:
+    meta.upbound.io/example-id: tag/v1alpha1/pipelineruleset
+  labels:
+    testing.upbound.io/example-name: first
+  name: first
+spec:
+  forProvider:
+    enabled: true
+    name: Standardize Environment Tags
+    rules:
+    - enabled: true
+      mapping:
+      - destinationKey: env
+        ifTagExists: replace
+        sourceKeys:
+        - environment
+        - stage
+      name: map-env

@@ -71,6 +71,13 @@ spec:
                   name:
                     description: (String) Name for Organization. Name for Organization.
                     type: string
+                  securityContacts:
+                    description: (List of String) List of emails used for security
+                      event notifications from the organization. List of emails used
+                      for security event notifications from the organization.
+                    items:
+                      type: string
+                    type: array
                   settings:
                     description: '(Block List, Max: 1) Organization settings (see
                       below for nested schema) Organization settings'
@@ -176,6 +183,13 @@ spec:
                   name:
                     description: (String) Name for Organization. Name for Organization.
                     type: string
+                  securityContacts:
+                    description: (List of String) List of emails used for security
+                      event notifications from the organization. List of emails used
+                      for security event notifications from the organization.
+                    items:
+                      type: string
+                    type: array
                   settings:
                     description: '(Block List, Max: 1) Organization settings (see
                       below for nested schema) Organization settings'
@@ -447,6 +461,13 @@ spec:
                       operating within. The `public_id` of the organization you are
                       operating within.
                     type: string
+                  securityContacts:
+                    description: (List of String) List of emails used for security
+                      event notifications from the organization. List of emails used
+                      for security event notifications from the organization.
+                    items:
+                      type: string
+                    type: array
                   settings:
                     description: '(Block List, Max: 1) Organization settings (see
                       below for nested schema) Organization settings'

@@ -1,0 +1,17 @@
+apiVersion: monitor.upbound.io/v1alpha1
+kind: NotificationRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: monitor/v1alpha1/notificationrule
+  labels:
+    testing.upbound.io/example-name: team_checkout_notification_rule
+  name: team-checkout-notification-rule
+spec:
+  forProvider:
+    filter:
+    - tags:
+      - team:payment
+    name: Route alerts from checkout team
+    recipients:
+    - slack-checkout-ops
+    - jira-checkout

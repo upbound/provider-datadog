@@ -1,0 +1,57 @@
+apiVersion: workflow.upbound.io/v1alpha1
+kind: Automation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: workflow/v1alpha1/automation
+  labels:
+    testing.upbound.io/example-name: workflow
+  name: workflow
+spec:
+  forProvider:
+    description: 'This workflow alerts me by email when my monitor goes off. '
+    name: Send Email when Monitor Alerts
+    published: true
+    specJson: |-
+      ${jsonencode(
+          {
+            "triggers" : [
+              {
+                "startStepNames" : [
+                  "Send_Email"
+                ],
+                "monitorTrigger" : {}
+              }
+            ],
+            "steps" : [
+              {
+                "name" : "Send_Email",
+                "actionId" : "com.datadoghq.email.send",
+                "parameters" : [
+                  {
+                    "name" : "to",
+                    "value" : "REPLACE_ME"
+                  },
+                  {
+                    "name" : "subject",
+                    "value" : "Monitor \"{{ Source.monitor.name }}\" alerted"
+                  },
+                  {
+                    "name" : "message",
+                    "value" : "This message is from {{ WorkflowName }}. \n\nYou can find a link to the monitor here: {{ Source.url }}."
+                  }
+                ],
+                "display" : {
+                  "bounds" : {
+                    "x" : 0,
+                    "y" : 216
+                  }
+                }
+              }
+            ],
+            "handle" : "my-handle"
+          }
+        )}
+    tags:
+    - service:foo
+    - source:alert
+    - team:bar

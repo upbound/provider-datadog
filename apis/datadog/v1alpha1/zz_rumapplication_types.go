@@ -23,12 +23,24 @@ type RUMApplicationInitParameters struct {
 	// Name of the RUM application.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) Controls the retention policy for Product Analytics data derived from RUM events. Valid values are MAX, NONE.
+	// Controls the retention policy for Product Analytics data derived from RUM events. Valid values are `MAX`, `NONE`.
+	ProductAnalyticsRetentionState *string `json:"productAnalyticsRetentionState,omitempty" tf:"product_analytics_retention_state,omitempty"`
+
+	// (String) Configures which RUM events are processed and stored for the application. Valid values are ALL, ERROR_FOCUSED_MODE, NONE.
+	// Configures which RUM events are processed and stored for the application. Valid values are `ALL`, `ERROR_FOCUSED_MODE`, `NONE`.
+	RumEventProcessingState *string `json:"rumEventProcessingState,omitempty" tf:"rum_event_processing_state,omitempty"`
+
 	// native, flutter. Defaults to "browser".
 	// Type of the RUM application. Supported values are `browser`, `ios`, `android`, `react-native`, `flutter`. Defaults to `"browser"`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type RUMApplicationObservation struct {
+
+	// (Number) ID of the API key associated with the application.
+	// ID of the API key associated with the application.
+	APIKeyID *float64 `json:"apiKeyId,omitempty" tf:"api_key_id,omitempty"`
 
 	// (String) The client token.
 	// The client token.
@@ -41,6 +53,14 @@ type RUMApplicationObservation struct {
 	// Name of the RUM application.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) Controls the retention policy for Product Analytics data derived from RUM events. Valid values are MAX, NONE.
+	// Controls the retention policy for Product Analytics data derived from RUM events. Valid values are `MAX`, `NONE`.
+	ProductAnalyticsRetentionState *string `json:"productAnalyticsRetentionState,omitempty" tf:"product_analytics_retention_state,omitempty"`
+
+	// (String) Configures which RUM events are processed and stored for the application. Valid values are ALL, ERROR_FOCUSED_MODE, NONE.
+	// Configures which RUM events are processed and stored for the application. Valid values are `ALL`, `ERROR_FOCUSED_MODE`, `NONE`.
+	RumEventProcessingState *string `json:"rumEventProcessingState,omitempty" tf:"rum_event_processing_state,omitempty"`
+
 	// native, flutter. Defaults to "browser".
 	// Type of the RUM application. Supported values are `browser`, `ios`, `android`, `react-native`, `flutter`. Defaults to `"browser"`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
@@ -52,6 +72,16 @@ type RUMApplicationParameters struct {
 	// Name of the RUM application.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Controls the retention policy for Product Analytics data derived from RUM events. Valid values are MAX, NONE.
+	// Controls the retention policy for Product Analytics data derived from RUM events. Valid values are `MAX`, `NONE`.
+	// +kubebuilder:validation:Optional
+	ProductAnalyticsRetentionState *string `json:"productAnalyticsRetentionState,omitempty" tf:"product_analytics_retention_state,omitempty"`
+
+	// (String) Configures which RUM events are processed and stored for the application. Valid values are ALL, ERROR_FOCUSED_MODE, NONE.
+	// Configures which RUM events are processed and stored for the application. Valid values are `ALL`, `ERROR_FOCUSED_MODE`, `NONE`.
+	// +kubebuilder:validation:Optional
+	RumEventProcessingState *string `json:"rumEventProcessingState,omitempty" tf:"rum_event_processing_state,omitempty"`
 
 	// native, flutter. Defaults to "browser".
 	// Type of the RUM application. Supported values are `browser`, `ios`, `android`, `react-native`, `flutter`. Defaults to `"browser"`.

@@ -149,6 +149,18 @@ spec:
                       are imported into Datadog. e.x. `env:production,deploymentgroup:red`
                       Defaults to `""`.
                     type: string
+                  metricsEnabled:
+                    description: (Boolean) Enable Azure metrics for your organization.
+                      Defaults to true. Enable Azure metrics for your organization.
+                      Defaults to `true`.
+                    type: boolean
+                  metricsEnabledDefault:
+                    description: (Boolean) Enable Azure metrics for your organization
+                      for resource providers where no resource provider config is
+                      specified. Defaults to true. Enable Azure metrics for your organization
+                      for resource providers where no resource provider config is
+                      specified. Defaults to `true`.
+                    type: boolean
                   resourceCollectionEnabled:
                     description: (Boolean) When enabled, Datadog collects metadata
                       and configuration info from cloud resources (such as compute
@@ -157,10 +169,31 @@ spec:
                       configuration info from cloud resources (such as compute instances,
                       databases, and load balancers) monitored by this app registration.
                     type: boolean
+                  resourceProviderConfigs:
+                    description: (List of Object) Configuration settings applied to
+                      resources from the specified Azure resource providers. (see
+                      below for nested schema) Configuration settings applied to resources
+                      from the specified Azure resource providers.
+                    items:
+                      properties:
+                        metricsEnabled:
+                          description: (Boolean) Enable Azure metrics for your organization.
+                            Defaults to true.
+                          type: boolean
+                        namespace:
+                          description: (String)
+                          type: string
+                      type: object
+                    type: array
                   tenantName:
                     description: (String) Your Azure Active Directory ID. Your Azure
                       Active Directory ID.
                     type: string
+                  usageMetricsEnabled:
+                    description: (Boolean) Enable azure.usage metrics for your organization.
+                      Defaults to true. Enable azure.usage metrics for your organization.
+                      Defaults to `true`.
+                    type: boolean
                 type: object
               initProvider:
                 description: THIS IS A BETA FIELD. It will be honored unless the Management
@@ -236,6 +269,18 @@ spec:
                       are imported into Datadog. e.x. `env:production,deploymentgroup:red`
                       Defaults to `""`.
                     type: string
+                  metricsEnabled:
+                    description: (Boolean) Enable Azure metrics for your organization.
+                      Defaults to true. Enable Azure metrics for your organization.
+                      Defaults to `true`.
+                    type: boolean
+                  metricsEnabledDefault:
+                    description: (Boolean) Enable Azure metrics for your organization
+                      for resource providers where no resource provider config is
+                      specified. Defaults to true. Enable Azure metrics for your organization
+                      for resource providers where no resource provider config is
+                      specified. Defaults to `true`.
+                    type: boolean
                   resourceCollectionEnabled:
                     description: (Boolean) When enabled, Datadog collects metadata
                       and configuration info from cloud resources (such as compute
@@ -244,10 +289,31 @@ spec:
                       configuration info from cloud resources (such as compute instances,
                       databases, and load balancers) monitored by this app registration.
                     type: boolean
+                  resourceProviderConfigs:
+                    description: (List of Object) Configuration settings applied to
+                      resources from the specified Azure resource providers. (see
+                      below for nested schema) Configuration settings applied to resources
+                      from the specified Azure resource providers.
+                    items:
+                      properties:
+                        metricsEnabled:
+                          description: (Boolean) Enable Azure metrics for your organization.
+                            Defaults to true.
+                          type: boolean
+                        namespace:
+                          description: (String)
+                          type: string
+                      type: object
+                    type: array
                   tenantName:
                     description: (String) Your Azure Active Directory ID. Your Azure
                       Active Directory ID.
                     type: string
+                  usageMetricsEnabled:
+                    description: (Boolean) Enable azure.usage metrics for your organization.
+                      Defaults to true. Enable azure.usage metrics for your organization.
+                      Defaults to `true`.
+                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -491,6 +557,18 @@ spec:
                   id:
                     description: (String) The ID of this resource.
                     type: string
+                  metricsEnabled:
+                    description: (Boolean) Enable Azure metrics for your organization.
+                      Defaults to true. Enable Azure metrics for your organization.
+                      Defaults to `true`.
+                    type: boolean
+                  metricsEnabledDefault:
+                    description: (Boolean) Enable Azure metrics for your organization
+                      for resource providers where no resource provider config is
+                      specified. Defaults to true. Enable Azure metrics for your organization
+                      for resource providers where no resource provider config is
+                      specified. Defaults to `true`.
+                    type: boolean
                   resourceCollectionEnabled:
                     description: (Boolean) When enabled, Datadog collects metadata
                       and configuration info from cloud resources (such as compute
@@ -499,10 +577,31 @@ spec:
                       configuration info from cloud resources (such as compute instances,
                       databases, and load balancers) monitored by this app registration.
                     type: boolean
+                  resourceProviderConfigs:
+                    description: (List of Object) Configuration settings applied to
+                      resources from the specified Azure resource providers. (see
+                      below for nested schema) Configuration settings applied to resources
+                      from the specified Azure resource providers.
+                    items:
+                      properties:
+                        metricsEnabled:
+                          description: (Boolean) Enable Azure metrics for your organization.
+                            Defaults to true.
+                          type: boolean
+                        namespace:
+                          description: (String)
+                          type: string
+                      type: object
+                    type: array
                   tenantName:
                     description: (String) Your Azure Active Directory ID. Your Azure
                       Active Directory ID.
                     type: string
+                  usageMetricsEnabled:
+                    description: (Boolean) Enable azure.usage metrics for your organization.
+                      Defaults to true. Enable azure.usage metrics for your organization.
+                      Defaults to `true`.
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.

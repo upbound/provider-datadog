@@ -1,0 +1,42 @@
+apiVersion: compliance.upbound.io/v1alpha1
+kind: CustomFramework
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compliance/v1alpha1/customframework
+  labels:
+    testing.upbound.io/example-name: framework
+  name: framework
+spec:
+  forProvider:
+    handle: my-custom-framework-terraform-2
+    name: my-custom-framework-terraform-2
+    requirements:
+    - controls:
+      - name: control2
+        rulesId:
+        - def-000-h9o
+        - def-000-b6i
+        - def-000-yed
+        - def-000-h5a
+        - def-000-aw5
+      - name: control1
+        rulesId:
+        - def-000-j9v
+        - def-000-465
+        - def-000-vq1
+        - def-000-4hf
+        - def-000-s2d
+        - def-000-vnl
+      name: requirement2
+    - controls:
+      - name: control2
+        rulesId:
+        - def-000-wuf
+        - def-000-7og
+      - name: control5
+        rulesId:
+        - def-000-mdt
+        - def-000-zrx
+        - def-000-z6k
+      name: requirement1
+    version: 2.0.0

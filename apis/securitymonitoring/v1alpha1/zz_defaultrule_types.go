@@ -17,7 +17,46 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type AgentRuleInitParameters struct {
+
+	// (String) Deprecated. It won't be applied anymore.
+	// **Deprecated**. It won't be applied anymore.
+	AgentRuleID *string `json:"agentRuleId,omitempty" tf:"agent_rule_id,omitempty"`
+
+	// (String) Deprecated. It won't be applied anymore.
+	// **Deprecated**. It won't be applied anymore.
+	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
+}
+
+type AgentRuleObservation struct {
+
+	// (String) Deprecated. It won't be applied anymore.
+	// **Deprecated**. It won't be applied anymore.
+	AgentRuleID *string `json:"agentRuleId,omitempty" tf:"agent_rule_id,omitempty"`
+
+	// (String) Deprecated. It won't be applied anymore.
+	// **Deprecated**. It won't be applied anymore.
+	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
+}
+
+type AgentRuleParameters struct {
+
+	// (String) Deprecated. It won't be applied anymore.
+	// **Deprecated**. It won't be applied anymore.
+	// +kubebuilder:validation:Optional
+	AgentRuleID *string `json:"agentRuleId" tf:"agent_rule_id,omitempty"`
+
+	// (String) Deprecated. It won't be applied anymore.
+	// **Deprecated**. It won't be applied anymore.
+	// +kubebuilder:validation:Optional
+	Expression *string `json:"expression" tf:"expression,omitempty"`
+}
+
 type CaseInitParameters struct {
+
+	// (String) Status of the rule case to override. Valid values are info, low, medium, high, critical.
+	// Status of the rule case to override. Valid values are `info`, `low`, `medium`, `high`, `critical`.
+	CustomStatus *string `json:"customStatus,omitempty" tf:"custom_status,omitempty"`
 
 	// (List of String) Notification targets for each rule case.
 	// Notification targets for each rule case.
@@ -30,6 +69,10 @@ type CaseInitParameters struct {
 
 type CaseObservation struct {
 
+	// (String) Status of the rule case to override. Valid values are info, low, medium, high, critical.
+	// Status of the rule case to override. Valid values are `info`, `low`, `medium`, `high`, `critical`.
+	CustomStatus *string `json:"customStatus,omitempty" tf:"custom_status,omitempty"`
+
 	// (List of String) Notification targets for each rule case.
 	// Notification targets for each rule case.
 	Notifications []*string `json:"notifications,omitempty" tf:"notifications,omitempty"`
@@ -41,10 +84,15 @@ type CaseObservation struct {
 
 type CaseParameters struct {
 
+	// (String) Status of the rule case to override. Valid values are info, low, medium, high, critical.
+	// Status of the rule case to override. Valid values are `info`, `low`, `medium`, `high`, `critical`.
+	// +kubebuilder:validation:Optional
+	CustomStatus *string `json:"customStatus,omitempty" tf:"custom_status,omitempty"`
+
 	// (List of String) Notification targets for each rule case.
 	// Notification targets for each rule case.
 	// +kubebuilder:validation:Optional
-	Notifications []*string `json:"notifications" tf:"notifications,omitempty"`
+	Notifications []*string `json:"notifications,omitempty" tf:"notifications,omitempty"`
 
 	// (String) Status of the rule case to match. Valid values are info, low, medium, high, critical.
 	// Status of the rule case to match. Valid values are `info`, `low`, `medium`, `high`, `critical`.
@@ -58,6 +106,19 @@ type DefaultRuleInitParameters struct {
 	// Cases of the rule, this is used to update notifications.
 	Case []CaseInitParameters `json:"case,omitempty" tf:"case,omitempty"`
 
+	// (String) Custom Message (will override default message) for generated signals.
+	// Custom Message (will override default message) for generated signals.
+	CustomMessage *string `json:"customMessage,omitempty" tf:"custom_message,omitempty"`
+
+	// (String) The name (will override default name) of the rule.
+	// The name (will override default name) of the rule.
+	CustomName *string `json:"customName,omitempty" tf:"custom_name,omitempty"`
+
+	// (Set of String) Custom tags for generated signals.
+	// Custom tags for generated signals.
+	// +listType=set
+	CustomTags []*string `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
+
 	// (Boolean) Enable the rule. Defaults to true.
 	// Enable the rule. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -69,6 +130,10 @@ type DefaultRuleInitParameters struct {
 	// (Block List, Max: 1) Options on default rules. Note that only a subset of fields can be updated on default rule options. (see below for nested schema)
 	// Options on default rules. Note that only a subset of fields can be updated on default rule options.
 	Options []OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
+
+	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
+	// Queries for selecting logs which are part of the rule.
+	Query []QueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
 }
 
 type DefaultRuleObservation struct {
@@ -76,6 +141,19 @@ type DefaultRuleObservation struct {
 	// (Block List, Max: 10) Cases of the rule, this is used to update notifications. (see below for nested schema)
 	// Cases of the rule, this is used to update notifications.
 	Case []CaseObservation `json:"case,omitempty" tf:"case,omitempty"`
+
+	// (String) Custom Message (will override default message) for generated signals.
+	// Custom Message (will override default message) for generated signals.
+	CustomMessage *string `json:"customMessage,omitempty" tf:"custom_message,omitempty"`
+
+	// (String) The name (will override default name) of the rule.
+	// The name (will override default name) of the rule.
+	CustomName *string `json:"customName,omitempty" tf:"custom_name,omitempty"`
+
+	// (Set of String) Custom tags for generated signals.
+	// Custom tags for generated signals.
+	// +listType=set
+	CustomTags []*string `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
 
 	// (Boolean) Enable the rule. Defaults to true.
 	// Enable the rule. Defaults to `true`.
@@ -92,6 +170,10 @@ type DefaultRuleObservation struct {
 	// Options on default rules. Note that only a subset of fields can be updated on default rule options.
 	Options []OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
 
+	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
+	// Queries for selecting logs which are part of the rule.
+	Query []QueryObservation `json:"query,omitempty" tf:"query,omitempty"`
+
 	// (String) The rule type.
 	// The rule type.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
@@ -103,6 +185,22 @@ type DefaultRuleParameters struct {
 	// Cases of the rule, this is used to update notifications.
 	// +kubebuilder:validation:Optional
 	Case []CaseParameters `json:"case,omitempty" tf:"case,omitempty"`
+
+	// (String) Custom Message (will override default message) for generated signals.
+	// Custom Message (will override default message) for generated signals.
+	// +kubebuilder:validation:Optional
+	CustomMessage *string `json:"customMessage,omitempty" tf:"custom_message,omitempty"`
+
+	// (String) The name (will override default name) of the rule.
+	// The name (will override default name) of the rule.
+	// +kubebuilder:validation:Optional
+	CustomName *string `json:"customName,omitempty" tf:"custom_name,omitempty"`
+
+	// (Set of String) Custom tags for generated signals.
+	// Custom tags for generated signals.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	CustomTags []*string `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
 
 	// (Boolean) Enable the rule. Defaults to true.
 	// Enable the rule. Defaults to `true`.
@@ -118,6 +216,11 @@ type DefaultRuleParameters struct {
 	// Options on default rules. Note that only a subset of fields can be updated on default rule options.
 	// +kubebuilder:validation:Optional
 	Options []OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+
+	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
+	// Queries for selecting logs which are part of the rule.
+	// +kubebuilder:validation:Optional
+	Query []QueryParameters `json:"query,omitempty" tf:"query,omitempty"`
 }
 
 type FilterInitParameters struct {
@@ -126,7 +229,7 @@ type FilterInitParameters struct {
 	// The type of filtering action. Allowed enum values: require, suppress Valid values are `require`, `suppress`.
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
-	// (String) Query for selecting logs to apply the filtering action.
+	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
 	// Query for selecting logs to apply the filtering action.
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
 }
@@ -137,7 +240,7 @@ type FilterObservation struct {
 	// The type of filtering action. Allowed enum values: require, suppress Valid values are `require`, `suppress`.
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
-	// (String) Query for selecting logs to apply the filtering action.
+	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
 	// Query for selecting logs to apply the filtering action.
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
 }
@@ -149,7 +252,7 @@ type FilterParameters struct {
 	// +kubebuilder:validation:Optional
 	Action *string `json:"action" tf:"action,omitempty"`
 
-	// (String) Query for selecting logs to apply the filtering action.
+	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
 	// Query for selecting logs to apply the filtering action.
 	// +kubebuilder:validation:Optional
 	Query *string `json:"query" tf:"query,omitempty"`
@@ -157,24 +260,176 @@ type FilterParameters struct {
 
 type OptionsInitParameters struct {
 
-	// production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with staging, test, or dev. Only available when the rule type is log_detection. Defaults to false.
-	// If true, signals in non-production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with `staging`, `test`, or `dev`. Only available when the rule type is `log_detection`. Defaults to `false`.
+	// production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with staging, test, or dev. Only available when the rule type is log_detection.
+	// If true, signals in non-production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with `staging`, `test`, or `dev`. Only available when the rule type is `log_detection`.
 	DecreaseCriticalityBasedOnEnv *bool `json:"decreaseCriticalityBasedOnEnv,omitempty" tf:"decrease_criticality_based_on_env,omitempty"`
 }
 
 type OptionsObservation struct {
 
-	// production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with staging, test, or dev. Only available when the rule type is log_detection. Defaults to false.
-	// If true, signals in non-production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with `staging`, `test`, or `dev`. Only available when the rule type is `log_detection`. Defaults to `false`.
+	// production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with staging, test, or dev. Only available when the rule type is log_detection.
+	// If true, signals in non-production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with `staging`, `test`, or `dev`. Only available when the rule type is `log_detection`.
 	DecreaseCriticalityBasedOnEnv *bool `json:"decreaseCriticalityBasedOnEnv,omitempty" tf:"decrease_criticality_based_on_env,omitempty"`
 }
 
 type OptionsParameters struct {
 
-	// production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with staging, test, or dev. Only available when the rule type is log_detection. Defaults to false.
-	// If true, signals in non-production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with `staging`, `test`, or `dev`. Only available when the rule type is `log_detection`. Defaults to `false`.
+	// production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with staging, test, or dev. Only available when the rule type is log_detection.
+	// If true, signals in non-production environments have a lower severity than what is defined by the rule case, which can reduce noise. The decrement is applied when the environment tag of the signal starts with `staging`, `test`, or `dev`. Only available when the rule type is `log_detection`.
 	// +kubebuilder:validation:Optional
 	DecreaseCriticalityBasedOnEnv *bool `json:"decreaseCriticalityBasedOnEnv,omitempty" tf:"decrease_criticality_based_on_env,omitempty"`
+}
+
+type QueryInitParameters struct {
+
+	// (Block List, Deprecated) Deprecated. It won't be applied anymore. Deprecated. agent_rule has been deprecated in favor of new Agent Rule resource. (see below for nested schema)
+	// **Deprecated**. It won't be applied anymore. **Deprecated.** `agent_rule` has been deprecated in favor of new Agent Rule resource.
+	AgentRule []AgentRuleInitParameters `json:"agentRule,omitempty" tf:"agent_rule,omitempty"`
+
+	// (String) The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are count, cardinality, sum, max, new_value, geo_data, event_count, none.
+	// The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are `count`, `cardinality`, `sum`, `max`, `new_value`, `geo_data`, `event_count`, `none`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) Query extension to append to the logs query.
+	// Query extension to append to the logs query.
+	CustomQueryExtension *string `json:"customQueryExtension,omitempty" tf:"custom_query_extension,omitempty"`
+
+	// (String) Source of events. Valid values are logs, audit, app_sec_spans, spans, security_runtime, network, events.
+	// Source of events. Valid values are `logs`, `audit`, `app_sec_spans`, `spans`, `security_runtime`, `network`, `events`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (List of String) Field for which the cardinality is measured. Sent as an array.
+	// Field for which the cardinality is measured. Sent as an array.
+	DistinctFields []*string `json:"distinctFields,omitempty" tf:"distinct_fields,omitempty"`
+
+	// (List of String) Fields to group by.
+	// Fields to group by.
+	GroupByFields []*string `json:"groupByFields,omitempty" tf:"group_by_fields,omitempty"`
+
+	// by value are ignored by the rule. When true, events with missing group-by fields are processed with N/A, replacing the missing values.
+	// When false, events without a group-by value are ignored by the rule. When true, events with missing group-by fields are processed with `N/A`, replacing the missing values.
+	HasOptionalGroupByFields *bool `json:"hasOptionalGroupByFields,omitempty" tf:"has_optional_group_by_fields,omitempty"`
+
+	// (String, Deprecated) The target field to aggregate over when using the sum, max, or geo_data aggregations. Deprecated. Configure metrics instead. This attribute will be removed in the next major version of the provider.
+	// The target field to aggregate over when using the `sum`, `max`, or `geo_data` aggregations. **Deprecated.** Configure `metrics` instead. This attribute will be removed in the next major version of the provider.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (List of String) Group of target fields to aggregate over when using the sum, max, geo_data, or new_value aggregations. The sum, max, and geo_data aggregations only accept one value in this list, whereas the new_value aggregation accepts up to five values.
+	// Group of target fields to aggregate over when using the `sum`, `max`, `geo_data`, or `new_value` aggregations. The `sum`, `max`, and `geo_data` aggregations only accept one value in this list, whereas the `new_value` aggregation accepts up to five values.
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	// (String) Name of the query. Not compatible with new_value aggregations.
+	// Name of the query. Not compatible with `new_value` aggregations.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
+	// Query to run on logs.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type QueryObservation struct {
+
+	// (Block List, Deprecated) Deprecated. It won't be applied anymore. Deprecated. agent_rule has been deprecated in favor of new Agent Rule resource. (see below for nested schema)
+	// **Deprecated**. It won't be applied anymore. **Deprecated.** `agent_rule` has been deprecated in favor of new Agent Rule resource.
+	AgentRule []AgentRuleObservation `json:"agentRule,omitempty" tf:"agent_rule,omitempty"`
+
+	// (String) The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are count, cardinality, sum, max, new_value, geo_data, event_count, none.
+	// The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are `count`, `cardinality`, `sum`, `max`, `new_value`, `geo_data`, `event_count`, `none`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) Query extension to append to the logs query.
+	// Query extension to append to the logs query.
+	CustomQueryExtension *string `json:"customQueryExtension,omitempty" tf:"custom_query_extension,omitempty"`
+
+	// (String) Source of events. Valid values are logs, audit, app_sec_spans, spans, security_runtime, network, events.
+	// Source of events. Valid values are `logs`, `audit`, `app_sec_spans`, `spans`, `security_runtime`, `network`, `events`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (List of String) Field for which the cardinality is measured. Sent as an array.
+	// Field for which the cardinality is measured. Sent as an array.
+	DistinctFields []*string `json:"distinctFields,omitempty" tf:"distinct_fields,omitempty"`
+
+	// (List of String) Fields to group by.
+	// Fields to group by.
+	GroupByFields []*string `json:"groupByFields,omitempty" tf:"group_by_fields,omitempty"`
+
+	// by value are ignored by the rule. When true, events with missing group-by fields are processed with N/A, replacing the missing values.
+	// When false, events without a group-by value are ignored by the rule. When true, events with missing group-by fields are processed with `N/A`, replacing the missing values.
+	HasOptionalGroupByFields *bool `json:"hasOptionalGroupByFields,omitempty" tf:"has_optional_group_by_fields,omitempty"`
+
+	// (String, Deprecated) The target field to aggregate over when using the sum, max, or geo_data aggregations. Deprecated. Configure metrics instead. This attribute will be removed in the next major version of the provider.
+	// The target field to aggregate over when using the `sum`, `max`, or `geo_data` aggregations. **Deprecated.** Configure `metrics` instead. This attribute will be removed in the next major version of the provider.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (List of String) Group of target fields to aggregate over when using the sum, max, geo_data, or new_value aggregations. The sum, max, and geo_data aggregations only accept one value in this list, whereas the new_value aggregation accepts up to five values.
+	// Group of target fields to aggregate over when using the `sum`, `max`, `geo_data`, or `new_value` aggregations. The `sum`, `max`, and `geo_data` aggregations only accept one value in this list, whereas the `new_value` aggregation accepts up to five values.
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	// (String) Name of the query. Not compatible with new_value aggregations.
+	// Name of the query. Not compatible with `new_value` aggregations.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
+	// Query to run on logs.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type QueryParameters struct {
+
+	// (Block List, Deprecated) Deprecated. It won't be applied anymore. Deprecated. agent_rule has been deprecated in favor of new Agent Rule resource. (see below for nested schema)
+	// **Deprecated**. It won't be applied anymore. **Deprecated.** `agent_rule` has been deprecated in favor of new Agent Rule resource.
+	// +kubebuilder:validation:Optional
+	AgentRule []AgentRuleParameters `json:"agentRule,omitempty" tf:"agent_rule,omitempty"`
+
+	// (String) The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are count, cardinality, sum, max, new_value, geo_data, event_count, none.
+	// The aggregation type. For Signal Correlation rules, it must be event_count. Valid values are `count`, `cardinality`, `sum`, `max`, `new_value`, `geo_data`, `event_count`, `none`.
+	// +kubebuilder:validation:Optional
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) Query extension to append to the logs query.
+	// Query extension to append to the logs query.
+	// +kubebuilder:validation:Optional
+	CustomQueryExtension *string `json:"customQueryExtension,omitempty" tf:"custom_query_extension,omitempty"`
+
+	// (String) Source of events. Valid values are logs, audit, app_sec_spans, spans, security_runtime, network, events.
+	// Source of events. Valid values are `logs`, `audit`, `app_sec_spans`, `spans`, `security_runtime`, `network`, `events`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (List of String) Field for which the cardinality is measured. Sent as an array.
+	// Field for which the cardinality is measured. Sent as an array.
+	// +kubebuilder:validation:Optional
+	DistinctFields []*string `json:"distinctFields,omitempty" tf:"distinct_fields,omitempty"`
+
+	// (List of String) Fields to group by.
+	// Fields to group by.
+	// +kubebuilder:validation:Optional
+	GroupByFields []*string `json:"groupByFields,omitempty" tf:"group_by_fields,omitempty"`
+
+	// by value are ignored by the rule. When true, events with missing group-by fields are processed with N/A, replacing the missing values.
+	// When false, events without a group-by value are ignored by the rule. When true, events with missing group-by fields are processed with `N/A`, replacing the missing values.
+	// +kubebuilder:validation:Optional
+	HasOptionalGroupByFields *bool `json:"hasOptionalGroupByFields,omitempty" tf:"has_optional_group_by_fields,omitempty"`
+
+	// (String, Deprecated) The target field to aggregate over when using the sum, max, or geo_data aggregations. Deprecated. Configure metrics instead. This attribute will be removed in the next major version of the provider.
+	// The target field to aggregate over when using the `sum`, `max`, or `geo_data` aggregations. **Deprecated.** Configure `metrics` instead. This attribute will be removed in the next major version of the provider.
+	// +kubebuilder:validation:Optional
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (List of String) Group of target fields to aggregate over when using the sum, max, geo_data, or new_value aggregations. The sum, max, and geo_data aggregations only accept one value in this list, whereas the new_value aggregation accepts up to five values.
+	// Group of target fields to aggregate over when using the `sum`, `max`, `geo_data`, or `new_value` aggregations. The `sum`, `max`, and `geo_data` aggregations only accept one value in this list, whereas the `new_value` aggregation accepts up to five values.
+	// +kubebuilder:validation:Optional
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	// (String) Name of the query. Not compatible with new_value aggregations.
+	// Name of the query. Not compatible with `new_value` aggregations.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List) Queries for selecting logs which are part of the rule. (see below for nested schema)
+	// Query to run on logs.
+	// +kubebuilder:validation:Optional
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
 }
 
 // DefaultRuleSpec defines the desired state of DefaultRule

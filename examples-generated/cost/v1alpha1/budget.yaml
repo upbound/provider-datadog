@@ -1,0 +1,29 @@
+apiVersion: cost.upbound.io/v1alpha1
+kind: Budget
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cost/v1alpha1/budget
+  labels:
+    testing.upbound.io/example-name: with_tags
+  name: with-tags
+spec:
+  forProvider:
+    budgetLine:
+    - amounts:
+        "202601": 2000
+        "202602": 2200
+        "202603": 2000
+      tagFilters:
+      - tagKey: environment
+        tagValue: production
+    - amounts:
+        "202601": 1000
+        "202602": 1100
+        "202603": 1000
+      tagFilters:
+      - tagKey: environment
+        tagValue: staging
+    endMonth: 202603
+    metricsQuery: sum:aws.cost.amortized{*} by {environment}
+    name: Multi-Environment Budget
+    startMonth: 202601
