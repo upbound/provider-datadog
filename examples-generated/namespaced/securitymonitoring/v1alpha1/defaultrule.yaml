@@ -1,0 +1,16 @@
+apiVersion: securitymonitoring.datadog.m.upbound.io/v1alpha1
+kind: DefaultRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: securitymonitoring/v1alpha1/defaultrule
+  labels:
+    testing.upbound.io/example-name: adefaultrule
+  name: adefaultrule
+  namespace: crossplane-system
+spec:
+  forProvider:
+    case:
+    - notifications:
+      - '@me'
+      status: high
+    enabled: true

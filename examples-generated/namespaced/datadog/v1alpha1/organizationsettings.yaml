@@ -1,0 +1,12 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: OrganizationSettings
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/organizationsettings
+  labels:
+    testing.upbound.io/example-name: organization
+  name: organization
+  namespace: crossplane-system
+spec:
+  forProvider:
+    name: foo-organization

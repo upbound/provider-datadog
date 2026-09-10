@@ -1,0 +1,18 @@
+apiVersion: integration.datadog.m.upbound.io/v1alpha1
+kind: ConfluentAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/confluentaccount
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: crossplane-system
+spec:
+  forProvider:
+    apiKey: TESTAPIKEY123
+    apiSecretSecretRef:
+      key: example-key
+      name: example-secret
+    tags:
+    - mytag
+    - mytag2:myvalue

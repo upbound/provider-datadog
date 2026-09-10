@@ -1,0 +1,16 @@
+apiVersion: metric.datadog.m.upbound.io/v1alpha1
+kind: Metadata
+metadata:
+  annotations:
+    meta.upbound.io/example-id: metric/v1alpha1/metadata
+  labels:
+    testing.upbound.io/example-name: request_time
+  name: request-time
+  namespace: crossplane-system
+spec:
+  forProvider:
+    description: 99th percentile request time in milliseconds
+    metric: request.time
+    shortName: Request time
+    type: gauge
+    unit: millisecond
