@@ -1,0 +1,14 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/team
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: crossplane-system
+spec:
+  forProvider:
+    description: Team description
+    handle: example-team
+    name: Example Team

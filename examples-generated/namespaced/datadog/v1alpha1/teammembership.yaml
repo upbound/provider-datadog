@@ -1,0 +1,46 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: TeamMembership
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/teammembership
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: crossplane-system
+spec:
+  forProvider:
+    role: admin
+    teamId: ${datadog_team.foo.id}
+    userId: ${datadog_user.foo.id}
+
+---
+
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/teammembership
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: crossplane-system
+spec:
+  forProvider:
+    description: Example team
+    handle: example-team-updated
+    name: Example Team-updated
+
+---
+
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/teammembership
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: crossplane-system
+spec:
+  forProvider:
+    email: new@example.com

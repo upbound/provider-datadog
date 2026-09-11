@@ -1,0 +1,12 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: ChildOrganization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/childorganization
+  labels:
+    testing.upbound.io/example-name: organization
+  name: organization
+  namespace: crossplane-system
+spec:
+  forProvider:
+    name: foo-organization

@@ -1,0 +1,11 @@
+apiVersion: datadog.m.upbound.io/v1beta1
+kind: ClusterProviderConfig
+metadata:
+  name: default
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: datadog-creds
+      namespace: crossplane-system
+      key: credentials

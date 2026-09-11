@@ -1,0 +1,16 @@
+apiVersion: integration.datadog.m.upbound.io/v1alpha1
+kind: OpsgenieServiceObject
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/opsgenieserviceobject
+  labels:
+    testing.upbound.io/example-name: fake_service_name
+  name: fake-service-name
+  namespace: crossplane-system
+spec:
+  forProvider:
+    name: fake_service_name
+    opsgenieApiKeySecretRef:
+      key: example-key
+      name: example-secret
+    region: us

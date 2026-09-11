@@ -1,0 +1,12 @@
+apiVersion: logs.datadog.m.upbound.io/v1alpha1
+kind: IntegrationPipeline
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logs/v1alpha1/integrationpipeline
+  labels:
+    testing.upbound.io/example-name: python
+  name: python
+  namespace: crossplane-system
+spec:
+  forProvider:
+    isEnabled: true

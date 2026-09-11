@@ -1,0 +1,12 @@
+apiVersion: synthetics.datadog.m.upbound.io/v1alpha1
+kind: ConcurrencyCap
+metadata:
+  annotations:
+    meta.upbound.io/example-id: synthetics/v1alpha1/concurrencycap
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: crossplane-system
+spec:
+  forProvider:
+    onDemandConcurrencyCap: 1
