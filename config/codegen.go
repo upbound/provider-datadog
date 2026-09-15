@@ -30,6 +30,11 @@ var codegenConfigurators = map[string]ujconfig.ResourceConfiguratorFn{
 			Schema["rum_settings"].Elem.(*schema.Resource).
 			Schema["client_token_id"].Sensitive = false
 	},
+	// Write-only attributes never reach the Terraform state, so a CRD field
+	// for them would persist the secret in the spec for nothing; the classic
+	// attributes keep working.
+	"datadog_integration_fastly_account": withoutWriteOnlyAttribute("api_key"),
+	"datadog_synthetics_global_variable": withoutWriteOnlyAttribute("value"),
 }
 
 func widgetAsJSONString(description string) ujconfig.ResourceConfiguratorFn {
@@ -40,5 +45,12 @@ func widgetAsJSONString(description string) ujconfig.ResourceConfiguratorFn {
 			Optional:    true,
 			Description: desc.String(),
 		}
+	}
+}
+
+func withoutWriteOnlyAttribute(attribute string) ujconfig.ResourceConfiguratorFn {
+	return func(r *ujconfig.Resource) {
+		delete(r.TerraformResource.Schema, attribute+"_wo")
+		delete(r.TerraformResource.Schema, attribute+"_wo_version")
 	}
 }
