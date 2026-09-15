@@ -1,3 +1,7 @@
+/*
+Copyright 2026 Upbound Inc.
+*/
+
 package integration
 
 import "github.com/crossplane/upjet/v2/pkg/config"

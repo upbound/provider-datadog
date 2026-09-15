@@ -12,7 +12,9 @@ spec:
     category: Scheduled Maintenance
     description: correction example
     end: 1735718600
-    sloId: ${datadog_service_level_objective.example_slo.id}
+    sloIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example_slo
     start: 1735707000
     timezone: UTC
 

@@ -1,7 +1,13 @@
+/*
+Copyright 2026 Upbound Inc.
+*/
+
 package downtime
 
 import (
 	"github.com/crossplane/upjet/v2/pkg/config"
+
+	"github.com/upbound/provider-datadog/config/common"
 )
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
@@ -16,8 +22,6 @@ func Configure(p *config.Provider) {
 		// this resource, which would be "datadog"
 		r.Kind = "DowntimeSchedule"
 		r.ShortGroup = "datadog"
-		r.SchemaElementOptions.SetEmbeddedObject("monitor_identifier")
-		r.SchemaElementOptions.SetEmbeddedObject("one_time_schedule")
-		r.SchemaElementOptions.SetEmbeddedObject("recurring_schedule")
+		common.EmbedSingleNestedBlocks(r, "monitor_identifier", "one_time_schedule", "recurring_schedule")
 	})
 }

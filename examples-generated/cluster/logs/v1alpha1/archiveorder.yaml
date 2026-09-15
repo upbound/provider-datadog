@@ -8,6 +8,6 @@ metadata:
   name: sample-archive-order
 spec:
   forProvider:
-    archiveIds:
-    - ${datadog_logs_archive.sample_archive_1.id}
-    - ${datadog_logs_archive.sample_archive_2.id}
+    archiveIdsRefs:
+    - name: sample_archive_1
+    - name: sample_archive_2

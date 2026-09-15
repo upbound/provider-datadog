@@ -73,35 +73,33 @@ spec:
                     description: |-
                       (Block List, Min: 1, Max: 1) Configuration options for what is shown in an alert event message. (see below for nested schema)
                       Configuration options for what is shown in an alert event message.
-                    items:
-                      properties:
-                        message:
-                          description: |-
-                            (Boolean) Show the main body of the alert event. Defaults to true.
-                            Show the main body of the alert event. Defaults to `true`.
-                          type: boolean
-                        muteButtons:
-                          description: |-
-                            (Boolean) Show interactive buttons to mute the alerting monitor. Defaults to true.
-                            Show interactive buttons to mute the alerting monitor. Defaults to `true`.
-                          type: boolean
-                        notified:
-                          description: |-
-                            handles in the alert event. Defaults to true.
-                            Show the list of @-handles in the alert event. Defaults to `true`.
-                          type: boolean
-                        snapshot:
-                          description: |-
-                            (Boolean) Show the alert event's snapshot image. Defaults to true.
-                            Show the alert event's snapshot image. Defaults to `true`.
-                          type: boolean
-                        tags:
-                          description: |-
-                            (Boolean) Show the scopes on which the monitor alerted. Defaults to true.
-                            Show the scopes on which the monitor alerted. Defaults to `true`.
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      message:
+                        description: |-
+                          (Boolean) Show the main body of the alert event. Defaults to true.
+                          Show the main body of the alert event. Defaults to `true`.
+                        type: boolean
+                      muteButtons:
+                        description: |-
+                          (Boolean) Show interactive buttons to mute the alerting monitor. Defaults to true.
+                          Show interactive buttons to mute the alerting monitor. Defaults to `true`.
+                        type: boolean
+                      notified:
+                        description: |-
+                          handles in the alert event. Defaults to true.
+                          Show the list of @-handles in the alert event. Defaults to `true`.
+                        type: boolean
+                      snapshot:
+                        description: |-
+                          (Boolean) Show the alert event's snapshot image. Defaults to true.
+                          Show the alert event's snapshot image. Defaults to `true`.
+                        type: boolean
+                      tags:
+                        description: |-
+                          (Boolean) Show the scopes on which the monitor alerted. Defaults to true.
+                          Show the scopes on which the monitor alerted. Defaults to `true`.
+                        type: boolean
+                    type: object
                 type: object
               initProvider:
                 description: |-
@@ -130,35 +128,33 @@ spec:
                     description: |-
                       (Block List, Min: 1, Max: 1) Configuration options for what is shown in an alert event message. (see below for nested schema)
                       Configuration options for what is shown in an alert event message.
-                    items:
-                      properties:
-                        message:
-                          description: |-
-                            (Boolean) Show the main body of the alert event. Defaults to true.
-                            Show the main body of the alert event. Defaults to `true`.
-                          type: boolean
-                        muteButtons:
-                          description: |-
-                            (Boolean) Show interactive buttons to mute the alerting monitor. Defaults to true.
-                            Show interactive buttons to mute the alerting monitor. Defaults to `true`.
-                          type: boolean
-                        notified:
-                          description: |-
-                            handles in the alert event. Defaults to true.
-                            Show the list of @-handles in the alert event. Defaults to `true`.
-                          type: boolean
-                        snapshot:
-                          description: |-
-                            (Boolean) Show the alert event's snapshot image. Defaults to true.
-                            Show the alert event's snapshot image. Defaults to `true`.
-                          type: boolean
-                        tags:
-                          description: |-
-                            (Boolean) Show the scopes on which the monitor alerted. Defaults to true.
-                            Show the scopes on which the monitor alerted. Defaults to `true`.
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      message:
+                        description: |-
+                          (Boolean) Show the main body of the alert event. Defaults to true.
+                          Show the main body of the alert event. Defaults to `true`.
+                        type: boolean
+                      muteButtons:
+                        description: |-
+                          (Boolean) Show interactive buttons to mute the alerting monitor. Defaults to true.
+                          Show interactive buttons to mute the alerting monitor. Defaults to `true`.
+                        type: boolean
+                      notified:
+                        description: |-
+                          handles in the alert event. Defaults to true.
+                          Show the list of @-handles in the alert event. Defaults to `true`.
+                        type: boolean
+                      snapshot:
+                        description: |-
+                          (Boolean) Show the alert event's snapshot image. Defaults to true.
+                          Show the alert event's snapshot image. Defaults to `true`.
+                        type: boolean
+                      tags:
+                        description: |-
+                          (Boolean) Show the scopes on which the monitor alerted. Defaults to true.
+                          Show the scopes on which the monitor alerted. Defaults to `true`.
+                        type: boolean
+                    type: object
                 type: object
               managementPolicies:
                 default:
@@ -250,35 +246,33 @@ spec:
                     description: |-
                       (Block List, Min: 1, Max: 1) Configuration options for what is shown in an alert event message. (see below for nested schema)
                       Configuration options for what is shown in an alert event message.
-                    items:
-                      properties:
-                        message:
-                          description: |-
-                            (Boolean) Show the main body of the alert event. Defaults to true.
-                            Show the main body of the alert event. Defaults to `true`.
-                          type: boolean
-                        muteButtons:
-                          description: |-
-                            (Boolean) Show interactive buttons to mute the alerting monitor. Defaults to true.
-                            Show interactive buttons to mute the alerting monitor. Defaults to `true`.
-                          type: boolean
-                        notified:
-                          description: |-
-                            handles in the alert event. Defaults to true.
-                            Show the list of @-handles in the alert event. Defaults to `true`.
-                          type: boolean
-                        snapshot:
-                          description: |-
-                            (Boolean) Show the alert event's snapshot image. Defaults to true.
-                            Show the alert event's snapshot image. Defaults to `true`.
-                          type: boolean
-                        tags:
-                          description: |-
-                            (Boolean) Show the scopes on which the monitor alerted. Defaults to true.
-                            Show the scopes on which the monitor alerted. Defaults to `true`.
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      message:
+                        description: |-
+                          (Boolean) Show the main body of the alert event. Defaults to true.
+                          Show the main body of the alert event. Defaults to `true`.
+                        type: boolean
+                      muteButtons:
+                        description: |-
+                          (Boolean) Show interactive buttons to mute the alerting monitor. Defaults to true.
+                          Show interactive buttons to mute the alerting monitor. Defaults to `true`.
+                        type: boolean
+                      notified:
+                        description: |-
+                          handles in the alert event. Defaults to true.
+                          Show the list of @-handles in the alert event. Defaults to `true`.
+                        type: boolean
+                      snapshot:
+                        description: |-
+                          (Boolean) Show the alert event's snapshot image. Defaults to true.
+                          Show the alert event's snapshot image. Defaults to `true`.
+                        type: boolean
+                      tags:
+                        description: |-
+                          (Boolean) Show the scopes on which the monitor alerted. Defaults to true.
+                          Show the scopes on which the monitor alerted. Defaults to `true`.
+                        type: boolean
+                    type: object
                   id:
                     description: (String) The ID of this resource.
                     type: string

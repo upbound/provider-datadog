@@ -2,7 +2,7 @@
 // +build generate
 
 /*
-Copyright 2021 Upbound Inc.
+Copyright 2026 Upbound Inc.
 */
 
 // NOTE: See the below link for details on what is happening here.
@@ -30,10 +30,18 @@ Copyright 2021 Upbound Inc.
 // Generate crossplane-runtime methodsets (resource.Claim, etc)
 //go:generate go run -tags generate github.com/crossplane/crossplane-tools/cmd/angryjet generate-methodsets --header-file=../hack/boilerplate.go.txt ./...
 
+// Transform the generated cross-resource reference resolvers to look the
+// referenced kinds up through the resolver runtime scheme instead of importing
+// their API packages, which would create import cycles.
+//go:generate go run github.com/crossplane/upjet/v2/cmd/resolver -g datadog.upbound.io -a github.com/upbound/provider-datadog/internal/apis -o datadog.datadog.upbound.io=datadog.upbound.io -s -p ./cluster/...
+//go:generate go run github.com/crossplane/upjet/v2/cmd/resolver -g datadog.m.upbound.io -a github.com/upbound/provider-datadog/internal/apis -o datadog.datadog.m.upbound.io=datadog.m.upbound.io -s -p ./namespaced/...
+
 package apis
 
 import (
 	_ "sigs.k8s.io/controller-tools/cmd/controller-gen" //nolint:typecheck
 
 	_ "github.com/crossplane/crossplane-tools/cmd/angryjet" //nolint:typecheck
+	_ "github.com/crossplane/upjet/v2/cmd/resolver"         //nolint:typecheck
+	_ "github.com/crossplane/upjet/v2/cmd/scraper"          //nolint:typecheck
 )

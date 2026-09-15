@@ -82,15 +82,13 @@ spec:
                     description: |-
                       (Block List, Min: 1, Max: 1) Filter object the scanning group applies. (see below for nested schema)
                       Filter object the scanning group applies.
-                    items:
-                      properties:
-                        query:
-                          description: |-
-                            (String) Query to filter the events.
-                            Query to filter the events.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      query:
+                        description: |-
+                          (String) Query to filter the events.
+                          Query to filter the events.
+                        type: string
+                    type: object
                   isEnabled:
                     description: |-
                       disabled by our backend
@@ -150,15 +148,13 @@ spec:
                     description: |-
                       (Block List, Min: 1, Max: 1) Filter object the scanning group applies. (see below for nested schema)
                       Filter object the scanning group applies.
-                    items:
-                      properties:
-                        query:
-                          description: |-
-                            (String) Query to filter the events.
-                            Query to filter the events.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      query:
+                        description: |-
+                          (String) Query to filter the events.
+                          Query to filter the events.
+                        type: string
+                    type: object
                   isEnabled:
                     description: |-
                       disabled by our backend
@@ -313,15 +309,13 @@ spec:
                     description: |-
                       (Block List, Min: 1, Max: 1) Filter object the scanning group applies. (see below for nested schema)
                       Filter object the scanning group applies.
-                    items:
-                      properties:
-                        query:
-                          description: |-
-                            (String) Query to filter the events.
-                            Query to filter the events.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      query:
+                        description: |-
+                          (String) Query to filter the events.
+                          Query to filter the events.
+                        type: string
+                    type: object
                   id:
                     description: (String) The ID of this resource.
                     type: string

@@ -82,20 +82,18 @@ spec:
                     description: |-
                       (Block List, Max: 1) Object containing options to override the default daily limit reset time. (see below for nested schema)
                       Object containing options to override the default daily limit reset time.
-                    items:
-                      properties:
-                        resetTime:
-                          description: |-
-                            (String) String in HH:00 format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
-                            String in `HH:00` format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
-                          type: string
-                        resetUtcOffset:
-                          description: |-
-                            |+)HH:00 format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
-                            String in `(-|+)HH:00` format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      resetTime:
+                        description: |-
+                          (String) String in HH:00 format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
+                          String in `HH:00` format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
+                        type: string
+                      resetUtcOffset:
+                        description: |-
+                          |+)HH:00 format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
+                          String in `(-|+)HH:00` format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
+                        type: string
+                    type: object
                   dailyLimitWarningThresholdPercentage:
                     description: |-
                       (Number) A percentage threshold of the daily quota at which a Datadog warning event is generated.
@@ -150,15 +148,13 @@ spec:
                     description: |-
                       (Block List, Min: 1, Max: 1) Logs filter (see below for nested schema)
                       Logs filter
-                    items:
-                      properties:
-                        query:
-                          description: |-
-                            (String) Logs filter criteria. Only logs matching this filter criteria are considered for this index.
-                            Logs filter criteria. Only logs matching this filter criteria are considered for this index.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      query:
+                        description: |-
+                          (String) Logs filter criteria. Only logs matching this filter criteria are considered for this index.
+                          Logs filter criteria. Only logs matching this filter criteria are considered for this index.
+                        type: string
+                    type: object
                   flexRetentionDays:
                     description: |-
                       (Number) The total number of days logs are stored in Standard and Flex Tier before being deleted from the index.
@@ -205,20 +201,18 @@ spec:
                     description: |-
                       (Block List, Max: 1) Object containing options to override the default daily limit reset time. (see below for nested schema)
                       Object containing options to override the default daily limit reset time.
-                    items:
-                      properties:
-                        resetTime:
-                          description: |-
-                            (String) String in HH:00 format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
-                            String in `HH:00` format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
-                          type: string
-                        resetUtcOffset:
-                          description: |-
-                            |+)HH:00 format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
-                            String in `(-|+)HH:00` format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      resetTime:
+                        description: |-
+                          (String) String in HH:00 format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
+                          String in `HH:00` format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
+                        type: string
+                      resetUtcOffset:
+                        description: |-
+                          |+)HH:00 format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
+                          String in `(-|+)HH:00` format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
+                        type: string
+                    type: object
                   dailyLimitWarningThresholdPercentage:
                     description: |-
                       (Number) A percentage threshold of the daily quota at which a Datadog warning event is generated.
@@ -273,15 +267,13 @@ spec:
                     description: |-
                       (Block List, Min: 1, Max: 1) Logs filter (see below for nested schema)
                       Logs filter
-                    items:
-                      properties:
-                        query:
-                          description: |-
-                            (String) Logs filter criteria. Only logs matching this filter criteria are considered for this index.
-                            Logs filter criteria. Only logs matching this filter criteria are considered for this index.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      query:
+                        description: |-
+                          (String) Logs filter criteria. Only logs matching this filter criteria are considered for this index.
+                          Logs filter criteria. Only logs matching this filter criteria are considered for this index.
+                        type: string
+                    type: object
                   flexRetentionDays:
                     description: |-
                       (Number) The total number of days logs are stored in Standard and Flex Tier before being deleted from the index.
@@ -415,20 +407,18 @@ spec:
                     description: |-
                       (Block List, Max: 1) Object containing options to override the default daily limit reset time. (see below for nested schema)
                       Object containing options to override the default daily limit reset time.
-                    items:
-                      properties:
-                        resetTime:
-                          description: |-
-                            (String) String in HH:00 format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
-                            String in `HH:00` format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
-                          type: string
-                        resetUtcOffset:
-                          description: |-
-                            |+)HH:00 format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
-                            String in `(-|+)HH:00` format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      resetTime:
+                        description: |-
+                          (String) String in HH:00 format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
+                          String in `HH:00` format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
+                        type: string
+                      resetUtcOffset:
+                        description: |-
+                          |+)HH:00 format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
+                          String in `(-|+)HH:00` format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
+                        type: string
+                    type: object
                   dailyLimitWarningThresholdPercentage:
                     description: |-
                       (Number) A percentage threshold of the daily quota at which a Datadog warning event is generated.
@@ -483,15 +473,13 @@ spec:
                     description: |-
                       (Block List, Min: 1, Max: 1) Logs filter (see below for nested schema)
                       Logs filter
-                    items:
-                      properties:
-                        query:
-                          description: |-
-                            (String) Logs filter criteria. Only logs matching this filter criteria are considered for this index.
-                            Logs filter criteria. Only logs matching this filter criteria are considered for this index.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      query:
+                        description: |-
+                          (String) Logs filter criteria. Only logs matching this filter criteria are considered for this index.
+                          Logs filter criteria. Only logs matching this filter criteria are considered for this index.
+                        type: string
+                    type: object
                   flexRetentionDays:
                     description: |-
                       (Number) The total number of days logs are stored in Standard and Flex Tier before being deleted from the index.

@@ -90,79 +90,69 @@ spec:
                     description: |-
                       (Block List, Max: 1) Organization settings (see below for nested schema)
                       Organization settings
-                    items:
-                      properties:
-                        privateWidgetShare:
-                          description: |-
-                            (Boolean) Whether or not the organization users can share widgets outside of Datadog. Defaults to false.
-                            Whether or not the organization users can share widgets outside of Datadog. Defaults to `false`.
-                          type: boolean
-                        saml:
-                          description: |-
-                            (Block List, Min: 1, Max: 1) SAML properties (see below for nested schema)
-                            SAML properties
-                          items:
-                            properties:
-                              enabled:
-                                description: |-
-                                  (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
-                                  Whether or not SAML is enabled for this organization. Defaults to `false`.
-                                type: boolean
-                            type: object
-                          type: array
-                        samlAutocreateAccessRole:
-                          description: |-
-                            only user). Allowed enum values: st, adm, ro, ERROR. When omitted, the current value is left unchanged.
-                            The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm`, `ro`, `ERROR`. When omitted, the current value is left unchanged.
-                          type: string
-                        samlAutocreateUsersDomains:
-                          description: |-
-                            (Block List, Min: 1, Max: 1) List of domains where the SAML automated user creation is enabled. (see below for nested schema)
-                            List of domains where the SAML automated user creation is enabled.
-                          items:
-                            properties:
-                              domains:
-                                description: |-
-                                  (List of String) List of domains where the SAML automated user creation is enabled.
-                                  List of domains where the SAML automated user creation is enabled.
-                                items:
-                                  type: string
-                                type: array
-                              enabled:
-                                description: |-
-                                  (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
-                                  Whether or not the automated user creation based on SAML domain is enabled. Defaults to `false`.
-                                type: boolean
-                            type: object
-                          type: array
-                        samlIdpInitiatedLogin:
-                          description: |-
-                            (Block List, Min: 1, Max: 1) Whether or not a SAML identity provider metadata file was provided to the Datadog organization. (see below for nested schema)
-                            Whether or not a SAML identity provider metadata file was provided to the Datadog organization.
-                          items:
-                            properties:
-                              enabled:
-                                description: |-
-                                  (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
-                                  Whether or not a SAML identity provider metadata file was provided to the Datadog organization. Defaults to `false`.
-                                type: boolean
-                            type: object
-                          type: array
-                        samlStrictMode:
-                          description: |-
-                            (Block List, Min: 1, Max: 1) Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML. (see below for nested schema)
-                            Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML.
-                          items:
-                            properties:
-                              enabled:
-                                description: |-
-                                  (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
-                                  Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML. Defaults to `false`.
-                                type: boolean
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      privateWidgetShare:
+                        description: |-
+                          (Boolean) Whether or not the organization users can share widgets outside of Datadog. Defaults to false.
+                          Whether or not the organization users can share widgets outside of Datadog. Defaults to `false`.
+                        type: boolean
+                      saml:
+                        description: |-
+                          (Block List, Min: 1, Max: 1) SAML properties (see below for nested schema)
+                          SAML properties
+                        properties:
+                          enabled:
+                            description: |-
+                              (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
+                              Whether or not SAML is enabled for this organization. Defaults to `false`.
+                            type: boolean
+                        type: object
+                      samlAutocreateAccessRole:
+                        description: |-
+                          only user). Allowed enum values: st, adm, ro, ERROR. When omitted, the current value is left unchanged.
+                          The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm`, `ro`, `ERROR`. When omitted, the current value is left unchanged.
+                        type: string
+                      samlAutocreateUsersDomains:
+                        description: |-
+                          (Block List, Min: 1, Max: 1) List of domains where the SAML automated user creation is enabled. (see below for nested schema)
+                          List of domains where the SAML automated user creation is enabled.
+                        properties:
+                          domains:
+                            description: |-
+                              (List of String) List of domains where the SAML automated user creation is enabled.
+                              List of domains where the SAML automated user creation is enabled.
+                            items:
+                              type: string
+                            type: array
+                          enabled:
+                            description: |-
+                              (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
+                              Whether or not the automated user creation based on SAML domain is enabled. Defaults to `false`.
+                            type: boolean
+                        type: object
+                      samlIdpInitiatedLogin:
+                        description: |-
+                          (Block List, Min: 1, Max: 1) Whether or not a SAML identity provider metadata file was provided to the Datadog organization. (see below for nested schema)
+                          Whether or not a SAML identity provider metadata file was provided to the Datadog organization.
+                        properties:
+                          enabled:
+                            description: |-
+                              (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
+                              Whether or not a SAML identity provider metadata file was provided to the Datadog organization. Defaults to `false`.
+                            type: boolean
+                        type: object
+                      samlStrictMode:
+                        description: |-
+                          (Block List, Min: 1, Max: 1) Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML. (see below for nested schema)
+                          Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML.
+                        properties:
+                          enabled:
+                            description: |-
+                              (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
+                              Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML. Defaults to `false`.
+                            type: boolean
+                        type: object
+                    type: object
                 type: object
               initProvider:
                 description: |-
@@ -193,79 +183,69 @@ spec:
                     description: |-
                       (Block List, Max: 1) Organization settings (see below for nested schema)
                       Organization settings
-                    items:
-                      properties:
-                        privateWidgetShare:
-                          description: |-
-                            (Boolean) Whether or not the organization users can share widgets outside of Datadog. Defaults to false.
-                            Whether or not the organization users can share widgets outside of Datadog. Defaults to `false`.
-                          type: boolean
-                        saml:
-                          description: |-
-                            (Block List, Min: 1, Max: 1) SAML properties (see below for nested schema)
-                            SAML properties
-                          items:
-                            properties:
-                              enabled:
-                                description: |-
-                                  (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
-                                  Whether or not SAML is enabled for this organization. Defaults to `false`.
-                                type: boolean
-                            type: object
-                          type: array
-                        samlAutocreateAccessRole:
-                          description: |-
-                            only user). Allowed enum values: st, adm, ro, ERROR. When omitted, the current value is left unchanged.
-                            The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm`, `ro`, `ERROR`. When omitted, the current value is left unchanged.
-                          type: string
-                        samlAutocreateUsersDomains:
-                          description: |-
-                            (Block List, Min: 1, Max: 1) List of domains where the SAML automated user creation is enabled. (see below for nested schema)
-                            List of domains where the SAML automated user creation is enabled.
-                          items:
-                            properties:
-                              domains:
-                                description: |-
-                                  (List of String) List of domains where the SAML automated user creation is enabled.
-                                  List of domains where the SAML automated user creation is enabled.
-                                items:
-                                  type: string
-                                type: array
-                              enabled:
-                                description: |-
-                                  (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
-                                  Whether or not the automated user creation based on SAML domain is enabled. Defaults to `false`.
-                                type: boolean
-                            type: object
-                          type: array
-                        samlIdpInitiatedLogin:
-                          description: |-
-                            (Block List, Min: 1, Max: 1) Whether or not a SAML identity provider metadata file was provided to the Datadog organization. (see below for nested schema)
-                            Whether or not a SAML identity provider metadata file was provided to the Datadog organization.
-                          items:
-                            properties:
-                              enabled:
-                                description: |-
-                                  (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
-                                  Whether or not a SAML identity provider metadata file was provided to the Datadog organization. Defaults to `false`.
-                                type: boolean
-                            type: object
-                          type: array
-                        samlStrictMode:
-                          description: |-
-                            (Block List, Min: 1, Max: 1) Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML. (see below for nested schema)
-                            Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML.
-                          items:
-                            properties:
-                              enabled:
-                                description: |-
-                                  (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
-                                  Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML. Defaults to `false`.
-                                type: boolean
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      privateWidgetShare:
+                        description: |-
+                          (Boolean) Whether or not the organization users can share widgets outside of Datadog. Defaults to false.
+                          Whether or not the organization users can share widgets outside of Datadog. Defaults to `false`.
+                        type: boolean
+                      saml:
+                        description: |-
+                          (Block List, Min: 1, Max: 1) SAML properties (see below for nested schema)
+                          SAML properties
+                        properties:
+                          enabled:
+                            description: |-
+                              (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
+                              Whether or not SAML is enabled for this organization. Defaults to `false`.
+                            type: boolean
+                        type: object
+                      samlAutocreateAccessRole:
+                        description: |-
+                          only user). Allowed enum values: st, adm, ro, ERROR. When omitted, the current value is left unchanged.
+                          The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm`, `ro`, `ERROR`. When omitted, the current value is left unchanged.
+                        type: string
+                      samlAutocreateUsersDomains:
+                        description: |-
+                          (Block List, Min: 1, Max: 1) List of domains where the SAML automated user creation is enabled. (see below for nested schema)
+                          List of domains where the SAML automated user creation is enabled.
+                        properties:
+                          domains:
+                            description: |-
+                              (List of String) List of domains where the SAML automated user creation is enabled.
+                              List of domains where the SAML automated user creation is enabled.
+                            items:
+                              type: string
+                            type: array
+                          enabled:
+                            description: |-
+                              (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
+                              Whether or not the automated user creation based on SAML domain is enabled. Defaults to `false`.
+                            type: boolean
+                        type: object
+                      samlIdpInitiatedLogin:
+                        description: |-
+                          (Block List, Min: 1, Max: 1) Whether or not a SAML identity provider metadata file was provided to the Datadog organization. (see below for nested schema)
+                          Whether or not a SAML identity provider metadata file was provided to the Datadog organization.
+                        properties:
+                          enabled:
+                            description: |-
+                              (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
+                              Whether or not a SAML identity provider metadata file was provided to the Datadog organization. Defaults to `false`.
+                            type: boolean
+                        type: object
+                      samlStrictMode:
+                        description: |-
+                          (Block List, Min: 1, Max: 1) Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML. (see below for nested schema)
+                          Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML.
+                        properties:
+                          enabled:
+                            description: |-
+                              (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
+                              Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML. Defaults to `false`.
+                            type: boolean
+                        type: object
+                    type: object
                 type: object
               managementPolicies:
                 default:
@@ -388,99 +368,89 @@ spec:
                     description: |-
                       (Block List, Max: 1) Organization settings (see below for nested schema)
                       Organization settings
-                    items:
-                      properties:
-                        privateWidgetShare:
-                          description: |-
-                            (Boolean) Whether or not the organization users can share widgets outside of Datadog. Defaults to false.
-                            Whether or not the organization users can share widgets outside of Datadog. Defaults to `false`.
-                          type: boolean
-                        saml:
-                          description: |-
-                            (Block List, Min: 1, Max: 1) SAML properties (see below for nested schema)
-                            SAML properties
-                          items:
-                            properties:
-                              enabled:
-                                description: |-
-                                  (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
-                                  Whether or not SAML is enabled for this organization. Defaults to `false`.
-                                type: boolean
-                            type: object
-                          type: array
-                        samlAutocreateAccessRole:
-                          description: |-
-                            only user). Allowed enum values: st, adm, ro, ERROR. When omitted, the current value is left unchanged.
-                            The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm`, `ro`, `ERROR`. When omitted, the current value is left unchanged.
-                          type: string
-                        samlAutocreateUsersDomains:
-                          description: |-
-                            (Block List, Min: 1, Max: 1) List of domains where the SAML automated user creation is enabled. (see below for nested schema)
-                            List of domains where the SAML automated user creation is enabled.
-                          items:
-                            properties:
-                              domains:
-                                description: |-
-                                  (List of String) List of domains where the SAML automated user creation is enabled.
-                                  List of domains where the SAML automated user creation is enabled.
-                                items:
-                                  type: string
-                                type: array
-                              enabled:
-                                description: |-
-                                  (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
-                                  Whether or not the automated user creation based on SAML domain is enabled. Defaults to `false`.
-                                type: boolean
-                            type: object
-                          type: array
-                        samlCanBeEnabled:
-                          description: |-
-                            (Boolean) Whether or not SAML can be enabled for this organization.
-                            Whether or not SAML can be enabled for this organization.
-                          type: boolean
-                        samlIdpEndpoint:
-                          description: |-
-                            (String) Identity provider endpoint for SAML authentication.
-                            Identity provider endpoint for SAML authentication.
-                          type: string
-                        samlIdpInitiatedLogin:
-                          description: |-
-                            (Block List, Min: 1, Max: 1) Whether or not a SAML identity provider metadata file was provided to the Datadog organization. (see below for nested schema)
-                            Whether or not a SAML identity provider metadata file was provided to the Datadog organization.
-                          items:
-                            properties:
-                              enabled:
-                                description: |-
-                                  (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
-                                  Whether or not a SAML identity provider metadata file was provided to the Datadog organization. Defaults to `false`.
-                                type: boolean
-                            type: object
-                          type: array
-                        samlIdpMetadataUploaded:
-                          description: |-
-                            (Boolean) Whether or not a SAML identity provider metadata file was provided to the Datadog organization.
-                            Whether or not a SAML identity provider metadata file was provided to the Datadog organization.
-                          type: boolean
-                        samlLoginUrl:
-                          description: |-
-                            (String) URL for SAML logging.
-                            URL for SAML logging.
-                          type: string
-                        samlStrictMode:
-                          description: |-
-                            (Block List, Min: 1, Max: 1) Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML. (see below for nested schema)
-                            Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML.
-                          items:
-                            properties:
-                              enabled:
-                                description: |-
-                                  (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
-                                  Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML. Defaults to `false`.
-                                type: boolean
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      privateWidgetShare:
+                        description: |-
+                          (Boolean) Whether or not the organization users can share widgets outside of Datadog. Defaults to false.
+                          Whether or not the organization users can share widgets outside of Datadog. Defaults to `false`.
+                        type: boolean
+                      saml:
+                        description: |-
+                          (Block List, Min: 1, Max: 1) SAML properties (see below for nested schema)
+                          SAML properties
+                        properties:
+                          enabled:
+                            description: |-
+                              (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
+                              Whether or not SAML is enabled for this organization. Defaults to `false`.
+                            type: boolean
+                        type: object
+                      samlAutocreateAccessRole:
+                        description: |-
+                          only user). Allowed enum values: st, adm, ro, ERROR. When omitted, the current value is left unchanged.
+                          The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm`, `ro`, `ERROR`. When omitted, the current value is left unchanged.
+                        type: string
+                      samlAutocreateUsersDomains:
+                        description: |-
+                          (Block List, Min: 1, Max: 1) List of domains where the SAML automated user creation is enabled. (see below for nested schema)
+                          List of domains where the SAML automated user creation is enabled.
+                        properties:
+                          domains:
+                            description: |-
+                              (List of String) List of domains where the SAML automated user creation is enabled.
+                              List of domains where the SAML automated user creation is enabled.
+                            items:
+                              type: string
+                            type: array
+                          enabled:
+                            description: |-
+                              (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
+                              Whether or not the automated user creation based on SAML domain is enabled. Defaults to `false`.
+                            type: boolean
+                        type: object
+                      samlCanBeEnabled:
+                        description: |-
+                          (Boolean) Whether or not SAML can be enabled for this organization.
+                          Whether or not SAML can be enabled for this organization.
+                        type: boolean
+                      samlIdpEndpoint:
+                        description: |-
+                          (String) Identity provider endpoint for SAML authentication.
+                          Identity provider endpoint for SAML authentication.
+                        type: string
+                      samlIdpInitiatedLogin:
+                        description: |-
+                          (Block List, Min: 1, Max: 1) Whether or not a SAML identity provider metadata file was provided to the Datadog organization. (see below for nested schema)
+                          Whether or not a SAML identity provider metadata file was provided to the Datadog organization.
+                        properties:
+                          enabled:
+                            description: |-
+                              (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
+                              Whether or not a SAML identity provider metadata file was provided to the Datadog organization. Defaults to `false`.
+                            type: boolean
+                        type: object
+                      samlIdpMetadataUploaded:
+                        description: |-
+                          (Boolean) Whether or not a SAML identity provider metadata file was provided to the Datadog organization.
+                          Whether or not a SAML identity provider metadata file was provided to the Datadog organization.
+                        type: boolean
+                      samlLoginUrl:
+                        description: |-
+                          (String) URL for SAML logging.
+                          URL for SAML logging.
+                        type: string
+                      samlStrictMode:
+                        description: |-
+                          (Block List, Min: 1, Max: 1) Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML. (see below for nested schema)
+                          Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML.
+                        properties:
+                          enabled:
+                            description: |-
+                              (Boolean) Whether or not SAML is enabled for this organization. Defaults to false.
+                              Whether or not the SAML strict mode is enabled. If true, all users must log in with SAML. Defaults to `false`.
+                            type: boolean
+                        type: object
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.

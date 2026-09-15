@@ -9,8 +9,8 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    filterIds:
-    - ${datadog_apm_retention_filter.foo.id}
+    filterIdsRefs:
+    - name: foo
 
 ---
 

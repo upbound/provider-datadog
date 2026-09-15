@@ -11,7 +11,9 @@ spec:
   forProvider:
     label: Link label
     position: 0
-    teamId: ${datadog_team.foo.id}
+    teamIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: foo
     url: https://example.com
 
 ---

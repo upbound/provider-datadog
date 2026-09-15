@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Upbound Inc.
+Copyright 2026 Upbound Inc.
 */
 
 package main
