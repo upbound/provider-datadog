@@ -31,7 +31,7 @@ metadata:
   namespace: crossplane-system
 spec:
   forProvider:
-    apiKey: TESTAPIKEY123
+    apiKey: TESTAPIKEY456
     apiSecretSecretRef:
       key: example-key
       name: example-secret

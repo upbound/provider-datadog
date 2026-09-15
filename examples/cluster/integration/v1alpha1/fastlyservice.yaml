@@ -32,4 +32,4 @@ spec:
       key: example-key
       name: example-secret
       namespace: crossplane-system
-    name: test-name
+    name: fastlyservice-test-name

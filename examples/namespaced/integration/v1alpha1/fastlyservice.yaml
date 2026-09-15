@@ -33,4 +33,4 @@ spec:
     apiKeySecretRef:
       key: example-key
       name: example-secret
-    name: test-name
+    name: fastlyservice-test-name
