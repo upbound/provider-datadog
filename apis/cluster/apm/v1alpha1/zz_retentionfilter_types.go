@@ -15,22 +15,22 @@ import (
 
 type FilterInitParameters struct {
 
-	// following the span search syntax. Defaults to "*".
-	// The search query - following the span search syntax. Defaults to `"*"`.
+	// follow the span search syntax, use AND between tags and \ to escape special characters, use nanosecond for duration. Defaults to "*".
+	// The search query - follow the span search syntax, use `AND` between tags and `\` to escape special characters, use nanosecond for duration. Defaults to `"*"`.
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
 }
 
 type FilterObservation struct {
 
-	// following the span search syntax. Defaults to "*".
-	// The search query - following the span search syntax. Defaults to `"*"`.
+	// follow the span search syntax, use AND between tags and \ to escape special characters, use nanosecond for duration. Defaults to "*".
+	// The search query - follow the span search syntax, use `AND` between tags and `\` to escape special characters, use nanosecond for duration. Defaults to `"*"`.
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
 }
 
 type FilterParameters struct {
 
-	// following the span search syntax. Defaults to "*".
-	// The search query - following the span search syntax. Defaults to `"*"`.
+	// follow the span search syntax, use AND between tags and \ to escape special characters, use nanosecond for duration. Defaults to "*".
+	// The search query - follow the span search syntax, use `AND` between tags and `\` to escape special characters, use nanosecond for duration. Defaults to `"*"`.
 	// +kubebuilder:validation:Optional
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
 }
@@ -53,9 +53,13 @@ type RetentionFilterInitParameters struct {
 	// The name of the retention filter.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Sample rate to apply to spans going through this retention filter as a string, a value of 1.0 keeps all spans matching the query.
-	// Sample rate to apply to spans going through this retention filter as a string, a value of 1.0 keeps all spans matching the query.
+	// (String) Sample rate to apply to spans going through this retention filter as a string; a value of 1.0 keeps all spans matching the query. Value must be between 0.00 and 1.00.
+	// Sample rate to apply to spans going through this retention filter as a string; a value of 1.0 keeps all spans matching the query. Value must be between 0.00 and 1.00.
 	Rate *string `json:"rate,omitempty" tf:"rate,omitempty"`
+
+	// (String) Sample rate to apply to traces with spans going through this retention filter as a string; a value of 1.0 keeps all traces matching the query. Value must be between 0.00 and 1.00.
+	// Sample rate to apply to traces with spans going through this retention filter as a string; a value of 1.0 keeps all traces matching the query. Value must be between 0.00 and 1.00.
+	TraceRate *string `json:"traceRate,omitempty" tf:"trace_rate,omitempty"`
 }
 
 type RetentionFilterObservation struct {
@@ -79,9 +83,13 @@ type RetentionFilterObservation struct {
 	// The name of the retention filter.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Sample rate to apply to spans going through this retention filter as a string, a value of 1.0 keeps all spans matching the query.
-	// Sample rate to apply to spans going through this retention filter as a string, a value of 1.0 keeps all spans matching the query.
+	// (String) Sample rate to apply to spans going through this retention filter as a string; a value of 1.0 keeps all spans matching the query. Value must be between 0.00 and 1.00.
+	// Sample rate to apply to spans going through this retention filter as a string; a value of 1.0 keeps all spans matching the query. Value must be between 0.00 and 1.00.
 	Rate *string `json:"rate,omitempty" tf:"rate,omitempty"`
+
+	// (String) Sample rate to apply to traces with spans going through this retention filter as a string; a value of 1.0 keeps all traces matching the query. Value must be between 0.00 and 1.00.
+	// Sample rate to apply to traces with spans going through this retention filter as a string; a value of 1.0 keeps all traces matching the query. Value must be between 0.00 and 1.00.
+	TraceRate *string `json:"traceRate,omitempty" tf:"trace_rate,omitempty"`
 }
 
 type RetentionFilterParameters struct {
@@ -106,10 +114,15 @@ type RetentionFilterParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Sample rate to apply to spans going through this retention filter as a string, a value of 1.0 keeps all spans matching the query.
-	// Sample rate to apply to spans going through this retention filter as a string, a value of 1.0 keeps all spans matching the query.
+	// (String) Sample rate to apply to spans going through this retention filter as a string; a value of 1.0 keeps all spans matching the query. Value must be between 0.00 and 1.00.
+	// Sample rate to apply to spans going through this retention filter as a string; a value of 1.0 keeps all spans matching the query. Value must be between 0.00 and 1.00.
 	// +kubebuilder:validation:Optional
 	Rate *string `json:"rate,omitempty" tf:"rate,omitempty"`
+
+	// (String) Sample rate to apply to traces with spans going through this retention filter as a string; a value of 1.0 keeps all traces matching the query. Value must be between 0.00 and 1.00.
+	// Sample rate to apply to traces with spans going through this retention filter as a string; a value of 1.0 keeps all traces matching the query. Value must be between 0.00 and 1.00.
+	// +kubebuilder:validation:Optional
+	TraceRate *string `json:"traceRate,omitempty" tf:"trace_rate,omitempty"`
 }
 
 // RetentionFilterSpec defines the desired state of RetentionFilter

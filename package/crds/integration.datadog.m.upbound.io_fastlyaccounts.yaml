@@ -36,7 +36,7 @@ spec:
       openAPIV3Schema:
         description: FastlyAccount is the Schema for the FastlyAccounts API. Provides
           a Datadog IntegrationFastlyAccount resource. This can be used to create
-          and manage Datadog integrationfastlyaccount.
+          and manage Datadog integration_fastly_account.
         properties:
           apiVersion:
             description: |-
@@ -60,10 +60,38 @@ spec:
             properties:
               forProvider:
                 properties:
-                  apiKey:
+                  apiKeySecretRef:
                     description: |-
-                      (String) The API key for the Fastly account.
-                      The API key for the Fastly account.
+                      (String, Sensitive) The API key for the Fastly account. Exactly one of api_key or api_key_wo must be set.
+                      The API key for the Fastly account. Exactly one of `api_key` or `api_key_wo` must be set.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  apiKeyWoSecretRef:
+                    description: |-
+                      only) Write-only API key for the Fastly account. Exactly one of api_key or api_key_wo must be set. Must be used with api_key_wo_version.
+                      Write-only API key for the Fastly account. Exactly one of `api_key` or `api_key_wo` must be set. Must be used with `api_key_wo_version`.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  apiKeyWoVersion:
+                    description: |-
+                      (String) Version for api_key_wo rotation. Changing this triggers an update. String length must be at least 1.
+                      Version for `api_key_wo` rotation. Changing this triggers an update. String length must be at least 1.
                     type: string
                   name:
                     description: |-
@@ -84,10 +112,38 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  apiKey:
+                  apiKeySecretRef:
                     description: |-
-                      (String) The API key for the Fastly account.
-                      The API key for the Fastly account.
+                      (String, Sensitive) The API key for the Fastly account. Exactly one of api_key or api_key_wo must be set.
+                      The API key for the Fastly account. Exactly one of `api_key` or `api_key_wo` must be set.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  apiKeyWoSecretRef:
+                    description: |-
+                      only) Write-only API key for the Fastly account. Exactly one of api_key or api_key_wo must be set. Must be used with api_key_wo_version.
+                      Write-only API key for the Fastly account. Exactly one of `api_key` or `api_key_wo` must be set. Must be used with `api_key_wo_version`.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  apiKeyWoVersion:
+                    description: |-
+                      (String) Version for api_key_wo rotation. Changing this triggers an update. String length must be at least 1.
+                      Version for `api_key_wo` rotation. Changing this triggers an update. String length must be at least 1.
                     type: string
                   name:
                     description: |-
@@ -154,10 +210,6 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.apiKey is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.apiKey)
-                || (has(self.initProvider) && has(self.initProvider.apiKey))'
             - message: spec.forProvider.name is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
@@ -167,10 +219,10 @@ spec:
             properties:
               atProvider:
                 properties:
-                  apiKey:
+                  apiKeyWoVersion:
                     description: |-
-                      (String) The API key for the Fastly account.
-                      The API key for the Fastly account.
+                      (String) Version for api_key_wo rotation. Changing this triggers an update. String length must be at least 1.
+                      Version for `api_key_wo` rotation. Changing this triggers an update. String length must be at least 1.
                     type: string
                   id:
                     description: (String) The ID of this resource.

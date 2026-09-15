@@ -16,42 +16,6 @@ func (l *AWSEventBridgeList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this AWSLambdaARNList.
-func (l *AWSLambdaARNList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this AWSList.
-func (l *AWSList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this AWSLogCollectionList.
-func (l *AWSLogCollectionList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this AWSTagFilterList.
-func (l *AWSTagFilterList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
 // GetItems of this AzureList.
 func (l *AzureList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))

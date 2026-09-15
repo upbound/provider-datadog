@@ -6,34 +6,10 @@ const integrationDatadog = "integration.datadog"
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
-	p.AddResourceConfigurator("datadog_integration_aws", func(r *config.Resource) {
-		// We need to override the default group that upjet generated for
-		// this resource, which would be "datadog"
-		r.Kind = "AWS"
-		r.ShortGroup = integrationDatadog
-	})
 	p.AddResourceConfigurator("datadog_integration_aws_event_bridge", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for
 		// this resource, which would be "datadog"
 		r.Kind = "AWSEventBridge"
-		r.ShortGroup = integrationDatadog
-	})
-	p.AddResourceConfigurator("datadog_integration_aws_lambda_arn", func(r *config.Resource) {
-		// We need to override the default group that upjet generated for
-		// this resource, which would be "datadog"
-		r.Kind = "AWSLambdaARN"
-		r.ShortGroup = integrationDatadog
-	})
-	p.AddResourceConfigurator("datadog_integration_aws_log_collection", func(r *config.Resource) {
-		// We need to override the default group that upjet generated for
-		// this resource, which would be "datadog"
-		r.Kind = "AWSLogCollection"
-		r.ShortGroup = integrationDatadog
-	})
-	p.AddResourceConfigurator("datadog_integration_aws_tag_filter", func(r *config.Resource) {
-		// We need to override the default group that upjet generated for
-		// this resource, which would be "datadog"
-		r.Kind = "AWSTagFilter"
 		r.ShortGroup = integrationDatadog
 	})
 	p.AddResourceConfigurator("datadog_integration_azure", func(r *config.Resource) {

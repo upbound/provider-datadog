@@ -23,12 +23,12 @@ type UserInitParameters_2 struct {
 	// Email address for user.
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
-	// (String) Name for user.
-	// Name for user.
+	// (String) User's name. Should be set only for password authentication, as it is overridden by Google or SAML authentication.
+	// User's name. Should be set only for password authentication, as it is overridden by Google or SAML authentication.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Set of String) A list a role IDs to assign to the user.
-	// A list a role IDs to assign to the user.
+	// (Set of String) A list of role IDs to assign to the user.
+	// A list of role IDs to assign to the user.
 	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
 
@@ -50,12 +50,12 @@ type UserObservation_2 struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) Name for user.
-	// Name for user.
+	// (String) User's name. Should be set only for password authentication, as it is overridden by Google or SAML authentication.
+	// User's name. Should be set only for password authentication, as it is overridden by Google or SAML authentication.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Set of String) A list a role IDs to assign to the user.
-	// A list a role IDs to assign to the user.
+	// (Set of String) A list of role IDs to assign to the user.
+	// A list of role IDs to assign to the user.
 	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
 
@@ -84,13 +84,13 @@ type UserParameters_2 struct {
 	// +kubebuilder:validation:Optional
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
-	// (String) Name for user.
-	// Name for user.
+	// (String) User's name. Should be set only for password authentication, as it is overridden by Google or SAML authentication.
+	// User's name. Should be set only for password authentication, as it is overridden by Google or SAML authentication.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Set of String) A list a role IDs to assign to the user.
-	// A list a role IDs to assign to the user.
+	// (Set of String) A list of role IDs to assign to the user.
+	// A list of role IDs to assign to the user.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`

@@ -21,7 +21,7 @@ func (mg *GlobalVariable) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this GlobalVariable
 func (tr *GlobalVariable) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"value": "valueSecretRef"}
+	return map[string]string{"value": "valueSecretRef", "value_wo": "valueWoSecretRef"}
 }
 
 // GetObservation of this GlobalVariable

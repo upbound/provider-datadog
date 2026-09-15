@@ -21,7 +21,7 @@ func (mg *FastlyAccount) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this FastlyAccount
 func (tr *FastlyAccount) GetConnectionDetailsMapping() map[string]string {
-	return nil
+	return map[string]string{"api_key": "apiKeySecretRef", "api_key_wo": "apiKeyWoSecretRef"}
 }
 
 // GetObservation of this FastlyAccount

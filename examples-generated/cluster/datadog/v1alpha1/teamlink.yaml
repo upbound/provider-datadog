@@ -9,7 +9,7 @@ metadata:
 spec:
   forProvider:
     label: Link label
-    position: Example link
+    position: 0
     teamId: ${datadog_team.foo.id}
     url: https://example.com
 

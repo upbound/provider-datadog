@@ -20,6 +20,7 @@ spec:
     isEnabled: true
     name: My new rule
     pattern: myregex
+    priority: 1
     tags:
     - sensitive_data:true
     textReplacement:

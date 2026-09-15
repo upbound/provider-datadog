@@ -80,6 +80,11 @@ spec:
                             (Boolean) Show the main body of the alert event. Defaults to true.
                             Show the main body of the alert event. Defaults to `true`.
                           type: boolean
+                        muteButtons:
+                          description: |-
+                            (Boolean) Show interactive buttons to mute the alerting monitor. Defaults to true.
+                            Show interactive buttons to mute the alerting monitor. Defaults to `true`.
+                          type: boolean
                         notified:
                           description: |-
                             handles in the alert event. Defaults to true.
@@ -131,6 +136,11 @@ spec:
                           description: |-
                             (Boolean) Show the main body of the alert event. Defaults to true.
                             Show the main body of the alert event. Defaults to `true`.
+                          type: boolean
+                        muteButtons:
+                          description: |-
+                            (Boolean) Show interactive buttons to mute the alerting monitor. Defaults to true.
+                            Show interactive buttons to mute the alerting monitor. Defaults to `true`.
                           type: boolean
                         notified:
                           description: |-
@@ -246,6 +256,11 @@ spec:
                           description: |-
                             (Boolean) Show the main body of the alert event. Defaults to true.
                             Show the main body of the alert event. Defaults to `true`.
+                          type: boolean
+                        muteButtons:
+                          description: |-
+                            (Boolean) Show interactive buttons to mute the alerting monitor. Defaults to true.
+                            Show interactive buttons to mute the alerting monitor. Defaults to `true`.
                           type: boolean
                         notified:
                           description: |-

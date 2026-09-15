@@ -19,6 +19,10 @@ type OrganizationSettingsInitParameters struct {
 	// Name for Organization.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (List of String) List of emails used for security event notifications from the organization.
+	// List of emails used for security event notifications from the organization.
+	SecurityContacts []*string `json:"securityContacts,omitempty" tf:"security_contacts,omitempty"`
+
 	// (Block List, Max: 1) Organization settings (see below for nested schema)
 	// Organization settings
 	Settings []OrganizationSettingsSettingsInitParameters `json:"settings,omitempty" tf:"settings,omitempty"`
@@ -41,6 +45,10 @@ type OrganizationSettingsObservation struct {
 	// The `public_id` of the organization you are operating within.
 	PublicID *string `json:"publicId,omitempty" tf:"public_id,omitempty"`
 
+	// (List of String) List of emails used for security event notifications from the organization.
+	// List of emails used for security event notifications from the organization.
+	SecurityContacts []*string `json:"securityContacts,omitempty" tf:"security_contacts,omitempty"`
+
 	// (Block List, Max: 1) Organization settings (see below for nested schema)
 	// Organization settings
 	Settings []OrganizationSettingsSettingsObservation `json:"settings,omitempty" tf:"settings,omitempty"`
@@ -52,6 +60,11 @@ type OrganizationSettingsParameters struct {
 	// Name for Organization.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (List of String) List of emails used for security event notifications from the organization.
+	// List of emails used for security event notifications from the organization.
+	// +kubebuilder:validation:Optional
+	SecurityContacts []*string `json:"securityContacts,omitempty" tf:"security_contacts,omitempty"`
 
 	// (Block List, Max: 1) Organization settings (see below for nested schema)
 	// Organization settings
@@ -69,8 +82,8 @@ type OrganizationSettingsSettingsInitParameters struct {
 	// SAML properties
 	SAML []SettingsSAMLInitParameters `json:"saml,omitempty" tf:"saml,omitempty"`
 
-	// only user). Allowed enum values: st, adm , ro, ERROR Defaults to "st".
-	// The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm` , `ro`, `ERROR` Defaults to `"st"`.
+	// only user). Allowed enum values: st, adm, ro, ERROR. When omitted, the current value is left unchanged.
+	// The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm`, `ro`, `ERROR`. When omitted, the current value is left unchanged.
 	SAMLAutocreateAccessRole *string `json:"samlAutocreateAccessRole,omitempty" tf:"saml_autocreate_access_role,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) List of domains where the SAML automated user creation is enabled. (see below for nested schema)
@@ -96,8 +109,8 @@ type OrganizationSettingsSettingsObservation struct {
 	// SAML properties
 	SAML []SettingsSAMLObservation `json:"saml,omitempty" tf:"saml,omitempty"`
 
-	// only user). Allowed enum values: st, adm , ro, ERROR Defaults to "st".
-	// The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm` , `ro`, `ERROR` Defaults to `"st"`.
+	// only user). Allowed enum values: st, adm, ro, ERROR. When omitted, the current value is left unchanged.
+	// The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm`, `ro`, `ERROR`. When omitted, the current value is left unchanged.
 	SAMLAutocreateAccessRole *string `json:"samlAutocreateAccessRole,omitempty" tf:"saml_autocreate_access_role,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) List of domains where the SAML automated user creation is enabled. (see below for nested schema)
@@ -141,8 +154,8 @@ type OrganizationSettingsSettingsParameters struct {
 	// +kubebuilder:validation:Optional
 	SAML []SettingsSAMLParameters `json:"saml" tf:"saml,omitempty"`
 
-	// only user). Allowed enum values: st, adm , ro, ERROR Defaults to "st".
-	// The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm` , `ro`, `ERROR` Defaults to `"st"`.
+	// only user). Allowed enum values: st, adm, ro, ERROR. When omitted, the current value is left unchanged.
+	// The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm`, `ro`, `ERROR`. When omitted, the current value is left unchanged.
 	// +kubebuilder:validation:Optional
 	SAMLAutocreateAccessRole *string `json:"samlAutocreateAccessRole,omitempty" tf:"saml_autocreate_access_role,omitempty"`
 

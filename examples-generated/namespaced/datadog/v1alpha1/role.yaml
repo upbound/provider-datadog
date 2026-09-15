@@ -4,12 +4,12 @@ metadata:
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/role
   labels:
-    testing.upbound.io/example-name: foo
-  name: foo
-  namespace: upbound-system
+    testing.upbound.io/example-name: api_key_manager
+  name: api-key-manager
+  namespace: crossplane-system
 spec:
   forProvider:
-    name: foo
+    name: API Key Manager
     permission:
-    - id: ${data.datadog_permissions.bar.permissions.monitors_downtime}
-    - id: ${data.datadog_permissions.bar.permissions.monitors_write}
+    - id: ${data.datadog_permissions.dd_perms.permissions.api_keys_read}
+    - id: ${data.datadog_permissions.dd_perms.permissions.api_keys_write}

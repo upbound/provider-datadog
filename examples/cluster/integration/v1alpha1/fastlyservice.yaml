@@ -26,5 +26,8 @@ metadata:
   name: foo
 spec:
   forProvider:
-    apiKey: ABCDEFG123
+    apiKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
     name: test-name

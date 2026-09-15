@@ -13,9 +13,305 @@ import (
 	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
-type ComputeInitParameters struct {
+type AggregateAugmentedQueryComputeInitParameters struct {
 
-	// (String) The aggregation methods for event platform queries. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for compute steps. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AggregateAugmentedQueryComputeObservation struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for compute steps. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AggregateAugmentedQueryComputeParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for compute steps. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	// +kubebuilder:validation:Optional
+	Aggregation *string `json:"aggregation" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	// +kubebuilder:validation:Optional
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	// +kubebuilder:validation:Optional
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AggregateAugmentedQueryGroupByInitParameters struct {
+
+	// (String) The facet to group by.
+	// The facet to group by.
+	Facet *string `json:"facet,omitempty" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// Sort options for group by.
+	Sort []AggregateAugmentedQueryGroupBySortInitParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// Identifies which sub-query this facet refers to (for example `filter_query`).
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type AggregateAugmentedQueryGroupByObservation struct {
+
+	// (String) The facet to group by.
+	// The facet to group by.
+	Facet *string `json:"facet,omitempty" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// Sort options for group by.
+	Sort []AggregateAugmentedQueryGroupBySortObservation `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// Identifies which sub-query this facet refers to (for example `filter_query`).
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type AggregateAugmentedQueryGroupByParameters struct {
+
+	// (String) The facet to group by.
+	// The facet to group by.
+	// +kubebuilder:validation:Optional
+	Facet *string `json:"facet" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	// +kubebuilder:validation:Optional
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// Sort options for group by.
+	// +kubebuilder:validation:Optional
+	Sort []AggregateAugmentedQueryGroupBySortParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// Identifies which sub-query this facet refers to (for example `filter_query`).
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type AggregateAugmentedQueryGroupBySortInitParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for sorting. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type AggregateAugmentedQueryGroupBySortObservation struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for sorting. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type AggregateAugmentedQueryGroupBySortParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for sorting. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	// +kubebuilder:validation:Optional
+	Aggregation *string `json:"aggregation" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	// +kubebuilder:validation:Optional
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	// +kubebuilder:validation:Optional
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type AggregateAugmentedQueryInitParameters struct {
+
+	// (Block List, Max: 1) Events augment query. Do not set augment_reference_table in the same block. (see below for nested schema)
+	// Events augment query. Do not set `augment_reference_table` in the same block.
+	AugmentEventQuery []AugmentEventQueryInitParameters `json:"augmentEventQuery,omitempty" tf:"augment_event_query,omitempty"`
+
+	// (Block List, Max: 1) Reference table augment query. Do not set augment_event_query in the same block. (see below for nested schema)
+	// Reference table augment query. Do not set `augment_event_query` in the same block.
+	AugmentReferenceTable []AugmentReferenceTableInitParameters `json:"augmentReferenceTable,omitempty" tf:"augment_reference_table,omitempty"`
+
+	// (Block List, Max: 1) Events base query. Do not set base_metrics_query in the same block. (see below for nested schema)
+	// Events base query. Do not set `base_metrics_query` in the same block.
+	BaseEventQuery []BaseEventQueryInitParameters `json:"baseEventQuery,omitempty" tf:"base_event_query,omitempty"`
+
+	// (Block List, Max: 1) Metrics base query. Do not set base_event_query in the same block. (see below for nested schema)
+	// Metrics base query. Do not set `base_event_query` in the same block.
+	BaseMetricsQuery []BaseMetricsQueryInitParameters `json:"baseMetricsQuery,omitempty" tf:"base_metrics_query,omitempty"`
+
+	// augmented query. (see below for nested schema)
+	// Compute aggregations for the aggregate-augmented query.
+	Compute []AggregateAugmentedQueryComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for aggregate-augmented composite queries. Must be `aggregate_augmented_query`. Valid values are `aggregate_augmented_query`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Group by options for the aggregate-augmented query. At least one block is required.
+	GroupBy []AggregateAugmentedQueryGroupByInitParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Join condition between augment and base queries. (see below for nested schema)
+	// Join condition between augment and base queries.
+	JoinCondition []JoinConditionInitParameters `json:"joinCondition,omitempty" tf:"join_condition,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AggregateAugmentedQueryObservation struct {
+
+	// (Block List, Max: 1) Events augment query. Do not set augment_reference_table in the same block. (see below for nested schema)
+	// Events augment query. Do not set `augment_reference_table` in the same block.
+	AugmentEventQuery []AugmentEventQueryObservation `json:"augmentEventQuery,omitempty" tf:"augment_event_query,omitempty"`
+
+	// (Block List, Max: 1) Reference table augment query. Do not set augment_event_query in the same block. (see below for nested schema)
+	// Reference table augment query. Do not set `augment_event_query` in the same block.
+	AugmentReferenceTable []AugmentReferenceTableObservation `json:"augmentReferenceTable,omitempty" tf:"augment_reference_table,omitempty"`
+
+	// (Block List, Max: 1) Events base query. Do not set base_metrics_query in the same block. (see below for nested schema)
+	// Events base query. Do not set `base_metrics_query` in the same block.
+	BaseEventQuery []BaseEventQueryObservation `json:"baseEventQuery,omitempty" tf:"base_event_query,omitempty"`
+
+	// (Block List, Max: 1) Metrics base query. Do not set base_event_query in the same block. (see below for nested schema)
+	// Metrics base query. Do not set `base_event_query` in the same block.
+	BaseMetricsQuery []BaseMetricsQueryObservation `json:"baseMetricsQuery,omitempty" tf:"base_metrics_query,omitempty"`
+
+	// augmented query. (see below for nested schema)
+	// Compute aggregations for the aggregate-augmented query.
+	Compute []AggregateAugmentedQueryComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for aggregate-augmented composite queries. Must be `aggregate_augmented_query`. Valid values are `aggregate_augmented_query`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Group by options for the aggregate-augmented query. At least one block is required.
+	GroupBy []AggregateAugmentedQueryGroupByObservation `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Join condition between augment and base queries. (see below for nested schema)
+	// Join condition between augment and base queries.
+	JoinCondition []JoinConditionObservation `json:"joinCondition,omitempty" tf:"join_condition,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AggregateAugmentedQueryParameters struct {
+
+	// (Block List, Max: 1) Events augment query. Do not set augment_reference_table in the same block. (see below for nested schema)
+	// Events augment query. Do not set `augment_reference_table` in the same block.
+	// +kubebuilder:validation:Optional
+	AugmentEventQuery []AugmentEventQueryParameters `json:"augmentEventQuery,omitempty" tf:"augment_event_query,omitempty"`
+
+	// (Block List, Max: 1) Reference table augment query. Do not set augment_event_query in the same block. (see below for nested schema)
+	// Reference table augment query. Do not set `augment_event_query` in the same block.
+	// +kubebuilder:validation:Optional
+	AugmentReferenceTable []AugmentReferenceTableParameters `json:"augmentReferenceTable,omitempty" tf:"augment_reference_table,omitempty"`
+
+	// (Block List, Max: 1) Events base query. Do not set base_metrics_query in the same block. (see below for nested schema)
+	// Events base query. Do not set `base_metrics_query` in the same block.
+	// +kubebuilder:validation:Optional
+	BaseEventQuery []BaseEventQueryParameters `json:"baseEventQuery,omitempty" tf:"base_event_query,omitempty"`
+
+	// (Block List, Max: 1) Metrics base query. Do not set base_event_query in the same block. (see below for nested schema)
+	// Metrics base query. Do not set `base_event_query` in the same block.
+	// +kubebuilder:validation:Optional
+	BaseMetricsQuery []BaseMetricsQueryParameters `json:"baseMetricsQuery,omitempty" tf:"base_metrics_query,omitempty"`
+
+	// augmented query. (see below for nested schema)
+	// Compute aggregations for the aggregate-augmented query.
+	// +kubebuilder:validation:Optional
+	Compute []AggregateAugmentedQueryComputeParameters `json:"compute" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for aggregate-augmented composite queries. Must be `aggregate_augmented_query`. Valid values are `aggregate_augmented_query`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Group by options for the aggregate-augmented query. At least one block is required.
+	// +kubebuilder:validation:Optional
+	GroupBy []AggregateAugmentedQueryGroupByParameters `json:"groupBy" tf:"group_by,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Join condition between augment and base queries. (see below for nested schema)
+	// Join condition between augment and base queries.
+	// +kubebuilder:validation:Optional
+	JoinCondition []JoinConditionParameters `json:"joinCondition" tf:"join_condition,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name of the query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AggregateFilteredQueryBaseEventQueryComputeInitParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
 	// The aggregation methods for event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
 	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
 
@@ -26,11 +322,15 @@ type ComputeInitParameters struct {
 	// (String) The measurable attribute to compute.
 	// The measurable attribute to compute.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined for a query.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
-type ComputeObservation struct {
+type AggregateFilteredQueryBaseEventQueryComputeObservation struct {
 
-	// (String) The aggregation methods for event platform queries. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
 	// The aggregation methods for event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
 	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
 
@@ -41,11 +341,15 @@ type ComputeObservation struct {
 	// (String) The measurable attribute to compute.
 	// The measurable attribute to compute.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined for a query.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
-type ComputeParameters struct {
+type AggregateFilteredQueryBaseEventQueryComputeParameters struct {
 
-	// (String) The aggregation methods for event platform queries. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
 	// The aggregation methods for event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
 	// +kubebuilder:validation:Optional
 	Aggregation *string `json:"aggregation" tf:"aggregation,omitempty"`
@@ -59,6 +363,1270 @@ type ComputeParameters struct {
 	// The measurable attribute to compute.
 	// +kubebuilder:validation:Optional
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined for a query.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AggregateFilteredQueryBaseEventQueryGroupByInitParameters struct {
+
+	// (String) The facet to group by.
+	// The event facet.
+	Facet *string `json:"facet,omitempty" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// The options for sorting group by results.
+	Sort []BaseEventQueryGroupBySortInitParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// For composite aggregate-augmented queries, identifies which sub-query this group-by facet refers to (for example `filter_query`).
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type AggregateFilteredQueryBaseEventQueryGroupByObservation struct {
+
+	// (String) The facet to group by.
+	// The event facet.
+	Facet *string `json:"facet,omitempty" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// The options for sorting group by results.
+	Sort []BaseEventQueryGroupBySortObservation `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// For composite aggregate-augmented queries, identifies which sub-query this group-by facet refers to (for example `filter_query`).
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type AggregateFilteredQueryBaseEventQueryGroupByParameters struct {
+
+	// (String) The facet to group by.
+	// The event facet.
+	// +kubebuilder:validation:Optional
+	Facet *string `json:"facet" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	// +kubebuilder:validation:Optional
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// The options for sorting group by results.
+	// +kubebuilder:validation:Optional
+	Sort []BaseEventQueryGroupBySortParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// For composite aggregate-augmented queries, identifies which sub-query this group-by facet refers to (for example `filter_query`).
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type AggregateFilteredQueryBaseEventQueryInitParameters struct {
+
+	// augmented query. (see below for nested schema)
+	// The compute options.
+	Compute []AggregateFilteredQueryBaseEventQueryComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Group by options.
+	GroupBy []AggregateFilteredQueryBaseEventQueryGroupByInitParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (List of String) An array of index names to query in the stream.
+	// An array of index names to query in the stream.
+	Indexes []*string `json:"indexes,omitempty" tf:"indexes,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) The search options. (see below for nested schema)
+	// The search options.
+	Search []AggregateFilteredQueryBaseEventQuerySearchInitParameters `json:"search,omitempty" tf:"search,omitempty"`
+}
+
+type AggregateFilteredQueryBaseEventQueryObservation struct {
+
+	// augmented query. (see below for nested schema)
+	// The compute options.
+	Compute []AggregateFilteredQueryBaseEventQueryComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Group by options.
+	GroupBy []AggregateFilteredQueryBaseEventQueryGroupByObservation `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (List of String) An array of index names to query in the stream.
+	// An array of index names to query in the stream.
+	Indexes []*string `json:"indexes,omitempty" tf:"indexes,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) The search options. (see below for nested schema)
+	// The search options.
+	Search []AggregateFilteredQueryBaseEventQuerySearchObservation `json:"search,omitempty" tf:"search,omitempty"`
+}
+
+type AggregateFilteredQueryBaseEventQueryParameters struct {
+
+	// augmented query. (see below for nested schema)
+	// The compute options.
+	// +kubebuilder:validation:Optional
+	Compute []AggregateFilteredQueryBaseEventQueryComputeParameters `json:"compute" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Group by options.
+	// +kubebuilder:validation:Optional
+	GroupBy []AggregateFilteredQueryBaseEventQueryGroupByParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (List of String) An array of index names to query in the stream.
+	// An array of index names to query in the stream.
+	// +kubebuilder:validation:Optional
+	Indexes []*string `json:"indexes,omitempty" tf:"indexes,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) The search options. (see below for nested schema)
+	// The search options.
+	// +kubebuilder:validation:Optional
+	Search []AggregateFilteredQueryBaseEventQuerySearchParameters `json:"search" tf:"search,omitempty"`
+}
+
+type AggregateFilteredQueryBaseEventQuerySearchInitParameters struct {
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The events search string.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type AggregateFilteredQueryBaseEventQuerySearchObservation struct {
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The events search string.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type AggregateFilteredQueryBaseEventQuerySearchParameters struct {
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The events search string.
+	// +kubebuilder:validation:Optional
+	Query *string `json:"query" tf:"query,omitempty"`
+}
+
+type AggregateFilteredQueryBaseMetricsQueryInitParameters struct {
+
+	// (String) The aggregation method for metrics queries. Valid values are avg, min, max, sum, last, mean, area, l2norm, percentile, stddev, count_unique.
+	// The aggregation method for metrics queries. Valid values are `avg`, `min`, `max`, `sum`, `last`, `mean`, `area`, `l2norm`, `percentile`, `stddev`, `count_unique`.
+	Aggregator *string `json:"aggregator,omitempty" tf:"aggregator,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for metrics queries. Valid values are `metrics`, `cloud_cost`, `datadog_usage`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The metrics query definition.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type AggregateFilteredQueryBaseMetricsQueryObservation struct {
+
+	// (String) The aggregation method for metrics queries. Valid values are avg, min, max, sum, last, mean, area, l2norm, percentile, stddev, count_unique.
+	// The aggregation method for metrics queries. Valid values are `avg`, `min`, `max`, `sum`, `last`, `mean`, `area`, `l2norm`, `percentile`, `stddev`, `count_unique`.
+	Aggregator *string `json:"aggregator,omitempty" tf:"aggregator,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for metrics queries. Valid values are `metrics`, `cloud_cost`, `datadog_usage`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The metrics query definition.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type AggregateFilteredQueryBaseMetricsQueryParameters struct {
+
+	// (String) The aggregation method for metrics queries. Valid values are avg, min, max, sum, last, mean, area, l2norm, percentile, stddev, count_unique.
+	// The aggregation method for metrics queries. Valid values are `avg`, `min`, `max`, `sum`, `last`, `mean`, `area`, `l2norm`, `percentile`, `stddev`, `count_unique`.
+	// +kubebuilder:validation:Optional
+	Aggregator *string `json:"aggregator,omitempty" tf:"aggregator,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for metrics queries. Valid values are `metrics`, `cloud_cost`, `datadog_usage`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The metrics query definition.
+	// +kubebuilder:validation:Optional
+	Query *string `json:"query" tf:"query,omitempty"`
+}
+
+type AggregateFilteredQueryComputeInitParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for compute steps. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AggregateFilteredQueryComputeObservation struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for compute steps. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AggregateFilteredQueryComputeParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for compute steps. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	// +kubebuilder:validation:Optional
+	Aggregation *string `json:"aggregation" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	// +kubebuilder:validation:Optional
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	// +kubebuilder:validation:Optional
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AggregateFilteredQueryGroupByInitParameters struct {
+
+	// (String) The facet to group by.
+	// The facet to group by.
+	Facet *string `json:"facet,omitempty" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// Sort options for group by.
+	Sort []AggregateFilteredQueryGroupBySortInitParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// Identifies which sub-query this facet refers to (for example `filter_query`).
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type AggregateFilteredQueryGroupByObservation struct {
+
+	// (String) The facet to group by.
+	// The facet to group by.
+	Facet *string `json:"facet,omitempty" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// Sort options for group by.
+	Sort []AggregateFilteredQueryGroupBySortObservation `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// Identifies which sub-query this facet refers to (for example `filter_query`).
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type AggregateFilteredQueryGroupByParameters struct {
+
+	// (String) The facet to group by.
+	// The facet to group by.
+	// +kubebuilder:validation:Optional
+	Facet *string `json:"facet" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	// +kubebuilder:validation:Optional
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// Sort options for group by.
+	// +kubebuilder:validation:Optional
+	Sort []AggregateFilteredQueryGroupBySortParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// Identifies which sub-query this facet refers to (for example `filter_query`).
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type AggregateFilteredQueryGroupBySortInitParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for sorting. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type AggregateFilteredQueryGroupBySortObservation struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for sorting. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type AggregateFilteredQueryGroupBySortParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for sorting. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	// +kubebuilder:validation:Optional
+	Aggregation *string `json:"aggregation" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	// +kubebuilder:validation:Optional
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	// +kubebuilder:validation:Optional
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type AggregateFilteredQueryInitParameters struct {
+
+	// (Block List, Max: 1) Events base query. Do not set base_metrics_query in the same block. (see below for nested schema)
+	// Events base query. Do not set `base_metrics_query` in the same block.
+	BaseEventQuery []AggregateFilteredQueryBaseEventQueryInitParameters `json:"baseEventQuery,omitempty" tf:"base_event_query,omitempty"`
+
+	// (Block List, Max: 1) Metrics base query. Do not set base_event_query in the same block. (see below for nested schema)
+	// Metrics base query. Do not set `base_event_query` in the same block.
+	BaseMetricsQuery []AggregateFilteredQueryBaseMetricsQueryInitParameters `json:"baseMetricsQuery,omitempty" tf:"base_metrics_query,omitempty"`
+
+	// augmented query. (see below for nested schema)
+	// Optional compute aggregations for the aggregate-filtered query.
+	Compute []AggregateFilteredQueryComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for aggregate-filtered composite queries. Must be `aggregate_filtered_query`. Valid values are `aggregate_filtered_query`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (Block List, Max: 1) Events filter query. Do not set filter_reference_table in the same block. (see below for nested schema)
+	// Events filter query. Do not set `filter_reference_table` in the same block.
+	FilterEventQuery []FilterEventQueryInitParameters `json:"filterEventQuery,omitempty" tf:"filter_event_query,omitempty"`
+
+	// (Block List, Max: 1) Reference table filter query. Do not set filter_event_query in the same block. (see below for nested schema)
+	// Reference table filter query. Do not set `filter_event_query` in the same block.
+	FilterReferenceTable []FilterReferenceTableInitParameters `json:"filterReferenceTable,omitempty" tf:"filter_reference_table,omitempty"`
+
+	// (Block List, Min: 1) Filter conditions mapping base query attributes to filter query attributes. (see below for nested schema)
+	// Filter conditions mapping base query attributes to filter query attributes.
+	Filters []FiltersInitParameters `json:"filters,omitempty" tf:"filters,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Optional group by options for the aggregate-filtered query.
+	GroupBy []AggregateFilteredQueryGroupByInitParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AggregateFilteredQueryObservation struct {
+
+	// (Block List, Max: 1) Events base query. Do not set base_metrics_query in the same block. (see below for nested schema)
+	// Events base query. Do not set `base_metrics_query` in the same block.
+	BaseEventQuery []AggregateFilteredQueryBaseEventQueryObservation `json:"baseEventQuery,omitempty" tf:"base_event_query,omitempty"`
+
+	// (Block List, Max: 1) Metrics base query. Do not set base_event_query in the same block. (see below for nested schema)
+	// Metrics base query. Do not set `base_event_query` in the same block.
+	BaseMetricsQuery []AggregateFilteredQueryBaseMetricsQueryObservation `json:"baseMetricsQuery,omitempty" tf:"base_metrics_query,omitempty"`
+
+	// augmented query. (see below for nested schema)
+	// Optional compute aggregations for the aggregate-filtered query.
+	Compute []AggregateFilteredQueryComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for aggregate-filtered composite queries. Must be `aggregate_filtered_query`. Valid values are `aggregate_filtered_query`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (Block List, Max: 1) Events filter query. Do not set filter_reference_table in the same block. (see below for nested schema)
+	// Events filter query. Do not set `filter_reference_table` in the same block.
+	FilterEventQuery []FilterEventQueryObservation `json:"filterEventQuery,omitempty" tf:"filter_event_query,omitempty"`
+
+	// (Block List, Max: 1) Reference table filter query. Do not set filter_event_query in the same block. (see below for nested schema)
+	// Reference table filter query. Do not set `filter_event_query` in the same block.
+	FilterReferenceTable []FilterReferenceTableObservation `json:"filterReferenceTable,omitempty" tf:"filter_reference_table,omitempty"`
+
+	// (Block List, Min: 1) Filter conditions mapping base query attributes to filter query attributes. (see below for nested schema)
+	// Filter conditions mapping base query attributes to filter query attributes.
+	Filters []FiltersObservation `json:"filters,omitempty" tf:"filters,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Optional group by options for the aggregate-filtered query.
+	GroupBy []AggregateFilteredQueryGroupByObservation `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AggregateFilteredQueryParameters struct {
+
+	// (Block List, Max: 1) Events base query. Do not set base_metrics_query in the same block. (see below for nested schema)
+	// Events base query. Do not set `base_metrics_query` in the same block.
+	// +kubebuilder:validation:Optional
+	BaseEventQuery []AggregateFilteredQueryBaseEventQueryParameters `json:"baseEventQuery,omitempty" tf:"base_event_query,omitempty"`
+
+	// (Block List, Max: 1) Metrics base query. Do not set base_event_query in the same block. (see below for nested schema)
+	// Metrics base query. Do not set `base_event_query` in the same block.
+	// +kubebuilder:validation:Optional
+	BaseMetricsQuery []AggregateFilteredQueryBaseMetricsQueryParameters `json:"baseMetricsQuery,omitempty" tf:"base_metrics_query,omitempty"`
+
+	// augmented query. (see below for nested schema)
+	// Optional compute aggregations for the aggregate-filtered query.
+	// +kubebuilder:validation:Optional
+	Compute []AggregateFilteredQueryComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for aggregate-filtered composite queries. Must be `aggregate_filtered_query`. Valid values are `aggregate_filtered_query`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// (Block List, Max: 1) Events filter query. Do not set filter_reference_table in the same block. (see below for nested schema)
+	// Events filter query. Do not set `filter_reference_table` in the same block.
+	// +kubebuilder:validation:Optional
+	FilterEventQuery []FilterEventQueryParameters `json:"filterEventQuery,omitempty" tf:"filter_event_query,omitempty"`
+
+	// (Block List, Max: 1) Reference table filter query. Do not set filter_event_query in the same block. (see below for nested schema)
+	// Reference table filter query. Do not set `filter_event_query` in the same block.
+	// +kubebuilder:validation:Optional
+	FilterReferenceTable []FilterReferenceTableParameters `json:"filterReferenceTable,omitempty" tf:"filter_reference_table,omitempty"`
+
+	// (Block List, Min: 1) Filter conditions mapping base query attributes to filter query attributes. (see below for nested schema)
+	// Filter conditions mapping base query attributes to filter query attributes.
+	// +kubebuilder:validation:Optional
+	Filters []FiltersParameters `json:"filters" tf:"filters,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Optional group by options for the aggregate-filtered query.
+	// +kubebuilder:validation:Optional
+	GroupBy []AggregateFilteredQueryGroupByParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name of the query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type AssetsInitParameters struct {
+
+	// (String) Type of asset the entity represents on a monitor. Valid values are runbook.
+	// Type of asset the entity represents on a monitor. Valid values are `runbook`.
+	Category *string `json:"category,omitempty" tf:"category,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name for the monitor asset.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Identifier of the internal Datadog resource that this asset represents.
+	// Identifier of the internal Datadog resource that this asset represents.
+	ResourceKey *string `json:"resourceKey,omitempty" tf:"resource_key,omitempty"`
+
+	// (String) Type of internal Datadog resource associated with a monitor asset. Valid values are notebook.
+	// Type of internal Datadog resource associated with a monitor asset. Valid values are `notebook`.
+	ResourceType *string `json:"resourceType,omitempty" tf:"resource_type,omitempty"`
+
+	// (String) URL for the asset.
+	// URL for the asset.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type AssetsObservation struct {
+
+	// (String) Type of asset the entity represents on a monitor. Valid values are runbook.
+	// Type of asset the entity represents on a monitor. Valid values are `runbook`.
+	Category *string `json:"category,omitempty" tf:"category,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name for the monitor asset.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Identifier of the internal Datadog resource that this asset represents.
+	// Identifier of the internal Datadog resource that this asset represents.
+	ResourceKey *string `json:"resourceKey,omitempty" tf:"resource_key,omitempty"`
+
+	// (String) Type of internal Datadog resource associated with a monitor asset. Valid values are notebook.
+	// Type of internal Datadog resource associated with a monitor asset. Valid values are `notebook`.
+	ResourceType *string `json:"resourceType,omitempty" tf:"resource_type,omitempty"`
+
+	// (String) URL for the asset.
+	// URL for the asset.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type AssetsParameters struct {
+
+	// (String) Type of asset the entity represents on a monitor. Valid values are runbook.
+	// Type of asset the entity represents on a monitor. Valid values are `runbook`.
+	// +kubebuilder:validation:Optional
+	Category *string `json:"category" tf:"category,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name for the monitor asset.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (String) Identifier of the internal Datadog resource that this asset represents.
+	// Identifier of the internal Datadog resource that this asset represents.
+	// +kubebuilder:validation:Optional
+	ResourceKey *string `json:"resourceKey,omitempty" tf:"resource_key,omitempty"`
+
+	// (String) Type of internal Datadog resource associated with a monitor asset. Valid values are notebook.
+	// Type of internal Datadog resource associated with a monitor asset. Valid values are `notebook`.
+	// +kubebuilder:validation:Optional
+	ResourceType *string `json:"resourceType,omitempty" tf:"resource_type,omitempty"`
+
+	// (String) URL for the asset.
+	// URL for the asset.
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url" tf:"url,omitempty"`
+}
+
+type AugmentEventQueryInitParameters struct {
+
+	// augmented query. (see below for nested schema)
+	// The compute options.
+	Compute []ComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Group by options.
+	GroupBy []GroupByInitParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (List of String) An array of index names to query in the stream.
+	// An array of index names to query in the stream.
+	Indexes []*string `json:"indexes,omitempty" tf:"indexes,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) The search options. (see below for nested schema)
+	// The search options.
+	Search []SearchInitParameters `json:"search,omitempty" tf:"search,omitempty"`
+}
+
+type AugmentEventQueryObservation struct {
+
+	// augmented query. (see below for nested schema)
+	// The compute options.
+	Compute []ComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Group by options.
+	GroupBy []GroupByObservation `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (List of String) An array of index names to query in the stream.
+	// An array of index names to query in the stream.
+	Indexes []*string `json:"indexes,omitempty" tf:"indexes,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) The search options. (see below for nested schema)
+	// The search options.
+	Search []SearchObservation `json:"search,omitempty" tf:"search,omitempty"`
+}
+
+type AugmentEventQueryParameters struct {
+
+	// augmented query. (see below for nested schema)
+	// The compute options.
+	// +kubebuilder:validation:Optional
+	Compute []ComputeParameters `json:"compute" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Group by options.
+	// +kubebuilder:validation:Optional
+	GroupBy []GroupByParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (List of String) An array of index names to query in the stream.
+	// An array of index names to query in the stream.
+	// +kubebuilder:validation:Optional
+	Indexes []*string `json:"indexes,omitempty" tf:"indexes,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) The search options. (see below for nested schema)
+	// The search options.
+	// +kubebuilder:validation:Optional
+	Search []SearchParameters `json:"search" tf:"search,omitempty"`
+}
+
+type AugmentReferenceTableInitParameters struct {
+
+	// (Block List) Columns to retrieve from the reference table. (see below for nested schema)
+	// Columns to retrieve from the reference table.
+	Columns []ColumnsInitParameters `json:"columns,omitempty" tf:"columns,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// Must be `reference_table`. Valid values are `reference_table`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name of the augment sub-query.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Optional filter expression for the reference table query.
+	// Optional filter expression for the reference table query.
+	QueryFilter *string `json:"queryFilter,omitempty" tf:"query_filter,omitempty"`
+
+	// (String) Name of the reference table.
+	// Name of the reference table.
+	TableName *string `json:"tableName,omitempty" tf:"table_name,omitempty"`
+}
+
+type AugmentReferenceTableObservation struct {
+
+	// (Block List) Columns to retrieve from the reference table. (see below for nested schema)
+	// Columns to retrieve from the reference table.
+	Columns []ColumnsObservation `json:"columns,omitempty" tf:"columns,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// Must be `reference_table`. Valid values are `reference_table`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name of the augment sub-query.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Optional filter expression for the reference table query.
+	// Optional filter expression for the reference table query.
+	QueryFilter *string `json:"queryFilter,omitempty" tf:"query_filter,omitempty"`
+
+	// (String) Name of the reference table.
+	// Name of the reference table.
+	TableName *string `json:"tableName,omitempty" tf:"table_name,omitempty"`
+}
+
+type AugmentReferenceTableParameters struct {
+
+	// (Block List) Columns to retrieve from the reference table. (see below for nested schema)
+	// Columns to retrieve from the reference table.
+	// +kubebuilder:validation:Optional
+	Columns []ColumnsParameters `json:"columns,omitempty" tf:"columns,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// Must be `reference_table`. Valid values are `reference_table`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name of the augment sub-query.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Optional filter expression for the reference table query.
+	// Optional filter expression for the reference table query.
+	// +kubebuilder:validation:Optional
+	QueryFilter *string `json:"queryFilter,omitempty" tf:"query_filter,omitempty"`
+
+	// (String) Name of the reference table.
+	// Name of the reference table.
+	// +kubebuilder:validation:Optional
+	TableName *string `json:"tableName" tf:"table_name,omitempty"`
+}
+
+type BaseEventQueryComputeInitParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined for a query.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type BaseEventQueryComputeObservation struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined for a query.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type BaseEventQueryComputeParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	// +kubebuilder:validation:Optional
+	Aggregation *string `json:"aggregation" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	// +kubebuilder:validation:Optional
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	// +kubebuilder:validation:Optional
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined for a query.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type BaseEventQueryGroupByInitParameters struct {
+
+	// (String) The facet to group by.
+	// The event facet.
+	Facet *string `json:"facet,omitempty" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// The options for sorting group by results.
+	Sort []GroupBySortInitParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// For composite aggregate-augmented queries, identifies which sub-query this group-by facet refers to (for example `filter_query`).
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type BaseEventQueryGroupByObservation struct {
+
+	// (String) The facet to group by.
+	// The event facet.
+	Facet *string `json:"facet,omitempty" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// The options for sorting group by results.
+	Sort []GroupBySortObservation `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// For composite aggregate-augmented queries, identifies which sub-query this group-by facet refers to (for example `filter_query`).
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type BaseEventQueryGroupByParameters struct {
+
+	// (String) The facet to group by.
+	// The event facet.
+	// +kubebuilder:validation:Optional
+	Facet *string `json:"facet" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	// +kubebuilder:validation:Optional
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// The options for sorting group by results.
+	// +kubebuilder:validation:Optional
+	Sort []GroupBySortParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// For composite aggregate-augmented queries, identifies which sub-query this group-by facet refers to (for example `filter_query`).
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type BaseEventQueryGroupBySortInitParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for the event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type BaseEventQueryGroupBySortObservation struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for the event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type BaseEventQueryGroupBySortParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for the event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	// +kubebuilder:validation:Optional
+	Aggregation *string `json:"aggregation" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	// +kubebuilder:validation:Optional
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	// +kubebuilder:validation:Optional
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type BaseEventQueryInitParameters struct {
+
+	// augmented query. (see below for nested schema)
+	// The compute options.
+	Compute []BaseEventQueryComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Group by options.
+	GroupBy []BaseEventQueryGroupByInitParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (List of String) An array of index names to query in the stream.
+	// An array of index names to query in the stream.
+	Indexes []*string `json:"indexes,omitempty" tf:"indexes,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) The search options. (see below for nested schema)
+	// The search options.
+	Search []BaseEventQuerySearchInitParameters `json:"search,omitempty" tf:"search,omitempty"`
+}
+
+type BaseEventQueryObservation struct {
+
+	// augmented query. (see below for nested schema)
+	// The compute options.
+	Compute []BaseEventQueryComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Group by options.
+	GroupBy []BaseEventQueryGroupByObservation `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (List of String) An array of index names to query in the stream.
+	// An array of index names to query in the stream.
+	Indexes []*string `json:"indexes,omitempty" tf:"indexes,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) The search options. (see below for nested schema)
+	// The search options.
+	Search []BaseEventQuerySearchObservation `json:"search,omitempty" tf:"search,omitempty"`
+}
+
+type BaseEventQueryParameters struct {
+
+	// augmented query. (see below for nested schema)
+	// The compute options.
+	// +kubebuilder:validation:Optional
+	Compute []BaseEventQueryComputeParameters `json:"compute" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Group by options.
+	// +kubebuilder:validation:Optional
+	GroupBy []BaseEventQueryGroupByParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (List of String) An array of index names to query in the stream.
+	// An array of index names to query in the stream.
+	// +kubebuilder:validation:Optional
+	Indexes []*string `json:"indexes,omitempty" tf:"indexes,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) The search options. (see below for nested schema)
+	// The search options.
+	// +kubebuilder:validation:Optional
+	Search []BaseEventQuerySearchParameters `json:"search" tf:"search,omitempty"`
+}
+
+type BaseEventQuerySearchInitParameters struct {
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The events search string.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type BaseEventQuerySearchObservation struct {
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The events search string.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type BaseEventQuerySearchParameters struct {
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The events search string.
+	// +kubebuilder:validation:Optional
+	Query *string `json:"query" tf:"query,omitempty"`
+}
+
+type BaseMetricsQueryInitParameters struct {
+
+	// (String) The aggregation method for metrics queries. Valid values are avg, min, max, sum, last, mean, area, l2norm, percentile, stddev, count_unique.
+	// The aggregation method for metrics queries. Valid values are `avg`, `min`, `max`, `sum`, `last`, `mean`, `area`, `l2norm`, `percentile`, `stddev`, `count_unique`.
+	Aggregator *string `json:"aggregator,omitempty" tf:"aggregator,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for metrics queries. Valid values are `metrics`, `cloud_cost`, `datadog_usage`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The metrics query definition.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type BaseMetricsQueryObservation struct {
+
+	// (String) The aggregation method for metrics queries. Valid values are avg, min, max, sum, last, mean, area, l2norm, percentile, stddev, count_unique.
+	// The aggregation method for metrics queries. Valid values are `avg`, `min`, `max`, `sum`, `last`, `mean`, `area`, `l2norm`, `percentile`, `stddev`, `count_unique`.
+	Aggregator *string `json:"aggregator,omitempty" tf:"aggregator,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for metrics queries. Valid values are `metrics`, `cloud_cost`, `datadog_usage`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The metrics query definition.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type BaseMetricsQueryParameters struct {
+
+	// (String) The aggregation method for metrics queries. Valid values are avg, min, max, sum, last, mean, area, l2norm, percentile, stddev, count_unique.
+	// The aggregation method for metrics queries. Valid values are `avg`, `min`, `max`, `sum`, `last`, `mean`, `area`, `l2norm`, `percentile`, `stddev`, `count_unique`.
+	// +kubebuilder:validation:Optional
+	Aggregator *string `json:"aggregator,omitempty" tf:"aggregator,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for metrics queries. Valid values are `metrics`, `cloud_cost`, `datadog_usage`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The metrics query definition.
+	// +kubebuilder:validation:Optional
+	Query *string `json:"query" tf:"query,omitempty"`
+}
+
+type CloudCostQueryInitParameters struct {
+
+	// (String) The aggregation method for metrics queries. Valid values are avg, min, max, sum, last, mean, area, l2norm, percentile, stddev, count_unique.
+	// The aggregation methods available for cloud cost queries. Valid values are `avg`, `sum`, `max`, `min`, `last`, `area`, `l2norm`, `percentile`, `stddev`.
+	Aggregator *string `json:"aggregator,omitempty" tf:"aggregator,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for cloud cost queries. Valid values are `metrics`, `cloud_cost`, `datadog_usage`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The cloud cost query definition.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type CloudCostQueryObservation struct {
+
+	// (String) The aggregation method for metrics queries. Valid values are avg, min, max, sum, last, mean, area, l2norm, percentile, stddev, count_unique.
+	// The aggregation methods available for cloud cost queries. Valid values are `avg`, `sum`, `max`, `min`, `last`, `area`, `l2norm`, `percentile`, `stddev`.
+	Aggregator *string `json:"aggregator,omitempty" tf:"aggregator,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for cloud cost queries. Valid values are `metrics`, `cloud_cost`, `datadog_usage`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The cloud cost query definition.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type CloudCostQueryParameters struct {
+
+	// (String) The aggregation method for metrics queries. Valid values are avg, min, max, sum, last, mean, area, l2norm, percentile, stddev, count_unique.
+	// The aggregation methods available for cloud cost queries. Valid values are `avg`, `sum`, `max`, `min`, `last`, `area`, `l2norm`, `percentile`, `stddev`.
+	// +kubebuilder:validation:Optional
+	Aggregator *string `json:"aggregator" tf:"aggregator,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for cloud cost queries. Valid values are `metrics`, `cloud_cost`, `datadog_usage`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The cloud cost query definition.
+	// +kubebuilder:validation:Optional
+	Query *string `json:"query" tf:"query,omitempty"`
+}
+
+type ColumnsInitParameters struct {
+
+	// (String) Optional alias for the column.
+	// Optional alias for the column.
+	Alias *string `json:"alias,omitempty" tf:"alias,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Reference table column name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type ColumnsObservation struct {
+
+	// (String) Optional alias for the column.
+	// Optional alias for the column.
+	Alias *string `json:"alias,omitempty" tf:"alias,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Reference table column name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type ColumnsParameters struct {
+
+	// (String) Optional alias for the column.
+	// Optional alias for the column.
+	// +kubebuilder:validation:Optional
+	Alias *string `json:"alias,omitempty" tf:"alias,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Reference table column name.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+}
+
+type ComputeInitParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined for a query.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type ComputeObservation struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined for a query.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type ComputeParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	// +kubebuilder:validation:Optional
+	Aggregation *string `json:"aggregation" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	// +kubebuilder:validation:Optional
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	// +kubebuilder:validation:Optional
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined for a query.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type CustomScheduleInitParameters struct {
@@ -131,6 +1699,180 @@ type CustomScheduleRecurrenceParameters struct {
 	Timezone *string `json:"timezone" tf:"timezone,omitempty"`
 }
 
+type DataJobsQueryInitParameters struct {
+
+	// (String) The type of job being monitored. Valid values include databricks.job, spark.application, airflow.dag, dbt.job, glue.job. Custom job types are supported with the custom.ol. prefix.
+	// The type of job being monitored. Valid values include `databricks.job`, `spark.application`, `airflow.dag`, `dbt.job`, `glue.job`. Custom job types are supported with the `custom.ol.` prefix.
+	JobType *string `json:"jobType,omitempty" tf:"job_type,omitempty"`
+
+	// (String) Filter expression used to select the jobs to monitor.
+	// Filter expression used to select the jobs to monitor.
+	JobsQuery *string `json:"jobsQuery,omitempty" tf:"jobs_query,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name of the query for use in formulas. Must be `run_query`.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Query dialect for data jobs queries. Currently only metric is supported.
+	// Query dialect for data jobs queries. Currently only `metric` is supported.
+	QueryDialect *string `json:"queryDialect,omitempty" tf:"query_dialect,omitempty"`
+}
+
+type DataJobsQueryObservation struct {
+
+	// (String) The type of job being monitored. Valid values include databricks.job, spark.application, airflow.dag, dbt.job, glue.job. Custom job types are supported with the custom.ol. prefix.
+	// The type of job being monitored. Valid values include `databricks.job`, `spark.application`, `airflow.dag`, `dbt.job`, `glue.job`. Custom job types are supported with the `custom.ol.` prefix.
+	JobType *string `json:"jobType,omitempty" tf:"job_type,omitempty"`
+
+	// (String) Filter expression used to select the jobs to monitor.
+	// Filter expression used to select the jobs to monitor.
+	JobsQuery *string `json:"jobsQuery,omitempty" tf:"jobs_query,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name of the query for use in formulas. Must be `run_query`.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Query dialect for data jobs queries. Currently only metric is supported.
+	// Query dialect for data jobs queries. Currently only `metric` is supported.
+	QueryDialect *string `json:"queryDialect,omitempty" tf:"query_dialect,omitempty"`
+}
+
+type DataJobsQueryParameters struct {
+
+	// (String) The type of job being monitored. Valid values include databricks.job, spark.application, airflow.dag, dbt.job, glue.job. Custom job types are supported with the custom.ol. prefix.
+	// The type of job being monitored. Valid values include `databricks.job`, `spark.application`, `airflow.dag`, `dbt.job`, `glue.job`. Custom job types are supported with the `custom.ol.` prefix.
+	// +kubebuilder:validation:Optional
+	JobType *string `json:"jobType" tf:"job_type,omitempty"`
+
+	// (String) Filter expression used to select the jobs to monitor.
+	// Filter expression used to select the jobs to monitor.
+	// +kubebuilder:validation:Optional
+	JobsQuery *string `json:"jobsQuery" tf:"jobs_query,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name of the query for use in formulas. Must be `run_query`.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (String) Query dialect for data jobs queries. Currently only metric is supported.
+	// Query dialect for data jobs queries. Currently only `metric` is supported.
+	// +kubebuilder:validation:Optional
+	QueryDialect *string `json:"queryDialect" tf:"query_dialect,omitempty"`
+}
+
+type DataQualityQueryInitParameters struct {
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for data quality queries. Valid value is `data_quality_metrics`. Valid values are `data_quality_metrics`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Filter expression used to match on data entities. Uses AAstra query syntax.
+	// Filter expression used to match on data entities. Uses AAstra query syntax.
+	Filter *string `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Optional grouping fields for aggregation.
+	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (String) The measure to query. Common values include bytes, cardinality, custom, freshness, max, mean, min, nullness, percent_negative, percent_zero, row_count, stddev, sum, uniqueness. Additional values may be supported.
+	// The measure to query. Common values include `bytes`, `cardinality`, `custom`, `freshness`, `max`, `mean`, `min`, `nullness`, `percent_negative`, `percent_zero`, `row_count`, `stddev`, `sum`, `uniqueness`. Additional values may be supported.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// (Block List, Max: 1) Monitor configuration options for data quality queries. (see below for nested schema)
+	// Monitor configuration options for data quality queries.
+	MonitorOptions []MonitorOptionsInitParameters `json:"monitorOptions,omitempty" tf:"monitor_options,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Schema version for the data quality query.
+	// Schema version for the data quality query.
+	SchemaVersion *string `json:"schemaVersion,omitempty" tf:"schema_version,omitempty"`
+
+	// (String) Optional scoping expression to further filter metrics.
+	// Optional scoping expression to further filter metrics.
+	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
+}
+
+type DataQualityQueryObservation struct {
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for data quality queries. Valid value is `data_quality_metrics`. Valid values are `data_quality_metrics`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Filter expression used to match on data entities. Uses AAstra query syntax.
+	// Filter expression used to match on data entities. Uses AAstra query syntax.
+	Filter *string `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Optional grouping fields for aggregation.
+	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (String) The measure to query. Common values include bytes, cardinality, custom, freshness, max, mean, min, nullness, percent_negative, percent_zero, row_count, stddev, sum, uniqueness. Additional values may be supported.
+	// The measure to query. Common values include `bytes`, `cardinality`, `custom`, `freshness`, `max`, `mean`, `min`, `nullness`, `percent_negative`, `percent_zero`, `row_count`, `stddev`, `sum`, `uniqueness`. Additional values may be supported.
+	Measure *string `json:"measure,omitempty" tf:"measure,omitempty"`
+
+	// (Block List, Max: 1) Monitor configuration options for data quality queries. (see below for nested schema)
+	// Monitor configuration options for data quality queries.
+	MonitorOptions []MonitorOptionsObservation `json:"monitorOptions,omitempty" tf:"monitor_options,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Schema version for the data quality query.
+	// Schema version for the data quality query.
+	SchemaVersion *string `json:"schemaVersion,omitempty" tf:"schema_version,omitempty"`
+
+	// (String) Optional scoping expression to further filter metrics.
+	// Optional scoping expression to further filter metrics.
+	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
+}
+
+type DataQualityQueryParameters struct {
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for data quality queries. Valid value is `data_quality_metrics`. Valid values are `data_quality_metrics`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// (String) Filter expression used to match on data entities. Uses AAstra query syntax.
+	// Filter expression used to match on data entities. Uses AAstra query syntax.
+	// +kubebuilder:validation:Optional
+	Filter *string `json:"filter" tf:"filter,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Optional grouping fields for aggregation.
+	// +kubebuilder:validation:Optional
+	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (String) The measure to query. Common values include bytes, cardinality, custom, freshness, max, mean, min, nullness, percent_negative, percent_zero, row_count, stddev, sum, uniqueness. Additional values may be supported.
+	// The measure to query. Common values include `bytes`, `cardinality`, `custom`, `freshness`, `max`, `mean`, `min`, `nullness`, `percent_negative`, `percent_zero`, `row_count`, `stddev`, `sum`, `uniqueness`. Additional values may be supported.
+	// +kubebuilder:validation:Optional
+	Measure *string `json:"measure" tf:"measure,omitempty"`
+
+	// (Block List, Max: 1) Monitor configuration options for data quality queries. (see below for nested schema)
+	// Monitor configuration options for data quality queries.
+	// +kubebuilder:validation:Optional
+	MonitorOptions []MonitorOptionsParameters `json:"monitorOptions,omitempty" tf:"monitor_options,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of the query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (String) Schema version for the data quality query.
+	// Schema version for the data quality query.
+	// +kubebuilder:validation:Optional
+	SchemaVersion *string `json:"schemaVersion,omitempty" tf:"schema_version,omitempty"`
+
+	// (String) Optional scoping expression to further filter metrics.
+	// Optional scoping expression to further filter metrics.
+	// +kubebuilder:validation:Optional
+	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
+}
+
 type EvaluationWindowInitParameters struct {
 
 	// (String) The time of the day at which a one day cumulative evaluation window starts. Must be defined in UTC time in HH:mm format.
@@ -144,6 +1886,10 @@ type EvaluationWindowInitParameters struct {
 	// (Number) The day of the month at which a one month cumulative evaluation window starts. Must be a value of 1.
 	// The day of the month at which a one month cumulative evaluation window starts. Must be a value of 1.
 	MonthStarts *float64 `json:"monthStarts,omitempty" tf:"month_starts,omitempty"`
+
+	// (String) 'tz database' format. Example: America/New_York or UTC
+	// The timezone for the cumulative evaluation window start time.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 }
 
 type EvaluationWindowObservation struct {
@@ -159,6 +1905,10 @@ type EvaluationWindowObservation struct {
 	// (Number) The day of the month at which a one month cumulative evaluation window starts. Must be a value of 1.
 	// The day of the month at which a one month cumulative evaluation window starts. Must be a value of 1.
 	MonthStarts *float64 `json:"monthStarts,omitempty" tf:"month_starts,omitempty"`
+
+	// (String) 'tz database' format. Example: America/New_York or UTC
+	// The timezone for the cumulative evaluation window start time.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 }
 
 type EvaluationWindowParameters struct {
@@ -177,21 +1927,196 @@ type EvaluationWindowParameters struct {
 	// The day of the month at which a one month cumulative evaluation window starts. Must be a value of 1.
 	// +kubebuilder:validation:Optional
 	MonthStarts *float64 `json:"monthStarts,omitempty" tf:"month_starts,omitempty"`
+
+	// (String) 'tz database' format. Example: America/New_York or UTC
+	// The timezone for the cumulative evaluation window start time.
+	// +kubebuilder:validation:Optional
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+}
+
+type EventQueryComputeInitParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined for a query.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type EventQueryComputeObservation struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined for a query.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type EventQueryComputeParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	// +kubebuilder:validation:Optional
+	Aggregation *string `json:"aggregation" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	// +kubebuilder:validation:Optional
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	// +kubebuilder:validation:Optional
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined for a query.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type EventQueryGroupByInitParameters struct {
+
+	// (String) The facet to group by.
+	// The event facet.
+	Facet *string `json:"facet,omitempty" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// The options for sorting group by results.
+	Sort []EventQueryGroupBySortInitParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// For composite aggregate-augmented queries, identifies which sub-query this group-by facet refers to (for example `filter_query`).
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type EventQueryGroupByObservation struct {
+
+	// (String) The facet to group by.
+	// The event facet.
+	Facet *string `json:"facet,omitempty" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// The options for sorting group by results.
+	Sort []EventQueryGroupBySortObservation `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// For composite aggregate-augmented queries, identifies which sub-query this group-by facet refers to (for example `filter_query`).
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type EventQueryGroupByParameters struct {
+
+	// (String) The facet to group by.
+	// The event facet.
+	// +kubebuilder:validation:Optional
+	Facet *string `json:"facet" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	// +kubebuilder:validation:Optional
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// The options for sorting group by results.
+	// +kubebuilder:validation:Optional
+	Sort []EventQueryGroupBySortParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// For composite aggregate-augmented queries, identifies which sub-query this group-by facet refers to (for example `filter_query`).
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type EventQueryGroupBySortInitParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for the event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type EventQueryGroupBySortObservation struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for the event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type EventQueryGroupBySortParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for the event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	// +kubebuilder:validation:Optional
+	Aggregation *string `json:"aggregation" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	// +kubebuilder:validation:Optional
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	// +kubebuilder:validation:Optional
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
 }
 
 type EventQueryInitParameters struct {
 
-	// (Block List, Min: 1) The compute options. (see below for nested schema)
+	// augmented query. (see below for nested schema)
 	// The compute options.
-	Compute []ComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+	Compute []EventQueryComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
-	// based queries. Valid values are rum, ci_pipelines, ci_tests, audit, events, logs, spans, database_queries.
-	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`.
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
 	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
 
-	// (Block List) Group by options. (see below for nested schema)
+	// augmented query. At least one block is required. (see below for nested schema)
 	// Group by options.
-	GroupBy []GroupByInitParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+	GroupBy []EventQueryGroupByInitParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
 	// (List of String) An array of index names to query in the stream.
 	// An array of index names to query in the stream.
@@ -203,22 +2128,22 @@ type EventQueryInitParameters struct {
 
 	// (Block List, Min: 1, Max: 1) The search options. (see below for nested schema)
 	// The search options.
-	Search []SearchInitParameters `json:"search,omitempty" tf:"search,omitempty"`
+	Search []EventQuerySearchInitParameters `json:"search,omitempty" tf:"search,omitempty"`
 }
 
 type EventQueryObservation struct {
 
-	// (Block List, Min: 1) The compute options. (see below for nested schema)
+	// augmented query. (see below for nested schema)
 	// The compute options.
-	Compute []ComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
+	Compute []EventQueryComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
 
-	// based queries. Valid values are rum, ci_pipelines, ci_tests, audit, events, logs, spans, database_queries.
-	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`.
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
 	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
 
-	// (Block List) Group by options. (see below for nested schema)
+	// augmented query. At least one block is required. (see below for nested schema)
 	// Group by options.
-	GroupBy []GroupByObservation `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+	GroupBy []EventQueryGroupByObservation `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
 	// (List of String) An array of index names to query in the stream.
 	// An array of index names to query in the stream.
@@ -230,25 +2155,25 @@ type EventQueryObservation struct {
 
 	// (Block List, Min: 1, Max: 1) The search options. (see below for nested schema)
 	// The search options.
-	Search []SearchObservation `json:"search,omitempty" tf:"search,omitempty"`
+	Search []EventQuerySearchObservation `json:"search,omitempty" tf:"search,omitempty"`
 }
 
 type EventQueryParameters struct {
 
-	// (Block List, Min: 1) The compute options. (see below for nested schema)
+	// augmented query. (see below for nested schema)
 	// The compute options.
 	// +kubebuilder:validation:Optional
-	Compute []ComputeParameters `json:"compute" tf:"compute,omitempty"`
+	Compute []EventQueryComputeParameters `json:"compute" tf:"compute,omitempty"`
 
-	// based queries. Valid values are rum, ci_pipelines, ci_tests, audit, events, logs, spans, database_queries.
-	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`.
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
 	// +kubebuilder:validation:Optional
 	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
 
-	// (Block List) Group by options. (see below for nested schema)
+	// augmented query. At least one block is required. (see below for nested schema)
 	// Group by options.
 	// +kubebuilder:validation:Optional
-	GroupBy []GroupByParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+	GroupBy []EventQueryGroupByParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
 	// (List of String) An array of index names to query in the stream.
 	// An array of index names to query in the stream.
@@ -263,12 +2188,95 @@ type EventQueryParameters struct {
 	// (Block List, Min: 1, Max: 1) The search options. (see below for nested schema)
 	// The search options.
 	// +kubebuilder:validation:Optional
-	Search []SearchParameters `json:"search" tf:"search,omitempty"`
+	Search []EventQuerySearchParameters `json:"search" tf:"search,omitempty"`
 }
 
-type GroupByInitParameters struct {
+type EventQuerySearchInitParameters struct {
 
-	// (String) The event facet.
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The events search string.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type EventQuerySearchObservation struct {
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The events search string.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type EventQuerySearchParameters struct {
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The events search string.
+	// +kubebuilder:validation:Optional
+	Query *string `json:"query" tf:"query,omitempty"`
+}
+
+type FilterEventQueryComputeInitParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined for a query.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type FilterEventQueryComputeObservation struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined for a query.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type FilterEventQueryComputeParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	// +kubebuilder:validation:Optional
+	Aggregation *string `json:"aggregation" tf:"aggregation,omitempty"`
+
+	// (Number) A time interval in milliseconds.
+	// A time interval in milliseconds.
+	// +kubebuilder:validation:Optional
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The measurable attribute to compute.
+	// +kubebuilder:validation:Optional
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name assigned to this aggregation when multiple aggregations are defined for a query.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type FilterEventQueryGroupByInitParameters struct {
+
+	// (String) The facet to group by.
 	// The event facet.
 	Facet *string `json:"facet,omitempty" tf:"facet,omitempty"`
 
@@ -276,14 +2284,18 @@ type GroupByInitParameters struct {
 	// The number of groups to return.
 	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
 
-	// (Block List, Max: 1) The options for sorting group by results. (see below for nested schema)
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
 	// The options for sorting group by results.
-	Sort []SortInitParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+	Sort []FilterEventQueryGroupBySortInitParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// For composite aggregate-augmented queries, identifies which sub-query this group-by facet refers to (for example `filter_query`).
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 }
 
-type GroupByObservation struct {
+type FilterEventQueryGroupByObservation struct {
 
-	// (String) The event facet.
+	// (String) The facet to group by.
 	// The event facet.
 	Facet *string `json:"facet,omitempty" tf:"facet,omitempty"`
 
@@ -291,14 +2303,18 @@ type GroupByObservation struct {
 	// The number of groups to return.
 	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
 
-	// (Block List, Max: 1) The options for sorting group by results. (see below for nested schema)
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
 	// The options for sorting group by results.
-	Sort []SortObservation `json:"sort,omitempty" tf:"sort,omitempty"`
+	Sort []FilterEventQueryGroupBySortObservation `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// For composite aggregate-augmented queries, identifies which sub-query this group-by facet refers to (for example `filter_query`).
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 }
 
-type GroupByParameters struct {
+type FilterEventQueryGroupByParameters struct {
 
-	// (String) The event facet.
+	// (String) The facet to group by.
 	// The event facet.
 	// +kubebuilder:validation:Optional
 	Facet *string `json:"facet" tf:"facet,omitempty"`
@@ -308,17 +2324,592 @@ type GroupByParameters struct {
 	// +kubebuilder:validation:Optional
 	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
 
-	// (Block List, Max: 1) The options for sorting group by results. (see below for nested schema)
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// The options for sorting group by results.
+	// +kubebuilder:validation:Optional
+	Sort []FilterEventQueryGroupBySortParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// For composite aggregate-augmented queries, identifies which sub-query this group-by facet refers to (for example `filter_query`).
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type FilterEventQueryGroupBySortInitParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for the event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type FilterEventQueryGroupBySortObservation struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for the event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type FilterEventQueryGroupBySortParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for the event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	// +kubebuilder:validation:Optional
+	Aggregation *string `json:"aggregation" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	// +kubebuilder:validation:Optional
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	// +kubebuilder:validation:Optional
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type FilterEventQueryInitParameters struct {
+
+	// augmented query. (see below for nested schema)
+	// The compute options.
+	Compute []FilterEventQueryComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Group by options.
+	GroupBy []FilterEventQueryGroupByInitParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (List of String) An array of index names to query in the stream.
+	// An array of index names to query in the stream.
+	Indexes []*string `json:"indexes,omitempty" tf:"indexes,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) The search options. (see below for nested schema)
+	// The search options.
+	Search []FilterEventQuerySearchInitParameters `json:"search,omitempty" tf:"search,omitempty"`
+}
+
+type FilterEventQueryObservation struct {
+
+	// augmented query. (see below for nested schema)
+	// The compute options.
+	Compute []FilterEventQueryComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Group by options.
+	GroupBy []FilterEventQueryGroupByObservation `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (List of String) An array of index names to query in the stream.
+	// An array of index names to query in the stream.
+	Indexes []*string `json:"indexes,omitempty" tf:"indexes,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of query for use in formulas.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) The search options. (see below for nested schema)
+	// The search options.
+	Search []FilterEventQuerySearchObservation `json:"search,omitempty" tf:"search,omitempty"`
+}
+
+type FilterEventQueryParameters struct {
+
+	// augmented query. (see below for nested schema)
+	// The compute options.
+	// +kubebuilder:validation:Optional
+	Compute []FilterEventQueryComputeParameters `json:"compute" tf:"compute,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// The data source for event platform-based queries. Valid values are `rum`, `ci_pipelines`, `ci_tests`, `audit`, `events`, `logs`, `spans`, `database_queries`, `network`, `network_path`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// augmented query. At least one block is required. (see below for nested schema)
+	// Group by options.
+	// +kubebuilder:validation:Optional
+	GroupBy []FilterEventQueryGroupByParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (List of String) An array of index names to query in the stream.
+	// An array of index names to query in the stream.
+	// +kubebuilder:validation:Optional
+	Indexes []*string `json:"indexes,omitempty" tf:"indexes,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// The name of query for use in formulas.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) The search options. (see below for nested schema)
+	// The search options.
+	// +kubebuilder:validation:Optional
+	Search []FilterEventQuerySearchParameters `json:"search" tf:"search,omitempty"`
+}
+
+type FilterEventQuerySearchInitParameters struct {
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The events search string.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type FilterEventQuerySearchObservation struct {
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The events search string.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type FilterEventQuerySearchParameters struct {
+
+	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
+	// The events search string.
+	// +kubebuilder:validation:Optional
+	Query *string `json:"query" tf:"query,omitempty"`
+}
+
+type FilterReferenceTableColumnsInitParameters struct {
+
+	// (String) Optional alias for the column.
+	// Optional alias for the column.
+	Alias *string `json:"alias,omitempty" tf:"alias,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Reference table column name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type FilterReferenceTableColumnsObservation struct {
+
+	// (String) Optional alias for the column.
+	// Optional alias for the column.
+	Alias *string `json:"alias,omitempty" tf:"alias,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Reference table column name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type FilterReferenceTableColumnsParameters struct {
+
+	// (String) Optional alias for the column.
+	// Optional alias for the column.
+	// +kubebuilder:validation:Optional
+	Alias *string `json:"alias,omitempty" tf:"alias,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Reference table column name.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+}
+
+type FilterReferenceTableInitParameters struct {
+
+	// (Block List) Columns to retrieve from the reference table. (see below for nested schema)
+	// Columns to retrieve from the reference table.
+	Columns []FilterReferenceTableColumnsInitParameters `json:"columns,omitempty" tf:"columns,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// Must be `reference_table`. Valid values are `reference_table`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name of the filter sub-query.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Optional filter expression for the reference table query.
+	// Optional filter expression for the reference table query.
+	QueryFilter *string `json:"queryFilter,omitempty" tf:"query_filter,omitempty"`
+
+	// (String) Name of the reference table.
+	// Name of the reference table.
+	TableName *string `json:"tableName,omitempty" tf:"table_name,omitempty"`
+}
+
+type FilterReferenceTableObservation struct {
+
+	// (Block List) Columns to retrieve from the reference table. (see below for nested schema)
+	// Columns to retrieve from the reference table.
+	Columns []FilterReferenceTableColumnsObservation `json:"columns,omitempty" tf:"columns,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// Must be `reference_table`. Valid values are `reference_table`.
+	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name of the filter sub-query.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Optional filter expression for the reference table query.
+	// Optional filter expression for the reference table query.
+	QueryFilter *string `json:"queryFilter,omitempty" tf:"query_filter,omitempty"`
+
+	// (String) Name of the reference table.
+	// Name of the reference table.
+	TableName *string `json:"tableName,omitempty" tf:"table_name,omitempty"`
+}
+
+type FilterReferenceTableParameters struct {
+
+	// (Block List) Columns to retrieve from the reference table. (see below for nested schema)
+	// Columns to retrieve from the reference table.
+	// +kubebuilder:validation:Optional
+	Columns []FilterReferenceTableColumnsParameters `json:"columns,omitempty" tf:"columns,omitempty"`
+
+	// augmented composite queries. Must be aggregate_augmented_query. Valid values are aggregate_augmented_query.
+	// Must be `reference_table`. Valid values are `reference_table`.
+	// +kubebuilder:validation:Optional
+	DataSource *string `json:"dataSource" tf:"data_source,omitempty"`
+
+	// (String) Name of Datadog monitor.
+	// Name of the filter sub-query.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Optional filter expression for the reference table query.
+	// Optional filter expression for the reference table query.
+	// +kubebuilder:validation:Optional
+	QueryFilter *string `json:"queryFilter,omitempty" tf:"query_filter,omitempty"`
+
+	// (String) Name of the reference table.
+	// Name of the reference table.
+	// +kubebuilder:validation:Optional
+	TableName *string `json:"tableName" tf:"table_name,omitempty"`
+}
+
+type FiltersInitParameters struct {
+
+	// (String) Attribute from the base query to join on.
+	// Attribute from the base query to filter on.
+	BaseAttribute *string `json:"baseAttribute,omitempty" tf:"base_attribute,omitempty"`
+
+	// (Boolean) When true, exclude matching records instead of including them.
+	// When true, exclude matching records instead of including them.
+	Exclude *bool `json:"exclude,omitempty" tf:"exclude,omitempty"`
+
+	// (String) Attribute from the filter query to match against.
+	// Attribute from the filter query to match against.
+	FilterAttribute *string `json:"filterAttribute,omitempty" tf:"filter_attribute,omitempty"`
+}
+
+type FiltersObservation struct {
+
+	// (String) Attribute from the base query to join on.
+	// Attribute from the base query to filter on.
+	BaseAttribute *string `json:"baseAttribute,omitempty" tf:"base_attribute,omitempty"`
+
+	// (Boolean) When true, exclude matching records instead of including them.
+	// When true, exclude matching records instead of including them.
+	Exclude *bool `json:"exclude,omitempty" tf:"exclude,omitempty"`
+
+	// (String) Attribute from the filter query to match against.
+	// Attribute from the filter query to match against.
+	FilterAttribute *string `json:"filterAttribute,omitempty" tf:"filter_attribute,omitempty"`
+}
+
+type FiltersParameters struct {
+
+	// (String) Attribute from the base query to join on.
+	// Attribute from the base query to filter on.
+	// +kubebuilder:validation:Optional
+	BaseAttribute *string `json:"baseAttribute" tf:"base_attribute,omitempty"`
+
+	// (Boolean) When true, exclude matching records instead of including them.
+	// When true, exclude matching records instead of including them.
+	// +kubebuilder:validation:Optional
+	Exclude *bool `json:"exclude,omitempty" tf:"exclude,omitempty"`
+
+	// (String) Attribute from the filter query to match against.
+	// Attribute from the filter query to match against.
+	// +kubebuilder:validation:Optional
+	FilterAttribute *string `json:"filterAttribute" tf:"filter_attribute,omitempty"`
+}
+
+type GroupByInitParameters struct {
+
+	// (String) The facet to group by.
+	// The event facet.
+	Facet *string `json:"facet,omitempty" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// The options for sorting group by results.
+	Sort []SortInitParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// For composite aggregate-augmented queries, identifies which sub-query this group-by facet refers to (for example `filter_query`).
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type GroupByObservation struct {
+
+	// (String) The facet to group by.
+	// The event facet.
+	Facet *string `json:"facet,omitempty" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
+	// The options for sorting group by results.
+	Sort []SortObservation `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// For composite aggregate-augmented queries, identifies which sub-query this group-by facet refers to (for example `filter_query`).
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type GroupByParameters struct {
+
+	// (String) The facet to group by.
+	// The event facet.
+	// +kubebuilder:validation:Optional
+	Facet *string `json:"facet" tf:"facet,omitempty"`
+
+	// (Number) The number of groups to return.
+	// The number of groups to return.
+	// +kubebuilder:validation:Optional
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
+	// (Block List, Max: 1) Sort options for group by. (see below for nested schema)
 	// The options for sorting group by results.
 	// +kubebuilder:validation:Optional
 	Sort []SortParameters `json:"sort,omitempty" tf:"sort,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// For composite aggregate-augmented queries, identifies which sub-query this group-by facet refers to (for example `filter_query`).
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type GroupBySortInitParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for the event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type GroupBySortObservation struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for the event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type GroupBySortParameters struct {
+
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// The aggregation methods for the event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
+	// +kubebuilder:validation:Optional
+	Aggregation *string `json:"aggregation" tf:"aggregation,omitempty"`
+
+	// (String) The measurable attribute to compute.
+	// The metric used for sorting group by results.
+	// +kubebuilder:validation:Optional
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) Direction of sort. Valid values are asc, desc.
+	// Direction of sort. Valid values are `asc`, `desc`.
+	// +kubebuilder:validation:Optional
+	Order *string `json:"order,omitempty" tf:"order,omitempty"`
+}
+
+type JoinConditionInitParameters struct {
+
+	// (String) Attribute from the augment query to join on.
+	// Attribute from the augment query to join on.
+	AugmentAttribute *string `json:"augmentAttribute,omitempty" tf:"augment_attribute,omitempty"`
+
+	// (String) Attribute from the base query to join on.
+	// Attribute from the base query to join on.
+	BaseAttribute *string `json:"baseAttribute,omitempty" tf:"base_attribute,omitempty"`
+
+	// (String) Join type (for example inner). Valid values are inner, left.
+	// Join type (for example `inner`). Valid values are `inner`, `left`.
+	JoinType *string `json:"joinType,omitempty" tf:"join_type,omitempty"`
+}
+
+type JoinConditionObservation struct {
+
+	// (String) Attribute from the augment query to join on.
+	// Attribute from the augment query to join on.
+	AugmentAttribute *string `json:"augmentAttribute,omitempty" tf:"augment_attribute,omitempty"`
+
+	// (String) Attribute from the base query to join on.
+	// Attribute from the base query to join on.
+	BaseAttribute *string `json:"baseAttribute,omitempty" tf:"base_attribute,omitempty"`
+
+	// (String) Join type (for example inner). Valid values are inner, left.
+	// Join type (for example `inner`). Valid values are `inner`, `left`.
+	JoinType *string `json:"joinType,omitempty" tf:"join_type,omitempty"`
+}
+
+type JoinConditionParameters struct {
+
+	// (String) Attribute from the augment query to join on.
+	// Attribute from the augment query to join on.
+	// +kubebuilder:validation:Optional
+	AugmentAttribute *string `json:"augmentAttribute" tf:"augment_attribute,omitempty"`
+
+	// (String) Attribute from the base query to join on.
+	// Attribute from the base query to join on.
+	// +kubebuilder:validation:Optional
+	BaseAttribute *string `json:"baseAttribute" tf:"base_attribute,omitempty"`
+
+	// (String) Join type (for example inner). Valid values are inner, left.
+	// Join type (for example `inner`). Valid values are `inner`, `left`.
+	// +kubebuilder:validation:Optional
+	JoinType *string `json:"joinType" tf:"join_type,omitempty"`
+}
+
+type ModelConfigurationInitParameters struct {
+
+	// (Number) Number of days after which an open alert is automatically resolved. When unset, alerts stay open until the measure returns within bounds.
+	// Number of days after which an open alert is automatically resolved. When unset, alerts stay open until the measure returns within bounds.
+	AutoResolveDays *float64 `json:"autoResolveDays,omitempty" tf:"auto_resolve_days,omitempty"`
+
+	// (Boolean) Whether to alert when the measure stops changing entirely. Defaults to true. Defaults to true.
+	// Whether to alert when the measure stops changing entirely. Defaults to `true`. Defaults to `true`.
+	EnableFlatlineDetection *bool `json:"enableFlatlineDetection,omitempty" tf:"enable_flatline_detection,omitempty"`
+
+	// (String) Function applied to the measure before it is compared against the predicted bounds. Valid values are DIFF, DIFF_PERCENT.
+	// Function applied to the measure before it is compared against the predicted bounds. Valid values are `DIFF`, `DIFF_PERCENT`.
+	Function *string `json:"function,omitempty" tf:"function,omitempty"`
+
+	// (Number) Minimum distance between the predicted value and the lower bound. Widening the lower bound to at least this size suppresses alerts on small downward deviations. When unset, no minimum is enforced.
+	// Minimum distance between the predicted value and the lower bound. Widening the lower bound to at least this size suppresses alerts on small downward deviations. When unset, no minimum is enforced.
+	MinLowerBoundSize *float64 `json:"minLowerBoundSize,omitempty" tf:"min_lower_bound_size,omitempty"`
+
+	// (Number) Minimum distance between the predicted value and the upper bound. Widening the upper bound to at least this size suppresses alerts on small upward deviations. When unset, no minimum is enforced.
+	// Minimum distance between the predicted value and the upper bound. Widening the upper bound to at least this size suppresses alerts on small upward deviations. When unset, no minimum is enforced.
+	MinUpperBoundSize *float64 `json:"minUpperBoundSize,omitempty" tf:"min_upper_bound_size,omitempty"`
+
+	// (String) Restricts which predicted bound the monitor alerts on. When unset, the monitor alerts on both. Valid values are UPPER_ONLY, LOWER_ONLY.
+	// Restricts which predicted bound the monitor alerts on. When unset, the monitor alerts on both. Valid values are `UPPER_ONLY`, `LOWER_ONLY`.
+	ModelBoundsOverride *string `json:"modelBoundsOverride,omitempty" tf:"model_bounds_override,omitempty"`
+}
+
+type ModelConfigurationObservation struct {
+
+	// (Number) Number of days after which an open alert is automatically resolved. When unset, alerts stay open until the measure returns within bounds.
+	// Number of days after which an open alert is automatically resolved. When unset, alerts stay open until the measure returns within bounds.
+	AutoResolveDays *float64 `json:"autoResolveDays,omitempty" tf:"auto_resolve_days,omitempty"`
+
+	// (Boolean) Whether to alert when the measure stops changing entirely. Defaults to true. Defaults to true.
+	// Whether to alert when the measure stops changing entirely. Defaults to `true`. Defaults to `true`.
+	EnableFlatlineDetection *bool `json:"enableFlatlineDetection,omitempty" tf:"enable_flatline_detection,omitempty"`
+
+	// (String) Function applied to the measure before it is compared against the predicted bounds. Valid values are DIFF, DIFF_PERCENT.
+	// Function applied to the measure before it is compared against the predicted bounds. Valid values are `DIFF`, `DIFF_PERCENT`.
+	Function *string `json:"function,omitempty" tf:"function,omitempty"`
+
+	// (Number) Minimum distance between the predicted value and the lower bound. Widening the lower bound to at least this size suppresses alerts on small downward deviations. When unset, no minimum is enforced.
+	// Minimum distance between the predicted value and the lower bound. Widening the lower bound to at least this size suppresses alerts on small downward deviations. When unset, no minimum is enforced.
+	MinLowerBoundSize *float64 `json:"minLowerBoundSize,omitempty" tf:"min_lower_bound_size,omitempty"`
+
+	// (Number) Minimum distance between the predicted value and the upper bound. Widening the upper bound to at least this size suppresses alerts on small upward deviations. When unset, no minimum is enforced.
+	// Minimum distance between the predicted value and the upper bound. Widening the upper bound to at least this size suppresses alerts on small upward deviations. When unset, no minimum is enforced.
+	MinUpperBoundSize *float64 `json:"minUpperBoundSize,omitempty" tf:"min_upper_bound_size,omitempty"`
+
+	// (String) Restricts which predicted bound the monitor alerts on. When unset, the monitor alerts on both. Valid values are UPPER_ONLY, LOWER_ONLY.
+	// Restricts which predicted bound the monitor alerts on. When unset, the monitor alerts on both. Valid values are `UPPER_ONLY`, `LOWER_ONLY`.
+	ModelBoundsOverride *string `json:"modelBoundsOverride,omitempty" tf:"model_bounds_override,omitempty"`
+}
+
+type ModelConfigurationParameters struct {
+
+	// (Number) Number of days after which an open alert is automatically resolved. When unset, alerts stay open until the measure returns within bounds.
+	// Number of days after which an open alert is automatically resolved. When unset, alerts stay open until the measure returns within bounds.
+	// +kubebuilder:validation:Optional
+	AutoResolveDays *float64 `json:"autoResolveDays,omitempty" tf:"auto_resolve_days,omitempty"`
+
+	// (Boolean) Whether to alert when the measure stops changing entirely. Defaults to true. Defaults to true.
+	// Whether to alert when the measure stops changing entirely. Defaults to `true`. Defaults to `true`.
+	// +kubebuilder:validation:Optional
+	EnableFlatlineDetection *bool `json:"enableFlatlineDetection,omitempty" tf:"enable_flatline_detection,omitempty"`
+
+	// (String) Function applied to the measure before it is compared against the predicted bounds. Valid values are DIFF, DIFF_PERCENT.
+	// Function applied to the measure before it is compared against the predicted bounds. Valid values are `DIFF`, `DIFF_PERCENT`.
+	// +kubebuilder:validation:Optional
+	Function *string `json:"function,omitempty" tf:"function,omitempty"`
+
+	// (Number) Minimum distance between the predicted value and the lower bound. Widening the lower bound to at least this size suppresses alerts on small downward deviations. When unset, no minimum is enforced.
+	// Minimum distance between the predicted value and the lower bound. Widening the lower bound to at least this size suppresses alerts on small downward deviations. When unset, no minimum is enforced.
+	// +kubebuilder:validation:Optional
+	MinLowerBoundSize *float64 `json:"minLowerBoundSize,omitempty" tf:"min_lower_bound_size,omitempty"`
+
+	// (Number) Minimum distance between the predicted value and the upper bound. Widening the upper bound to at least this size suppresses alerts on small upward deviations. When unset, no minimum is enforced.
+	// Minimum distance between the predicted value and the upper bound. Widening the upper bound to at least this size suppresses alerts on small upward deviations. When unset, no minimum is enforced.
+	// +kubebuilder:validation:Optional
+	MinUpperBoundSize *float64 `json:"minUpperBoundSize,omitempty" tf:"min_upper_bound_size,omitempty"`
+
+	// (String) Restricts which predicted bound the monitor alerts on. When unset, the monitor alerts on both. Valid values are UPPER_ONLY, LOWER_ONLY.
+	// Restricts which predicted bound the monitor alerts on. When unset, the monitor alerts on both. Valid values are `UPPER_ONLY`, `LOWER_ONLY`.
+	// +kubebuilder:validation:Optional
+	ModelBoundsOverride *string `json:"modelBoundsOverride,omitempty" tf:"model_bounds_override,omitempty"`
 }
 
 type MonitorInitParameters struct {
 
+	// (Block List) List of monitor assets (for example, runbooks, dashboards, workflows) tied to this monitor. (see below for nested schema)
+	// List of monitor assets (for example, runbooks, dashboards, workflows) tied to this monitor.
+	Assets []AssetsInitParameters `json:"assets,omitempty" tf:"assets,omitempty"`
+
+	// (String) Indicates whether the monitor is in a draft or published state. When set to draft, the monitor appears as Draft and does not send notifications. When set to published, the monitor is active, and it evaluates conditions and sends notifications as configured. Valid values are draft, published. Defaults to "published".
+	// Indicates whether the monitor is in a draft or published state. When set to `draft`, the monitor appears as Draft and does not send notifications. When set to `published`, the monitor is active, and it evaluates conditions and sends notifications as configured. Valid values are `draft`, `published`. Defaults to `"published"`.
+	DraftStatus *string `json:"draftStatus,omitempty" tf:"draft_status,omitempty"`
+
 	// (Boolean) A boolean indicating whether or not to include a list of log values which triggered the alert. This is only used by log monitors. Defaults to false.
 	// A boolean indicating whether or not to include a list of log values which triggered the alert. This is only used by log monitors. Defaults to `false`.
 	EnableLogsSample *bool `json:"enableLogsSample,omitempty" tf:"enable_logs_sample,omitempty"`
+
+	// (Boolean) Whether or not a list of samples which triggered the alert is included. This is only used by CI Test and Pipeline monitors.
+	// Whether or not a list of samples which triggered the alert is included. This is only used by CI Test and Pipeline monitors.
+	EnableSamples *bool `json:"enableSamples,omitempty" tf:"enable_samples,omitempty"`
 
 	// notification. Supports the @username notification allowed elsewhere.
 	// A message to include with a re-notification. Supports the `@username` notification allowed elsewhere.
@@ -342,13 +2933,13 @@ type MonitorInitParameters struct {
 	// Whether or not to trigger one alert if any source breaches a threshold. This is only used by log monitors. Defaults to `false`.
 	GroupbySimpleMonitor *bool `json:"groupbySimpleMonitor,omitempty" tf:"groupby_simple_monitor,omitempty"`
 
+	// Other tags are still managed normally. Any :value suffix is ignored. Merged with the provider's ignore_tag_keys for this resource. Other tags are still managed normally. Any `:value` suffix is ignored. Merged with the provider's `ignore_tag_keys` for this resource.
+	// +listType=set
+	IgnoreTagKeys []*string `json:"ignoreTagKeys,omitempty" tf:"ignore_tag_keys,omitempty"`
+
 	// (Boolean) A boolean indicating whether notifications from this monitor automatically insert its triggering tags into the title. Defaults to true.
 	// A boolean indicating whether notifications from this monitor automatically insert its triggering tags into the title. Defaults to `true`.
 	IncludeTags *bool `json:"includeTags,omitempty" tf:"include_tags,omitempty"`
-
-	// (Boolean, Deprecated) A boolean indicating whether changes to this monitor should be restricted to the creator or admins. Defaults to false. Deprecated. Use restricted_roles.
-	// A boolean indicating whether changes to this monitor should be restricted to the creator or admins. Defaults to `false`. **Deprecated.** Use `restricted_roles`.
-	Locked *bool `json:"locked,omitempty" tf:"locked,omitempty"`
 
 	// (String) A message to include with notifications for this monitor.
 	// A message to include with notifications for this monitor.
@@ -384,8 +2975,8 @@ type MonitorInitParameters struct {
 	// We recommend at least 2x the monitor timeframe for metric alerts or 2 minutes for service checks. Defaults to `10`.
 	NoDataTimeframe *float64 `json:"noDataTimeframe,omitempty" tf:"no_data_timeframe,omitempty"`
 
-	// (String) Toggles the display of additional content sent in the monitor notification. Valid values are show_all, hide_query, hide_handles, hide_all.
-	// Toggles the display of additional content sent in the monitor notification. Valid values are `show_all`, `hide_query`, `hide_handles`, `hide_all`.
+	// (String) Toggles the display of additional content sent in the monitor notification. Valid values are show_all, hide_query, hide_handles, hide_all, hide_query_and_handles, show_only_snapshot, hide_handles_and_footer.
+	// Toggles the display of additional content sent in the monitor notification. Valid values are `show_all`, `hide_query`, `hide_handles`, `hide_all`, `hide_query_and_handles`, `show_only_snapshot`, `hide_handles_and_footer`.
 	NotificationPresetName *string `json:"notificationPresetName,omitempty" tf:"notification_preset_name,omitempty"`
 
 	// (Boolean) A boolean indicating whether tagged users will be notified on changes to this monitor. Defaults to false.
@@ -393,7 +2984,7 @@ type MonitorInitParameters struct {
 	NotifyAudit *bool `json:"notifyAudit,omitempty" tf:"notify_audit,omitempty"`
 
 	// alert.
-	// Controls what granularity a monitor alerts on. Only available for monitors with groupings. For instance, a monitor grouped by `cluster`, `namespace`, and `pod` can be configured to only notify on each new `cluster` violating the alert conditions by setting `notify_by` to `['cluster']`. Tags mentioned in `notify_by` must be a subset of the grouping tags in the query. For example, a query grouped by `cluster` and `namespace` cannot notify on `region`. Setting `notify_by` to `[*]` configures the monitor to notify as a simple-alert.
+	// Controls what granularity a monitor alerts on. Only available for monitors with groupings. For instance, a monitor grouped by `cluster`, `namespace`, and `pod` can be configured to only notify on each new `cluster` violating the alert conditions by setting `notify_by` to `['cluster']`. Tags mentioned in `notify_by` must be a proper subset of the grouping tags in the query. For example, a query grouped by `cluster` and `namespace` cannot notify on `region` because `region` is not part of the grouping tags; furthermore, the same query cannot set `notify_by` to `['cluster', 'namespace']` because that is not a proper subset. Setting `notify_by` to `[*]` configures the monitor to notify as a simple-alert.
 	// +listType=set
 	NotifyBy []*string `json:"notifyBy,omitempty" tf:"notify_by,omitempty"`
 
@@ -401,13 +2992,13 @@ type MonitorInitParameters struct {
 	// A boolean indicating whether this monitor will notify when data stops reporting. Defaults to `false`.
 	NotifyNoData *bool `json:"notifyNoData,omitempty" tf:"notify_no_data,omitempty"`
 
-	// (String) Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using Count queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than Count, for example Gauge, Measure, or Rate, the monitor shows the last known status. This option is only available for APM Trace Analytics, Audit Trail, CI, Error Tracking, Event, Logs, and RUM monitors. Valid values are: show_no_data, show_and_notify_no_data, resolve, and default.
-	// Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using `Count` queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than `Count`, for example `Gauge`, `Measure`, or `Rate`, the monitor shows the last known status. This option is only available for APM Trace Analytics, Audit Trail, CI, Error Tracking, Event, Logs, and RUM monitors. Valid values are: `show_no_data`, `show_and_notify_no_data`, `resolve`, and `default`.
+	// (String) Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using Count queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than Count, for example Gauge, Measure, or Rate, the monitor shows the last known status. This option is not available for Service Check, Composite, or SLO monitors. Valid values are: show_no_data, show_and_notify_no_data, resolve, and default.
+	// Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using `Count` queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than `Count`, for example `Gauge`, `Measure`, or `Rate`, the monitor shows the last known status. This option is not available for Service Check, Composite, or SLO monitors. Valid values are: `show_no_data`, `show_and_notify_no_data`, `resolve`, and `default`.
 	OnMissingData *string `json:"onMissingData,omitempty" tf:"on_missing_data,omitempty"`
 
-	// (Number) Integer from 1 (high) to 5 (low) indicating alert severity.
+	// (String) Integer from 1 (high) to 5 (low) indicating alert severity.
 	// Integer from 1 (high) to 5 (low) indicating alert severity.
-	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
+	Priority *string `json:"priority,omitempty" tf:"priority,omitempty"`
 
 	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
 	// The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the [API Reference](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor) for details.
@@ -432,12 +3023,12 @@ type MonitorInitParameters struct {
 	// A boolean indicating whether this monitor needs a full window of data before it's evaluated. Datadog strongly recommends you set this to `false` for sparse metrics, otherwise some evaluations may be skipped. If there's a custom_schedule set, `require_full_window` must be false and will be ignored. Defaults to `true`.
 	RequireFullWindow *bool `json:"requireFullWindow,omitempty" tf:"require_full_window,omitempty"`
 
-	// (Set of String) A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the Roles API in the data.id field.
-	// A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the [Roles API](https://docs.datadoghq.com/api/latest/roles/#list-roles) in the `data.id` field.
+	// (Set of String, Deprecated) A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the Roles API in the data.id field. Deprecated. Use datadog_restriction_policy resource to manage permission.
+	// A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the [Roles API](https://docs.datadoghq.com/api/latest/roles/#list-roles) in the `data.id` field. **Deprecated.** Use `datadog_restriction_policy` resource to manage permission.
 	// +listType=set
 	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
 
-	// (Block List) Configuration options for scheduling. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for scheduling. (see below for nested schema)
 	// Configuration options for scheduling.
 	SchedulingOptions []SchedulingOptionsInitParameters `json:"schedulingOptions,omitempty" tf:"scheduling_options,omitempty"`
 
@@ -450,8 +3041,8 @@ type MonitorInitParameters struct {
 	// The number of hours of the monitor not reporting data before it automatically resolves from a triggered state. The minimum allowed value is 0 hours. The maximum allowed value is 24 hours.
 	TimeoutH *float64 `json:"timeoutH,omitempty" tf:"timeout_h,omitempty"`
 
-	// analytics alert, slo alert, event-v2 alert, audit alert, ci-pipelines alert, ci-tests alert, error-tracking alert, database-monitoring alert.
-	// The type of the monitor. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API [documentation page](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor). Note: The monitor type cannot be changed after a monitor is created. Valid values are `composite`, `event alert`, `log alert`, `metric alert`, `process alert`, `query alert`, `rum alert`, `service check`, `synthetics alert`, `trace-analytics alert`, `slo alert`, `event-v2 alert`, `audit alert`, `ci-pipelines alert`, `ci-tests alert`, `error-tracking alert`, `database-monitoring alert`.
+	// analytics alert, slo alert, event-v2 alert, audit alert, ci-pipelines alert, ci-tests alert, error-tracking alert, database-monitoring alert, network-performance alert, cost alert, data-quality alert, network-path alert, data-jobs alert, llm-observability alert.
+	// The type of the monitor. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API [documentation page](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor). Note: The monitor type cannot be changed after a monitor is created. Valid values are `composite`, `event alert`, `log alert`, `metric alert`, `process alert`, `query alert`, `rum alert`, `service check`, `synthetics alert`, `trace-analytics alert`, `slo alert`, `event-v2 alert`, `audit alert`, `ci-pipelines alert`, `ci-tests alert`, `error-tracking alert`, `database-monitoring alert`, `network-performance alert`, `cost alert`, `data-quality alert`, `network-path alert`, `data-jobs alert`, `llm-observability alert`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (Boolean) If set to false, skip the validation call done during plan.
@@ -463,6 +3054,14 @@ type MonitorInitParameters struct {
 }
 
 type MonitorObservation struct {
+
+	// (Block List) List of monitor assets (for example, runbooks, dashboards, workflows) tied to this monitor. (see below for nested schema)
+	// List of monitor assets (for example, runbooks, dashboards, workflows) tied to this monitor.
+	Assets []AssetsObservation `json:"assets,omitempty" tf:"assets,omitempty"`
+
+	// (String) Indicates whether the monitor is in a draft or published state. When set to draft, the monitor appears as Draft and does not send notifications. When set to published, the monitor is active, and it evaluates conditions and sends notifications as configured. Valid values are draft, published. Defaults to "published".
+	// Indicates whether the monitor is in a draft or published state. When set to `draft`, the monitor appears as Draft and does not send notifications. When set to `published`, the monitor is active, and it evaluates conditions and sends notifications as configured. Valid values are `draft`, `published`. Defaults to `"published"`.
+	DraftStatus *string `json:"draftStatus,omitempty" tf:"draft_status,omitempty"`
 
 	// (Boolean) A boolean indicating whether or not to include a list of log values which triggered the alert. This is only used by log monitors. Defaults to false.
 	// A boolean indicating whether or not to include a list of log values which triggered the alert. This is only used by log monitors. Defaults to `false`.
@@ -497,13 +3096,13 @@ type MonitorObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Other tags are still managed normally. Any :value suffix is ignored. Merged with the provider's ignore_tag_keys for this resource. Other tags are still managed normally. Any `:value` suffix is ignored. Merged with the provider's `ignore_tag_keys` for this resource.
+	// +listType=set
+	IgnoreTagKeys []*string `json:"ignoreTagKeys,omitempty" tf:"ignore_tag_keys,omitempty"`
+
 	// (Boolean) A boolean indicating whether notifications from this monitor automatically insert its triggering tags into the title. Defaults to true.
 	// A boolean indicating whether notifications from this monitor automatically insert its triggering tags into the title. Defaults to `true`.
 	IncludeTags *bool `json:"includeTags,omitempty" tf:"include_tags,omitempty"`
-
-	// (Boolean, Deprecated) A boolean indicating whether changes to this monitor should be restricted to the creator or admins. Defaults to false. Deprecated. Use restricted_roles.
-	// A boolean indicating whether changes to this monitor should be restricted to the creator or admins. Defaults to `false`. **Deprecated.** Use `restricted_roles`.
-	Locked *bool `json:"locked,omitempty" tf:"locked,omitempty"`
 
 	// (String) A message to include with notifications for this monitor.
 	// A message to include with notifications for this monitor.
@@ -539,8 +3138,8 @@ type MonitorObservation struct {
 	// We recommend at least 2x the monitor timeframe for metric alerts or 2 minutes for service checks. Defaults to `10`.
 	NoDataTimeframe *float64 `json:"noDataTimeframe,omitempty" tf:"no_data_timeframe,omitempty"`
 
-	// (String) Toggles the display of additional content sent in the monitor notification. Valid values are show_all, hide_query, hide_handles, hide_all.
-	// Toggles the display of additional content sent in the monitor notification. Valid values are `show_all`, `hide_query`, `hide_handles`, `hide_all`.
+	// (String) Toggles the display of additional content sent in the monitor notification. Valid values are show_all, hide_query, hide_handles, hide_all, hide_query_and_handles, show_only_snapshot, hide_handles_and_footer.
+	// Toggles the display of additional content sent in the monitor notification. Valid values are `show_all`, `hide_query`, `hide_handles`, `hide_all`, `hide_query_and_handles`, `show_only_snapshot`, `hide_handles_and_footer`.
 	NotificationPresetName *string `json:"notificationPresetName,omitempty" tf:"notification_preset_name,omitempty"`
 
 	// (Boolean) A boolean indicating whether tagged users will be notified on changes to this monitor. Defaults to false.
@@ -548,7 +3147,7 @@ type MonitorObservation struct {
 	NotifyAudit *bool `json:"notifyAudit,omitempty" tf:"notify_audit,omitempty"`
 
 	// alert.
-	// Controls what granularity a monitor alerts on. Only available for monitors with groupings. For instance, a monitor grouped by `cluster`, `namespace`, and `pod` can be configured to only notify on each new `cluster` violating the alert conditions by setting `notify_by` to `['cluster']`. Tags mentioned in `notify_by` must be a subset of the grouping tags in the query. For example, a query grouped by `cluster` and `namespace` cannot notify on `region`. Setting `notify_by` to `[*]` configures the monitor to notify as a simple-alert.
+	// Controls what granularity a monitor alerts on. Only available for monitors with groupings. For instance, a monitor grouped by `cluster`, `namespace`, and `pod` can be configured to only notify on each new `cluster` violating the alert conditions by setting `notify_by` to `['cluster']`. Tags mentioned in `notify_by` must be a proper subset of the grouping tags in the query. For example, a query grouped by `cluster` and `namespace` cannot notify on `region` because `region` is not part of the grouping tags; furthermore, the same query cannot set `notify_by` to `['cluster', 'namespace']` because that is not a proper subset. Setting `notify_by` to `[*]` configures the monitor to notify as a simple-alert.
 	// +listType=set
 	NotifyBy []*string `json:"notifyBy,omitempty" tf:"notify_by,omitempty"`
 
@@ -556,13 +3155,13 @@ type MonitorObservation struct {
 	// A boolean indicating whether this monitor will notify when data stops reporting. Defaults to `false`.
 	NotifyNoData *bool `json:"notifyNoData,omitempty" tf:"notify_no_data,omitempty"`
 
-	// (String) Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using Count queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than Count, for example Gauge, Measure, or Rate, the monitor shows the last known status. This option is only available for APM Trace Analytics, Audit Trail, CI, Error Tracking, Event, Logs, and RUM monitors. Valid values are: show_no_data, show_and_notify_no_data, resolve, and default.
-	// Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using `Count` queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than `Count`, for example `Gauge`, `Measure`, or `Rate`, the monitor shows the last known status. This option is only available for APM Trace Analytics, Audit Trail, CI, Error Tracking, Event, Logs, and RUM monitors. Valid values are: `show_no_data`, `show_and_notify_no_data`, `resolve`, and `default`.
+	// (String) Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using Count queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than Count, for example Gauge, Measure, or Rate, the monitor shows the last known status. This option is not available for Service Check, Composite, or SLO monitors. Valid values are: show_no_data, show_and_notify_no_data, resolve, and default.
+	// Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using `Count` queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than `Count`, for example `Gauge`, `Measure`, or `Rate`, the monitor shows the last known status. This option is not available for Service Check, Composite, or SLO monitors. Valid values are: `show_no_data`, `show_and_notify_no_data`, `resolve`, and `default`.
 	OnMissingData *string `json:"onMissingData,omitempty" tf:"on_missing_data,omitempty"`
 
-	// (Number) Integer from 1 (high) to 5 (low) indicating alert severity.
+	// (String) Integer from 1 (high) to 5 (low) indicating alert severity.
 	// Integer from 1 (high) to 5 (low) indicating alert severity.
-	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
+	Priority *string `json:"priority,omitempty" tf:"priority,omitempty"`
 
 	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
 	// The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the [API Reference](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor) for details.
@@ -587,12 +3186,12 @@ type MonitorObservation struct {
 	// A boolean indicating whether this monitor needs a full window of data before it's evaluated. Datadog strongly recommends you set this to `false` for sparse metrics, otherwise some evaluations may be skipped. If there's a custom_schedule set, `require_full_window` must be false and will be ignored. Defaults to `true`.
 	RequireFullWindow *bool `json:"requireFullWindow,omitempty" tf:"require_full_window,omitempty"`
 
-	// (Set of String) A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the Roles API in the data.id field.
-	// A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the [Roles API](https://docs.datadoghq.com/api/latest/roles/#list-roles) in the `data.id` field.
+	// (Set of String, Deprecated) A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the Roles API in the data.id field. Deprecated. Use datadog_restriction_policy resource to manage permission.
+	// A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the [Roles API](https://docs.datadoghq.com/api/latest/roles/#list-roles) in the `data.id` field. **Deprecated.** Use `datadog_restriction_policy` resource to manage permission.
 	// +listType=set
 	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
 
-	// (Block List) Configuration options for scheduling. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for scheduling. (see below for nested schema)
 	// Configuration options for scheduling.
 	SchedulingOptions []SchedulingOptionsObservation `json:"schedulingOptions,omitempty" tf:"scheduling_options,omitempty"`
 
@@ -605,8 +3204,8 @@ type MonitorObservation struct {
 	// The number of hours of the monitor not reporting data before it automatically resolves from a triggered state. The minimum allowed value is 0 hours. The maximum allowed value is 24 hours.
 	TimeoutH *float64 `json:"timeoutH,omitempty" tf:"timeout_h,omitempty"`
 
-	// analytics alert, slo alert, event-v2 alert, audit alert, ci-pipelines alert, ci-tests alert, error-tracking alert, database-monitoring alert.
-	// The type of the monitor. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API [documentation page](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor). Note: The monitor type cannot be changed after a monitor is created. Valid values are `composite`, `event alert`, `log alert`, `metric alert`, `process alert`, `query alert`, `rum alert`, `service check`, `synthetics alert`, `trace-analytics alert`, `slo alert`, `event-v2 alert`, `audit alert`, `ci-pipelines alert`, `ci-tests alert`, `error-tracking alert`, `database-monitoring alert`.
+	// analytics alert, slo alert, event-v2 alert, audit alert, ci-pipelines alert, ci-tests alert, error-tracking alert, database-monitoring alert, network-performance alert, cost alert, data-quality alert, network-path alert, data-jobs alert, llm-observability alert.
+	// The type of the monitor. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API [documentation page](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor). Note: The monitor type cannot be changed after a monitor is created. Valid values are `composite`, `event alert`, `log alert`, `metric alert`, `process alert`, `query alert`, `rum alert`, `service check`, `synthetics alert`, `trace-analytics alert`, `slo alert`, `event-v2 alert`, `audit alert`, `ci-pipelines alert`, `ci-tests alert`, `error-tracking alert`, `database-monitoring alert`, `network-performance alert`, `cost alert`, `data-quality alert`, `network-path alert`, `data-jobs alert`, `llm-observability alert`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (Boolean) If set to false, skip the validation call done during plan.
@@ -617,12 +3216,140 @@ type MonitorObservation struct {
 	Variables []VariablesObservation `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
+type MonitorOptionsInitParameters struct {
+
+	// (String) Crontab expression to override the default schedule.
+	// Crontab expression to override the default schedule.
+	CrontabOverride *string `json:"crontabOverride,omitempty" tf:"crontab_override,omitempty"`
+
+	// (String) Custom SQL query for the monitor.
+	// Custom SQL query for the monitor.
+	CustomSQL *string `json:"customSql,omitempty" tf:"custom_sql,omitempty"`
+
+	// (String) Custom WHERE clause for the query.
+	// Custom WHERE clause for the query.
+	CustomWhere *string `json:"customWhere,omitempty" tf:"custom_where,omitempty"`
+
+	// (List of String) Columns to group results by.
+	// Columns to group results by.
+	GroupByColumns []*string `json:"groupByColumns,omitempty" tf:"group_by_columns,omitempty"`
+
+	// (Block List, Max: 1) Tuning options for the anomaly detection model used by the monitor. (see below for nested schema)
+	// Tuning options for the anomaly detection model used by the monitor.
+	ModelConfiguration []ModelConfigurationInitParameters `json:"modelConfiguration,omitempty" tf:"model_configuration,omitempty"`
+
+	// (String) Override for the model type. Valid values are freshness, percentage, any.
+	// Override for the model type. Valid values are `freshness`, `percentage`, `any`.
+	ModelTypeOverride *string `json:"modelTypeOverride,omitempty" tf:"model_type_override,omitempty"`
+
+	// (Number) Sensitivity of the anomaly detection model, expressed as a multiplier on the width of the predicted bounds. Higher values widen the bounds and produce fewer alerts; lower values tighten them and produce more alerts. Defaults to 3.0.
+	// Sensitivity of the anomaly detection model, expressed as a multiplier on the width of the predicted bounds. Higher values widen the bounds and produce fewer alerts; lower values tighten them and produce more alerts. Defaults to `3.0`.
+	Sensitivity *float64 `json:"sensitivity,omitempty" tf:"sensitivity,omitempty"`
+
+	// (Block List, Max: 1) Compare the same measure across two data entities and alert on the difference between them. (see below for nested schema)
+	// Compare the same measure across two data entities and alert on the difference between them.
+	SourceToTargetConfig []SourceToTargetConfigInitParameters `json:"sourceToTargetConfig,omitempty" tf:"source_to_target_config,omitempty"`
+}
+
+type MonitorOptionsObservation struct {
+
+	// (String) Crontab expression to override the default schedule.
+	// Crontab expression to override the default schedule.
+	CrontabOverride *string `json:"crontabOverride,omitempty" tf:"crontab_override,omitempty"`
+
+	// (String) Custom SQL query for the monitor.
+	// Custom SQL query for the monitor.
+	CustomSQL *string `json:"customSql,omitempty" tf:"custom_sql,omitempty"`
+
+	// (String) Custom WHERE clause for the query.
+	// Custom WHERE clause for the query.
+	CustomWhere *string `json:"customWhere,omitempty" tf:"custom_where,omitempty"`
+
+	// (List of String) Columns to group results by.
+	// Columns to group results by.
+	GroupByColumns []*string `json:"groupByColumns,omitempty" tf:"group_by_columns,omitempty"`
+
+	// (Block List, Max: 1) Tuning options for the anomaly detection model used by the monitor. (see below for nested schema)
+	// Tuning options for the anomaly detection model used by the monitor.
+	ModelConfiguration []ModelConfigurationObservation `json:"modelConfiguration,omitempty" tf:"model_configuration,omitempty"`
+
+	// (String) Override for the model type. Valid values are freshness, percentage, any.
+	// Override for the model type. Valid values are `freshness`, `percentage`, `any`.
+	ModelTypeOverride *string `json:"modelTypeOverride,omitempty" tf:"model_type_override,omitempty"`
+
+	// (Number) Sensitivity of the anomaly detection model, expressed as a multiplier on the width of the predicted bounds. Higher values widen the bounds and produce fewer alerts; lower values tighten them and produce more alerts. Defaults to 3.0.
+	// Sensitivity of the anomaly detection model, expressed as a multiplier on the width of the predicted bounds. Higher values widen the bounds and produce fewer alerts; lower values tighten them and produce more alerts. Defaults to `3.0`.
+	Sensitivity *float64 `json:"sensitivity,omitempty" tf:"sensitivity,omitempty"`
+
+	// (Block List, Max: 1) Compare the same measure across two data entities and alert on the difference between them. (see below for nested schema)
+	// Compare the same measure across two data entities and alert on the difference between them.
+	SourceToTargetConfig []SourceToTargetConfigObservation `json:"sourceToTargetConfig,omitempty" tf:"source_to_target_config,omitempty"`
+}
+
+type MonitorOptionsParameters struct {
+
+	// (String) Crontab expression to override the default schedule.
+	// Crontab expression to override the default schedule.
+	// +kubebuilder:validation:Optional
+	CrontabOverride *string `json:"crontabOverride,omitempty" tf:"crontab_override,omitempty"`
+
+	// (String) Custom SQL query for the monitor.
+	// Custom SQL query for the monitor.
+	// +kubebuilder:validation:Optional
+	CustomSQL *string `json:"customSql,omitempty" tf:"custom_sql,omitempty"`
+
+	// (String) Custom WHERE clause for the query.
+	// Custom WHERE clause for the query.
+	// +kubebuilder:validation:Optional
+	CustomWhere *string `json:"customWhere,omitempty" tf:"custom_where,omitempty"`
+
+	// (List of String) Columns to group results by.
+	// Columns to group results by.
+	// +kubebuilder:validation:Optional
+	GroupByColumns []*string `json:"groupByColumns,omitempty" tf:"group_by_columns,omitempty"`
+
+	// (Block List, Max: 1) Tuning options for the anomaly detection model used by the monitor. (see below for nested schema)
+	// Tuning options for the anomaly detection model used by the monitor.
+	// +kubebuilder:validation:Optional
+	ModelConfiguration []ModelConfigurationParameters `json:"modelConfiguration,omitempty" tf:"model_configuration,omitempty"`
+
+	// (String) Override for the model type. Valid values are freshness, percentage, any.
+	// Override for the model type. Valid values are `freshness`, `percentage`, `any`.
+	// +kubebuilder:validation:Optional
+	ModelTypeOverride *string `json:"modelTypeOverride,omitempty" tf:"model_type_override,omitempty"`
+
+	// (Number) Sensitivity of the anomaly detection model, expressed as a multiplier on the width of the predicted bounds. Higher values widen the bounds and produce fewer alerts; lower values tighten them and produce more alerts. Defaults to 3.0.
+	// Sensitivity of the anomaly detection model, expressed as a multiplier on the width of the predicted bounds. Higher values widen the bounds and produce fewer alerts; lower values tighten them and produce more alerts. Defaults to `3.0`.
+	// +kubebuilder:validation:Optional
+	Sensitivity *float64 `json:"sensitivity,omitempty" tf:"sensitivity,omitempty"`
+
+	// (Block List, Max: 1) Compare the same measure across two data entities and alert on the difference between them. (see below for nested schema)
+	// Compare the same measure across two data entities and alert on the difference between them.
+	// +kubebuilder:validation:Optional
+	SourceToTargetConfig []SourceToTargetConfigParameters `json:"sourceToTargetConfig,omitempty" tf:"source_to_target_config,omitempty"`
+}
+
 type MonitorParameters struct {
+
+	// (Block List) List of monitor assets (for example, runbooks, dashboards, workflows) tied to this monitor. (see below for nested schema)
+	// List of monitor assets (for example, runbooks, dashboards, workflows) tied to this monitor.
+	// +kubebuilder:validation:Optional
+	Assets []AssetsParameters `json:"assets,omitempty" tf:"assets,omitempty"`
+
+	// (String) Indicates whether the monitor is in a draft or published state. When set to draft, the monitor appears as Draft and does not send notifications. When set to published, the monitor is active, and it evaluates conditions and sends notifications as configured. Valid values are draft, published. Defaults to "published".
+	// Indicates whether the monitor is in a draft or published state. When set to `draft`, the monitor appears as Draft and does not send notifications. When set to `published`, the monitor is active, and it evaluates conditions and sends notifications as configured. Valid values are `draft`, `published`. Defaults to `"published"`.
+	// +kubebuilder:validation:Optional
+	DraftStatus *string `json:"draftStatus,omitempty" tf:"draft_status,omitempty"`
 
 	// (Boolean) A boolean indicating whether or not to include a list of log values which triggered the alert. This is only used by log monitors. Defaults to false.
 	// A boolean indicating whether or not to include a list of log values which triggered the alert. This is only used by log monitors. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	EnableLogsSample *bool `json:"enableLogsSample,omitempty" tf:"enable_logs_sample,omitempty"`
+
+	// (Boolean) Whether or not a list of samples which triggered the alert is included. This is only used by CI Test and Pipeline monitors.
+	// Whether or not a list of samples which triggered the alert is included. This is only used by CI Test and Pipeline monitors.
+	// +kubebuilder:validation:Optional
+	EnableSamples *bool `json:"enableSamples,omitempty" tf:"enable_samples,omitempty"`
 
 	// notification. Supports the @username notification allowed elsewhere.
 	// A message to include with a re-notification. Supports the `@username` notification allowed elsewhere.
@@ -651,15 +3378,15 @@ type MonitorParameters struct {
 	// +kubebuilder:validation:Optional
 	GroupbySimpleMonitor *bool `json:"groupbySimpleMonitor,omitempty" tf:"groupby_simple_monitor,omitempty"`
 
+	// Other tags are still managed normally. Any :value suffix is ignored. Merged with the provider's ignore_tag_keys for this resource. Other tags are still managed normally. Any `:value` suffix is ignored. Merged with the provider's `ignore_tag_keys` for this resource.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	IgnoreTagKeys []*string `json:"ignoreTagKeys,omitempty" tf:"ignore_tag_keys,omitempty"`
+
 	// (Boolean) A boolean indicating whether notifications from this monitor automatically insert its triggering tags into the title. Defaults to true.
 	// A boolean indicating whether notifications from this monitor automatically insert its triggering tags into the title. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	IncludeTags *bool `json:"includeTags,omitempty" tf:"include_tags,omitempty"`
-
-	// (Boolean, Deprecated) A boolean indicating whether changes to this monitor should be restricted to the creator or admins. Defaults to false. Deprecated. Use restricted_roles.
-	// A boolean indicating whether changes to this monitor should be restricted to the creator or admins. Defaults to `false`. **Deprecated.** Use `restricted_roles`.
-	// +kubebuilder:validation:Optional
-	Locked *bool `json:"locked,omitempty" tf:"locked,omitempty"`
 
 	// (String) A message to include with notifications for this monitor.
 	// A message to include with notifications for this monitor.
@@ -702,8 +3429,8 @@ type MonitorParameters struct {
 	// +kubebuilder:validation:Optional
 	NoDataTimeframe *float64 `json:"noDataTimeframe,omitempty" tf:"no_data_timeframe,omitempty"`
 
-	// (String) Toggles the display of additional content sent in the monitor notification. Valid values are show_all, hide_query, hide_handles, hide_all.
-	// Toggles the display of additional content sent in the monitor notification. Valid values are `show_all`, `hide_query`, `hide_handles`, `hide_all`.
+	// (String) Toggles the display of additional content sent in the monitor notification. Valid values are show_all, hide_query, hide_handles, hide_all, hide_query_and_handles, show_only_snapshot, hide_handles_and_footer.
+	// Toggles the display of additional content sent in the monitor notification. Valid values are `show_all`, `hide_query`, `hide_handles`, `hide_all`, `hide_query_and_handles`, `show_only_snapshot`, `hide_handles_and_footer`.
 	// +kubebuilder:validation:Optional
 	NotificationPresetName *string `json:"notificationPresetName,omitempty" tf:"notification_preset_name,omitempty"`
 
@@ -713,7 +3440,7 @@ type MonitorParameters struct {
 	NotifyAudit *bool `json:"notifyAudit,omitempty" tf:"notify_audit,omitempty"`
 
 	// alert.
-	// Controls what granularity a monitor alerts on. Only available for monitors with groupings. For instance, a monitor grouped by `cluster`, `namespace`, and `pod` can be configured to only notify on each new `cluster` violating the alert conditions by setting `notify_by` to `['cluster']`. Tags mentioned in `notify_by` must be a subset of the grouping tags in the query. For example, a query grouped by `cluster` and `namespace` cannot notify on `region`. Setting `notify_by` to `[*]` configures the monitor to notify as a simple-alert.
+	// Controls what granularity a monitor alerts on. Only available for monitors with groupings. For instance, a monitor grouped by `cluster`, `namespace`, and `pod` can be configured to only notify on each new `cluster` violating the alert conditions by setting `notify_by` to `['cluster']`. Tags mentioned in `notify_by` must be a proper subset of the grouping tags in the query. For example, a query grouped by `cluster` and `namespace` cannot notify on `region` because `region` is not part of the grouping tags; furthermore, the same query cannot set `notify_by` to `['cluster', 'namespace']` because that is not a proper subset. Setting `notify_by` to `[*]` configures the monitor to notify as a simple-alert.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	NotifyBy []*string `json:"notifyBy,omitempty" tf:"notify_by,omitempty"`
@@ -723,15 +3450,15 @@ type MonitorParameters struct {
 	// +kubebuilder:validation:Optional
 	NotifyNoData *bool `json:"notifyNoData,omitempty" tf:"notify_no_data,omitempty"`
 
-	// (String) Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using Count queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than Count, for example Gauge, Measure, or Rate, the monitor shows the last known status. This option is only available for APM Trace Analytics, Audit Trail, CI, Error Tracking, Event, Logs, and RUM monitors. Valid values are: show_no_data, show_and_notify_no_data, resolve, and default.
-	// Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using `Count` queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than `Count`, for example `Gauge`, `Measure`, or `Rate`, the monitor shows the last known status. This option is only available for APM Trace Analytics, Audit Trail, CI, Error Tracking, Event, Logs, and RUM monitors. Valid values are: `show_no_data`, `show_and_notify_no_data`, `resolve`, and `default`.
+	// (String) Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using Count queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than Count, for example Gauge, Measure, or Rate, the monitor shows the last known status. This option is not available for Service Check, Composite, or SLO monitors. Valid values are: show_no_data, show_and_notify_no_data, resolve, and default.
+	// Controls how groups or monitors are treated if an evaluation does not return any data points. The default option results in different behavior depending on the monitor query type. For monitors using `Count` queries, an empty monitor evaluation is treated as 0 and is compared to the threshold conditions. For monitors using any query type other than `Count`, for example `Gauge`, `Measure`, or `Rate`, the monitor shows the last known status. This option is not available for Service Check, Composite, or SLO monitors. Valid values are: `show_no_data`, `show_and_notify_no_data`, `resolve`, and `default`.
 	// +kubebuilder:validation:Optional
 	OnMissingData *string `json:"onMissingData,omitempty" tf:"on_missing_data,omitempty"`
 
-	// (Number) Integer from 1 (high) to 5 (low) indicating alert severity.
+	// (String) Integer from 1 (high) to 5 (low) indicating alert severity.
 	// Integer from 1 (high) to 5 (low) indicating alert severity.
 	// +kubebuilder:validation:Optional
-	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
+	Priority *string `json:"priority,omitempty" tf:"priority,omitempty"`
 
 	// (String) The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the API Reference for details.
 	// The monitor query to notify on. Note this is not the same query you see in the UI and the syntax is different depending on the monitor type, please see the [API Reference](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor) for details.
@@ -761,13 +3488,13 @@ type MonitorParameters struct {
 	// +kubebuilder:validation:Optional
 	RequireFullWindow *bool `json:"requireFullWindow,omitempty" tf:"require_full_window,omitempty"`
 
-	// (Set of String) A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the Roles API in the data.id field.
-	// A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the [Roles API](https://docs.datadoghq.com/api/latest/roles/#list-roles) in the `data.id` field.
+	// (Set of String, Deprecated) A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the Roles API in the data.id field. Deprecated. Use datadog_restriction_policy resource to manage permission.
+	// A list of unique role identifiers to define which roles are allowed to edit the monitor. Editing a monitor includes any updates to the monitor configuration, monitor deletion, and muting of the monitor for any amount of time. Roles unique identifiers can be pulled from the [Roles API](https://docs.datadoghq.com/api/latest/roles/#list-roles) in the `data.id` field. **Deprecated.** Use `datadog_restriction_policy` resource to manage permission.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	RestrictedRoles []*string `json:"restrictedRoles,omitempty" tf:"restricted_roles,omitempty"`
 
-	// (Block List) Configuration options for scheduling. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for scheduling. (see below for nested schema)
 	// Configuration options for scheduling.
 	// +kubebuilder:validation:Optional
 	SchedulingOptions []SchedulingOptionsParameters `json:"schedulingOptions,omitempty" tf:"scheduling_options,omitempty"`
@@ -783,8 +3510,8 @@ type MonitorParameters struct {
 	// +kubebuilder:validation:Optional
 	TimeoutH *float64 `json:"timeoutH,omitempty" tf:"timeout_h,omitempty"`
 
-	// analytics alert, slo alert, event-v2 alert, audit alert, ci-pipelines alert, ci-tests alert, error-tracking alert, database-monitoring alert.
-	// The type of the monitor. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API [documentation page](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor). Note: The monitor type cannot be changed after a monitor is created. Valid values are `composite`, `event alert`, `log alert`, `metric alert`, `process alert`, `query alert`, `rum alert`, `service check`, `synthetics alert`, `trace-analytics alert`, `slo alert`, `event-v2 alert`, `audit alert`, `ci-pipelines alert`, `ci-tests alert`, `error-tracking alert`, `database-monitoring alert`.
+	// analytics alert, slo alert, event-v2 alert, audit alert, ci-pipelines alert, ci-tests alert, error-tracking alert, database-monitoring alert, network-performance alert, cost alert, data-quality alert, network-path alert, data-jobs alert, llm-observability alert.
+	// The type of the monitor. The mapping from these types to the types found in the Datadog Web UI can be found in the Datadog API [documentation page](https://docs.datadoghq.com/api/v1/monitors/#create-a-monitor). Note: The monitor type cannot be changed after a monitor is created. Valid values are `composite`, `event alert`, `log alert`, `metric alert`, `process alert`, `query alert`, `rum alert`, `service check`, `synthetics alert`, `trace-analytics alert`, `slo alert`, `event-v2 alert`, `audit alert`, `ci-pipelines alert`, `ci-tests alert`, `error-tracking alert`, `database-monitoring alert`, `network-performance alert`, `cost alert`, `data-quality alert`, `network-path alert`, `data-jobs alert`, `llm-observability alert`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
@@ -839,9 +3566,17 @@ type MonitorThresholdsInitParameters struct {
 	// The monitor `CRITICAL` threshold. Must be a number.
 	Critical *string `json:"critical,omitempty" tf:"critical,omitempty"`
 
+	// (String) Query evaluated as a dynamic CRITICAL threshold. Only supported on metric monitors with a formula query and options['variables']. Cannot be combined with static thresholds. This field is in preview.
+	// Query evaluated as a dynamic `CRITICAL` threshold. Only supported on metric monitors with a formula query and `options['variables']`. Cannot be combined with static thresholds. This field is in preview.
+	CriticalQuery *string `json:"criticalQuery,omitempty" tf:"critical_query,omitempty"`
+
 	// (String) The monitor CRITICAL recovery threshold. Must be a number.
 	// The monitor `CRITICAL` recovery threshold. Must be a number.
 	CriticalRecovery *string `json:"criticalRecovery,omitempty" tf:"critical_recovery,omitempty"`
+
+	// (String) Query evaluated as a dynamic CRITICAL recovery threshold. Only supported on metric monitors with a formula query and options['variables']. Cannot be combined with static thresholds. This field is in preview.
+	// Query evaluated as a dynamic `CRITICAL` recovery threshold. Only supported on metric monitors with a formula query and `options['variables']`. Cannot be combined with static thresholds. This field is in preview.
+	CriticalRecoveryQuery *string `json:"criticalRecoveryQuery,omitempty" tf:"critical_recovery_query,omitempty"`
 
 	// (String) The monitor OK threshold. Only supported in monitor type service check. Must be a number.
 	// The monitor `OK` threshold. Only supported in monitor type `service check`. Must be a number.
@@ -866,9 +3601,17 @@ type MonitorThresholdsObservation struct {
 	// The monitor `CRITICAL` threshold. Must be a number.
 	Critical *string `json:"critical,omitempty" tf:"critical,omitempty"`
 
+	// (String) Query evaluated as a dynamic CRITICAL threshold. Only supported on metric monitors with a formula query and options['variables']. Cannot be combined with static thresholds. This field is in preview.
+	// Query evaluated as a dynamic `CRITICAL` threshold. Only supported on metric monitors with a formula query and `options['variables']`. Cannot be combined with static thresholds. This field is in preview.
+	CriticalQuery *string `json:"criticalQuery,omitempty" tf:"critical_query,omitempty"`
+
 	// (String) The monitor CRITICAL recovery threshold. Must be a number.
 	// The monitor `CRITICAL` recovery threshold. Must be a number.
 	CriticalRecovery *string `json:"criticalRecovery,omitempty" tf:"critical_recovery,omitempty"`
+
+	// (String) Query evaluated as a dynamic CRITICAL recovery threshold. Only supported on metric monitors with a formula query and options['variables']. Cannot be combined with static thresholds. This field is in preview.
+	// Query evaluated as a dynamic `CRITICAL` recovery threshold. Only supported on metric monitors with a formula query and `options['variables']`. Cannot be combined with static thresholds. This field is in preview.
+	CriticalRecoveryQuery *string `json:"criticalRecoveryQuery,omitempty" tf:"critical_recovery_query,omitempty"`
 
 	// (String) The monitor OK threshold. Only supported in monitor type service check. Must be a number.
 	// The monitor `OK` threshold. Only supported in monitor type `service check`. Must be a number.
@@ -894,10 +3637,20 @@ type MonitorThresholdsParameters struct {
 	// +kubebuilder:validation:Optional
 	Critical *string `json:"critical,omitempty" tf:"critical,omitempty"`
 
+	// (String) Query evaluated as a dynamic CRITICAL threshold. Only supported on metric monitors with a formula query and options['variables']. Cannot be combined with static thresholds. This field is in preview.
+	// Query evaluated as a dynamic `CRITICAL` threshold. Only supported on metric monitors with a formula query and `options['variables']`. Cannot be combined with static thresholds. This field is in preview.
+	// +kubebuilder:validation:Optional
+	CriticalQuery *string `json:"criticalQuery,omitempty" tf:"critical_query,omitempty"`
+
 	// (String) The monitor CRITICAL recovery threshold. Must be a number.
 	// The monitor `CRITICAL` recovery threshold. Must be a number.
 	// +kubebuilder:validation:Optional
 	CriticalRecovery *string `json:"criticalRecovery,omitempty" tf:"critical_recovery,omitempty"`
+
+	// (String) Query evaluated as a dynamic CRITICAL recovery threshold. Only supported on metric monitors with a formula query and options['variables']. Cannot be combined with static thresholds. This field is in preview.
+	// Query evaluated as a dynamic `CRITICAL` recovery threshold. Only supported on metric monitors with a formula query and `options['variables']`. Cannot be combined with static thresholds. This field is in preview.
+	// +kubebuilder:validation:Optional
+	CriticalRecoveryQuery *string `json:"criticalRecoveryQuery,omitempty" tf:"critical_recovery_query,omitempty"`
 
 	// (String) The monitor OK threshold. Only supported in monitor type service check. Must be a number.
 	// The monitor `OK` threshold. Only supported in monitor type `service check`. Must be a number.
@@ -922,34 +3675,34 @@ type MonitorThresholdsParameters struct {
 
 type SchedulingOptionsInitParameters struct {
 
-	// (Block List) Configuration options for the custom schedules. If start is omitted, the monitor creation time will be used. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for the custom schedules. If start is omitted, the monitor creation time will be used. (see below for nested schema)
 	// Configuration options for the custom schedules. If `start` is omitted, the monitor creation time will be used.
 	CustomSchedule []CustomScheduleInitParameters `json:"customSchedule,omitempty" tf:"custom_schedule,omitempty"`
 
-	// (Block List) Configuration options for the evaluation window. If hour_starts is set, no other fields may be set. Otherwise, day_starts and month_starts must be set together. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for the evaluation window. If hour_starts is set, no other fields may be set. Otherwise, day_starts and month_starts must be set together. (see below for nested schema)
 	// Configuration options for the evaluation window. If `hour_starts` is set, no other fields may be set. Otherwise, `day_starts` and `month_starts` must be set together.
 	EvaluationWindow []EvaluationWindowInitParameters `json:"evaluationWindow,omitempty" tf:"evaluation_window,omitempty"`
 }
 
 type SchedulingOptionsObservation struct {
 
-	// (Block List) Configuration options for the custom schedules. If start is omitted, the monitor creation time will be used. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for the custom schedules. If start is omitted, the monitor creation time will be used. (see below for nested schema)
 	// Configuration options for the custom schedules. If `start` is omitted, the monitor creation time will be used.
 	CustomSchedule []CustomScheduleObservation `json:"customSchedule,omitempty" tf:"custom_schedule,omitempty"`
 
-	// (Block List) Configuration options for the evaluation window. If hour_starts is set, no other fields may be set. Otherwise, day_starts and month_starts must be set together. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for the evaluation window. If hour_starts is set, no other fields may be set. Otherwise, day_starts and month_starts must be set together. (see below for nested schema)
 	// Configuration options for the evaluation window. If `hour_starts` is set, no other fields may be set. Otherwise, `day_starts` and `month_starts` must be set together.
 	EvaluationWindow []EvaluationWindowObservation `json:"evaluationWindow,omitempty" tf:"evaluation_window,omitempty"`
 }
 
 type SchedulingOptionsParameters struct {
 
-	// (Block List) Configuration options for the custom schedules. If start is omitted, the monitor creation time will be used. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for the custom schedules. If start is omitted, the monitor creation time will be used. (see below for nested schema)
 	// Configuration options for the custom schedules. If `start` is omitted, the monitor creation time will be used.
 	// +kubebuilder:validation:Optional
 	CustomSchedule []CustomScheduleParameters `json:"customSchedule,omitempty" tf:"custom_schedule,omitempty"`
 
-	// (Block List) Configuration options for the evaluation window. If hour_starts is set, no other fields may be set. Otherwise, day_starts and month_starts must be set together. (see below for nested schema)
+	// (Block List, Max: 1) Configuration options for the evaluation window. If hour_starts is set, no other fields may be set. Otherwise, day_starts and month_starts must be set together. (see below for nested schema)
 	// Configuration options for the evaluation window. If `hour_starts` is set, no other fields may be set. Otherwise, `day_starts` and `month_starts` must be set together.
 	// +kubebuilder:validation:Optional
 	EvaluationWindow []EvaluationWindowParameters `json:"evaluationWindow,omitempty" tf:"evaluation_window,omitempty"`
@@ -979,7 +3732,7 @@ type SearchParameters struct {
 
 type SortInitParameters struct {
 
-	// (String) The aggregation methods for event platform queries. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
 	// The aggregation methods for the event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
 	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
 
@@ -994,7 +3747,7 @@ type SortInitParameters struct {
 
 type SortObservation struct {
 
-	// (String) The aggregation methods for event platform queries. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
 	// The aggregation methods for the event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
 	Aggregation *string `json:"aggregation,omitempty" tf:"aggregation,omitempty"`
 
@@ -1009,7 +3762,7 @@ type SortObservation struct {
 
 type SortParameters struct {
 
-	// (String) The aggregation methods for event platform queries. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
+	// (String) The aggregation methods for compute steps. Valid values are count, cardinality, median, pc75, pc90, pc95, pc98, pc99, sum, min, max, avg.
 	// The aggregation methods for the event platform queries. Valid values are `count`, `cardinality`, `median`, `pc75`, `pc90`, `pc95`, `pc98`, `pc99`, `sum`, `min`, `max`, `avg`.
 	// +kubebuilder:validation:Optional
 	Aggregation *string `json:"aggregation" tf:"aggregation,omitempty"`
@@ -1025,7 +3778,236 @@ type SortParameters struct {
 	Order *string `json:"order,omitempty" tf:"order,omitempty"`
 }
 
+type SourceInitParameters struct {
+
+	// (String) Custom SQL query for the monitor.
+	// Custom SQL query used to compute the measure for this entity.
+	CustomSQL *string `json:"customSql,omitempty" tf:"custom_sql,omitempty"`
+
+	// (String) Custom WHERE clause for the query.
+	// Custom WHERE clause applied when computing the measure for this entity.
+	CustomWhere *string `json:"customWhere,omitempty" tf:"custom_where,omitempty"`
+
+	// (String) Identifier of the data entity to measure.
+	// Identifier of the data entity to measure.
+	EntityID *string `json:"entityId,omitempty" tf:"entity_id,omitempty"`
+
+	// (String) Type of the data entities being compared.
+	// Type of the data entity to measure.
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	// (List of String) Columns to group results by.
+	// Columns to group results by when computing the measure for this entity.
+	GroupByColumns []*string `json:"groupByColumns,omitempty" tf:"group_by_columns,omitempty"`
+}
+
+type SourceObservation struct {
+
+	// (String) Custom SQL query for the monitor.
+	// Custom SQL query used to compute the measure for this entity.
+	CustomSQL *string `json:"customSql,omitempty" tf:"custom_sql,omitempty"`
+
+	// (String) Custom WHERE clause for the query.
+	// Custom WHERE clause applied when computing the measure for this entity.
+	CustomWhere *string `json:"customWhere,omitempty" tf:"custom_where,omitempty"`
+
+	// (String) Identifier of the data entity to measure.
+	// Identifier of the data entity to measure.
+	EntityID *string `json:"entityId,omitempty" tf:"entity_id,omitempty"`
+
+	// (String) Type of the data entities being compared.
+	// Type of the data entity to measure.
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	// (List of String) Columns to group results by.
+	// Columns to group results by when computing the measure for this entity.
+	GroupByColumns []*string `json:"groupByColumns,omitempty" tf:"group_by_columns,omitempty"`
+}
+
+type SourceParameters struct {
+
+	// (String) Custom SQL query for the monitor.
+	// Custom SQL query used to compute the measure for this entity.
+	// +kubebuilder:validation:Optional
+	CustomSQL *string `json:"customSql,omitempty" tf:"custom_sql,omitempty"`
+
+	// (String) Custom WHERE clause for the query.
+	// Custom WHERE clause applied when computing the measure for this entity.
+	// +kubebuilder:validation:Optional
+	CustomWhere *string `json:"customWhere,omitempty" tf:"custom_where,omitempty"`
+
+	// (String) Identifier of the data entity to measure.
+	// Identifier of the data entity to measure.
+	// +kubebuilder:validation:Optional
+	EntityID *string `json:"entityId" tf:"entity_id,omitempty"`
+
+	// (String) Type of the data entities being compared.
+	// Type of the data entity to measure.
+	// +kubebuilder:validation:Optional
+	EntityType *string `json:"entityType" tf:"entity_type,omitempty"`
+
+	// (List of String) Columns to group results by.
+	// Columns to group results by when computing the measure for this entity.
+	// +kubebuilder:validation:Optional
+	GroupByColumns []*string `json:"groupByColumns,omitempty" tf:"group_by_columns,omitempty"`
+}
+
+type SourceToTargetConfigInitParameters struct {
+
+	// (String) How the difference between the source and target measures is computed. Valid values are absolute, diff_percent.
+	// How the difference between the source and target measures is computed. Valid values are `absolute`, `diff_percent`.
+	DiffType *string `json:"diffType,omitempty" tf:"diff_type,omitempty"`
+
+	// (String) Type of the data entities being compared.
+	// Type of the data entities being compared.
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// Measure configuration for the source entity.
+	Source []SourceInitParameters `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Measure configuration for the target entity. (see below for nested schema)
+	// Measure configuration for the target entity.
+	Target []TargetInitParameters `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type SourceToTargetConfigObservation struct {
+
+	// (String) How the difference between the source and target measures is computed. Valid values are absolute, diff_percent.
+	// How the difference between the source and target measures is computed. Valid values are `absolute`, `diff_percent`.
+	DiffType *string `json:"diffType,omitempty" tf:"diff_type,omitempty"`
+
+	// (String) Type of the data entities being compared.
+	// Type of the data entities being compared.
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// Measure configuration for the source entity.
+	Source []SourceObservation `json:"source,omitempty" tf:"source,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Measure configuration for the target entity. (see below for nested schema)
+	// Measure configuration for the target entity.
+	Target []TargetObservation `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type SourceToTargetConfigParameters struct {
+
+	// (String) How the difference between the source and target measures is computed. Valid values are absolute, diff_percent.
+	// How the difference between the source and target measures is computed. Valid values are `absolute`, `diff_percent`.
+	// +kubebuilder:validation:Optional
+	DiffType *string `json:"diffType" tf:"diff_type,omitempty"`
+
+	// (String) Type of the data entities being compared.
+	// Type of the data entities being compared.
+	// +kubebuilder:validation:Optional
+	EntityType *string `json:"entityType" tf:"entity_type,omitempty"`
+
+	// query this facet refers to (for example filter_query).
+	// Measure configuration for the source entity.
+	// +kubebuilder:validation:Optional
+	Source []SourceParameters `json:"source" tf:"source,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Measure configuration for the target entity. (see below for nested schema)
+	// Measure configuration for the target entity.
+	// +kubebuilder:validation:Optional
+	Target []TargetParameters `json:"target" tf:"target,omitempty"`
+}
+
+type TargetInitParameters struct {
+
+	// (String) Custom SQL query for the monitor.
+	// Custom SQL query used to compute the measure for this entity.
+	CustomSQL *string `json:"customSql,omitempty" tf:"custom_sql,omitempty"`
+
+	// (String) Custom WHERE clause for the query.
+	// Custom WHERE clause applied when computing the measure for this entity.
+	CustomWhere *string `json:"customWhere,omitempty" tf:"custom_where,omitempty"`
+
+	// (String) Identifier of the data entity to measure.
+	// Identifier of the data entity to measure.
+	EntityID *string `json:"entityId,omitempty" tf:"entity_id,omitempty"`
+
+	// (String) Type of the data entities being compared.
+	// Type of the data entity to measure.
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	// (List of String) Columns to group results by.
+	// Columns to group results by when computing the measure for this entity.
+	GroupByColumns []*string `json:"groupByColumns,omitempty" tf:"group_by_columns,omitempty"`
+}
+
+type TargetObservation struct {
+
+	// (String) Custom SQL query for the monitor.
+	// Custom SQL query used to compute the measure for this entity.
+	CustomSQL *string `json:"customSql,omitempty" tf:"custom_sql,omitempty"`
+
+	// (String) Custom WHERE clause for the query.
+	// Custom WHERE clause applied when computing the measure for this entity.
+	CustomWhere *string `json:"customWhere,omitempty" tf:"custom_where,omitempty"`
+
+	// (String) Identifier of the data entity to measure.
+	// Identifier of the data entity to measure.
+	EntityID *string `json:"entityId,omitempty" tf:"entity_id,omitempty"`
+
+	// (String) Type of the data entities being compared.
+	// Type of the data entity to measure.
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	// (List of String) Columns to group results by.
+	// Columns to group results by when computing the measure for this entity.
+	GroupByColumns []*string `json:"groupByColumns,omitempty" tf:"group_by_columns,omitempty"`
+}
+
+type TargetParameters struct {
+
+	// (String) Custom SQL query for the monitor.
+	// Custom SQL query used to compute the measure for this entity.
+	// +kubebuilder:validation:Optional
+	CustomSQL *string `json:"customSql,omitempty" tf:"custom_sql,omitempty"`
+
+	// (String) Custom WHERE clause for the query.
+	// Custom WHERE clause applied when computing the measure for this entity.
+	// +kubebuilder:validation:Optional
+	CustomWhere *string `json:"customWhere,omitempty" tf:"custom_where,omitempty"`
+
+	// (String) Identifier of the data entity to measure.
+	// Identifier of the data entity to measure.
+	// +kubebuilder:validation:Optional
+	EntityID *string `json:"entityId" tf:"entity_id,omitempty"`
+
+	// (String) Type of the data entities being compared.
+	// Type of the data entity to measure.
+	// +kubebuilder:validation:Optional
+	EntityType *string `json:"entityType" tf:"entity_type,omitempty"`
+
+	// (List of String) Columns to group results by.
+	// Columns to group results by when computing the measure for this entity.
+	// +kubebuilder:validation:Optional
+	GroupByColumns []*string `json:"groupByColumns,omitempty" tf:"group_by_columns,omitempty"`
+}
+
 type VariablesInitParameters struct {
+
+	// augmented composite query variables (reference table augment joined to a metrics or events base query). (see below for nested schema)
+	// Aggregate-augmented composite query variables (reference table augment joined to a metrics or events base query).
+	AggregateAugmentedQuery []AggregateAugmentedQueryInitParameters `json:"aggregateAugmentedQuery,omitempty" tf:"aggregate_augmented_query,omitempty"`
+
+	// filtered composite query variables (filter base query results using a reference table or events filter query). (see below for nested schema)
+	// Aggregate-filtered composite query variables (filter base query results using a reference table or events filter query).
+	AggregateFilteredQuery []AggregateFilteredQueryInitParameters `json:"aggregateFilteredQuery,omitempty" tf:"aggregate_filtered_query,omitempty"`
+
+	// (Block List, Max: 5) The Cloud Cost query using formulas and functions. (see below for nested schema)
+	// The Cloud Cost query using formulas and functions.
+	CloudCostQuery []CloudCostQueryInitParameters `json:"cloudCostQuery,omitempty" tf:"cloud_cost_query,omitempty"`
+
+	// (Block List, Max: 5) The Data Jobs query using formulas and functions. (see below for nested schema)
+	// The Data Jobs query using formulas and functions.
+	DataJobsQuery []DataJobsQueryInitParameters `json:"dataJobsQuery,omitempty" tf:"data_jobs_query,omitempty"`
+
+	// (Block List, Max: 5) The Data Quality query using formulas and functions. (see below for nested schema)
+	// The Data Quality query using formulas and functions.
+	DataQualityQuery []DataQualityQueryInitParameters `json:"dataQualityQuery,omitempty" tf:"data_quality_query,omitempty"`
 
 	// (Block List) A timeseries formula and functions events query. (see below for nested schema)
 	// A timeseries formula and functions events query.
@@ -1034,12 +4016,57 @@ type VariablesInitParameters struct {
 
 type VariablesObservation struct {
 
+	// augmented composite query variables (reference table augment joined to a metrics or events base query). (see below for nested schema)
+	// Aggregate-augmented composite query variables (reference table augment joined to a metrics or events base query).
+	AggregateAugmentedQuery []AggregateAugmentedQueryObservation `json:"aggregateAugmentedQuery,omitempty" tf:"aggregate_augmented_query,omitempty"`
+
+	// filtered composite query variables (filter base query results using a reference table or events filter query). (see below for nested schema)
+	// Aggregate-filtered composite query variables (filter base query results using a reference table or events filter query).
+	AggregateFilteredQuery []AggregateFilteredQueryObservation `json:"aggregateFilteredQuery,omitempty" tf:"aggregate_filtered_query,omitempty"`
+
+	// (Block List, Max: 5) The Cloud Cost query using formulas and functions. (see below for nested schema)
+	// The Cloud Cost query using formulas and functions.
+	CloudCostQuery []CloudCostQueryObservation `json:"cloudCostQuery,omitempty" tf:"cloud_cost_query,omitempty"`
+
+	// (Block List, Max: 5) The Data Jobs query using formulas and functions. (see below for nested schema)
+	// The Data Jobs query using formulas and functions.
+	DataJobsQuery []DataJobsQueryObservation `json:"dataJobsQuery,omitempty" tf:"data_jobs_query,omitempty"`
+
+	// (Block List, Max: 5) The Data Quality query using formulas and functions. (see below for nested schema)
+	// The Data Quality query using formulas and functions.
+	DataQualityQuery []DataQualityQueryObservation `json:"dataQualityQuery,omitempty" tf:"data_quality_query,omitempty"`
+
 	// (Block List) A timeseries formula and functions events query. (see below for nested schema)
 	// A timeseries formula and functions events query.
 	EventQuery []EventQueryObservation `json:"eventQuery,omitempty" tf:"event_query,omitempty"`
 }
 
 type VariablesParameters struct {
+
+	// augmented composite query variables (reference table augment joined to a metrics or events base query). (see below for nested schema)
+	// Aggregate-augmented composite query variables (reference table augment joined to a metrics or events base query).
+	// +kubebuilder:validation:Optional
+	AggregateAugmentedQuery []AggregateAugmentedQueryParameters `json:"aggregateAugmentedQuery,omitempty" tf:"aggregate_augmented_query,omitempty"`
+
+	// filtered composite query variables (filter base query results using a reference table or events filter query). (see below for nested schema)
+	// Aggregate-filtered composite query variables (filter base query results using a reference table or events filter query).
+	// +kubebuilder:validation:Optional
+	AggregateFilteredQuery []AggregateFilteredQueryParameters `json:"aggregateFilteredQuery,omitempty" tf:"aggregate_filtered_query,omitempty"`
+
+	// (Block List, Max: 5) The Cloud Cost query using formulas and functions. (see below for nested schema)
+	// The Cloud Cost query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	CloudCostQuery []CloudCostQueryParameters `json:"cloudCostQuery,omitempty" tf:"cloud_cost_query,omitempty"`
+
+	// (Block List, Max: 5) The Data Jobs query using formulas and functions. (see below for nested schema)
+	// The Data Jobs query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	DataJobsQuery []DataJobsQueryParameters `json:"dataJobsQuery,omitempty" tf:"data_jobs_query,omitempty"`
+
+	// (Block List, Max: 5) The Data Quality query using formulas and functions. (see below for nested schema)
+	// The Data Quality query using formulas and functions.
+	// +kubebuilder:validation:Optional
+	DataQualityQuery []DataQualityQueryParameters `json:"dataQualityQuery,omitempty" tf:"data_quality_query,omitempty"`
 
 	// (Block List) A timeseries formula and functions events query. (see below for nested schema)
 	// A timeseries formula and functions events query.

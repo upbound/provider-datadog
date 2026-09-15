@@ -43,8 +43,8 @@ type SLOCorrectionInitParameters struct {
 	// Starting time of the correction in epoch seconds.
 	Start *float64 `json:"start,omitempty" tf:"start,omitempty"`
 
-	// (String) The timezone to display in the UI for the correction times (defaults to "UTC")
-	// The timezone to display in the UI for the correction times (defaults to "UTC")
+	// (String) The timezone to display in the UI for the correction times. Prefers IANA timezone name format (for example, 'America/Los_Angeles', 'Europe/Paris'), but some common standard abbreviations are supported. Defaults to 'UTC'.
+	// The timezone to display in the UI for the correction times. Prefers IANA timezone name format (for example, 'America/Los_Angeles', 'Europe/Paris'), but some common standard abbreviations are supported. Defaults to 'UTC'.
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 }
 
@@ -81,8 +81,8 @@ type SLOCorrectionObservation struct {
 	// Starting time of the correction in epoch seconds.
 	Start *float64 `json:"start,omitempty" tf:"start,omitempty"`
 
-	// (String) The timezone to display in the UI for the correction times (defaults to "UTC")
-	// The timezone to display in the UI for the correction times (defaults to "UTC")
+	// (String) The timezone to display in the UI for the correction times. Prefers IANA timezone name format (for example, 'America/Los_Angeles', 'Europe/Paris'), but some common standard abbreviations are supported. Defaults to 'UTC'.
+	// The timezone to display in the UI for the correction times. Prefers IANA timezone name format (for example, 'America/Los_Angeles', 'Europe/Paris'), but some common standard abbreviations are supported. Defaults to 'UTC'.
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 }
 
@@ -123,8 +123,8 @@ type SLOCorrectionParameters struct {
 	// +kubebuilder:validation:Optional
 	Start *float64 `json:"start,omitempty" tf:"start,omitempty"`
 
-	// (String) The timezone to display in the UI for the correction times (defaults to "UTC")
-	// The timezone to display in the UI for the correction times (defaults to "UTC")
+	// (String) The timezone to display in the UI for the correction times. Prefers IANA timezone name format (for example, 'America/Los_Angeles', 'Europe/Paris'), but some common standard abbreviations are supported. Defaults to 'UTC'.
+	// The timezone to display in the UI for the correction times. Prefers IANA timezone name format (for example, 'America/Los_Angeles', 'Europe/Paris'), but some common standard abbreviations are supported. Defaults to 'UTC'.
 	// +kubebuilder:validation:Optional
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 }

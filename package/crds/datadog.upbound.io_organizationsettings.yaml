@@ -79,6 +79,13 @@ spec:
                       (String) Name for Organization.
                       Name for Organization.
                     type: string
+                  securityContacts:
+                    description: |-
+                      (List of String) List of emails used for security event notifications from the organization.
+                      List of emails used for security event notifications from the organization.
+                    items:
+                      type: string
+                    type: array
                   settings:
                     description: |-
                       (Block List, Max: 1) Organization settings (see below for nested schema)
@@ -105,8 +112,8 @@ spec:
                           type: array
                         samlAutocreateAccessRole:
                           description: |-
-                            only user). Allowed enum values: st, adm , ro, ERROR Defaults to "st".
-                            The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm` , `ro`, `ERROR` Defaults to `"st"`.
+                            only user). Allowed enum values: st, adm, ro, ERROR. When omitted, the current value is left unchanged.
+                            The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm`, `ro`, `ERROR`. When omitted, the current value is left unchanged.
                           type: string
                         samlAutocreateUsersDomains:
                           description: |-
@@ -175,6 +182,13 @@ spec:
                       (String) Name for Organization.
                       Name for Organization.
                     type: string
+                  securityContacts:
+                    description: |-
+                      (List of String) List of emails used for security event notifications from the organization.
+                      List of emails used for security event notifications from the organization.
+                    items:
+                      type: string
+                    type: array
                   settings:
                     description: |-
                       (Block List, Max: 1) Organization settings (see below for nested schema)
@@ -201,8 +215,8 @@ spec:
                           type: array
                         samlAutocreateAccessRole:
                           description: |-
-                            only user). Allowed enum values: st, adm , ro, ERROR Defaults to "st".
-                            The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm` , `ro`, `ERROR` Defaults to `"st"`.
+                            only user). Allowed enum values: st, adm, ro, ERROR. When omitted, the current value is left unchanged.
+                            The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm`, `ro`, `ERROR`. When omitted, the current value is left unchanged.
                           type: string
                         samlAutocreateUsersDomains:
                           description: |-
@@ -363,6 +377,13 @@ spec:
                       (String) The public_id of the organization you are operating within.
                       The `public_id` of the organization you are operating within.
                     type: string
+                  securityContacts:
+                    description: |-
+                      (List of String) List of emails used for security event notifications from the organization.
+                      List of emails used for security event notifications from the organization.
+                    items:
+                      type: string
+                    type: array
                   settings:
                     description: |-
                       (Block List, Max: 1) Organization settings (see below for nested schema)
@@ -389,8 +410,8 @@ spec:
                           type: array
                         samlAutocreateAccessRole:
                           description: |-
-                            only user). Allowed enum values: st, adm , ro, ERROR Defaults to "st".
-                            The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm` , `ro`, `ERROR` Defaults to `"st"`.
+                            only user). Allowed enum values: st, adm, ro, ERROR. When omitted, the current value is left unchanged.
+                            The access role of the user. Options are `st` (standard user), `adm` (admin user), or `ro` (read-only user). Allowed enum values: `st`, `adm`, `ro`, `ERROR`. When omitted, the current value is left unchanged.
                           type: string
                         samlAutocreateUsersDomains:
                           description: |-

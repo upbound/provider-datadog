@@ -19,6 +19,10 @@ type ArchiveInitParameters struct {
 	// Definition of an azure archive.
 	AzureArchive []AzureArchiveInitParameters `json:"azureArchive,omitempty" tf:"azure_archive,omitempty"`
 
+	// (String) The compression method for the archive. Valid values are GZIP, ZSTD. Defaults to "GZIP".
+	// The compression method for the archive. Valid values are `GZIP`, `ZSTD`. Defaults to `"GZIP"`.
+	CompressionMethod *string `json:"compressionMethod,omitempty" tf:"compression_method,omitempty"`
+
 	// (Block List, Max: 1) Definition of a GCS archive. (see below for nested schema)
 	// Definition of a GCS archive.
 	GcsArchive []GcsArchiveInitParameters `json:"gcsArchive,omitempty" tf:"gcs_archive,omitempty"`
@@ -27,9 +31,17 @@ type ArchiveInitParameters struct {
 	// To store the tags in the archive, set the value `true`. If it is set to `false`, the tags will be dropped when the logs are sent to the archive. Defaults to `false`.
 	IncludeTags *bool `json:"includeTags,omitempty" tf:"include_tags,omitempty"`
 
+	// (List of String) An array of attributes to use as lookup keys for the archive.
+	// An array of attributes to use as lookup keys for the archive.
+	LookupAttributes []*string `json:"lookupAttributes,omitempty" tf:"lookup_attributes,omitempty"`
+
 	// (String) Your archive name.
 	// Your archive name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (List of String) An array of attributes to use as partition keys for the archive. The attribute used most frequently for querying should be first.
+	// An array of attributes to use as partition keys for the archive. The attribute used most frequently for querying should be first.
+	PartitioningAttributes []*string `json:"partitioningAttributes,omitempty" tf:"partitioning_attributes,omitempty"`
 
 	// (String) The archive query/filter. Logs matching this query are included in the archive.
 	// The archive query/filter. Logs matching this query are included in the archive.
@@ -54,6 +66,10 @@ type ArchiveObservation struct {
 	// Definition of an azure archive.
 	AzureArchive []AzureArchiveObservation `json:"azureArchive,omitempty" tf:"azure_archive,omitempty"`
 
+	// (String) The compression method for the archive. Valid values are GZIP, ZSTD. Defaults to "GZIP".
+	// The compression method for the archive. Valid values are `GZIP`, `ZSTD`. Defaults to `"GZIP"`.
+	CompressionMethod *string `json:"compressionMethod,omitempty" tf:"compression_method,omitempty"`
+
 	// (Block List, Max: 1) Definition of a GCS archive. (see below for nested schema)
 	// Definition of a GCS archive.
 	GcsArchive []GcsArchiveObservation `json:"gcsArchive,omitempty" tf:"gcs_archive,omitempty"`
@@ -65,9 +81,17 @@ type ArchiveObservation struct {
 	// To store the tags in the archive, set the value `true`. If it is set to `false`, the tags will be dropped when the logs are sent to the archive. Defaults to `false`.
 	IncludeTags *bool `json:"includeTags,omitempty" tf:"include_tags,omitempty"`
 
+	// (List of String) An array of attributes to use as lookup keys for the archive.
+	// An array of attributes to use as lookup keys for the archive.
+	LookupAttributes []*string `json:"lookupAttributes,omitempty" tf:"lookup_attributes,omitempty"`
+
 	// (String) Your archive name.
 	// Your archive name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (List of String) An array of attributes to use as partition keys for the archive. The attribute used most frequently for querying should be first.
+	// An array of attributes to use as partition keys for the archive. The attribute used most frequently for querying should be first.
+	PartitioningAttributes []*string `json:"partitioningAttributes,omitempty" tf:"partitioning_attributes,omitempty"`
 
 	// (String) The archive query/filter. Logs matching this query are included in the archive.
 	// The archive query/filter. Logs matching this query are included in the archive.
@@ -93,6 +117,11 @@ type ArchiveParameters struct {
 	// +kubebuilder:validation:Optional
 	AzureArchive []AzureArchiveParameters `json:"azureArchive,omitempty" tf:"azure_archive,omitempty"`
 
+	// (String) The compression method for the archive. Valid values are GZIP, ZSTD. Defaults to "GZIP".
+	// The compression method for the archive. Valid values are `GZIP`, `ZSTD`. Defaults to `"GZIP"`.
+	// +kubebuilder:validation:Optional
+	CompressionMethod *string `json:"compressionMethod,omitempty" tf:"compression_method,omitempty"`
+
 	// (Block List, Max: 1) Definition of a GCS archive. (see below for nested schema)
 	// Definition of a GCS archive.
 	// +kubebuilder:validation:Optional
@@ -103,10 +132,20 @@ type ArchiveParameters struct {
 	// +kubebuilder:validation:Optional
 	IncludeTags *bool `json:"includeTags,omitempty" tf:"include_tags,omitempty"`
 
+	// (List of String) An array of attributes to use as lookup keys for the archive.
+	// An array of attributes to use as lookup keys for the archive.
+	// +kubebuilder:validation:Optional
+	LookupAttributes []*string `json:"lookupAttributes,omitempty" tf:"lookup_attributes,omitempty"`
+
 	// (String) Your archive name.
 	// Your archive name.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (List of String) An array of attributes to use as partition keys for the archive. The attribute used most frequently for querying should be first.
+	// An array of attributes to use as partition keys for the archive. The attribute used most frequently for querying should be first.
+	// +kubebuilder:validation:Optional
+	PartitioningAttributes []*string `json:"partitioningAttributes,omitempty" tf:"partitioning_attributes,omitempty"`
 
 	// (String) The archive query/filter. Logs matching this query are included in the archive.
 	// The archive query/filter. Logs matching this query are included in the archive.
@@ -261,68 +300,120 @@ type GcsArchiveParameters struct {
 	// (String) Your project id.
 	// Your project id.
 	// +kubebuilder:validation:Optional
-	ProjectID *string `json:"projectId" tf:"project_id,omitempty"`
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 }
 
 type S3ArchiveInitParameters struct {
 
-	// (String) Your AWS account id.
-	// Your AWS account id.
+	// (String) Your AWS access key id, used as an alternative to account_id/role_name.
+	// Your AWS access key id, used as an alternative to `account_id`/`role_name`.
+	AccessKeyID *string `json:"accessKeyId,omitempty" tf:"access_key_id,omitempty"`
+
+	// (String) Your AWS account id. Required with role_name; mutually exclusive with access_key_id.
+	// Your AWS account id. Required with `role_name`; mutually exclusive with `access_key_id`.
 	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
 	// (String) Name of your GCS bucket.
 	// Name of your s3 bucket.
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
 
+	// (String) The AWS KMS encryption key.
+	// The AWS KMS encryption key.
+	EncryptionKey *string `json:"encryptionKey,omitempty" tf:"encryption_key,omitempty"`
+
+	// (String) The type of encryption on your archive. Valid values are NO_OVERRIDE, SSE_S3, SSE_KMS. Defaults to "NO_OVERRIDE".
+	// The type of encryption on your archive. Valid values are `NO_OVERRIDE`, `SSE_S3`, `SSE_KMS`. Defaults to `"NO_OVERRIDE"`.
+	EncryptionType *string `json:"encryptionType,omitempty" tf:"encryption_type,omitempty"`
+
 	// (String) The path where the archive is stored.
 	// Path where the archive is stored.
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
-	// (String) Your AWS role name
-	// Your AWS role name
+	// (String) Your AWS role name. Required with account_id; mutually exclusive with access_key_id.
+	// Your AWS role name. Required with `account_id`; mutually exclusive with `access_key_id`.
 	RoleName *string `json:"roleName,omitempty" tf:"role_name,omitempty"`
+
+	// (String) The AWS S3 storage class used to upload the logs. Valid values are STANDARD, STANDARD_IA, ONEZONE_IA, INTELLIGENT_TIERING, GLACIER_IR. Defaults to "STANDARD".
+	// The AWS S3 storage class used to upload the logs. Valid values are `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`, `GLACIER_IR`. Defaults to `"STANDARD"`.
+	StorageClass *string `json:"storageClass,omitempty" tf:"storage_class,omitempty"`
 }
 
 type S3ArchiveObservation struct {
 
-	// (String) Your AWS account id.
-	// Your AWS account id.
+	// (String) Your AWS access key id, used as an alternative to account_id/role_name.
+	// Your AWS access key id, used as an alternative to `account_id`/`role_name`.
+	AccessKeyID *string `json:"accessKeyId,omitempty" tf:"access_key_id,omitempty"`
+
+	// (String) Your AWS account id. Required with role_name; mutually exclusive with access_key_id.
+	// Your AWS account id. Required with `role_name`; mutually exclusive with `access_key_id`.
 	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
 	// (String) Name of your GCS bucket.
 	// Name of your s3 bucket.
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
 
+	// (String) The AWS KMS encryption key.
+	// The AWS KMS encryption key.
+	EncryptionKey *string `json:"encryptionKey,omitempty" tf:"encryption_key,omitempty"`
+
+	// (String) The type of encryption on your archive. Valid values are NO_OVERRIDE, SSE_S3, SSE_KMS. Defaults to "NO_OVERRIDE".
+	// The type of encryption on your archive. Valid values are `NO_OVERRIDE`, `SSE_S3`, `SSE_KMS`. Defaults to `"NO_OVERRIDE"`.
+	EncryptionType *string `json:"encryptionType,omitempty" tf:"encryption_type,omitempty"`
+
 	// (String) The path where the archive is stored.
 	// Path where the archive is stored.
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
-	// (String) Your AWS role name
-	// Your AWS role name
+	// (String) Your AWS role name. Required with account_id; mutually exclusive with access_key_id.
+	// Your AWS role name. Required with `account_id`; mutually exclusive with `access_key_id`.
 	RoleName *string `json:"roleName,omitempty" tf:"role_name,omitempty"`
+
+	// (String) The AWS S3 storage class used to upload the logs. Valid values are STANDARD, STANDARD_IA, ONEZONE_IA, INTELLIGENT_TIERING, GLACIER_IR. Defaults to "STANDARD".
+	// The AWS S3 storage class used to upload the logs. Valid values are `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`, `GLACIER_IR`. Defaults to `"STANDARD"`.
+	StorageClass *string `json:"storageClass,omitempty" tf:"storage_class,omitempty"`
 }
 
 type S3ArchiveParameters struct {
 
-	// (String) Your AWS account id.
-	// Your AWS account id.
+	// (String) Your AWS access key id, used as an alternative to account_id/role_name.
+	// Your AWS access key id, used as an alternative to `account_id`/`role_name`.
 	// +kubebuilder:validation:Optional
-	AccountID *string `json:"accountId" tf:"account_id,omitempty"`
+	AccessKeyID *string `json:"accessKeyId,omitempty" tf:"access_key_id,omitempty"`
+
+	// (String) Your AWS account id. Required with role_name; mutually exclusive with access_key_id.
+	// Your AWS account id. Required with `role_name`; mutually exclusive with `access_key_id`.
+	// +kubebuilder:validation:Optional
+	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
 	// (String) Name of your GCS bucket.
 	// Name of your s3 bucket.
 	// +kubebuilder:validation:Optional
 	Bucket *string `json:"bucket" tf:"bucket,omitempty"`
 
+	// (String) The AWS KMS encryption key.
+	// The AWS KMS encryption key.
+	// +kubebuilder:validation:Optional
+	EncryptionKey *string `json:"encryptionKey,omitempty" tf:"encryption_key,omitempty"`
+
+	// (String) The type of encryption on your archive. Valid values are NO_OVERRIDE, SSE_S3, SSE_KMS. Defaults to "NO_OVERRIDE".
+	// The type of encryption on your archive. Valid values are `NO_OVERRIDE`, `SSE_S3`, `SSE_KMS`. Defaults to `"NO_OVERRIDE"`.
+	// +kubebuilder:validation:Optional
+	EncryptionType *string `json:"encryptionType,omitempty" tf:"encryption_type,omitempty"`
+
 	// (String) The path where the archive is stored.
 	// Path where the archive is stored.
 	// +kubebuilder:validation:Optional
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
-	// (String) Your AWS role name
-	// Your AWS role name
+	// (String) Your AWS role name. Required with account_id; mutually exclusive with access_key_id.
+	// Your AWS role name. Required with `account_id`; mutually exclusive with `access_key_id`.
 	// +kubebuilder:validation:Optional
-	RoleName *string `json:"roleName" tf:"role_name,omitempty"`
+	RoleName *string `json:"roleName,omitempty" tf:"role_name,omitempty"`
+
+	// (String) The AWS S3 storage class used to upload the logs. Valid values are STANDARD, STANDARD_IA, ONEZONE_IA, INTELLIGENT_TIERING, GLACIER_IR. Defaults to "STANDARD".
+	// The AWS S3 storage class used to upload the logs. Valid values are `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`, `GLACIER_IR`. Defaults to `"STANDARD"`.
+	// +kubebuilder:validation:Optional
+	StorageClass *string `json:"storageClass,omitempty" tf:"storage_class,omitempty"`
 }
 
 // ArchiveSpec defines the desired state of Archive

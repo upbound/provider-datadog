@@ -34,9 +34,10 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: WorkloadSecurityAgentRule is the Schema for the WorkloadSecurityAgentRules
+        description: 'WorkloadSecurityAgentRule is the Schema for the WorkloadSecurityAgentRules
           API. Provides a Datadog Cloud Workload Security Agent Rule API resource
-          for agent rules.
+          for agent rules. Deprecated, use datadog_csm_threats_agent_rules resource
+          instead: https://registry.io/providers/DataDog/datadog/latest/docs/resources/csm_threats_agent_rule'
         properties:
           apiVersion:
             description: |-

@@ -43,11 +43,7 @@ import (
 	user "github.com/upbound/provider-datadog/internal/controller/cluster/datadog/user"
 	webhook "github.com/upbound/provider-datadog/internal/controller/cluster/datadog/webhook"
 	webhookcustomvariable "github.com/upbound/provider-datadog/internal/controller/cluster/datadog/webhookcustomvariable"
-	aws "github.com/upbound/provider-datadog/internal/controller/cluster/integration/aws"
 	awseventbridge "github.com/upbound/provider-datadog/internal/controller/cluster/integration/awseventbridge"
-	awslambdaarn "github.com/upbound/provider-datadog/internal/controller/cluster/integration/awslambdaarn"
-	awslogcollection "github.com/upbound/provider-datadog/internal/controller/cluster/integration/awslogcollection"
-	awstagfilter "github.com/upbound/provider-datadog/internal/controller/cluster/integration/awstagfilter"
 	azure "github.com/upbound/provider-datadog/internal/controller/cluster/integration/azure"
 	cloudflareaccount "github.com/upbound/provider-datadog/internal/controller/cluster/integration/cloudflareaccount"
 	confluentaccount "github.com/upbound/provider-datadog/internal/controller/cluster/integration/confluentaccount"
@@ -121,11 +117,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		user.Setup,
 		webhook.Setup,
 		webhookcustomvariable.Setup,
-		aws.Setup,
 		awseventbridge.Setup,
-		awslambdaarn.Setup,
-		awslogcollection.Setup,
-		awstagfilter.Setup,
 		azure.Setup,
 		cloudflareaccount.Setup,
 		confluentaccount.Setup,
@@ -205,11 +197,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		user.SetupGated,
 		webhook.SetupGated,
 		webhookcustomvariable.SetupGated,
-		aws.SetupGated,
 		awseventbridge.SetupGated,
-		awslambdaarn.SetupGated,
-		awslogcollection.SetupGated,
-		awstagfilter.SetupGated,
 		azure.SetupGated,
 		cloudflareaccount.SetupGated,
 		confluentaccount.SetupGated,
@@ -288,11 +276,7 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		user.SetupWebhookWithManager,
 		webhook.SetupWebhookWithManager,
 		webhookcustomvariable.SetupWebhookWithManager,
-		aws.SetupWebhookWithManager,
 		awseventbridge.SetupWebhookWithManager,
-		awslambdaarn.SetupWebhookWithManager,
-		awslogcollection.SetupWebhookWithManager,
-		awstagfilter.SetupWebhookWithManager,
 		azure.SetupWebhookWithManager,
 		cloudflareaccount.SetupWebhookWithManager,
 		confluentaccount.SetupWebhookWithManager,

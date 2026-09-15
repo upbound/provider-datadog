@@ -19,6 +19,10 @@ type DisplayInitParameters struct {
 	// Show the main body of the alert event. Defaults to `true`.
 	Message *bool `json:"message,omitempty" tf:"message,omitempty"`
 
+	// (Boolean) Show interactive buttons to mute the alerting monitor. Defaults to true.
+	// Show interactive buttons to mute the alerting monitor. Defaults to `true`.
+	MuteButtons *bool `json:"muteButtons,omitempty" tf:"mute_buttons,omitempty"`
+
 	// handles in the alert event. Defaults to true.
 	// Show the list of @-handles in the alert event. Defaults to `true`.
 	Notified *bool `json:"notified,omitempty" tf:"notified,omitempty"`
@@ -37,6 +41,10 @@ type DisplayObservation struct {
 	// (Boolean) Show the main body of the alert event. Defaults to true.
 	// Show the main body of the alert event. Defaults to `true`.
 	Message *bool `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (Boolean) Show interactive buttons to mute the alerting monitor. Defaults to true.
+	// Show interactive buttons to mute the alerting monitor. Defaults to `true`.
+	MuteButtons *bool `json:"muteButtons,omitempty" tf:"mute_buttons,omitempty"`
 
 	// handles in the alert event. Defaults to true.
 	// Show the list of @-handles in the alert event. Defaults to `true`.
@@ -57,6 +65,11 @@ type DisplayParameters struct {
 	// Show the main body of the alert event. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	Message *bool `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (Boolean) Show interactive buttons to mute the alerting monitor. Defaults to true.
+	// Show interactive buttons to mute the alerting monitor. Defaults to `true`.
+	// +kubebuilder:validation:Optional
+	MuteButtons *bool `json:"muteButtons,omitempty" tf:"mute_buttons,omitempty"`
 
 	// handles in the alert event. Defaults to true.
 	// Show the list of @-handles in the alert event. Defaults to `true`.
