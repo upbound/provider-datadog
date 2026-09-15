@@ -8,8 +8,8 @@ metadata:
   name: bar
 spec:
   forProvider:
-    filterIds:
-    - ${datadog_apm_retention_filter.foo.id}
+    filterIdsRefs:
+    - name: foo
 
 ---
 
@@ -25,7 +25,7 @@ spec:
   forProvider:
     enabled: false
     filter:
-    - query: '*'
+      query: '*'
     filterType: spans-sampling-processor
     name: Sample order
     rate: "1.0"

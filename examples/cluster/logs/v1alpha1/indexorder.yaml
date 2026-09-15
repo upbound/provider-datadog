@@ -8,6 +8,6 @@ metadata:
   name: sample-index-order
 spec:
   forProvider:
-    indexes:
-    - ${datadog_logs_index.sample_index.id}
+    indexesRefs:
+    - name: sample_index
     name: sample_index_order

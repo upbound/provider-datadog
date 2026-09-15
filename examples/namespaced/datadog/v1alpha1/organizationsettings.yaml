@@ -5,8 +5,8 @@ metadata:
     meta.upbound.io/example-id: datadog/v1alpha1/organizationsettings
   labels:
     testing.upbound.io/example-name: organization
-  name: organization-foo
-  namespace: upbound-system
+  name: organization
+  namespace: crossplane-system
 spec:
   forProvider:
-    name: organization-foo
+    name: foo-organization

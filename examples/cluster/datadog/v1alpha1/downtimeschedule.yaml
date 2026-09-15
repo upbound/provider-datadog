@@ -11,21 +11,20 @@ spec:
     displayTimezone: America/New_York
     message: Message about the downtime
     monitorIdentifier:
-      #monitorId: "140479090"
       monitorTags:
-        - "test:123"
-        - "data:test"
+      - test:123
+      - data:test
     muteFirstRecoveryNotification: true
     notifyEndStates:
-      - alert
-      - warn
+    - alert
+    - warn
     notifyEndTypes:
-      - canceled
-      - expired
+    - canceled
+    - expired
     recurringSchedule:
       recurrence:
-        - duration: 1h
-          rrule: "FREQ=DAILY;INTERVAL=1"
-          start: "2050-01-02T03:04:05"
-      timezone: "America/New_York"
+      - duration: 1h
+        rrule: FREQ=DAILY;INTERVAL=1
+        start: 2050-01-02 03:04:05
+      timezone: America/New_York
     scope: env:us9-prod7 AND team:test123

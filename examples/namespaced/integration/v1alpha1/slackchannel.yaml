@@ -12,7 +12,7 @@ spec:
     accountName: foo
     channelName: '#test_channel'
     display:
-    - message: true
+      message: true
       notified: false
       snapshot: false
       tags: true

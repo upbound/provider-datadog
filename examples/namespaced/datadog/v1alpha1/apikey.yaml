@@ -9,4 +9,4 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    name: apiKeyFoo
+    name: foo-application

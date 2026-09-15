@@ -4,33 +4,37 @@ metadata:
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/slocorrection
   labels:
-    testing.upbound.io/example-name: slo_correction_foo
-  name: slo-correction-foo
-  namespace: upbound-system
+    testing.upbound.io/example-name: example_slo_correction
+  name: example-slo-correction
+  namespace: crossplane-system
 spec:
   forProvider:
     category: Scheduled Maintenance
-    description: UXP created SLO correction
+    description: correction example
     end: 1735718600
-    sloId: 07e2c175de4954bbbb52ef2e5ffe95ee
+    sloIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example_slo
     start: 1735707000
     timezone: UTC
+
 ---
+
 apiVersion: datadog.m.upbound.io/v1alpha1
 kind: ServiceLevelObjective
 metadata:
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/slocorrection
   labels:
-    testing.upbound.io/example-name: slo_foo
-  name: slo-foo
-  namespace: upbound-system
+    testing.upbound.io/example-name: example_slo
+  name: example-slo
+  namespace: crossplane-system
 spec:
   forProvider:
-    name: slo-foo
-    description: UXP updated description about example_slo SLO
+    description: some updated description about example_slo SLO
+    name: example slo
     query:
-    - denominator: sum:my.metric{type:good}.as_count() + sum:my.metric{type:bad}.as_count()
+      denominator: sum:my.metric{type:good}.as_count() + sum:my.metric{type:bad}.as_count()
       numerator: sum:my.metric{type:good}.as_count()
     tags:
     - foo:bar

@@ -15,13 +15,13 @@ spec:
     name: sample pipeline
     processor:
     - arithmeticProcessor:
-      - expression: (time1 - time2)*1000
+        expression: (time1 - time2)*1000
         isEnabled: true
         isReplaceMissing: true
         name: sample arithmetic processor
         target: my_arithmetic
     - attributeRemapper:
-      - isEnabled: true
+        isEnabled: true
         name: sample attribute processor
         overrideOnConflict: false
         preserveSource: true
@@ -32,31 +32,31 @@ spec:
         targetFormat: string
         targetType: attribute
     - categoryProcessor:
-      - category:
+        category:
         - filter:
-          - query: '@severity: "."'
+            query: '@severity: "."'
           name: debug
         - filter:
-          - query: '@severity: "-"'
+            query: '@severity: "-"'
           name: verbose
         isEnabled: true
         name: sample category processor
         target: foo.severity
     - dateRemapper:
-      - isEnabled: true
+        isEnabled: true
         name: sample date remapper
         sources:
         - _timestamp
         - published_date
     - geoIpParser:
-      - isEnabled: true
+        isEnabled: true
         name: sample geo ip parser
         sources:
         - network.client.ip
         target: network.client.geoip
     - grokParser:
-      - grok:
-        - matchRules: Rule %{word:my_word2} %{number:my_float2}
+        grok:
+          matchRules: Rule %{word:my_word2} %{number:my_float2}
           supportRules: ""
         isEnabled: true
         name: sample grok parser
@@ -64,7 +64,7 @@ spec:
         - sample log 1
         source: message
     - lookupProcessor:
-      - defaultLookup: unknown service
+        defaultLookup: unknown service
         isEnabled: true
         lookupTable:
         - 1,my service
@@ -72,47 +72,47 @@ spec:
         source: service_id
         target: service_name
     - messageRemapper:
-      - isEnabled: true
+        isEnabled: true
         name: sample message remapper
         sources:
         - msg
     - pipeline:
-      - filter:
+        filter:
         - query: source:foo
         isEnabled: true
         name: nested pipeline
         processor:
         - urlParser:
-          - name: sample url parser
+            name: sample url parser
             normalizeEndingSlashes: true
             sources:
             - url
             - extra
             target: http_url
     - serviceRemapper:
-      - isEnabled: true
+        isEnabled: true
         name: sample service remapper
         sources:
         - service
     - statusRemapper:
-      - isEnabled: true
+        isEnabled: true
         name: sample status remapper
         sources:
         - info
         - trace
     - stringBuilderProcessor:
-      - isEnabled: true
+        isEnabled: true
         isReplaceMissing: false
         name: sample string builder processor
         target: user_activity
         template: '%{user.name} logged in at %{timestamp}'
     - traceIdRemapper:
-      - isEnabled: true
+        isEnabled: true
         name: sample trace id remapper
         sources:
         - dd.trace_id
     - userAgentParser:
-      - isEnabled: true
+        isEnabled: true
         isEncoded: false
         name: sample user agent parser
         sources:

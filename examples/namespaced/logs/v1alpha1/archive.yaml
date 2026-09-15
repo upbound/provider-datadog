@@ -12,7 +12,7 @@ spec:
     name: my s3 archive
     query: service:myservice
     s3Archive:
-    - accountId: "001234567888"
+      accountId: "001234567888"
       bucket: my-bucket
       path: /path/foo
       roleName: my-role-name

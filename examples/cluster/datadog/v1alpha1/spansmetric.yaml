@@ -9,11 +9,11 @@ metadata:
 spec:
   forProvider:
     compute:
-      aggregationType: "distribution"
+      aggregationType: distribution
       includePercentiles: false
-      path: "@duration"
+      path: '@duration'
     filter:
-      query: "@http.status_code:200 service:my-service"
+      query: '@http.status_code:200 service:my-service'
     groupBy:
     - path: resource_name
       tagName: resource_name

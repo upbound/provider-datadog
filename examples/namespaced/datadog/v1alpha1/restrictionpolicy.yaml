@@ -4,16 +4,17 @@ metadata:
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/restrictionpolicy
   labels:
-    testing.upbound.io/example-name: restriction-policy-foo
-  name: restriction-policy-foo
-  namespace: upbound-system
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: crossplane-system
 spec:
   forProvider:
     bindings:
     - principals:
-      - role:a7233104-d3a5-11ee-9d14-da7ad0900002
+      - user:${data.datadog_current_user.me.id}
+      - team:00000000-0000-1111-0000-000000000000
       relation: editor
     - principals:
-      - org:312aa6bc-ca87-11ed-9894-da7ad0900002
+      - org:${data.datadog_current_user.me.org_id}
       relation: viewer
     resourceId: security-rule:abc-def-ghi

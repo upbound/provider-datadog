@@ -10,5 +10,5 @@ metadata:
 spec:
   forProvider:
     key: Member-of
-    role: "4400a694-d51f-11ee-84ca-da7ad0900002"
+    role: ${data.datadog_role.ro_role.id}
     value: Development

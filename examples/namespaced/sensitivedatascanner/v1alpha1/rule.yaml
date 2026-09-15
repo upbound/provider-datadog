@@ -12,18 +12,42 @@ spec:
     description: Another description
     excludedNamespaces:
     - username
-    groupId: xFwkbB3BTcmfh0VuHp0gcg
+    groupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: mygroup
     includedKeywordConfiguration:
-    - characterCount: 30
+      characterCount: 30
       keywords:
       - cc
       - credit card
     isEnabled: true
     name: My new rule
     pattern: myregex
+    priority: 1
     tags:
     - sensitive_data:true
     textReplacement:
-    - numberOfChars: 0
+      numberOfChars: 0
       replacementString: ""
       type: hash
+
+---
+
+apiVersion: sensitivedatascanner.datadog.m.upbound.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sensitivedatascanner.datadog/v1alpha1/rule
+  labels:
+    testing.upbound.io/example-name: mygroup
+  name: mygroup
+  namespace: crossplane-system
+spec:
+  forProvider:
+    description: A relevant description
+    filter:
+      query: service:my-service
+    isEnabled: true
+    name: My new scanning group
+    productList:
+    - apm

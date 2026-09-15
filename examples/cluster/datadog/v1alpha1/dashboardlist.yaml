@@ -8,9 +8,4 @@ metadata:
   name: new-list
 spec:
   forProvider:
-    dashItem:
-    - dashId: 9e9-qw9-ngn
-      type: custom_timeboard
-        #- dashId: foo-dash-id-2
-        #type: custom_screenboard
-    name: UXP Created List
+    name: Terraform Created List

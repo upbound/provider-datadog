@@ -1,9 +1,13 @@
 apiVersion: datadog.upbound.io/v1alpha1
 kind: Team
 metadata:
-  name: team-foo
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/team
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
 spec:
   forProvider:
-    name: team-foo
-    description: Team Foo
-    handle: team-foo-handle
+    description: Team description
+    handle: example-team
+    name: Example Team

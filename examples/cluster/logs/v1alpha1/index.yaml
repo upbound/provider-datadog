@@ -10,8 +10,8 @@ spec:
   forProvider:
     dailyLimit: 200000
     dailyLimitReset:
-    - resetTime: "14:00"
-      resetUtcOffset: "+02:00"
+      resetTime: '14:00'
+      resetUtcOffset: +02:00
     dailyLimitWarningThresholdPercentage: 50
     exclusionFilter:
     - filter:
@@ -25,6 +25,10 @@ spec:
       isEnabled: true
       name: Kubernetes apiserver
     filter:
-    - query: '*'
-    name: your index
+      query: '*'
+    flexRetentionDays: 180
+    name: your-index
     retentionDays: 7
+    tags:
+    - team:backend
+    - env:production

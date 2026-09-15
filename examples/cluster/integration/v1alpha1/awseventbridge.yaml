@@ -8,7 +8,7 @@ metadata:
   name: foo
 spec:
   forProvider:
-    accountId: "INSERT 10 Digit Account ID"
+    accountId: "123456789012"
     createEventBus: true
     eventGeneratorName: app-alerts
     region: us-east-1

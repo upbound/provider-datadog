@@ -9,7 +9,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    accountId: ${datadog_integration_confluent_account.foo.id}
+    accountIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: foo
     resourceId: "123456"
     resourceType: kafka
     tags:

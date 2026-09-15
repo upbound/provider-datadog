@@ -9,7 +9,7 @@ metadata:
 spec:
   forProvider:
     includePercentiles: false
-    metricName: example.crossplane.dist.metric
+    metricName: example.terraform.dist.metric
     metricType: distribution
     tags:
     - sport

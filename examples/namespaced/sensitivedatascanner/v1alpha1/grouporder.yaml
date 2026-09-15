@@ -10,4 +10,6 @@ metadata:
 spec:
   forProvider:
     groupIds:
-    - xFwkbB3BTcmfh0VuHp0gcg
+    - group-id-1
+    - group-id-2
+    - group-id-3

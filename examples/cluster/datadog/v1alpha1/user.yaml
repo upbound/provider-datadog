@@ -4,13 +4,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/user
   labels:
-    testing.upbound.io/example-name: test-user-foo
-  name: test-user-foo
+    testing.upbound.io/example-name: foo
+  name: foo
 spec:
   forProvider:
-    # required
-    email: test-user-foo@example.com
-
-    # optional
-    # roles:
-    # - ${data.datadog_role.ro_role.id}
+    email: user-example@example.com
