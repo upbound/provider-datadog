@@ -32,9 +32,9 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"datadog_integration_azure":                    config.IdentifierFromProvider,
 	"datadog_integration_cloudflare_account":       datadogExternalNameWithInjectedUUID(),
 	"datadog_integration_confluent_account":        datadogExternalNameWithInjectedUUID(),
-	"datadog_integration_confluent_resource":       config.IdentifierFromProvider,
+	"datadog_integration_confluent_resource":       datadogExternalNameWithInjectedUUIDPair(),
 	"datadog_integration_fastly_account":           datadogExternalNameWithInjectedUUID(),
-	"datadog_integration_fastly_service":           config.IdentifierFromProvider,
+	"datadog_integration_fastly_service":           datadogExternalNameWithInjectedUUIDPair(),
 	"datadog_integration_gcp":                      config.IdentifierFromProvider,
 	"datadog_integration_gcp_sts":                  config.IdentifierFromProvider,
 	"datadog_integration_opsgenie_service_object":  config.IdentifierFromProvider,
@@ -114,6 +114,21 @@ func datadogExternalNameWithInjectedUUID() config.ExternalName {
 		if len(externalName) == 0 {
 			// Some temporary id's need to be in UUID format
 			return uuid.New().String(), nil
+		}
+		return externalName, nil
+	}
+	return e
+}
+
+// datadogExternalNameWithInjectedUUIDPair is for resources whose Terraform id
+// is "<parent uuid>:<child uuid>", such as the Confluent and Fastly
+// integration children. The stub keeps the two-part shape so the provider's
+// Read can split it and turn the API's 404 into a plain "does not exist".
+func datadogExternalNameWithInjectedUUIDPair() config.ExternalName {
+	e := config.IdentifierFromProvider
+	e.GetIDFn = func(_ context.Context, externalName string, _ map[string]any, _ map[string]any) (string, error) {
+		if len(externalName) == 0 {
+			return uuid.New().String() + ":" + uuid.New().String(), nil
 		}
 		return externalName, nil
 	}

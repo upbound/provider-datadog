@@ -63,6 +63,13 @@ func Configure(p *config.Provider) {
 		// this resource, which would be "datadog"
 		r.Kind = "GCPSTS"
 		r.ShortGroup = integrationDatadog
+		// The API fills both sets on its own (Prometheus disabled by default,
+		// monitored resources derived from the legacy filters). Copying them
+		// into spec makes the next apply fail with "Provider produced
+		// inconsistent result" on metric_namespace_configs.
+		r.LateInitializer = config.LateInitializer{
+			IgnoredFields: []string{"metric_namespace_configs", "monitored_resource_configs"},
+		}
 	})
 	p.AddResourceConfigurator("datadog_integration_opsgenie_service_object", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for
