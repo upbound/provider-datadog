@@ -24,7 +24,6 @@ const (
 	// and the namespaced tree under *.datadog.m.upbound.io.
 	rootGroupCluster    = "upbound.io"
 	rootGroupNamespaced = "m.upbound.io"
-
 )
 
 //go:embed schema.json
