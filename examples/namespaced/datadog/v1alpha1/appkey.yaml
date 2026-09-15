@@ -1,12 +1,12 @@
 apiVersion: datadog.m.upbound.io/v1alpha1
 kind: AppKey
 metadata:
-# annotations:
-#   meta.upbound.io/example-id: datadog/v1alpha1/appkey
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/appkey
   labels:
-    testing.upbound.io/example-name: foo
-  name: foo
+    testing.upbound.io/example-name: unrestricted_key
+  name: unrestricted-key
   namespace: upbound-system
 spec:
   forProvider:
-    name: foo
+    name: Unrestricted Application Key

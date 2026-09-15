@@ -1,5 +1,5 @@
 /*
-Copyright 2022 Upbound Inc.
+Copyright 2026 Upbound Inc.
 */
 
 package config
@@ -15,8 +15,8 @@ import (
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
 	// Import requires using a randomly generated ID from provider: nl-2e21sda
-	"datadog_api_key":                            datadogExternalNameWithInjectedID(),
-	"datadog_apm_retention_filter":               config.IdentifierFromProvider,
+	"datadog_api_key":                            datadogExternalNameWithInjectedUUID(),
+	"datadog_apm_retention_filter":               datadogExternalNameWithInjectedUUID(),
 	"datadog_apm_retention_filter_order":         config.IdentifierFromProvider,
 	"datadog_application_key":                    datadogExternalNameWithInjectedID(),
 	"datadog_authn_mapping":                      config.IdentifierFromProvider,
@@ -28,17 +28,13 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"datadog_dashboard_list":                       datadogExternalNameWithInjectedID(),
 	"datadog_downtime":                             config.IdentifierFromProvider,
 	"datadog_downtime_schedule":                    datadogExternalNameWithInjectedUUID(),
-	"datadog_integration_aws":                      config.IdentifierFromProvider,
 	"datadog_integration_aws_event_bridge":         config.IdentifierFromProvider,
-	"datadog_integration_aws_lambda_arn":           config.IdentifierFromProvider,
-	"datadog_integration_aws_log_collection":       config.IdentifierFromProvider,
-	"datadog_integration_aws_tag_filter":           config.IdentifierFromProvider,
 	"datadog_integration_azure":                    config.IdentifierFromProvider,
-	"datadog_integration_cloudflare_account":       config.IdentifierFromProvider,
-	"datadog_integration_confluent_account":        config.IdentifierFromProvider,
-	"datadog_integration_confluent_resource":       config.IdentifierFromProvider,
-	"datadog_integration_fastly_account":           config.IdentifierFromProvider,
-	"datadog_integration_fastly_service":           config.IdentifierFromProvider,
+	"datadog_integration_cloudflare_account":       datadogExternalNameWithInjectedUUID(),
+	"datadog_integration_confluent_account":        datadogExternalNameWithInjectedUUID(),
+	"datadog_integration_confluent_resource":       datadogExternalNameWithInjectedUUIDPair(),
+	"datadog_integration_fastly_account":           datadogExternalNameWithInjectedUUID(),
+	"datadog_integration_fastly_service":           datadogExternalNameWithInjectedUUIDPair(),
 	"datadog_integration_gcp":                      config.IdentifierFromProvider,
 	"datadog_integration_gcp_sts":                  config.IdentifierFromProvider,
 	"datadog_integration_opsgenie_service_object":  config.IdentifierFromProvider,
@@ -65,28 +61,31 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"datadog_role":                                 config.IdentifierFromProvider,
 	"datadog_rum_application":                      datadogExternalNameWithInjectedID(),
 	"datadog_security_monitoring_default_rule":     config.IdentifierFromProvider,
-	"datadog_security_monitoring_filter":           config.IdentifierFromProvider,
-	"datadog_security_monitoring_rule":             config.IdentifierFromProvider,
+	"datadog_security_monitoring_filter":           datadogExternalNameWithInjectedUUID(),
+	"datadog_security_monitoring_rule":             datadogExternalNameWithInjectedUUID(),
 	"datadog_sensitive_data_scanner_group":         config.IdentifierFromProvider,
 	"datadog_sensitive_data_scanner_group_order":   config.IdentifierFromProvider,
 	"datadog_sensitive_data_scanner_rule":          config.IdentifierFromProvider,
-	"datadog_service_account":                      config.IdentifierFromProvider,
+	"datadog_service_account":                      datadogExternalNameWithInjectedUUID(),
 	"datadog_service_account_application_key":      config.IdentifierFromProvider,
 	"datadog_service_definition_yaml":              config.IdentifierFromProvider,
 	"datadog_service_level_objective":              config.IdentifierFromProvider,
 	"datadog_slo_correction":                       config.IdentifierFromProvider,
 	"datadog_spans_metric":                         datadogExternalNameWithInjectedID(),
 	"datadog_synthetics_concurrency_cap":           config.IdentifierFromProvider,
-	"datadog_synthetics_global_variable":           config.IdentifierFromProvider,
-	"datadog_synthetics_private_location":          config.IdentifierFromProvider,
+	"datadog_synthetics_global_variable":           datadogExternalNameWithInjectedUUID(),
+	"datadog_synthetics_private_location":          datadogExternalNameWithInjectedUUID(),
 	"datadog_synthetics_test":                      config.IdentifierFromProvider,
 	"datadog_team":                                 datadogExternalNameWithInjectedID(),
 	"datadog_team_link":                            datadogExternalNameWithInjectedID(),
 	"datadog_team_membership":                      config.IdentifierFromProvider,
-	"datadog_team_permission_setting":              datadogExternalNameWithInjectedID(),
-	"datadog_user":                                 datadogExternalNameWithInjectedID(),
-	"datadog_webhook":                              config.IdentifierFromProvider,
-	"datadog_webhook_custom_variable":              config.IdentifierFromProvider,
+	// The framework resource resolves an empty id from team_id and action and
+	// stores the API identifier of the setting, which exists as soon as its
+	// team does; a stub id only produces a not-found error.
+	"datadog_team_permission_setting": config.IdentifierFromProvider,
+	"datadog_user":                    datadogExternalNameWithInjectedID(),
+	"datadog_webhook":                 config.IdentifierFromProvider,
+	"datadog_webhook_custom_variable": config.IdentifierFromProvider,
 }
 
 // datadogExternalNameWithInjectedID injects an id when there is none.
@@ -115,6 +114,21 @@ func datadogExternalNameWithInjectedUUID() config.ExternalName {
 		if len(externalName) == 0 {
 			// Some temporary id's need to be in UUID format
 			return uuid.New().String(), nil
+		}
+		return externalName, nil
+	}
+	return e
+}
+
+// datadogExternalNameWithInjectedUUIDPair is for resources whose Terraform id
+// is "<parent uuid>:<child uuid>", such as the Confluent and Fastly
+// integration children. The stub keeps the two-part shape so the provider's
+// Read can split it and turn the API's 404 into a plain "does not exist".
+func datadogExternalNameWithInjectedUUIDPair() config.ExternalName {
+	e := config.IdentifierFromProvider
+	e.GetIDFn = func(_ context.Context, externalName string, _ map[string]any, _ map[string]any) (string, error) {
+		if len(externalName) == 0 {
+			return uuid.New().String() + ":" + uuid.New().String(), nil
 		}
 		return externalName, nil
 	}

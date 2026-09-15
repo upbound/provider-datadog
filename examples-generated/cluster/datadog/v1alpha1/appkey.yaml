@@ -4,8 +4,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/appkey
   labels:
-    testing.upbound.io/example-name: foo
-  name: foo
+    testing.upbound.io/example-name: unrestricted_key
+  name: unrestricted-key
 spec:
   forProvider:
-    name: foo-application
+    name: Unrestricted Application Key

@@ -36,7 +36,9 @@ spec:
       openAPIV3Schema:
         description: AppKey is the Schema for the AppKeys API. Provides a Datadog
           Application Key resource. This can be used to create and manage Datadog
-          Application Keys.
+          Application Keys. Import is not supported for this resource. Securely store
+          your application keys using a secret management system or use this resource
+          to create and manage new application keys.
         properties:
           apiVersion:
             description: |-
@@ -65,6 +67,14 @@ spec:
                       (String) Name for Application Key.
                       Name for Application Key.
                     type: string
+                  scopes:
+                    description: |-
+                      (Set of String) Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+                      Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                 type: object
               initProvider:
                 description: |-
@@ -84,6 +94,14 @@ spec:
                       (String) Name for Application Key.
                       Name for Application Key.
                     type: string
+                  scopes:
+                    description: |-
+                      (Set of String) Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+                      Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                 type: object
               managementPolicies:
                 default:
@@ -161,6 +179,14 @@ spec:
                       (String) Name for Application Key.
                       Name for Application Key.
                     type: string
+                  scopes:
+                    description: |-
+                      (Set of String) Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+                      Authorization scopes for the Application Key. Application Keys configured with no scopes have full access.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                 type: object
               conditions:
                 description: Conditions of the resource.

@@ -1,5 +1,5 @@
 /*
-Copyright 2022 Upbound Inc.
+Copyright 2026 Upbound Inc.
 */
 
 package controller
@@ -43,11 +43,7 @@ import (
 	user "github.com/upbound/provider-datadog/internal/controller/namespaced/datadog/user"
 	webhook "github.com/upbound/provider-datadog/internal/controller/namespaced/datadog/webhook"
 	webhookcustomvariable "github.com/upbound/provider-datadog/internal/controller/namespaced/datadog/webhookcustomvariable"
-	aws "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/aws"
 	awseventbridge "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/awseventbridge"
-	awslambdaarn "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/awslambdaarn"
-	awslogcollection "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/awslogcollection"
-	awstagfilter "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/awstagfilter"
 	azure "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/azure"
 	cloudflareaccount "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/cloudflareaccount"
 	confluentaccount "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/confluentaccount"
@@ -121,11 +117,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		user.Setup,
 		webhook.Setup,
 		webhookcustomvariable.Setup,
-		aws.Setup,
 		awseventbridge.Setup,
-		awslambdaarn.Setup,
-		awslogcollection.Setup,
-		awstagfilter.Setup,
 		azure.Setup,
 		cloudflareaccount.Setup,
 		confluentaccount.Setup,
@@ -205,11 +197,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		user.SetupGated,
 		webhook.SetupGated,
 		webhookcustomvariable.SetupGated,
-		aws.SetupGated,
 		awseventbridge.SetupGated,
-		awslambdaarn.SetupGated,
-		awslogcollection.SetupGated,
-		awstagfilter.SetupGated,
 		azure.SetupGated,
 		cloudflareaccount.SetupGated,
 		confluentaccount.SetupGated,
@@ -288,11 +276,7 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		user.SetupWebhookWithManager,
 		webhook.SetupWebhookWithManager,
 		webhookcustomvariable.SetupWebhookWithManager,
-		aws.SetupWebhookWithManager,
 		awseventbridge.SetupWebhookWithManager,
-		awslambdaarn.SetupWebhookWithManager,
-		awslogcollection.SetupWebhookWithManager,
-		awstagfilter.SetupWebhookWithManager,
 		azure.SetupWebhookWithManager,
 		cloudflareaccount.SetupWebhookWithManager,
 		confluentaccount.SetupWebhookWithManager,

@@ -69,27 +69,25 @@ spec:
                     description: |-
                       (Block List, Max: 1) Config for a tag policy. Only set if policy_type is tag. (see below for nested schema)
                       Config for a tag policy. Only set if `policy_type` is `tag`.
-                    items:
-                      properties:
-                        tagKey:
-                          description: |-
-                            (String) The key of the tag
-                            The key of the tag
+                    properties:
+                      tagKey:
+                        description: |-
+                          (String) The key of the tag
+                          The key of the tag
+                        type: string
+                      tagKeyRequired:
+                        description: |-
+                          (Boolean) If a tag key is required for monitor creation
+                          If a tag key is required for monitor creation
+                        type: boolean
+                      validTagValues:
+                        description: |-
+                          (List of String) Valid values for the tag
+                          Valid values for the tag
+                        items:
                           type: string
-                        tagKeyRequired:
-                          description: |-
-                            (Boolean) If a tag key is required for monitor creation
-                            If a tag key is required for monitor creation
-                          type: boolean
-                        validTagValues:
-                          description: |-
-                            (List of String) Valid values for the tag
-                            Valid values for the tag
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
+                        type: array
+                    type: object
                 type: object
               initProvider:
                 description: |-
@@ -113,27 +111,25 @@ spec:
                     description: |-
                       (Block List, Max: 1) Config for a tag policy. Only set if policy_type is tag. (see below for nested schema)
                       Config for a tag policy. Only set if `policy_type` is `tag`.
-                    items:
-                      properties:
-                        tagKey:
-                          description: |-
-                            (String) The key of the tag
-                            The key of the tag
+                    properties:
+                      tagKey:
+                        description: |-
+                          (String) The key of the tag
+                          The key of the tag
+                        type: string
+                      tagKeyRequired:
+                        description: |-
+                          (Boolean) If a tag key is required for monitor creation
+                          If a tag key is required for monitor creation
+                        type: boolean
+                      validTagValues:
+                        description: |-
+                          (List of String) Valid values for the tag
+                          Valid values for the tag
+                        items:
                           type: string
-                        tagKeyRequired:
-                          description: |-
-                            (Boolean) If a tag key is required for monitor creation
-                            If a tag key is required for monitor creation
-                          type: boolean
-                        validTagValues:
-                          description: |-
-                            (List of String) Valid values for the tag
-                            Valid values for the tag
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
+                        type: array
+                    type: object
                 type: object
               managementPolicies:
                 default:
@@ -215,27 +211,25 @@ spec:
                     description: |-
                       (Block List, Max: 1) Config for a tag policy. Only set if policy_type is tag. (see below for nested schema)
                       Config for a tag policy. Only set if `policy_type` is `tag`.
-                    items:
-                      properties:
-                        tagKey:
-                          description: |-
-                            (String) The key of the tag
-                            The key of the tag
+                    properties:
+                      tagKey:
+                        description: |-
+                          (String) The key of the tag
+                          The key of the tag
+                        type: string
+                      tagKeyRequired:
+                        description: |-
+                          (Boolean) If a tag key is required for monitor creation
+                          If a tag key is required for monitor creation
+                        type: boolean
+                      validTagValues:
+                        description: |-
+                          (List of String) Valid values for the tag
+                          Valid values for the tag
+                        items:
                           type: string
-                        tagKeyRequired:
-                          description: |-
-                            (Boolean) If a tag key is required for monitor creation
-                            If a tag key is required for monitor creation
-                          type: boolean
-                        validTagValues:
-                          description: |-
-                            (List of String) Valid values for the tag
-                            Valid values for the tag
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
+                        type: array
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.

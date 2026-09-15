@@ -2,13 +2,49 @@ apiVersion: datadog.m.upbound.io/v1alpha1
 kind: TeamMembership
 metadata:
   annotations:
-    meta.upbound.io/example-id: team/v1alpha1/membership
+    meta.upbound.io/example-id: datadog/v1alpha1/teammembership
   labels:
-    testing.upbound.io/example-name: membership-foo
-  name: membership-foo
+    testing.upbound.io/example-name: foo
+  name: foo
   namespace: upbound-system
 spec:
   forProvider:
     role: admin
-    teamId: "fc4fd012-4578-48b5-b8c8-b717fbfb9478"
-    userId: "68fb13cf-d38a-11ee-81b6-72a7aa9f44d8"
+    teamIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: teammembership-foo
+    userIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: teammembership-foo
+
+---
+
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/teammembership
+  labels:
+    testing.upbound.io/example-name: teammembership-foo
+  name: teammembership-foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: Example team
+    handle: teammembership-foo
+    name: teammembership-foo
+
+---
+
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/teammembership
+  labels:
+    testing.upbound.io/example-name: teammembership-foo
+  name: teammembership-foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    email: teammembership-example@example.com

@@ -4,12 +4,12 @@ metadata:
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/webhook
   labels:
-    testing.upbound.io/example-name: webhook-foo
-  name: webhook-foo
+    testing.upbound.io/example-name: foo
+  name: foo
 spec:
   forProvider:
-    customHeaders: '${jsonencode({ "custom" : "header" })}'
+    customHeaders: '{"custom": "header"}'
     encodeAs: json
     name: test-webhook
-    payload: '${jsonencode({ "custom" : "payload" })}'
-    url: example.com
+    payload: '{"custom": "payload"}'
+    url: https://example.com

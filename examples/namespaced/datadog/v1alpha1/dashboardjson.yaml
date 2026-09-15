@@ -2,7 +2,7 @@ apiVersion: datadog.m.upbound.io/v1alpha1
 kind: DashboardJSON
 metadata:
   annotations:
-    meta.upbound.io/example-id: dashboard/v1alpha1/dashboardjson
+    meta.upbound.io/example-id: datadog/v1alpha1/dashboardjson
   labels:
     testing.upbound.io/example-name: dashboard_json
   name: dashboard-json
@@ -475,7 +475,6 @@ spec:
             }
          ],
          "layout_type":"ordered",
-         "is_read_only":true,
          "notify_list":[
 
          ],

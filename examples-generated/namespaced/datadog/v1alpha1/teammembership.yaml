@@ -10,8 +10,12 @@ metadata:
 spec:
   forProvider:
     role: admin
-    teamId: ${datadog_team.foo.id}
-    userId: ${datadog_user.foo.id}
+    teamIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: foo
+    userIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: foo
 
 ---
 

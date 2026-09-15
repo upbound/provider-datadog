@@ -98,15 +98,15 @@ spec:
                     type: array
                   groupBy:
                     description: |-
-                      (List of String) Fields to group by when generating signals, e.g. @resource. Defaults to empty list.
-                      Fields to group by when generating signals, e.g. @resource. Defaults to empty list.
+                      (List of String) Defaults to empty list. This function will be deprecated soon. Use the notification rules function instead. Fields to group by when generating signals, e.g. @resource.
+                      Defaults to empty list. This function will be deprecated soon. Use the notification rules function instead. Fields to group by when generating signals, e.g. @resource.
                     items:
                       type: string
                     type: array
                   message:
                     description: |-
-                      (String) The message associated to the rule that will be shown in findings and signals.
-                      The message associated to the rule that will be shown in findings and signals.
+                      level section headers to control where each part appears in the finding: Description appears under What Happened, and Remediation appears in its own Remediation section. You can also include a Rationale section, which is shown within What Happened after the description. All sections are optional and can appear in any order; a typical message uses only Description and Remediation. Use level-2 (##) headers for each section. If none of these headers are present, the entire message is shown as the description.
+                      The message associated to the rule that will be shown in findings and signals. For cloud configuration rules, the message is rendered in the finding side panel. When the message is written as Markdown, you can use top-level section headers to control where each part appears in the finding: `Description` appears under **What Happened**, and `Remediation` appears in its own **Remediation** section. You can also include a `Rationale` section, which is shown within **What Happened** after the description. All sections are optional and can appear in any order; a typical message uses only `Description` and `Remediation`. Use level-2 (`##`) headers for each section. If none of these headers are present, the entire message is shown as the description.
                     type: string
                   name:
                     description: |-
@@ -115,8 +115,8 @@ spec:
                     type: string
                   notifications:
                     description: |-
-                      (List of String) Notification targets for signals. Defaults to empty list.
-                      Notification targets for signals. Defaults to empty list.
+                      (List of String) This function will be deprecated soon. Use the notification rules function instead. Notification targets for signals. Defaults to empty list.
+                      This function will be deprecated soon. Use the notification rules function instead. Notification targets for signals. Defaults to empty list.
                     items:
                       type: string
                     type: array
@@ -188,15 +188,15 @@ spec:
                     type: array
                   groupBy:
                     description: |-
-                      (List of String) Fields to group by when generating signals, e.g. @resource. Defaults to empty list.
-                      Fields to group by when generating signals, e.g. @resource. Defaults to empty list.
+                      (List of String) Defaults to empty list. This function will be deprecated soon. Use the notification rules function instead. Fields to group by when generating signals, e.g. @resource.
+                      Defaults to empty list. This function will be deprecated soon. Use the notification rules function instead. Fields to group by when generating signals, e.g. @resource.
                     items:
                       type: string
                     type: array
                   message:
                     description: |-
-                      (String) The message associated to the rule that will be shown in findings and signals.
-                      The message associated to the rule that will be shown in findings and signals.
+                      level section headers to control where each part appears in the finding: Description appears under What Happened, and Remediation appears in its own Remediation section. You can also include a Rationale section, which is shown within What Happened after the description. All sections are optional and can appear in any order; a typical message uses only Description and Remediation. Use level-2 (##) headers for each section. If none of these headers are present, the entire message is shown as the description.
+                      The message associated to the rule that will be shown in findings and signals. For cloud configuration rules, the message is rendered in the finding side panel. When the message is written as Markdown, you can use top-level section headers to control where each part appears in the finding: `Description` appears under **What Happened**, and `Remediation` appears in its own **Remediation** section. You can also include a `Rationale` section, which is shown within **What Happened** after the description. All sections are optional and can appear in any order; a typical message uses only `Description` and `Remediation`. Use level-2 (`##`) headers for each section. If none of these headers are present, the entire message is shown as the description.
                     type: string
                   name:
                     description: |-
@@ -205,8 +205,8 @@ spec:
                     type: string
                   notifications:
                     description: |-
-                      (List of String) Notification targets for signals. Defaults to empty list.
-                      Notification targets for signals. Defaults to empty list.
+                      (List of String) This function will be deprecated soon. Use the notification rules function instead. Notification targets for signals. Defaults to empty list.
+                      This function will be deprecated soon. Use the notification rules function instead. Notification targets for signals. Defaults to empty list.
                     items:
                       type: string
                     type: array
@@ -381,8 +381,8 @@ spec:
                     type: array
                   groupBy:
                     description: |-
-                      (List of String) Fields to group by when generating signals, e.g. @resource. Defaults to empty list.
-                      Fields to group by when generating signals, e.g. @resource. Defaults to empty list.
+                      (List of String) Defaults to empty list. This function will be deprecated soon. Use the notification rules function instead. Fields to group by when generating signals, e.g. @resource.
+                      Defaults to empty list. This function will be deprecated soon. Use the notification rules function instead. Fields to group by when generating signals, e.g. @resource.
                     items:
                       type: string
                     type: array
@@ -391,8 +391,8 @@ spec:
                     type: string
                   message:
                     description: |-
-                      (String) The message associated to the rule that will be shown in findings and signals.
-                      The message associated to the rule that will be shown in findings and signals.
+                      level section headers to control where each part appears in the finding: Description appears under What Happened, and Remediation appears in its own Remediation section. You can also include a Rationale section, which is shown within What Happened after the description. All sections are optional and can appear in any order; a typical message uses only Description and Remediation. Use level-2 (##) headers for each section. If none of these headers are present, the entire message is shown as the description.
+                      The message associated to the rule that will be shown in findings and signals. For cloud configuration rules, the message is rendered in the finding side panel. When the message is written as Markdown, you can use top-level section headers to control where each part appears in the finding: `Description` appears under **What Happened**, and `Remediation` appears in its own **Remediation** section. You can also include a `Rationale` section, which is shown within **What Happened** after the description. All sections are optional and can appear in any order; a typical message uses only `Description` and `Remediation`. Use level-2 (`##`) headers for each section. If none of these headers are present, the entire message is shown as the description.
                     type: string
                   name:
                     description: |-
@@ -401,8 +401,8 @@ spec:
                     type: string
                   notifications:
                     description: |-
-                      (List of String) Notification targets for signals. Defaults to empty list.
-                      Notification targets for signals. Defaults to empty list.
+                      (List of String) This function will be deprecated soon. Use the notification rules function instead. Notification targets for signals. Defaults to empty list.
+                      This function will be deprecated soon. Use the notification rules function instead. Notification targets for signals. Defaults to empty list.
                     items:
                       type: string
                     type: array

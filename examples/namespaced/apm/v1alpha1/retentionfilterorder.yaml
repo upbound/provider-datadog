@@ -3,14 +3,15 @@ kind: RetentionFilterOrder
 metadata:
   annotations:
     meta.upbound.io/example-id: apm/v1alpha1/retentionfilterorder
+    upjet.upbound.io/manual-intervention: The API requires the complete ordered list of the organization's retention filters; replace the list with all retention filters of the organization.
   labels:
     testing.upbound.io/example-name: bar
   name: bar
   namespace: upbound-system
 spec:
   forProvider:
-    filterIds:
-    - ${datadog_apm_retention_filter.foo.id}
+    filterIdsRefs:
+    - name: retentionfilterorder-foo
 
 ---
 
@@ -20,14 +21,14 @@ metadata:
   annotations:
     meta.upbound.io/example-id: apm.datadog/v1alpha1/retentionfilterorder
   labels:
-    testing.upbound.io/example-name: foo
-  name: foo
+    testing.upbound.io/example-name: retentionfilterorder-foo
+  name: retentionfilterorder-foo
   namespace: upbound-system
 spec:
   forProvider:
     enabled: false
     filter:
-    - query: '*'
+      query: '*'
     filterType: spans-sampling-processor
     name: Sample order
     rate: "1.0"

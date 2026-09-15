@@ -8,7 +8,9 @@ metadata:
   name: foo
 spec:
   forProvider:
-    accountId: ${datadog_integration_confluent_account.foo.id}
+    accountIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: confluentresource-foo
     resourceId: "123456"
     resourceType: kafka
     tags:
@@ -23,11 +25,11 @@ metadata:
   annotations:
     meta.upbound.io/example-id: integration.datadog/v1alpha1/confluentresource
   labels:
-    testing.upbound.io/example-name: foo
-  name: foo
+    testing.upbound.io/example-name: confluentresource-foo
+  name: confluentresource-foo
 spec:
   forProvider:
-    apiKey: TESTAPIKEY123
+    apiKey: TESTAPIKEY456
     apiSecretSecretRef:
       key: example-key
       name: example-secret

@@ -11,8 +11,8 @@ spec:
   forProvider:
     dailyLimit: 200000
     dailyLimitReset:
-    - resetTime: "14:00"
-      resetUtcOffset: "+02:00"
+      resetTime: '14:00'
+      resetUtcOffset: +02:00
     dailyLimitWarningThresholdPercentage: 50
     exclusionFilter:
     - filter:
@@ -26,6 +26,9 @@ spec:
       isEnabled: true
       name: Kubernetes apiserver
     filter:
-    - query: '*'
-    name: your index
-    retentionDays: 7
+      query: '*'
+    name: ${Rand.RFC1123Subdomain}
+    retentionDays: 15
+    tags:
+    - team:backend
+    - env:production

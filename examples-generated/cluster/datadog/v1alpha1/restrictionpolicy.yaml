@@ -10,9 +10,10 @@ spec:
   forProvider:
     bindings:
     - principals:
-      - role:00000000-0000-1111-0000-000000000000
+      - user:${data.datadog_current_user.me.id}
+      - team:00000000-0000-1111-0000-000000000000
       relation: editor
     - principals:
-      - org:10000000-0000-1111-0000-000000000000
+      - org:${data.datadog_current_user.me.org_id}
       relation: viewer
     resourceId: security-rule:abc-def-ghi

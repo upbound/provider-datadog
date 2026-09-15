@@ -74,21 +74,40 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  apiKeySecretRef:
+                    description: |-
+                      (String, Sensitive) API key used to generate the private location configuration.
+                      API key used to generate the private location configuration.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
                   description:
                     description: |-
-                      (String) Description of the private location.
-                      Description of the private location.
+                      (String) Description of the private location. Defaults to "".
+                      Description of the private location. Defaults to `""`.
                     type: string
                   metadata:
                     description: |-
-                      (Block List, Max: 1) The private location metadata (see below for nested schema)
+                      (Block List) The private location metadata (see below for nested schema)
                       The private location metadata
                     items:
                       properties:
                         restrictedRoles:
                           description: |-
-                            (Set of String) A list of role identifiers pulled from the Roles API to restrict read and write access.
-                            A list of role identifiers pulled from the Roles API to restrict read and write access.
+                            (Set of String, Deprecated) A set of role identifiers pulled from the Roles API to restrict read and write access. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+                            A set of role identifiers pulled from the Roles API to restrict read and write access. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
                           items:
                             type: string
                           type: array
@@ -121,21 +140,40 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  apiKeySecretRef:
+                    description: |-
+                      (String, Sensitive) API key used to generate the private location configuration.
+                      API key used to generate the private location configuration.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
                   description:
                     description: |-
-                      (String) Description of the private location.
-                      Description of the private location.
+                      (String) Description of the private location. Defaults to "".
+                      Description of the private location. Defaults to `""`.
                     type: string
                   metadata:
                     description: |-
-                      (Block List, Max: 1) The private location metadata (see below for nested schema)
+                      (Block List) The private location metadata (see below for nested schema)
                       The private location metadata
                     items:
                       properties:
                         restrictedRoles:
                           description: |-
-                            (Set of String) A list of role identifiers pulled from the Roles API to restrict read and write access.
-                            A list of role identifiers pulled from the Roles API to restrict read and write access.
+                            (Set of String, Deprecated) A set of role identifiers pulled from the Roles API to restrict read and write access. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+                            A set of role identifiers pulled from the Roles API to restrict read and write access. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
                           items:
                             type: string
                           type: array
@@ -253,22 +291,22 @@ spec:
                 properties:
                   description:
                     description: |-
-                      (String) Description of the private location.
-                      Description of the private location.
+                      (String) Description of the private location. Defaults to "".
+                      Description of the private location. Defaults to `""`.
                     type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
                   metadata:
                     description: |-
-                      (Block List, Max: 1) The private location metadata (see below for nested schema)
+                      (Block List) The private location metadata (see below for nested schema)
                       The private location metadata
                     items:
                       properties:
                         restrictedRoles:
                           description: |-
-                            (Set of String) A list of role identifiers pulled from the Roles API to restrict read and write access.
-                            A list of role identifiers pulled from the Roles API to restrict read and write access.
+                            (Set of String, Deprecated) A set of role identifiers pulled from the Roles API to restrict read and write access. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+                            A set of role identifiers pulled from the Roles API to restrict read and write access. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
                           items:
                             type: string
                           type: array
@@ -279,6 +317,11 @@ spec:
                     description: |-
                       (String) Synthetics private location name.
                       Synthetics private location name.
+                    type: string
+                  restrictionPolicyResourceId:
+                    description: |-
+                      (String) Resource ID to use when setting restrictions with a datadog_restriction_policy resource.
+                      Resource ID to use when setting restrictions with a `datadog_restriction_policy` resource.
                     type: string
                   tags:
                     description: |-

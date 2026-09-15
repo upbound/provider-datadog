@@ -59,6 +59,11 @@ spec:
             properties:
               forProvider:
                 properties:
+                  defaultPermissionsOptOut:
+                    description: |-
+                      (Boolean) If set to true, the role does not have default (restricted) permissions unless they are explicitly set.
+                      If set to `true`, the role does not have default (restricted) permissions unless they are explicitly set.
+                    type: boolean
                   name:
                     description: |-
                       (String) Name of the role.
@@ -96,6 +101,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  defaultPermissionsOptOut:
+                    description: |-
+                      (Boolean) If set to true, the role does not have default (restricted) permissions unless they are explicitly set.
+                      If set to `true`, the role does not have default (restricted) permissions unless they are explicitly set.
+                    type: boolean
                   name:
                     description: |-
                       (String) Name of the role.
@@ -188,6 +198,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  defaultPermissionsOptOut:
+                    description: |-
+                      (Boolean) If set to true, the role does not have default (restricted) permissions unless they are explicitly set.
+                      If set to `true`, the role does not have default (restricted) permissions unless they are explicitly set.
+                    type: boolean
                   id:
                     description: (String) The ID of this resource.
                     type: string
@@ -216,8 +231,8 @@ spec:
                     type: array
                   userCount:
                     description: |-
-                      (Number) Number of users that have this role.
-                      Number of users that have this role.
+                      (Number, Deprecated) Number of users that have this role. Deprecated. This field is no longer set and will be removed in a future release.
+                      Number of users that have this role. **Deprecated.** This field is no longer set and will be removed in a future release.
                     type: number
                   validate:
                     description: |-

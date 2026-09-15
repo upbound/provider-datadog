@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Upbound Inc.
+Copyright 2026 Upbound Inc.
 */
 
 package config
@@ -9,9 +9,11 @@ import (
 	_ "embed"
 
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
+	"github.com/crossplane/upjet/v2/pkg/registry/reference"
 
 	"github.com/upbound/provider-datadog/config/cluster"
 	"github.com/upbound/provider-datadog/config/namespaced"
+	"github.com/upbound/provider-datadog/config/templates"
 )
 
 const (
@@ -39,6 +41,7 @@ func GetProvider() *ujconfig.Provider {
 		configure(pc)
 	}
 	pc.ConfigureResources()
+	registerTerraformConversions(pc)
 	return pc
 }
 
@@ -49,6 +52,7 @@ func GetProviderNamespaced() *ujconfig.Provider {
 		configure(pc)
 	}
 	pc.ConfigureResources()
+	registerTerraformConversions(pc)
 	return pc
 }
 
@@ -58,6 +62,23 @@ func newProvider(rootGroup string, opts ...ujconfig.ProviderOption) *ujconfig.Pr
 		ujconfig.WithIncludeList(ExternalNameConfigured()),
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(ExternalNameConfigurations()),
+		ujconfig.WithControllerTemplate(templates.ControllerTemplate),
+		ujconfig.WithSchemaTraversers(&ujconfig.SingletonListEmbedder{}),
+		ujconfig.WithReferenceInjectors([]ujconfig.ReferenceInjector{reference.NewInjector(modulePath)}),
 	}, opts...)
 	return ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata), options...)
+}
+
+// registerTerraformConversions enables the runtime conversion between the
+// embedded objects of the CRDs and the singleton lists Terraform expects on
+// every resource the SingletonListEmbedder touched. The embedder only records
+// the paths; without this conversion the objects reach the Terraform
+// configuration and state unchanged and Terraform rejects them.
+func registerTerraformConversions(pc *ujconfig.Provider) {
+	for _, r := range pc.Resources {
+		if len(r.CRDListConversionPaths()) == 0 {
+			continue
+		}
+		r.TerraformConversions = append(r.TerraformConversions, ujconfig.NewTFSingletonConversion())
+	}
 }

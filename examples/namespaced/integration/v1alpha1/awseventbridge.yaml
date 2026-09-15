@@ -3,13 +3,14 @@ kind: AWSEventBridge
 metadata:
   annotations:
     meta.upbound.io/example-id: integration/v1alpha1/awseventbridge
+    upjet.upbound.io/manual-intervention: The Amazon EventBridge integration must be installed in the Datadog organization first.
   labels:
     testing.upbound.io/example-name: foo
   name: foo
   namespace: upbound-system
 spec:
   forProvider:
-    accountId: "INSERT 10 Digit Account ID"
+    accountId: "123456789012"
     createEventBus: true
     eventGeneratorName: app-alerts
     region: us-east-1

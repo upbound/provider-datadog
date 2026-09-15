@@ -10,7 +10,8 @@ spec:
   forProvider:
     enabled: false
     filter:
-    - query: '*'
+    - query: service:sample AND env:production AND @http.method:GET AND app:sampleapp
+        AND @http.status_code:200 AND @duration:>600000000
     filterType: spans-sampling-processor
     name: Sample order
     rate: "1.0"

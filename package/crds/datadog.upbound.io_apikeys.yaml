@@ -36,6 +36,10 @@ spec:
       openAPIV3Schema:
         description: APIKey is the Schema for the APIKeys API. Provides a Datadog
           API Key resource. This can be used to create and manage Datadog API Keys.
+          Import functionality for this resource is deprecated and will be removed
+          in a future release with prior notice. Securely store your API keys using
+          a secret management system or use this resource to create and manage new
+          API keys.
         properties:
           apiVersion:
             description: |-
@@ -78,6 +82,11 @@ spec:
                       (String) Name for API Key.
                       Name for API Key.
                     type: string
+                  remoteConfigReadEnabled:
+                    description: |-
+                      settings/remote-config.
+                      Whether the API key is used for remote config. Set to true only if remote config is enabled in `/organization-settings/remote-config`.
+                    type: boolean
                 type: object
               initProvider:
                 description: |-
@@ -97,6 +106,11 @@ spec:
                       (String) Name for API Key.
                       Name for API Key.
                     type: string
+                  remoteConfigReadEnabled:
+                    description: |-
+                      settings/remote-config.
+                      Whether the API key is used for remote config. Set to true only if remote config is enabled in `/organization-settings/remote-config`.
+                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -202,6 +216,11 @@ spec:
                       (String) Name for API Key.
                       Name for API Key.
                     type: string
+                  remoteConfigReadEnabled:
+                    description: |-
+                      settings/remote-config.
+                      Whether the API key is used for remote config. Set to true only if remote config is enabled in `/organization-settings/remote-config`.
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.

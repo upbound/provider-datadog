@@ -9,7 +9,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    accountId: ${datadog_integration_fastly_account.foo.id}
+    accountIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: foo
     serviceId: my-service-id
     tags:
     - mytag
@@ -28,5 +30,7 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    apiKey: ABCDEFG123
+    apiKeySecretRef:
+      key: example-key
+      name: example-secret
     name: test-name

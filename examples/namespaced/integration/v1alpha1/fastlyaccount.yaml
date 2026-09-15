@@ -9,5 +9,7 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    apiKey: ABCDEFG123
+    apiKeySecretRef:
+      key: example-key
+      name: example-secret
     name: test-name

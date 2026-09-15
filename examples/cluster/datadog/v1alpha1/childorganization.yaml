@@ -1,13 +1,12 @@
 apiVersion: datadog.upbound.io/v1alpha1
 kind: ChildOrganization
 metadata:
-  # The caller API key needs to be associated with permissions to
-  # create child organizations for the request to succeed.
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/childorganization
+    upjet.upbound.io/manual-intervention: "Creates a child organization, which the API cannot delete; not run automatically."
   labels:
     testing.upbound.io/example-name: organization
-  name: child-org-foo
+  name: organization
 spec:
   forProvider:
-    name: child-org-foo
+    name: foo-organization

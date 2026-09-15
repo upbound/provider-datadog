@@ -78,73 +78,88 @@ spec:
                     description: |-
                       (Block List, Max: 1) Definition of an azure archive. (see below for nested schema)
                       Definition of an azure archive.
-                    items:
-                      properties:
-                        clientId:
-                          description: |-
-                            (String) Your client id.
-                            Your client id.
-                          type: string
-                        container:
-                          description: |-
-                            (String) The container where the archive is stored.
-                            The container where the archive is stored.
-                          type: string
-                        path:
-                          description: |-
-                            (String) The path where the archive is stored.
-                            The path where the archive is stored.
-                          type: string
-                        storageAccount:
-                          description: |-
-                            (String) The associated storage account.
-                            The associated storage account.
-                          type: string
-                        tenantId:
-                          description: |-
-                            (String) Your tenant id.
-                            Your tenant id.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      clientId:
+                        description: |-
+                          (String) Your client id.
+                          Your client id.
+                        type: string
+                      container:
+                        description: |-
+                          (String) The container where the archive is stored.
+                          The container where the archive is stored.
+                        type: string
+                      path:
+                        description: |-
+                          (String) The path where the archive is stored.
+                          The path where the archive is stored.
+                        type: string
+                      storageAccount:
+                        description: |-
+                          (String) The associated storage account.
+                          The associated storage account.
+                        type: string
+                      tenantId:
+                        description: |-
+                          (String) Your tenant id.
+                          Your tenant id.
+                        type: string
+                    type: object
+                  compressionMethod:
+                    description: |-
+                      (String) The compression method for the archive. Valid values are GZIP, ZSTD. Defaults to "GZIP".
+                      The compression method for the archive. Valid values are `GZIP`, `ZSTD`. Defaults to `"GZIP"`.
+                    type: string
                   gcsArchive:
                     description: |-
                       (Block List, Max: 1) Definition of a GCS archive. (see below for nested schema)
                       Definition of a GCS archive.
-                    items:
-                      properties:
-                        bucket:
-                          description: |-
-                            (String) Name of your GCS bucket.
-                            Name of your GCS bucket.
-                          type: string
-                        clientEmail:
-                          description: |-
-                            (String) Your client email.
-                            Your client email.
-                          type: string
-                        path:
-                          description: |-
-                            (String) The path where the archive is stored.
-                            Path where the archive is stored.
-                          type: string
-                        projectId:
-                          description: |-
-                            (String) Your project id.
-                            Your project id.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      bucket:
+                        description: |-
+                          (String) Name of your GCS bucket.
+                          Name of your GCS bucket.
+                        type: string
+                      clientEmail:
+                        description: |-
+                          (String) Your client email.
+                          Your client email.
+                        type: string
+                      path:
+                        description: |-
+                          (String) The path where the archive is stored.
+                          Path where the archive is stored.
+                        type: string
+                      projectId:
+                        description: |-
+                          (String) Your project id.
+                          Your project id.
+                        type: string
+                    type: object
                   includeTags:
                     description: |-
                       (Boolean) To store the tags in the archive, set the value true. If it is set to false, the tags will be dropped when the logs are sent to the archive. Defaults to false.
                       To store the tags in the archive, set the value `true`. If it is set to `false`, the tags will be dropped when the logs are sent to the archive. Defaults to `false`.
                     type: boolean
+                  lookupAttributes:
+                    description: |-
+                      (List of String) An array of attributes to use as lookup keys for the archive.
+                      An array of attributes to use as lookup keys for the archive.
+                    items:
+                      type: string
+                    type: array
                   name:
                     description: |-
                       (String) Your archive name.
                       Your archive name.
                     type: string
+                  partitioningAttributes:
+                    description: |-
+                      (List of String) An array of attributes to use as partition keys for the archive. The attribute used most frequently for querying should be first.
+                      An array of attributes to use as partition keys for the archive. The attribute used most frequently for querying should be first.
+                    items:
+                      type: string
+                    type: array
                   query:
                     description: |-
                       (String) The archive query/filter. Logs matching this query are included in the archive.
@@ -166,30 +181,48 @@ spec:
                     description: |-
                       (Block List, Max: 1) Definition of an s3 archive. (see below for nested schema)
                       Definition of an s3 archive.
-                    items:
-                      properties:
-                        accountId:
-                          description: |-
-                            (String) Your AWS account id.
-                            Your AWS account id.
-                          type: string
-                        bucket:
-                          description: |-
-                            (String) Name of your GCS bucket.
-                            Name of your s3 bucket.
-                          type: string
-                        path:
-                          description: |-
-                            (String) The path where the archive is stored.
-                            Path where the archive is stored.
-                          type: string
-                        roleName:
-                          description: |-
-                            (String) Your AWS role name
-                            Your AWS role name
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      accessKeyId:
+                        description: |-
+                          (String) Your AWS access key id, used as an alternative to account_id/role_name.
+                          Your AWS access key id, used as an alternative to `account_id`/`role_name`.
+                        type: string
+                      accountId:
+                        description: |-
+                          (String) Your AWS account id. Required with role_name; mutually exclusive with access_key_id.
+                          Your AWS account id. Required with `role_name`; mutually exclusive with `access_key_id`.
+                        type: string
+                      bucket:
+                        description: |-
+                          (String) Name of your GCS bucket.
+                          Name of your s3 bucket.
+                        type: string
+                      encryptionKey:
+                        description: |-
+                          (String) The AWS KMS encryption key.
+                          The AWS KMS encryption key.
+                        type: string
+                      encryptionType:
+                        description: |-
+                          (String) The type of encryption on your archive. Valid values are NO_OVERRIDE, SSE_S3, SSE_KMS. Defaults to "NO_OVERRIDE".
+                          The type of encryption on your archive. Valid values are `NO_OVERRIDE`, `SSE_S3`, `SSE_KMS`. Defaults to `"NO_OVERRIDE"`.
+                        type: string
+                      path:
+                        description: |-
+                          (String) The path where the archive is stored.
+                          Path where the archive is stored.
+                        type: string
+                      roleName:
+                        description: |-
+                          (String) Your AWS role name. Required with account_id; mutually exclusive with access_key_id.
+                          Your AWS role name. Required with `account_id`; mutually exclusive with `access_key_id`.
+                        type: string
+                      storageClass:
+                        description: |-
+                          (String) The AWS S3 storage class used to upload the logs. Valid values are STANDARD, STANDARD_IA, ONEZONE_IA, INTELLIGENT_TIERING, GLACIER_IR. Defaults to "STANDARD".
+                          The AWS S3 storage class used to upload the logs. Valid values are `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`, `GLACIER_IR`. Defaults to `"STANDARD"`.
+                        type: string
+                    type: object
                 type: object
               initProvider:
                 description: |-
@@ -208,73 +241,88 @@ spec:
                     description: |-
                       (Block List, Max: 1) Definition of an azure archive. (see below for nested schema)
                       Definition of an azure archive.
-                    items:
-                      properties:
-                        clientId:
-                          description: |-
-                            (String) Your client id.
-                            Your client id.
-                          type: string
-                        container:
-                          description: |-
-                            (String) The container where the archive is stored.
-                            The container where the archive is stored.
-                          type: string
-                        path:
-                          description: |-
-                            (String) The path where the archive is stored.
-                            The path where the archive is stored.
-                          type: string
-                        storageAccount:
-                          description: |-
-                            (String) The associated storage account.
-                            The associated storage account.
-                          type: string
-                        tenantId:
-                          description: |-
-                            (String) Your tenant id.
-                            Your tenant id.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      clientId:
+                        description: |-
+                          (String) Your client id.
+                          Your client id.
+                        type: string
+                      container:
+                        description: |-
+                          (String) The container where the archive is stored.
+                          The container where the archive is stored.
+                        type: string
+                      path:
+                        description: |-
+                          (String) The path where the archive is stored.
+                          The path where the archive is stored.
+                        type: string
+                      storageAccount:
+                        description: |-
+                          (String) The associated storage account.
+                          The associated storage account.
+                        type: string
+                      tenantId:
+                        description: |-
+                          (String) Your tenant id.
+                          Your tenant id.
+                        type: string
+                    type: object
+                  compressionMethod:
+                    description: |-
+                      (String) The compression method for the archive. Valid values are GZIP, ZSTD. Defaults to "GZIP".
+                      The compression method for the archive. Valid values are `GZIP`, `ZSTD`. Defaults to `"GZIP"`.
+                    type: string
                   gcsArchive:
                     description: |-
                       (Block List, Max: 1) Definition of a GCS archive. (see below for nested schema)
                       Definition of a GCS archive.
-                    items:
-                      properties:
-                        bucket:
-                          description: |-
-                            (String) Name of your GCS bucket.
-                            Name of your GCS bucket.
-                          type: string
-                        clientEmail:
-                          description: |-
-                            (String) Your client email.
-                            Your client email.
-                          type: string
-                        path:
-                          description: |-
-                            (String) The path where the archive is stored.
-                            Path where the archive is stored.
-                          type: string
-                        projectId:
-                          description: |-
-                            (String) Your project id.
-                            Your project id.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      bucket:
+                        description: |-
+                          (String) Name of your GCS bucket.
+                          Name of your GCS bucket.
+                        type: string
+                      clientEmail:
+                        description: |-
+                          (String) Your client email.
+                          Your client email.
+                        type: string
+                      path:
+                        description: |-
+                          (String) The path where the archive is stored.
+                          Path where the archive is stored.
+                        type: string
+                      projectId:
+                        description: |-
+                          (String) Your project id.
+                          Your project id.
+                        type: string
+                    type: object
                   includeTags:
                     description: |-
                       (Boolean) To store the tags in the archive, set the value true. If it is set to false, the tags will be dropped when the logs are sent to the archive. Defaults to false.
                       To store the tags in the archive, set the value `true`. If it is set to `false`, the tags will be dropped when the logs are sent to the archive. Defaults to `false`.
                     type: boolean
+                  lookupAttributes:
+                    description: |-
+                      (List of String) An array of attributes to use as lookup keys for the archive.
+                      An array of attributes to use as lookup keys for the archive.
+                    items:
+                      type: string
+                    type: array
                   name:
                     description: |-
                       (String) Your archive name.
                       Your archive name.
                     type: string
+                  partitioningAttributes:
+                    description: |-
+                      (List of String) An array of attributes to use as partition keys for the archive. The attribute used most frequently for querying should be first.
+                      An array of attributes to use as partition keys for the archive. The attribute used most frequently for querying should be first.
+                    items:
+                      type: string
+                    type: array
                   query:
                     description: |-
                       (String) The archive query/filter. Logs matching this query are included in the archive.
@@ -296,30 +344,48 @@ spec:
                     description: |-
                       (Block List, Max: 1) Definition of an s3 archive. (see below for nested schema)
                       Definition of an s3 archive.
-                    items:
-                      properties:
-                        accountId:
-                          description: |-
-                            (String) Your AWS account id.
-                            Your AWS account id.
-                          type: string
-                        bucket:
-                          description: |-
-                            (String) Name of your GCS bucket.
-                            Name of your s3 bucket.
-                          type: string
-                        path:
-                          description: |-
-                            (String) The path where the archive is stored.
-                            Path where the archive is stored.
-                          type: string
-                        roleName:
-                          description: |-
-                            (String) Your AWS role name
-                            Your AWS role name
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      accessKeyId:
+                        description: |-
+                          (String) Your AWS access key id, used as an alternative to account_id/role_name.
+                          Your AWS access key id, used as an alternative to `account_id`/`role_name`.
+                        type: string
+                      accountId:
+                        description: |-
+                          (String) Your AWS account id. Required with role_name; mutually exclusive with access_key_id.
+                          Your AWS account id. Required with `role_name`; mutually exclusive with `access_key_id`.
+                        type: string
+                      bucket:
+                        description: |-
+                          (String) Name of your GCS bucket.
+                          Name of your s3 bucket.
+                        type: string
+                      encryptionKey:
+                        description: |-
+                          (String) The AWS KMS encryption key.
+                          The AWS KMS encryption key.
+                        type: string
+                      encryptionType:
+                        description: |-
+                          (String) The type of encryption on your archive. Valid values are NO_OVERRIDE, SSE_S3, SSE_KMS. Defaults to "NO_OVERRIDE".
+                          The type of encryption on your archive. Valid values are `NO_OVERRIDE`, `SSE_S3`, `SSE_KMS`. Defaults to `"NO_OVERRIDE"`.
+                        type: string
+                      path:
+                        description: |-
+                          (String) The path where the archive is stored.
+                          Path where the archive is stored.
+                        type: string
+                      roleName:
+                        description: |-
+                          (String) Your AWS role name. Required with account_id; mutually exclusive with access_key_id.
+                          Your AWS role name. Required with `account_id`; mutually exclusive with `access_key_id`.
+                        type: string
+                      storageClass:
+                        description: |-
+                          (String) The AWS S3 storage class used to upload the logs. Valid values are STANDARD, STANDARD_IA, ONEZONE_IA, INTELLIGENT_TIERING, GLACIER_IR. Defaults to "STANDARD".
+                          The AWS S3 storage class used to upload the logs. Valid values are `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`, `GLACIER_IR`. Defaults to `"STANDARD"`.
+                        type: string
+                    type: object
                 type: object
               managementPolicies:
                 default:
@@ -425,63 +491,64 @@ spec:
                     description: |-
                       (Block List, Max: 1) Definition of an azure archive. (see below for nested schema)
                       Definition of an azure archive.
-                    items:
-                      properties:
-                        clientId:
-                          description: |-
-                            (String) Your client id.
-                            Your client id.
-                          type: string
-                        container:
-                          description: |-
-                            (String) The container where the archive is stored.
-                            The container where the archive is stored.
-                          type: string
-                        path:
-                          description: |-
-                            (String) The path where the archive is stored.
-                            The path where the archive is stored.
-                          type: string
-                        storageAccount:
-                          description: |-
-                            (String) The associated storage account.
-                            The associated storage account.
-                          type: string
-                        tenantId:
-                          description: |-
-                            (String) Your tenant id.
-                            Your tenant id.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      clientId:
+                        description: |-
+                          (String) Your client id.
+                          Your client id.
+                        type: string
+                      container:
+                        description: |-
+                          (String) The container where the archive is stored.
+                          The container where the archive is stored.
+                        type: string
+                      path:
+                        description: |-
+                          (String) The path where the archive is stored.
+                          The path where the archive is stored.
+                        type: string
+                      storageAccount:
+                        description: |-
+                          (String) The associated storage account.
+                          The associated storage account.
+                        type: string
+                      tenantId:
+                        description: |-
+                          (String) Your tenant id.
+                          Your tenant id.
+                        type: string
+                    type: object
+                  compressionMethod:
+                    description: |-
+                      (String) The compression method for the archive. Valid values are GZIP, ZSTD. Defaults to "GZIP".
+                      The compression method for the archive. Valid values are `GZIP`, `ZSTD`. Defaults to `"GZIP"`.
+                    type: string
                   gcsArchive:
                     description: |-
                       (Block List, Max: 1) Definition of a GCS archive. (see below for nested schema)
                       Definition of a GCS archive.
-                    items:
-                      properties:
-                        bucket:
-                          description: |-
-                            (String) Name of your GCS bucket.
-                            Name of your GCS bucket.
-                          type: string
-                        clientEmail:
-                          description: |-
-                            (String) Your client email.
-                            Your client email.
-                          type: string
-                        path:
-                          description: |-
-                            (String) The path where the archive is stored.
-                            Path where the archive is stored.
-                          type: string
-                        projectId:
-                          description: |-
-                            (String) Your project id.
-                            Your project id.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      bucket:
+                        description: |-
+                          (String) Name of your GCS bucket.
+                          Name of your GCS bucket.
+                        type: string
+                      clientEmail:
+                        description: |-
+                          (String) Your client email.
+                          Your client email.
+                        type: string
+                      path:
+                        description: |-
+                          (String) The path where the archive is stored.
+                          Path where the archive is stored.
+                        type: string
+                      projectId:
+                        description: |-
+                          (String) Your project id.
+                          Your project id.
+                        type: string
+                    type: object
                   id:
                     description: (String) The ID of this resource.
                     type: string
@@ -490,11 +557,25 @@ spec:
                       (Boolean) To store the tags in the archive, set the value true. If it is set to false, the tags will be dropped when the logs are sent to the archive. Defaults to false.
                       To store the tags in the archive, set the value `true`. If it is set to `false`, the tags will be dropped when the logs are sent to the archive. Defaults to `false`.
                     type: boolean
+                  lookupAttributes:
+                    description: |-
+                      (List of String) An array of attributes to use as lookup keys for the archive.
+                      An array of attributes to use as lookup keys for the archive.
+                    items:
+                      type: string
+                    type: array
                   name:
                     description: |-
                       (String) Your archive name.
                       Your archive name.
                     type: string
+                  partitioningAttributes:
+                    description: |-
+                      (List of String) An array of attributes to use as partition keys for the archive. The attribute used most frequently for querying should be first.
+                      An array of attributes to use as partition keys for the archive. The attribute used most frequently for querying should be first.
+                    items:
+                      type: string
+                    type: array
                   query:
                     description: |-
                       (String) The archive query/filter. Logs matching this query are included in the archive.
@@ -516,30 +597,48 @@ spec:
                     description: |-
                       (Block List, Max: 1) Definition of an s3 archive. (see below for nested schema)
                       Definition of an s3 archive.
-                    items:
-                      properties:
-                        accountId:
-                          description: |-
-                            (String) Your AWS account id.
-                            Your AWS account id.
-                          type: string
-                        bucket:
-                          description: |-
-                            (String) Name of your GCS bucket.
-                            Name of your s3 bucket.
-                          type: string
-                        path:
-                          description: |-
-                            (String) The path where the archive is stored.
-                            Path where the archive is stored.
-                          type: string
-                        roleName:
-                          description: |-
-                            (String) Your AWS role name
-                            Your AWS role name
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      accessKeyId:
+                        description: |-
+                          (String) Your AWS access key id, used as an alternative to account_id/role_name.
+                          Your AWS access key id, used as an alternative to `account_id`/`role_name`.
+                        type: string
+                      accountId:
+                        description: |-
+                          (String) Your AWS account id. Required with role_name; mutually exclusive with access_key_id.
+                          Your AWS account id. Required with `role_name`; mutually exclusive with `access_key_id`.
+                        type: string
+                      bucket:
+                        description: |-
+                          (String) Name of your GCS bucket.
+                          Name of your s3 bucket.
+                        type: string
+                      encryptionKey:
+                        description: |-
+                          (String) The AWS KMS encryption key.
+                          The AWS KMS encryption key.
+                        type: string
+                      encryptionType:
+                        description: |-
+                          (String) The type of encryption on your archive. Valid values are NO_OVERRIDE, SSE_S3, SSE_KMS. Defaults to "NO_OVERRIDE".
+                          The type of encryption on your archive. Valid values are `NO_OVERRIDE`, `SSE_S3`, `SSE_KMS`. Defaults to `"NO_OVERRIDE"`.
+                        type: string
+                      path:
+                        description: |-
+                          (String) The path where the archive is stored.
+                          Path where the archive is stored.
+                        type: string
+                      roleName:
+                        description: |-
+                          (String) Your AWS role name. Required with account_id; mutually exclusive with access_key_id.
+                          Your AWS role name. Required with `account_id`; mutually exclusive with `access_key_id`.
+                        type: string
+                      storageClass:
+                        description: |-
+                          (String) The AWS S3 storage class used to upload the logs. Valid values are STANDARD, STANDARD_IA, ONEZONE_IA, INTELLIGENT_TIERING, GLACIER_IR. Defaults to "STANDARD".
+                          The AWS S3 storage class used to upload the logs. Valid values are `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`, `GLACIER_IR`. Defaults to `"STANDARD"`.
+                        type: string
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.

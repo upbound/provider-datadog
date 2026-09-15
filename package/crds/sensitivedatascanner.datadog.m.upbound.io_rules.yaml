@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: Rule is the Schema for the Rules API. Provides a Datadog SensitiveDataScannerRule
-          resource. This can be used to create and manage Datadog sensitivedatascanner_rule.
+          resource. This can be used to create and manage Datadog sensitive_data_scanner_rule.
           Setting the create_before_destroy lifecycle Meta-argument to true is highly
           recommended if modifying the included_keyword_configuration field to avoid
           unexpectedly disabling Sensitive Data Scanner groups.
@@ -64,8 +64,8 @@ spec:
                 properties:
                   description:
                     description: |-
-                      (String) Description of the rule.
-                      Description of the rule.
+                      (String) Description of the rule. Computed when standard_pattern_id is set and this field is omitted.
+                      Description of the rule. Computed when `standard_pattern_id` is set and this field is omitted.
                     type: string
                   excludedNamespaces:
                     description: |-
@@ -79,26 +79,106 @@ spec:
                       (String) Id of the scanning group the rule belongs to.
                       Id of the scanning group the rule belongs to.
                     type: string
+                  groupIdRef:
+                    description: Reference to a Group in sensitivedatascanner.datadog
+                      to populate groupId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  groupIdSelector:
+                    description: Selector for a Group in sensitivedatascanner.datadog
+                      to populate groupId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
                   includedKeywordConfiguration:
                     description: |-
                       argument to true is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups. (see below for nested schema)
-                      Object defining a set of keywords and a number of characters that help reduce noise. You can provide a list of keywords you would like to check within a defined proximity of the matching pattern. If any of the keywords are found within the proximity check then the match is kept. If none are found, the match is discarded. Setting the `create_before_destroy` lifecycle Meta-argument to `true` is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups.
-                    items:
-                      properties:
-                        characterCount:
-                          description: |-
-                            (Number) Number of characters before the match to find a keyword validating the match. It must be between 1 and 50 (inclusive).
-                            Number of characters before the match to find a keyword validating the match. It must be between 1 and 50 (inclusive).
-                          type: number
-                        keywords:
-                          description: |-
-                            (List of String) Keyword list that is checked during scanning in order to validate a match. The number of keywords in the list must be lower than or equal to 30.
-                            Keyword list that is checked during scanning in order to validate a match. The number of keywords in the list must be lower than or equal to 30.
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
+                      Object defining a set of keywords and a number of characters that help reduce noise. You can provide a list of keywords you would like to check within a defined proximity of the matching pattern. If any of the keywords are found within the proximity check then the match is kept. If none are found, the match is discarded. If the rule has the `standard_pattern_id` field, then discarding this field will apply the recommended keywords. Setting the `create_before_destroy` lifecycle Meta-argument to `true` is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups.
+                    properties:
+                      characterCount:
+                        description: |-
+                          (Number) Number of characters before the match to find a keyword validating the match. It must be between 1 and 50 (inclusive).
+                          Number of characters before the match to find a keyword validating the match. It must be between 1 and 50 (inclusive).
+                        type: number
+                      keywords:
+                        description: |-
+                          (List of String) Keyword list that is checked during scanning in order to validate a match. The number of keywords in the list must be lower than or equal to 30.
+                          Keyword list that is checked during scanning in order to validate a match. The number of keywords in the list must be lower than or equal to 30.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   isEnabled:
                     description: |-
                       (Boolean) Whether or not the rule is enabled.
@@ -121,11 +201,43 @@ spec:
                       (String) Not included if there is a relationship to a standard pattern.
                       Not included if there is a relationship to a standard pattern.
                     type: string
+                  priority:
+                    description: |-
+                      (Number) Priority level of the rule . Used to order sensitive data discovered in the sds summary page. It must be between 1 and 5 (1 being the most important).
+                      Priority level of the rule (optional). Used to order sensitive data discovered in the sds summary page. It must be between 1 and 5 (1 being the most important).
+                    type: number
                   standardPatternId:
                     description: |-
                       (String) Id of the standard pattern the rule refers to. If provided, then pattern must not be provided.
                       Id of the standard pattern the rule refers to. If provided, then pattern must not be provided.
                     type: string
+                  suppressions:
+                    description: |-
+                      (Block List, Max: 1) Object defining a set of suppressions to skip matches based on a set of rules. The available suppression types are starts_with, ends_with, and exact_match. (see below for nested schema)
+                      Object defining a set of suppressions to skip matches based on a set of rules. The available suppression types are `starts_with`, `ends_with`, and `exact_match`.
+                    properties:
+                      endsWith:
+                        description: |-
+                          (List of String) Any match that ends with a value in this list will be suppressed.
+                          Any match that ends with a value in this list will be suppressed.
+                        items:
+                          type: string
+                        type: array
+                      exactMatch:
+                        description: |-
+                          (List of String) Any match that appears in this list will be suppressed.
+                          Any match that appears in this list will be suppressed.
+                        items:
+                          type: string
+                        type: array
+                      startsWith:
+                        description: |-
+                          (List of String) Any match that starts with a value in this list will be suppressed.
+                          Any match that starts with a value in this list will be suppressed.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   tags:
                     description: |-
                       (List of String) List of tags.
@@ -137,25 +249,28 @@ spec:
                     description: |-
                       (Block List, Max: 1) Object describing how the scanned event will be replaced. Defaults to type: none (see below for nested schema)
                       Object describing how the scanned event will be replaced. Defaults to `type: none`
-                    items:
-                      properties:
-                        numberOfChars:
-                          description: |-
-                            (Number) Required if type == 'partial_replacement_from_beginning' or 'partial_replacement_from_end'. It must be > 0.
-                            Required if type == 'partial_replacement_from_beginning' or 'partial_replacement_from_end'. It must be > 0.
-                          type: number
-                        replacementString:
-                          description: |-
-                            (String) Required if type == 'replacement_string'.
-                            Required if type == 'replacement_string'.
-                          type: string
-                        type:
-                          description: |-
-                            (String) Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are none, hash, replacement_string, partial_replacement_from_beginning, partial_replacement_from_end.
-                            Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are `none`, `hash`, `replacement_string`, `partial_replacement_from_beginning`, `partial_replacement_from_end`.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      numberOfChars:
+                        description: |-
+                          (Number) Required if type == 'partial_replacement_from_beginning' or 'partial_replacement_from_end'. It must be > 0.
+                          Required if type == 'partial_replacement_from_beginning' or 'partial_replacement_from_end'. It must be > 0.
+                        type: number
+                      replacementString:
+                        description: |-
+                          (String) Required if type == 'replacement_string'.
+                          Required if type == 'replacement_string'.
+                        type: string
+                      shouldSaveMatch:
+                        description: |-
+                          sensitive, long-lived data.
+                          Only valid when type == `replacement_string`. When enabled, matches can be unmasked in logs by users with ‘Data Scanner Unmask’ permission. As a security best practice, avoid masking for highly-sensitive, long-lived data.
+                        type: boolean
+                      type:
+                        description: |-
+                          (String) Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are none, hash, replacement_string, partial_replacement_from_beginning, partial_replacement_from_end.
+                          Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are `none`, `hash`, `replacement_string`, `partial_replacement_from_beginning`, `partial_replacement_from_end`.
+                        type: string
+                    type: object
                 type: object
               initProvider:
                 description: |-
@@ -172,8 +287,8 @@ spec:
                 properties:
                   description:
                     description: |-
-                      (String) Description of the rule.
-                      Description of the rule.
+                      (String) Description of the rule. Computed when standard_pattern_id is set and this field is omitted.
+                      Description of the rule. Computed when `standard_pattern_id` is set and this field is omitted.
                     type: string
                   excludedNamespaces:
                     description: |-
@@ -187,26 +302,106 @@ spec:
                       (String) Id of the scanning group the rule belongs to.
                       Id of the scanning group the rule belongs to.
                     type: string
+                  groupIdRef:
+                    description: Reference to a Group in sensitivedatascanner.datadog
+                      to populate groupId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  groupIdSelector:
+                    description: Selector for a Group in sensitivedatascanner.datadog
+                      to populate groupId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
                   includedKeywordConfiguration:
                     description: |-
                       argument to true is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups. (see below for nested schema)
-                      Object defining a set of keywords and a number of characters that help reduce noise. You can provide a list of keywords you would like to check within a defined proximity of the matching pattern. If any of the keywords are found within the proximity check then the match is kept. If none are found, the match is discarded. Setting the `create_before_destroy` lifecycle Meta-argument to `true` is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups.
-                    items:
-                      properties:
-                        characterCount:
-                          description: |-
-                            (Number) Number of characters before the match to find a keyword validating the match. It must be between 1 and 50 (inclusive).
-                            Number of characters before the match to find a keyword validating the match. It must be between 1 and 50 (inclusive).
-                          type: number
-                        keywords:
-                          description: |-
-                            (List of String) Keyword list that is checked during scanning in order to validate a match. The number of keywords in the list must be lower than or equal to 30.
-                            Keyword list that is checked during scanning in order to validate a match. The number of keywords in the list must be lower than or equal to 30.
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
+                      Object defining a set of keywords and a number of characters that help reduce noise. You can provide a list of keywords you would like to check within a defined proximity of the matching pattern. If any of the keywords are found within the proximity check then the match is kept. If none are found, the match is discarded. If the rule has the `standard_pattern_id` field, then discarding this field will apply the recommended keywords. Setting the `create_before_destroy` lifecycle Meta-argument to `true` is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups.
+                    properties:
+                      characterCount:
+                        description: |-
+                          (Number) Number of characters before the match to find a keyword validating the match. It must be between 1 and 50 (inclusive).
+                          Number of characters before the match to find a keyword validating the match. It must be between 1 and 50 (inclusive).
+                        type: number
+                      keywords:
+                        description: |-
+                          (List of String) Keyword list that is checked during scanning in order to validate a match. The number of keywords in the list must be lower than or equal to 30.
+                          Keyword list that is checked during scanning in order to validate a match. The number of keywords in the list must be lower than or equal to 30.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   isEnabled:
                     description: |-
                       (Boolean) Whether or not the rule is enabled.
@@ -229,11 +424,43 @@ spec:
                       (String) Not included if there is a relationship to a standard pattern.
                       Not included if there is a relationship to a standard pattern.
                     type: string
+                  priority:
+                    description: |-
+                      (Number) Priority level of the rule . Used to order sensitive data discovered in the sds summary page. It must be between 1 and 5 (1 being the most important).
+                      Priority level of the rule (optional). Used to order sensitive data discovered in the sds summary page. It must be between 1 and 5 (1 being the most important).
+                    type: number
                   standardPatternId:
                     description: |-
                       (String) Id of the standard pattern the rule refers to. If provided, then pattern must not be provided.
                       Id of the standard pattern the rule refers to. If provided, then pattern must not be provided.
                     type: string
+                  suppressions:
+                    description: |-
+                      (Block List, Max: 1) Object defining a set of suppressions to skip matches based on a set of rules. The available suppression types are starts_with, ends_with, and exact_match. (see below for nested schema)
+                      Object defining a set of suppressions to skip matches based on a set of rules. The available suppression types are `starts_with`, `ends_with`, and `exact_match`.
+                    properties:
+                      endsWith:
+                        description: |-
+                          (List of String) Any match that ends with a value in this list will be suppressed.
+                          Any match that ends with a value in this list will be suppressed.
+                        items:
+                          type: string
+                        type: array
+                      exactMatch:
+                        description: |-
+                          (List of String) Any match that appears in this list will be suppressed.
+                          Any match that appears in this list will be suppressed.
+                        items:
+                          type: string
+                        type: array
+                      startsWith:
+                        description: |-
+                          (List of String) Any match that starts with a value in this list will be suppressed.
+                          Any match that starts with a value in this list will be suppressed.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   tags:
                     description: |-
                       (List of String) List of tags.
@@ -245,25 +472,28 @@ spec:
                     description: |-
                       (Block List, Max: 1) Object describing how the scanned event will be replaced. Defaults to type: none (see below for nested schema)
                       Object describing how the scanned event will be replaced. Defaults to `type: none`
-                    items:
-                      properties:
-                        numberOfChars:
-                          description: |-
-                            (Number) Required if type == 'partial_replacement_from_beginning' or 'partial_replacement_from_end'. It must be > 0.
-                            Required if type == 'partial_replacement_from_beginning' or 'partial_replacement_from_end'. It must be > 0.
-                          type: number
-                        replacementString:
-                          description: |-
-                            (String) Required if type == 'replacement_string'.
-                            Required if type == 'replacement_string'.
-                          type: string
-                        type:
-                          description: |-
-                            (String) Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are none, hash, replacement_string, partial_replacement_from_beginning, partial_replacement_from_end.
-                            Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are `none`, `hash`, `replacement_string`, `partial_replacement_from_beginning`, `partial_replacement_from_end`.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      numberOfChars:
+                        description: |-
+                          (Number) Required if type == 'partial_replacement_from_beginning' or 'partial_replacement_from_end'. It must be > 0.
+                          Required if type == 'partial_replacement_from_beginning' or 'partial_replacement_from_end'. It must be > 0.
+                        type: number
+                      replacementString:
+                        description: |-
+                          (String) Required if type == 'replacement_string'.
+                          Required if type == 'replacement_string'.
+                        type: string
+                      shouldSaveMatch:
+                        description: |-
+                          sensitive, long-lived data.
+                          Only valid when type == `replacement_string`. When enabled, matches can be unmasked in logs by users with ‘Data Scanner Unmask’ permission. As a security best practice, avoid masking for highly-sensitive, long-lived data.
+                        type: boolean
+                      type:
+                        description: |-
+                          (String) Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are none, hash, replacement_string, partial_replacement_from_beginning, partial_replacement_from_end.
+                          Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are `none`, `hash`, `replacement_string`, `partial_replacement_from_beginning`, `partial_replacement_from_end`.
+                        type: string
+                    type: object
                 type: object
               managementPolicies:
                 default:
@@ -323,11 +553,6 @@ spec:
             required:
             - forProvider
             type: object
-            x-kubernetes-validations:
-            - message: spec.forProvider.groupId is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.groupId)
-                || (has(self.initProvider) && has(self.initProvider.groupId))'
           status:
             description: RuleStatus defines the observed state of Rule.
             properties:
@@ -335,8 +560,8 @@ spec:
                 properties:
                   description:
                     description: |-
-                      (String) Description of the rule.
-                      Description of the rule.
+                      (String) Description of the rule. Computed when standard_pattern_id is set and this field is omitted.
+                      Description of the rule. Computed when `standard_pattern_id` is set and this field is omitted.
                     type: string
                   excludedNamespaces:
                     description: |-
@@ -356,23 +581,21 @@ spec:
                   includedKeywordConfiguration:
                     description: |-
                       argument to true is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups. (see below for nested schema)
-                      Object defining a set of keywords and a number of characters that help reduce noise. You can provide a list of keywords you would like to check within a defined proximity of the matching pattern. If any of the keywords are found within the proximity check then the match is kept. If none are found, the match is discarded. Setting the `create_before_destroy` lifecycle Meta-argument to `true` is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups.
-                    items:
-                      properties:
-                        characterCount:
-                          description: |-
-                            (Number) Number of characters before the match to find a keyword validating the match. It must be between 1 and 50 (inclusive).
-                            Number of characters before the match to find a keyword validating the match. It must be between 1 and 50 (inclusive).
-                          type: number
-                        keywords:
-                          description: |-
-                            (List of String) Keyword list that is checked during scanning in order to validate a match. The number of keywords in the list must be lower than or equal to 30.
-                            Keyword list that is checked during scanning in order to validate a match. The number of keywords in the list must be lower than or equal to 30.
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
+                      Object defining a set of keywords and a number of characters that help reduce noise. You can provide a list of keywords you would like to check within a defined proximity of the matching pattern. If any of the keywords are found within the proximity check then the match is kept. If none are found, the match is discarded. If the rule has the `standard_pattern_id` field, then discarding this field will apply the recommended keywords. Setting the `create_before_destroy` lifecycle Meta-argument to `true` is highly recommended if modifying this field to avoid unexpectedly disabling Sensitive Data Scanner groups.
+                    properties:
+                      characterCount:
+                        description: |-
+                          (Number) Number of characters before the match to find a keyword validating the match. It must be between 1 and 50 (inclusive).
+                          Number of characters before the match to find a keyword validating the match. It must be between 1 and 50 (inclusive).
+                        type: number
+                      keywords:
+                        description: |-
+                          (List of String) Keyword list that is checked during scanning in order to validate a match. The number of keywords in the list must be lower than or equal to 30.
+                          Keyword list that is checked during scanning in order to validate a match. The number of keywords in the list must be lower than or equal to 30.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   isEnabled:
                     description: |-
                       (Boolean) Whether or not the rule is enabled.
@@ -395,11 +618,43 @@ spec:
                       (String) Not included if there is a relationship to a standard pattern.
                       Not included if there is a relationship to a standard pattern.
                     type: string
+                  priority:
+                    description: |-
+                      (Number) Priority level of the rule . Used to order sensitive data discovered in the sds summary page. It must be between 1 and 5 (1 being the most important).
+                      Priority level of the rule (optional). Used to order sensitive data discovered in the sds summary page. It must be between 1 and 5 (1 being the most important).
+                    type: number
                   standardPatternId:
                     description: |-
                       (String) Id of the standard pattern the rule refers to. If provided, then pattern must not be provided.
                       Id of the standard pattern the rule refers to. If provided, then pattern must not be provided.
                     type: string
+                  suppressions:
+                    description: |-
+                      (Block List, Max: 1) Object defining a set of suppressions to skip matches based on a set of rules. The available suppression types are starts_with, ends_with, and exact_match. (see below for nested schema)
+                      Object defining a set of suppressions to skip matches based on a set of rules. The available suppression types are `starts_with`, `ends_with`, and `exact_match`.
+                    properties:
+                      endsWith:
+                        description: |-
+                          (List of String) Any match that ends with a value in this list will be suppressed.
+                          Any match that ends with a value in this list will be suppressed.
+                        items:
+                          type: string
+                        type: array
+                      exactMatch:
+                        description: |-
+                          (List of String) Any match that appears in this list will be suppressed.
+                          Any match that appears in this list will be suppressed.
+                        items:
+                          type: string
+                        type: array
+                      startsWith:
+                        description: |-
+                          (List of String) Any match that starts with a value in this list will be suppressed.
+                          Any match that starts with a value in this list will be suppressed.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   tags:
                     description: |-
                       (List of String) List of tags.
@@ -411,25 +666,28 @@ spec:
                     description: |-
                       (Block List, Max: 1) Object describing how the scanned event will be replaced. Defaults to type: none (see below for nested schema)
                       Object describing how the scanned event will be replaced. Defaults to `type: none`
-                    items:
-                      properties:
-                        numberOfChars:
-                          description: |-
-                            (Number) Required if type == 'partial_replacement_from_beginning' or 'partial_replacement_from_end'. It must be > 0.
-                            Required if type == 'partial_replacement_from_beginning' or 'partial_replacement_from_end'. It must be > 0.
-                          type: number
-                        replacementString:
-                          description: |-
-                            (String) Required if type == 'replacement_string'.
-                            Required if type == 'replacement_string'.
-                          type: string
-                        type:
-                          description: |-
-                            (String) Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are none, hash, replacement_string, partial_replacement_from_beginning, partial_replacement_from_end.
-                            Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are `none`, `hash`, `replacement_string`, `partial_replacement_from_beginning`, `partial_replacement_from_end`.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      numberOfChars:
+                        description: |-
+                          (Number) Required if type == 'partial_replacement_from_beginning' or 'partial_replacement_from_end'. It must be > 0.
+                          Required if type == 'partial_replacement_from_beginning' or 'partial_replacement_from_end'. It must be > 0.
+                        type: number
+                      replacementString:
+                        description: |-
+                          (String) Required if type == 'replacement_string'.
+                          Required if type == 'replacement_string'.
+                        type: string
+                      shouldSaveMatch:
+                        description: |-
+                          sensitive, long-lived data.
+                          Only valid when type == `replacement_string`. When enabled, matches can be unmasked in logs by users with ‘Data Scanner Unmask’ permission. As a security best practice, avoid masking for highly-sensitive, long-lived data.
+                        type: boolean
+                      type:
+                        description: |-
+                          (String) Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are none, hash, replacement_string, partial_replacement_from_beginning, partial_replacement_from_end.
+                          Type of the replacement text. None means no replacement. hash means the data will be stubbed. replacement_string means that one can chose a text to replace the data. partial_replacement_from_beginning allows a user to partially replace the data from the beginning, and partial_replacement_from_end on the other hand, allows to replace data from the end. Valid values are `none`, `hash`, `replacement_string`, `partial_replacement_from_beginning`, `partial_replacement_from_end`.
+                        type: string
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.

@@ -62,35 +62,45 @@ spec:
                 properties:
                   description:
                     description: |-
-                      (String) Description of the global variable.
-                      Description of the global variable.
+                      (String) Description of the global variable. Defaults to "".
+                      Description of the global variable. Defaults to `""`.
                     type: string
+                  isFido:
+                    description: |-
+                      (Boolean) If set to true, the global variable is a FIDO variable. Defaults to false.
+                      If set to true, the global variable is a FIDO variable. Defaults to `false`.
+                    type: boolean
+                  isTotp:
+                    description: |-
+                      (Boolean) If set to true, the global variable is a TOTP variable. Defaults to false.
+                      If set to true, the global variable is a TOTP variable. Defaults to `false`.
+                    type: boolean
                   name:
                     description: |-
-                      (String) Synthetics global variable name.
-                      Synthetics global variable name.
+                      (String) Synthetics global variable name. Must be all uppercase with underscores.
+                      Synthetics global variable name. Must be all uppercase with underscores.
                     type: string
                   options:
                     description: |-
-                      (Block List, Max: 1) Additional options for the variable, such as a MFA token. (see below for nested schema)
+                      (Block List) Additional options for the variable, such as a MFA token. (see below for nested schema)
                       Additional options for the variable, such as a MFA token.
                     items:
                       properties:
                         totpParameters:
                           description: |-
-                            (Block List, Max: 1) Parameters needed for MFA/TOTP. (see below for nested schema)
+                            (Block List) Parameters needed for MFA/TOTP. (see below for nested schema)
                             Parameters needed for MFA/TOTP.
                           items:
                             properties:
                               digits:
                                 description: |-
-                                  (Number) Number of digits for the OTP.
-                                  Number of digits for the OTP.
+                                  (Number) Number of digits for the OTP. Value must be between 4 and 10.
+                                  Number of digits for the OTP. Value must be between 4 and 10.
                                 type: number
                               refreshInterval:
                                 description: |-
-                                  (Number) Interval for which to refresh the token (in seconds).
-                                  Interval for which to refresh the token (in seconds).
+                                  (Number) Interval for which to refresh the token (in seconds). Value must be between 0 and 999.
+                                  Interval for which to refresh the token (in seconds). Value must be between 0 and 999.
                                 type: number
                             type: object
                           type: array
@@ -103,7 +113,7 @@ spec:
                     type: string
                   parseTestOptions:
                     description: |-
-                      (Block List, Max: 1) ID of the Synthetics test to use a source of the global variable value. (see below for nested schema)
+                      (Block List) ID of the Synthetics test to use a source of the global variable value. (see below for nested schema)
                       ID of the Synthetics test to use a source of the global variable value.
                     items:
                       properties:
@@ -118,41 +128,40 @@ spec:
                             When type is `local_variable`, name of the local variable to use to extract the value.
                           type: string
                         parser:
-                          description: '(Block List, Max: 1) (see below for nested
-                            schema)'
+                          description: (Block List) (see below for nested schema)
                           items:
                             properties:
                               type:
                                 description: |-
-                                  (String) Defines the source to use to extract the value. Valid values are http_body, http_header, local_variable.
+                                  (String) Defines the source to use to extract the value. Valid values are http_body, http_header, http_status_code, local_variable.
                                   Type of parser to extract the value. Valid values are `raw`, `json_path`, `regex`, `x_path`.
                                 type: string
                               value:
                                 description: |-
-                                  (String, Sensitive) The value of the global variable.
+                                  (String, Sensitive) The value of the global variable. Required unless is_fido is set to true or value_wo is used
                                   Value for the parser to use, required for type `json_path` or `regex`.
                                 type: string
                             type: object
                           type: array
                         type:
                           description: |-
-                            (String) Defines the source to use to extract the value. Valid values are http_body, http_header, local_variable.
-                            Defines the source to use to extract the value. Valid values are `http_body`, `http_header`, `local_variable`.
+                            (String) Defines the source to use to extract the value. Valid values are http_body, http_header, http_status_code, local_variable.
+                            Defines the source to use to extract the value. Valid values are `http_body`, `http_header`, `http_status_code`, `local_variable`.
                           type: string
                       type: object
                     type: array
                   restrictedRoles:
                     description: |-
-                      (Set of String) A list of role identifiers to associate with the Synthetics global variable.
-                      A list of role identifiers to associate with the Synthetics global variable.
+                      (Set of String, Deprecated) A list of role identifiers to associate with the Synthetics global variable. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+                      A list of role identifiers to associate with the Synthetics global variable. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   secure:
                     description: |-
-                      (Boolean) If set to true, the value of the global variable is hidden. Defaults to false.
-                      If set to true, the value of the global variable is hidden. Defaults to `false`.
+                      (Boolean) If set to true, the value of the global variable is hidden. This setting is automatically set to true if is_totp or is_fido is set to true. Defaults to false.
+                      If set to true, the value of the global variable is hidden. This setting is automatically set to `true` if `is_totp` or `is_fido` is set to `true`. Defaults to `false`.
                     type: boolean
                   tags:
                     description: |-
@@ -163,8 +172,8 @@ spec:
                     type: array
                   valueSecretRef:
                     description: |-
-                      (String, Sensitive) The value of the global variable.
-                      The value of the global variable.
+                      (String, Sensitive) The value of the global variable. Required unless is_fido is set to true or value_wo is used
+                      The value of the global variable. Required unless `is_fido` is set to `true` or `value_wo` is used
                     properties:
                       key:
                         type: string
@@ -175,6 +184,25 @@ spec:
                     - key
                     - name
                     type: object
+                  valueWoSecretRef:
+                    description: |-
+                      only) Write-only value of the global variable. Must be used with value_wo_version.
+                      Write-only value of the global variable. Must be used with `value_wo_version`.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  valueWoVersion:
+                    description: |-
+                      only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
+                      Version associated with the write-only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
+                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -191,35 +219,45 @@ spec:
                 properties:
                   description:
                     description: |-
-                      (String) Description of the global variable.
-                      Description of the global variable.
+                      (String) Description of the global variable. Defaults to "".
+                      Description of the global variable. Defaults to `""`.
                     type: string
+                  isFido:
+                    description: |-
+                      (Boolean) If set to true, the global variable is a FIDO variable. Defaults to false.
+                      If set to true, the global variable is a FIDO variable. Defaults to `false`.
+                    type: boolean
+                  isTotp:
+                    description: |-
+                      (Boolean) If set to true, the global variable is a TOTP variable. Defaults to false.
+                      If set to true, the global variable is a TOTP variable. Defaults to `false`.
+                    type: boolean
                   name:
                     description: |-
-                      (String) Synthetics global variable name.
-                      Synthetics global variable name.
+                      (String) Synthetics global variable name. Must be all uppercase with underscores.
+                      Synthetics global variable name. Must be all uppercase with underscores.
                     type: string
                   options:
                     description: |-
-                      (Block List, Max: 1) Additional options for the variable, such as a MFA token. (see below for nested schema)
+                      (Block List) Additional options for the variable, such as a MFA token. (see below for nested schema)
                       Additional options for the variable, such as a MFA token.
                     items:
                       properties:
                         totpParameters:
                           description: |-
-                            (Block List, Max: 1) Parameters needed for MFA/TOTP. (see below for nested schema)
+                            (Block List) Parameters needed for MFA/TOTP. (see below for nested schema)
                             Parameters needed for MFA/TOTP.
                           items:
                             properties:
                               digits:
                                 description: |-
-                                  (Number) Number of digits for the OTP.
-                                  Number of digits for the OTP.
+                                  (Number) Number of digits for the OTP. Value must be between 4 and 10.
+                                  Number of digits for the OTP. Value must be between 4 and 10.
                                 type: number
                               refreshInterval:
                                 description: |-
-                                  (Number) Interval for which to refresh the token (in seconds).
-                                  Interval for which to refresh the token (in seconds).
+                                  (Number) Interval for which to refresh the token (in seconds). Value must be between 0 and 999.
+                                  Interval for which to refresh the token (in seconds). Value must be between 0 and 999.
                                 type: number
                             type: object
                           type: array
@@ -232,7 +270,7 @@ spec:
                     type: string
                   parseTestOptions:
                     description: |-
-                      (Block List, Max: 1) ID of the Synthetics test to use a source of the global variable value. (see below for nested schema)
+                      (Block List) ID of the Synthetics test to use a source of the global variable value. (see below for nested schema)
                       ID of the Synthetics test to use a source of the global variable value.
                     items:
                       properties:
@@ -247,41 +285,40 @@ spec:
                             When type is `local_variable`, name of the local variable to use to extract the value.
                           type: string
                         parser:
-                          description: '(Block List, Max: 1) (see below for nested
-                            schema)'
+                          description: (Block List) (see below for nested schema)
                           items:
                             properties:
                               type:
                                 description: |-
-                                  (String) Defines the source to use to extract the value. Valid values are http_body, http_header, local_variable.
+                                  (String) Defines the source to use to extract the value. Valid values are http_body, http_header, http_status_code, local_variable.
                                   Type of parser to extract the value. Valid values are `raw`, `json_path`, `regex`, `x_path`.
                                 type: string
                               value:
                                 description: |-
-                                  (String, Sensitive) The value of the global variable.
+                                  (String, Sensitive) The value of the global variable. Required unless is_fido is set to true or value_wo is used
                                   Value for the parser to use, required for type `json_path` or `regex`.
                                 type: string
                             type: object
                           type: array
                         type:
                           description: |-
-                            (String) Defines the source to use to extract the value. Valid values are http_body, http_header, local_variable.
-                            Defines the source to use to extract the value. Valid values are `http_body`, `http_header`, `local_variable`.
+                            (String) Defines the source to use to extract the value. Valid values are http_body, http_header, http_status_code, local_variable.
+                            Defines the source to use to extract the value. Valid values are `http_body`, `http_header`, `http_status_code`, `local_variable`.
                           type: string
                       type: object
                     type: array
                   restrictedRoles:
                     description: |-
-                      (Set of String) A list of role identifiers to associate with the Synthetics global variable.
-                      A list of role identifiers to associate with the Synthetics global variable.
+                      (Set of String, Deprecated) A list of role identifiers to associate with the Synthetics global variable. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+                      A list of role identifiers to associate with the Synthetics global variable. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   secure:
                     description: |-
-                      (Boolean) If set to true, the value of the global variable is hidden. Defaults to false.
-                      If set to true, the value of the global variable is hidden. Defaults to `false`.
+                      (Boolean) If set to true, the value of the global variable is hidden. This setting is automatically set to true if is_totp or is_fido is set to true. Defaults to false.
+                      If set to true, the value of the global variable is hidden. This setting is automatically set to `true` if `is_totp` or `is_fido` is set to `true`. Defaults to `false`.
                     type: boolean
                   tags:
                     description: |-
@@ -292,8 +329,8 @@ spec:
                     type: array
                   valueSecretRef:
                     description: |-
-                      (String, Sensitive) The value of the global variable.
-                      The value of the global variable.
+                      (String, Sensitive) The value of the global variable. Required unless is_fido is set to true or value_wo is used
+                      The value of the global variable. Required unless `is_fido` is set to `true` or `value_wo` is used
                     properties:
                       key:
                         type: string
@@ -304,8 +341,25 @@ spec:
                     - key
                     - name
                     type: object
-                required:
-                - valueSecretRef
+                  valueWoSecretRef:
+                    description: |-
+                      only) Write-only value of the global variable. Must be used with value_wo_version.
+                      Write-only value of the global variable. Must be used with `value_wo_version`.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  valueWoVersion:
+                    description: |-
+                      only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
+                      Version associated with the write-only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -370,9 +424,6 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
                 || (has(self.initProvider) && has(self.initProvider.name))'
-            - message: spec.forProvider.valueSecretRef is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.valueSecretRef)'
           status:
             description: GlobalVariableStatus defines the observed state of GlobalVariable.
             properties:
@@ -380,38 +431,48 @@ spec:
                 properties:
                   description:
                     description: |-
-                      (String) Description of the global variable.
-                      Description of the global variable.
+                      (String) Description of the global variable. Defaults to "".
+                      Description of the global variable. Defaults to `""`.
                     type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
+                  isFido:
+                    description: |-
+                      (Boolean) If set to true, the global variable is a FIDO variable. Defaults to false.
+                      If set to true, the global variable is a FIDO variable. Defaults to `false`.
+                    type: boolean
+                  isTotp:
+                    description: |-
+                      (Boolean) If set to true, the global variable is a TOTP variable. Defaults to false.
+                      If set to true, the global variable is a TOTP variable. Defaults to `false`.
+                    type: boolean
                   name:
                     description: |-
-                      (String) Synthetics global variable name.
-                      Synthetics global variable name.
+                      (String) Synthetics global variable name. Must be all uppercase with underscores.
+                      Synthetics global variable name. Must be all uppercase with underscores.
                     type: string
                   options:
                     description: |-
-                      (Block List, Max: 1) Additional options for the variable, such as a MFA token. (see below for nested schema)
+                      (Block List) Additional options for the variable, such as a MFA token. (see below for nested schema)
                       Additional options for the variable, such as a MFA token.
                     items:
                       properties:
                         totpParameters:
                           description: |-
-                            (Block List, Max: 1) Parameters needed for MFA/TOTP. (see below for nested schema)
+                            (Block List) Parameters needed for MFA/TOTP. (see below for nested schema)
                             Parameters needed for MFA/TOTP.
                           items:
                             properties:
                               digits:
                                 description: |-
-                                  (Number) Number of digits for the OTP.
-                                  Number of digits for the OTP.
+                                  (Number) Number of digits for the OTP. Value must be between 4 and 10.
+                                  Number of digits for the OTP. Value must be between 4 and 10.
                                 type: number
                               refreshInterval:
                                 description: |-
-                                  (Number) Interval for which to refresh the token (in seconds).
-                                  Interval for which to refresh the token (in seconds).
+                                  (Number) Interval for which to refresh the token (in seconds). Value must be between 0 and 999.
+                                  Interval for which to refresh the token (in seconds). Value must be between 0 and 999.
                                 type: number
                             type: object
                           type: array
@@ -424,7 +485,7 @@ spec:
                     type: string
                   parseTestOptions:
                     description: |-
-                      (Block List, Max: 1) ID of the Synthetics test to use a source of the global variable value. (see below for nested schema)
+                      (Block List) ID of the Synthetics test to use a source of the global variable value. (see below for nested schema)
                       ID of the Synthetics test to use a source of the global variable value.
                     items:
                       properties:
@@ -439,41 +500,40 @@ spec:
                             When type is `local_variable`, name of the local variable to use to extract the value.
                           type: string
                         parser:
-                          description: '(Block List, Max: 1) (see below for nested
-                            schema)'
+                          description: (Block List) (see below for nested schema)
                           items:
                             properties:
                               type:
                                 description: |-
-                                  (String) Defines the source to use to extract the value. Valid values are http_body, http_header, local_variable.
+                                  (String) Defines the source to use to extract the value. Valid values are http_body, http_header, http_status_code, local_variable.
                                   Type of parser to extract the value. Valid values are `raw`, `json_path`, `regex`, `x_path`.
                                 type: string
                               value:
                                 description: |-
-                                  (String, Sensitive) The value of the global variable.
+                                  (String, Sensitive) The value of the global variable. Required unless is_fido is set to true or value_wo is used
                                   Value for the parser to use, required for type `json_path` or `regex`.
                                 type: string
                             type: object
                           type: array
                         type:
                           description: |-
-                            (String) Defines the source to use to extract the value. Valid values are http_body, http_header, local_variable.
-                            Defines the source to use to extract the value. Valid values are `http_body`, `http_header`, `local_variable`.
+                            (String) Defines the source to use to extract the value. Valid values are http_body, http_header, http_status_code, local_variable.
+                            Defines the source to use to extract the value. Valid values are `http_body`, `http_header`, `http_status_code`, `local_variable`.
                           type: string
                       type: object
                     type: array
                   restrictedRoles:
                     description: |-
-                      (Set of String) A list of role identifiers to associate with the Synthetics global variable.
-                      A list of role identifiers to associate with the Synthetics global variable.
+                      (Set of String, Deprecated) A list of role identifiers to associate with the Synthetics global variable. Deprecated. This field is no longer supported by the Datadog API. Please use datadog_restriction_policy instead.
+                      A list of role identifiers to associate with the Synthetics global variable. **Deprecated.** This field is no longer supported by the Datadog API. Please use `datadog_restriction_policy` instead.
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   secure:
                     description: |-
-                      (Boolean) If set to true, the value of the global variable is hidden. Defaults to false.
-                      If set to true, the value of the global variable is hidden. Defaults to `false`.
+                      (Boolean) If set to true, the value of the global variable is hidden. This setting is automatically set to true if is_totp or is_fido is set to true. Defaults to false.
+                      If set to true, the value of the global variable is hidden. This setting is automatically set to `true` if `is_totp` or `is_fido` is set to `true`. Defaults to `false`.
                     type: boolean
                   tags:
                     description: |-
@@ -482,6 +542,11 @@ spec:
                     items:
                       type: string
                     type: array
+                  valueWoVersion:
+                    description: |-
+                      only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
+                      Version associated with the write-only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

@@ -1,3 +1,7 @@
+/*
+Copyright 2026 Upbound Inc.
+*/
+
 package integration
 
 import "github.com/crossplane/upjet/v2/pkg/config"
@@ -6,34 +10,10 @@ const integrationDatadog = "integration.datadog"
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
-	p.AddResourceConfigurator("datadog_integration_aws", func(r *config.Resource) {
-		// We need to override the default group that upjet generated for
-		// this resource, which would be "datadog"
-		r.Kind = "AWS"
-		r.ShortGroup = integrationDatadog
-	})
 	p.AddResourceConfigurator("datadog_integration_aws_event_bridge", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for
 		// this resource, which would be "datadog"
 		r.Kind = "AWSEventBridge"
-		r.ShortGroup = integrationDatadog
-	})
-	p.AddResourceConfigurator("datadog_integration_aws_lambda_arn", func(r *config.Resource) {
-		// We need to override the default group that upjet generated for
-		// this resource, which would be "datadog"
-		r.Kind = "AWSLambdaARN"
-		r.ShortGroup = integrationDatadog
-	})
-	p.AddResourceConfigurator("datadog_integration_aws_log_collection", func(r *config.Resource) {
-		// We need to override the default group that upjet generated for
-		// this resource, which would be "datadog"
-		r.Kind = "AWSLogCollection"
-		r.ShortGroup = integrationDatadog
-	})
-	p.AddResourceConfigurator("datadog_integration_aws_tag_filter", func(r *config.Resource) {
-		// We need to override the default group that upjet generated for
-		// this resource, which would be "datadog"
-		r.Kind = "AWSTagFilter"
 		r.ShortGroup = integrationDatadog
 	})
 	p.AddResourceConfigurator("datadog_integration_azure", func(r *config.Resource) {
@@ -83,6 +63,13 @@ func Configure(p *config.Provider) {
 		// this resource, which would be "datadog"
 		r.Kind = "GCPSTS"
 		r.ShortGroup = integrationDatadog
+		// The API fills both sets on its own (Prometheus disabled by default,
+		// monitored resources derived from the legacy filters). Copying them
+		// into spec makes the next apply fail with "Provider produced
+		// inconsistent result" on metric_namespace_configs.
+		r.LateInitializer = config.LateInitializer{
+			IgnoredFields: []string{"metric_namespace_configs", "monitored_resource_configs"},
+		}
 	})
 	p.AddResourceConfigurator("datadog_integration_opsgenie_service_object", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for

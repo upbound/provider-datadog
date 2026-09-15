@@ -9,7 +9,7 @@ metadata:
 spec:
   forProvider:
     serviceKeySecretRef:
-      key: credentials
-      name: pagerduty-secret
+      key: example-key
+      name: example-secret
       namespace: upbound-system
     serviceName: testing_foo

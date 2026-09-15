@@ -3,6 +3,7 @@ kind: DefaultRule
 metadata:
   annotations:
     meta.upbound.io/example-id: securitymonitoring/v1alpha1/defaultrule
+    upjet.upbound.io/manual-intervention: 'Default rules are created by Datadog and can only be imported: set crossplane.io/external-name to the id of an existing default rule.'
   labels:
     testing.upbound.io/example-name: adefaultrule
   name: adefaultrule

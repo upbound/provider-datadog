@@ -1,7 +1,6 @@
 apiVersion: integration.datadog.m.upbound.io/v1alpha1
 kind: Pagerduty
 metadata:
-  # https://www.pagerduty.com/docs/guides/datadog-integration-guide/
   annotations:
     meta.upbound.io/example-id: integration/v1alpha1/pagerduty
   labels:
@@ -11,9 +10,45 @@ metadata:
 spec:
   forProvider:
     apiTokenSecretRef:
-      key: credentials
-      name: pagerduty-secret
+      key: example-key
+      name: example-secret
     schedules:
     - https://ddog.pagerduty.com/schedules/X123VF
     - https://ddog.pagerduty.com/schedules/X321XX
     subdomain: ddog
+
+---
+
+apiVersion: integration.datadog.m.upbound.io/v1alpha1
+kind: PagerdutyServiceObject
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration.datadog/v1alpha1/pagerduty
+  labels:
+    testing.upbound.io/example-name: pagerduty-testing_bar
+  name: pagerduty-testing-bar
+  namespace: upbound-system
+spec:
+  forProvider:
+    serviceKeySecretRef:
+      key: example-key
+      name: example-secret
+    serviceName: pagerduty_testing_bar
+
+---
+
+apiVersion: integration.datadog.m.upbound.io/v1alpha1
+kind: PagerdutyServiceObject
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration.datadog/v1alpha1/pagerduty
+  labels:
+    testing.upbound.io/example-name: pagerduty-testing_foo
+  name: pagerduty-testing-foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    serviceKeySecretRef:
+      key: example-key
+      name: example-secret
+    serviceName: pagerduty_testing_foo

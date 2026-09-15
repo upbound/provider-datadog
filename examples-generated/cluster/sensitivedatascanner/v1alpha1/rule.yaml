@@ -11,7 +11,9 @@ spec:
     description: Another description
     excludedNamespaces:
     - username
-    groupId: ${datadog_sensitive_data_scanner_group.mygroup.id}
+    groupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: mygroup
     includedKeywordConfiguration:
     - characterCount: 30
       keywords:
@@ -20,6 +22,7 @@ spec:
     isEnabled: true
     name: My new rule
     pattern: myregex
+    priority: 1
     tags:
     - sensitive_data:true
     textReplacement:

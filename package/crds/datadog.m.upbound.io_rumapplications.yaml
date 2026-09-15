@@ -65,6 +65,16 @@ spec:
                       (String) Name of the RUM application.
                       Name of the RUM application.
                     type: string
+                  productAnalyticsRetentionState:
+                    description: |-
+                      (String) Controls the retention policy for Product Analytics data derived from RUM events. Valid values are MAX, NONE.
+                      Controls the retention policy for Product Analytics data derived from RUM events. Valid values are `MAX`, `NONE`.
+                    type: string
+                  rumEventProcessingState:
+                    description: |-
+                      (String) Configures which RUM events are processed and stored for the application. Valid values are ALL, ERROR_FOCUSED_MODE, NONE.
+                      Configures which RUM events are processed and stored for the application. Valid values are `ALL`, `ERROR_FOCUSED_MODE`, `NONE`.
+                    type: string
                   type:
                     description: |-
                       native, flutter. Defaults to "browser".
@@ -88,6 +98,16 @@ spec:
                     description: |-
                       (String) Name of the RUM application.
                       Name of the RUM application.
+                    type: string
+                  productAnalyticsRetentionState:
+                    description: |-
+                      (String) Controls the retention policy for Product Analytics data derived from RUM events. Valid values are MAX, NONE.
+                      Controls the retention policy for Product Analytics data derived from RUM events. Valid values are `MAX`, `NONE`.
+                    type: string
+                  rumEventProcessingState:
+                    description: |-
+                      (String) Configures which RUM events are processed and stored for the application. Valid values are ALL, ERROR_FOCUSED_MODE, NONE.
+                      Configures which RUM events are processed and stored for the application. Valid values are `ALL`, `ERROR_FOCUSED_MODE`, `NONE`.
                     type: string
                   type:
                     description: |-
@@ -163,6 +183,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  apiKeyId:
+                    description: |-
+                      (Number) ID of the API key associated with the application.
+                      ID of the API key associated with the application.
+                    type: number
                   clientToken:
                     description: |-
                       (String) The client token.
@@ -175,6 +200,16 @@ spec:
                     description: |-
                       (String) Name of the RUM application.
                       Name of the RUM application.
+                    type: string
+                  productAnalyticsRetentionState:
+                    description: |-
+                      (String) Controls the retention policy for Product Analytics data derived from RUM events. Valid values are MAX, NONE.
+                      Controls the retention policy for Product Analytics data derived from RUM events. Valid values are `MAX`, `NONE`.
+                    type: string
+                  rumEventProcessingState:
+                    description: |-
+                      (String) Configures which RUM events are processed and stored for the application. Valid values are ALL, ERROR_FOCUSED_MODE, NONE.
+                      Configures which RUM events are processed and stored for the application. Valid values are `ALL`, `ERROR_FOCUSED_MODE`, `NONE`.
                     type: string
                   type:
                     description: |-

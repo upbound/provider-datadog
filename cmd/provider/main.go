@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Upbound Inc.
+Copyright 2026 Upbound Inc.
 */
 
 package main
@@ -47,6 +47,7 @@ import (
 	apisCluster "github.com/upbound/provider-datadog/apis/cluster"
 	apisNamespaced "github.com/upbound/provider-datadog/apis/namespaced"
 	"github.com/upbound/provider-datadog/config"
+	resolverapis "github.com/upbound/provider-datadog/internal/apis"
 	"github.com/upbound/provider-datadog/internal/clients"
 	controllerCluster "github.com/upbound/provider-datadog/internal/controller/cluster"
 	controllerNamespaced "github.com/upbound/provider-datadog/internal/controller/namespaced"
@@ -117,6 +118,8 @@ func main() {
 	kingpin.FatalIfError(clientgoscheme.AddToScheme(scheme), "Cannot add client-go APIs to scheme")
 	kingpin.FatalIfError(apisCluster.AddToScheme(scheme), "Cannot add cluster-scoped Datadog APIs to scheme")
 	kingpin.FatalIfError(apisNamespaced.AddToScheme(scheme), "Cannot add namespaced Datadog APIs to scheme")
+	kingpin.FatalIfError(resolverapis.BuildScheme(apisCluster.AddToSchemes), "Cannot register the cluster-scoped Datadog APIs with the API resolver's runtime scheme")
+	kingpin.FatalIfError(resolverapis.BuildScheme(apisNamespaced.AddToSchemes), "Cannot register the namespaced Datadog APIs with the API resolver's runtime scheme")
 	kingpin.FatalIfError(apiextensionsv1.AddToScheme(scheme), "Cannot add api-extensions APIs to scheme")
 	kingpin.FatalIfError(authv1.AddToScheme(scheme), "Cannot add k8s authorization APIs to scheme")
 

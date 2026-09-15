@@ -36,7 +36,6 @@ spec:
       openAPIV3Schema:
         description: Index is the Schema for the Indexs API. Provides a Datadog Logs
           Index API resource. This can be used to create and manage Datadog logs indexes.
-          Reach out to support to delete a logs index.
         properties:
           apiVersion:
             description: |-
@@ -69,20 +68,18 @@ spec:
                     description: |-
                       (Block List, Max: 1) Object containing options to override the default daily limit reset time. (see below for nested schema)
                       Object containing options to override the default daily limit reset time.
-                    items:
-                      properties:
-                        resetTime:
-                          description: |-
-                            (String) String in HH:00 format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
-                            String in `HH:00` format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
-                          type: string
-                        resetUtcOffset:
-                          description: |-
-                            |+)HH:00 format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
-                            String in `(-|+)HH:00` format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      resetTime:
+                        description: |-
+                          (String) String in HH:00 format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
+                          String in `HH:00` format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
+                        type: string
+                      resetUtcOffset:
+                        description: |-
+                          |+)HH:00 format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
+                          String in `(-|+)HH:00` format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
+                        type: string
+                    type: object
                   dailyLimitWarningThresholdPercentage:
                     description: |-
                       (Number) A percentage threshold of the daily quota at which a Datadog warning event is generated.
@@ -90,8 +87,8 @@ spec:
                     type: number
                   disableDailyLimit:
                     description: |-
-                      (Boolean) If true, sets the daily_limit value to null and the index is not limited on a daily basis (any specified daily_limit value in the request is ignored). If false or omitted, the index's current daily_limit is maintained.
-                      If true, sets the daily_limit value to null and the index is not limited on a daily basis (any specified daily_limit value in the request is ignored). If false or omitted, the index's current daily_limit is maintained.
+                      enable the limit if it was previously disabled unless disable_daily_limit is explicitly set to false.
+                      If true, disables the daily limit and sets `daily_limit` to null. If false, enables the daily limit. When creating an index, if this attribute is omitted, the daily limit is enabled by default. When updating an index, if this attribute is omitted, the existing value is preserved. Providing a `daily_limit` value does not re-enable the limit if it was previously disabled unless `disable_daily_limit` is explicitly set to false.
                     type: boolean
                   exclusionFilter:
                     description: |-
@@ -109,6 +106,11 @@ spec:
                                   (String) Logs filter criteria. Only logs matching this filter criteria are considered for this index.
                                   Only logs matching the filter criteria and the query of the parent index will be considered for this exclusion filter.
                                 type: string
+                              sampleAttribute:
+                                description: |-
+                                  (String) The log attribute used as the sampling key. When present, logs sharing the same value are excluded or kept together at the configured sample rate (a single attribute path, e.g. @lambda.request_id).
+                                  The log attribute used as the sampling key. When present, logs sharing the same value are excluded or kept together at the configured sample rate (a single attribute path, e.g. `@lambda.request_id`).
+                                type: string
                               sampleRate:
                                 description: |-
                                   (Number) The fraction of logs excluded by the exclusion filter, when active.
@@ -123,7 +125,7 @@ spec:
                           type: boolean
                         name:
                           description: |-
-                            (String) The name of the index.
+                            (String) The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
                             The name of the exclusion filter.
                           type: string
                       type: object
@@ -132,25 +134,36 @@ spec:
                     description: |-
                       (Block List, Min: 1, Max: 1) Logs filter (see below for nested schema)
                       Logs filter
-                    items:
-                      properties:
-                        query:
-                          description: |-
-                            (String) Logs filter criteria. Only logs matching this filter criteria are considered for this index.
-                            Logs filter criteria. Only logs matching this filter criteria are considered for this index.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      query:
+                        description: |-
+                          (String) Logs filter criteria. Only logs matching this filter criteria are considered for this index.
+                          Logs filter criteria. Only logs matching this filter criteria are considered for this index.
+                        type: string
+                    type: object
+                  flexRetentionDays:
+                    description: |-
+                      (Number) The total number of days logs are stored in Standard and Flex Tier before being deleted from the index.
+                      The total number of days logs are stored in Standard and Flex Tier before being deleted from the index.
+                    type: number
                   name:
                     description: |-
-                      (String) The name of the index.
-                      The name of the index.
+                      (String) The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
+                      The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
                     type: string
                   retentionDays:
                     description: |-
-                      (Number) The number of days before logs are deleted from this index.
-                      The number of days before logs are deleted from this index.
+                      (Number) The number of days logs are stored in Standard Tier before aging into the Flex Tier or being deleted from the index.
+                      The number of days logs are stored in Standard Tier before aging into the Flex Tier or being deleted from the index.
                     type: number
+                  tags:
+                    description: |-
+                      (Set of String) A list of tags for this index. Tags must be in key:value format. If default tags are present at the provider level, they will be added to this resource.
+                      A list of tags for this index. Tags must be in `key:value` format. If default tags are present at the provider level, they will be added to this resource.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                 type: object
               initProvider:
                 description: |-
@@ -174,20 +187,18 @@ spec:
                     description: |-
                       (Block List, Max: 1) Object containing options to override the default daily limit reset time. (see below for nested schema)
                       Object containing options to override the default daily limit reset time.
-                    items:
-                      properties:
-                        resetTime:
-                          description: |-
-                            (String) String in HH:00 format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
-                            String in `HH:00` format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
-                          type: string
-                        resetUtcOffset:
-                          description: |-
-                            |+)HH:00 format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
-                            String in `(-|+)HH:00` format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      resetTime:
+                        description: |-
+                          (String) String in HH:00 format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
+                          String in `HH:00` format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
+                        type: string
+                      resetUtcOffset:
+                        description: |-
+                          |+)HH:00 format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
+                          String in `(-|+)HH:00` format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
+                        type: string
+                    type: object
                   dailyLimitWarningThresholdPercentage:
                     description: |-
                       (Number) A percentage threshold of the daily quota at which a Datadog warning event is generated.
@@ -195,8 +206,8 @@ spec:
                     type: number
                   disableDailyLimit:
                     description: |-
-                      (Boolean) If true, sets the daily_limit value to null and the index is not limited on a daily basis (any specified daily_limit value in the request is ignored). If false or omitted, the index's current daily_limit is maintained.
-                      If true, sets the daily_limit value to null and the index is not limited on a daily basis (any specified daily_limit value in the request is ignored). If false or omitted, the index's current daily_limit is maintained.
+                      enable the limit if it was previously disabled unless disable_daily_limit is explicitly set to false.
+                      If true, disables the daily limit and sets `daily_limit` to null. If false, enables the daily limit. When creating an index, if this attribute is omitted, the daily limit is enabled by default. When updating an index, if this attribute is omitted, the existing value is preserved. Providing a `daily_limit` value does not re-enable the limit if it was previously disabled unless `disable_daily_limit` is explicitly set to false.
                     type: boolean
                   exclusionFilter:
                     description: |-
@@ -214,6 +225,11 @@ spec:
                                   (String) Logs filter criteria. Only logs matching this filter criteria are considered for this index.
                                   Only logs matching the filter criteria and the query of the parent index will be considered for this exclusion filter.
                                 type: string
+                              sampleAttribute:
+                                description: |-
+                                  (String) The log attribute used as the sampling key. When present, logs sharing the same value are excluded or kept together at the configured sample rate (a single attribute path, e.g. @lambda.request_id).
+                                  The log attribute used as the sampling key. When present, logs sharing the same value are excluded or kept together at the configured sample rate (a single attribute path, e.g. `@lambda.request_id`).
+                                type: string
                               sampleRate:
                                 description: |-
                                   (Number) The fraction of logs excluded by the exclusion filter, when active.
@@ -228,7 +244,7 @@ spec:
                           type: boolean
                         name:
                           description: |-
-                            (String) The name of the index.
+                            (String) The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
                             The name of the exclusion filter.
                           type: string
                       type: object
@@ -237,25 +253,36 @@ spec:
                     description: |-
                       (Block List, Min: 1, Max: 1) Logs filter (see below for nested schema)
                       Logs filter
-                    items:
-                      properties:
-                        query:
-                          description: |-
-                            (String) Logs filter criteria. Only logs matching this filter criteria are considered for this index.
-                            Logs filter criteria. Only logs matching this filter criteria are considered for this index.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      query:
+                        description: |-
+                          (String) Logs filter criteria. Only logs matching this filter criteria are considered for this index.
+                          Logs filter criteria. Only logs matching this filter criteria are considered for this index.
+                        type: string
+                    type: object
+                  flexRetentionDays:
+                    description: |-
+                      (Number) The total number of days logs are stored in Standard and Flex Tier before being deleted from the index.
+                      The total number of days logs are stored in Standard and Flex Tier before being deleted from the index.
+                    type: number
                   name:
                     description: |-
-                      (String) The name of the index.
-                      The name of the index.
+                      (String) The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
+                      The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
                     type: string
                   retentionDays:
                     description: |-
-                      (Number) The number of days before logs are deleted from this index.
-                      The number of days before logs are deleted from this index.
+                      (Number) The number of days logs are stored in Standard Tier before aging into the Flex Tier or being deleted from the index.
+                      The number of days logs are stored in Standard Tier before aging into the Flex Tier or being deleted from the index.
                     type: number
+                  tags:
+                    description: |-
+                      (Set of String) A list of tags for this index. Tags must be in key:value format. If default tags are present at the provider level, they will be added to this resource.
+                      A list of tags for this index. Tags must be in `key:value` format. If default tags are present at the provider level, they will be added to this resource.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                 type: object
               managementPolicies:
                 default:
@@ -338,20 +365,18 @@ spec:
                     description: |-
                       (Block List, Max: 1) Object containing options to override the default daily limit reset time. (see below for nested schema)
                       Object containing options to override the default daily limit reset time.
-                    items:
-                      properties:
-                        resetTime:
-                          description: |-
-                            (String) String in HH:00 format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
-                            String in `HH:00` format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
-                          type: string
-                        resetUtcOffset:
-                          description: |-
-                            |+)HH:00 format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
-                            String in `(-|+)HH:00` format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      resetTime:
+                        description: |-
+                          (String) String in HH:00 format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
+                          String in `HH:00` format representing the time of day the daily limit should be reset. The hours must be between 00 and 23 (inclusive).
+                        type: string
+                      resetUtcOffset:
+                        description: |-
+                          |+)HH:00 format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
+                          String in `(-|+)HH:00` format representing the UTC offset to apply to the given reset time. The hours must be between -12 and +14 (inclusive).
+                        type: string
+                    type: object
                   dailyLimitWarningThresholdPercentage:
                     description: |-
                       (Number) A percentage threshold of the daily quota at which a Datadog warning event is generated.
@@ -359,8 +384,8 @@ spec:
                     type: number
                   disableDailyLimit:
                     description: |-
-                      (Boolean) If true, sets the daily_limit value to null and the index is not limited on a daily basis (any specified daily_limit value in the request is ignored). If false or omitted, the index's current daily_limit is maintained.
-                      If true, sets the daily_limit value to null and the index is not limited on a daily basis (any specified daily_limit value in the request is ignored). If false or omitted, the index's current daily_limit is maintained.
+                      enable the limit if it was previously disabled unless disable_daily_limit is explicitly set to false.
+                      If true, disables the daily limit and sets `daily_limit` to null. If false, enables the daily limit. When creating an index, if this attribute is omitted, the daily limit is enabled by default. When updating an index, if this attribute is omitted, the existing value is preserved. Providing a `daily_limit` value does not re-enable the limit if it was previously disabled unless `disable_daily_limit` is explicitly set to false.
                     type: boolean
                   exclusionFilter:
                     description: |-
@@ -378,6 +403,11 @@ spec:
                                   (String) Logs filter criteria. Only logs matching this filter criteria are considered for this index.
                                   Only logs matching the filter criteria and the query of the parent index will be considered for this exclusion filter.
                                 type: string
+                              sampleAttribute:
+                                description: |-
+                                  (String) The log attribute used as the sampling key. When present, logs sharing the same value are excluded or kept together at the configured sample rate (a single attribute path, e.g. @lambda.request_id).
+                                  The log attribute used as the sampling key. When present, logs sharing the same value are excluded or kept together at the configured sample rate (a single attribute path, e.g. `@lambda.request_id`).
+                                type: string
                               sampleRate:
                                 description: |-
                                   (Number) The fraction of logs excluded by the exclusion filter, when active.
@@ -392,7 +422,7 @@ spec:
                           type: boolean
                         name:
                           description: |-
-                            (String) The name of the index.
+                            (String) The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
                             The name of the exclusion filter.
                           type: string
                       type: object
@@ -401,28 +431,39 @@ spec:
                     description: |-
                       (Block List, Min: 1, Max: 1) Logs filter (see below for nested schema)
                       Logs filter
-                    items:
-                      properties:
-                        query:
-                          description: |-
-                            (String) Logs filter criteria. Only logs matching this filter criteria are considered for this index.
-                            Logs filter criteria. Only logs matching this filter criteria are considered for this index.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      query:
+                        description: |-
+                          (String) Logs filter criteria. Only logs matching this filter criteria are considered for this index.
+                          Logs filter criteria. Only logs matching this filter criteria are considered for this index.
+                        type: string
+                    type: object
+                  flexRetentionDays:
+                    description: |-
+                      (Number) The total number of days logs are stored in Standard and Flex Tier before being deleted from the index.
+                      The total number of days logs are stored in Standard and Flex Tier before being deleted from the index.
+                    type: number
                   id:
                     description: (String) The ID of this resource.
                     type: string
                   name:
                     description: |-
-                      (String) The name of the index.
-                      The name of the index.
+                      (String) The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
+                      The name of the index. Index names cannot be modified after creation. If this value is changed, a new index will be created.
                     type: string
                   retentionDays:
                     description: |-
-                      (Number) The number of days before logs are deleted from this index.
-                      The number of days before logs are deleted from this index.
+                      (Number) The number of days logs are stored in Standard Tier before aging into the Flex Tier or being deleted from the index.
+                      The number of days logs are stored in Standard Tier before aging into the Flex Tier or being deleted from the index.
                     type: number
+                  tags:
+                    description: |-
+                      (Set of String) A list of tags for this index. Tags must be in key:value format. If default tags are present at the provider level, they will be added to this resource.
+                      A list of tags for this index. Tags must be in `key:value` format. If default tags are present at the provider level, they will be added to this resource.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                 type: object
               conditions:
                 description: Conditions of the resource.

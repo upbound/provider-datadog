@@ -3,6 +3,7 @@ kind: CloudflareAccount
 metadata:
   annotations:
     meta.upbound.io/example-id: integration/v1alpha1/cloudflareaccount
+    upjet.upbound.io/manual-intervention: Datadog validates the Cloudflare API key and email against Cloudflare, so a real Cloudflare account is required.
   labels:
     testing.upbound.io/example-name: foo
   name: foo

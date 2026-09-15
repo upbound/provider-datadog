@@ -11,8 +11,14 @@ spec:
   forProvider:
     description: A relevant description
     filter:
-    - query: service:my-service
+      query: service:my-service
     isEnabled: true
     name: My new scanning group
     productList:
     - apm
+    - logs
+    samplings:
+    - product: apm
+      rate: 100
+    - product: logs
+      rate: 10

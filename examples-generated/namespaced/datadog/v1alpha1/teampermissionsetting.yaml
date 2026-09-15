@@ -10,7 +10,9 @@ metadata:
 spec:
   forProvider:
     action: manage_membership
-    teamId: ${datadog_team.foo.id}
+    teamIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: foo
     value: organization
 
 ---

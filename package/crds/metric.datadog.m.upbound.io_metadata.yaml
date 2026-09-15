@@ -86,13 +86,13 @@ spec:
                     type: number
                   type:
                     description: |-
-                      (String) Metric type such as count, gauge, or rate. Updating a metric of type distribution is not supported. If you would like to see the distribution type returned, contact Datadog support.
-                      Metric type such as `count`, `gauge`, or `rate`. Updating a metric of type `distribution` is not supported. If you would like to see the `distribution` type returned, contact [Datadog support](https://docs.datadoghq.com/help/).
+                      (String) Metric type such as count, distribution, gauge, or rate.
+                      Metric type such as `count`, `distribution`, `gauge`, or `rate`.
                     type: string
                   unit:
                     description: |-
-                      (String) Primary unit of the metric such as byte or operation.
-                      Primary unit of the metric such as `byte` or `operation`.
+                      (String) Primary unit of the metric such as byte or operation. For a list of allowed units, refer to Datadog metric unit documentation.
+                      Primary unit of the metric such as `byte` or `operation`. For a list of allowed units, refer to [Datadog metric unit documentation](https://docs.datadoghq.com/metrics/units/#unit-list).
                     type: string
                 type: object
               initProvider:
@@ -135,13 +135,13 @@ spec:
                     type: number
                   type:
                     description: |-
-                      (String) Metric type such as count, gauge, or rate. Updating a metric of type distribution is not supported. If you would like to see the distribution type returned, contact Datadog support.
-                      Metric type such as `count`, `gauge`, or `rate`. Updating a metric of type `distribution` is not supported. If you would like to see the `distribution` type returned, contact [Datadog support](https://docs.datadoghq.com/help/).
+                      (String) Metric type such as count, distribution, gauge, or rate.
+                      Metric type such as `count`, `distribution`, `gauge`, or `rate`.
                     type: string
                   unit:
                     description: |-
-                      (String) Primary unit of the metric such as byte or operation.
-                      Primary unit of the metric such as `byte` or `operation`.
+                      (String) Primary unit of the metric such as byte or operation. For a list of allowed units, refer to Datadog metric unit documentation.
+                      Primary unit of the metric such as `byte` or `operation`. For a list of allowed units, refer to [Datadog metric unit documentation](https://docs.datadoghq.com/metrics/units/#unit-list).
                     type: string
                 type: object
               managementPolicies:
@@ -242,13 +242,13 @@ spec:
                     type: number
                   type:
                     description: |-
-                      (String) Metric type such as count, gauge, or rate. Updating a metric of type distribution is not supported. If you would like to see the distribution type returned, contact Datadog support.
-                      Metric type such as `count`, `gauge`, or `rate`. Updating a metric of type `distribution` is not supported. If you would like to see the `distribution` type returned, contact [Datadog support](https://docs.datadoghq.com/help/).
+                      (String) Metric type such as count, distribution, gauge, or rate.
+                      Metric type such as `count`, `distribution`, `gauge`, or `rate`.
                     type: string
                   unit:
                     description: |-
-                      (String) Primary unit of the metric such as byte or operation.
-                      Primary unit of the metric such as `byte` or `operation`.
+                      (String) Primary unit of the metric such as byte or operation. For a list of allowed units, refer to Datadog metric unit documentation.
+                      Primary unit of the metric such as `byte` or `operation`. For a list of allowed units, refer to [Datadog metric unit documentation](https://docs.datadoghq.com/metrics/units/#unit-list).
                     type: string
                 type: object
               conditions:

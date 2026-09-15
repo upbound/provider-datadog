@@ -10,10 +10,10 @@ metadata:
 spec:
   forProvider:
     compute:
-    - aggregationType: distribution
+      aggregationType: distribution
       path: '@duration'
     filter:
-    - query: service:test
+      query: service:test
     groupBy:
     - path: '@status'
       tagName: status

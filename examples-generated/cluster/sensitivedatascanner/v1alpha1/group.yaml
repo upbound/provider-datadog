@@ -15,3 +15,9 @@ spec:
     name: My new scanning group
     productList:
     - apm
+    - logs
+    samplings:
+    - product: apm
+      rate: 100
+    - product: logs
+      rate: 10

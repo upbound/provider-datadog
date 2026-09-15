@@ -10,6 +10,6 @@ metadata:
 spec:
   forProvider:
     serviceKeySecretRef:
-      key: credentials
-      name: pagerduty-secret
+      key: example-key
+      name: example-secret
     serviceName: testing_foo

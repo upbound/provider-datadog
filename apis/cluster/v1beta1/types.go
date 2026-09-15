@@ -1,16 +1,23 @@
 /*
-Copyright 2022 Upbound Inc.
+Copyright 2026 Upbound Inc.
 */
 
 package v1beta1
 
 import (
 	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	"github.com/crossplane/upjet/v2/apis/configuration/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // A ProviderConfigSpec defines the desired state of a ProviderConfig.
 type ProviderConfigSpec struct {
+	// ReconciliationPolicy configures how the managed resources referencing
+	// this ProviderConfig are reconciled, for example the retry backoff.
+	// +optional
+	// +kubebuilder:validation:XValidation:rule="!has(self.exponentialFailureRateLimiter) || !has(self.exponentialFailureRateLimiter.baseDelay) || has(self.exponentialFailureRateLimiter.maxDelay) || duration(self.exponentialFailureRateLimiter.baseDelay) <= duration('60s')",message="when maxDelay is omitted it defaults to 60s; baseDelay must be <= 60s"
+	ReconciliationPolicy *v1alpha1.ReconciliationPolicy `json:"reconciliationPolicy,omitempty"`
+
 	// Credentials required to authenticate to this provider.
 	// +optional
 	Credentials ProviderCredentials `json:"credentials"`

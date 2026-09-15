@@ -4,14 +4,14 @@ metadata:
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/servicelevelobjective
   labels:
-    testing.upbound.io/example-name: slo-foo
-  name: slo-foo
+    testing.upbound.io/example-name: foo
+  name: foo
 spec:
   forProvider:
-    name: slo-foo
-    description: UXP created custom metric SLO
+    description: My custom metric SLO
+    name: Example Metric SLO
     query:
-    - denominator: sum:my.custom.count.metric{*}.as_count()
+      denominator: sum:my.custom.count.metric{*}.as_count()
       numerator: sum:my.custom.count.metric{type:good_events}.as_count()
     tags:
     - foo:bar

@@ -3,12 +3,13 @@ kind: IndexOrder
 metadata:
   annotations:
     meta.upbound.io/example-id: logs/v1alpha1/indexorder
+    upjet.upbound.io/manual-intervention: The API requires the complete ordered list of the organization's indexes; replace the list with all indexes of the organization.
   labels:
     testing.upbound.io/example-name: sample_index_order
   name: sample-index-order
   namespace: upbound-system
 spec:
   forProvider:
-    indexes:
-    - ${datadog_logs_index.sample_index.id}
+    indexesRefs:
+    - name: sample-index
     name: sample_index_order
