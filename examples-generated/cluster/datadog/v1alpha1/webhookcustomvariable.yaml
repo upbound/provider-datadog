@@ -13,4 +13,4 @@ spec:
     valueSecretRef:
       key: example-key
       name: example-secret
-      namespace: crossplane-system
+      namespace: upbound-system

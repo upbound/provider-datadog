@@ -12,5 +12,5 @@ spec:
     opsgenieApiKeySecretRef:
       key: example-uuid-key
       name: example-secret
-      namespace: crossplane-system
+      namespace: upbound-system
     region: us

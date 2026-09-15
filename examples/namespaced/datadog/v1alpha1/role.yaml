@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: api_key_manager
   name: api-key-manager
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     name: API Key Manager

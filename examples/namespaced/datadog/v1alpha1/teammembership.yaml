@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: foo
   name: foo
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     role: admin
@@ -27,7 +27,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: teammembership-foo
   name: teammembership-foo
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     description: Example team
@@ -44,7 +44,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: teammembership-foo
   name: teammembership-foo
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     email: teammembership-example@example.com

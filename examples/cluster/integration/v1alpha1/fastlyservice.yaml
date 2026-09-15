@@ -31,5 +31,5 @@ spec:
     apiKeySecretRef:
       key: example-key
       name: example-secret
-      namespace: crossplane-system
+      namespace: upbound-system
     name: fastlyservice-test-name

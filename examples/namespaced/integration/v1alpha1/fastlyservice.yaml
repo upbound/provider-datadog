@@ -27,7 +27,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: fastlyservice-foo
   name: fastlyservice-foo
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     apiKeySecretRef:

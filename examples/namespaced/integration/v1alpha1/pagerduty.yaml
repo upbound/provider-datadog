@@ -27,7 +27,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: pagerduty-testing_bar
   name: pagerduty-testing-bar
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     serviceKeySecretRef:
@@ -45,7 +45,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: pagerduty-testing_foo
   name: pagerduty-testing-foo
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     serviceKeySecretRef:

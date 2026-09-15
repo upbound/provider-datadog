@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: example_slo_correction
   name: example-slo-correction
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     category: Scheduled Maintenance
@@ -28,7 +28,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: slocorrection-example_slo
   name: slocorrection-example-slo
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     description: some updated description about example_slo SLO

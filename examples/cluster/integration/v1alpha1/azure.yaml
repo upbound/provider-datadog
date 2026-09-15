@@ -15,7 +15,7 @@ spec:
     clientSecretSecretRef:
       key: example-key
       name: example-secret
-      namespace: crossplane-system
+      namespace: upbound-system
     containerAppFilters: examplefilter:true,example:one_more
     cspmEnabled: true
     customMetricsEnabled: false

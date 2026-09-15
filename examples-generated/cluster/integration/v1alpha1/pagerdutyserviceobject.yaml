@@ -11,5 +11,5 @@ spec:
     serviceKeySecretRef:
       key: example-key
       name: example-secret
-      namespace: crossplane-system
+      namespace: upbound-system
     serviceName: testing_foo

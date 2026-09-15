@@ -11,7 +11,7 @@ spec:
     apiTokenSecretRef:
       key: example-key
       name: example-secret
-      namespace: crossplane-system
+      namespace: upbound-system
     schedules:
     - https://ddog.pagerduty.com/schedules/X123VF
     - https://ddog.pagerduty.com/schedules/X321XX
@@ -32,7 +32,7 @@ spec:
     serviceKeySecretRef:
       key: example-key
       name: example-secret
-      namespace: crossplane-system
+      namespace: upbound-system
     serviceName: pagerduty_testing_bar
 
 ---
@@ -50,5 +50,5 @@ spec:
     serviceKeySecretRef:
       key: example-key
       name: example-secret
-      namespace: crossplane-system
+      namespace: upbound-system
     serviceName: pagerduty_testing_foo
