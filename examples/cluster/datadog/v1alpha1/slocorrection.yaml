@@ -13,7 +13,7 @@ spec:
     end: 1735718600
     sloIdSelector:
       matchLabels:
-        testing.upbound.io/example-name: example_slo
+        testing.upbound.io/example-name: slocorrection-example_slo
     start: 1735707000
     timezone: UTC
 
@@ -25,8 +25,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/slocorrection
   labels:
-    testing.upbound.io/example-name: example_slo
-  name: example-slo
+    testing.upbound.io/example-name: slocorrection-example_slo
+  name: slocorrection-example-slo
 spec:
   forProvider:
     description: some updated description about example_slo SLO

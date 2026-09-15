@@ -25,8 +25,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: integration.datadog/v1alpha1/pagerduty
   labels:
-    testing.upbound.io/example-name: testing_bar
-  name: testing-bar
+    testing.upbound.io/example-name: pagerduty-testing_bar
+  name: pagerduty-testing-bar
   namespace: crossplane-system
 spec:
   forProvider:
@@ -43,8 +43,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: integration.datadog/v1alpha1/pagerduty
   labels:
-    testing.upbound.io/example-name: testing_foo
-  name: testing-foo
+    testing.upbound.io/example-name: pagerduty-testing_foo
+  name: pagerduty-testing-foo
   namespace: crossplane-system
 spec:
   forProvider:

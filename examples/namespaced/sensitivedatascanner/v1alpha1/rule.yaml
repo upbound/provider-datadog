@@ -14,7 +14,7 @@ spec:
     - username
     groupIdSelector:
       matchLabels:
-        testing.upbound.io/example-name: mygroup
+        testing.upbound.io/example-name: rule-mygroup
     includedKeywordConfiguration:
       characterCount: 30
       keywords:
@@ -39,8 +39,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: sensitivedatascanner.datadog/v1alpha1/rule
   labels:
-    testing.upbound.io/example-name: mygroup
-  name: mygroup
+    testing.upbound.io/example-name: rule-mygroup
+  name: rule-mygroup
   namespace: crossplane-system
 spec:
   forProvider:

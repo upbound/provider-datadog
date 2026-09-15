@@ -26,6 +26,11 @@ const (
 	// and the namespaced tree under *.datadog.m.upbound.io.
 	rootGroupCluster    = "upbound.io"
 	rootGroupNamespaced = "m.upbound.io"
+
+	// exampleManifestNamespace is the namespace set on the generated example
+	// manifests of namespaced resources and on the secret references of the
+	// cluster-scoped ones.
+	exampleManifestNamespace = "crossplane-system"
 )
 
 //go:embed schema.json
@@ -60,6 +65,9 @@ func newProvider(rootGroup string, opts ...ujconfig.ProviderOption) *ujconfig.Pr
 		ujconfig.WithIncludeList(ExternalNameConfigured()),
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(ExternalNameConfigurations()),
+		ujconfig.WithExampleManifestConfiguration(ujconfig.ExampleManifestConfiguration{
+			ManagedResourceNamespace: exampleManifestNamespace,
+		}),
 		ujconfig.WithControllerTemplate(templates.ControllerTemplate),
 		ujconfig.WithSchemaTraversers(&ujconfig.SingletonListEmbedder{}),
 		ujconfig.WithReferenceInjectors([]ujconfig.ReferenceInjector{reference.NewInjector(modulePath)}),

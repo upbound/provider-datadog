@@ -11,10 +11,10 @@ spec:
     role: admin
     teamIdSelector:
       matchLabels:
-        testing.upbound.io/example-name: foo
+        testing.upbound.io/example-name: teammembership-foo
     userIdSelector:
       matchLabels:
-        testing.upbound.io/example-name: foo
+        testing.upbound.io/example-name: teammembership-foo
 
 ---
 
@@ -24,13 +24,13 @@ metadata:
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/teammembership
   labels:
-    testing.upbound.io/example-name: foo
-  name: foo
+    testing.upbound.io/example-name: teammembership-foo
+  name: teammembership-foo
 spec:
   forProvider:
     description: Example team
-    handle: example-team-updated
-    name: Example Team-updated
+    handle: teammembership-foo
+    name: teammembership-foo
 
 ---
 
@@ -40,8 +40,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/teammembership
   labels:
-    testing.upbound.io/example-name: foo
-  name: foo
+    testing.upbound.io/example-name: teammembership-foo
+  name: teammembership-foo
 spec:
   forProvider:
     email: teammembership-example@example.com

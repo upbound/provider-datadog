@@ -11,5 +11,5 @@ spec:
     apiKeySecretRef:
       key: example-key
       name: example-secret
-      namespace: upbound-system
+      namespace: crossplane-system
     name: test-name

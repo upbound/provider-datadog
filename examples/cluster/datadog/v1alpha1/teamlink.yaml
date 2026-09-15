@@ -12,7 +12,7 @@ spec:
     position: 0
     teamIdSelector:
       matchLabels:
-        testing.upbound.io/example-name: foo
+        testing.upbound.io/example-name: teamlink-foo
     url: https://example.com
 
 ---
@@ -23,10 +23,10 @@ metadata:
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/teamlink
   labels:
-    testing.upbound.io/example-name: foo
-  name: foo
+    testing.upbound.io/example-name: teamlink-foo
+  name: teamlink-foo
 spec:
   forProvider:
     description: Example team
-    handle: example-team-updated
-    name: Example Team-updated
+    handle: teamlink-foo
+    name: teamlink-foo

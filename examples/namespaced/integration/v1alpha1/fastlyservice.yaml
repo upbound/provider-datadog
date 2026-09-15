@@ -11,7 +11,7 @@ spec:
   forProvider:
     accountIdSelector:
       matchLabels:
-        testing.upbound.io/example-name: foo
+        testing.upbound.io/example-name: fastlyservice-foo
     serviceId: my-service-id
     tags:
     - mytag
@@ -25,9 +25,9 @@ metadata:
   annotations:
     meta.upbound.io/example-id: integration.datadog/v1alpha1/fastlyservice
   labels:
-    testing.upbound.io/example-name: foo
-  name: foo
-  namespace: upbound-system
+    testing.upbound.io/example-name: fastlyservice-foo
+  name: fastlyservice-foo
+  namespace: crossplane-system
 spec:
   forProvider:
     apiKeySecretRef:

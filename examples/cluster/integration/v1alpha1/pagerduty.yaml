@@ -11,7 +11,7 @@ spec:
     apiTokenSecretRef:
       key: example-key
       name: example-secret
-      namespace: upbound-system
+      namespace: crossplane-system
     schedules:
     - https://ddog.pagerduty.com/schedules/X123VF
     - https://ddog.pagerduty.com/schedules/X321XX
@@ -25,14 +25,14 @@ metadata:
   annotations:
     meta.upbound.io/example-id: integration.datadog/v1alpha1/pagerduty
   labels:
-    testing.upbound.io/example-name: testing_bar
-  name: testing-bar
+    testing.upbound.io/example-name: pagerduty-testing_bar
+  name: pagerduty-testing-bar
 spec:
   forProvider:
     serviceKeySecretRef:
       key: example-key
       name: example-secret
-      namespace: upbound-system
+      namespace: crossplane-system
     serviceName: testing_bar
 
 ---
@@ -43,12 +43,12 @@ metadata:
   annotations:
     meta.upbound.io/example-id: integration.datadog/v1alpha1/pagerduty
   labels:
-    testing.upbound.io/example-name: testing_foo
-  name: testing-foo
+    testing.upbound.io/example-name: pagerduty-testing_foo
+  name: pagerduty-testing-foo
 spec:
   forProvider:
     serviceKeySecretRef:
       key: example-key
       name: example-secret
-      namespace: upbound-system
+      namespace: crossplane-system
     serviceName: testing_foo

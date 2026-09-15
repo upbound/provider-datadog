@@ -11,7 +11,7 @@ spec:
     action: manage_membership
     teamIdSelector:
       matchLabels:
-        testing.upbound.io/example-name: foo
+        testing.upbound.io/example-name: teampermissionsetting-foo
     value: organization
 
 ---
@@ -22,10 +22,10 @@ metadata:
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/teampermissionsetting
   labels:
-    testing.upbound.io/example-name: foo
-  name: foo
+    testing.upbound.io/example-name: teampermissionsetting-foo
+  name: teampermissionsetting-foo
 spec:
   forProvider:
     description: Example team
-    handle: example-team-updated
-    name: Example Team-updated
+    handle: teampermissionsetting-foo
+    name: teampermissionsetting-foo

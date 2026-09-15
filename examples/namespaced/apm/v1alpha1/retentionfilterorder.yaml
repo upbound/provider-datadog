@@ -10,7 +10,7 @@ metadata:
 spec:
   forProvider:
     filterIdsRefs:
-    - name: foo
+    - name: retentionfilterorder-foo
 
 ---
 
@@ -20,9 +20,9 @@ metadata:
   annotations:
     meta.upbound.io/example-id: apm.datadog/v1alpha1/retentionfilterorder
   labels:
-    testing.upbound.io/example-name: foo
-  name: foo
-  namespace: upbound-system
+    testing.upbound.io/example-name: retentionfilterorder-foo
+  name: retentionfilterorder-foo
+  namespace: crossplane-system
 spec:
   forProvider:
     enabled: false

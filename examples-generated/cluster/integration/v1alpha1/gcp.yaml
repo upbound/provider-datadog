@@ -18,5 +18,5 @@ spec:
     privateKeySecretRef:
       key: example-key
       name: example-secret
-      namespace: upbound-system
+      namespace: crossplane-system
     projectId: awesome-project-id

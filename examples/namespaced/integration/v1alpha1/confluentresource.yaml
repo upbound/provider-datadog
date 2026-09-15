@@ -11,7 +11,7 @@ spec:
   forProvider:
     accountIdSelector:
       matchLabels:
-        testing.upbound.io/example-name: foo
+        testing.upbound.io/example-name: confluentresource-foo
     resourceId: "123456"
     resourceType: kafka
     tags:
@@ -26,9 +26,9 @@ metadata:
   annotations:
     meta.upbound.io/example-id: integration.datadog/v1alpha1/confluentresource
   labels:
-    testing.upbound.io/example-name: foo
-  name: foo
-  namespace: upbound-system
+    testing.upbound.io/example-name: confluentresource-foo
+  name: confluentresource-foo
+  namespace: crossplane-system
 spec:
   forProvider:
     apiKey: TESTAPIKEY123

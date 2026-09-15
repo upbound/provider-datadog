@@ -12,7 +12,7 @@ spec:
     apiSecretSecretRef:
       key: example-key
       name: example-secret
-      namespace: upbound-system
+      namespace: crossplane-system
     tags:
     - mytag
     - mytag2:myvalue
