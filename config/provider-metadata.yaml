@@ -59,6 +59,8 @@ resources:
                     "${datadog_apm_retention_filter.foo.id}"
                   ]
                 }
+              references:
+                filter_ids: datadog_apm_retention_filter.foo.id
               dependencies:
                 datadog_apm_retention_filter.foo: |-
                     {
@@ -2266,6 +2268,8 @@ resources:
                     "${datadog_logs_archive.sample_archive_2.id}"
                   ]
                 }
+              references:
+                archive_ids: datadog_logs_archive.sample_archive_1.id
         argumentDocs:
             archive_ids: (List of String) The archive IDs list. The order of archive IDs in this attribute defines the overall archive order for logs. If archive_ids is empty or not specified, it will import the actual archive order, and create the resource. Otherwise, it will try to update the order.
             id: (String) The ID of this resource.
@@ -2628,6 +2632,8 @@ resources:
                   ],
                   "name": "sample_index_order"
                 }
+              references:
+                indexes: datadog_logs_index.sample_index.id
         argumentDocs:
             id: (String) The ID of this resource.
             indexes: (List of String) The index resource list. Logs are tested against the query filter of each index one by one following the order of the list.
@@ -2716,6 +2722,8 @@ resources:
                     "${datadog_logs_integration_pipeline.python.id}"
                   ]
                 }
+              references:
+                pipelines: datadog_logs_custom_pipeline.sample_pipeline.id
         argumentDocs:
             id: (String) The ID of this resource.
             name: (String) The name attribute in the resource datadog_logs_pipeline_order needs to be unique. It's recommended to use the same value as the resource name. No related field is available in Logs Pipeline API.
@@ -3733,6 +3741,8 @@ resources:
                     "${data.datadog_role.ro_role.id}"
                   ]
                 }
+              references:
+                roles: data.datadog_role.ro_role.id
         argumentDocs:
             disabled: (Boolean) Whether the service account is disabled. Defaults to false.
             email: (String) Email of the associated user.
@@ -4839,6 +4849,8 @@ resources:
                     "${data.datadog_role.ro_role.id}"
                   ]
                 }
+              references:
+                roles: data.datadog_role.ro_role.id
         argumentDocs:
             disabled: (Boolean) Whether the user is disabled. Defaults to false.
             email: (String) Email address for user.
