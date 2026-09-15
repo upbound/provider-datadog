@@ -80,7 +80,7 @@ spec:
                       Id of the scanning group the rule belongs to.
                     type: string
                   groupIdRef:
-                    description: Reference to a Group in sensitiveDataScanner.datadog
+                    description: Reference to a Group in sensitivedatascanner.datadog
                       to populate groupId.
                     properties:
                       name:
@@ -118,7 +118,7 @@ spec:
                     - name
                     type: object
                   groupIdSelector:
-                    description: Selector for a Group in sensitiveDataScanner.datadog
+                    description: Selector for a Group in sensitivedatascanner.datadog
                       to populate groupId.
                     properties:
                       matchControllerRef:
@@ -303,7 +303,7 @@ spec:
                       Id of the scanning group the rule belongs to.
                     type: string
                   groupIdRef:
-                    description: Reference to a Group in sensitiveDataScanner.datadog
+                    description: Reference to a Group in sensitivedatascanner.datadog
                       to populate groupId.
                     properties:
                       name:
@@ -341,7 +341,7 @@ spec:
                     - name
                     type: object
                   groupIdSelector:
-                    description: Selector for a Group in sensitiveDataScanner.datadog
+                    description: Selector for a Group in sensitivedatascanner.datadog
                       to populate groupId.
                     properties:
                       matchControllerRef:

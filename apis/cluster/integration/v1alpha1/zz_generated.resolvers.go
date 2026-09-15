@@ -25,7 +25,7 @@ func (mg *ConfluentResource) ResolveReferences( // ResolveReferences of this Con
 	var rsp reference.ResolutionResponse
 	var err error
 	{
-		m, l, err = apisresolver.GetManagedResource("integration.datadog.datadog.upbound.io", "v1alpha1", "ConfluentAccount", "ConfluentAccountList")
+		m, l, err = apisresolver.GetManagedResource("integration.datadog.upbound.io", "v1alpha1", "ConfluentAccount", "ConfluentAccountList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 		}
@@ -45,7 +45,7 @@ func (mg *ConfluentResource) ResolveReferences( // ResolveReferences of this Con
 	mg.Spec.ForProvider.AccountID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.AccountIDRef = rsp.ResolvedReference
 	{
-		m, l, err = apisresolver.GetManagedResource("integration.datadog.datadog.upbound.io", "v1alpha1", "ConfluentAccount", "ConfluentAccountList")
+		m, l, err = apisresolver.GetManagedResource("integration.datadog.upbound.io", "v1alpha1", "ConfluentAccount", "ConfluentAccountList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 		}
@@ -77,7 +77,7 @@ func (mg *FastlyService) ResolveReferences(ctx context.Context, c client.Reader)
 	var rsp reference.ResolutionResponse
 	var err error
 	{
-		m, l, err = apisresolver.GetManagedResource("integration.datadog.datadog.upbound.io", "v1alpha1", "FastlyAccount", "FastlyAccountList")
+		m, l, err = apisresolver.GetManagedResource("integration.datadog.upbound.io", "v1alpha1", "FastlyAccount", "FastlyAccountList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 		}
@@ -97,7 +97,7 @@ func (mg *FastlyService) ResolveReferences(ctx context.Context, c client.Reader)
 	mg.Spec.ForProvider.AccountID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.AccountIDRef = rsp.ResolvedReference
 	{
-		m, l, err = apisresolver.GetManagedResource("integration.datadog.datadog.upbound.io", "v1alpha1", "FastlyAccount", "FastlyAccountList")
+		m, l, err = apisresolver.GetManagedResource("integration.datadog.upbound.io", "v1alpha1", "FastlyAccount", "FastlyAccountList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 		}

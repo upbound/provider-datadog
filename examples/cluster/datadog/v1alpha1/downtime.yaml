@@ -8,8 +8,10 @@ metadata:
   name: foo
 spec:
   forProvider:
+    end: 2524611600
     recurrence:
       period: 1
       type: days
     scope:
     - '*'
+    start: 2524608000

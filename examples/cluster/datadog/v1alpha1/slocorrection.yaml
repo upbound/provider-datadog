@@ -10,11 +10,11 @@ spec:
   forProvider:
     category: Scheduled Maintenance
     description: correction example
-    end: 1735718600
+    end: 1788224400
     sloIdSelector:
       matchLabels:
         testing.upbound.io/example-name: slocorrection-example_slo
-    start: 1735707000
+    start: 1788220800
     timezone: UTC
 
 ---

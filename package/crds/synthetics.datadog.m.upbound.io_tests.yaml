@@ -1787,7 +1787,23 @@ spec:
                         description: |-
                           (Block List, Max: 1) The RUM data collection settings for the Synthetic browser test. (see below for nested schema)
                           The RUM data collection settings for the Synthetic browser test.
-                        type: string
+                        properties:
+                          applicationId:
+                            description: |-
+                              (String)
+                              RUM application ID used to collect RUM data for the browser test.
+                            type: string
+                          clientTokenId:
+                            description: |-
+                              (Number, Sensitive) RUM application API key ID used to collect RUM data for the browser test.
+                              RUM application API key ID used to collect RUM data for the browser test.
+                            type: number
+                          isEnabled:
+                            description: |-
+                              (Boolean) Determines whether RUM data is collected during test runs.
+                              Determines whether RUM data is collected during test runs.
+                            type: boolean
+                        type: object
                       scheduling:
                         description: |-
                           (Block List, Max: 1) Object containing timeframes and timezone used for advanced scheduling. (see below for nested schema)
@@ -4083,7 +4099,23 @@ spec:
                         description: |-
                           (Block List, Max: 1) The RUM data collection settings for the Synthetic browser test. (see below for nested schema)
                           The RUM data collection settings for the Synthetic browser test.
-                        type: string
+                        properties:
+                          applicationId:
+                            description: |-
+                              (String)
+                              RUM application ID used to collect RUM data for the browser test.
+                            type: string
+                          clientTokenId:
+                            description: |-
+                              (Number, Sensitive) RUM application API key ID used to collect RUM data for the browser test.
+                              RUM application API key ID used to collect RUM data for the browser test.
+                            type: number
+                          isEnabled:
+                            description: |-
+                              (Boolean) Determines whether RUM data is collected during test runs.
+                              Determines whether RUM data is collected during test runs.
+                            type: boolean
+                        type: object
                       scheduling:
                         description: |-
                           (Block List, Max: 1) Object containing timeframes and timezone used for advanced scheduling. (see below for nested schema)
@@ -6371,7 +6403,23 @@ spec:
                         description: |-
                           (Block List, Max: 1) The RUM data collection settings for the Synthetic browser test. (see below for nested schema)
                           The RUM data collection settings for the Synthetic browser test.
-                        type: string
+                        properties:
+                          applicationId:
+                            description: |-
+                              (String)
+                              RUM application ID used to collect RUM data for the browser test.
+                            type: string
+                          clientTokenId:
+                            description: |-
+                              (Number, Sensitive) RUM application API key ID used to collect RUM data for the browser test.
+                              RUM application API key ID used to collect RUM data for the browser test.
+                            type: number
+                          isEnabled:
+                            description: |-
+                              (Boolean) Determines whether RUM data is collected during test runs.
+                              Determines whether RUM data is collected during test runs.
+                            type: boolean
+                        type: object
                       scheduling:
                         description: |-
                           (Block List, Max: 1) Object containing timeframes and timezone used for advanced scheduling. (see below for nested schema)

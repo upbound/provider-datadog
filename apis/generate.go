@@ -32,9 +32,10 @@ Copyright 2026 Upbound Inc.
 
 // Transform the generated cross-resource reference resolvers to look the
 // referenced kinds up through the resolver runtime scheme instead of importing
-// their API packages, which would create import cycles.
-//go:generate go run github.com/crossplane/upjet/v2/cmd/resolver -g datadog.upbound.io -a github.com/upbound/provider-datadog/internal/apis -o datadog.datadog.upbound.io=datadog.upbound.io -s -p ./cluster/...
-//go:generate go run github.com/crossplane/upjet/v2/cmd/resolver -g datadog.m.upbound.io -a github.com/upbound/provider-datadog/internal/apis -o datadog.datadog.m.upbound.io=datadog.m.upbound.io -s -p ./namespaced/...
+// their API packages, which would create import cycles. The API group is the
+// resource short group plus the suffix, so the suffix is the bare root group.
+//go:generate go run github.com/crossplane/upjet/v2/cmd/resolver -g upbound.io -a github.com/upbound/provider-datadog/internal/apis -s -p ./cluster/...
+//go:generate go run github.com/crossplane/upjet/v2/cmd/resolver -g m.upbound.io -a github.com/upbound/provider-datadog/internal/apis -s -p ./namespaced/...
 
 package apis
 

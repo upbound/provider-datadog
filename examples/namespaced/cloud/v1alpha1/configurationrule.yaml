@@ -25,13 +25,13 @@ spec:
       import future.keywords.if
       import future.keywords.in
 
-      eval(resource) = "skip" if {
+      eval(resource) := "skip" if {
           # Logic that evaluates to true if the resource should be skipped
           true
-      } else = "pass" {
+      } else := "pass" if {
           # Logic that evaluates to true if the resource is compliant
           true
-      } else = "fail" {
+      } else := "fail" if {
           # Logic that evaluates to true if the resource is not compliant
           true
       }

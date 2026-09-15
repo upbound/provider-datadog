@@ -2078,7 +2078,7 @@ type OptionsListInitParameters struct {
 
 	// (Block List, Max: 1) The RUM data collection settings for the Synthetic browser test. (see below for nested schema)
 	// The RUM data collection settings for the Synthetic browser test.
-	RumSettings *string `json:"rumSettings,omitempty" tf:"rum_settings,omitempty"`
+	RumSettings *RumSettingsInitParameters `json:"rumSettings,omitempty" tf:"rum_settings,omitempty"`
 
 	// (Block List, Max: 1) Object containing timeframes and timezone used for advanced scheduling. (see below for nested schema)
 	// Object containing timeframes and timezone used for advanced scheduling.
@@ -2240,7 +2240,7 @@ type OptionsListObservation struct {
 
 	// (Block List, Max: 1) The RUM data collection settings for the Synthetic browser test. (see below for nested schema)
 	// The RUM data collection settings for the Synthetic browser test.
-	RumSettings *string `json:"rumSettings,omitempty" tf:"rum_settings,omitempty"`
+	RumSettings *RumSettingsObservation `json:"rumSettings,omitempty" tf:"rum_settings,omitempty"`
 
 	// (Block List, Max: 1) Object containing timeframes and timezone used for advanced scheduling. (see below for nested schema)
 	// Object containing timeframes and timezone used for advanced scheduling.
@@ -2364,7 +2364,7 @@ type OptionsListParameters struct {
 	// (Block List, Max: 1) The RUM data collection settings for the Synthetic browser test. (see below for nested schema)
 	// The RUM data collection settings for the Synthetic browser test.
 	// +kubebuilder:validation:Optional
-	RumSettings *string `json:"rumSettings,omitempty" tf:"rum_settings,omitempty"`
+	RumSettings *RumSettingsParameters `json:"rumSettings,omitempty" tf:"rum_settings,omitempty"`
 
 	// (Block List, Max: 1) Object containing timeframes and timezone used for advanced scheduling. (see below for nested schema)
 	// Object containing timeframes and timezone used for advanced scheduling.
@@ -3956,6 +3956,54 @@ type RetryParameters struct {
 	// Interval between a failed test and the next retry in milliseconds. Maximum value: `5000`. Defaults to `300`.
 	// +kubebuilder:validation:Optional
 	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+}
+
+type RumSettingsInitParameters struct {
+
+	// (String)
+	// RUM application ID used to collect RUM data for the browser test.
+	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
+
+	// (Number, Sensitive) RUM application API key ID used to collect RUM data for the browser test.
+	// RUM application API key ID used to collect RUM data for the browser test.
+	ClientTokenID *float64 `json:"clientTokenId,omitempty" tf:"client_token_id,omitempty"`
+
+	// (Boolean) Determines whether RUM data is collected during test runs.
+	// Determines whether RUM data is collected during test runs.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+}
+
+type RumSettingsObservation struct {
+
+	// (String)
+	// RUM application ID used to collect RUM data for the browser test.
+	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
+
+	// (Number, Sensitive) RUM application API key ID used to collect RUM data for the browser test.
+	// RUM application API key ID used to collect RUM data for the browser test.
+	ClientTokenID *float64 `json:"clientTokenId,omitempty" tf:"client_token_id,omitempty"`
+
+	// (Boolean) Determines whether RUM data is collected during test runs.
+	// Determines whether RUM data is collected during test runs.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+}
+
+type RumSettingsParameters struct {
+
+	// (String)
+	// RUM application ID used to collect RUM data for the browser test.
+	// +kubebuilder:validation:Optional
+	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
+
+	// (Number, Sensitive) RUM application API key ID used to collect RUM data for the browser test.
+	// RUM application API key ID used to collect RUM data for the browser test.
+	// +kubebuilder:validation:Optional
+	ClientTokenID *float64 `json:"clientTokenId,omitempty" tf:"client_token_id,omitempty"`
+
+	// (Boolean) Determines whether RUM data is collected during test runs.
+	// Determines whether RUM data is collected during test runs.
+	// +kubebuilder:validation:Optional
+	IsEnabled *bool `json:"isEnabled" tf:"is_enabled,omitempty"`
 }
 
 type SchedulingInitParameters struct {

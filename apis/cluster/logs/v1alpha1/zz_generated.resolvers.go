@@ -25,7 +25,7 @@ func (mg *ArchiveOrder) ResolveReferences( // ResolveReferences of this ArchiveO
 	var mrsp reference.MultiResolutionResponse
 	var err error
 	{
-		m, l, err = apisresolver.GetManagedResource("logs.datadog.datadog.upbound.io", "v1alpha1", "Archive", "ArchiveList")
+		m, l, err = apisresolver.GetManagedResource("logs.datadog.upbound.io", "v1alpha1", "Archive", "ArchiveList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 		}
@@ -45,7 +45,7 @@ func (mg *ArchiveOrder) ResolveReferences( // ResolveReferences of this ArchiveO
 	mg.Spec.ForProvider.ArchiveIds = reference.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.ArchiveIdsRefs = mrsp.ResolvedReferences
 	{
-		m, l, err = apisresolver.GetManagedResource("logs.datadog.datadog.upbound.io", "v1alpha1", "Archive", "ArchiveList")
+		m, l, err = apisresolver.GetManagedResource("logs.datadog.upbound.io", "v1alpha1", "Archive", "ArchiveList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 		}
@@ -77,7 +77,7 @@ func (mg *IndexOrder) ResolveReferences(ctx context.Context, c client.Reader) er
 	var mrsp reference.MultiResolutionResponse
 	var err error
 	{
-		m, l, err = apisresolver.GetManagedResource("logs.datadog.datadog.upbound.io", "v1alpha1", "Index", "IndexList")
+		m, l, err = apisresolver.GetManagedResource("logs.datadog.upbound.io", "v1alpha1", "Index", "IndexList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 		}
@@ -97,7 +97,7 @@ func (mg *IndexOrder) ResolveReferences(ctx context.Context, c client.Reader) er
 	mg.Spec.ForProvider.Indexes = reference.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.IndexesRefs = mrsp.ResolvedReferences
 	{
-		m, l, err = apisresolver.GetManagedResource("logs.datadog.datadog.upbound.io", "v1alpha1", "Index", "IndexList")
+		m, l, err = apisresolver.GetManagedResource("logs.datadog.upbound.io", "v1alpha1", "Index", "IndexList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 		}
@@ -129,7 +129,7 @@ func (mg *PipelineOrder) ResolveReferences(ctx context.Context, c client.Reader)
 	var mrsp reference.MultiResolutionResponse
 	var err error
 	{
-		m, l, err = apisresolver.GetManagedResource("logs.datadog.datadog.upbound.io", "v1alpha1", "CustomPipeline", "CustomPipelineList")
+		m, l, err = apisresolver.GetManagedResource("logs.datadog.upbound.io", "v1alpha1", "CustomPipeline", "CustomPipelineList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 		}
@@ -149,7 +149,7 @@ func (mg *PipelineOrder) ResolveReferences(ctx context.Context, c client.Reader)
 	mg.Spec.ForProvider.Pipelines = reference.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.PipelinesRefs = mrsp.ResolvedReferences
 	{
-		m, l, err = apisresolver.GetManagedResource("logs.datadog.datadog.upbound.io", "v1alpha1", "CustomPipeline", "CustomPipelineList")
+		m, l, err = apisresolver.GetManagedResource("logs.datadog.upbound.io", "v1alpha1", "CustomPipeline", "CustomPipelineList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 		}

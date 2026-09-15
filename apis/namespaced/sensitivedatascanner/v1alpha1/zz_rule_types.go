@@ -60,15 +60,15 @@ type RuleInitParameters struct {
 
 	// (String) Id of the scanning group the rule belongs to.
 	// Id of the scanning group the rule belongs to.
-	// +crossplane:generate:reference:type=github.com/upbound/provider-datadog/apis/namespaced/sensitiveDataScanner.datadog/v1alpha1.Group
+	// +crossplane:generate:reference:type=github.com/upbound/provider-datadog/apis/namespaced/sensitivedatascanner.datadog/v1alpha1.Group
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
-	// Reference to a Group in sensitiveDataScanner.datadog to populate groupId.
+	// Reference to a Group in sensitivedatascanner.datadog to populate groupId.
 	// +kubebuilder:validation:Optional
 	GroupIDRef *v2.NamespacedReference `json:"groupIdRef,omitempty" tf:"-"`
 
-	// Selector for a Group in sensitiveDataScanner.datadog to populate groupId.
+	// Selector for a Group in sensitivedatascanner.datadog to populate groupId.
 	// +kubebuilder:validation:Optional
 	GroupIDSelector *v2.NamespacedSelector `json:"groupIdSelector,omitempty" tf:"-"`
 
@@ -185,16 +185,16 @@ type RuleParameters struct {
 
 	// (String) Id of the scanning group the rule belongs to.
 	// Id of the scanning group the rule belongs to.
-	// +crossplane:generate:reference:type=github.com/upbound/provider-datadog/apis/namespaced/sensitiveDataScanner.datadog/v1alpha1.Group
+	// +crossplane:generate:reference:type=github.com/upbound/provider-datadog/apis/namespaced/sensitivedatascanner.datadog/v1alpha1.Group
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
-	// Reference to a Group in sensitiveDataScanner.datadog to populate groupId.
+	// Reference to a Group in sensitivedatascanner.datadog to populate groupId.
 	// +kubebuilder:validation:Optional
 	GroupIDRef *v2.NamespacedReference `json:"groupIdRef,omitempty" tf:"-"`
 
-	// Selector for a Group in sensitiveDataScanner.datadog to populate groupId.
+	// Selector for a Group in sensitivedatascanner.datadog to populate groupId.
 	// +kubebuilder:validation:Optional
 	GroupIDSelector *v2.NamespacedSelector `json:"groupIdSelector,omitempty" tf:"-"`
 

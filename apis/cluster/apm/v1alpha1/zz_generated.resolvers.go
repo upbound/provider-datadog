@@ -25,7 +25,7 @@ func (mg *RetentionFilterOrder) ResolveReferences( // ResolveReferences of this 
 	var mrsp reference.MultiResolutionResponse
 	var err error
 	{
-		m, l, err = apisresolver.GetManagedResource("apm.datadog.datadog.upbound.io", "v1alpha1", "RetentionFilter", "RetentionFilterList")
+		m, l, err = apisresolver.GetManagedResource("apm.datadog.upbound.io", "v1alpha1", "RetentionFilter", "RetentionFilterList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 		}
@@ -45,7 +45,7 @@ func (mg *RetentionFilterOrder) ResolveReferences( // ResolveReferences of this 
 	mg.Spec.ForProvider.FilterIds = reference.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.FilterIdsRefs = mrsp.ResolvedReferences
 	{
-		m, l, err = apisresolver.GetManagedResource("apm.datadog.datadog.upbound.io", "v1alpha1", "RetentionFilter", "RetentionFilterList")
+		m, l, err = apisresolver.GetManagedResource("apm.datadog.upbound.io", "v1alpha1", "RetentionFilter", "RetentionFilterList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 		}

@@ -8,18 +8,18 @@ func Configure(p *config.Provider) {
 		// We need to override the default group that upjet generated for
 		// this resource, which would be "datadog"
 		r.Kind = "Group"
-		r.ShortGroup = "sensitiveDataScanner.datadog"
+		r.ShortGroup = "sensitivedatascanner.datadog"
 	})
 	p.AddResourceConfigurator("datadog_sensitive_data_scanner_group_order", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for
 		// this resource, which would be "datadog"
 		r.Kind = "GroupOrder"
-		r.ShortGroup = "sensitiveDataScanner.datadog"
+		r.ShortGroup = "sensitivedatascanner.datadog"
 	})
 	p.AddResourceConfigurator("datadog_sensitive_data_scanner_rule", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for
 		// this resource, which would be "datadog"
 		r.Kind = "Rule"
-		r.ShortGroup = "sensitiveDataScanner.datadog"
+		r.ShortGroup = "sensitivedatascanner.datadog"
 	})
 }
