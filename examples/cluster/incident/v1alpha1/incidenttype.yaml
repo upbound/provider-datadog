@@ -1,0 +1,13 @@
+apiVersion: incident.datadog.upbound.io/v1alpha1
+kind: IncidentType
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/incidenttype
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    name: Example Incident Type
+    description: An incident type used across the incident example resources.
+    isDefault: false

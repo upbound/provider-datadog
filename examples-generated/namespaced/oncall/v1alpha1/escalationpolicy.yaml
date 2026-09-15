@@ -1,0 +1,21 @@
+apiVersion: oncall.datadog.m.upbound.io/v1alpha1
+kind: EscalationPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/escalationpolicy
+  labels:
+    testing.upbound.io/example-name: policy_test
+  name: policy-test
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Policy Name
+    resolvePageOnPolicyEnd: true
+    retries: 3
+    step:
+    - assignment: round-robin
+      escalateAfterSeconds: 300
+      target:
+      - team: 00000000-aba2-0000-0000-000000000000
+      - user: 00000000-aba2-0000-0000-000000000000
+      - schedule: 00000000-aba2-0000-0000-000000000000

@@ -1,0 +1,18 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: AppKeyRegistration
+metadata:
+  annotations:
+    # The external name is the id of the Application Key to register for
+    # the Actions API (the resource has no configurable field, its only
+    # attribute is `id`). Registering is the same thing as the key's
+    # "Actions API access" toggle, and only an already-registered key may
+    # register another one, so the datasource supplies a second key created
+    # for this purpose, never the key the tests run with.
+    crossplane.io/external-name: ${data.datadog_application_key.uptest_target.id}
+    meta.upbound.io/example-id: datadog/v1alpha1/appkeyregistration
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider: {}

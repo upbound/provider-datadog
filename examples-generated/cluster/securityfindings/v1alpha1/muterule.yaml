@@ -1,0 +1,20 @@
+apiVersion: securityfindings.datadog.upbound.io/v1alpha1
+kind: MuteRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: securityfindings/v1alpha1/muterule
+  labels:
+    testing.upbound.io/example-name: accepted_risks_dev
+  name: accepted-risks-dev
+spec:
+  forProvider:
+    action:
+      expireAt: 4070908800000
+      reason: risk_accepted
+      reasonDescription: Accepted for dev environments only
+    enabled: true
+    name: Mute accepted risks in dev
+    rule:
+      findingTypes:
+      - misconfiguration
+      query: env:dev team:platform @severity:low

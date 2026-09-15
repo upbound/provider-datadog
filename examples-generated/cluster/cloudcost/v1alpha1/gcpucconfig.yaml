@@ -1,0 +1,16 @@
+apiVersion: cloudcost.datadog.upbound.io/v1alpha1
+kind: GCPUCConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudcost/v1alpha1/gcpucconfig
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    billingAccountId: 123456_ABCDEF_123456
+    bucketName: my-gcp-cost-bucket
+    exportDatasetName: billing_export
+    exportPrefix: datadog_cloud_cost_detailed_usage_export
+    exportProjectName: my-gcp-project
+    serviceAccount: datadog-cost-management@my-gcp-project.iam.gserviceaccount.com

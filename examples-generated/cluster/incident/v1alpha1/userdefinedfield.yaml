@@ -1,0 +1,39 @@
+apiVersion: incident.datadog.upbound.io/v1alpha1
+kind: UserDefinedField
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/userdefinedfield
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    category: what_happened
+    defaultValue: service_bug
+    displayName: Root Cause
+    incidentTypeSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: root_cause
+    type: dropdown
+    validValue:
+    - description: A bug in the service code.
+      displayName: Service Bug
+      value: service_bug
+    - displayName: Human Error
+      value: human_error
+
+---
+
+apiVersion: incident.datadog.upbound.io/v1alpha1
+kind: IncidentType
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident.datadog/v1alpha1/userdefinedfield
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    description: Security-related incidents requiring immediate attention
+    name: Security Incident

@@ -1,0 +1,44 @@
+apiVersion: integration.datadog.m.upbound.io/v1alpha1
+kind: AWSAccountCCMConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/awsaccountccmconfig
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    awsAccountConfigIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: awsaccountccmconfig-foo
+    ccmConfig:
+      dataExportConfigs:
+      - bucketName: billing
+        bucketRegion: us-east-1
+        reportName: cost-and-usage-report
+        reportPrefix: reports
+        reportType: CUR2.0
+
+---
+
+apiVersion: integration.datadog.m.upbound.io/v1alpha1
+kind: AWSAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/awsaccountccmconfig
+    upjet.upbound.io/manual-intervention: "Requires a real AWS account with the DatadogIntegrationRole trust relationship already configured."
+  labels:
+    testing.upbound.io/example-name: awsaccountccmconfig-foo
+  name: awsaccountccmconfig-foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    authConfig:
+      awsAuthConfigRole:
+        externalId: 00000000-0000-1234-0000-000000000000
+        roleName: DatadogIntegrationRole
+    awsAccountId: "123456789013"
+    awsPartition: aws
+    awsRegions:
+      includeAll: true

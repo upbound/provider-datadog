@@ -1,0 +1,31 @@
+apiVersion: cloudcost.datadog.m.upbound.io/v1alpha1
+kind: CostBudget
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudcost/v1alpha1/costbudget
+    upjet.upbound.io/manual-intervention: "The API answered 403 \"This feature is restricted to Cloud Cost Management users\" during e2e; the Datadog org needs Cloud Cost Management."
+  labels:
+    testing.upbound.io/example-name: with_tags
+  name: with-tags
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Multi-Environment Budget
+    metricsQuery: sum:aws.cost.amortized{*} by {environment}
+    startMonth: 202601
+    endMonth: 202603
+    budgetLine:
+    - amounts:
+        "202601": 2000
+        "202602": 2200
+        "202603": 2000
+      tagFilters:
+      - tagKey: environment
+        tagValue: production
+    - amounts:
+        "202601": 1000
+        "202602": 1100
+        "202603": 1000
+      tagFilters:
+      - tagKey: environment
+        tagValue: staging

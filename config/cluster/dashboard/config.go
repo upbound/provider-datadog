@@ -24,4 +24,13 @@ func Configure(p *config.Provider) {
 		r.Kind = "DashboardList"
 		r.ShortGroup = "datadog"
 	})
+	p.AddResourceConfigurator("datadog_secure_embed_dashboard", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "SecureEmbedDashboard"
+		r.ShortGroup = "datadog"
+		r.References["dashboard_id"] = config.Reference{
+			TerraformName: "datadog_dashboard_json",
+		}
+	})
 }

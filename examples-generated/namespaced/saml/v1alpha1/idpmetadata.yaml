@@ -1,0 +1,12 @@
+apiVersion: saml.datadog.m.upbound.io/v1alpha1
+kind: IDPMetadata
+metadata:
+  annotations:
+    meta.upbound.io/example-id: saml/v1alpha1/idpmetadata
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    idpMetadata: ${file("${path.module}/idp_metadata.xml")}

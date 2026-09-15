@@ -171,3 +171,55 @@ func (mg *PipelineOrder) ResolveReferences(ctx context.Context, c client.Reader)
 
 	return nil
 }
+
+// ResolveReferences of this RestrictionQuery.
+func (mg *RestrictionQuery) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var mrsp reference.MultiNamespacedResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.m.upbound.io", "v1alpha1", "Role", "RoleList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+			CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.RoleIds),
+			Extract:       reference.ExternalName(),
+			Namespace:     mg.GetNamespace(),
+			References:    mg.Spec.ForProvider.RoleIdsRefs,
+			Selector:      mg.Spec.ForProvider.RoleIdsSelector,
+			To:            reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.RoleIds")
+	}
+	mg.Spec.ForProvider.RoleIds = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.RoleIdsRefs = mrsp.ResolvedReferences
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.m.upbound.io", "v1alpha1", "Role", "RoleList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+			CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.RoleIds),
+			Extract:       reference.ExternalName(),
+			Namespace:     mg.GetNamespace(),
+			References:    mg.Spec.InitProvider.RoleIdsRefs,
+			Selector:      mg.Spec.InitProvider.RoleIdsSelector,
+			To:            reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.RoleIds")
+	}
+	mg.Spec.InitProvider.RoleIds = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.RoleIdsRefs = mrsp.ResolvedReferences
+
+	return nil
+}

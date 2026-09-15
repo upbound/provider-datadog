@@ -7,6 +7,106 @@ package v1alpha1
 
 import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
+// GetCondition of this AWSAccount.
+func (mg *AWSAccount) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this AWSAccount.
+func (mg *AWSAccount) GetDeletionPolicy() xpv2.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this AWSAccount.
+func (mg *AWSAccount) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this AWSAccount.
+func (mg *AWSAccount) GetProviderConfigReference() *xpv2.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this AWSAccount.
+func (mg *AWSAccount) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this AWSAccount.
+func (mg *AWSAccount) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this AWSAccount.
+func (mg *AWSAccount) SetDeletionPolicy(r xpv2.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this AWSAccount.
+func (mg *AWSAccount) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this AWSAccount.
+func (mg *AWSAccount) SetProviderConfigReference(r *xpv2.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this AWSAccount.
+func (mg *AWSAccount) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this AWSAccountCCMConfig.
+func (mg *AWSAccountCCMConfig) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this AWSAccountCCMConfig.
+func (mg *AWSAccountCCMConfig) GetDeletionPolicy() xpv2.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this AWSAccountCCMConfig.
+func (mg *AWSAccountCCMConfig) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this AWSAccountCCMConfig.
+func (mg *AWSAccountCCMConfig) GetProviderConfigReference() *xpv2.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this AWSAccountCCMConfig.
+func (mg *AWSAccountCCMConfig) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this AWSAccountCCMConfig.
+func (mg *AWSAccountCCMConfig) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this AWSAccountCCMConfig.
+func (mg *AWSAccountCCMConfig) SetDeletionPolicy(r xpv2.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this AWSAccountCCMConfig.
+func (mg *AWSAccountCCMConfig) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this AWSAccountCCMConfig.
+func (mg *AWSAccountCCMConfig) SetProviderConfigReference(r *xpv2.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this AWSAccountCCMConfig.
+func (mg *AWSAccountCCMConfig) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this AWSEventBridge.
 func (mg *AWSEventBridge) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
@@ -54,6 +154,56 @@ func (mg *AWSEventBridge) SetProviderConfigReference(r *xpv2.Reference) {
 
 // SetWriteConnectionSecretToReference of this AWSEventBridge.
 func (mg *AWSEventBridge) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this AWSExternalID.
+func (mg *AWSExternalID) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this AWSExternalID.
+func (mg *AWSExternalID) GetDeletionPolicy() xpv2.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this AWSExternalID.
+func (mg *AWSExternalID) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this AWSExternalID.
+func (mg *AWSExternalID) GetProviderConfigReference() *xpv2.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this AWSExternalID.
+func (mg *AWSExternalID) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this AWSExternalID.
+func (mg *AWSExternalID) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this AWSExternalID.
+func (mg *AWSExternalID) SetDeletionPolicy(r xpv2.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this AWSExternalID.
+func (mg *AWSExternalID) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this AWSExternalID.
+func (mg *AWSExternalID) SetProviderConfigReference(r *xpv2.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this AWSExternalID.
+func (mg *AWSExternalID) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
@@ -454,6 +604,106 @@ func (mg *GCPSTS) SetProviderConfigReference(r *xpv2.Reference) {
 
 // SetWriteConnectionSecretToReference of this GCPSTS.
 func (mg *GCPSTS) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this MSTeamsTenantBasedHandle.
+func (mg *MSTeamsTenantBasedHandle) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this MSTeamsTenantBasedHandle.
+func (mg *MSTeamsTenantBasedHandle) GetDeletionPolicy() xpv2.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this MSTeamsTenantBasedHandle.
+func (mg *MSTeamsTenantBasedHandle) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this MSTeamsTenantBasedHandle.
+func (mg *MSTeamsTenantBasedHandle) GetProviderConfigReference() *xpv2.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this MSTeamsTenantBasedHandle.
+func (mg *MSTeamsTenantBasedHandle) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this MSTeamsTenantBasedHandle.
+func (mg *MSTeamsTenantBasedHandle) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this MSTeamsTenantBasedHandle.
+func (mg *MSTeamsTenantBasedHandle) SetDeletionPolicy(r xpv2.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this MSTeamsTenantBasedHandle.
+func (mg *MSTeamsTenantBasedHandle) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this MSTeamsTenantBasedHandle.
+func (mg *MSTeamsTenantBasedHandle) SetProviderConfigReference(r *xpv2.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this MSTeamsTenantBasedHandle.
+func (mg *MSTeamsTenantBasedHandle) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this MSTeamsWorkflowsWebhookHandle.
+func (mg *MSTeamsWorkflowsWebhookHandle) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this MSTeamsWorkflowsWebhookHandle.
+func (mg *MSTeamsWorkflowsWebhookHandle) GetDeletionPolicy() xpv2.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this MSTeamsWorkflowsWebhookHandle.
+func (mg *MSTeamsWorkflowsWebhookHandle) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this MSTeamsWorkflowsWebhookHandle.
+func (mg *MSTeamsWorkflowsWebhookHandle) GetProviderConfigReference() *xpv2.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this MSTeamsWorkflowsWebhookHandle.
+func (mg *MSTeamsWorkflowsWebhookHandle) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this MSTeamsWorkflowsWebhookHandle.
+func (mg *MSTeamsWorkflowsWebhookHandle) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this MSTeamsWorkflowsWebhookHandle.
+func (mg *MSTeamsWorkflowsWebhookHandle) SetDeletionPolicy(r xpv2.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this MSTeamsWorkflowsWebhookHandle.
+func (mg *MSTeamsWorkflowsWebhookHandle) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this MSTeamsWorkflowsWebhookHandle.
+func (mg *MSTeamsWorkflowsWebhookHandle) SetProviderConfigReference(r *xpv2.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this MSTeamsWorkflowsWebhookHandle.
+func (mg *MSTeamsWorkflowsWebhookHandle) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 

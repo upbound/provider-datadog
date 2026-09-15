@@ -1,0 +1,14 @@
+apiVersion: logs.datadog.upbound.io/v1alpha1
+kind: RestrictionQuery
+metadata:
+  annotations:
+    meta.upbound.io/example-id: logs/v1alpha1/restrictionquery
+  labels:
+    testing.upbound.io/example-name: test_lrq
+  name: test-lrq
+spec:
+  forProvider:
+    restrictionQuery: service:foo
+    roleIdsRefs:
+    - name: example
+    - name: example

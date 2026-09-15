@@ -1,0 +1,22 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: RUMMetric
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/rummetric
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    eventType: session
+    compute:
+      aggregationType: count
+    filter:
+      query: '@service:web-ui'
+    groupBy:
+    - path: '@browser.name'
+      tagName: browser_name
+    name: testing.rum.metric
+    uniqueness:
+      when: match

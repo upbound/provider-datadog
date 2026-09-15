@@ -1,0 +1,15 @@
+apiVersion: statuspage.datadog.m.upbound.io/v1alpha1
+kind: Page
+metadata:
+  annotations:
+    meta.upbound.io/example-id: statuspage/v1alpha1/page
+  labels:
+    testing.upbound.io/example-name: example_status
+  name: example-status
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Example Service Status
+    domainPrefix: upbound-provider-datadog-e2e
+    type: public
+    visualizationType: bars_and_uptime_percentage

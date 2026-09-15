@@ -7,10 +7,22 @@ Copyright 2026 Upbound Inc.
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
+func (tr *CriticalAsset) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *DefaultRule) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Filter) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *NotificationRule) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Rule) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RuleJSON) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Suppression) Hub() {}

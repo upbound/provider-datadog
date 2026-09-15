@@ -1,0 +1,22 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: TeamSync
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/teamsync
+    upjet.upbound.io/manual-intervention: "selectionState[].externalId.value must be the id of a real GitHub org/team already visible to the GitHub integration connected to this Datadog org."
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    frequency: continuously
+    selectionState:
+    - operation: include
+      scope: subtree
+      externalId:
+        type: organization
+        value: "123456"
+    source: github
+    syncMembership: true
+    type: link

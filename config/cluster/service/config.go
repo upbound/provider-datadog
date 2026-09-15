@@ -6,6 +6,15 @@ const datadog = "datadog"
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
+	p.AddResourceConfigurator("datadog_service_access_token", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "ServiceAccessToken"
+		r.ShortGroup = datadog
+		r.References["service_account_id"] = config.Reference{
+			TerraformName: "datadog_service_account",
+		}
+	})
 	p.AddResourceConfigurator("datadog_service_account", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for
 		// this resource, which would be "datadog"

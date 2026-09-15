@@ -1,0 +1,35 @@
+apiVersion: statuspage.datadog.m.upbound.io/v1alpha1
+kind: PageComponent
+metadata:
+  annotations:
+    meta.upbound.io/example-id: statuspage/v1alpha1/pagecomponent
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: API
+    type: component
+    position: 0
+    pageIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: pagecomponent-foo
+
+---
+
+apiVersion: statuspage.datadog.m.upbound.io/v1alpha1
+kind: Page
+metadata:
+  annotations:
+    meta.upbound.io/example-id: statuspage/v1alpha1/pagecomponent
+  labels:
+    testing.upbound.io/example-name: pagecomponent-foo
+  name: pagecomponent-foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Example Service Status
+    domainPrefix: pagecomponent-foo
+    type: public
+    visualizationType: bars_and_uptime_percentage

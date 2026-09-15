@@ -1,0 +1,16 @@
+apiVersion: oncall.datadog.m.upbound.io/v1alpha1
+kind: UserNotificationChannel
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/usernotificationchannel
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    email:
+      address: oncall-example@example.com
+      formats:
+      - html
+    userId: ${data.datadog_current_user.me.id}

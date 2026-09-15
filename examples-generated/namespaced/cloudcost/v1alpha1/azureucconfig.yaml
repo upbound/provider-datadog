@@ -1,0 +1,24 @@
+apiVersion: cloudcost.datadog.m.upbound.io/v1alpha1
+kind: AzureUCConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudcost/v1alpha1/azureucconfig
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    accountId: 12345678-1234-abcd-1234-123456789012
+    actualBillConfig:
+    - exportName: my-actual-export
+      exportPath: exports/actual
+      storageAccount: mystorageaccount
+      storageContainer: cost-exports
+    amortizedBillConfig:
+    - exportName: my-amortized-export
+      exportPath: exports/amortized
+      storageAccount: mystorageaccount
+      storageContainer: cost-exports
+    clientId: 87654321-4321-dcba-4321-210987654321
+    scope: /subscriptions/12345678-1234-abcd-1234-123456789012

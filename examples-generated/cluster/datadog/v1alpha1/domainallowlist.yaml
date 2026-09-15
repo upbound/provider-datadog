@@ -1,0 +1,13 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: DomainAllowlist
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/domainallowlist
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    domains:
+    - '@gmail.com'
+    enabled: true

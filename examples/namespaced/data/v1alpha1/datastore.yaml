@@ -1,0 +1,16 @@
+apiVersion: data.datadog.m.upbound.io/v1alpha1
+kind: Datastore
+metadata:
+  annotations:
+    meta.upbound.io/example-id: data/v1alpha1/datastore
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Example Datastore
+    description: An example datastore managed by Crossplane
+    orgAccess: contributor
+    primaryColumnName: id
+    primaryKeyGenerationStrategy: uuid

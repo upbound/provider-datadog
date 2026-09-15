@@ -25,6 +25,15 @@ func (l *AppKeyList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this AppKeyRegistrationList.
+func (l *AppKeyRegistrationList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this AuthnMappingList.
 func (l *AuthnMappingList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -54,6 +63,15 @@ func (l *DashboardJSONList) GetItems() []resource.Managed {
 
 // GetItems of this DashboardListList.
 func (l *DashboardListList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this DomainAllowlistList.
+func (l *DomainAllowlistList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -115,6 +133,60 @@ func (l *MonitorList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this MonitorNotificationRuleList.
+func (l *MonitorNotificationRuleList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this OrgConnectionList.
+func (l *OrgConnectionList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this OrgGroupList.
+func (l *OrgGroupList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this OrgGroupMembershipList.
+func (l *OrgGroupMembershipList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this OrgGroupPolicyList.
+func (l *OrgGroupPolicyList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this OrgGroupPolicyOverrideList.
+func (l *OrgGroupPolicyOverrideList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this OrganizationSettingsList.
 func (l *OrganizationSettingsList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -133,8 +205,53 @@ func (l *PowerpackList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this PowerpackV2List.
+func (l *PowerpackV2List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this RUMApplicationList.
 func (l *RUMApplicationList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this RUMExclusionFilterList.
+func (l *RUMExclusionFilterList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this RUMMetricList.
+func (l *RUMMetricList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this RUMRetentionFilterList.
+func (l *RUMRetentionFilterList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this RUMRetentionQuotaList.
+func (l *RUMRetentionQuotaList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -162,6 +279,24 @@ func (l *RoleList) GetItems() []resource.Managed {
 
 // GetItems of this SLOCorrectionList.
 func (l *SLOCorrectionList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SecureEmbedDashboardList.
+func (l *SecureEmbedDashboardList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this ServiceAccessTokenList.
+func (l *ServiceAccessTokenList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -214,6 +349,24 @@ func (l *SpansMetricList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this TeamConnectionList.
+func (l *TeamConnectionList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this TeamHierarchyLinksList.
+func (l *TeamHierarchyLinksList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this TeamLinkList.
 func (l *TeamLinkList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -241,6 +394,15 @@ func (l *TeamMembershipList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this TeamNotificationRuleList.
+func (l *TeamNotificationRuleList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this TeamPermissionSettingList.
 func (l *TeamPermissionSettingList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -250,8 +412,26 @@ func (l *TeamPermissionSettingList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this TeamSyncList.
+func (l *TeamSyncList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this UserList.
 func (l *UserList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this UserRoleList.
+func (l *UserRoleList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -270,6 +450,15 @@ func (l *WebhookCustomVariableList) GetItems() []resource.Managed {
 
 // GetItems of this WebhookList.
 func (l *WebhookList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this WebhookOauth2ClientCredentialsList.
+func (l *WebhookOauth2ClientCredentialsList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

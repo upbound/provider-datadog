@@ -1,0 +1,16 @@
+apiVersion: integration.datadog.m.upbound.io/v1alpha1
+kind: MSTeamsTenantBasedHandle
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/msteamstenantbasedhandle
+    upjet.upbound.io/manual-intervention: "Requires a real Microsoft Teams tenant/team/channel already connected to the Datadog Microsoft Teams integration."
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    channelName: General
+    name: example-handle
+    teamName: Example Team
+    tenantName: example-tenant

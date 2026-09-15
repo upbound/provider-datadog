@@ -1,0 +1,47 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: UserRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/userrole
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    roleIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: userrole-foo
+    userIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: userrole-foo
+
+---
+
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/userrole
+  labels:
+    testing.upbound.io/example-name: userrole-foo
+  name: userrole-foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: API Key Manager
+
+---
+
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/userrole
+  labels:
+    testing.upbound.io/example-name: userrole-foo
+  name: userrole-foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    email: userrole-example@example.com

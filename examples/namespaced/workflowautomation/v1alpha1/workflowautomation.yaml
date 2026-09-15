@@ -1,0 +1,24 @@
+apiVersion: workflowautomation.datadog.m.upbound.io/v1alpha1
+kind: WorkflowAutomation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: workflowautomation/v1alpha1/workflowautomation
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Example Workflow
+    description: An example workflow managed by Crossplane
+    published: false
+    tags:
+    - team:backend
+    # specJson is the workflow definition only (handle, triggers, steps); the
+    # API rejects other keys such as name, which belong to the top level.
+    specJson: '{"handle":"crossplane-example","triggers":[{"startStepNames":["Send_Email"],"monitorTrigger":{}}],"steps":[{"name":"Send_Email","actionId":"com.datadoghq.email.send","parameters":[{"name":"to","value":"example@example.com"},{"name":"subject","value":"Monitor alerted"},{"name":"message","value":"Alert from {{ WorkflowName }}."}],"display":{"bounds":{"x":0,"y":216}}}]}'
+    # The webhook secret must be at least 16 characters; example-uuid-key
+    # holds a 36-character value.
+    webhookSecretSecretRef:
+      name: example-secret
+      key: example-uuid-key

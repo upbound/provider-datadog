@@ -7,7 +7,16 @@ Copyright 2026 Upbound Inc.
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
+func (tr *AWSAccount) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *AWSAccountCCMConfig) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *AWSEventBridge) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *AWSExternalID) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Azure) Hub() {}
@@ -32,6 +41,12 @@ func (tr *GCP) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *GCPSTS) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *MSTeamsTenantBasedHandle) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *MSTeamsWorkflowsWebhookHandle) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *OpsgenieServiceObject) Hub() {}

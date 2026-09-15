@@ -1,0 +1,19 @@
+apiVersion: csmthreats.datadog.m.upbound.io/v1alpha1
+kind: Policy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: csmthreats/v1alpha1/policy
+  labels:
+    testing.upbound.io/example-name: example
+  name: my-policy
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: My policy
+    enabled: true
+    hostTagsLists:
+    - - env:prod
+      - team:backend
+    - - env:prod
+      - team:frontend
+    name: my_policy

@@ -1,0 +1,23 @@
+apiVersion: compliance.datadog.m.upbound.io/v1alpha1
+kind: CustomFramework
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compliance/v1alpha1/customframework
+  labels:
+    testing.upbound.io/example-name: framework
+  name: framework
+  namespace: upbound-system
+spec:
+  forProvider:
+    handle: my-custom-framework-terraform
+    name: my-custom-framework-terraform
+    requirements:
+    - controls:
+      - name: control1
+        # Datadog default cloud-configuration rule ids (def-000-*) are the
+        # same in every org.
+        rulesId:
+        - def-000-rq5
+        - def-000-vc2
+      name: requirement1
+    version: 1.0.0

@@ -1,0 +1,52 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: OrgGroupPolicyOverride
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/orggrouppolicyoverride
+    upjet.upbound.io/manual-intervention: "Depends on OrgGroup, which observed 501 Not Implemented during e2e (\"error retrieving org group\"); likely requires the Org Groups feature enabled for the test org."
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    orgGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: orggrouppolicyoverride-foo
+    orgSite: us1
+    orgUuid: ${data.datadog_current_user.me.org_id}
+    policyIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: orggrouppolicyoverride-foo
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: OrgGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/orggrouppolicyoverride
+  labels:
+    testing.upbound.io/example-name: orggrouppolicyoverride-foo
+  name: orggrouppolicyoverride-foo
+spec:
+  forProvider:
+    name: Production Environments
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: OrgGroupPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/orggrouppolicyoverride
+  labels:
+    testing.upbound.io/example-name: orggrouppolicyoverride-foo
+  name: orggrouppolicyoverride-foo
+spec:
+  forProvider:
+    content: '${jsonencode({ "org_config" : false })}'
+    enforcementTier: OVERRIDE_ALLOWED
+    orgGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: orggrouppolicyoverride-foo
+    policyName: is_widget_copy_paste_enabled

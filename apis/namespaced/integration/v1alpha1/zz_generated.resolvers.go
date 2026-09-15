@@ -16,8 +16,60 @@ import (
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func (mg *ConfluentResource) ResolveReferences( // ResolveReferences of this ConfluentResource.
+func (mg *AWSAccountCCMConfig) ResolveReferences( // ResolveReferences of this AWSAccountCCMConfig.
 	ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("integration.datadog.m.upbound.io", "v1alpha1", "AWSAccount", "AWSAccountList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.AwsAccountConfigID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.AwsAccountConfigIDRef,
+			Selector:     mg.Spec.ForProvider.AwsAccountConfigIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.AwsAccountConfigID")
+	}
+	mg.Spec.ForProvider.AwsAccountConfigID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.AwsAccountConfigIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("integration.datadog.m.upbound.io", "v1alpha1", "AWSAccount", "AWSAccountList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.AwsAccountConfigID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.AwsAccountConfigIDRef,
+			Selector:     mg.Spec.InitProvider.AwsAccountConfigIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.AwsAccountConfigID")
+	}
+	mg.Spec.InitProvider.AwsAccountConfigID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.AwsAccountConfigIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this ConfluentResource.
+func (mg *ConfluentResource) ResolveReferences(ctx context.Context, c client.Reader) error {
 	var m xpresource.Managed
 	var l xpresource.ManagedList
 	r := reference.NewAPINamespacedResolver(c, mg)

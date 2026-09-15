@@ -1,0 +1,10 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: AWSExternalID
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/awsexternalid
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider: {}

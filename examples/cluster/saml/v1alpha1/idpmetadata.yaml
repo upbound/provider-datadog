@@ -1,0 +1,15 @@
+apiVersion: saml.datadog.upbound.io/v1alpha1
+kind: IDPMetadata
+metadata:
+  annotations:
+    meta.upbound.io/example-id: saml/v1alpha1/idpmetadata
+    upjet.upbound.io/manual-intervention: "Requires real IdP metadata XML from the organization's SAML identity provider."
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    idpMetadata: |
+      <?xml version="1.0"?>
+      <EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://idp.example.com/saml/metadata">
+      </EntityDescriptor>

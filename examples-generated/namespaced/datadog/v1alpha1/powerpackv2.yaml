@@ -1,0 +1,34 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: PowerpackV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/powerpackv2
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: Created using the Datadog provider in terraform
+    layout:
+    - height: 10
+      width: 3
+      x: 1
+      "y": 0
+    liveSpan: 4h
+    templateVariables:
+    - defaults:
+      - defaults
+      name: datacenter
+    widget:
+    - timeseries_definition:
+      - request:
+        - formula:
+          - formula_expression: my_query_1
+          query:
+          - metric_query:
+            - aggregator: avg
+              data_source: metrics
+              name: my_query_1
+              query: avg:system.cpu.user{*} by {env}
+        title: CPU Usage

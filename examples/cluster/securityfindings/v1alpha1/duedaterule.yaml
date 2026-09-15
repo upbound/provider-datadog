@@ -1,0 +1,21 @@
+apiVersion: securityfindings.datadog.upbound.io/v1alpha1
+kind: DueDateRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: securityfindings/v1alpha1/duedaterule
+  labels:
+    testing.upbound.io/example-name: critical_vulns
+  name: critical-vulns
+spec:
+  forProvider:
+    name: Critical vulnerabilities due date
+    action:
+      dueFrom: first_seen
+      dueDaysPerSeverity:
+      - severity: critical
+        dueInDays: 7
+      - severity: high
+        dueInDays: 30
+    rule:
+      findingTypes:
+      - library_vulnerability

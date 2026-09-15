@@ -1,0 +1,33 @@
+apiVersion: incident.datadog.upbound.io/v1alpha1
+kind: UserDefinedRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/userdefinedrole
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    name: Communications Lead
+    description: Owns customer and internal communications during the incident.
+    policy:
+      isSingle: true
+    incidentTypeSelector:
+      matchLabels:
+        testing.upbound.io/example-name: userdefinedrole-foo
+
+---
+
+apiVersion: incident.datadog.upbound.io/v1alpha1
+kind: IncidentType
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/userdefinedrole
+  labels:
+    testing.upbound.io/example-name: userdefinedrole-foo
+  name: userdefinedrole-foo
+spec:
+  forProvider:
+    name: User Defined Role Incident Type
+    description: Incident type used by the user-defined-role example.
+    isDefault: false

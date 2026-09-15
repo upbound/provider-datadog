@@ -1,0 +1,18 @@
+apiVersion: tag.datadog.upbound.io/v1alpha1
+kind: TagPipelineRuleset
+metadata:
+  annotations:
+    meta.upbound.io/example-id: tag/v1alpha1/tagpipelineruleset
+    upjet.upbound.io/manual-intervention: "The API answered 403 \"This feature is restricted to Cloud Cost Management users\" during e2e; the Datadog org needs Cloud Cost Management."
+  labels:
+    testing.upbound.io/example-name: pii_redaction
+  name: pii-redaction
+spec:
+  forProvider:
+    name: PII redaction
+    enabled: true
+    rules:
+    - name: redact-email
+      enabled: true
+      query:
+        query: "@email:*"

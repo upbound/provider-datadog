@@ -1,0 +1,47 @@
+apiVersion: cloudcost.datadog.m.upbound.io/v1alpha1
+kind: CostCustomForecast
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudcost/v1alpha1/costcustomforecast
+    upjet.upbound.io/manual-intervention: "The API answered 403 \"This feature is restricted to Cloud Cost Management users\" during e2e; the Datadog org needs Cloud Cost Management."
+  labels:
+    testing.upbound.io/example-name: costcustomforecast-foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    budgetUidSelector:
+      matchLabels:
+        testing.upbound.io/example-name: costcustomforecast-budget
+    entries:
+    - month: 202601
+      amount: 2500
+      tagFilters:
+      - tagKey: environment
+        tagValue: production
+
+---
+
+apiVersion: cloudcost.datadog.m.upbound.io/v1alpha1
+kind: CostBudget
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudcost/v1alpha1/costcustomforecast
+  labels:
+    testing.upbound.io/example-name: costcustomforecast-budget
+  name: costcustomforecast-budget
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Custom Forecast Budget
+    metricsQuery: sum:aws.cost.amortized{*} by {environment}
+    startMonth: 202601
+    endMonth: 202603
+    budgetLine:
+    - amounts:
+        "202601": 2000
+        "202602": 2200
+        "202603": 2000
+      tagFilters:
+      - tagKey: environment
+        tagValue: production

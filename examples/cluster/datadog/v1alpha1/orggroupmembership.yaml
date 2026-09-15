@@ -1,0 +1,29 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: OrgGroupMembership
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/orggroupmembership
+    upjet.upbound.io/manual-intervention: "Depends on OrgGroup, which observed 501 Not Implemented during e2e (\"error retrieving org group\"); likely requires the Org Groups feature enabled for the test org."
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    orgGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: orggroupmembership-foo
+    orgUuid: ${data.datadog_current_user.me.org_id}
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: OrgGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/orggroupmembership
+  labels:
+    testing.upbound.io/example-name: orggroupmembership-foo
+  name: orggroupmembership-foo
+spec:
+  forProvider:
+    name: Production Environments

@@ -1,0 +1,35 @@
+apiVersion: data.datadog.upbound.io/v1alpha1
+kind: DatastoreItem
+metadata:
+  annotations:
+    meta.upbound.io/example-id: data/v1alpha1/datastoreitem
+  labels:
+    testing.upbound.io/example-name: user1
+  name: user1
+spec:
+  forProvider:
+    datastoreIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    value:
+      email: john@example.com
+      id: user-123
+      status: active
+      username: john_doe
+
+---
+
+apiVersion: data.datadog.upbound.io/v1alpha1
+kind: Datastore
+metadata:
+  annotations:
+    meta.upbound.io/example-id: data.datadog/v1alpha1/datastoreitem
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    description: Datastore for user data
+    name: users-datastore
+    primaryColumnName: id
+    primaryKeyGenerationStrategy: none

@@ -1,0 +1,26 @@
+apiVersion: securityfindings.datadog.m.upbound.io/v1alpha1
+kind: DueDateRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: securityfindings/v1alpha1/duedaterule
+  labels:
+    testing.upbound.io/example-name: prod_sla
+  name: prod-sla
+  namespace: upbound-system
+spec:
+  forProvider:
+    action:
+      dueDaysPerSeverity:
+      - dueInDays: 7
+        severity: critical
+      - dueInDays: 30
+        severity: high
+      - dueInDays: 90
+        severity: medium
+      dueFrom: first_seen
+    enabled: true
+    name: SLA for production misconfigurations
+    rule:
+      findingTypes:
+      - misconfiguration
+      query: env:prod

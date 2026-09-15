@@ -21,6 +21,15 @@ func Configure(p *config.Provider) {
 		// this resource, which would be "datadog"
 		r.ShortGroup = "synthetics.datadog"
 	})
+	p.AddResourceConfigurator("datadog_synthetics_suite", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "SyntheticsSuite"
+		r.ShortGroup = "synthetics.datadog"
+		r.References["tests.public_id"] = config.Reference{
+			TerraformName: "datadog_synthetics_test",
+		}
+	})
 	p.AddResourceConfigurator("datadog_synthetics_test", func(r *config.Resource) {
 		// The API returns these blocks zero-valued for tests that do not use
 		// them; late-initializing them into the spec makes Terraform demand

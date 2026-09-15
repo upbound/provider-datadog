@@ -1,0 +1,16 @@
+apiVersion: agentlessscanning.datadog.m.upbound.io/v1alpha1
+kind: AzureScanOptions
+metadata:
+  annotations:
+    meta.upbound.io/example-id: agentlessscanning/v1alpha1/azurescanoptions
+    upjet.upbound.io/manual-intervention: "Requires the subscription id of an Azure subscription already integrated with Datadog (via the Azure integration)."
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    azureSubscriptionId: "12345678-1234-1234-1234-123456789012"
+    function: true
+    vulnContainersOs: true
+    vulnHostOs: true

@@ -13,28 +13,6 @@ import (
 	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
-type FilterInitParameters struct {
-
-	// following the span search syntax. Defaults to "*".
-	// The search query - following the span search syntax. Defaults to `"*"`.
-	Query *string `json:"query,omitempty" tf:"query,omitempty"`
-}
-
-type FilterObservation struct {
-
-	// following the span search syntax. Defaults to "*".
-	// The search query - following the span search syntax. Defaults to `"*"`.
-	Query *string `json:"query,omitempty" tf:"query,omitempty"`
-}
-
-type FilterParameters struct {
-
-	// following the span search syntax. Defaults to "*".
-	// The search query - following the span search syntax. Defaults to `"*"`.
-	// +kubebuilder:validation:Optional
-	Query *string `json:"query,omitempty" tf:"query,omitempty"`
-}
-
 type SpansMetricComputeInitParameters struct {
 
 	// (String) The type of aggregation to use. This field can't be updated after creation.
@@ -83,6 +61,28 @@ type SpansMetricComputeParameters struct {
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 }
 
+type SpansMetricFilterInitParameters struct {
+
+	// following the span search syntax. Defaults to "*".
+	// The search query - following the span search syntax. Defaults to `"*"`.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type SpansMetricFilterObservation struct {
+
+	// following the span search syntax. Defaults to "*".
+	// The search query - following the span search syntax. Defaults to `"*"`.
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type SpansMetricFilterParameters struct {
+
+	// following the span search syntax. Defaults to "*".
+	// The search query - following the span search syntax. Defaults to `"*"`.
+	// +kubebuilder:validation:Optional
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
 type SpansMetricGroupByInitParameters struct {
 
 	// based metric will aggregate on (only used if the aggregation type is a "distribution"). This field can't be updated after creation.
@@ -124,7 +124,7 @@ type SpansMetricInitParameters struct {
 	Compute *SpansMetricComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// (Block, Optional) (see below for nested schema)
-	Filter *FilterInitParameters `json:"filter,omitempty" tf:"filter,omitempty"`
+	Filter *SpansMetricFilterInitParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
 	// (Block Set) (see below for nested schema)
 	GroupBy []SpansMetricGroupByInitParameters `json:"groupBy,omitempty" tf:"group_by,omitempty"`
@@ -140,7 +140,7 @@ type SpansMetricObservation struct {
 	Compute *SpansMetricComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// (Block, Optional) (see below for nested schema)
-	Filter *FilterObservation `json:"filter,omitempty" tf:"filter,omitempty"`
+	Filter *SpansMetricFilterObservation `json:"filter,omitempty" tf:"filter,omitempty"`
 
 	// (Block Set) (see below for nested schema)
 	GroupBy []SpansMetricGroupByObservation `json:"groupBy,omitempty" tf:"group_by,omitempty"`
@@ -161,7 +161,7 @@ type SpansMetricParameters struct {
 
 	// (Block, Optional) (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	Filter *FilterParameters `json:"filter,omitempty" tf:"filter,omitempty"`
+	Filter *SpansMetricFilterParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
 	// (Block Set) (see below for nested schema)
 	// +kubebuilder:validation:Optional

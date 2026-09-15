@@ -1,0 +1,15 @@
+apiVersion: compliance.datadog.upbound.io/v1alpha1
+kind: ResourceEvaluationFilter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compliance/v1alpha1/resourceevaluationfilter
+    upjet.upbound.io/manual-intervention: "resourceId must be a real cloud resource id (e.g. an AWS account id) integrated with Datadog Cloud Security Management."
+  labels:
+    testing.upbound.io/example-name: basic_filter
+  name: basic-filter
+spec:
+  forProvider:
+    cloudProvider: aws
+    resourceId: "123456789012"
+    tags:
+    - tag1:val1

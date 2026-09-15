@@ -1,0 +1,18 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: MonitorNotificationRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/monitornotificationrule
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    filter:
+      tags:
+      - team:checkout
+    name: Route alerts from checkout team
+    recipients:
+    - slack-checkout-ops
+    - jira-checkout

@@ -1,0 +1,18 @@
+apiVersion: cloudcost.datadog.m.upbound.io/v1alpha1
+kind: GCPUCConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudcost/v1alpha1/gcpucconfig
+    upjet.upbound.io/manual-intervention: "Requires a real GCP billing account with a Usage Cost export configured to a BigQuery dataset, plus a service account with read access."
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    billingAccountId: "000000-000000-000000"
+    bucketName: example-gcp-cost-bucket
+    exportDatasetName: example_dataset
+    exportPrefix: gcp_billing_export
+    exportProjectName: example-gcp-project
+    serviceAccount: example-service-account@example-gcp-project.iam.gserviceaccount.com

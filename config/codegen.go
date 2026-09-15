@@ -19,7 +19,8 @@ import (
 var codegenConfigurators = map[string]ujconfig.ResourceConfiguratorFn{
 	// The widget schema is hundreds of kilobytes of nested blocks; the CRD
 	// keeps it as a JSON string that is never sent to Terraform.
-	"datadog_powerpack": widgetAsJSONString("(String) The JSON formatted definition of the list of widgets to display in the powerpack."),
+	"datadog_powerpack":    widgetAsJSONString("(String) The JSON formatted definition of the list of widgets to display in the powerpack."),
+	"datadog_powerpack_v2": widgetAsJSONString("(String) The JSON formatted definition of the list of widgets to display in the powerpack."),
 	// rum_settings.client_token_id is a sensitive number upstream, and upjet
 	// can only generate string-typed sensitive fields. The value is the
 	// numeric id of a RUM client token, not the token itself, so it is

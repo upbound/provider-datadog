@@ -1,0 +1,27 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: AWSAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/awsaccount
+    upjet.upbound.io/manual-intervention: "Requires a real AWS account with the DatadogIntegrationRole trust relationship already configured; awsAccountId and authConfig.awsAuthConfigRole.externalId must match that account."
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    accountTags:
+    - env:prod
+    authConfig:
+      awsAuthConfigRole:
+        externalId: 00000000-0000-1234-0000-000000000000
+        roleName: DatadogIntegrationRole
+    awsAccountId: "123456789012"
+    awsPartition: aws
+    awsRegions:
+      includeAll: true
+    resourcesConfig:
+      cloudSecurityPostureManagementCollection: true
+      extendedCollection: true
+    tracesConfig:
+      xrayServices:
+        includeAll: true

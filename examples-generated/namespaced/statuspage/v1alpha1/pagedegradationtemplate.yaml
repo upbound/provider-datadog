@@ -1,0 +1,62 @@
+apiVersion: statuspage.datadog.m.upbound.io/v1alpha1
+kind: PageDegradationTemplate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: statuspage/v1alpha1/pagedegradationtemplate
+  labels:
+    testing.upbound.io/example-name: acme_degradation_template
+  name: acme-degradation-template
+  namespace: upbound-system
+spec:
+  forProvider:
+    componentsAffected:
+    - id: ${datadog_status_page_component.acme_api.id}
+      status: degraded
+    degradationTitle: Acme API is degraded
+    name: Acme API Degradation
+    pageIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: acme_status_page
+    updates:
+    - message: We are investigating issues with the Acme API.
+      status: investigating
+    - message: We have resolved the Acme API issues.
+      status: resolved
+
+---
+
+apiVersion: statuspage.datadog.m.upbound.io/v1alpha1
+kind: Page
+metadata:
+  annotations:
+    meta.upbound.io/example-id: statuspage.datadog/v1alpha1/pagedegradationtemplate
+  labels:
+    testing.upbound.io/example-name: acme_status_page
+  name: acme-status-page
+  namespace: upbound-system
+spec:
+  forProvider:
+    domainPrefix: acme-status
+    name: Acme Status
+    type: public
+    visualizationType: bars_and_uptime_percentage
+
+---
+
+apiVersion: statuspage.datadog.m.upbound.io/v1alpha1
+kind: PageComponent
+metadata:
+  annotations:
+    meta.upbound.io/example-id: statuspage.datadog/v1alpha1/pagedegradationtemplate
+  labels:
+    testing.upbound.io/example-name: acme_api
+  name: acme-api
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: API
+    pageIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: acme_status_page
+    position: 0
+    type: component

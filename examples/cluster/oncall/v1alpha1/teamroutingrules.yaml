@@ -1,0 +1,42 @@
+apiVersion: oncall.datadog.upbound.io/v1alpha1
+kind: TeamRoutingRules
+metadata:
+  annotations:
+    # The external name is the id of an existing Team: the routing rules
+    # resource has no configurable field for it, so the uptest datasource
+    # supplies the id of the org's permanent "uptest-fixtures" team.
+    crossplane.io/external-name: ${data.datadog_team.uptest.id}
+    meta.upbound.io/example-id: oncall/v1alpha1/teamroutingrules
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    rule:
+    - action:
+      - escalationPolicy:
+          policyIdSelector:
+            matchLabels:
+              testing.upbound.io/example-name: teamroutingrules-foo
+          urgency: high
+
+---
+
+apiVersion: oncall.datadog.upbound.io/v1alpha1
+kind: EscalationPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/teamroutingrules
+  labels:
+    testing.upbound.io/example-name: teamroutingrules-foo
+  name: teamroutingrules-foo
+spec:
+  forProvider:
+    name: Team Routing Rules Escalation Policy
+    resolvePageOnPolicyEnd: false
+    retries: 0
+    step:
+    - assignment: default
+      escalateAfterSeconds: 300
+      target:
+      - user: ${data.datadog_current_user.me.id}

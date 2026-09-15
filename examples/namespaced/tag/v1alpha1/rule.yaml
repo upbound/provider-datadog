@@ -1,0 +1,19 @@
+apiVersion: tag.datadog.m.upbound.io/v1alpha1
+kind: Rule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: tag/v1alpha1/rule
+  labels:
+    testing.upbound.io/example-name: require_service_tag
+  name: require-service-tag
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Require service tag on logs
+    source: logs
+    scope: env:production
+    tagKey: service
+    tagValuePatterns:
+    - "*"
+    ruleType: surfacing
+    required: true
