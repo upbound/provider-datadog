@@ -25,6 +25,10 @@ func Configure(p *config.Provider) {
 		r.ShortGroup = datadog
 	})
 	p.AddResourceConfigurator("datadog_service_level_objective", func(r *config.Resource) {
+		// The API returns the SLI specification it derives from a metric
+		// query (and vice versa); late-initializing either next to the one
+		// the user set makes Terraform reject the pair as conflicting.
+		r.LateInitializer = config.LateInitializer{IgnoredFields: []string{"query", "sli_specification"}}
 		// We need to override the default group that upjet generated for
 		// this resource, which would be "datadog"
 		r.Kind = "ServiceLevelObjective"
