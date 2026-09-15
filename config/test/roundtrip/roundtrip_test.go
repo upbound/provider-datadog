@@ -11,6 +11,8 @@ import (
 	"testing"
 
 	"github.com/crossplane/upjet/v2/pkg/apitesting/roundtrip"
+	"github.com/terraform-providers/terraform-provider-datadog/datadog"
+	"github.com/terraform-providers/terraform-provider-datadog/datadog/fwprovider"
 	"k8s.io/apimachinery/pkg/runtime"
 
 	clusterapis "github.com/upbound/provider-datadog/apis/cluster"
@@ -27,7 +29,18 @@ func TestRoundTrip(t *testing.T) {
 		t.Fatalf("namespaced apis AddToScheme: %s", err)
 	}
 
-	rt, err := roundtrip.NewRoundTripTest(config.GetProvider(), config.GetProviderNamespaced(), testScheme,
+	sdkProvider := datadog.Provider()
+	fwProvider := fwprovider.New()
+	provider, err := config.GetProvider(sdkProvider, fwProvider, false)
+	if err != nil {
+		t.Fatalf("GetProvider: %s", err)
+	}
+	providerNamespaced, err := config.GetProviderNamespaced(sdkProvider, fwProvider, false)
+	if err != nil {
+		t.Fatalf("GetProviderNamespaced: %s", err)
+	}
+
+	rt, err := roundtrip.NewRoundTripTest(provider, providerNamespaced, testScheme,
 		roundtrip.WithFuzzerConfig(
 			roundtrip.FuzzerIterations(10),
 			roundtrip.FuzzerNilChance(0)),

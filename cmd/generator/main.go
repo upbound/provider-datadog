@@ -15,6 +15,8 @@ import (
 	"github.com/alecthomas/kingpin/v2"
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
 	"github.com/crossplane/upjet/v2/pkg/pipeline"
+	"github.com/terraform-providers/terraform-provider-datadog/datadog"
+	"github.com/terraform-providers/terraform-provider-datadog/datadog/fwprovider"
 
 	"github.com/upbound/provider-datadog/config"
 )
@@ -31,10 +33,15 @@ func main() {
 	absRootDir, err := filepath.Abs(*repoRoot)
 	kingpin.FatalIfError(err, "cannot calculate the absolute path with %s", *repoRoot)
 
-	pc := config.GetProvider()
+	sdkProvider := datadog.Provider()
+	fwProvider := fwprovider.New()
+	pc, err := config.GetProvider(sdkProvider, fwProvider, true)
+	kingpin.FatalIfError(err, "cannot initialize the cluster-scoped provider configuration")
+	pns, err := config.GetProviderNamespaced(sdkProvider, fwProvider, true)
+	kingpin.FatalIfError(err, "cannot initialize the namespaced provider configuration")
 	kingpin.FatalIfError(dumpGeneratedResourceList(pc, *generatedResourceList), "cannot write the generated resource list")
 	kingpin.FatalIfError(dumpSkippedResourcesCSV(pc, *skippedResourcesCSV), "cannot write the skipped resources CSV")
-	pipeline.Run(pc, config.GetProviderNamespaced(), absRootDir)
+	pipeline.Run(pc, pns, absRootDir)
 }
 
 func dumpGeneratedResourceList(p *ujconfig.Provider, targetPath string) error {
