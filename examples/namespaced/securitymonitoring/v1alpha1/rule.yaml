@@ -16,7 +16,7 @@ spec:
       status: high
     enabled: true
     message: The rule has triggered.
-    name: My rule
+    name: My rule ${Rand.RFC1123Subdomain}
     options:
     - evaluationWindow: 300
       keepAlive: 600

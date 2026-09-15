@@ -12,4 +12,3 @@ spec:
     name: sample_pipeline_order
     pipelinesRefs:
     - name: sample-pipeline
-    - name: python

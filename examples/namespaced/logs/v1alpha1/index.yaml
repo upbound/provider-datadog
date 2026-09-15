@@ -27,7 +27,7 @@ spec:
       name: Kubernetes apiserver
     filter:
       query: '*'
-    name: your-index
+    name: ${Rand.RFC1123Subdomain}
     retentionDays: 15
     tags:
     - team:backend
