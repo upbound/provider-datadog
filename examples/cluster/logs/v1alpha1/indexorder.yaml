@@ -9,5 +9,5 @@ metadata:
 spec:
   forProvider:
     indexesRefs:
-    - name: sample_index
+    - name: sample-index
     name: sample_index_order

@@ -9,5 +9,5 @@ metadata:
 spec:
   forProvider:
     archiveIdsRefs:
-    - name: sample_archive_1
-    - name: sample_archive_2
+    - name: sample-archive-1
+    - name: sample-archive-2

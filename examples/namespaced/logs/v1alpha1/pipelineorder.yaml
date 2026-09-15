@@ -11,5 +11,5 @@ spec:
   forProvider:
     name: sample_pipeline_order
     pipelinesRefs:
-    - name: sample_pipeline
+    - name: sample-pipeline
     - name: python

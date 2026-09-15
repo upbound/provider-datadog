@@ -16,7 +16,7 @@ import (
 var ExternalNameConfigs = map[string]config.ExternalName{
 	// Import requires using a randomly generated ID from provider: nl-2e21sda
 	"datadog_api_key":                            datadogExternalNameWithInjectedUUID(),
-	"datadog_apm_retention_filter":               config.IdentifierFromProvider,
+	"datadog_apm_retention_filter":               datadogExternalNameWithInjectedUUID(),
 	"datadog_apm_retention_filter_order":         config.IdentifierFromProvider,
 	"datadog_application_key":                    datadogExternalNameWithInjectedID(),
 	"datadog_authn_mapping":                      config.IdentifierFromProvider,
@@ -61,8 +61,8 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"datadog_role":                                 config.IdentifierFromProvider,
 	"datadog_rum_application":                      datadogExternalNameWithInjectedID(),
 	"datadog_security_monitoring_default_rule":     config.IdentifierFromProvider,
-	"datadog_security_monitoring_filter":           config.IdentifierFromProvider,
-	"datadog_security_monitoring_rule":             config.IdentifierFromProvider,
+	"datadog_security_monitoring_filter":           datadogExternalNameWithInjectedUUID(),
+	"datadog_security_monitoring_rule":             datadogExternalNameWithInjectedUUID(),
 	"datadog_sensitive_data_scanner_group":         config.IdentifierFromProvider,
 	"datadog_sensitive_data_scanner_group_order":   config.IdentifierFromProvider,
 	"datadog_sensitive_data_scanner_rule":          config.IdentifierFromProvider,

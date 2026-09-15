@@ -25,18 +25,12 @@ spec:
       import future.keywords.if
       import future.keywords.in
 
-      eval(resource) := "skip" if {
-          # Logic that evaluates to true if the resource should be skipped
-          true
-      } else := "pass" if {
-          # Logic that evaluates to true if the resource is compliant
-          true
-      } else := "fail" if {
-          # Logic that evaluates to true if the resource is not compliant
-          true
-      }
+      # A bucket passes when it carries an env tag; validated with
+      # POST /api/v2/security_monitoring/rules/validation on 2026-09-15.
+      eval(bucket) := "pass" if {
+          bucket.tags["env"]
+      } else := "fail"
 
-      # This part remains unchanged for all rules
       results contains result if {
           some resource in input.resources[input.main_resource_type]
           result := dd_output.format(resource, eval(resource))
