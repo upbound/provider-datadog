@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: fake_service_name
   name: fake-service-name
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     name: fake_service_name

@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: myrule
   name: myrule
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     description: Another description

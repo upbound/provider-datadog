@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: my_s3_archive
   name: my-s3-archive
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     name: my s3 archive

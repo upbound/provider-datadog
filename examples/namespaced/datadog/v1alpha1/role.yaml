@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: role-foo
   name: role-foo
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     name: role-foo

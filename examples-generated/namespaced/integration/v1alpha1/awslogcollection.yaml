@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: main
   name: main
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     accountId: "1234567890"

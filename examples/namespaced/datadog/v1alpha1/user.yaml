@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: test-user-foo
   name: test-user-foo
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     # required

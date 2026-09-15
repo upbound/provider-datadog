@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: pagerduty-secret
-  namespace: crossplane-system
+  namespace: upbound-system
 type: Opaque
 stringData:
   credentials: |

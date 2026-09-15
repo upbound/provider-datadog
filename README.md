@@ -46,7 +46,7 @@ spec:
     source: Secret
     secretRef:
       name: datadog-creds
-      namespace: crossplane-system
+      namespace: upbound-system
       key: credentials
 ```
 
@@ -61,7 +61,7 @@ spec:
     source: Secret
     secretRef:
       name: datadog-creds
-      namespace: crossplane-system
+      namespace: upbound-system
       key: credentials
 ```
 

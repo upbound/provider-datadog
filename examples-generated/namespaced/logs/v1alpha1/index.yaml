@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample_index
   name: sample-index
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     dailyLimit: 200000

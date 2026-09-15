@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: mygrouporder
   name: mygrouporder
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     groupIds:

@@ -11,5 +11,5 @@ spec:
     serviceKeySecretRef:
       key: credentials
       name: pagerduty-secret
-      namespace: crossplane-system
+      namespace: upbound-system
     serviceName: testing_foo

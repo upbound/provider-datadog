@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: testing_spans_metric
   name: testing-spans-metric
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     compute:

@@ -8,7 +8,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: organization
   name: child-org-foo
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     name: child-org-foo

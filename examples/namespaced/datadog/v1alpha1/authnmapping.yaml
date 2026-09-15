@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: dev_ro_role_mapping
   name: dev-ro-role-mapping
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     key: Member-of

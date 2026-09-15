@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: new_list
   name: new-list
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     dashItem:

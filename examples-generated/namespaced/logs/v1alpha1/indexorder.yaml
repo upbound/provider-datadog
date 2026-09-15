@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample_index_order
   name: sample-index-order
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     indexes:

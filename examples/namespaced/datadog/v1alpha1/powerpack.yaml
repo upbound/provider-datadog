@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: foo
   name: foo
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     description: Created using the Datadog provider in terraform
@@ -39,6 +39,6 @@ metadata:
   labels:
     testing.upbound.io/example-name: organization
   name: organization
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider: {}

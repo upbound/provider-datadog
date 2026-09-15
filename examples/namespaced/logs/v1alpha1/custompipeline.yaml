@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample_pipeline
   name: sample-pipeline
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     filter:

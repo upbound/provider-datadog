@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: awesome_gcp_project_integration
   name: awesome-gcp-project-integration
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     clientEmail: awesome-service-account@awesome-project-id.iam.gserviceaccount.com

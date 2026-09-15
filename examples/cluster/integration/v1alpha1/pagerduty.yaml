@@ -12,7 +12,7 @@ spec:
     apiTokenSecretRef:
       key: credentials
       name: pagerduty-secret
-      namespace: crossplane-system
+      namespace: upbound-system
     schedules:
     - https://ddog.pagerduty.com/schedules/X123VF
     - https://ddog.pagerduty.com/schedules/X321XX

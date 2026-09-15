@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: pd
   name: pd
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     apiTokenSecretRef:
@@ -27,7 +27,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: testing_bar
   name: testing-bar
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     serviceKeySecretRef:
@@ -45,7 +45,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: testing_foo
   name: testing-foo
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     serviceKeySecretRef:

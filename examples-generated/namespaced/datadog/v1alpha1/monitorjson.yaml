@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: monitor_json
   name: monitor-json
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     monitor: "{\n    \"name\": \"Example monitor - service check\",\n    \"type\":

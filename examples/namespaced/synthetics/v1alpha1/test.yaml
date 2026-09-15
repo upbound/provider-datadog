@@ -18,14 +18,14 @@ spec:
     message: Notify @pagerduty
     name: An Uptime test on example.org
     optionsList:
-    - monitorOptions:
-      - renotifyInterval: 120
+      monitorOptions:
+        renotifyInterval: 120
       retry:
-      - count: 2
+        count: 2
         interval: 300
       tickEvery: 900
     requestDefinition:
-    - method: GET
+      method: GET
       url: https://www.example.org
     requestHeaders:
       Content-Type: application/json

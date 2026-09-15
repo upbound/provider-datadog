@@ -13,4 +13,4 @@ spec:
     valueSecretRef:
       key: info
       name: datadog-webhook-secret
-      namespace: crossplane-system
+      namespace: upbound-system

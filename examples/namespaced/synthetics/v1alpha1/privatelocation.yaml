@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: private_location
   name: private-location
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     description: Description of the private location

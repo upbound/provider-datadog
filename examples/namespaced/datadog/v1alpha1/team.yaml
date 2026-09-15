@@ -2,7 +2,7 @@ apiVersion: datadog.m.upbound.io/v1alpha1
 kind: Team
 metadata:
   name: team-foo
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     name: team-foo

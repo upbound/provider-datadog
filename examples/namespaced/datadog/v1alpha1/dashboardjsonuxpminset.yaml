@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: dashboard_json_uxp_min_set
   name: dashboard-json-uxp-min-set
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     dashboard: |

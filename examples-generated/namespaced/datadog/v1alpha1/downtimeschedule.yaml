@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: downtime_schedule_example
   name: downtime-schedule-example
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     displayTimezone: America/New_York

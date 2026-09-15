@@ -25,9 +25,6 @@ const (
 	rootGroupCluster    = "upbound.io"
 	rootGroupNamespaced = "m.upbound.io"
 
-	// exampleManifestNamespace is the namespace set on the generated example
-	// manifests of namespaced resources.
-	exampleManifestNamespace = "crossplane-system"
 )
 
 //go:embed schema.json
@@ -48,10 +45,7 @@ func GetProvider() *ujconfig.Provider {
 
 // GetProviderNamespaced returns the namespaced provider configuration.
 func GetProviderNamespaced() *ujconfig.Provider {
-	pc := newProvider(rootGroupNamespaced,
-		ujconfig.WithExampleManifestConfiguration(ujconfig.ExampleManifestConfiguration{
-			ManagedResourceNamespace: exampleManifestNamespace,
-		}))
+	pc := newProvider(rootGroupNamespaced)
 	for _, configure := range namespaced.Configurators {
 		configure(pc)
 	}

@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: sample_archive_order
   name: sample-archive-order
-  namespace: crossplane-system
+  namespace: upbound-system
 spec:
   forProvider:
     archiveIds:
