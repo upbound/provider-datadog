@@ -3,6 +3,7 @@ kind: Azure
 metadata:
   annotations:
     meta.upbound.io/example-id: integration/v1alpha1/azure
+    upjet.upbound.io/manual-intervention: The Azure integration must be installed in the Datadog organization and real tenant credentials provided.
   labels:
     testing.upbound.io/example-name: sandbox
   name: sandbox

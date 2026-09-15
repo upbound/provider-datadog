@@ -33,7 +33,7 @@ spec:
     serviceKeySecretRef:
       key: example-key
       name: example-secret
-    serviceName: testing_bar
+    serviceName: pagerduty_testing_bar
 
 ---
 
@@ -51,4 +51,4 @@ spec:
     serviceKeySecretRef:
       key: example-key
       name: example-secret
-    serviceName: testing_foo
+    serviceName: pagerduty_testing_foo

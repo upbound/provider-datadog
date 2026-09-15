@@ -11,6 +11,6 @@ spec:
   forProvider:
     name: fake_service_name
     opsgenieApiKeySecretRef:
-      key: example-key
+      key: example-uuid-key
       name: example-secret
     region: us

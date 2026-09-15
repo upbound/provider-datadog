@@ -3,6 +3,7 @@ kind: IPAllowList
 metadata:
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/ipallowlist
+    upjet.upbound.io/manual-intervention: The IP allowlist feature must be enabled for the Datadog organization first.
   labels:
     testing.upbound.io/example-name: example
   name: example

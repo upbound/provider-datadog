@@ -12,7 +12,6 @@ spec:
     bindings:
     - principals:
       - user:${data.datadog_current_user.me.id}
-      - team:00000000-0000-1111-0000-000000000000
       relation: editor
     - principals:
       - org:${data.datadog_current_user.me.org_id}

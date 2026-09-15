@@ -45,7 +45,7 @@ YAML
 fi
 
 echo "Creating the placeholder secret referenced by the examples..."
-${KUBECTL} -n crossplane-system create secret generic example-secret --from-literal=example-key=example-value --dry-run=client -o yaml | ${KUBECTL} apply -f -
+${KUBECTL} -n crossplane-system create secret generic example-secret --from-literal=example-key=example-value --from-literal=example-uuid-key=9c2b6a1e-4d3f-4b8a-9e2c-7f1d0a5b3c6e --dry-run=client -o yaml | ${KUBECTL} apply -f -
 
 ${KUBECTL} wait provider.pkg --all --for condition=Healthy --timeout 5m
 ${KUBECTL} -n upbound-system wait --for=condition=Available deployment --all --timeout=5m

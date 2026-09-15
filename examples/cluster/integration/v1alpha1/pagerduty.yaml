@@ -33,7 +33,7 @@ spec:
       key: example-key
       name: example-secret
       namespace: crossplane-system
-    serviceName: testing_bar
+    serviceName: pagerduty_testing_bar
 
 ---
 
@@ -51,4 +51,4 @@ spec:
       key: example-key
       name: example-secret
       namespace: crossplane-system
-    serviceName: testing_foo
+    serviceName: pagerduty_testing_foo

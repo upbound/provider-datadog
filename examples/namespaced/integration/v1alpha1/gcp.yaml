@@ -3,6 +3,7 @@ kind: GCP
 metadata:
   annotations:
     meta.upbound.io/example-id: integration/v1alpha1/gcp
+    upjet.upbound.io/manual-intervention: The GCP integration must be installed in the Datadog organization and a real service account key provided.
   labels:
     testing.upbound.io/example-name: awesome_gcp_project_integration
   name: awesome-gcp-project-integration

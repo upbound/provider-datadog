@@ -3,6 +3,7 @@ kind: AWSEventBridge
 metadata:
   annotations:
     meta.upbound.io/example-id: integration/v1alpha1/awseventbridge
+    upjet.upbound.io/manual-intervention: The Amazon EventBridge integration must be installed in the Datadog organization first.
   labels:
     testing.upbound.io/example-name: foo
   name: foo

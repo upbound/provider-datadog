@@ -9,7 +9,7 @@ metadata:
 spec:
   forProvider:
     automute: true
-    clientEmail: ${google_service_account.datadog_integration.email}
+    clientEmail: datadog-integration@example-project.iam.gserviceaccount.com
     cloudRunRevisionFilters:
     - filter_one
     - filter_two

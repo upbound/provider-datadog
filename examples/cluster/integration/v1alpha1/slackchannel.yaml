@@ -3,6 +3,7 @@ kind: SlackChannel
 metadata:
   annotations:
     meta.upbound.io/example-id: integration/v1alpha1/slackchannel
+    upjet.upbound.io/manual-intervention: "The Slack integration and the referenced Slack account must be configured in the Datadog organization first."
   labels:
     testing.upbound.io/example-name: test_channel
   name: test-channel
