@@ -3,6 +3,7 @@ kind: GroupOrder
 metadata:
   annotations:
     meta.upbound.io/example-id: sensitivedatascanner/v1alpha1/grouporder
+    upjet.upbound.io/manual-intervention: "The API requires the complete ordered list of the organization's Sensitive Data Scanner groups and reads the whole list back, so the example never converges next to groups it does not list; replace the list with all groups of the organization."
   labels:
     testing.upbound.io/example-name: mygrouporder
   name: mygrouporder
