@@ -1,0 +1,139 @@
+name: Publish Provider Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version string to use while publishing the packages"
+        required: true
+        type: string
+
+env:
+  # Common versions
+  DOCKER_BUILDX_VERSION: 'v0.34.1'
+  UP_VERSION: stable/v0.49.1
+  UP_DOMAIN: https://upbound.io
+
+jobs:
+  publish-provider-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleanup Disk
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
+        with:
+          android: true
+          dotnet: true
+          haskell: true
+          tool-cache: true
+          large-packages: false
+          swap-storage: false
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@06116385d9baf250c9f4dcb4858b16962ea869c3 # v4.1.0
+        with:
+          platforms: all
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
+        with:
+          version: ${{ env.DOCKER_BUILDX_VERSION }}
+
+      - name: Up Login
+        env:
+          UP_TOKEN: ${{ secrets.XPKG_TOKEN }}
+        run: |
+          curl -fsSLo /tmp/up --create-dirs 'https://cli.upbound.io/${{ env.UP_VERSION }}/bin/linux_amd64/up' && \
+          chmod +x /tmp/up && \
+          /tmp/up login
+
+      - name: Install docker-credential-up
+        run: |
+          curl -fsSLo /tmp/docker-credential-up --create-dirs 'https://cli.upbound.io/${{ env.UP_VERSION }}/bin/linux_amd64/docker-credential-up' && \
+          chmod +x /tmp/docker-credential-up && \
+          sudo mv /tmp/docker-credential-up /usr/local/bin/docker-credential-up
+
+      - name: Get creds
+        run: |
+          echo "${{ env.UP_DOMAIN }}" | docker-credential-up get > $HOME/.up/up.token.json
+          echo "DOCKER_USERNAME=$(cat $HOME/.up/up.token.json | jq -r '.Username')" >> $GITHUB_ENV
+          echo "DOCKER_PWD=$(cat $HOME/.up/up.token.json | jq -r '.Secret')" >> $GITHUB_ENV
+
+      - name: Login to Upbound
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
+        if: env.DOCKER_USERNAME != ''
+        with:
+          registry: xpkg.upbound.io
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ env.DOCKER_PWD }}
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: true
+
+      - name: Fetch History
+        run: git fetch --prune --unshallow
+
+      - name: Setup Go
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: go.mod
+
+      - name: Find the Go Build Cache
+        id: go_cache
+        run: |
+          echo "cache=$(make go.cachedir)" >> $GITHUB_OUTPUT && \
+          echo "mod_cache=$(make go.mod.cachedir)" >> $GITHUB_OUTPUT
+
+      - name: Cache the Go Build Cache
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: ${{ steps.go_cache.outputs.cache }}
+          key: ${{ runner.os }}-build-publish-artifacts-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}-build-publish-artifacts-
+
+      - name: Cache Go Dependencies
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: ${{ steps.go_cache.outputs.mod_cache }}
+          key: ${{ runner.os }}-pkg-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}-pkg-
+
+      - name: Vendor Dependencies
+        run: make vendor vendor.check
+
+      - name: Generate release notes
+        env:
+          GH_TOKEN: ${{ secrets.UPBOUND_BOT_GITHUB_TOKEN }}
+        run: |
+          RELEASE_BODY=$(gh release view ${{ inputs.version }} --repo upbound/provider-datadog --json body -q .body 2>/dev/null || true)
+          if [ -n "$RELEASE_BODY" ]; then
+            echo "$RELEASE_BODY" >> "release_notes.md"
+          fi
+
+      - name: Build Artifacts
+        id: build_artifacts
+        run: |
+          make -j ${{ inputs.version != '' && format('VERSION={0}', inputs.version) || '' }} build.all
+        env:
+          # We're using docker buildx, which doesn't actually load the images it
+          # builds by default. Specifying --load does so.
+          BUILD_ARGS: "--load"
+
+      - name: Publish Artifacts
+        run: |
+          make -j BRANCH_NAME=${GITHUB_REF##*/} ${{ inputs.version != '' && format('VERSION={0}', inputs.version) || '' }} publish
+
+      - name: Append package assets for Marketplace
+        run: |
+          extensions_dir=${{ github.workspace }}/extensions
+
+          mkdir -p $extensions_dir/readme
+          cp ./README.md $extensions_dir/readme/readme.md
+
+          mkdir -p $extensions_dir/release-notes
+          if [ -f ./release_notes.md ]; then
+            cp ./release_notes.md $extensions_dir/release-notes/
+          fi
+
+          /tmp/up alpha xpkg append xpkg.upbound.io/upbound/provider-datadog:${{ inputs.version }} --extensions-root $extensions_dir
