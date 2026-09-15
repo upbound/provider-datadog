@@ -9,7 +9,6 @@ import (
 
 	"github.com/crossplane/upjet/v2/pkg/config"
 	"github.com/google/uuid"
-	"github.com/pkg/errors"
 )
 
 // ExternalNameConfigs contains all external name configurations for this
@@ -80,10 +79,13 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"datadog_team":                                 datadogExternalNameWithInjectedID(),
 	"datadog_team_link":                            datadogExternalNameWithInjectedID(),
 	"datadog_team_membership":                      config.IdentifierFromProvider,
-	"datadog_team_permission_setting":              teamPermissionSettingExternalName(),
-	"datadog_user":                                 datadogExternalNameWithInjectedID(),
-	"datadog_webhook":                              config.IdentifierFromProvider,
-	"datadog_webhook_custom_variable":              config.IdentifierFromProvider,
+	// The framework resource resolves an empty id from team_id and action and
+	// stores the API identifier of the setting, which exists as soon as its
+	// team does; a stub id only produces a not-found error.
+	"datadog_team_permission_setting": config.IdentifierFromProvider,
+	"datadog_user":                    datadogExternalNameWithInjectedID(),
+	"datadog_webhook":                 config.IdentifierFromProvider,
+	"datadog_webhook_custom_variable": config.IdentifierFromProvider,
 }
 
 // datadogExternalNameWithInjectedID injects an id when there is none.
@@ -114,27 +116,6 @@ func datadogExternalNameWithInjectedUUID() config.ExternalName {
 			return uuid.New().String(), nil
 		}
 		return externalName, nil
-	}
-	return e
-}
-
-// teamPermissionSettingExternalName identifies a team permission setting by
-// "<team_id>:<action>", derived from the parameters until the external name
-// is known. The setting exists as soon as the team does, so the resource is
-// observed and updated in place; a stub identifier would only produce a
-// not-found error from the API.
-func teamPermissionSettingExternalName() config.ExternalName {
-	e := config.IdentifierFromProvider
-	e.GetIDFn = func(_ context.Context, externalName string, parameters map[string]any, _ map[string]any) (string, error) {
-		if externalName != "" {
-			return externalName, nil
-		}
-		teamID, _ := parameters["team_id"].(string)
-		action, _ := parameters["action"].(string)
-		if teamID == "" || action == "" {
-			return "", errors.New("team_id and action are required to identify a team permission setting")
-		}
-		return teamID + ":" + action, nil
 	}
 	return e
 }
