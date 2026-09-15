@@ -19,24 +19,12 @@ type FastlyAccountInitParameters struct {
 	// The API key for the Fastly account. Exactly one of `api_key` or `api_key_wo` must be set.
 	APIKeySecretRef *v2.SecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
 
-	// only) Write-only API key for the Fastly account. Exactly one of api_key or api_key_wo must be set. Must be used with api_key_wo_version.
-	// Write-only API key for the Fastly account. Exactly one of `api_key` or `api_key_wo` must be set. Must be used with `api_key_wo_version`.
-	APIKeyWoSecretRef *v2.SecretKeySelector `json:"apiKeyWoSecretRef,omitempty" tf:"-"`
-
-	// (String) Version for api_key_wo rotation. Changing this triggers an update. String length must be at least 1.
-	// Version for `api_key_wo` rotation. Changing this triggers an update. String length must be at least 1.
-	APIKeyWoVersion *string `json:"apiKeyWoVersion,omitempty" tf:"api_key_wo_version,omitempty"`
-
 	// (String) The name of the Fastly account.
 	// The name of the Fastly account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type FastlyAccountObservation struct {
-
-	// (String) Version for api_key_wo rotation. Changing this triggers an update. String length must be at least 1.
-	// Version for `api_key_wo` rotation. Changing this triggers an update. String length must be at least 1.
-	APIKeyWoVersion *string `json:"apiKeyWoVersion,omitempty" tf:"api_key_wo_version,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -52,16 +40,6 @@ type FastlyAccountParameters struct {
 	// The API key for the Fastly account. Exactly one of `api_key` or `api_key_wo` must be set.
 	// +kubebuilder:validation:Optional
 	APIKeySecretRef *v2.SecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
-
-	// only) Write-only API key for the Fastly account. Exactly one of api_key or api_key_wo must be set. Must be used with api_key_wo_version.
-	// Write-only API key for the Fastly account. Exactly one of `api_key` or `api_key_wo` must be set. Must be used with `api_key_wo_version`.
-	// +kubebuilder:validation:Optional
-	APIKeyWoSecretRef *v2.SecretKeySelector `json:"apiKeyWoSecretRef,omitempty" tf:"-"`
-
-	// (String) Version for api_key_wo rotation. Changing this triggers an update. String length must be at least 1.
-	// Version for `api_key_wo` rotation. Changing this triggers an update. String length must be at least 1.
-	// +kubebuilder:validation:Optional
-	APIKeyWoVersion *string `json:"apiKeyWoVersion,omitempty" tf:"api_key_wo_version,omitempty"`
 
 	// (String) The name of the Fastly account.
 	// The name of the Fastly account.

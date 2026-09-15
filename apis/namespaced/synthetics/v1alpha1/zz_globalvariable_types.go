@@ -59,14 +59,6 @@ type GlobalVariableInitParameters struct {
 	// (String, Sensitive) The value of the global variable. Required unless is_fido is set to true or value_wo is used
 	// The value of the global variable. Required unless `is_fido` is set to `true` or `value_wo` is used
 	ValueSecretRef *v2.LocalSecretKeySelector `json:"valueSecretRef,omitempty" tf:"-"`
-
-	// only) Write-only value of the global variable. Must be used with value_wo_version.
-	// Write-only value of the global variable. Must be used with `value_wo_version`.
-	ValueWoSecretRef *v2.LocalSecretKeySelector `json:"valueWoSecretRef,omitempty" tf:"-"`
-
-	// only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
-	// Version associated with the write-only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
-	ValueWoVersion *string `json:"valueWoVersion,omitempty" tf:"value_wo_version,omitempty"`
 }
 
 type GlobalVariableObservation struct {
@@ -114,10 +106,6 @@ type GlobalVariableObservation struct {
 	// (List of String) A list of tags to associate with your synthetics global variable.
 	// A list of tags to associate with your synthetics global variable.
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
-
-	// only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
-	// Version associated with the write-only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
-	ValueWoVersion *string `json:"valueWoVersion,omitempty" tf:"value_wo_version,omitempty"`
 }
 
 type GlobalVariableParameters struct {
@@ -177,16 +165,6 @@ type GlobalVariableParameters struct {
 	// The value of the global variable. Required unless `is_fido` is set to `true` or `value_wo` is used
 	// +kubebuilder:validation:Optional
 	ValueSecretRef *v2.LocalSecretKeySelector `json:"valueSecretRef,omitempty" tf:"-"`
-
-	// only) Write-only value of the global variable. Must be used with value_wo_version.
-	// Write-only value of the global variable. Must be used with `value_wo_version`.
-	// +kubebuilder:validation:Optional
-	ValueWoSecretRef *v2.LocalSecretKeySelector `json:"valueWoSecretRef,omitempty" tf:"-"`
-
-	// only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
-	// Version associated with the write-only value. Changing this triggers an update. Can be any string (e.g., '1', 'v2.1', '2024-Q1'). String length must be at least 1.
-	// +kubebuilder:validation:Optional
-	ValueWoVersion *string `json:"valueWoVersion,omitempty" tf:"value_wo_version,omitempty"`
 }
 
 type OptionsInitParameters struct {

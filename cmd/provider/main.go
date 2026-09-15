@@ -26,6 +26,8 @@ import (
 	tjcontroller "github.com/crossplane/upjet/v2/pkg/controller"
 	"github.com/crossplane/upjet/v2/pkg/controller/conversion"
 	"github.com/crossplane/upjet/v2/pkg/terraform"
+	"github.com/terraform-providers/terraform-provider-datadog/datadog"
+	"github.com/terraform-providers/terraform-provider-datadog/datadog/fwprovider"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	authv1 "k8s.io/api/authorization/v1"
@@ -78,10 +80,6 @@ func main() {
 		metricsBindAddress     = app.Flag("metrics-bind-address", "The address the metrics server listens on").Default(":8080").Envar("METRICS_BIND_ADDRESS").String()
 		healthProbeBindAddress = app.Flag("health-probe-bind-addr", "The address the health/readiness probe server listens on").Default(":8081").Envar("HEALTH_PROBE_BIND_ADDRESS").String()
 		changelogsSocketPath   = app.Flag("changelogs-socket-path", "Path for changelogs socket (if enabled)").Default("/var/run/changelogs/changelogs.sock").Envar("CHANGELOGS_SOCKET_PATH").String()
-
-		terraformVersion = app.Flag("terraform-version", "Terraform version.").Required().Envar("TERRAFORM_VERSION").String()
-		providerSource   = app.Flag("terraform-provider-source", "Terraform provider source.").Required().Envar("TERRAFORM_PROVIDER_SOURCE").String()
-		providerVersion  = app.Flag("terraform-provider-version", "Terraform provider version.").Required().Envar("TERRAFORM_PROVIDER_VERSION").String()
 
 		enableManagementPolicies = app.Flag("enable-management-policies", "Enable support for Management Policies.").Default("true").Envar("ENABLE_MANAGEMENT_POLICIES").Bool()
 		enableChangeLogs         = app.Flag("enable-changelogs", "Enable support for capturing change logs during reconciliation.").Default("false").Envar("ENABLE_CHANGE_LOGS").Bool()
@@ -158,6 +156,13 @@ func main() {
 	metrics.Registry.MustRegister(metricRecorder)
 	metrics.Registry.MustRegister(stateMetrics)
 
+	// The in-process Terraform providers: one plugin SDK instance shared by
+	// both API scopes and the plugin framework provider used to derive the
+	// resource split; the setup function instantiates a framework provider
+	// per reconcile.
+	sdkProvider := datadog.Provider()
+	fwProvider := fwprovider.New()
+
 	shared := sharedControllerOptions{
 		log:                     log,
 		pollInterval:            *pollInterval,
@@ -165,10 +170,14 @@ func main() {
 		maxReconcileRate:        *maxReconcileRate,
 		metricRecorder:          metricRecorder,
 		stateMetrics:            stateMetrics,
-		setupFn:                 clients.TerraformSetupBuilder(*terraformVersion, *providerSource, *providerVersion),
+		setupFn:                 clients.TerraformSetupBuilder(sdkProvider),
 	}
-	clusterOpts := shared.controllerOptions(config.GetProvider())
-	namespacedOpts := shared.controllerOptions(config.GetProviderNamespaced())
+	clusterProvider, err := config.GetProvider(sdkProvider, fwProvider, false)
+	kingpin.FatalIfError(err, "Cannot initialize the cluster-scoped provider configuration")
+	namespacedProvider, err := config.GetProviderNamespaced(sdkProvider, fwProvider, false)
+	kingpin.FatalIfError(err, "Cannot initialize the namespaced provider configuration")
+	clusterOpts := shared.controllerOptions(clusterProvider)
+	namespacedOpts := shared.controllerOptions(namespacedProvider)
 
 	if *enableManagementPolicies {
 		clusterOpts.Features.Enable(features.EnableBetaManagementPolicies)
@@ -224,11 +233,9 @@ func (s sharedControllerOptions) controllerOptions(provider *ujconfig.Provider) 
 				MRStateMetrics:          s.stateMetrics,
 			},
 		},
-		Provider: provider,
-		// use the following WorkspaceStoreOption to enable the shared gRPC mode
-		// terraform.WithProviderRunner(terraform.NewSharedProvider(log, os.Getenv("TERRAFORM_NATIVE_PROVIDER_PATH"), terraform.WithNativeProviderArgs("-debuggable")))
-		WorkspaceStore: terraform.NewWorkspaceStore(s.log),
-		SetupFn:        s.setupFn,
+		Provider:              provider,
+		OperationTrackerStore: tjcontroller.NewOperationStore(s.log),
+		SetupFn:               s.setupFn,
 	}
 }
 

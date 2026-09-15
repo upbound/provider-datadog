@@ -93,30 +93,6 @@ spec:
                     - name
                     - namespace
                     type: object
-                  apiKeyWoSecretRef:
-                    description: |-
-                      only) Write-only API key for the Fastly account. Exactly one of api_key or api_key_wo must be set. Must be used with api_key_wo_version.
-                      Write-only API key for the Fastly account. Exactly one of `api_key` or `api_key_wo` must be set. Must be used with `api_key_wo_version`.
-                    properties:
-                      key:
-                        description: The key to select.
-                        type: string
-                      name:
-                        description: Name of the secret.
-                        type: string
-                      namespace:
-                        description: Namespace of the secret.
-                        type: string
-                    required:
-                    - key
-                    - name
-                    - namespace
-                    type: object
-                  apiKeyWoVersion:
-                    description: |-
-                      (String) Version for api_key_wo rotation. Changing this triggers an update. String length must be at least 1.
-                      Version for `api_key_wo` rotation. Changing this triggers an update. String length must be at least 1.
-                    type: string
                   name:
                     description: |-
                       (String) The name of the Fastly account.
@@ -155,30 +131,6 @@ spec:
                     - name
                     - namespace
                     type: object
-                  apiKeyWoSecretRef:
-                    description: |-
-                      only) Write-only API key for the Fastly account. Exactly one of api_key or api_key_wo must be set. Must be used with api_key_wo_version.
-                      Write-only API key for the Fastly account. Exactly one of `api_key` or `api_key_wo` must be set. Must be used with `api_key_wo_version`.
-                    properties:
-                      key:
-                        description: The key to select.
-                        type: string
-                      name:
-                        description: Name of the secret.
-                        type: string
-                      namespace:
-                        description: Namespace of the secret.
-                        type: string
-                    required:
-                    - key
-                    - name
-                    - namespace
-                    type: object
-                  apiKeyWoVersion:
-                    description: |-
-                      (String) Version for api_key_wo rotation. Changing this triggers an update. String length must be at least 1.
-                      Version for `api_key_wo` rotation. Changing this triggers an update. String length must be at least 1.
-                    type: string
                   name:
                     description: |-
                       (String) The name of the Fastly account.
@@ -281,11 +233,6 @@ spec:
             properties:
               atProvider:
                 properties:
-                  apiKeyWoVersion:
-                    description: |-
-                      (String) Version for api_key_wo rotation. Changing this triggers an update. String length must be at least 1.
-                      Version for `api_key_wo` rotation. Changing this triggers an update. String length must be at least 1.
-                    type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
