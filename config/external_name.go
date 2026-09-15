@@ -9,13 +9,14 @@ import (
 
 	"github.com/crossplane/upjet/v2/pkg/config"
 	"github.com/google/uuid"
+	"github.com/pkg/errors"
 )
 
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
 	// Import requires using a randomly generated ID from provider: nl-2e21sda
-	"datadog_api_key":                            datadogExternalNameWithInjectedID(),
+	"datadog_api_key":                            datadogExternalNameWithInjectedUUID(),
 	"datadog_apm_retention_filter":               config.IdentifierFromProvider,
 	"datadog_apm_retention_filter_order":         config.IdentifierFromProvider,
 	"datadog_application_key":                    datadogExternalNameWithInjectedID(),
@@ -66,7 +67,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"datadog_sensitive_data_scanner_group":         config.IdentifierFromProvider,
 	"datadog_sensitive_data_scanner_group_order":   config.IdentifierFromProvider,
 	"datadog_sensitive_data_scanner_rule":          config.IdentifierFromProvider,
-	"datadog_service_account":                      config.IdentifierFromProvider,
+	"datadog_service_account":                      datadogExternalNameWithInjectedUUID(),
 	"datadog_service_account_application_key":      config.IdentifierFromProvider,
 	"datadog_service_definition_yaml":              config.IdentifierFromProvider,
 	"datadog_service_level_objective":              config.IdentifierFromProvider,
@@ -79,7 +80,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"datadog_team":                                 datadogExternalNameWithInjectedID(),
 	"datadog_team_link":                            datadogExternalNameWithInjectedID(),
 	"datadog_team_membership":                      config.IdentifierFromProvider,
-	"datadog_team_permission_setting":              datadogExternalNameWithInjectedID(),
+	"datadog_team_permission_setting":              teamPermissionSettingExternalName(),
 	"datadog_user":                                 datadogExternalNameWithInjectedID(),
 	"datadog_webhook":                              config.IdentifierFromProvider,
 	"datadog_webhook_custom_variable":              config.IdentifierFromProvider,
@@ -113,6 +114,27 @@ func datadogExternalNameWithInjectedUUID() config.ExternalName {
 			return uuid.New().String(), nil
 		}
 		return externalName, nil
+	}
+	return e
+}
+
+// teamPermissionSettingExternalName identifies a team permission setting by
+// "<team_id>:<action>", derived from the parameters until the external name
+// is known. The setting exists as soon as the team does, so the resource is
+// observed and updated in place; a stub identifier would only produce a
+// not-found error from the API.
+func teamPermissionSettingExternalName() config.ExternalName {
+	e := config.IdentifierFromProvider
+	e.GetIDFn = func(_ context.Context, externalName string, parameters map[string]any, _ map[string]any) (string, error) {
+		if externalName != "" {
+			return externalName, nil
+		}
+		teamID, _ := parameters["team_id"].(string)
+		action, _ := parameters["action"].(string)
+		if teamID == "" || action == "" {
+			return "", errors.New("team_id and action are required to identify a team permission setting")
+		}
+		return teamID + ":" + action, nil
 	}
 	return e
 }
