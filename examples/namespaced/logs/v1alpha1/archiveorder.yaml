@@ -3,6 +3,7 @@ kind: ArchiveOrder
 metadata:
   annotations:
     meta.upbound.io/example-id: logs/v1alpha1/archiveorder
+    upjet.upbound.io/manual-intervention: Requires existing archives, see archive.yaml.
   labels:
     testing.upbound.io/example-name: sample_archive_order
   name: sample-archive-order

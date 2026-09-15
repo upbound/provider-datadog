@@ -3,6 +3,7 @@ kind: Rule
 metadata:
   annotations:
     meta.upbound.io/example-id: securitymonitoring/v1alpha1/rule
+    upjet.upbound.io/manual-intervention: 'Cloud SIEM must be enabled for the Datadog organization: without it the API accepts the rule, answers 404 for its id and then refuses the name as a duplicate.'
   labels:
     testing.upbound.io/example-name: myrule
   name: myrule

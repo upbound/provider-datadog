@@ -3,6 +3,7 @@ kind: TagConfiguration
 metadata:
   annotations:
     meta.upbound.io/example-id: metric/v1alpha1/tagconfiguration
+    upjet.upbound.io/manual-intervention: "The distribution metric must already exist and receive data in the Datadog organization."
   labels:
     testing.upbound.io/example-name: example_dist_metric
   name: example-dist-metric

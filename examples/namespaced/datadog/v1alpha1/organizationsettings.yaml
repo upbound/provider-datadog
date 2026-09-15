@@ -3,6 +3,7 @@ kind: OrganizationSettings
 metadata:
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/organizationsettings
+    upjet.upbound.io/manual-intervention: Manages the settings of the organization the credentials belong to, including its name; not run automatically.
   labels:
     testing.upbound.io/example-name: organization
   name: organization

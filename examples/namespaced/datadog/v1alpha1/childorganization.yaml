@@ -3,6 +3,7 @@ kind: ChildOrganization
 metadata:
   annotations:
     meta.upbound.io/example-id: datadog/v1alpha1/childorganization
+    upjet.upbound.io/manual-intervention: Creates a child organization, which the API cannot delete; not run automatically.
   labels:
     testing.upbound.io/example-name: organization
   name: organization

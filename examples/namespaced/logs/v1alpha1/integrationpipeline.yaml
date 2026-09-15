@@ -3,6 +3,7 @@ kind: IntegrationPipeline
 metadata:
   annotations:
     meta.upbound.io/example-id: logs/v1alpha1/integrationpipeline
+    upjet.upbound.io/manual-intervention: 'Integration pipelines are created by Datadog and can only be imported: set crossplane.io/external-name to the id of an existing integration pipeline.'
   labels:
     testing.upbound.io/example-name: python
   name: python

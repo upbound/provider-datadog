@@ -3,6 +3,7 @@ kind: PipelineOrder
 metadata:
   annotations:
     meta.upbound.io/example-id: logs/v1alpha1/pipelineorder
+    upjet.upbound.io/manual-intervention: "The API requires the complete ordered list of the organization's pipelines; replace the list with all pipelines of the organization."
   labels:
     testing.upbound.io/example-name: sample_pipeline_order
   name: sample-pipeline-order

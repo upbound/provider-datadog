@@ -3,6 +3,7 @@ kind: RetentionFilterOrder
 metadata:
   annotations:
     meta.upbound.io/example-id: apm/v1alpha1/retentionfilterorder
+    upjet.upbound.io/manual-intervention: The API requires the complete ordered list of the organization's retention filters; replace the list with all retention filters of the organization.
   labels:
     testing.upbound.io/example-name: bar
   name: bar
