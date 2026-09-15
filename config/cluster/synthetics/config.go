@@ -23,6 +23,17 @@ func Configure(p *config.Provider) {
 		r.ShortGroup = "synthetics.datadog"
 	})
 	p.AddResourceConfigurator("datadog_synthetics_test", func(r *config.Resource) {
+		// The API returns these blocks zero-valued for tests that do not use
+		// them; late-initializing them into the spec makes Terraform demand
+		// their required arguments on the next refresh.
+		r.LateInitializer = config.LateInitializer{IgnoredFields: []string{
+			"mobile_options_list",
+			"options_list.rum_settings",
+			"request_basicauth",
+			"request_client_certificate",
+			"request_file",
+			"request_proxy",
+		}}
 		// rum_settings.client_token_id is a sensitive number upstream, and
 		// upjet can only generate string-typed sensitive fields. The value is
 		// the numeric id of a RUM client token, not the token itself, so it
