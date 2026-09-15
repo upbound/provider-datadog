@@ -19,3 +19,18 @@ func EmbedSingleNestedBlocks(r *config.Resource, tfPaths ...string) {
 		r.SchemaElementOptions.SetEmbeddedObject(p)
 	}
 }
+
+// MarkSingleNestedBlockConfigurable clears the Computed flag that upjet's
+// tfjson conversion infers for every plugin-framework single-nested block.
+// Without it a block with a required descendant is generated only under
+// status.atProvider. The conversion also marks such a block required, so pass
+// optional for a block that upstream treats as optional. The mutated schema
+// only feeds code generation: the resource runs through the Terraform CLI.
+func MarkSingleNestedBlockConfigurable(r *config.Resource, tfPath string, optional bool) {
+	s := r.TerraformResource.Schema[tfPath]
+	s.Computed = false
+	if optional {
+		s.Required = false
+		s.Optional = true
+	}
+}

@@ -43,6 +43,9 @@ type DowntimeScheduleInitParameters struct {
 	// (Block, Optional) (see below for nested schema)
 	OneTimeSchedule *OneTimeScheduleInitParameters `json:"oneTimeSchedule,omitempty" tf:"one_time_schedule,omitempty"`
 
+	// (Block, Optional) (see below for nested schema)
+	RecurringSchedule *RecurringScheduleInitParameters `json:"recurringSchedule,omitempty" tf:"recurring_schedule,omitempty"`
+
 	// (String) The scope to which the downtime applies. Must follow the common search syntax.
 	// The scope to which the downtime applies. Must follow the [common search syntax](https://docs.datadoghq.com/logs/explorer/search_syntax/).
 	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
@@ -125,6 +128,10 @@ type DowntimeScheduleParameters struct {
 	// (Block, Optional) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	OneTimeSchedule *OneTimeScheduleParameters `json:"oneTimeSchedule,omitempty" tf:"one_time_schedule,omitempty"`
+
+	// (Block, Optional) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	RecurringSchedule *RecurringScheduleParameters `json:"recurringSchedule,omitempty" tf:"recurring_schedule,omitempty"`
 
 	// (String) The scope to which the downtime applies. Must follow the common search syntax.
 	// The scope to which the downtime applies. Must follow the [common search syntax](https://docs.datadoghq.com/logs/explorer/search_syntax/).

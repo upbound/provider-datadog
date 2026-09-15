@@ -18,5 +18,6 @@ func Configure(p *config.Provider) {
 		r.Kind = "SpansMetric"
 		r.ShortGroup = "datadog"
 		common.EmbedSingleNestedBlocks(r, "compute", "filter")
+		common.MarkSingleNestedBlockConfigurable(r, "compute", false)
 	})
 }

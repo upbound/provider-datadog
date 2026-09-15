@@ -74,6 +74,25 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  compute:
+                    description: (Block, Optional) (see below for nested schema)
+                    properties:
+                      aggregationType:
+                        description: |-
+                          (String) The type of aggregation to use. This field can't be updated after creation.
+                          The type of aggregation to use. This field can't be updated after creation.
+                        type: string
+                      includePercentiles:
+                        description: |-
+                          (Boolean) Toggle to include or exclude percentile aggregations for distribution metrics. Only present when the aggregation_type is distribution.
+                          Toggle to include or exclude percentile aggregations for distribution metrics. Only present when the `aggregation_type` is `distribution`.
+                        type: boolean
+                      path:
+                        description: |-
+                          based metric will aggregate on (only used if the aggregation type is a "distribution"). This field can't be updated after creation.
+                          The path to the value the span-based metric will aggregate on (only used if the aggregation type is a "distribution"). This field can't be updated after creation.
+                        type: string
+                    type: object
                   filter:
                     description: (Block, Optional) (see below for nested schema)
                     properties:
@@ -118,6 +137,25 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  compute:
+                    description: (Block, Optional) (see below for nested schema)
+                    properties:
+                      aggregationType:
+                        description: |-
+                          (String) The type of aggregation to use. This field can't be updated after creation.
+                          The type of aggregation to use. This field can't be updated after creation.
+                        type: string
+                      includePercentiles:
+                        description: |-
+                          (Boolean) Toggle to include or exclude percentile aggregations for distribution metrics. Only present when the aggregation_type is distribution.
+                          Toggle to include or exclude percentile aggregations for distribution metrics. Only present when the `aggregation_type` is `distribution`.
+                        type: boolean
+                      path:
+                        description: |-
+                          based metric will aggregate on (only used if the aggregation type is a "distribution"). This field can't be updated after creation.
+                          The path to the value the span-based metric will aggregate on (only used if the aggregation type is a "distribution"). This field can't be updated after creation.
+                        type: string
+                    type: object
                   filter:
                     description: (Block, Optional) (see below for nested schema)
                     properties:
@@ -236,6 +274,10 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
+            - message: spec.forProvider.compute is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.compute)
+                || (has(self.initProvider) && has(self.initProvider.compute))'
             - message: spec.forProvider.name is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.name)

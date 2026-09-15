@@ -23,5 +23,6 @@ func Configure(p *config.Provider) {
 		r.Kind = "DowntimeSchedule"
 		r.ShortGroup = "datadog"
 		common.EmbedSingleNestedBlocks(r, "monitor_identifier", "one_time_schedule", "recurring_schedule")
+		common.MarkSingleNestedBlockConfigurable(r, "recurring_schedule", true)
 	})
 }

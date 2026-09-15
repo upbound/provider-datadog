@@ -8,6 +8,10 @@ metadata:
   name: testing-spans-metric
 spec:
   forProvider:
+    compute:
+    - aggregationType: distribution
+      includePercentiles: false
+      path: '@duration'
     filter:
     - query: '@http.status_code:200 service:my-service'
     groupBy:
