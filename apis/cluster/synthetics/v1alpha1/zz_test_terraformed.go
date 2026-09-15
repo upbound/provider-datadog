@@ -118,6 +118,12 @@ func (tr *Test) LateInitialize(attrs []byte) (bool, error) {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+	opts = append(opts, resource.WithNameFilter("MobileOptionsList"))
+	opts = append(opts, resource.WithNameFilter("OptionsList.RumSettings"))
+	opts = append(opts, resource.WithNameFilter("RequestBasicauth"))
+	opts = append(opts, resource.WithNameFilter("RequestClientCertificate"))
+	opts = append(opts, resource.WithNameFilter("RequestFile"))
+	opts = append(opts, resource.WithNameFilter("RequestProxy"))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)
