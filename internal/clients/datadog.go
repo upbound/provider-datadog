@@ -8,6 +8,7 @@ import (
 	"context"
 	"encoding/json"
 	"strconv"
+	"strings"
 
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/crossplane/upjet/v2/pkg/terraform"
@@ -23,48 +24,68 @@ import (
 )
 
 const (
-	// provider config
-	// source: https://registry.terraform.io/providers/DataDog/datadog/latest/docs
-
-	// arguments
-	keyAPIKey                           = "api_key"
-	keyAPIURL                           = "api_url"
-	keyAppKey                           = "app_key"
-	keyHTTPClientRetryBackoffBase       = "http_client_retry_backoff_base"
-	keyHTTPClientRetryBackoffMultiplier = "http_client_retry_backoff_multiplier"
-	keyHTTPClientRetryEnabled           = "http_client_retry_enabled"
-	keyHTTPClientRetryMaxRetries        = "http_client_retry_max_retries"
-	keyHTTPClientRetryTimeout           = "http_client_retry_timeout"
-	keyValidate                         = "validate"
-
-	// error messages
 	errNoProviderConfig      = "no providerConfigRef provided"
 	errGetProviderConfig     = "cannot get referenced ProviderConfig"
 	errResolveProviderConfig = "cannot resolve provider config"
 	errTrackUsage            = "cannot track ProviderConfig usage"
 	errExtractCredentials    = "cannot extract credentials"
 	errUnmarshalCredentials  = "cannot unmarshal datadog credentials as JSON"
+	errMarshalConfiguration  = "cannot marshal the provider configuration"
 	errConfigureSDKProvider  = "cannot configure the plugin SDK provider"
 )
 
-// providerStringKeys lists the string-typed Terraform provider arguments that
-// can be supplied through the credentials secret.
-var providerStringKeys = []string{
-	keyAPIKey,
-	keyAPIURL,
-	keyAppKey,
-	keyHTTPClientRetryEnabled,
-	keyValidate,
+// credentials is the JSON document stored in the secret a ProviderConfig
+// points at. Its fields are the arguments of the Terraform provider block
+// (https://registry.terraform.io/providers/DataDog/datadog/latest/docs);
+// unknown keys are ignored and unset fields are omitted from the provider
+// configuration, so the providers apply their own defaults for them.
+// bearer_token is an alternative to the api_key/app_key pair and takes
+// precedence over it.
+type credentials struct {
+	APIKey                           *string  `json:"api_key,omitempty"`
+	APIURL                           *string  `json:"api_url,omitempty"`
+	AppKey                           *string  `json:"app_key,omitempty"`
+	BearerToken                      *string  `json:"bearer_token,omitempty"`
+	Validate                         *flag    `json:"validate,omitempty"`
+	HTTPClientRetryEnabled           *flag    `json:"http_client_retry_enabled,omitempty"`
+	HTTPClientRetryBackoffBase       *integer `json:"http_client_retry_backoff_base,omitempty"`
+	HTTPClientRetryBackoffMultiplier *integer `json:"http_client_retry_backoff_multiplier,omitempty"`
+	HTTPClientRetryJitter            *integer `json:"http_client_retry_jitter,omitempty"`
+	HTTPClientRetryMaxRetries        *integer `json:"http_client_retry_max_retries,omitempty"`
+	HTTPClientRetryTimeout           *integer `json:"http_client_retry_timeout,omitempty"`
+	IgnoreTagKeys                    []string `json:"ignore_tag_keys,omitempty"`
 }
 
-// providerIntKeys lists the integer-typed Terraform provider arguments that
-// can be supplied through the credentials secret. They are integers on both
-// provider schemas, and the plugin framework rejects a string for them.
-var providerIntKeys = []string{
-	keyHTTPClientRetryBackoffBase,
-	keyHTTPClientRetryBackoffMultiplier,
-	keyHTTPClientRetryMaxRetries,
-	keyHTTPClientRetryTimeout,
+// integer is a provider argument typed as a number on both provider schemas.
+// It also accepts a numeric string, the form every value had in secrets
+// written for earlier versions of this provider.
+type integer int
+
+func (i *integer) UnmarshalJSON(b []byte) error {
+	n, err := strconv.Atoi(strings.Trim(string(b), `"`))
+	if err != nil {
+		return errors.Errorf("%s is not an integer", string(b))
+	}
+	*i = integer(n)
+	return nil
+}
+
+// flag is a provider argument that the provider schemas type as the strings
+// "true" and "false". It accepts a JSON boolean as well and always marshals
+// as the string.
+type flag bool
+
+func (f *flag) UnmarshalJSON(b []byte) error {
+	v, err := strconv.ParseBool(strings.Trim(string(b), `"`))
+	if err != nil {
+		return errors.Errorf("%s is not a boolean", string(b))
+	}
+	*f = flag(v)
+	return nil
+}
+
+func (f flag) MarshalJSON() ([]byte, error) {
+	return json.Marshal(strconv.FormatBool(bool(f)))
 }
 
 // TerraformSetupBuilder builds the terraform.SetupFn that configures the
@@ -85,12 +106,7 @@ func TerraformSetupBuilder(sdkProvider *schema.Provider) terraform.SetupFn {
 		if err != nil {
 			return ps, errors.Wrap(err, errExtractCredentials)
 		}
-		creds := map[string]string{}
-		if err := json.Unmarshal(data, &creds); err != nil {
-			return ps, errors.Wrap(err, errUnmarshalCredentials)
-		}
-
-		ps.Configuration, err = providerConfiguration(creds)
+		ps.Configuration, err = providerConfiguration(data)
 		if err != nil {
 			return ps, err
 		}
@@ -99,24 +115,21 @@ func TerraformSetupBuilder(sdkProvider *schema.Provider) terraform.SetupFn {
 }
 
 // providerConfiguration translates the credentials secret into the Terraform
-// provider configuration shared by both in-process providers.
-func providerConfiguration(creds map[string]string) (map[string]any, error) {
-	cfg := map[string]any{}
-	for _, key := range providerStringKeys {
-		if v, ok := creds[key]; ok {
-			cfg[key] = v
-		}
+// provider configuration shared by both in-process providers. The marshal
+// round trip applies the omitempty tags of credentials, so only the arguments
+// present in the secret reach the providers.
+func providerConfiguration(data []byte) (map[string]any, error) {
+	var c credentials
+	if err := json.Unmarshal(data, &c); err != nil {
+		return nil, errors.Wrap(err, errUnmarshalCredentials)
 	}
-	for _, key := range providerIntKeys {
-		v, ok := creds[key]
-		if !ok {
-			continue
-		}
-		n, err := strconv.Atoi(v)
-		if err != nil {
-			return nil, errors.Wrapf(err, "credential %q must be an integer", key)
-		}
-		cfg[key] = n
+	raw, err := json.Marshal(c) //nolint:gosec // the document is decoded straight back into the in-memory provider configuration, never logged or stored
+	if err != nil {
+		return nil, errors.Wrap(err, errMarshalConfiguration)
+	}
+	cfg := map[string]any{}
+	if err := json.Unmarshal(raw, &cfg); err != nil {
+		return nil, errors.Wrap(err, errMarshalConfiguration)
 	}
 	return cfg, nil
 }
