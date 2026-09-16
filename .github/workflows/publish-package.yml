@@ -10,7 +10,7 @@ on:
 
 env:
   # Common versions
-  DOCKER_BUILDX_VERSION: 'v0.34.1'
+  DOCKER_BUILDX_VERSION: 'v0.37.1'
   UP_VERSION: stable/v0.49.1
   UP_DOMAIN: https://upbound.io
 
