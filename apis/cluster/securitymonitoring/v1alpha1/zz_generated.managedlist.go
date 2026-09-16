@@ -7,6 +7,15 @@ package v1alpha1
 
 import resource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 
+// GetItems of this CriticalAssetList.
+func (l *CriticalAssetList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this DefaultRuleList.
 func (l *DefaultRuleList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -25,8 +34,35 @@ func (l *FilterList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this NotificationRuleList.
+func (l *NotificationRuleList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this RuleJSONList.
+func (l *RuleJSONList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this RuleList.
 func (l *RuleList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SuppressionList.
+func (l *SuppressionList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

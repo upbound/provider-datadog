@@ -1,0 +1,18 @@
+apiVersion: securityfindings.datadog.upbound.io/v1alpha1
+kind: TicketCreationRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: securityfindings/v1alpha1/ticketcreationrule
+  labels:
+    testing.upbound.io/example-name: secrets_to_jira
+  name: secrets-to-jira
+spec:
+  forProvider:
+    name: File secrets as Jira tickets
+    action:
+      target: case_management
+      projectId: ${data.datadog_case_project.uptest.id}
+      maxTicketsPerDay: 10
+    rule:
+      findingTypes:
+      - secret

@@ -10,33 +10,71 @@ package cluster
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/upbound/provider-datadog/apis/cluster/apm/v1alpha1"
+	v1alpha1 "github.com/upbound/provider-datadog/apis/cluster/action/v1alpha1"
+	v1alpha1agentlessscanning "github.com/upbound/provider-datadog/apis/cluster/agentlessscanning/v1alpha1"
+	v1alpha1apicatalog "github.com/upbound/provider-datadog/apis/cluster/apicatalog/v1alpha1"
+	v1alpha1apm "github.com/upbound/provider-datadog/apis/cluster/apm/v1alpha1"
+	v1alpha1appbuilder "github.com/upbound/provider-datadog/apis/cluster/appbuilder/v1alpha1"
+	v1alpha1appsec "github.com/upbound/provider-datadog/apis/cluster/appsec/v1alpha1"
 	v1alpha1cloud "github.com/upbound/provider-datadog/apis/cluster/cloud/v1alpha1"
+	v1alpha1cloudcost "github.com/upbound/provider-datadog/apis/cluster/cloudcost/v1alpha1"
+	v1alpha1compliance "github.com/upbound/provider-datadog/apis/cluster/compliance/v1alpha1"
+	v1alpha1csmthreats "github.com/upbound/provider-datadog/apis/cluster/csmthreats/v1alpha1"
+	v1alpha1data "github.com/upbound/provider-datadog/apis/cluster/data/v1alpha1"
 	v1alpha1datadog "github.com/upbound/provider-datadog/apis/cluster/datadog/v1alpha1"
+	v1alpha1governance "github.com/upbound/provider-datadog/apis/cluster/governance/v1alpha1"
+	v1alpha1incident "github.com/upbound/provider-datadog/apis/cluster/incident/v1alpha1"
 	v1alpha1integration "github.com/upbound/provider-datadog/apis/cluster/integration/v1alpha1"
 	v1alpha1logs "github.com/upbound/provider-datadog/apis/cluster/logs/v1alpha1"
 	v1alpha1metric "github.com/upbound/provider-datadog/apis/cluster/metric/v1alpha1"
+	v1alpha1observabilitypipeline "github.com/upbound/provider-datadog/apis/cluster/observabilitypipeline/v1alpha1"
+	v1alpha1oncall "github.com/upbound/provider-datadog/apis/cluster/oncall/v1alpha1"
+	v1alpha1reference "github.com/upbound/provider-datadog/apis/cluster/reference/v1alpha1"
+	v1alpha1saml "github.com/upbound/provider-datadog/apis/cluster/saml/v1alpha1"
+	v1alpha1securityfindings "github.com/upbound/provider-datadog/apis/cluster/securityfindings/v1alpha1"
 	v1alpha1securitymonitoring "github.com/upbound/provider-datadog/apis/cluster/securitymonitoring/v1alpha1"
 	v1alpha1sensitivedatascanner "github.com/upbound/provider-datadog/apis/cluster/sensitivedatascanner/v1alpha1"
+	v1alpha1statuspage "github.com/upbound/provider-datadog/apis/cluster/statuspage/v1alpha1"
 	v1alpha1synthetics "github.com/upbound/provider-datadog/apis/cluster/synthetics/v1alpha1"
+	v1alpha1tag "github.com/upbound/provider-datadog/apis/cluster/tag/v1alpha1"
 	v1alpha1cluster "github.com/upbound/provider-datadog/apis/cluster/v1alpha1"
 	v1beta1 "github.com/upbound/provider-datadog/apis/cluster/v1beta1"
+	v1alpha1workflowautomation "github.com/upbound/provider-datadog/apis/cluster/workflowautomation/v1alpha1"
 )
 
 func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
+		v1alpha1agentlessscanning.SchemeBuilder.AddToScheme,
+		v1alpha1apicatalog.SchemeBuilder.AddToScheme,
+		v1alpha1apm.SchemeBuilder.AddToScheme,
+		v1alpha1appbuilder.SchemeBuilder.AddToScheme,
+		v1alpha1appsec.SchemeBuilder.AddToScheme,
 		v1alpha1cloud.SchemeBuilder.AddToScheme,
+		v1alpha1cloudcost.SchemeBuilder.AddToScheme,
+		v1alpha1compliance.SchemeBuilder.AddToScheme,
+		v1alpha1csmthreats.SchemeBuilder.AddToScheme,
+		v1alpha1data.SchemeBuilder.AddToScheme,
 		v1alpha1datadog.SchemeBuilder.AddToScheme,
+		v1alpha1governance.SchemeBuilder.AddToScheme,
+		v1alpha1incident.SchemeBuilder.AddToScheme,
 		v1alpha1integration.SchemeBuilder.AddToScheme,
 		v1alpha1logs.SchemeBuilder.AddToScheme,
 		v1alpha1metric.SchemeBuilder.AddToScheme,
+		v1alpha1observabilitypipeline.SchemeBuilder.AddToScheme,
+		v1alpha1oncall.SchemeBuilder.AddToScheme,
+		v1alpha1reference.SchemeBuilder.AddToScheme,
+		v1alpha1saml.SchemeBuilder.AddToScheme,
+		v1alpha1securityfindings.SchemeBuilder.AddToScheme,
 		v1alpha1securitymonitoring.SchemeBuilder.AddToScheme,
 		v1alpha1sensitivedatascanner.SchemeBuilder.AddToScheme,
+		v1alpha1statuspage.SchemeBuilder.AddToScheme,
 		v1alpha1synthetics.SchemeBuilder.AddToScheme,
+		v1alpha1tag.SchemeBuilder.AddToScheme,
 		v1alpha1cluster.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
+		v1alpha1workflowautomation.SchemeBuilder.AddToScheme,
 	)
 }
 

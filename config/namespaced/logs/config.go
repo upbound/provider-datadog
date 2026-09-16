@@ -16,6 +16,12 @@ func Configure(p *config.Provider) {
 		// this resource, which would be "datadog"
 		r.ShortGroup = logsDatadog
 	})
+	p.AddResourceConfigurator("datadog_logs_custom_destination", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "CustomDestination"
+		r.ShortGroup = logsDatadog
+	})
 	p.AddResourceConfigurator("datadog_logs_custom_pipeline", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for
 		// this resource, which would be "datadog"
@@ -52,5 +58,14 @@ func Configure(p *config.Provider) {
 		// We need to override the default group that upjet generated for
 		// this resource, which would be "datadog"
 		r.ShortGroup = logsDatadog
+	})
+	p.AddResourceConfigurator("datadog_logs_restriction_query", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "RestrictionQuery"
+		r.ShortGroup = logsDatadog
+		r.References["role_ids"] = config.Reference{
+			TerraformName: "datadog_role",
+		}
 	})
 }

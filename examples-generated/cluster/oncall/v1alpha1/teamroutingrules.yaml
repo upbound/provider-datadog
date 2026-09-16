@@ -1,0 +1,56 @@
+apiVersion: oncall.datadog.upbound.io/v1alpha1
+kind: TeamRoutingRules
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/teamroutingrules
+  labels:
+    testing.upbound.io/example-name: team_rules_test
+  name: team-rules-test
+spec:
+  forProvider:
+    rule:
+    - action:
+      - sendSlackMessage:
+        - channel: channel
+          workspace: workspace
+      query: tags.service:test
+      timeRestrictions:
+      - restriction:
+        - endDay: monday
+          endTime: "17:00:00"
+          startDay: monday
+          startTime: "09:00:00"
+        timeZone: America/New_York
+    - action:
+      - escalationPolicy:
+        - ackTimeoutMinutes: 30
+          policyIdSelector:
+            matchLabels:
+              testing.upbound.io/example-name: example
+          supportHours:
+          - restriction:
+            - endDay: monday
+              endTime: "17:00:00"
+              startDay: monday
+              startTime: "09:00:00"
+            - endDay: tuesday
+              endTime: "17:00:00"
+              startDay: tuesday
+              startTime: "09:00:00"
+            - endDay: wednesday
+              endTime: "17:00:00"
+              startDay: wednesday
+              startTime: "09:00:00"
+            - endDay: thursday
+              endTime: "17:00:00"
+              startDay: thursday
+              startTime: "09:00:00"
+            - endDay: friday
+              endTime: "17:00:00"
+              startDay: friday
+              startTime: "09:00:00"
+            timeZone: America/New_York
+          urgency: low
+      query: tags.service:payment
+    - escalationPolicy: 00000000-aba2-0000-0000-000000000000
+      urgency: dynamic

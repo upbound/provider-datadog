@@ -1,0 +1,18 @@
+apiVersion: securitymonitoring.datadog.upbound.io/v1alpha1
+kind: CriticalAsset
+metadata:
+  annotations:
+    meta.upbound.io/example-id: securitymonitoring/v1alpha1/criticalasset
+  labels:
+    testing.upbound.io/example-name: my_critical_asset
+  name: my-critical-asset
+spec:
+  forProvider:
+    description: Production database servers that should trigger critical alerts
+    enabled: true
+    query: env:production service:database
+    ruleQuery: type:(log_detection OR signal_correlation OR workload_security OR application_security) ruleId:007-d1a-1f3
+    severity: increase
+    tags:
+    - env:production
+    - team:security

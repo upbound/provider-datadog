@@ -1,0 +1,29 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: AWSExternalID
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/awsexternalid
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider: {}
+
+---
+
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: AWSAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration.datadog/v1alpha1/awsexternalid
+  labels:
+    testing.upbound.io/example-name: foo-defaults
+  name: foo-defaults
+spec:
+  forProvider:
+    authConfig:
+    - awsAuthConfigRole:
+      - externalId: ${datadog_integration_aws_external_id.foo.id}
+        roleName: DatadogIntegrationRole
+    awsAccountId: "123456789019"
+    awsPartition: aws

@@ -1,0 +1,15 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: OrgConnection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/orgconnection
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    connectionTypes:
+    - metrics
+    - logs
+    sinkOrgId: 00000000-0000-0000-0000-000000000000

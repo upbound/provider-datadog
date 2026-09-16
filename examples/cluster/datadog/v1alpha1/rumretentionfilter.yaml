@@ -1,0 +1,35 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: RUMRetentionFilter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/rumretentionfilter
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    applicationIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: rumretentionfilter-foo
+    enabled: true
+    eventType: session
+    name: testing.rum.retention_filter
+    query: '@session.has_replay:true'
+    sampleRate: 60
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: RUMApplication
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/rumretentionfilter
+  labels:
+    testing.upbound.io/example-name: rumretentionfilter-foo
+  name: rumretentionfilter-foo
+spec:
+  forProvider:
+    name: my-application
+    productAnalyticsRetentionState: NONE
+    rumEventProcessingState: ALL
+    type: browser

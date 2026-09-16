@@ -1,0 +1,10 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: AppKeyRegistration
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/appkeyregistration
+  labels:
+    testing.upbound.io/example-name: app_key_registration
+  name: app-key-registration
+spec:
+  forProvider: {}

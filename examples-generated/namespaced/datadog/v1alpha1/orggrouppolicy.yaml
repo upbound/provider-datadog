@@ -1,0 +1,32 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: OrgGroupPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/orggrouppolicy
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    content: '${jsonencode({ "org_config" : false })}'
+    enforcementTier: OVERRIDE_ALLOWED
+    orgGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: prod
+    policyName: is_widget_copy_paste_enabled
+
+---
+
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: OrgGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/orggrouppolicy
+  labels:
+    testing.upbound.io/example-name: prod
+  name: prod
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Production Environments

@@ -1,0 +1,51 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: TeamHierarchyLinks
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/teamhierarchylinks
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    parentTeamIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: teamhierarchylinks-parent
+    subTeamIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: teamhierarchylinks-sub
+
+---
+
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/teamhierarchylinks
+  labels:
+    testing.upbound.io/example-name: teamhierarchylinks-parent
+  name: teamhierarchylinks-parent
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: Parent team
+    handle: teamhierarchylinks-parent
+    name: Parent Team
+
+---
+
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/teamhierarchylinks
+  labels:
+    testing.upbound.io/example-name: teamhierarchylinks-sub
+  name: teamhierarchylinks-sub
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: Sub team
+    handle: teamhierarchylinks-sub
+    name: Sub Team

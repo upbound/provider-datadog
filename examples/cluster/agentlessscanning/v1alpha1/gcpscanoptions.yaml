@@ -1,0 +1,15 @@
+apiVersion: agentlessscanning.datadog.upbound.io/v1alpha1
+kind: GCPScanOptions
+metadata:
+  annotations:
+    meta.upbound.io/example-id: agentlessscanning/v1alpha1/gcpscanoptions
+    upjet.upbound.io/manual-intervention: "Requires the project id of a GCP project already integrated with Datadog (via the GCP integration)."
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    cloudFunction: true
+    gcpProjectId: company-project-prod
+    vulnContainersOs: true
+    vulnHostOs: true

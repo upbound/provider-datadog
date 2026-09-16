@@ -1,0 +1,68 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: OrgGroupPolicyOverride
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/orggrouppolicyoverride
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    orgGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: prod
+    orgSite: us1
+    orgUuid: ff4a8255-6931-58d1-add0-a6b3602d5421
+    policyIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: widget_copy_paste
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: OrgGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/orggrouppolicyoverride
+  labels:
+    testing.upbound.io/example-name: prod
+  name: prod
+spec:
+  forProvider:
+    name: Production Environments
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: OrgGroupMembership
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/orggrouppolicyoverride
+  labels:
+    testing.upbound.io/example-name: exempt_org
+  name: exempt-org
+spec:
+  forProvider:
+    orgGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: prod
+    orgUuid: ff4a8255-6931-58d1-add0-a6b3602d5421
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: OrgGroupPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/orggrouppolicyoverride
+  labels:
+    testing.upbound.io/example-name: widget_copy_paste
+  name: widget-copy-paste
+spec:
+  forProvider:
+    content: '${jsonencode({ "org_config" : false })}'
+    enforcementTier: OVERRIDE_ALLOWED
+    orgGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: prod
+    policyName: is_widget_copy_paste_enabled

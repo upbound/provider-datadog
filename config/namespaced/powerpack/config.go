@@ -14,4 +14,11 @@ func Configure(p *config.Provider) {
 		r.ShortGroup = "datadog"
 		// The widget list is generated as a JSON string; see codegen.go.
 	})
+	p.AddResourceConfigurator("datadog_powerpack_v2", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "PowerpackV2"
+		r.ShortGroup = "datadog"
+		// The widget list is generated as a JSON string; see codegen.go.
+	})
 }

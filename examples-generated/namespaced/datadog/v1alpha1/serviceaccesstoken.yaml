@@ -1,0 +1,18 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: ServiceAccessToken
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/serviceaccesstoken
+  labels:
+    testing.upbound.io/example-name: monitor_management_token
+  name: monitor-management-token
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Monitor Management Service Access Token
+    scopes:
+    - ${data.datadog_permissions.dd_perms.permissions.monitors_read}
+    - ${data.datadog_permissions.dd_perms.permissions.monitors_write}
+    serviceAccountIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

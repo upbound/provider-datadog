@@ -1,0 +1,67 @@
+apiVersion: incident.datadog.m.upbound.io/v1alpha1
+kind: NotificationRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/notificationrule
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    trigger: incident_created_trigger
+    visibility: all
+    enabled: true
+    handles:
+    - example-channel@example.com
+    conditions:
+    - field: severity
+      values:
+      - SEV-1
+      - SEV-2
+    renotifyOn:
+    - severity
+    incidentTypeSelector:
+      matchLabels:
+        testing.upbound.io/example-name: notificationrule-foo
+    notificationTemplateSelector:
+      matchLabels:
+        testing.upbound.io/example-name: notificationrule-foo
+
+---
+
+apiVersion: incident.datadog.m.upbound.io/v1alpha1
+kind: IncidentType
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/notificationrule
+  labels:
+    testing.upbound.io/example-name: notificationrule-foo
+  name: notificationrule-foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Notification Rule Incident Type
+    description: Incident type used by the notification rule example.
+    isDefault: false
+
+---
+
+apiVersion: incident.datadog.m.upbound.io/v1alpha1
+kind: NotificationTemplate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/notificationrule
+  labels:
+    testing.upbound.io/example-name: notificationrule-foo
+  name: notificationrule-foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Notification Rule Template
+    category: incident
+    subject: "[{{severity}}] {{title}}"
+    content: "Incident {{public_id}} ({{title}}) is now {{status}}."
+    incidentTypeSelector:
+      matchLabels:
+        testing.upbound.io/example-name: notificationrule-foo

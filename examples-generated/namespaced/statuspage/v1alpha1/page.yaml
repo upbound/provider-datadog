@@ -1,0 +1,15 @@
+apiVersion: statuspage.datadog.m.upbound.io/v1alpha1
+kind: Page
+metadata:
+  annotations:
+    meta.upbound.io/example-id: statuspage/v1alpha1/page
+  labels:
+    testing.upbound.io/example-name: acme_status_page
+  name: acme-status-page
+  namespace: upbound-system
+spec:
+  forProvider:
+    domainPrefix: acme-status
+    name: Acme Status
+    type: public
+    visualizationType: bars_and_uptime_percentage

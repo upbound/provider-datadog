@@ -1,0 +1,19 @@
+apiVersion: appbuilder.datadog.m.upbound.io/v1alpha1
+kind: App
+metadata:
+  annotations:
+    meta.upbound.io/example-id: appbuilder/v1alpha1/app
+    upjet.upbound.io/manual-intervention: "appJson must be a real App Builder export (Datadog App Builder UI export button), and actionQueryNamesToConnectionIds must map to a real, already-created Action Connection id."
+  labels:
+    testing.upbound.io/example-name: example_app_from_file
+  name: example-app-from-file
+  namespace: upbound-system
+spec:
+  forProvider:
+    actionQueryNamesToConnectionIds:
+      listTeams0: "11111111-1111-1111-1111-111111111111"
+    appJson: '{"id":"11111111-2222-3333-4444-555555555555","name":"Example Terraform App","description":"Created using the Datadog provider in Terraform.","rootInstanceName":"grid0","components":[{"type":"grid","name":"grid0","events":[],"properties":{"children":[]}}],"queries":[],"favorite":false,"selfService":false,"tags":[],"connections":[]}'
+    description: Created using the Datadog provider in Terraform.
+    name: Example Terraform App
+    published: false
+    rootInstanceName: grid0

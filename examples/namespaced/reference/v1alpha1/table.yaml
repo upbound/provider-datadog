@@ -1,0 +1,17 @@
+apiVersion: reference.datadog.m.upbound.io/v1alpha1
+kind: Table
+metadata:
+  annotations:
+    meta.upbound.io/example-id: reference/v1alpha1/table
+    upjet.upbound.io/manual-intervention: "Requires a real file already uploaded to the source (S3/GCS/Azure) location before Datadog can ingest it."
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    tableName: example_reference_table
+    description: Example reference table managed by Crossplane
+    source: S3
+    tags:
+    - team:backend

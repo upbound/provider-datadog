@@ -105,6 +105,14 @@ linters:
       - linters:
           - gosec
         text: 'G104:'
+      # Ease goconst warnings on config.go files as they target terraform resource names.
+      - linters:
+          - goconst
+        path: .*config\.go
+      # Ease goconst warnings on external_name.go files as they target terraform resource names and terraform errors.
+      - linters:
+          - goconst
+        path: .*external_name.*\.go
     paths:
       - zz_\..+\.go$
       - third_party$

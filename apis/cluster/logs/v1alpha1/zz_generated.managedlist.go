@@ -25,6 +25,15 @@ func (l *ArchiveOrderList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this CustomDestinationList.
+func (l *CustomDestinationList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this CustomPipelineList.
 func (l *CustomPipelineList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -72,6 +81,15 @@ func (l *MetricList) GetItems() []resource.Managed {
 
 // GetItems of this PipelineOrderList.
 func (l *PipelineOrderList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this RestrictionQueryList.
+func (l *RestrictionQueryList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

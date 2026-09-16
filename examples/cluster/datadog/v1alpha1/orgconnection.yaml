@@ -1,0 +1,15 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: OrgConnection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/orgconnection
+    upjet.upbound.io/manual-intervention: "sinkOrgId must be the UUID of a real destination Datadog organization to connect to; no second organization is available in the test environment."
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    connectionTypes:
+    - metrics
+    - logs
+    sinkOrgId: 00000000-0000-4000-8000-000000000000

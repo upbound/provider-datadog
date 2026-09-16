@@ -1,0 +1,58 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: AWSAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/awsaccount
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    accountTags:
+    - env:prod
+    authConfig:
+    - awsAuthConfigRole:
+      - roleName: DatadogIntegrationRole
+    awsAccountId: "123456789012"
+    awsPartition: aws
+    awsRegions:
+    - includeAll: true
+    logsConfig:
+    - lambdaForwarder:
+      - lambdas:
+        - arn:aws:lambda:us-east-1:123456789012:function:my-lambda
+        logSourceConfig:
+        - tagFilters:
+          - source: s3
+            tags:
+            - env:prod
+            - team:backend
+        sources:
+        - s3
+    metricsConfig:
+    - automuteEnabled: true
+      collectCloudwatchAlarms: true
+      collectCustomMetrics: true
+      enabled: true
+      metricNameFilters:
+      - includeOnly:
+        - aws.ec2.network_in
+        namespace: AWS/EC2
+      - excludeOnly:
+        - aws.rds.aurora*
+        namespace: AWS/RDS
+      namespaceFilters:
+      - excludeOnly:
+        - AWS/SQS
+        - AWS/ElasticMapReduce
+        - AWS/Usage
+      tagFilters:
+      - namespace: AWS/EC2
+        tags:
+        - datadog:true
+    resourcesConfig:
+    - cloudSecurityPostureManagementCollection: true
+      extendedCollection: true
+    tracesConfig:
+    - xrayServices:
+      - includeAll: true

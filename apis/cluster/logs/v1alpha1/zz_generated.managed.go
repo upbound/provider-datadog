@@ -107,6 +107,56 @@ func (mg *ArchiveOrder) SetWriteConnectionSecretToReference(r *xpv2.SecretRefere
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetCondition of this CustomDestination.
+func (mg *CustomDestination) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this CustomDestination.
+func (mg *CustomDestination) GetDeletionPolicy() xpv2.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this CustomDestination.
+func (mg *CustomDestination) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this CustomDestination.
+func (mg *CustomDestination) GetProviderConfigReference() *xpv2.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this CustomDestination.
+func (mg *CustomDestination) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this CustomDestination.
+func (mg *CustomDestination) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this CustomDestination.
+func (mg *CustomDestination) SetDeletionPolicy(r xpv2.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this CustomDestination.
+func (mg *CustomDestination) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this CustomDestination.
+func (mg *CustomDestination) SetProviderConfigReference(r *xpv2.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this CustomDestination.
+func (mg *CustomDestination) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this CustomPipeline.
 func (mg *CustomPipeline) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
@@ -404,5 +454,55 @@ func (mg *PipelineOrder) SetProviderConfigReference(r *xpv2.Reference) {
 
 // SetWriteConnectionSecretToReference of this PipelineOrder.
 func (mg *PipelineOrder) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this RestrictionQuery.
+func (mg *RestrictionQuery) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this RestrictionQuery.
+func (mg *RestrictionQuery) GetDeletionPolicy() xpv2.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this RestrictionQuery.
+func (mg *RestrictionQuery) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this RestrictionQuery.
+func (mg *RestrictionQuery) GetProviderConfigReference() *xpv2.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this RestrictionQuery.
+func (mg *RestrictionQuery) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this RestrictionQuery.
+func (mg *RestrictionQuery) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this RestrictionQuery.
+func (mg *RestrictionQuery) SetDeletionPolicy(r xpv2.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this RestrictionQuery.
+func (mg *RestrictionQuery) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this RestrictionQuery.
+func (mg *RestrictionQuery) SetProviderConfigReference(r *xpv2.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this RestrictionQuery.
+func (mg *RestrictionQuery) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

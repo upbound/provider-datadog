@@ -1,0 +1,21 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: RUMRetentionQuota
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/rumretentionquota
+  labels:
+    testing.upbound.io/example-name: testing_rum_retention_quota
+  name: testing-rum-retention-quota
+  namespace: upbound-system
+spec:
+  forProvider:
+    applicationIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    custom:
+    - dailyResetTime: "00:00"
+      dailyResetTimezone: "+00:00"
+      quotaReachedAction: stop
+      sessionLimit: 10000
+      windowType: daily
+    mode: custom

@@ -1,0 +1,20 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: TeamSync
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/teamsync
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    frequency: continuously
+    selectionState:
+    - externalId:
+      - type: organization
+        value: "12345"
+      operation: include
+      scope: subtree
+    source: github
+    syncMembership: true
+    type: link

@@ -1,0 +1,14 @@
+apiVersion: appbuilder.datadog.m.upbound.io/v1alpha1
+kind: App
+metadata:
+  annotations:
+    meta.upbound.io/example-id: appbuilder/v1alpha1/app
+  labels:
+    testing.upbound.io/example-name: example_app_from_file
+  name: example-app-from-file
+  namespace: upbound-system
+spec:
+  forProvider:
+    actionQueryNamesToConnectionIds:
+      listTeams0: ${var.connection_id}
+    appJson: ${file("${path.module}/resource.json")}

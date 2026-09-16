@@ -1,0 +1,22 @@
+apiVersion: governance.datadog.m.upbound.io/v1alpha1
+kind: Control
+metadata:
+  annotations:
+    meta.upbound.io/example-id: governance/v1alpha1/control
+  labels:
+    testing.upbound.io/example-name: unused_api_keys
+  name: unused-api-keys
+  namespace: upbound-system
+spec:
+  forProvider:
+    detectionParameters: |-
+      ${jsonencode({
+          api_key_threshold = 30
+        })}
+    detectionType: unused_api_keys
+    notificationSettings:
+    - enabled: true
+      eventType: new_detection
+      targets:
+      - handle: '#platform-governance'
+        type: slack

@@ -1,0 +1,20 @@
+apiVersion: cloudcost.datadog.upbound.io/v1alpha1
+kind: AWSCURConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudcost/v1alpha1/awscurconfig
+    upjet.upbound.io/manual-intervention: "Requires a real AWS Cost and Usage Report already configured in AWS Billing, with the payer account id and S3 bucket details."
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    accountId: "123456789012"
+    bucketName: example-cur-bucket
+    bucketRegion: us-east-1
+    reportName: example-cur-report
+    reportPrefix: reports/cur
+    accountFilters:
+      includeNewAccounts: true
+      includedAccounts:
+      - "123456789012"

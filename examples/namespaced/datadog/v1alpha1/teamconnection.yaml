@@ -1,0 +1,19 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: TeamConnection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/teamconnection
+    upjet.upbound.io/manual-intervention: "team.id must be the id of an existing datadog_team and connectedTeam.id the id of a real GitHub team already visible to the GitHub integration connected to this Datadog org; neither field carries a reference/selector today."
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    source: github
+    team:
+      id: 00000000-0000-1234-0000-000000000000
+      type: team
+    connectedTeam:
+      id: "123456"
+      type: github_team

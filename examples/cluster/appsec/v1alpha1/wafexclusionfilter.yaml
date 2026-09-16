@@ -1,0 +1,18 @@
+apiVersion: appsec.datadog.upbound.io/v1alpha1
+kind: WAFExclusionFilter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: appsec/v1alpha1/wafexclusionfilter
+  labels:
+    testing.upbound.io/example-name: healthcheck_passlist
+  name: healthcheck-passlist
+spec:
+  forProvider:
+    description: Exclude internal health-check traffic from a single noisy rule.
+    enabled: true
+    pathGlob: /healthz
+    rulesTarget:
+    - ruleId: ua0-600-56x
+    scope:
+    - env: prod
+      service: my-service

@@ -1,0 +1,33 @@
+apiVersion: apicatalog.datadog.upbound.io/v1alpha1
+kind: SoftwareCatalog
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apicatalog/v1alpha1/softwarecatalog
+  labels:
+    testing.upbound.io/example-name: service_v3
+  name: service-v3
+spec:
+  forProvider:
+    entity: |
+      apiVersion: v3
+      kind: service
+      metadata:
+        name: shopping-cart
+        displayName: Shopping Cart
+        tags:
+          - tag:value
+        links:
+          - name: shopping-cart runbook
+            type: runbook
+            url: https://runbook/shopping-cart
+        contacts:
+          - name: Support Email
+            type: email
+            contact: team@shopping.com
+        owner: myteam
+      spec:
+        lifecycle: production
+        tier: "1"
+        type: web
+        languages:
+          - go

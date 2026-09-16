@@ -1,0 +1,57 @@
+apiVersion: statuspage.datadog.upbound.io/v1alpha1
+kind: PageMaintenanceTemplate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: statuspage/v1alpha1/pagemaintenancetemplate
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    name: Scheduled database maintenance
+    maintenanceTitle: Scheduled database maintenance
+    scheduledDescription: We are performing scheduled maintenance on our database.
+    inProgressDescription: Maintenance is in progress.
+    completedDescription: Maintenance has completed successfully.
+    pageIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: pagemaintenancetemplate-foo
+    componentIdsSelector:
+      matchLabels:
+        testing.upbound.io/example-name: pagemaintenancetemplate-foo
+
+---
+
+apiVersion: statuspage.datadog.upbound.io/v1alpha1
+kind: Page
+metadata:
+  annotations:
+    meta.upbound.io/example-id: statuspage/v1alpha1/pagemaintenancetemplate
+  labels:
+    testing.upbound.io/example-name: pagemaintenancetemplate-foo
+  name: pagemaintenancetemplate-foo
+spec:
+  forProvider:
+    name: Example Service Status
+    domainPrefix: pagemaintenancetemplate-foo
+    type: public
+    visualizationType: bars_and_uptime_percentage
+
+---
+
+apiVersion: statuspage.datadog.upbound.io/v1alpha1
+kind: PageComponent
+metadata:
+  annotations:
+    meta.upbound.io/example-id: statuspage/v1alpha1/pagemaintenancetemplate
+  labels:
+    testing.upbound.io/example-name: pagemaintenancetemplate-foo
+  name: pagemaintenancetemplate-foo
+spec:
+  forProvider:
+    name: Database
+    type: component
+    position: 0
+    pageIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: pagemaintenancetemplate-foo

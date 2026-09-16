@@ -1,0 +1,13 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: OrgGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/orggroup
+    upjet.upbound.io/manual-intervention: "Observed 501 Not Implemented reading back the org group during e2e (\"error retrieving org group\"); likely requires the Org Groups feature enabled for the test org."
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Production Environments

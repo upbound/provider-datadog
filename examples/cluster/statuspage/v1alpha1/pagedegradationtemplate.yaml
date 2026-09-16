@@ -1,0 +1,37 @@
+apiVersion: statuspage.datadog.upbound.io/v1alpha1
+kind: PageDegradationTemplate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: statuspage/v1alpha1/pagedegradationtemplate
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    name: Elevated error rates
+    degradationTitle: Elevated error rates on the API
+    updates:
+    - status: investigating
+      message: We are investigating elevated error rates on the API.
+    - status: resolved
+      message: Error rates are back to normal.
+    pageIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: pagedegradationtemplate-foo
+
+---
+
+apiVersion: statuspage.datadog.upbound.io/v1alpha1
+kind: Page
+metadata:
+  annotations:
+    meta.upbound.io/example-id: statuspage/v1alpha1/pagedegradationtemplate
+  labels:
+    testing.upbound.io/example-name: pagedegradationtemplate-foo
+  name: pagedegradationtemplate-foo
+spec:
+  forProvider:
+    name: Example Service Status
+    domainPrefix: pagedegradationtemplate-foo
+    type: public
+    visualizationType: bars_and_uptime_percentage

@@ -1,0 +1,19 @@
+apiVersion: oncall.datadog.m.upbound.io/v1alpha1
+kind: EscalationPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/escalationpolicy
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Example Escalation Policy
+    resolvePageOnPolicyEnd: false
+    retries: 0
+    step:
+    - assignment: default
+      escalateAfterSeconds: 300
+      target:
+      - user: ${data.datadog_current_user.me.id}

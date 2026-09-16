@@ -1,0 +1,16 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: MSTeamsWorkflowsWebhookHandle
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/msteamsworkflowswebhookhandle
+    upjet.upbound.io/manual-intervention: "urlSecretRef must resolve to a real Microsoft Teams Workflows webhook URL."
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    name: example-handle
+    urlSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

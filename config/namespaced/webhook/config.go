@@ -16,4 +16,10 @@ func Configure(p *config.Provider) {
 		r.Kind = "WebhookCustomVariable"
 		r.ShortGroup = "datadog"
 	})
+	p.AddResourceConfigurator("datadog_webhook_oauth2_client_credentials", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "WebhookOauth2ClientCredentials"
+		r.ShortGroup = "datadog"
+	})
 }

@@ -1,0 +1,22 @@
+apiVersion: tag.datadog.m.upbound.io/v1alpha1
+kind: TagPipelineRuleset
+metadata:
+  annotations:
+    meta.upbound.io/example-id: tag/v1alpha1/tagpipelineruleset
+  labels:
+    testing.upbound.io/example-name: first
+  name: first
+  namespace: upbound-system
+spec:
+  forProvider:
+    enabled: true
+    name: Standardize Environment Tags
+    rules:
+    - enabled: true
+      mapping:
+      - destinationKey: env
+        ifTagExists: replace
+        sourceKeys:
+        - environment
+        - stage
+      name: map-env

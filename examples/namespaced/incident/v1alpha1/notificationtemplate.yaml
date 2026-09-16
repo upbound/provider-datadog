@@ -1,0 +1,35 @@
+apiVersion: incident.datadog.m.upbound.io/v1alpha1
+kind: NotificationTemplate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/notificationtemplate
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Example Notification Template
+    category: incident
+    subject: "[{{severity}}] {{title}}"
+    content: "Incident {{public_id}} ({{title}}) is now {{status}}."
+    incidentTypeSelector:
+      matchLabels:
+        testing.upbound.io/example-name: notificationtemplate-foo
+
+---
+
+apiVersion: incident.datadog.m.upbound.io/v1alpha1
+kind: IncidentType
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/notificationtemplate
+  labels:
+    testing.upbound.io/example-name: notificationtemplate-foo
+  name: notificationtemplate-foo
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Notification Template Incident Type
+    description: Incident type used by the notification template example.
+    isDefault: false

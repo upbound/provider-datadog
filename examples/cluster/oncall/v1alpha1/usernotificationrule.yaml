@@ -1,0 +1,34 @@
+apiVersion: oncall.datadog.upbound.io/v1alpha1
+kind: UserNotificationRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/usernotificationrule
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    category: high_urgency
+    delayMinutes: 0
+    channelIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: usernotificationrule-foo
+    userId: ${data.datadog_current_user.me.id}
+
+---
+
+apiVersion: oncall.datadog.upbound.io/v1alpha1
+kind: UserNotificationChannel
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/usernotificationrule
+  labels:
+    testing.upbound.io/example-name: usernotificationrule-foo
+  name: usernotificationrule-foo
+spec:
+  forProvider:
+    email:
+      address: oncall-rule-example@example.com
+      formats:
+      - html
+    userId: ${data.datadog_current_user.me.id}

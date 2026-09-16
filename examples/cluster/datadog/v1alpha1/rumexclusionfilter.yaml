@@ -1,0 +1,34 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: RUMExclusionFilter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/rumexclusionfilter
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    applicationIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: rumexclusionfilter-foo
+    enabled: true
+    eventType: error
+    name: testing.rum.exclusion_filter
+    query: '@error.message:*extension*'
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: RUMApplication
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/rumexclusionfilter
+  labels:
+    testing.upbound.io/example-name: rumexclusionfilter-foo
+  name: rumexclusionfilter-foo
+spec:
+  forProvider:
+    name: my-application
+    productAnalyticsRetentionState: NONE
+    rumEventProcessingState: ALL
+    type: browser

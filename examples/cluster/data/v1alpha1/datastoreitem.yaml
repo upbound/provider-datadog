@@ -1,0 +1,43 @@
+apiVersion: data.datadog.upbound.io/v1alpha1
+kind: DatastoreItem
+metadata:
+  annotations:
+    # DatastoreItem's Terraform id is "<datastore id>:<item key>"; item_key is
+    # sourced from this external-name annotation (config.TemplatedStringAsIdentifier),
+    # not from a spec field. The API stores the key inside the item's value
+    # under the datastore's primary column, so value.id must repeat it.
+    crossplane.io/external-name: example-item
+    meta.upbound.io/example-id: data/v1alpha1/datastoreitem
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    datastoreIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: datastoreitem-datastore
+    value:
+      id: example-item
+      name: Example Item
+      status: active
+
+---
+
+apiVersion: data.datadog.upbound.io/v1alpha1
+kind: Datastore
+metadata:
+  annotations:
+    meta.upbound.io/example-id: data/v1alpha1/datastoreitem
+  labels:
+    testing.upbound.io/example-name: datastoreitem-datastore
+  name: datastoreitem-datastore
+spec:
+  forProvider:
+    name: Example Datastore
+    description: An example datastore managed by Crossplane
+    orgAccess: contributor
+    primaryColumnName: id
+    # none: items carry their own primary key (DatastoreItem.item_key). With
+    # uuid the API ignores the key, auto-generates one and every update or
+    # delete by key answers 400.
+    primaryKeyGenerationStrategy: none

@@ -1,0 +1,56 @@
+apiVersion: tag.datadog.upbound.io/v1alpha1
+kind: PipelineRulesets
+metadata:
+  annotations:
+    meta.upbound.io/example-id: tag/v1alpha1/pipelinerulesets
+    upjet.upbound.io/manual-intervention: "The API answered 403 \"This feature is restricted to Cloud Cost Management users\" during e2e; the Datadog org needs Cloud Cost Management."
+  labels:
+    testing.upbound.io/example-name: default_order
+  name: default-order
+spec:
+  forProvider:
+    rulesetIdsSelector:
+      matchLabels:
+        testing.upbound.io/example-name: pipelinerulesets-foo
+
+---
+
+apiVersion: tag.datadog.upbound.io/v1alpha1
+kind: TagPipelineRuleset
+metadata:
+  annotations:
+    meta.upbound.io/example-id: tag/v1alpha1/pipelinerulesets
+  labels:
+    testing.upbound.io/example-name: pipelinerulesets-foo
+  name: pipelinerulesets-pii
+spec:
+  forProvider:
+    name: PII redaction
+    enabled: true
+    rules:
+    - name: redact-email
+      enabled: true
+      query:
+        query: "@email:*"
+
+---
+
+apiVersion: tag.datadog.upbound.io/v1alpha1
+kind: TagPipelineRuleset
+metadata:
+  annotations:
+    meta.upbound.io/example-id: tag/v1alpha1/pipelinerulesets
+  labels:
+    testing.upbound.io/example-name: pipelinerulesets-foo
+  name: pipelinerulesets-billing
+spec:
+  forProvider:
+    name: Billing tag normalization
+    enabled: true
+    rules:
+    - name: normalize-team-tag
+      enabled: true
+      mapping:
+        sourceKeys:
+        - team_name
+        destinationKey: team

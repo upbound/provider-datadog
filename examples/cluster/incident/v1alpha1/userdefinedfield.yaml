@@ -1,0 +1,42 @@
+apiVersion: incident.datadog.upbound.io/v1alpha1
+kind: UserDefinedField
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/userdefinedfield
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    # root_cause, detection_method, summary, services and teams are created
+    # by Datadog on every incident type and cannot be used as field names.
+    name: impacted_component
+    displayName: Impacted Component
+    category: what_happened
+    type: dropdown
+    defaultValue: api
+    validValue:
+    - value: api
+      displayName: API
+      description: The public API.
+    - value: web
+      displayName: Web
+    incidentTypeSelector:
+      matchLabels:
+        testing.upbound.io/example-name: userdefinedfield-foo
+
+---
+
+apiVersion: incident.datadog.upbound.io/v1alpha1
+kind: IncidentType
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/userdefinedfield
+  labels:
+    testing.upbound.io/example-name: userdefinedfield-foo
+  name: userdefinedfield-foo
+spec:
+  forProvider:
+    name: User Defined Field Incident Type
+    description: Incident type used by the user-defined-field example.
+    isDefault: false

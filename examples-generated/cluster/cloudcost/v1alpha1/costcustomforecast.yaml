@@ -1,0 +1,47 @@
+apiVersion: cloudcost.datadog.upbound.io/v1alpha1
+kind: CostCustomForecast
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudcost/v1alpha1/costcustomforecast
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    budgetUidSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    entries:
+    - amount: 900
+      month: 202601
+      tagFilters:
+      - tagKey: service
+        tagValue: ec2
+
+---
+
+apiVersion: cloudcost.datadog.upbound.io/v1alpha1
+kind: CostBudget
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudcost.datadog/v1alpha1/costcustomforecast
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    endMonth: 202602
+    entries:
+    - amount: 1000
+      month: 202601
+      tagFilters:
+      - tagKey: service
+        tagValue: ec2
+    - amount: 1200
+      month: 202602
+      tagFilters:
+      - tagKey: service
+        tagValue: ec2
+    metricsQuery: sum:aws.cost.amortized{service:ec2} by {service}
+    name: Engineering Q1 Budget
+    startMonth: 202601

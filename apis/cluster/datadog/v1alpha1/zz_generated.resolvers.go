@@ -16,8 +16,360 @@ import (
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func (mg *SLOCorrection) ResolveReferences( // ResolveReferences of this SLOCorrection.
+func (mg *OrgGroupMembership) ResolveReferences( // ResolveReferences of this OrgGroupMembership.
 	ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "OrgGroup", "OrgGroupList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgGroupID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.OrgGroupIDRef,
+			Selector:     mg.Spec.ForProvider.OrgGroupIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.OrgGroupID")
+	}
+	mg.Spec.ForProvider.OrgGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgGroupIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "OrgGroup", "OrgGroupList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgGroupID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.OrgGroupIDRef,
+			Selector:     mg.Spec.InitProvider.OrgGroupIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.OrgGroupID")
+	}
+	mg.Spec.InitProvider.OrgGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgGroupIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this OrgGroupPolicy.
+func (mg *OrgGroupPolicy) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "OrgGroup", "OrgGroupList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgGroupID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.OrgGroupIDRef,
+			Selector:     mg.Spec.ForProvider.OrgGroupIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.OrgGroupID")
+	}
+	mg.Spec.ForProvider.OrgGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgGroupIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "OrgGroup", "OrgGroupList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgGroupID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.OrgGroupIDRef,
+			Selector:     mg.Spec.InitProvider.OrgGroupIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.OrgGroupID")
+	}
+	mg.Spec.InitProvider.OrgGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgGroupIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this OrgGroupPolicyOverride.
+func (mg *OrgGroupPolicyOverride) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "OrgGroup", "OrgGroupList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgGroupID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.OrgGroupIDRef,
+			Selector:     mg.Spec.ForProvider.OrgGroupIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.OrgGroupID")
+	}
+	mg.Spec.ForProvider.OrgGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgGroupIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "OrgGroupPolicy", "OrgGroupPolicyList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.PolicyID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.PolicyIDRef,
+			Selector:     mg.Spec.ForProvider.PolicyIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.PolicyID")
+	}
+	mg.Spec.ForProvider.PolicyID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.PolicyIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "OrgGroup", "OrgGroupList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgGroupID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.OrgGroupIDRef,
+			Selector:     mg.Spec.InitProvider.OrgGroupIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.OrgGroupID")
+	}
+	mg.Spec.InitProvider.OrgGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgGroupIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "OrgGroupPolicy", "OrgGroupPolicyList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.PolicyID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.PolicyIDRef,
+			Selector:     mg.Spec.InitProvider.PolicyIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.PolicyID")
+	}
+	mg.Spec.InitProvider.PolicyID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.PolicyIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this RUMExclusionFilter.
+func (mg *RUMExclusionFilter) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "RUMApplication", "RUMApplicationList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ApplicationID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ApplicationIDRef,
+			Selector:     mg.Spec.ForProvider.ApplicationIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ApplicationID")
+	}
+	mg.Spec.ForProvider.ApplicationID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ApplicationIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "RUMApplication", "RUMApplicationList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ApplicationID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ApplicationIDRef,
+			Selector:     mg.Spec.InitProvider.ApplicationIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ApplicationID")
+	}
+	mg.Spec.InitProvider.ApplicationID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ApplicationIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this RUMRetentionFilter.
+func (mg *RUMRetentionFilter) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "RUMApplication", "RUMApplicationList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ApplicationID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ApplicationIDRef,
+			Selector:     mg.Spec.ForProvider.ApplicationIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ApplicationID")
+	}
+	mg.Spec.ForProvider.ApplicationID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ApplicationIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "RUMApplication", "RUMApplicationList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ApplicationID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ApplicationIDRef,
+			Selector:     mg.Spec.InitProvider.ApplicationIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ApplicationID")
+	}
+	mg.Spec.InitProvider.ApplicationID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ApplicationIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this RUMRetentionQuota.
+func (mg *RUMRetentionQuota) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "RUMApplication", "RUMApplicationList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ApplicationID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ApplicationIDRef,
+			Selector:     mg.Spec.ForProvider.ApplicationIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ApplicationID")
+	}
+	mg.Spec.ForProvider.ApplicationID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ApplicationIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "RUMApplication", "RUMApplicationList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ApplicationID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ApplicationIDRef,
+			Selector:     mg.Spec.InitProvider.ApplicationIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ApplicationID")
+	}
+	mg.Spec.InitProvider.ApplicationID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ApplicationIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this SLOCorrection.
+func (mg *SLOCorrection) ResolveReferences(ctx context.Context, c client.Reader) error {
 	var m xpresource.Managed
 	var l xpresource.ManagedList
 	r := reference.NewAPIResolver(c, mg)
@@ -64,6 +416,259 @@ func (mg *SLOCorrection) ResolveReferences( // ResolveReferences of this SLOCorr
 	}
 	mg.Spec.InitProvider.SLOID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.SLOIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this SecureEmbedDashboard.
+func (mg *SecureEmbedDashboard) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "DashboardJSON", "DashboardJSONList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DashboardID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.DashboardIDRef,
+			Selector:     mg.Spec.ForProvider.DashboardIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.DashboardID")
+	}
+	mg.Spec.ForProvider.DashboardID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.DashboardIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "DashboardJSON", "DashboardJSONList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DashboardID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.DashboardIDRef,
+			Selector:     mg.Spec.InitProvider.DashboardIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.DashboardID")
+	}
+	mg.Spec.InitProvider.DashboardID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.DashboardIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this ServiceAccessToken.
+func (mg *ServiceAccessToken) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "ServiceAccount", "ServiceAccountList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ServiceAccountID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ServiceAccountIDRef,
+			Selector:     mg.Spec.ForProvider.ServiceAccountIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ServiceAccountID")
+	}
+	mg.Spec.ForProvider.ServiceAccountID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ServiceAccountIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "ServiceAccount", "ServiceAccountList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ServiceAccountID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ServiceAccountIDRef,
+			Selector:     mg.Spec.InitProvider.ServiceAccountIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ServiceAccountID")
+	}
+	mg.Spec.InitProvider.ServiceAccountID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ServiceAccountIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this TeamConnection.
+func (mg *TeamConnection) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	if mg.Spec.ForProvider.Team != nil {
+		{
+			m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "Team", "TeamList")
+			if err != nil {
+				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+			}
+			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Team.ID),
+				Extract:      resource.ExtractResourceID(),
+				Namespace:    mg.GetNamespace(),
+				Reference:    mg.Spec.ForProvider.Team.IDRef,
+				Selector:     mg.Spec.ForProvider.Team.IDSelector,
+				To:           reference.To{List: l, Managed: m},
+			})
+		}
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Team.ID")
+		}
+		mg.Spec.ForProvider.Team.ID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Team.IDRef = rsp.ResolvedReference
+
+	}
+	if mg.Spec.InitProvider.Team != nil {
+		{
+			m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "Team", "TeamList")
+			if err != nil {
+				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+			}
+			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Team.ID),
+				Extract:      resource.ExtractResourceID(),
+				Namespace:    mg.GetNamespace(),
+				Reference:    mg.Spec.InitProvider.Team.IDRef,
+				Selector:     mg.Spec.InitProvider.Team.IDSelector,
+				To:           reference.To{List: l, Managed: m},
+			})
+		}
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Team.ID")
+		}
+		mg.Spec.InitProvider.Team.ID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Team.IDRef = rsp.ResolvedReference
+
+	}
+
+	return nil
+}
+
+// ResolveReferences of this TeamHierarchyLinks.
+func (mg *TeamHierarchyLinks) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "Team", "TeamList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ParentTeamID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ParentTeamIDRef,
+			Selector:     mg.Spec.ForProvider.ParentTeamIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ParentTeamID")
+	}
+	mg.Spec.ForProvider.ParentTeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ParentTeamIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "Team", "TeamList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SubTeamID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.SubTeamIDRef,
+			Selector:     mg.Spec.ForProvider.SubTeamIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.SubTeamID")
+	}
+	mg.Spec.ForProvider.SubTeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.SubTeamIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "Team", "TeamList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ParentTeamID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ParentTeamIDRef,
+			Selector:     mg.Spec.InitProvider.ParentTeamIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ParentTeamID")
+	}
+	mg.Spec.InitProvider.ParentTeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ParentTeamIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "Team", "TeamList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SubTeamID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.SubTeamIDRef,
+			Selector:     mg.Spec.InitProvider.SubTeamIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.SubTeamID")
+	}
+	mg.Spec.InitProvider.SubTeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.SubTeamIDRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -212,6 +817,58 @@ func (mg *TeamMembership) ResolveReferences(ctx context.Context, c client.Reader
 	return nil
 }
 
+// ResolveReferences of this TeamNotificationRule.
+func (mg *TeamNotificationRule) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "Team", "TeamList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TeamID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.TeamIDRef,
+			Selector:     mg.Spec.ForProvider.TeamIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.TeamID")
+	}
+	mg.Spec.ForProvider.TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.TeamIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "Team", "TeamList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.TeamID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.TeamIDRef,
+			Selector:     mg.Spec.InitProvider.TeamIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.TeamID")
+	}
+	mg.Spec.InitProvider.TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.TeamIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this TeamPermissionSetting.
 func (mg *TeamPermissionSetting) ResolveReferences(ctx context.Context, c client.Reader) error {
 	var m xpresource.Managed
@@ -260,6 +917,98 @@ func (mg *TeamPermissionSetting) ResolveReferences(ctx context.Context, c client
 	}
 	mg.Spec.InitProvider.TeamID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.TeamIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this UserRole.
+func (mg *UserRole) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "Role", "RoleList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RoleID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.RoleIDRef,
+			Selector:     mg.Spec.ForProvider.RoleIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.RoleID")
+	}
+	mg.Spec.ForProvider.RoleID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RoleIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "User", "UserList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.UserID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.UserIDRef,
+			Selector:     mg.Spec.ForProvider.UserIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.UserID")
+	}
+	mg.Spec.ForProvider.UserID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.UserIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "Role", "RoleList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RoleID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.RoleIDRef,
+			Selector:     mg.Spec.InitProvider.RoleIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.RoleID")
+	}
+	mg.Spec.InitProvider.RoleID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.RoleIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("datadog.upbound.io", "v1alpha1", "User", "UserList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.UserID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.UserIDRef,
+			Selector:     mg.Spec.InitProvider.UserIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.UserID")
+	}
+	mg.Spec.InitProvider.UserID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.UserIDRef = rsp.ResolvedReference
 
 	return nil
 }

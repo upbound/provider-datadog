@@ -1,0 +1,18 @@
+apiVersion: securityfindings.datadog.m.upbound.io/v1alpha1
+kind: MuteRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: securityfindings/v1alpha1/muterule
+  labels:
+    testing.upbound.io/example-name: known_false_positive
+  name: known-false-positive
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Mute known false positives
+    action:
+      reason: false_positive
+      reasonDescription: Confirmed false positive after manual review.
+    rule:
+      findingTypes:
+      - misconfiguration

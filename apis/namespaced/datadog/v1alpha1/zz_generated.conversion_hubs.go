@@ -13,6 +13,9 @@ func (tr *APIKey) Hub() {}
 func (tr *AppKey) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *AppKeyRegistration) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *AuthnMapping) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -23,6 +26,9 @@ func (tr *DashboardJSON) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *DashboardList) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *DomainAllowlist) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Downtime) Hub() {}
@@ -43,10 +49,31 @@ func (tr *MonitorConfigPolicy) Hub() {}
 func (tr *MonitorJSON) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *MonitorNotificationRule) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *OrganizationSettings) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *OrgConnection) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *OrgGroup) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *OrgGroupMembership) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *OrgGroupPolicy) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *OrgGroupPolicyOverride) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Powerpack) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *PowerpackV2) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *RestrictionPolicy) Hub() {}
@@ -56,6 +83,24 @@ func (tr *Role) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *RUMApplication) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RUMExclusionFilter) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RUMMetric) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RUMRetentionFilter) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RUMRetentionQuota) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SecureEmbedDashboard) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *ServiceAccessToken) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *ServiceAccount) Hub() {}
@@ -79,19 +124,37 @@ func (tr *SpansMetric) Hub() {}
 func (tr *Team) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *TeamConnection) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *TeamHierarchyLinks) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *TeamLink) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *TeamMembership) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *TeamNotificationRule) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *TeamPermissionSetting) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *TeamSync) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *User) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *UserRole) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Webhook) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *WebhookCustomVariable) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *WebhookOauth2ClientCredentials) Hub() {}

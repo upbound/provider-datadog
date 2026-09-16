@@ -1,0 +1,14 @@
+apiVersion: cloudcost.datadog.upbound.io/v1alpha1
+kind: AzureUCConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudcost/v1alpha1/azureucconfig
+    upjet.upbound.io/manual-intervention: "Requires a real Azure tenant with cost export configured, plus the observed subscription scope and a service principal client id."
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    accountId: 00000000-0000-0000-0000-000000000000
+    clientId: 00000000-0000-0000-0000-000000000001
+    scope: /subscriptions/00000000-0000-0000-0000-000000000002
