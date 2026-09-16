@@ -19,8 +19,9 @@ The provider serves every resource in two API trees:
 
 This provider interacts with a
 [Datadog account](https://www.datadoghq.com/). It authenticates
-to the account using a Datadog API Key, an Application key, and
-a Datadog account endpoint URL.
+to the account with either a Datadog API key and Application key
+pair or a bearer token (a personal access token, `ddpat_*`, or a
+service-account access token), plus the account's API endpoint URL.
 The keys can be generated inside the account
 and be stored in a Kubernetes secret on the Crossplane
 management cluster. The format of the secret is as follows:
@@ -31,7 +32,32 @@ management cluster. The format of the secret is as follows:
       "api_url": "https://api.datadoghq.com/"
     }
 ```
-Note that your preferred endpoint may differ.
+or, with a bearer token instead of the key pair:
+```
+    {
+      "bearer_token": "ddpat_INSERT_TOKEN",
+      "api_url": "https://api.datadoghq.com/"
+    }
+```
+Note that your preferred endpoint may differ. When both are present the
+bearer token takes precedence over the key pair.
+
+The same document accepts the other arguments of the Terraform provider
+block: `validate` and `http_client_retry_enabled` (booleans, or the strings
+`"true"`/`"false"`), the integers `http_client_retry_max_retries`,
+`http_client_retry_timeout`, `http_client_retry_backoff_base`,
+`http_client_retry_backoff_multiplier` and `http_client_retry_jitter`, and
+`ignore_tag_keys`, a JSON array of tag keys whose drift the provider ignores
+on Monitors and Service Level Objectives (experimental upstream):
+```
+    {
+      "api_key": "INSERT_API_KEY",
+      "app_key": "INSERT_APP_KEY",
+      "http_client_retry_jitter": 2,
+      "ignore_tag_keys": ["team", "env"]
+    }
+```
+Anything left out keeps the Terraform provider's default.
 The Kubernetes secret can be referenced by
 the ProviderConfig, so that the provider-datadog can connect
 to the desired Datadog account. A ProviderConfig for the
