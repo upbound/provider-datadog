@@ -21,7 +21,7 @@ func (mg *AWSAccount) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this AWSAccount
 func (tr *AWSAccount) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"auth_config[*].aws_auth_config_keys[*].secret_access_key": "authConfig.awsAuthConfigKeys.secretAccessKeySecretRef"}
+	return map[string]string{"auth_config.aws_auth_config_keys.secret_access_key": "authConfig.awsAuthConfigKeys.secretAccessKeySecretRef"}
 }
 
 // GetObservation of this AWSAccount

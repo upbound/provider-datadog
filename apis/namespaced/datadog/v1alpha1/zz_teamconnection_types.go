@@ -190,10 +190,8 @@ type TeamConnectionStatus struct {
 type TeamConnection struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.connectedTeam) || (has(self.initProvider) && has(self.initProvider.connectedTeam))",message="spec.forProvider.connectedTeam is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.team) || (has(self.initProvider) && has(self.initProvider.team))",message="spec.forProvider.team is a required parameter"
-	Spec   TeamConnectionSpec   `json:"spec"`
-	Status TeamConnectionStatus `json:"status,omitempty"`
+	Spec              TeamConnectionSpec   `json:"spec"`
+	Status            TeamConnectionStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

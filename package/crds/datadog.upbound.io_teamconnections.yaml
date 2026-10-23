@@ -397,15 +397,6 @@ spec:
             required:
             - forProvider
             type: object
-            x-kubernetes-validations:
-            - message: spec.forProvider.connectedTeam is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.connectedTeam)
-                || (has(self.initProvider) && has(self.initProvider.connectedTeam))'
-            - message: spec.forProvider.team is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.team)
-                || (has(self.initProvider) && has(self.initProvider.team))'
           status:
             description: TeamConnectionStatus defines the observed state of TeamConnection.
             properties:
