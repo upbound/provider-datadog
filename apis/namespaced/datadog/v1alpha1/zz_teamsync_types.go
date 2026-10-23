@@ -83,7 +83,7 @@ type SelectionStateParameters struct {
 	// (Block, Optional) The external identifier for a team or organization in the source platform. (see below for nested schema)
 	// The external identifier for a team or organization in the source platform.
 	// +kubebuilder:validation:Optional
-	ExternalID *ExternalIDParameters `json:"externalId" tf:"external_id,omitempty"`
+	ExternalID *ExternalIDParameters `json:"externalId,omitempty" tf:"external_id,omitempty"`
 
 	// (String) The operation to perform on the selected hierarchy. Valid values are include. Defaults to "include".
 	// The operation to perform on the selected hierarchy. Valid values are `include`. Defaults to `"include"`.
