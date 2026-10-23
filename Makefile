@@ -44,7 +44,7 @@ NPROCS ?= 1
 GO_TEST_PARALLEL := $(shell echo $$(( $(NPROCS) / 2 )))
 
 GO_REQUIRED_VERSION ?= $(shell grep -E '^go ' go.mod | awk '{print $2}')
-GOLANGCILINT_VERSION ?= 2.13.2
+GOLANGCILINT_VERSION ?= 2.15.0
 GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator
 GO_LDFLAGS += -X $(GO_PROJECT)/internal/version.Version=$(VERSION)
 GO_SUBDIRS += cmd internal apis config
@@ -59,9 +59,9 @@ CRDDIFF_VERSION = v0.12.1
 KUBECTL_VALIDATE_VERSION ?= v0.0.4
 # The CLI is published separately from the chart; this is the newest
 # release available on releases.crossplane.io.
-CROSSPLANE_CLI_VERSION = v2.3.4
+CROSSPLANE_CLI_VERSION = v2.5.0
 # for e2e testing
-CROSSPLANE_VERSION = 2.4.0
+CROSSPLANE_VERSION = 2.4.3
 -include build/makelib/k8s_tools.mk
 
 # ====================================================================================

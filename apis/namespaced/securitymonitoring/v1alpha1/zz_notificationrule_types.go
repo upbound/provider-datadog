@@ -225,7 +225,6 @@ type NotificationRule struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.selectors) || (has(self.initProvider) && has(self.initProvider.selectors))",message="spec.forProvider.selectors is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.targets) || (has(self.initProvider) && has(self.initProvider.targets))",message="spec.forProvider.targets is a required parameter"
 	Spec   NotificationRuleSpec   `json:"spec"`
 	Status NotificationRuleStatus `json:"status,omitempty"`
