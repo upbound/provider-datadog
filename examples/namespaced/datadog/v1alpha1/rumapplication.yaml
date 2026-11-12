@@ -9,6 +9,7 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
+    createDefaultRetentionFilters: false
     name: my-application
     productAnalyticsRetentionState: NONE
     rumEventProcessingState: ALL

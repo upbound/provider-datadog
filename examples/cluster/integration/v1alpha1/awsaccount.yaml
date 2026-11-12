@@ -19,6 +19,13 @@ spec:
     awsPartition: aws
     awsRegions:
       includeAll: true
+    metricsConfig:
+      collectServiceQuotas: true
+      resourceTypeTagFilters:
+      - expression: env:production AND !region:us-east-1
+        resourceTypes:
+        - instance
+        service: ec2
     resourcesConfig:
       cloudSecurityPostureManagementCollection: true
       extendedCollection: true

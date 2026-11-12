@@ -15,3 +15,5 @@ spec:
     recipients:
     - slack-checkout-ops
     - jira-checkout
+    ruleOptions:
+      isThreaded: true

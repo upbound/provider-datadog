@@ -18,3 +18,4 @@ spec:
     - filter_one
     - filter_two
     isCspmEnabled: false
+    isOrgFolderResourceCollectionEnabled: false
