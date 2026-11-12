@@ -4126,6 +4126,11 @@ func (in *OptionsListInitParameters) DeepCopyInto(out *OptionsListInitParameters
 		*out = new(bool)
 		**out = **in
 	}
+	if in.BitsAIAutoInvestigate != nil {
+		in, out := &in.BitsAIAutoInvestigate, &out.BitsAIAutoInvestigate
+		*out = new(bool)
+		**out = **in
+	}
 	if in.BlockedRequestPatterns != nil {
 		in, out := &in.BlockedRequestPatterns, &out.BlockedRequestPatterns
 		*out = make([]*string, len(*in))
@@ -4383,6 +4388,11 @@ func (in *OptionsListObservation) DeepCopyInto(out *OptionsListObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.BitsAIAutoInvestigate != nil {
+		in, out := &in.BitsAIAutoInvestigate, &out.BitsAIAutoInvestigate
+		*out = new(bool)
+		**out = **in
+	}
 	if in.BlockedRequestPatterns != nil {
 		in, out := &in.BlockedRequestPatterns, &out.BlockedRequestPatterns
 		*out = make([]*string, len(*in))
@@ -4532,6 +4542,11 @@ func (in *OptionsListParameters) DeepCopyInto(out *OptionsListParameters) {
 	}
 	if in.AllowInsecure != nil {
 		in, out := &in.AllowInsecure, &out.AllowInsecure
+		*out = new(bool)
+		**out = **in
+	}
+	if in.BitsAIAutoInvestigate != nil {
+		in, out := &in.BitsAIAutoInvestigate, &out.BitsAIAutoInvestigate
 		*out = new(bool)
 		**out = **in
 	}

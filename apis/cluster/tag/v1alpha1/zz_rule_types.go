@@ -55,8 +55,8 @@ type RuleInitParameters struct {
 	// The tag key that the rule governs (for example, `service`).
 	TagKey *string `json:"tagKey,omitempty" tf:"tag_key,omitempty"`
 
-	// Za-z0-9_:-.,/*, with * acting as a wildcard. A pattern made up only of wildcards (for example a bare *) is rejected by the API.
-	// One or more patterns that valid values for the tag key must match. At least one pattern is required. These are not regular expressions: the API restricts pattern characters to `A-Za-z0-9_:-.,/*`, with `*` acting as a wildcard. A pattern made up only of wildcards (for example a bare `*`) is rejected by the API.
+	// Za-z0-9_:-.,/*, with * acting as a wildcard. A bare * accepts any value, so ["*"] with required = true means the tag must be present with any value, and ["*"] with negated = true means the tag must be absent. A bare * cannot be combined with required and negated both false (the rule would have no effect) or both true (no value could comply).
+	// One or more patterns that valid values for the tag key must match. At least one pattern is required. These are not regular expressions: the API restricts pattern characters to `A-Za-z0-9_:-.,/*`, with `*` acting as a wildcard. A bare `*` accepts any value, so `["*"]` with `required = true` means the tag must be present with any value, and `["*"]` with `negated = true` means the tag must be absent. A bare `*` cannot be combined with `required` and `negated` both `false` (the rule would have no effect) or both `true` (no value could comply).
 	TagValuePatterns []*string `json:"tagValuePatterns,omitempty" tf:"tag_value_patterns,omitempty"`
 }
 
@@ -121,8 +121,8 @@ type RuleObservation struct {
 	// The tag key that the rule governs (for example, `service`).
 	TagKey *string `json:"tagKey,omitempty" tf:"tag_key,omitempty"`
 
-	// Za-z0-9_:-.,/*, with * acting as a wildcard. A pattern made up only of wildcards (for example a bare *) is rejected by the API.
-	// One or more patterns that valid values for the tag key must match. At least one pattern is required. These are not regular expressions: the API restricts pattern characters to `A-Za-z0-9_:-.,/*`, with `*` acting as a wildcard. A pattern made up only of wildcards (for example a bare `*`) is rejected by the API.
+	// Za-z0-9_:-.,/*, with * acting as a wildcard. A bare * accepts any value, so ["*"] with required = true means the tag must be present with any value, and ["*"] with negated = true means the tag must be absent. A bare * cannot be combined with required and negated both false (the rule would have no effect) or both true (no value could comply).
+	// One or more patterns that valid values for the tag key must match. At least one pattern is required. These are not regular expressions: the API restricts pattern characters to `A-Za-z0-9_:-.,/*`, with `*` acting as a wildcard. A bare `*` accepts any value, so `["*"]` with `required = true` means the tag must be present with any value, and `["*"]` with `negated = true` means the tag must be absent. A bare `*` cannot be combined with `required` and `negated` both `false` (the rule would have no effect) or both `true` (no value could comply).
 	TagValuePatterns []*string `json:"tagValuePatterns,omitempty" tf:"tag_value_patterns,omitempty"`
 
 	// (Number) A monotonically increasing version counter that is incremented on each update.
@@ -182,8 +182,8 @@ type RuleParameters struct {
 	// +kubebuilder:validation:Optional
 	TagKey *string `json:"tagKey,omitempty" tf:"tag_key,omitempty"`
 
-	// Za-z0-9_:-.,/*, with * acting as a wildcard. A pattern made up only of wildcards (for example a bare *) is rejected by the API.
-	// One or more patterns that valid values for the tag key must match. At least one pattern is required. These are not regular expressions: the API restricts pattern characters to `A-Za-z0-9_:-.,/*`, with `*` acting as a wildcard. A pattern made up only of wildcards (for example a bare `*`) is rejected by the API.
+	// Za-z0-9_:-.,/*, with * acting as a wildcard. A bare * accepts any value, so ["*"] with required = true means the tag must be present with any value, and ["*"] with negated = true means the tag must be absent. A bare * cannot be combined with required and negated both false (the rule would have no effect) or both true (no value could comply).
+	// One or more patterns that valid values for the tag key must match. At least one pattern is required. These are not regular expressions: the API restricts pattern characters to `A-Za-z0-9_:-.,/*`, with `*` acting as a wildcard. A bare `*` accepts any value, so `["*"]` with `required = true` means the tag must be present with any value, and `["*"]` with `negated = true` means the tag must be absent. A bare `*` cannot be combined with `required` and `negated` both `false` (the rule would have no effect) or both `true` (no value could comply).
 	// +kubebuilder:validation:Optional
 	TagValuePatterns []*string `json:"tagValuePatterns,omitempty" tf:"tag_value_patterns,omitempty"`
 }

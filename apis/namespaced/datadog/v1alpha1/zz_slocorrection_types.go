@@ -35,8 +35,8 @@ type SLOCorrectionInitParameters struct {
 	// Recurrence rules as defined in the iCalendar RFC 5545. Supported rules for SLO corrections are `FREQ`, `INTERVAL`, `COUNT` and `UNTIL`.
 	Rrule *string `json:"rrule,omitempty" tf:"rrule,omitempty"`
 
-	// (String) ID of the SLO that this correction will be applied to.
-	// ID of the SLO that this correction will be applied to.
+	// (String) ID of the single SLO that this correction will be applied to.
+	// ID of the single SLO that this correction will be applied to.
 	// +crossplane:generate:reference:type=github.com/upbound/provider-datadog/apis/namespaced/datadog/v1alpha1.ServiceLevelObjective
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
@@ -48,6 +48,10 @@ type SLOCorrectionInitParameters struct {
 	// Selector for a ServiceLevelObjective in datadog to populate sloId.
 	// +kubebuilder:validation:Optional
 	SLOIDSelector *v2.NamespacedSelector `json:"sloIdSelector,omitempty" tf:"-"`
+
+	// (String) Query that matches the SLOs this correction will be applied to.
+	// Query that matches the SLOs this correction will be applied to.
+	SLOQuery *string `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 
 	// (Number) Starting time of the correction in epoch seconds.
 	// Starting time of the correction in epoch seconds.
@@ -83,9 +87,13 @@ type SLOCorrectionObservation struct {
 	// Recurrence rules as defined in the iCalendar RFC 5545. Supported rules for SLO corrections are `FREQ`, `INTERVAL`, `COUNT` and `UNTIL`.
 	Rrule *string `json:"rrule,omitempty" tf:"rrule,omitempty"`
 
-	// (String) ID of the SLO that this correction will be applied to.
-	// ID of the SLO that this correction will be applied to.
+	// (String) ID of the single SLO that this correction will be applied to.
+	// ID of the single SLO that this correction will be applied to.
 	SLOID *string `json:"sloId,omitempty" tf:"slo_id,omitempty"`
+
+	// (String) Query that matches the SLOs this correction will be applied to.
+	// Query that matches the SLOs this correction will be applied to.
+	SLOQuery *string `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 
 	// (Number) Starting time of the correction in epoch seconds.
 	// Starting time of the correction in epoch seconds.
@@ -123,8 +131,8 @@ type SLOCorrectionParameters struct {
 	// +kubebuilder:validation:Optional
 	Rrule *string `json:"rrule,omitempty" tf:"rrule,omitempty"`
 
-	// (String) ID of the SLO that this correction will be applied to.
-	// ID of the SLO that this correction will be applied to.
+	// (String) ID of the single SLO that this correction will be applied to.
+	// ID of the single SLO that this correction will be applied to.
 	// +crossplane:generate:reference:type=github.com/upbound/provider-datadog/apis/namespaced/datadog/v1alpha1.ServiceLevelObjective
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
@@ -137,6 +145,11 @@ type SLOCorrectionParameters struct {
 	// Selector for a ServiceLevelObjective in datadog to populate sloId.
 	// +kubebuilder:validation:Optional
 	SLOIDSelector *v2.NamespacedSelector `json:"sloIdSelector,omitempty" tf:"-"`
+
+	// (String) Query that matches the SLOs this correction will be applied to.
+	// Query that matches the SLOs this correction will be applied to.
+	// +kubebuilder:validation:Optional
+	SLOQuery *string `json:"sloQuery,omitempty" tf:"slo_query,omitempty"`
 
 	// (Number) Starting time of the correction in epoch seconds.
 	// Starting time of the correction in epoch seconds.

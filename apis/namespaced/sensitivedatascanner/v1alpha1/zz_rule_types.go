@@ -100,8 +100,8 @@ type RuleInitParameters struct {
 	// Id of the standard pattern the rule refers to. If provided, then pattern must not be provided.
 	StandardPatternID *string `json:"standardPatternId,omitempty" tf:"standard_pattern_id,omitempty"`
 
-	// (Block List, Max: 1) Object defining a set of suppressions to skip matches based on a set of rules. The available suppression types are starts_with, ends_with, and exact_match. (see below for nested schema)
-	// Object defining a set of suppressions to skip matches based on a set of rules. The available suppression types are `starts_with`, `ends_with`, and `exact_match`.
+	// (Block List, Max: 1) Object defining custom suppressions to skip matches based on starts_with, ends_with, and exact_match rules. Custom lists are managed independently of use_recommended_suppressions. Replacing or removing suppressions updates or clears the custom lists without affecting use_recommended_suppressions. Recommended suppressions are not copied into these lists. (see below for nested schema)
+	// Object defining custom suppressions to skip matches based on `starts_with`, `ends_with`, and `exact_match` rules. Custom lists are managed independently of `use_recommended_suppressions`. Replacing or removing `suppressions` updates or clears the custom lists without affecting `use_recommended_suppressions`. Recommended suppressions are not copied into these lists.
 	Suppressions *SuppressionsInitParameters `json:"suppressions,omitempty" tf:"suppressions,omitempty"`
 
 	// (List of String) List of tags.
@@ -111,6 +111,10 @@ type RuleInitParameters struct {
 	// (Block List, Max: 1) Object describing how the scanned event will be replaced. Defaults to type: none (see below for nested schema)
 	// Object describing how the scanned event will be replaced. Defaults to `type: none`
 	TextReplacement *TextReplacementInitParameters `json:"textReplacement,omitempty" tf:"text_replacement,omitempty"`
+
+	// pattern rules. When omitted for an existing or imported rule, preserves the current API choice. Custom suppressions are managed separately in the suppressions block and are retained when this setting changes.
+	// Whether to use the standard pattern's recommended suppressions. Requires `standard_pattern_id` when true. Defaults to `true` for new standard-pattern rules. When omitted for an existing or imported rule, preserves the current API choice. Custom suppressions are managed separately in the `suppressions` block and are retained when this setting changes.
+	UseRecommendedSuppressions *bool `json:"useRecommendedSuppressions,omitempty" tf:"use_recommended_suppressions,omitempty"`
 }
 
 type RuleObservation struct {
@@ -158,8 +162,8 @@ type RuleObservation struct {
 	// Id of the standard pattern the rule refers to. If provided, then pattern must not be provided.
 	StandardPatternID *string `json:"standardPatternId,omitempty" tf:"standard_pattern_id,omitempty"`
 
-	// (Block List, Max: 1) Object defining a set of suppressions to skip matches based on a set of rules. The available suppression types are starts_with, ends_with, and exact_match. (see below for nested schema)
-	// Object defining a set of suppressions to skip matches based on a set of rules. The available suppression types are `starts_with`, `ends_with`, and `exact_match`.
+	// (Block List, Max: 1) Object defining custom suppressions to skip matches based on starts_with, ends_with, and exact_match rules. Custom lists are managed independently of use_recommended_suppressions. Replacing or removing suppressions updates or clears the custom lists without affecting use_recommended_suppressions. Recommended suppressions are not copied into these lists. (see below for nested schema)
+	// Object defining custom suppressions to skip matches based on `starts_with`, `ends_with`, and `exact_match` rules. Custom lists are managed independently of `use_recommended_suppressions`. Replacing or removing `suppressions` updates or clears the custom lists without affecting `use_recommended_suppressions`. Recommended suppressions are not copied into these lists.
 	Suppressions *SuppressionsObservation `json:"suppressions,omitempty" tf:"suppressions,omitempty"`
 
 	// (List of String) List of tags.
@@ -169,6 +173,10 @@ type RuleObservation struct {
 	// (Block List, Max: 1) Object describing how the scanned event will be replaced. Defaults to type: none (see below for nested schema)
 	// Object describing how the scanned event will be replaced. Defaults to `type: none`
 	TextReplacement *TextReplacementObservation `json:"textReplacement,omitempty" tf:"text_replacement,omitempty"`
+
+	// pattern rules. When omitted for an existing or imported rule, preserves the current API choice. Custom suppressions are managed separately in the suppressions block and are retained when this setting changes.
+	// Whether to use the standard pattern's recommended suppressions. Requires `standard_pattern_id` when true. Defaults to `true` for new standard-pattern rules. When omitted for an existing or imported rule, preserves the current API choice. Custom suppressions are managed separately in the `suppressions` block and are retained when this setting changes.
+	UseRecommendedSuppressions *bool `json:"useRecommendedSuppressions,omitempty" tf:"use_recommended_suppressions,omitempty"`
 }
 
 type RuleParameters struct {
@@ -233,8 +241,8 @@ type RuleParameters struct {
 	// +kubebuilder:validation:Optional
 	StandardPatternID *string `json:"standardPatternId,omitempty" tf:"standard_pattern_id,omitempty"`
 
-	// (Block List, Max: 1) Object defining a set of suppressions to skip matches based on a set of rules. The available suppression types are starts_with, ends_with, and exact_match. (see below for nested schema)
-	// Object defining a set of suppressions to skip matches based on a set of rules. The available suppression types are `starts_with`, `ends_with`, and `exact_match`.
+	// (Block List, Max: 1) Object defining custom suppressions to skip matches based on starts_with, ends_with, and exact_match rules. Custom lists are managed independently of use_recommended_suppressions. Replacing or removing suppressions updates or clears the custom lists without affecting use_recommended_suppressions. Recommended suppressions are not copied into these lists. (see below for nested schema)
+	// Object defining custom suppressions to skip matches based on `starts_with`, `ends_with`, and `exact_match` rules. Custom lists are managed independently of `use_recommended_suppressions`. Replacing or removing `suppressions` updates or clears the custom lists without affecting `use_recommended_suppressions`. Recommended suppressions are not copied into these lists.
 	// +kubebuilder:validation:Optional
 	Suppressions *SuppressionsParameters `json:"suppressions,omitempty" tf:"suppressions,omitempty"`
 
@@ -247,6 +255,11 @@ type RuleParameters struct {
 	// Object describing how the scanned event will be replaced. Defaults to `type: none`
 	// +kubebuilder:validation:Optional
 	TextReplacement *TextReplacementParameters `json:"textReplacement,omitempty" tf:"text_replacement,omitempty"`
+
+	// pattern rules. When omitted for an existing or imported rule, preserves the current API choice. Custom suppressions are managed separately in the suppressions block and are retained when this setting changes.
+	// Whether to use the standard pattern's recommended suppressions. Requires `standard_pattern_id` when true. Defaults to `true` for new standard-pattern rules. When omitted for an existing or imported rule, preserves the current API choice. Custom suppressions are managed separately in the `suppressions` block and are retained when this setting changes.
+	// +kubebuilder:validation:Optional
+	UseRecommendedSuppressions *bool `json:"useRecommendedSuppressions,omitempty" tf:"use_recommended_suppressions,omitempty"`
 }
 
 type SuppressionsInitParameters struct {

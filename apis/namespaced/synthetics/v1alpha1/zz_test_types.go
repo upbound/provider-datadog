@@ -1998,6 +1998,10 @@ type OptionsListInitParameters struct {
 	// Allows loading insecure content for a request in an API test or in a multistep API test step.
 	AllowInsecure *bool `json:"allowInsecure,omitempty" tf:"allow_insecure,omitempty"`
 
+	// (Boolean) Whether Bits AI automatically investigates alerts from the test monitor. When omitted, the current value is left unchanged.
+	// Whether Bits AI automatically investigates alerts from the test monitor. When omitted, the current value is left unchanged.
+	BitsAIAutoInvestigate *bool `json:"bitsAiAutoInvestigate,omitempty" tf:"bits_ai_auto_investigate,omitempty"`
+
 	// (List of String) Blocked URL patterns. Requests made to URLs matching any of the patterns listed here will be blocked.
 	// Blocked URL patterns. Requests made to URLs matching any of the patterns listed here will be blocked.
 	BlockedRequestPatterns []*string `json:"blockedRequestPatterns,omitempty" tf:"blocked_request_patterns,omitempty"`
@@ -2160,6 +2164,10 @@ type OptionsListObservation struct {
 	// Allows loading insecure content for a request in an API test or in a multistep API test step.
 	AllowInsecure *bool `json:"allowInsecure,omitempty" tf:"allow_insecure,omitempty"`
 
+	// (Boolean) Whether Bits AI automatically investigates alerts from the test monitor. When omitted, the current value is left unchanged.
+	// Whether Bits AI automatically investigates alerts from the test monitor. When omitted, the current value is left unchanged.
+	BitsAIAutoInvestigate *bool `json:"bitsAiAutoInvestigate,omitempty" tf:"bits_ai_auto_investigate,omitempty"`
+
 	// (List of String) Blocked URL patterns. Requests made to URLs matching any of the patterns listed here will be blocked.
 	// Blocked URL patterns. Requests made to URLs matching any of the patterns listed here will be blocked.
 	BlockedRequestPatterns []*string `json:"blockedRequestPatterns,omitempty" tf:"blocked_request_patterns,omitempty"`
@@ -2262,6 +2270,11 @@ type OptionsListParameters struct {
 	// Allows loading insecure content for a request in an API test or in a multistep API test step.
 	// +kubebuilder:validation:Optional
 	AllowInsecure *bool `json:"allowInsecure,omitempty" tf:"allow_insecure,omitempty"`
+
+	// (Boolean) Whether Bits AI automatically investigates alerts from the test monitor. When omitted, the current value is left unchanged.
+	// Whether Bits AI automatically investigates alerts from the test monitor. When omitted, the current value is left unchanged.
+	// +kubebuilder:validation:Optional
+	BitsAIAutoInvestigate *bool `json:"bitsAiAutoInvestigate,omitempty" tf:"bits_ai_auto_investigate,omitempty"`
 
 	// (List of String) Blocked URL patterns. Requests made to URLs matching any of the patterns listed here will be blocked.
 	// Blocked URL patterns. Requests made to URLs matching any of the patterns listed here will be blocked.

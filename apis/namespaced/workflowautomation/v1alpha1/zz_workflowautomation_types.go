@@ -13,6 +13,41 @@ import (
 	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
+type RunAsInitParameters struct {
+
+	// (String) The ID of this resource.
+	// Service account identifier. Required when `type` is `service_account` and omitted otherwise.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) Type of identity used to run the workflow. owner uses the workflow owner, initiator uses the user who starts the execution, and service_account uses the account specified by id. Required when run_as is configured. Valid values are owner, service_account, initiator.
+	// Type of identity used to run the workflow. `owner` uses the workflow owner, `initiator` uses the user who starts the execution, and `service_account` uses the account specified by `id`. Required when `run_as` is configured. Valid values are `owner`, `service_account`, `initiator`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type RunAsObservation struct {
+
+	// (String) The ID of this resource.
+	// Service account identifier. Required when `type` is `service_account` and omitted otherwise.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) Type of identity used to run the workflow. owner uses the workflow owner, initiator uses the user who starts the execution, and service_account uses the account specified by id. Required when run_as is configured. Valid values are owner, service_account, initiator.
+	// Type of identity used to run the workflow. `owner` uses the workflow owner, `initiator` uses the user who starts the execution, and `service_account` uses the account specified by `id`. Required when `run_as` is configured. Valid values are `owner`, `service_account`, `initiator`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type RunAsParameters struct {
+
+	// (String) The ID of this resource.
+	// Service account identifier. Required when `type` is `service_account` and omitted otherwise.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) Type of identity used to run the workflow. owner uses the workflow owner, initiator uses the user who starts the execution, and service_account uses the account specified by id. Required when run_as is configured. Valid values are owner, service_account, initiator.
+	// Type of identity used to run the workflow. `owner` uses the workflow owner, `initiator` uses the user who starts the execution, and `service_account` uses the account specified by `id`. Required when `run_as` is configured. Valid values are `owner`, `service_account`, `initiator`.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
 type WorkflowAutomationInitParameters struct {
 
 	// (String) Description of the workflow.
@@ -26,6 +61,13 @@ type WorkflowAutomationInitParameters struct {
 	// (Boolean) Set the workflow to published or unpublished. Workflows in an unpublished state are only executable through manual runs. Automatic triggers such as Schedule do not execute the workflow until it is published.
 	// Set the workflow to published or unpublished. Workflows in an unpublished state are only executable through manual runs. Automatic triggers such as Schedule do not execute the workflow until it is published.
 	Published *bool `json:"published,omitempty" tf:"published,omitempty"`
+
+	// managed value is preserved. (see below for nested schema)
+	RunAs *RunAsInitParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
+
+	// managed value is preserved. Only the workflow owner can update this field. This allows it to run actions that use Execution Policies.
+	// Whether the workflow requires sensitive privileges to run. When omitted, the server-managed value is preserved. Only the workflow owner can update this field. This allows it to run actions that use [Execution Policies](https://docs.datadoghq.com/actions/private_actions/execution_policies/).
+	SensitivePrivileges *bool `json:"sensitivePrivileges,omitempty" tf:"sensitive_privileges,omitempty"`
 
 	// (String) The spec defines what the workflow does.
 	// The spec defines what the workflow does.
@@ -58,6 +100,13 @@ type WorkflowAutomationObservation struct {
 	// Set the workflow to published or unpublished. Workflows in an unpublished state are only executable through manual runs. Automatic triggers such as Schedule do not execute the workflow until it is published.
 	Published *bool `json:"published,omitempty" tf:"published,omitempty"`
 
+	// managed value is preserved. (see below for nested schema)
+	RunAs *RunAsObservation `json:"runAs,omitempty" tf:"run_as,omitempty"`
+
+	// managed value is preserved. Only the workflow owner can update this field. This allows it to run actions that use Execution Policies.
+	// Whether the workflow requires sensitive privileges to run. When omitted, the server-managed value is preserved. Only the workflow owner can update this field. This allows it to run actions that use [Execution Policies](https://docs.datadoghq.com/actions/private_actions/execution_policies/).
+	SensitivePrivileges *bool `json:"sensitivePrivileges,omitempty" tf:"sensitive_privileges,omitempty"`
+
 	// (String) The spec defines what the workflow does.
 	// The spec defines what the workflow does.
 	SpecJSON *string `json:"specJson,omitempty" tf:"spec_json,omitempty"`
@@ -84,6 +133,15 @@ type WorkflowAutomationParameters struct {
 	// Set the workflow to published or unpublished. Workflows in an unpublished state are only executable through manual runs. Automatic triggers such as Schedule do not execute the workflow until it is published.
 	// +kubebuilder:validation:Optional
 	Published *bool `json:"published,omitempty" tf:"published,omitempty"`
+
+	// managed value is preserved. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	RunAs *RunAsParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
+
+	// managed value is preserved. Only the workflow owner can update this field. This allows it to run actions that use Execution Policies.
+	// Whether the workflow requires sensitive privileges to run. When omitted, the server-managed value is preserved. Only the workflow owner can update this field. This allows it to run actions that use [Execution Policies](https://docs.datadoghq.com/actions/private_actions/execution_policies/).
+	// +kubebuilder:validation:Optional
+	SensitivePrivileges *bool `json:"sensitivePrivileges,omitempty" tf:"sensitive_privileges,omitempty"`
 
 	// (String) The spec defines what the workflow does.
 	// The spec defines what the workflow does.

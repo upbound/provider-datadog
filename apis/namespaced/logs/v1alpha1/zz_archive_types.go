@@ -19,8 +19,8 @@ type ArchiveInitParameters struct {
 	// Definition of an azure archive.
 	AzureArchive *AzureArchiveInitParameters `json:"azureArchive,omitempty" tf:"azure_archive,omitempty"`
 
-	// (String) The compression method for the archive. Valid values are GZIP, ZSTD. Defaults to "GZIP".
-	// The compression method for the archive. Valid values are `GZIP`, `ZSTD`. Defaults to `"GZIP"`.
+	// (String) The compression method for the archive. Valid values are GZIP, ZSTD. Defaults to "ZSTD".
+	// The compression method for the archive. Valid values are `GZIP`, `ZSTD`. Defaults to `"ZSTD"`.
 	CompressionMethod *string `json:"compressionMethod,omitempty" tf:"compression_method,omitempty"`
 
 	// (Block List, Max: 1) Definition of a GCS archive. (see below for nested schema)
@@ -66,8 +66,8 @@ type ArchiveObservation struct {
 	// Definition of an azure archive.
 	AzureArchive *AzureArchiveObservation `json:"azureArchive,omitempty" tf:"azure_archive,omitempty"`
 
-	// (String) The compression method for the archive. Valid values are GZIP, ZSTD. Defaults to "GZIP".
-	// The compression method for the archive. Valid values are `GZIP`, `ZSTD`. Defaults to `"GZIP"`.
+	// (String) The compression method for the archive. Valid values are GZIP, ZSTD. Defaults to "ZSTD".
+	// The compression method for the archive. Valid values are `GZIP`, `ZSTD`. Defaults to `"ZSTD"`.
 	CompressionMethod *string `json:"compressionMethod,omitempty" tf:"compression_method,omitempty"`
 
 	// (Block List, Max: 1) Definition of a GCS archive. (see below for nested schema)
@@ -117,8 +117,8 @@ type ArchiveParameters struct {
 	// +kubebuilder:validation:Optional
 	AzureArchive *AzureArchiveParameters `json:"azureArchive,omitempty" tf:"azure_archive,omitempty"`
 
-	// (String) The compression method for the archive. Valid values are GZIP, ZSTD. Defaults to "GZIP".
-	// The compression method for the archive. Valid values are `GZIP`, `ZSTD`. Defaults to `"GZIP"`.
+	// (String) The compression method for the archive. Valid values are GZIP, ZSTD. Defaults to "ZSTD".
+	// The compression method for the archive. Valid values are `GZIP`, `ZSTD`. Defaults to `"ZSTD"`.
 	// +kubebuilder:validation:Optional
 	CompressionMethod *string `json:"compressionMethod,omitempty" tf:"compression_method,omitempty"`
 
