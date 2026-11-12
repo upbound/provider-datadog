@@ -49,10 +49,6 @@ type DerivedMetricInitParameters struct {
 
 	// (Attributes) The definition of a derived metric as a formula over one or more queries. (see below for nested schema)
 	Definition *DefinitionInitParameters `json:"definition,omitempty" tf:"definition,omitempty"`
-
-	// assigned name sent as the create ID. After import, the first apply adopts the configured name through an update using the canonical API ID, without replacing the resource. Once the name is stored in state, changing it replaces the resource. String length must be at least 1.
-	// Caller-assigned name sent as the create ID. After import, the first apply adopts the configured name through an update using the canonical API ID, without replacing the resource. Once the name is stored in state, changing it replaces the resource. String length must be at least 1.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type DerivedMetricObservation struct {
@@ -76,8 +72,8 @@ type DerivedMetricParameters struct {
 
 	// assigned name sent as the create ID. After import, the first apply adopts the configured name through an update using the canonical API ID, without replacing the resource. Once the name is stored in state, changing it replaces the resource. String length must be at least 1.
 	// Caller-assigned name sent as the create ID. After import, the first apply adopts the configured name through an update using the canonical API ID, without replacing the resource. Once the name is stored in state, changing it replaces the resource. String length must be at least 1.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
 }
 
 type QueriesInitParameters struct {
@@ -85,10 +81,6 @@ type QueriesInitParameters struct {
 	// (String) The data source that the query is run against.
 	// The data source that the query is run against.
 	DataSource *string `json:"dataSource,omitempty" tf:"data_source,omitempty"`
-
-	// assigned name sent as the create ID. After import, the first apply adopts the configured name through an update using the canonical API ID, without replacing the resource. Once the name is stored in state, changing it replaces the resource. String length must be at least 1.
-	// The name used to reference this query from the formula.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) The query string executed against the data source.
 	// The query string executed against the data source.
@@ -119,7 +111,7 @@ type QueriesParameters struct {
 
 	// assigned name sent as the create ID. After import, the first apply adopts the configured name through an update using the canonical API ID, without replacing the resource. Once the name is stored in state, changing it replaces the resource. String length must be at least 1.
 	// The name used to reference this query from the formula.
-	// +kubebuilder:validation:Optional
+	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
 	// (String) The query string executed against the data source.
@@ -165,7 +157,6 @@ type DerivedMetric struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.definition) || (has(self.initProvider) && has(self.initProvider.definition))",message="spec.forProvider.definition is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   DerivedMetricSpec   `json:"spec"`
 	Status DerivedMetricStatus `json:"status,omitempty"`
 }

@@ -1,0 +1,15 @@
+apiVersion: cloudauth.datadog.upbound.io/v1alpha1
+kind: GitHubOIDCIdentityMapping
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudauth/v1alpha1/githuboidcidentitymapping
+    upjet.upbound.io/manual-intervention: "accountIdentifier must be a user or service account with no more permissions than the user behind the API and application keys; Datadog answers 403 otherwise."
+  labels:
+    testing.upbound.io/example-name: terraform
+  name: terraform
+spec:
+  forProvider:
+    accountIdentifier: ${data.datadog_service_account.uptest.id}
+    claimMatchers:
+      repository: ^my-org/terraform$
+      sub: repo:my-org/terraform:ref:refs/heads/main

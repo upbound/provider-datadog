@@ -1,0 +1,22 @@
+apiVersion: integration.datadog.m.upbound.io/v1alpha1
+kind: SnowflakeAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/snowflakeaccount
+    upjet.upbound.io/manual-intervention: "Requires a real Snowflake account; snowflakeAccountIdentifier, username and the referenced secret, a PEM private key registered for that user, must be replaced with its values."
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    authentication:
+      snowflakeIntegrationAccountPrivateKeyAuth:
+        privateKeyName: example-key
+        privateKeySecretRef:
+          key: example-key
+          name: example-secret
+    name: example-snowflake
+    settings:
+      snowflakeAccountIdentifier: myorg-myaccount
+      username: DATADOG

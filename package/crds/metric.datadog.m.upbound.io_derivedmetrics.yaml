@@ -89,6 +89,8 @@ spec:
                                 (String) The query string executed against the data source.
                                 The query string executed against the data source.
                               type: string
+                          required:
+                          - name
                           type: object
                         type: array
                     type: object
@@ -97,6 +99,8 @@ spec:
                       assigned name sent as the create ID. After import, the first apply adopts the configured name through an update using the canonical API ID, without replacing the resource. Once the name is stored in state, changing it replaces the resource. String length must be at least 1.
                       Caller-assigned name sent as the create ID. After import, the first apply adopts the configured name through an update using the canonical API ID, without replacing the resource. Once the name is stored in state, changing it replaces the resource. String length must be at least 1.
                     type: string
+                required:
+                - name
                 type: object
               initProvider:
                 description: |-
@@ -130,11 +134,6 @@ spec:
                                 (String) The data source that the query is run against.
                                 The data source that the query is run against.
                               type: string
-                            name:
-                              description: |-
-                                assigned name sent as the create ID. After import, the first apply adopts the configured name through an update using the canonical API ID, without replacing the resource. Once the name is stored in state, changing it replaces the resource. String length must be at least 1.
-                                The name used to reference this query from the formula.
-                              type: string
                             query:
                               description: |-
                                 (String) The query string executed against the data source.
@@ -143,11 +142,6 @@ spec:
                           type: object
                         type: array
                     type: object
-                  name:
-                    description: |-
-                      assigned name sent as the create ID. After import, the first apply adopts the configured name through an update using the canonical API ID, without replacing the resource. Once the name is stored in state, changing it replaces the resource. String length must be at least 1.
-                      Caller-assigned name sent as the create ID. After import, the first apply adopts the configured name through an update using the canonical API ID, without replacing the resource. Once the name is stored in state, changing it replaces the resource. String length must be at least 1.
-                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -212,10 +206,6 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.definition)
                 || (has(self.initProvider) && has(self.initProvider.definition))'
-            - message: spec.forProvider.name is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
-                || (has(self.initProvider) && has(self.initProvider.name))'
           status:
             description: DerivedMetricStatus defines the observed state of DerivedMetric.
             properties:
