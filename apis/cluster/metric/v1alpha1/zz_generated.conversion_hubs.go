@@ -7,6 +7,9 @@ Copyright 2026 Upbound Inc.
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
+func (tr *DerivedMetric) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Metadata) Hub() {}
 
 // Hub marks this type as a conversion hub.

@@ -17,11 +17,13 @@ import (
 	v1alpha1appbuilder "github.com/upbound/provider-datadog/apis/cluster/appbuilder/v1alpha1"
 	v1alpha1appsec "github.com/upbound/provider-datadog/apis/cluster/appsec/v1alpha1"
 	v1alpha1cloud "github.com/upbound/provider-datadog/apis/cluster/cloud/v1alpha1"
+	v1alpha1cloudauth "github.com/upbound/provider-datadog/apis/cluster/cloudauth/v1alpha1"
 	v1alpha1cloudcost "github.com/upbound/provider-datadog/apis/cluster/cloudcost/v1alpha1"
 	v1alpha1compliance "github.com/upbound/provider-datadog/apis/cluster/compliance/v1alpha1"
 	v1alpha1csmthreats "github.com/upbound/provider-datadog/apis/cluster/csmthreats/v1alpha1"
 	v1alpha1data "github.com/upbound/provider-datadog/apis/cluster/data/v1alpha1"
 	v1alpha1datadog "github.com/upbound/provider-datadog/apis/cluster/datadog/v1alpha1"
+	v1alpha1fleet "github.com/upbound/provider-datadog/apis/cluster/fleet/v1alpha1"
 	v1alpha1governance "github.com/upbound/provider-datadog/apis/cluster/governance/v1alpha1"
 	v1alpha1incident "github.com/upbound/provider-datadog/apis/cluster/incident/v1alpha1"
 	v1alpha1integration "github.com/upbound/provider-datadog/apis/cluster/integration/v1alpha1"
@@ -52,11 +54,13 @@ func init() {
 		v1alpha1appbuilder.SchemeBuilder.AddToScheme,
 		v1alpha1appsec.SchemeBuilder.AddToScheme,
 		v1alpha1cloud.SchemeBuilder.AddToScheme,
+		v1alpha1cloudauth.SchemeBuilder.AddToScheme,
 		v1alpha1cloudcost.SchemeBuilder.AddToScheme,
 		v1alpha1compliance.SchemeBuilder.AddToScheme,
 		v1alpha1csmthreats.SchemeBuilder.AddToScheme,
 		v1alpha1data.SchemeBuilder.AddToScheme,
 		v1alpha1datadog.SchemeBuilder.AddToScheme,
+		v1alpha1fleet.SchemeBuilder.AddToScheme,
 		v1alpha1governance.SchemeBuilder.AddToScheme,
 		v1alpha1incident.SchemeBuilder.AddToScheme,
 		v1alpha1integration.SchemeBuilder.AddToScheme,

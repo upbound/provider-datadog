@@ -5,6 +5,8 @@ Copyright 2026 Upbound Inc.
 package config
 
 import (
+	"strings"
+
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
 	"github.com/crossplane/upjet/v2/pkg/types/comments"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -34,8 +36,19 @@ var codegenConfigurators = map[string]ujconfig.ResourceConfiguratorFn{
 	// Write-only attributes never reach the Terraform state, so a CRD field
 	// for them would persist the secret in the spec for nothing; the classic
 	// attributes keep working.
-	"datadog_integration_fastly_account": withoutWriteOnlyAttribute("api_key"),
-	"datadog_synthetics_global_variable": withoutWriteOnlyAttribute("value"),
+	"datadog_integration_databricks_account": withoutWriteOnlyAttributes(
+		"authentication.databricks_integration_account_bearer_token_auth.token",
+		"authentication.databricks_integration_account_o_auth_auth.client_secret",
+		"dataflows.databricks_data_observability_jobs_monitoring.settings.dd_api_key_secret",
+	),
+	"datadog_integration_elastic_cloud_account": withoutWriteOnlyAttributes("authentication.elastic_cloud_integration_account_basic_auth.password"),
+	"datadog_integration_fastly_account":        withoutWriteOnlyAttributes("api_key"),
+	"datadog_integration_snowflake_account": withoutWriteOnlyAttributes(
+		"authentication.snowflake_integration_account_private_key_auth.private_key",
+		"authentication.snowflake_integration_account_private_key_auth.private_key_passphrase",
+	),
+	"datadog_integration_twilio_account": withoutWriteOnlyAttributes("authentication.twilio_integration_account_basic_auth.password"),
+	"datadog_synthetics_global_variable": withoutWriteOnlyAttributes("value"),
 }
 
 func widgetAsJSONString(description string) ujconfig.ResourceConfiguratorFn {
@@ -49,9 +62,19 @@ func widgetAsJSONString(description string) ujconfig.ResourceConfiguratorFn {
 	}
 }
 
-func withoutWriteOnlyAttribute(attribute string) ujconfig.ResourceConfiguratorFn {
+// withoutWriteOnlyAttributes deletes the write-only variant of each attribute.
+// A path is dotted when the attribute is nested, e.g. "authentication.basic_auth.password".
+func withoutWriteOnlyAttributes(paths ...string) ujconfig.ResourceConfiguratorFn {
 	return func(r *ujconfig.Resource) {
-		delete(r.TerraformResource.Schema, attribute+"_wo")
-		delete(r.TerraformResource.Schema, attribute+"_wo_version")
+		for _, p := range paths {
+			segments := strings.Split(p, ".")
+			s := r.TerraformResource.Schema
+			for _, seg := range segments[:len(segments)-1] {
+				s = s[seg].Elem.(*schema.Resource).Schema
+			}
+			attribute := segments[len(segments)-1]
+			delete(s, attribute+"_wo")
+			delete(s, attribute+"_wo_version")
+		}
 	}
 }

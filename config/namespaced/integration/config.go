@@ -143,4 +143,28 @@ func Configure(p *config.Provider) {
 		r.Kind = "SlackChannel"
 		r.ShortGroup = integrationDatadog
 	})
+	p.AddResourceConfigurator("datadog_integration_databricks_account", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "DatabricksAccount"
+		r.ShortGroup = integrationDatadog
+	})
+	p.AddResourceConfigurator("datadog_integration_elastic_cloud_account", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "ElasticCloudAccount"
+		r.ShortGroup = integrationDatadog
+	})
+	p.AddResourceConfigurator("datadog_integration_snowflake_account", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "SnowflakeAccount"
+		r.ShortGroup = integrationDatadog
+	})
+	p.AddResourceConfigurator("datadog_integration_twilio_account", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "TwilioAccount"
+		r.ShortGroup = integrationDatadog
+	})
 }

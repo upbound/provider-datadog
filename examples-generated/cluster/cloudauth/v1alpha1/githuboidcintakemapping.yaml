@@ -1,0 +1,13 @@
+apiVersion: cloudauth.datadog.upbound.io/v1alpha1
+kind: GitHubOIDCIntakeMapping
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudauth/v1alpha1/githuboidcintakemapping
+  labels:
+    testing.upbound.io/example-name: terraform
+  name: terraform
+spec:
+  forProvider:
+    claimMatchers:
+    - repository: ^my-org/terraform$
+      sub: repo:my-org/terraform:ref:refs/heads/main

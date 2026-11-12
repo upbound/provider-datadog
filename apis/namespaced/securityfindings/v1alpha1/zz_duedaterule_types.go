@@ -13,7 +13,7 @@ import (
 	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
-type ActionInitParameters struct {
+type DueDateRuleActionInitParameters struct {
 
 	// to-due-date mappings. Each severity may appear at most once. (see below for nested schema)
 	DueDaysPerSeverity []DueDaysPerSeverityInitParameters `json:"dueDaysPerSeverity,omitempty" tf:"due_days_per_severity,omitempty"`
@@ -27,7 +27,7 @@ type ActionInitParameters struct {
 	ReasonDescription *string `json:"reasonDescription,omitempty" tf:"reason_description,omitempty"`
 }
 
-type ActionObservation struct {
+type DueDateRuleActionObservation struct {
 
 	// to-due-date mappings. Each severity may appear at most once. (see below for nested schema)
 	DueDaysPerSeverity []DueDaysPerSeverityObservation `json:"dueDaysPerSeverity,omitempty" tf:"due_days_per_severity,omitempty"`
@@ -41,7 +41,7 @@ type ActionObservation struct {
 	ReasonDescription *string `json:"reasonDescription,omitempty" tf:"reason_description,omitempty"`
 }
 
-type ActionParameters struct {
+type DueDateRuleActionParameters struct {
 
 	// to-due-date mappings. Each severity may appear at most once. (see below for nested schema)
 	// +kubebuilder:validation:Optional
@@ -61,7 +61,7 @@ type ActionParameters struct {
 type DueDateRuleInitParameters struct {
 
 	// (Attributes) The action to take when the due date rule matches a finding. (see below for nested schema)
-	Action *ActionInitParameters `json:"action,omitempty" tf:"action,omitempty"`
+	Action *DueDateRuleActionInitParameters `json:"action,omitempty" tf:"action,omitempty"`
 
 	// (Boolean) Whether the due date rule is enabled. Defaults to true.
 	// Whether the due date rule is enabled. Defaults to `true`.
@@ -72,13 +72,13 @@ type DueDateRuleInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Attributes) Defines the scope of findings to which the automation rule applies. (see below for nested schema)
-	Rule *RuleInitParameters `json:"rule,omitempty" tf:"rule,omitempty"`
+	Rule *DueDateRuleRuleInitParameters `json:"rule,omitempty" tf:"rule,omitempty"`
 }
 
 type DueDateRuleObservation struct {
 
 	// (Attributes) The action to take when the due date rule matches a finding. (see below for nested schema)
-	Action *ActionObservation `json:"action,omitempty" tf:"action,omitempty"`
+	Action *DueDateRuleActionObservation `json:"action,omitempty" tf:"action,omitempty"`
 
 	// (Boolean) Whether the due date rule is enabled. Defaults to true.
 	// Whether the due date rule is enabled. Defaults to `true`.
@@ -92,14 +92,14 @@ type DueDateRuleObservation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Attributes) Defines the scope of findings to which the automation rule applies. (see below for nested schema)
-	Rule *RuleObservation `json:"rule,omitempty" tf:"rule,omitempty"`
+	Rule *DueDateRuleRuleObservation `json:"rule,omitempty" tf:"rule,omitempty"`
 }
 
 type DueDateRuleParameters struct {
 
 	// (Attributes) The action to take when the due date rule matches a finding. (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	Action *ActionParameters `json:"action,omitempty" tf:"action,omitempty"`
+	Action *DueDateRuleActionParameters `json:"action,omitempty" tf:"action,omitempty"`
 
 	// (Boolean) Whether the due date rule is enabled. Defaults to true.
 	// Whether the due date rule is enabled. Defaults to `true`.
@@ -113,7 +113,42 @@ type DueDateRuleParameters struct {
 
 	// (Attributes) Defines the scope of findings to which the automation rule applies. (see below for nested schema)
 	// +kubebuilder:validation:Optional
-	Rule *RuleParameters `json:"rule,omitempty" tf:"rule,omitempty"`
+	Rule *DueDateRuleRuleParameters `json:"rule,omitempty" tf:"rule,omitempty"`
+}
+
+type DueDateRuleRuleInitParameters struct {
+
+	// (List of String) The list of security finding types that the automation rule applies to. Valid values are api_security, attack_path, host_and_container_vulnerability, iac_misconfiguration, identity_risk, library_vulnerability, misconfiguration, runtime_code_vulnerability, secret, static_code_vulnerability, workload_activity.
+	// The list of security finding types that the automation rule applies to. Valid values are `api_security`, `attack_path`, `host_and_container_vulnerability`, `iac_misconfiguration`, `identity_risk`, `library_vulnerability`, `misconfiguration`, `runtime_code_vulnerability`, `secret`, `static_code_vulnerability`, `workload_activity`.
+	FindingTypes []*string `json:"findingTypes,omitempty" tf:"finding_types,omitempty"`
+
+	// (String) A search query to further filter the findings matched by this rule. The @workflow.* namespace and @status fields are not permitted. For a reference of available fields, see the Security Findings schema documentation.
+	// A search query to further filter the findings matched by this rule. The `@workflow.*` namespace and `@status` fields are not permitted. For a reference of available fields, see the [Security Findings schema documentation](https://docs.datadoghq.com/security/guide/findings-schema/).
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type DueDateRuleRuleObservation struct {
+
+	// (List of String) The list of security finding types that the automation rule applies to. Valid values are api_security, attack_path, host_and_container_vulnerability, iac_misconfiguration, identity_risk, library_vulnerability, misconfiguration, runtime_code_vulnerability, secret, static_code_vulnerability, workload_activity.
+	// The list of security finding types that the automation rule applies to. Valid values are `api_security`, `attack_path`, `host_and_container_vulnerability`, `iac_misconfiguration`, `identity_risk`, `library_vulnerability`, `misconfiguration`, `runtime_code_vulnerability`, `secret`, `static_code_vulnerability`, `workload_activity`.
+	FindingTypes []*string `json:"findingTypes,omitempty" tf:"finding_types,omitempty"`
+
+	// (String) A search query to further filter the findings matched by this rule. The @workflow.* namespace and @status fields are not permitted. For a reference of available fields, see the Security Findings schema documentation.
+	// A search query to further filter the findings matched by this rule. The `@workflow.*` namespace and `@status` fields are not permitted. For a reference of available fields, see the [Security Findings schema documentation](https://docs.datadoghq.com/security/guide/findings-schema/).
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+}
+
+type DueDateRuleRuleParameters struct {
+
+	// (List of String) The list of security finding types that the automation rule applies to. Valid values are api_security, attack_path, host_and_container_vulnerability, iac_misconfiguration, identity_risk, library_vulnerability, misconfiguration, runtime_code_vulnerability, secret, static_code_vulnerability, workload_activity.
+	// The list of security finding types that the automation rule applies to. Valid values are `api_security`, `attack_path`, `host_and_container_vulnerability`, `iac_misconfiguration`, `identity_risk`, `library_vulnerability`, `misconfiguration`, `runtime_code_vulnerability`, `secret`, `static_code_vulnerability`, `workload_activity`.
+	// +kubebuilder:validation:Optional
+	FindingTypes []*string `json:"findingTypes" tf:"finding_types,omitempty"`
+
+	// (String) A search query to further filter the findings matched by this rule. The @workflow.* namespace and @status fields are not permitted. For a reference of available fields, see the Security Findings schema documentation.
+	// A search query to further filter the findings matched by this rule. The `@workflow.*` namespace and `@status` fields are not permitted. For a reference of available fields, see the [Security Findings schema documentation](https://docs.datadoghq.com/security/guide/findings-schema/).
+	// +kubebuilder:validation:Optional
+	Query *string `json:"query,omitempty" tf:"query,omitempty"`
 }
 
 type DueDaysPerSeverityInitParameters struct {
@@ -149,41 +184,6 @@ type DueDaysPerSeverityParameters struct {
 	// A severity level used to configure due date thresholds. Valid values are `critical`, `high`, `medium`, `low`, `info`, `none`, `unknown`.
 	// +kubebuilder:validation:Optional
 	Severity *string `json:"severity" tf:"severity,omitempty"`
-}
-
-type RuleInitParameters struct {
-
-	// (List of String) The list of security finding types that the automation rule applies to. Valid values are api_security, attack_path, host_and_container_vulnerability, iac_misconfiguration, identity_risk, library_vulnerability, misconfiguration, runtime_code_vulnerability, secret, static_code_vulnerability, workload_activity.
-	// The list of security finding types that the automation rule applies to. Valid values are `api_security`, `attack_path`, `host_and_container_vulnerability`, `iac_misconfiguration`, `identity_risk`, `library_vulnerability`, `misconfiguration`, `runtime_code_vulnerability`, `secret`, `static_code_vulnerability`, `workload_activity`.
-	FindingTypes []*string `json:"findingTypes,omitempty" tf:"finding_types,omitempty"`
-
-	// (String) A search query to further filter the findings matched by this rule. The @workflow.* namespace and @status fields are not permitted. For a reference of available fields, see the Security Findings schema documentation.
-	// A search query to further filter the findings matched by this rule. The `@workflow.*` namespace and `@status` fields are not permitted. For a reference of available fields, see the [Security Findings schema documentation](https://docs.datadoghq.com/security/guide/findings-schema/).
-	Query *string `json:"query,omitempty" tf:"query,omitempty"`
-}
-
-type RuleObservation struct {
-
-	// (List of String) The list of security finding types that the automation rule applies to. Valid values are api_security, attack_path, host_and_container_vulnerability, iac_misconfiguration, identity_risk, library_vulnerability, misconfiguration, runtime_code_vulnerability, secret, static_code_vulnerability, workload_activity.
-	// The list of security finding types that the automation rule applies to. Valid values are `api_security`, `attack_path`, `host_and_container_vulnerability`, `iac_misconfiguration`, `identity_risk`, `library_vulnerability`, `misconfiguration`, `runtime_code_vulnerability`, `secret`, `static_code_vulnerability`, `workload_activity`.
-	FindingTypes []*string `json:"findingTypes,omitempty" tf:"finding_types,omitempty"`
-
-	// (String) A search query to further filter the findings matched by this rule. The @workflow.* namespace and @status fields are not permitted. For a reference of available fields, see the Security Findings schema documentation.
-	// A search query to further filter the findings matched by this rule. The `@workflow.*` namespace and `@status` fields are not permitted. For a reference of available fields, see the [Security Findings schema documentation](https://docs.datadoghq.com/security/guide/findings-schema/).
-	Query *string `json:"query,omitempty" tf:"query,omitempty"`
-}
-
-type RuleParameters struct {
-
-	// (List of String) The list of security finding types that the automation rule applies to. Valid values are api_security, attack_path, host_and_container_vulnerability, iac_misconfiguration, identity_risk, library_vulnerability, misconfiguration, runtime_code_vulnerability, secret, static_code_vulnerability, workload_activity.
-	// The list of security finding types that the automation rule applies to. Valid values are `api_security`, `attack_path`, `host_and_container_vulnerability`, `iac_misconfiguration`, `identity_risk`, `library_vulnerability`, `misconfiguration`, `runtime_code_vulnerability`, `secret`, `static_code_vulnerability`, `workload_activity`.
-	// +kubebuilder:validation:Optional
-	FindingTypes []*string `json:"findingTypes" tf:"finding_types,omitempty"`
-
-	// (String) A search query to further filter the findings matched by this rule. The @workflow.* namespace and @status fields are not permitted. For a reference of available fields, see the Security Findings schema documentation.
-	// A search query to further filter the findings matched by this rule. The `@workflow.*` namespace and `@status` fields are not permitted. For a reference of available fields, see the [Security Findings schema documentation](https://docs.datadoghq.com/security/guide/findings-schema/).
-	// +kubebuilder:validation:Optional
-	Query *string `json:"query,omitempty" tf:"query,omitempty"`
 }
 
 // DueDateRuleSpec defines the desired state of DueDateRule

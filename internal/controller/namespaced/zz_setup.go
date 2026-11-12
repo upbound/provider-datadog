@@ -22,6 +22,10 @@ import (
 	cloudinventorysyncconfig "github.com/upbound/provider-datadog/internal/controller/namespaced/cloud/cloudinventorysyncconfig"
 	configurationrule "github.com/upbound/provider-datadog/internal/controller/namespaced/cloud/configurationrule"
 	workloadsecurityagentrule "github.com/upbound/provider-datadog/internal/controller/namespaced/cloud/workloadsecurityagentrule"
+	awswifidentitymapping "github.com/upbound/provider-datadog/internal/controller/namespaced/cloudauth/awswifidentitymapping"
+	awswifintakemapping "github.com/upbound/provider-datadog/internal/controller/namespaced/cloudauth/awswifintakemapping"
+	githuboidcidentitymapping "github.com/upbound/provider-datadog/internal/controller/namespaced/cloudauth/githuboidcidentitymapping"
+	githuboidcintakemapping "github.com/upbound/provider-datadog/internal/controller/namespaced/cloudauth/githuboidcintakemapping"
 	allocationrule "github.com/upbound/provider-datadog/internal/controller/namespaced/cloudcost/allocationrule"
 	awscurconfig "github.com/upbound/provider-datadog/internal/controller/namespaced/cloudcost/awscurconfig"
 	azureucconfig "github.com/upbound/provider-datadog/internal/controller/namespaced/cloudcost/azureucconfig"
@@ -64,6 +68,8 @@ import (
 	rumapplication "github.com/upbound/provider-datadog/internal/controller/namespaced/datadog/rumapplication"
 	rumexclusionfilter "github.com/upbound/provider-datadog/internal/controller/namespaced/datadog/rumexclusionfilter"
 	rummetric "github.com/upbound/provider-datadog/internal/controller/namespaced/datadog/rummetric"
+	rumoperation "github.com/upbound/provider-datadog/internal/controller/namespaced/datadog/rumoperation"
+	rumoperationjourneylink "github.com/upbound/provider-datadog/internal/controller/namespaced/datadog/rumoperationjourneylink"
 	rumretentionfilter "github.com/upbound/provider-datadog/internal/controller/namespaced/datadog/rumretentionfilter"
 	rumretentionquota "github.com/upbound/provider-datadog/internal/controller/namespaced/datadog/rumretentionquota"
 	secureembeddashboard "github.com/upbound/provider-datadog/internal/controller/namespaced/datadog/secureembeddashboard"
@@ -87,6 +93,7 @@ import (
 	webhook "github.com/upbound/provider-datadog/internal/controller/namespaced/datadog/webhook"
 	webhookcustomvariable "github.com/upbound/provider-datadog/internal/controller/namespaced/datadog/webhookcustomvariable"
 	webhookoauth2clientcredentials "github.com/upbound/provider-datadog/internal/controller/namespaced/datadog/webhookoauth2clientcredentials"
+	schedule "github.com/upbound/provider-datadog/internal/controller/namespaced/fleet/schedule"
 	control "github.com/upbound/provider-datadog/internal/controller/namespaced/governance/control"
 	incidenttype "github.com/upbound/provider-datadog/internal/controller/namespaced/incident/incidenttype"
 	notificationrule "github.com/upbound/provider-datadog/internal/controller/namespaced/incident/notificationrule"
@@ -101,6 +108,8 @@ import (
 	cloudflareaccount "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/cloudflareaccount"
 	confluentaccount "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/confluentaccount"
 	confluentresource "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/confluentresource"
+	databricksaccount "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/databricksaccount"
+	elasticcloudaccount "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/elasticcloudaccount"
 	fastlyaccount "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/fastlyaccount"
 	fastlyservice "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/fastlyservice"
 	gcp "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/gcp"
@@ -111,6 +120,8 @@ import (
 	pagerduty "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/pagerduty"
 	pagerdutyserviceobject "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/pagerdutyserviceobject"
 	slackchannel "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/slackchannel"
+	snowflakeaccount "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/snowflakeaccount"
+	twilioaccount "github.com/upbound/provider-datadog/internal/controller/namespaced/integration/twilioaccount"
 	archive "github.com/upbound/provider-datadog/internal/controller/namespaced/logs/archive"
 	archiveorder "github.com/upbound/provider-datadog/internal/controller/namespaced/logs/archiveorder"
 	customdestination "github.com/upbound/provider-datadog/internal/controller/namespaced/logs/customdestination"
@@ -121,19 +132,23 @@ import (
 	metric "github.com/upbound/provider-datadog/internal/controller/namespaced/logs/metric"
 	pipelineorder "github.com/upbound/provider-datadog/internal/controller/namespaced/logs/pipelineorder"
 	restrictionquery "github.com/upbound/provider-datadog/internal/controller/namespaced/logs/restrictionquery"
+	derivedmetric "github.com/upbound/provider-datadog/internal/controller/namespaced/metric/derivedmetric"
 	metadata "github.com/upbound/provider-datadog/internal/controller/namespaced/metric/metadata"
 	tagconfiguration "github.com/upbound/provider-datadog/internal/controller/namespaced/metric/tagconfiguration"
 	observabilitypipeline "github.com/upbound/provider-datadog/internal/controller/namespaced/observabilitypipeline/observabilitypipeline"
 	escalationpolicy "github.com/upbound/provider-datadog/internal/controller/namespaced/oncall/escalationpolicy"
-	schedule "github.com/upbound/provider-datadog/internal/controller/namespaced/oncall/schedule"
+	scheduleoncall "github.com/upbound/provider-datadog/internal/controller/namespaced/oncall/schedule"
 	teamroutingrules "github.com/upbound/provider-datadog/internal/controller/namespaced/oncall/teamroutingrules"
 	usernotificationchannel "github.com/upbound/provider-datadog/internal/controller/namespaced/oncall/usernotificationchannel"
 	usernotificationrule "github.com/upbound/provider-datadog/internal/controller/namespaced/oncall/usernotificationrule"
 	providerconfig "github.com/upbound/provider-datadog/internal/controller/namespaced/providerconfig"
 	table "github.com/upbound/provider-datadog/internal/controller/namespaced/reference/table"
 	idpmetadata "github.com/upbound/provider-datadog/internal/controller/namespaced/saml/idpmetadata"
+	defaultinboxrule "github.com/upbound/provider-datadog/internal/controller/namespaced/securityfindings/defaultinboxrule"
 	duedaterule "github.com/upbound/provider-datadog/internal/controller/namespaced/securityfindings/duedaterule"
+	inboxrule "github.com/upbound/provider-datadog/internal/controller/namespaced/securityfindings/inboxrule"
 	muterule "github.com/upbound/provider-datadog/internal/controller/namespaced/securityfindings/muterule"
+	severitymodifierrule "github.com/upbound/provider-datadog/internal/controller/namespaced/securityfindings/severitymodifierrule"
 	ticketcreationrule "github.com/upbound/provider-datadog/internal/controller/namespaced/securityfindings/ticketcreationrule"
 	criticalasset "github.com/upbound/provider-datadog/internal/controller/namespaced/securitymonitoring/criticalasset"
 	defaultrule "github.com/upbound/provider-datadog/internal/controller/namespaced/securitymonitoring/defaultrule"
@@ -177,6 +192,10 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		cloudinventorysyncconfig.Setup,
 		configurationrule.Setup,
 		workloadsecurityagentrule.Setup,
+		awswifidentitymapping.Setup,
+		awswifintakemapping.Setup,
+		githuboidcidentitymapping.Setup,
+		githuboidcintakemapping.Setup,
 		allocationrule.Setup,
 		awscurconfig.Setup,
 		azureucconfig.Setup,
@@ -219,6 +238,8 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		rumapplication.Setup,
 		rumexclusionfilter.Setup,
 		rummetric.Setup,
+		rumoperation.Setup,
+		rumoperationjourneylink.Setup,
 		rumretentionfilter.Setup,
 		rumretentionquota.Setup,
 		secureembeddashboard.Setup,
@@ -242,6 +263,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		webhook.Setup,
 		webhookcustomvariable.Setup,
 		webhookoauth2clientcredentials.Setup,
+		schedule.Setup,
 		control.Setup,
 		incidenttype.Setup,
 		notificationrule.Setup,
@@ -256,6 +278,8 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		cloudflareaccount.Setup,
 		confluentaccount.Setup,
 		confluentresource.Setup,
+		databricksaccount.Setup,
+		elasticcloudaccount.Setup,
 		fastlyaccount.Setup,
 		fastlyservice.Setup,
 		gcp.Setup,
@@ -266,6 +290,8 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		pagerduty.Setup,
 		pagerdutyserviceobject.Setup,
 		slackchannel.Setup,
+		snowflakeaccount.Setup,
+		twilioaccount.Setup,
 		archive.Setup,
 		archiveorder.Setup,
 		customdestination.Setup,
@@ -276,19 +302,23 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		metric.Setup,
 		pipelineorder.Setup,
 		restrictionquery.Setup,
+		derivedmetric.Setup,
 		metadata.Setup,
 		tagconfiguration.Setup,
 		observabilitypipeline.Setup,
 		escalationpolicy.Setup,
-		schedule.Setup,
+		scheduleoncall.Setup,
 		teamroutingrules.Setup,
 		usernotificationchannel.Setup,
 		usernotificationrule.Setup,
 		providerconfig.Setup,
 		table.Setup,
 		idpmetadata.Setup,
+		defaultinboxrule.Setup,
 		duedaterule.Setup,
+		inboxrule.Setup,
 		muterule.Setup,
+		severitymodifierrule.Setup,
 		ticketcreationrule.Setup,
 		criticalasset.Setup,
 		defaultrule.Setup,
@@ -338,6 +368,10 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		cloudinventorysyncconfig.SetupGated,
 		configurationrule.SetupGated,
 		workloadsecurityagentrule.SetupGated,
+		awswifidentitymapping.SetupGated,
+		awswifintakemapping.SetupGated,
+		githuboidcidentitymapping.SetupGated,
+		githuboidcintakemapping.SetupGated,
 		allocationrule.SetupGated,
 		awscurconfig.SetupGated,
 		azureucconfig.SetupGated,
@@ -380,6 +414,8 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		rumapplication.SetupGated,
 		rumexclusionfilter.SetupGated,
 		rummetric.SetupGated,
+		rumoperation.SetupGated,
+		rumoperationjourneylink.SetupGated,
 		rumretentionfilter.SetupGated,
 		rumretentionquota.SetupGated,
 		secureembeddashboard.SetupGated,
@@ -403,6 +439,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		webhook.SetupGated,
 		webhookcustomvariable.SetupGated,
 		webhookoauth2clientcredentials.SetupGated,
+		schedule.SetupGated,
 		control.SetupGated,
 		incidenttype.SetupGated,
 		notificationrule.SetupGated,
@@ -417,6 +454,8 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		cloudflareaccount.SetupGated,
 		confluentaccount.SetupGated,
 		confluentresource.SetupGated,
+		databricksaccount.SetupGated,
+		elasticcloudaccount.SetupGated,
 		fastlyaccount.SetupGated,
 		fastlyservice.SetupGated,
 		gcp.SetupGated,
@@ -427,6 +466,8 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		pagerduty.SetupGated,
 		pagerdutyserviceobject.SetupGated,
 		slackchannel.SetupGated,
+		snowflakeaccount.SetupGated,
+		twilioaccount.SetupGated,
 		archive.SetupGated,
 		archiveorder.SetupGated,
 		customdestination.SetupGated,
@@ -437,19 +478,23 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		metric.SetupGated,
 		pipelineorder.SetupGated,
 		restrictionquery.SetupGated,
+		derivedmetric.SetupGated,
 		metadata.SetupGated,
 		tagconfiguration.SetupGated,
 		observabilitypipeline.SetupGated,
 		escalationpolicy.SetupGated,
-		schedule.SetupGated,
+		scheduleoncall.SetupGated,
 		teamroutingrules.SetupGated,
 		usernotificationchannel.SetupGated,
 		usernotificationrule.SetupGated,
 		providerconfig.SetupGated,
 		table.SetupGated,
 		idpmetadata.SetupGated,
+		defaultinboxrule.SetupGated,
 		duedaterule.SetupGated,
+		inboxrule.SetupGated,
 		muterule.SetupGated,
+		severitymodifierrule.SetupGated,
 		ticketcreationrule.SetupGated,
 		criticalasset.SetupGated,
 		defaultrule.SetupGated,
@@ -498,6 +543,10 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		cloudinventorysyncconfig.SetupWebhookWithManager,
 		configurationrule.SetupWebhookWithManager,
 		workloadsecurityagentrule.SetupWebhookWithManager,
+		awswifidentitymapping.SetupWebhookWithManager,
+		awswifintakemapping.SetupWebhookWithManager,
+		githuboidcidentitymapping.SetupWebhookWithManager,
+		githuboidcintakemapping.SetupWebhookWithManager,
 		allocationrule.SetupWebhookWithManager,
 		awscurconfig.SetupWebhookWithManager,
 		azureucconfig.SetupWebhookWithManager,
@@ -540,6 +589,8 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		rumapplication.SetupWebhookWithManager,
 		rumexclusionfilter.SetupWebhookWithManager,
 		rummetric.SetupWebhookWithManager,
+		rumoperation.SetupWebhookWithManager,
+		rumoperationjourneylink.SetupWebhookWithManager,
 		rumretentionfilter.SetupWebhookWithManager,
 		rumretentionquota.SetupWebhookWithManager,
 		secureembeddashboard.SetupWebhookWithManager,
@@ -563,6 +614,7 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		webhook.SetupWebhookWithManager,
 		webhookcustomvariable.SetupWebhookWithManager,
 		webhookoauth2clientcredentials.SetupWebhookWithManager,
+		schedule.SetupWebhookWithManager,
 		control.SetupWebhookWithManager,
 		incidenttype.SetupWebhookWithManager,
 		notificationrule.SetupWebhookWithManager,
@@ -577,6 +629,8 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		cloudflareaccount.SetupWebhookWithManager,
 		confluentaccount.SetupWebhookWithManager,
 		confluentresource.SetupWebhookWithManager,
+		databricksaccount.SetupWebhookWithManager,
+		elasticcloudaccount.SetupWebhookWithManager,
 		fastlyaccount.SetupWebhookWithManager,
 		fastlyservice.SetupWebhookWithManager,
 		gcp.SetupWebhookWithManager,
@@ -587,6 +641,8 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		pagerduty.SetupWebhookWithManager,
 		pagerdutyserviceobject.SetupWebhookWithManager,
 		slackchannel.SetupWebhookWithManager,
+		snowflakeaccount.SetupWebhookWithManager,
+		twilioaccount.SetupWebhookWithManager,
 		archive.SetupWebhookWithManager,
 		archiveorder.SetupWebhookWithManager,
 		customdestination.SetupWebhookWithManager,
@@ -597,19 +653,23 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		metric.SetupWebhookWithManager,
 		pipelineorder.SetupWebhookWithManager,
 		restrictionquery.SetupWebhookWithManager,
+		derivedmetric.SetupWebhookWithManager,
 		metadata.SetupWebhookWithManager,
 		tagconfiguration.SetupWebhookWithManager,
 		observabilitypipeline.SetupWebhookWithManager,
 		escalationpolicy.SetupWebhookWithManager,
-		schedule.SetupWebhookWithManager,
+		scheduleoncall.SetupWebhookWithManager,
 		teamroutingrules.SetupWebhookWithManager,
 		usernotificationchannel.SetupWebhookWithManager,
 		usernotificationrule.SetupWebhookWithManager,
 		providerconfig.SetupWebhookWithManager,
 		table.SetupWebhookWithManager,
 		idpmetadata.SetupWebhookWithManager,
+		defaultinboxrule.SetupWebhookWithManager,
 		duedaterule.SetupWebhookWithManager,
+		inboxrule.SetupWebhookWithManager,
 		muterule.SetupWebhookWithManager,
+		severitymodifierrule.SetupWebhookWithManager,
 		ticketcreationrule.SetupWebhookWithManager,
 		criticalasset.SetupWebhookWithManager,
 		defaultrule.SetupWebhookWithManager,
