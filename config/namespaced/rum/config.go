@@ -60,4 +60,22 @@ func Configure(p *config.Provider) {
 		common.EmbedSingleNestedBlocks(r, "custom")
 		common.MarkSingleNestedBlockConfigurable(r, "custom", true)
 	})
+	p.AddResourceConfigurator("datadog_rum_operation", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "RUMOperation"
+		r.ShortGroup = "datadog"
+		r.References["application_id"] = config.Reference{
+			TerraformName: "datadog_rum_application",
+		}
+	})
+	p.AddResourceConfigurator("datadog_rum_operation_journey_link", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "RUMOperationJourneyLink"
+		r.ShortGroup = "datadog"
+		r.References["operation_id"] = config.Reference{
+			TerraformName: "datadog_rum_operation",
+		}
+	})
 }

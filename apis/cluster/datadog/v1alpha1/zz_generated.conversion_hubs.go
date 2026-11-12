@@ -91,6 +91,12 @@ func (tr *RUMExclusionFilter) Hub() {}
 func (tr *RUMMetric) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *RUMOperation) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RUMOperationJourneyLink) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *RUMRetentionFilter) Hub() {}
 
 // Hub marks this type as a conversion hub.

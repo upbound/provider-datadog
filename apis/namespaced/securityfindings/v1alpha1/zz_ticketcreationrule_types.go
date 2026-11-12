@@ -19,20 +19,20 @@ type TicketCreationRuleActionInitParameters struct {
 	// The UUID of the default assignee for created tickets. Must be a valid UUID.
 	AssigneeID *string `json:"assigneeId,omitempty" tf:"assignee_id,omitempty"`
 
-	// encoded object of custom fields of the Jira issue to create. For the list of available fields, see the Jira documentation.
-	// A JSON-encoded object of custom fields of the Jira issue to create. For the list of available fields, see the [Jira documentation](https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-issues/#api-rest-api-2-issue-createmeta-projectidorkey-issuetypes-issuetypeid-get).
+	// encoded object of target-specific fields for the ticket to create. For target: jira, the custom fields of the Jira issue. For the list of available fields, see the Jira documentation. For target: linear, the optional keys linear_project_id (string, the identifier of the Linear project the issue is created in) and linear_label_ids (array of strings, the identifiers of the Linear labels applied to the issue).
+	// A JSON-encoded object of target-specific fields for the ticket to create. For `target: jira`, the custom fields of the Jira issue. For the list of available fields, see the [Jira documentation](https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-issues/#api-rest-api-2-issue-createmeta-projectidorkey-issuetypes-issuetypeid-get). For `target: linear`, the optional keys `linear_project_id` (string, the identifier of the Linear project the issue is created in) and `linear_label_ids` (array of strings, the identifiers of the Linear labels applied to the issue).
 	Fields *string `json:"fields,omitempty" tf:"fields,omitempty"`
 
-	// (Number) The maximum number of tickets the rule may create per day. If exceeded, one final ticket will be created, explaining the limit was hit and linking back to the responsible rule. Value must be between 1 and 500.
-	// The maximum number of tickets the rule may create per day. If exceeded, one final ticket will be created, explaining the limit was hit and linking back to the responsible rule. Value must be between 1 and 500.
+	// (Number) The maximum number of tickets the rule may create per day. If exceeded, one final ticket will be created, explaining the limit was hit and link back to the responsible rule. Value must be between 1 and 500.
+	// The maximum number of tickets the rule may create per day. If exceeded, one final ticket will be created, explaining the limit was hit and link back to the responsible rule. Value must be between 1 and 500.
 	MaxTicketsPerDay *float64 `json:"maxTicketsPerDay,omitempty" tf:"max_tickets_per_day,omitempty"`
 
-	// (String) The UUID of the Case Management project. Must be a valid UUID.
-	// The UUID of the Case Management project. Must be a valid UUID.
+	// (String) The UUID of the case management project. Must be a valid UUID.
+	// The UUID of the case management project. Must be a valid UUID.
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
-	// (String) The ticketing system to create tickets in. Valid values are jira, case_management.
-	// The ticketing system to create tickets in. Valid values are `jira`, `case_management`.
+	// (String) The ticketing system to create tickets in. Valid values are jira, case_management, linear.
+	// The ticketing system to create tickets in. Valid values are `jira`, `case_management`, `linear`.
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 }
 
@@ -42,24 +42,24 @@ type TicketCreationRuleActionObservation struct {
 	// The UUID of the default assignee for created tickets. Must be a valid UUID.
 	AssigneeID *string `json:"assigneeId,omitempty" tf:"assignee_id,omitempty"`
 
-	// only.
-	// The reason the rule was automatically disabled by the system due to a ticketing integration error. This field is read-only.
+	// (String) The reason the rule was automatically disabled by the system due to a ticketing integration error.
+	// The reason the rule was automatically disabled by the system due to a ticketing integration error.
 	AutoDisabledReason *string `json:"autoDisabledReason,omitempty" tf:"auto_disabled_reason,omitempty"`
 
-	// encoded object of custom fields of the Jira issue to create. For the list of available fields, see the Jira documentation.
-	// A JSON-encoded object of custom fields of the Jira issue to create. For the list of available fields, see the [Jira documentation](https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-issues/#api-rest-api-2-issue-createmeta-projectidorkey-issuetypes-issuetypeid-get).
+	// encoded object of target-specific fields for the ticket to create. For target: jira, the custom fields of the Jira issue. For the list of available fields, see the Jira documentation. For target: linear, the optional keys linear_project_id (string, the identifier of the Linear project the issue is created in) and linear_label_ids (array of strings, the identifiers of the Linear labels applied to the issue).
+	// A JSON-encoded object of target-specific fields for the ticket to create. For `target: jira`, the custom fields of the Jira issue. For the list of available fields, see the [Jira documentation](https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-issues/#api-rest-api-2-issue-createmeta-projectidorkey-issuetypes-issuetypeid-get). For `target: linear`, the optional keys `linear_project_id` (string, the identifier of the Linear project the issue is created in) and `linear_label_ids` (array of strings, the identifiers of the Linear labels applied to the issue).
 	Fields *string `json:"fields,omitempty" tf:"fields,omitempty"`
 
-	// (Number) The maximum number of tickets the rule may create per day. If exceeded, one final ticket will be created, explaining the limit was hit and linking back to the responsible rule. Value must be between 1 and 500.
-	// The maximum number of tickets the rule may create per day. If exceeded, one final ticket will be created, explaining the limit was hit and linking back to the responsible rule. Value must be between 1 and 500.
+	// (Number) The maximum number of tickets the rule may create per day. If exceeded, one final ticket will be created, explaining the limit was hit and link back to the responsible rule. Value must be between 1 and 500.
+	// The maximum number of tickets the rule may create per day. If exceeded, one final ticket will be created, explaining the limit was hit and link back to the responsible rule. Value must be between 1 and 500.
 	MaxTicketsPerDay *float64 `json:"maxTicketsPerDay,omitempty" tf:"max_tickets_per_day,omitempty"`
 
-	// (String) The UUID of the Case Management project. Must be a valid UUID.
-	// The UUID of the Case Management project. Must be a valid UUID.
+	// (String) The UUID of the case management project. Must be a valid UUID.
+	// The UUID of the case management project. Must be a valid UUID.
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
-	// (String) The ticketing system to create tickets in. Valid values are jira, case_management.
-	// The ticketing system to create tickets in. Valid values are `jira`, `case_management`.
+	// (String) The ticketing system to create tickets in. Valid values are jira, case_management, linear.
+	// The ticketing system to create tickets in. Valid values are `jira`, `case_management`, `linear`.
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 }
 
@@ -70,23 +70,23 @@ type TicketCreationRuleActionParameters struct {
 	// +kubebuilder:validation:Optional
 	AssigneeID *string `json:"assigneeId,omitempty" tf:"assignee_id,omitempty"`
 
-	// encoded object of custom fields of the Jira issue to create. For the list of available fields, see the Jira documentation.
-	// A JSON-encoded object of custom fields of the Jira issue to create. For the list of available fields, see the [Jira documentation](https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-issues/#api-rest-api-2-issue-createmeta-projectidorkey-issuetypes-issuetypeid-get).
+	// encoded object of target-specific fields for the ticket to create. For target: jira, the custom fields of the Jira issue. For the list of available fields, see the Jira documentation. For target: linear, the optional keys linear_project_id (string, the identifier of the Linear project the issue is created in) and linear_label_ids (array of strings, the identifiers of the Linear labels applied to the issue).
+	// A JSON-encoded object of target-specific fields for the ticket to create. For `target: jira`, the custom fields of the Jira issue. For the list of available fields, see the [Jira documentation](https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-issues/#api-rest-api-2-issue-createmeta-projectidorkey-issuetypes-issuetypeid-get). For `target: linear`, the optional keys `linear_project_id` (string, the identifier of the Linear project the issue is created in) and `linear_label_ids` (array of strings, the identifiers of the Linear labels applied to the issue).
 	// +kubebuilder:validation:Optional
 	Fields *string `json:"fields,omitempty" tf:"fields,omitempty"`
 
-	// (Number) The maximum number of tickets the rule may create per day. If exceeded, one final ticket will be created, explaining the limit was hit and linking back to the responsible rule. Value must be between 1 and 500.
-	// The maximum number of tickets the rule may create per day. If exceeded, one final ticket will be created, explaining the limit was hit and linking back to the responsible rule. Value must be between 1 and 500.
+	// (Number) The maximum number of tickets the rule may create per day. If exceeded, one final ticket will be created, explaining the limit was hit and link back to the responsible rule. Value must be between 1 and 500.
+	// The maximum number of tickets the rule may create per day. If exceeded, one final ticket will be created, explaining the limit was hit and link back to the responsible rule. Value must be between 1 and 500.
 	// +kubebuilder:validation:Optional
 	MaxTicketsPerDay *float64 `json:"maxTicketsPerDay" tf:"max_tickets_per_day,omitempty"`
 
-	// (String) The UUID of the Case Management project. Must be a valid UUID.
-	// The UUID of the Case Management project. Must be a valid UUID.
+	// (String) The UUID of the case management project. Must be a valid UUID.
+	// The UUID of the case management project. Must be a valid UUID.
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId" tf:"project_id,omitempty"`
 
-	// (String) The ticketing system to create tickets in. Valid values are jira, case_management.
-	// The ticketing system to create tickets in. Valid values are `jira`, `case_management`.
+	// (String) The ticketing system to create tickets in. Valid values are jira, case_management, linear.
+	// The ticketing system to create tickets in. Valid values are `jira`, `case_management`, `linear`.
 	// +kubebuilder:validation:Optional
 	Target *string `json:"target" tf:"target,omitempty"`
 }

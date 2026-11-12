@@ -1,0 +1,16 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: SLOCorrection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/slocorrection-sloquery
+  labels:
+    testing.upbound.io/example-name: example_slo_correction_with_query
+  name: example-slo-correction-with-query
+spec:
+  forProvider:
+    category: Scheduled Maintenance
+    description: correction example with query
+    end: 1788224400
+    sloQuery: env:prod service:checkout
+    start: 1788220800
+    timezone: UTC

@@ -94,8 +94,12 @@ type ActionEscalationPolicyParameters struct {
 
 type ActionInitParameters struct {
 
-	// (String) ID of the policy to be applied when this routing rule matches. The last rule must define an escalation policy, either via this attribute or via an escalation_policy action.
+	// (String) ID of the policy to be applied when this routing rule matches.
 	EscalationPolicy *ActionEscalationPolicyInitParameters `json:"escalationPolicy,omitempty" tf:"escalation_policy,omitempty"`
+
+	// (Block, Optional) Reroutes the page to another team's routing rules. Can only be combined with send_slack_message or send_teams_message actions in the same rule. (see below for nested schema)
+	// Reroutes the page to another team's routing rules. Can only be combined with `send_slack_message` or `send_teams_message` actions in the same rule.
+	RerouteToTeam *RerouteToTeamInitParameters `json:"rerouteToTeam,omitempty" tf:"reroute_to_team,omitempty"`
 
 	// (Block, Optional) (see below for nested schema)
 	SendSlackMessage *SendSlackMessageInitParameters `json:"sendSlackMessage,omitempty" tf:"send_slack_message,omitempty"`
@@ -109,8 +113,12 @@ type ActionInitParameters struct {
 
 type ActionObservation struct {
 
-	// (String) ID of the policy to be applied when this routing rule matches. The last rule must define an escalation policy, either via this attribute or via an escalation_policy action.
+	// (String) ID of the policy to be applied when this routing rule matches.
 	EscalationPolicy *ActionEscalationPolicyObservation `json:"escalationPolicy,omitempty" tf:"escalation_policy,omitempty"`
+
+	// (Block, Optional) Reroutes the page to another team's routing rules. Can only be combined with send_slack_message or send_teams_message actions in the same rule. (see below for nested schema)
+	// Reroutes the page to another team's routing rules. Can only be combined with `send_slack_message` or `send_teams_message` actions in the same rule.
+	RerouteToTeam *RerouteToTeamObservation `json:"rerouteToTeam,omitempty" tf:"reroute_to_team,omitempty"`
 
 	// (Block, Optional) (see below for nested schema)
 	SendSlackMessage *SendSlackMessageObservation `json:"sendSlackMessage,omitempty" tf:"send_slack_message,omitempty"`
@@ -124,9 +132,14 @@ type ActionObservation struct {
 
 type ActionParameters struct {
 
-	// (String) ID of the policy to be applied when this routing rule matches. The last rule must define an escalation policy, either via this attribute or via an escalation_policy action.
+	// (String) ID of the policy to be applied when this routing rule matches.
 	// +kubebuilder:validation:Optional
 	EscalationPolicy *ActionEscalationPolicyParameters `json:"escalationPolicy,omitempty" tf:"escalation_policy,omitempty"`
+
+	// (Block, Optional) Reroutes the page to another team's routing rules. Can only be combined with send_slack_message or send_teams_message actions in the same rule. (see below for nested schema)
+	// Reroutes the page to another team's routing rules. Can only be combined with `send_slack_message` or `send_teams_message` actions in the same rule.
+	// +kubebuilder:validation:Optional
+	RerouteToTeam *RerouteToTeamParameters `json:"rerouteToTeam,omitempty" tf:"reroute_to_team,omitempty"`
 
 	// (Block, Optional) (see below for nested schema)
 	// +kubebuilder:validation:Optional
@@ -141,14 +154,36 @@ type ActionParameters struct {
 	TriggerWorkflowAutomation *TriggerWorkflowAutomationParameters `json:"triggerWorkflowAutomation,omitempty" tf:"trigger_workflow_automation,omitempty"`
 }
 
+type RerouteToTeamInitParameters struct {
+
+	// (String) ID of the team to reroute the page to.
+	// ID of the team to reroute the page to. Must be a valid UUID.
+	DestinationTeamID *string `json:"destinationTeamId,omitempty" tf:"destination_team_id,omitempty"`
+}
+
+type RerouteToTeamObservation struct {
+
+	// (String) ID of the team to reroute the page to.
+	// ID of the team to reroute the page to. Must be a valid UUID.
+	DestinationTeamID *string `json:"destinationTeamId,omitempty" tf:"destination_team_id,omitempty"`
+}
+
+type RerouteToTeamParameters struct {
+
+	// (String) ID of the team to reroute the page to.
+	// ID of the team to reroute the page to. Must be a valid UUID.
+	// +kubebuilder:validation:Optional
+	DestinationTeamID *string `json:"destinationTeamId,omitempty" tf:"destination_team_id,omitempty"`
+}
+
 type RuleInitParameters struct {
 
 	// (Block List) Specifies the list of actions to perform when the routing rule is matched. (see below for nested schema)
 	// Specifies the list of actions to perform when the routing rule is matched.
 	Action []ActionInitParameters `json:"action,omitempty" tf:"action,omitempty"`
 
-	// (String) ID of the policy to be applied when this routing rule matches. The last rule must define an escalation policy, either via this attribute or via an escalation_policy action.
-	// ID of the policy to be applied when this routing rule matches. The last rule must define an escalation policy, either via this attribute or via an `escalation_policy` action.
+	// (String) ID of the policy to be applied when this routing rule matches.
+	// ID of the policy to be applied when this routing rule matches.
 	EscalationPolicy *string `json:"escalationPolicy,omitempty" tf:"escalation_policy,omitempty"`
 
 	// all rule. Defaults to "".
@@ -170,8 +205,8 @@ type RuleObservation struct {
 	// Specifies the list of actions to perform when the routing rule is matched.
 	Action []ActionObservation `json:"action,omitempty" tf:"action,omitempty"`
 
-	// (String) ID of the policy to be applied when this routing rule matches. The last rule must define an escalation policy, either via this attribute or via an escalation_policy action.
-	// ID of the policy to be applied when this routing rule matches. The last rule must define an escalation policy, either via this attribute or via an `escalation_policy` action.
+	// (String) ID of the policy to be applied when this routing rule matches.
+	// ID of the policy to be applied when this routing rule matches.
 	EscalationPolicy *string `json:"escalationPolicy,omitempty" tf:"escalation_policy,omitempty"`
 
 	// (String) ID of the team to associate the routing rules with.
@@ -198,8 +233,8 @@ type RuleParameters struct {
 	// +kubebuilder:validation:Optional
 	Action []ActionParameters `json:"action,omitempty" tf:"action,omitempty"`
 
-	// (String) ID of the policy to be applied when this routing rule matches. The last rule must define an escalation policy, either via this attribute or via an escalation_policy action.
-	// ID of the policy to be applied when this routing rule matches. The last rule must define an escalation policy, either via this attribute or via an `escalation_policy` action.
+	// (String) ID of the policy to be applied when this routing rule matches.
+	// ID of the policy to be applied when this routing rule matches.
 	// +kubebuilder:validation:Optional
 	EscalationPolicy *string `json:"escalationPolicy,omitempty" tf:"escalation_policy,omitempty"`
 

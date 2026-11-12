@@ -1,0 +1,35 @@
+apiVersion: cloudauth.datadog.m.upbound.io/v1alpha1
+kind: GitHubOIDCIdentityMapping
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudauth/v1alpha1/githuboidcidentitymapping
+  labels:
+    testing.upbound.io/example-name: terraform
+  name: terraform
+  namespace: upbound-system
+spec:
+  forProvider:
+    accountIdentifierSelector:
+      matchLabels:
+        testing.upbound.io/example-name: terraform
+    claimMatchers:
+    - repository: ^my-org/terraform$
+      sub: repo:my-org/terraform:ref:refs/heads/main
+
+---
+
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: ServiceAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudauth.datadog/v1alpha1/githuboidcidentitymapping
+  labels:
+    testing.upbound.io/example-name: terraform
+  name: terraform
+  namespace: upbound-system
+spec:
+  forProvider:
+    email: terraform-service-account@example.com
+    name: Terraform service account
+    roles:
+    - ${data.datadog_role.read_only.id}

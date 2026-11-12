@@ -13,7 +13,193 @@ import (
 	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
+type APIKeyAPIKeyAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APIKeyAPIKeyAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APIKeyAPIKeyAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APIKeyAPITokenAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APIKeyAPITokenAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APIKeyAPITokenAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APIKeyAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APIKeyAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APIKeyAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type APIKeyInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *APITokenAwsSecretsManagerInitParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// Anthropic API token. String length must be at least 1.
@@ -21,9 +207,16 @@ type APIKeyInitParameters struct {
 }
 
 type APIKeyObservation struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *APITokenAwsSecretsManagerObservation `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 }
 
 type APIKeyParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APITokenAwsSecretsManager *APITokenAwsSecretsManagerParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// Anthropic API token. String length must be at least 1.
@@ -31,7 +224,254 @@ type APIKeyParameters struct {
 	APITokenSecretRef *v2.LocalSecretKeySelector `json:"apiTokenSecretRef,omitempty" tf:"-"`
 }
 
+type APIPasswordAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APIPasswordAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APIPasswordAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APITokenAPITokenAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APITokenAPITokenAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APITokenAPITokenAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APITokenAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APITokenAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APITokenAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APITokenDomainAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APITokenDomainAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APITokenDomainAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type APITokenInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *APITokenAPITokenAwsSecretsManagerInitParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// Cloudflare API token. String length must be at least 1.
@@ -39,9 +479,16 @@ type APITokenInitParameters struct {
 }
 
 type APITokenObservation struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *APITokenAPITokenAwsSecretsManagerObservation `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 }
 
 type APITokenParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APITokenAwsSecretsManager *APITokenAPITokenAwsSecretsManagerParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// Cloudflare API token. String length must be at least 1.
@@ -49,7 +496,132 @@ type APITokenParameters struct {
 	APITokenSecretRef *v2.LocalSecretKeySelector `json:"apiTokenSecretRef,omitempty" tf:"-"`
 }
 
+type APIUsernameAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APIUsernameAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type APIUsernameAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type AccessTokenAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type AccessTokenAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type AccessTokenAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type AccessTokenInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	AccessTokenAwsSecretsManager *AccessTokenAwsSecretsManagerInitParameters `json:"accessTokenAwsSecretsManager,omitempty" tf:"access_token_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Asana access token authentication (see below for nested schema)
 	// Asana access token. String length must be at least 1.
@@ -57,9 +629,16 @@ type AccessTokenInitParameters struct {
 }
 
 type AccessTokenObservation struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	AccessTokenAwsSecretsManager *AccessTokenAwsSecretsManagerObservation `json:"accessTokenAwsSecretsManager,omitempty" tf:"access_token_aws_secrets_manager,omitempty"`
 }
 
 type AccessTokenParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	AccessTokenAwsSecretsManager *AccessTokenAwsSecretsManagerParameters `json:"accessTokenAwsSecretsManager,omitempty" tf:"access_token_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Asana access token authentication (see below for nested schema)
 	// Asana access token. String length must be at least 1.
@@ -78,7 +657,7 @@ type AnthropicObservation struct {
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Configuration for Anthropic API key authentication
-	APIKey *APIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
+	APIKey *APIKeyObservation `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
 type AnthropicParameters struct {
@@ -87,6 +666,67 @@ type AnthropicParameters struct {
 	// Configuration for Anthropic API key authentication
 	// +kubebuilder:validation:Optional
 	APIKey *APIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
+}
+
+type AppKeyAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type AppKeyAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type AppKeyAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
 }
 
 type AsanaInitParameters struct {
@@ -100,7 +740,7 @@ type AsanaObservation struct {
 
 	// (Block, Optional) Configuration for Asana access token authentication (see below for nested schema)
 	// Configuration for Asana access token authentication
-	AccessToken *AccessTokenParameters `json:"accessToken,omitempty" tf:"access_token,omitempty"`
+	AccessToken *AccessTokenObservation `json:"accessToken,omitempty" tf:"access_token,omitempty"`
 }
 
 type AsanaParameters struct {
@@ -154,6 +794,67 @@ type AssumeRoleParameters struct {
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 }
 
+type AuthEmailAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type AuthEmailAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type AuthEmailAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type AwsInitParameters struct {
 
 	// (Block, Optional) Configuration for an assume role AWS connection (see below for nested schema)
@@ -204,6 +905,12 @@ type BasicAuthInitParameters struct {
 	// ServiceNow instance. String length must be at least 1.
 	Instance *string `json:"instance,omitempty" tf:"instance,omitempty"`
 
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	InstanceAwsSecretsManager *InstanceAwsSecretsManagerInitParameters `json:"instanceAwsSecretsManager,omitempty" tf:"instance_aws_secrets_manager,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	PasswordAwsSecretsManager *PasswordAwsSecretsManagerInitParameters `json:"passwordAwsSecretsManager,omitempty" tf:"password_aws_secrets_manager,omitempty"`
+
 	// (String, Sensitive) ServiceNow password. String length must be at least 1.
 	// ServiceNow password. String length must be at least 1.
 	PasswordSecretRef *v2.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
@@ -211,6 +918,9 @@ type BasicAuthInitParameters struct {
 	// (String) ServiceNow username. String length must be at least 1.
 	// ServiceNow username. String length must be at least 1.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	UsernameAwsSecretsManager *UsernameAwsSecretsManagerInitParameters `json:"usernameAwsSecretsManager,omitempty" tf:"username_aws_secrets_manager,omitempty"`
 }
 
 type BasicAuthObservation struct {
@@ -219,9 +929,18 @@ type BasicAuthObservation struct {
 	// ServiceNow instance. String length must be at least 1.
 	Instance *string `json:"instance,omitempty" tf:"instance,omitempty"`
 
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	InstanceAwsSecretsManager *InstanceAwsSecretsManagerObservation `json:"instanceAwsSecretsManager,omitempty" tf:"instance_aws_secrets_manager,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	PasswordAwsSecretsManager *PasswordAwsSecretsManagerObservation `json:"passwordAwsSecretsManager,omitempty" tf:"password_aws_secrets_manager,omitempty"`
+
 	// (String) ServiceNow username. String length must be at least 1.
 	// ServiceNow username. String length must be at least 1.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	UsernameAwsSecretsManager *UsernameAwsSecretsManagerObservation `json:"usernameAwsSecretsManager,omitempty" tf:"username_aws_secrets_manager,omitempty"`
 }
 
 type BasicAuthParameters struct {
@@ -231,6 +950,14 @@ type BasicAuthParameters struct {
 	// +kubebuilder:validation:Optional
 	Instance *string `json:"instance,omitempty" tf:"instance,omitempty"`
 
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	InstanceAwsSecretsManager *InstanceAwsSecretsManagerParameters `json:"instanceAwsSecretsManager,omitempty" tf:"instance_aws_secrets_manager,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	PasswordAwsSecretsManager *PasswordAwsSecretsManagerParameters `json:"passwordAwsSecretsManager,omitempty" tf:"password_aws_secrets_manager,omitempty"`
+
 	// (String, Sensitive) ServiceNow password. String length must be at least 1.
 	// ServiceNow password. String length must be at least 1.
 	// +kubebuilder:validation:Optional
@@ -240,6 +967,10 @@ type BasicAuthParameters struct {
 	// ServiceNow username. String length must be at least 1.
 	// +kubebuilder:validation:Optional
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	UsernameAwsSecretsManager *UsernameAwsSecretsManagerParameters `json:"usernameAwsSecretsManager,omitempty" tf:"username_aws_secrets_manager,omitempty"`
 }
 
 type BodyInitParameters struct {
@@ -279,15 +1010,25 @@ type BodyParameters struct {
 
 type CircleCiAPIKeyInitParameters struct {
 
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *APIKeyAPITokenAwsSecretsManagerInitParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
+
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// CircleCI API token. String length must be at least 1.
 	APITokenSecretRef *v2.LocalSecretKeySelector `json:"apiTokenSecretRef,omitempty" tf:"-"`
 }
 
 type CircleCiAPIKeyObservation struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *APIKeyAPITokenAwsSecretsManagerObservation `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 }
 
 type CircleCiAPIKeyParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APITokenAwsSecretsManager *APIKeyAPITokenAwsSecretsManagerParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// CircleCI API token. String length must be at least 1.
@@ -306,7 +1047,7 @@ type CircleCiObservation struct {
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Configuration for CircleCI API key authentication
-	APIKey *CircleCiAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
+	APIKey *CircleCiAPIKeyObservation `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
 type CircleCiParameters struct {
@@ -317,7 +1058,71 @@ type CircleCiParameters struct {
 	APIKey *CircleCiAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
+type ClickupAPIKeyAPITokenAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type ClickupAPIKeyAPITokenAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type ClickupAPIKeyAPITokenAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type ClickupAPIKeyInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *ClickupAPIKeyAPITokenAwsSecretsManagerInitParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// ClickUp API token. String length must be at least 1.
@@ -325,9 +1130,16 @@ type ClickupAPIKeyInitParameters struct {
 }
 
 type ClickupAPIKeyObservation struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *ClickupAPIKeyAPITokenAwsSecretsManagerObservation `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 }
 
 type ClickupAPIKeyParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APITokenAwsSecretsManager *ClickupAPIKeyAPITokenAwsSecretsManagerParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// ClickUp API token. String length must be at least 1.
@@ -346,7 +1158,7 @@ type ClickupObservation struct {
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Configuration for ClickUp API key authentication
-	APIKey *ClickupAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
+	APIKey *ClickupAPIKeyObservation `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
 type ClickupParameters struct {
@@ -372,7 +1184,7 @@ type CloudflareObservation struct {
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// Configuration for Cloudflare API token authentication
-	APIToken *APITokenParameters `json:"apiToken,omitempty" tf:"api_token,omitempty"`
+	APIToken *APITokenObservation `json:"apiToken,omitempty" tf:"api_token,omitempty"`
 
 	// (Block, Optional) Configuration for Cloudflare global API token authentication (see below for nested schema)
 	// Configuration for Cloudflare global API token authentication
@@ -451,6 +1263,9 @@ type ConnectionInitParameters struct {
 	// (Block, Optional) Configuration for a Datadog connection (see below for nested schema)
 	// Configuration for a Datadog connection
 	Datadog *DatadogInitParameters `json:"datadog,omitempty" tf:"datadog,omitempty"`
+
+	// (Attributes) AWS Secrets Manager settings shared by credential references. Required when a credential uses an AWS Secrets Manager reference. Optional for literal credentials. Available only on connections that run in Datadog's cloud. (see below for nested schema)
+	ExternalSecretsManager *ExternalSecretsManagerInitParameters `json:"externalSecretsManager,omitempty" tf:"external_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for a Fastly connection (see below for nested schema)
 	// Configuration for a Fastly connection
@@ -564,6 +1379,9 @@ type ConnectionObservation struct {
 	// Tags associated with the connection, including those inherited from the provider's `default_tags` configuration.
 	// +listType=set
 	EffectiveTags []*string `json:"effectiveTags,omitempty" tf:"effective_tags,omitempty"`
+
+	// (Attributes) AWS Secrets Manager settings shared by credential references. Required when a credential uses an AWS Secrets Manager reference. Optional for literal credentials. Available only on connections that run in Datadog's cloud. (see below for nested schema)
+	ExternalSecretsManager *ExternalSecretsManagerObservation `json:"externalSecretsManager,omitempty" tf:"external_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for a Fastly connection (see below for nested schema)
 	// Configuration for a Fastly connection
@@ -685,6 +1503,10 @@ type ConnectionParameters struct {
 	// +kubebuilder:validation:Optional
 	Datadog *DatadogParameters `json:"datadog,omitempty" tf:"datadog,omitempty"`
 
+	// (Attributes) AWS Secrets Manager settings shared by credential references. Required when a credential uses an AWS Secrets Manager reference. Optional for literal credentials. Available only on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	ExternalSecretsManager *ExternalSecretsManagerParameters `json:"externalSecretsManager,omitempty" tf:"external_secrets_manager,omitempty"`
+
 	// (Block, Optional) Configuration for a Fastly connection (see below for nested schema)
 	// Configuration for a Fastly connection
 	// +kubebuilder:validation:Optional
@@ -772,11 +1594,78 @@ type ConnectionParameters struct {
 	VirusTotal *VirusTotalParameters `json:"virusTotal,omitempty" tf:"virus_total,omitempty"`
 }
 
+type DatacenterAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type DatacenterAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type DatacenterAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type DatadogAPIKeyInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIKeyAwsSecretsManager *APIKeyAwsSecretsManagerInitParameters `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Datadog API key. String length must be at least 1.
 	APIKeySecretRef *v2.LocalSecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	AppKeyAwsSecretsManager *AppKeyAwsSecretsManagerInitParameters `json:"appKeyAwsSecretsManager,omitempty" tf:"app_key_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Datadog application key. String length must be at least 1.
 	// Datadog application key. String length must be at least 1.
@@ -786,28 +1675,54 @@ type DatadogAPIKeyInitParameters struct {
 	// Datadog site data center. String length must be at least 1.
 	Datacenter *string `json:"datacenter,omitempty" tf:"datacenter,omitempty"`
 
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	DatacenterAwsSecretsManager *DatacenterAwsSecretsManagerInitParameters `json:"datacenterAwsSecretsManager,omitempty" tf:"datacenter_aws_secrets_manager,omitempty"`
+
 	// (String) Custom subdomain used for URLs generated with this connection. String length must be at least 1.
 	// Custom subdomain used for URLs generated with this connection. String length must be at least 1.
 	Subdomain *string `json:"subdomain,omitempty" tf:"subdomain,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	SubdomainAwsSecretsManager *SubdomainAwsSecretsManagerInitParameters `json:"subdomainAwsSecretsManager,omitempty" tf:"subdomain_aws_secrets_manager,omitempty"`
 }
 
 type DatadogAPIKeyObservation struct {
 
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIKeyAwsSecretsManager *APIKeyAwsSecretsManagerObservation `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	AppKeyAwsSecretsManager *AppKeyAwsSecretsManagerObservation `json:"appKeyAwsSecretsManager,omitempty" tf:"app_key_aws_secrets_manager,omitempty"`
+
 	// (String) Datadog site data center. String length must be at least 1.
 	// Datadog site data center. String length must be at least 1.
 	Datacenter *string `json:"datacenter,omitempty" tf:"datacenter,omitempty"`
 
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	DatacenterAwsSecretsManager *DatacenterAwsSecretsManagerObservation `json:"datacenterAwsSecretsManager,omitempty" tf:"datacenter_aws_secrets_manager,omitempty"`
+
 	// (String) Custom subdomain used for URLs generated with this connection. String length must be at least 1.
 	// Custom subdomain used for URLs generated with this connection. String length must be at least 1.
 	Subdomain *string `json:"subdomain,omitempty" tf:"subdomain,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	SubdomainAwsSecretsManager *SubdomainAwsSecretsManagerObservation `json:"subdomainAwsSecretsManager,omitempty" tf:"subdomain_aws_secrets_manager,omitempty"`
 }
 
 type DatadogAPIKeyParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APIKeyAwsSecretsManager *APIKeyAwsSecretsManagerParameters `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Datadog API key. String length must be at least 1.
 	// +kubebuilder:validation:Optional
 	APIKeySecretRef *v2.LocalSecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	AppKeyAwsSecretsManager *AppKeyAwsSecretsManagerParameters `json:"appKeyAwsSecretsManager,omitempty" tf:"app_key_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Datadog application key. String length must be at least 1.
 	// Datadog application key. String length must be at least 1.
@@ -819,10 +1734,18 @@ type DatadogAPIKeyParameters struct {
 	// +kubebuilder:validation:Optional
 	Datacenter *string `json:"datacenter,omitempty" tf:"datacenter,omitempty"`
 
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	DatacenterAwsSecretsManager *DatacenterAwsSecretsManagerParameters `json:"datacenterAwsSecretsManager,omitempty" tf:"datacenter_aws_secrets_manager,omitempty"`
+
 	// (String) Custom subdomain used for URLs generated with this connection. String length must be at least 1.
 	// Custom subdomain used for URLs generated with this connection. String length must be at least 1.
 	// +kubebuilder:validation:Optional
 	Subdomain *string `json:"subdomain,omitempty" tf:"subdomain,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	SubdomainAwsSecretsManager *SubdomainAwsSecretsManagerParameters `json:"subdomainAwsSecretsManager,omitempty" tf:"subdomain_aws_secrets_manager,omitempty"`
 }
 
 type DatadogInitParameters struct {
@@ -847,7 +1770,106 @@ type DatadogParameters struct {
 	APIKey *DatadogAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
+type DomainAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type DomainAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type DomainAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type ExternalSecretsManagerInitParameters struct {
+
+	// (String) ID of an AWS connection in the same organization used to retrieve secrets. String length must be at least 1.
+	// ID of an AWS connection in the same organization used to retrieve secrets. String length must be at least 1.
+	ConnectionID *string `json:"connectionId,omitempty" tf:"connection_id,omitempty"`
+
+	// (String) AWS region containing the secrets. String length must be at least 1.
+	// AWS region containing the secrets. String length must be at least 1.
+	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+}
+
+type ExternalSecretsManagerObservation struct {
+
+	// (String) ID of an AWS connection in the same organization used to retrieve secrets. String length must be at least 1.
+	// ID of an AWS connection in the same organization used to retrieve secrets. String length must be at least 1.
+	ConnectionID *string `json:"connectionId,omitempty" tf:"connection_id,omitempty"`
+
+	// (String) AWS region containing the secrets. String length must be at least 1.
+	// AWS region containing the secrets. String length must be at least 1.
+	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+}
+
+type ExternalSecretsManagerParameters struct {
+
+	// (String) ID of an AWS connection in the same organization used to retrieve secrets. String length must be at least 1.
+	// ID of an AWS connection in the same organization used to retrieve secrets. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	ConnectionID *string `json:"connectionId" tf:"connection_id,omitempty"`
+
+	// (String) AWS region containing the secrets. String length must be at least 1.
+	// AWS region containing the secrets. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	Region *string `json:"region" tf:"region,omitempty"`
+}
+
 type FastlyAPIKeyInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIKeyAwsSecretsManager *APIKeyAPIKeyAwsSecretsManagerInitParameters `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Fastly API key. String length must be at least 1.
@@ -855,9 +1877,16 @@ type FastlyAPIKeyInitParameters struct {
 }
 
 type FastlyAPIKeyObservation struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIKeyAwsSecretsManager *APIKeyAPIKeyAwsSecretsManagerObservation `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 }
 
 type FastlyAPIKeyParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APIKeyAwsSecretsManager *APIKeyAPIKeyAwsSecretsManagerParameters `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Fastly API key. String length must be at least 1.
@@ -876,7 +1905,7 @@ type FastlyObservation struct {
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Configuration for Fastly API key authentication
-	APIKey *FastlyAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
+	APIKey *FastlyAPIKeyObservation `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
 type FastlyParameters struct {
@@ -887,7 +1916,71 @@ type FastlyParameters struct {
 	APIKey *FastlyAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
+type FreshserviceAPIKeyAPIKeyAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type FreshserviceAPIKeyAPIKeyAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type FreshserviceAPIKeyAPIKeyAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type FreshserviceAPIKeyInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIKeyAwsSecretsManager *FreshserviceAPIKeyAPIKeyAwsSecretsManagerInitParameters `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Freshservice API key. String length must be at least 1.
@@ -896,16 +1989,29 @@ type FreshserviceAPIKeyInitParameters struct {
 	// (String) Freshservice domain. String length must be at least 1.
 	// Freshservice domain. String length must be at least 1.
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	DomainAwsSecretsManager *DomainAwsSecretsManagerInitParameters `json:"domainAwsSecretsManager,omitempty" tf:"domain_aws_secrets_manager,omitempty"`
 }
 
 type FreshserviceAPIKeyObservation struct {
 
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIKeyAwsSecretsManager *FreshserviceAPIKeyAPIKeyAwsSecretsManagerObservation `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
+
 	// (String) Freshservice domain. String length must be at least 1.
 	// Freshservice domain. String length must be at least 1.
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	DomainAwsSecretsManager *DomainAwsSecretsManagerObservation `json:"domainAwsSecretsManager,omitempty" tf:"domain_aws_secrets_manager,omitempty"`
 }
 
 type FreshserviceAPIKeyParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APIKeyAwsSecretsManager *FreshserviceAPIKeyAPIKeyAwsSecretsManagerParameters `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Freshservice API key. String length must be at least 1.
@@ -916,6 +2022,10 @@ type FreshserviceAPIKeyParameters struct {
 	// Freshservice domain. String length must be at least 1.
 	// +kubebuilder:validation:Optional
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	DomainAwsSecretsManager *DomainAwsSecretsManagerParameters `json:"domainAwsSecretsManager,omitempty" tf:"domain_aws_secrets_manager,omitempty"`
 }
 
 type FreshserviceInitParameters struct {
@@ -962,7 +2072,71 @@ type GCPParameters struct {
 	ServiceAccount *ServiceAccountParameters `json:"serviceAccount,omitempty" tf:"service_account,omitempty"`
 }
 
+type GeminiAPIKeyAPIKeyAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type GeminiAPIKeyAPIKeyAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type GeminiAPIKeyAPIKeyAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type GeminiAPIKeyInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIKeyAwsSecretsManager *GeminiAPIKeyAPIKeyAwsSecretsManagerInitParameters `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Gemini API key. String length must be at least 1.
@@ -970,9 +2144,16 @@ type GeminiAPIKeyInitParameters struct {
 }
 
 type GeminiAPIKeyObservation struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIKeyAwsSecretsManager *GeminiAPIKeyAPIKeyAwsSecretsManagerObservation `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 }
 
 type GeminiAPIKeyParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APIKeyAwsSecretsManager *GeminiAPIKeyAPIKeyAwsSecretsManagerParameters `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Gemini API key. String length must be at least 1.
@@ -991,7 +2172,7 @@ type GeminiObservation struct {
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Configuration for Gemini API key authentication
-	APIKey *GeminiAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
+	APIKey *GeminiAPIKeyObservation `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
 type GeminiParameters struct {
@@ -1002,7 +2183,71 @@ type GeminiParameters struct {
 	APIKey *GeminiAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
+type GitlabAPIKeyAPITokenAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type GitlabAPIKeyAPITokenAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type GitlabAPIKeyAPITokenAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type GitlabAPIKeyInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *GitlabAPIKeyAPITokenAwsSecretsManagerInitParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// GitLab API token. String length must be at least 1.
@@ -1010,9 +2255,16 @@ type GitlabAPIKeyInitParameters struct {
 }
 
 type GitlabAPIKeyObservation struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *GitlabAPIKeyAPITokenAwsSecretsManagerObservation `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 }
 
 type GitlabAPIKeyParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APITokenAwsSecretsManager *GitlabAPIKeyAPITokenAwsSecretsManagerParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// GitLab API token. String length must be at least 1.
@@ -1031,7 +2283,7 @@ type GitlabObservation struct {
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Configuration for GitLab API key authentication
-	APIKey *GitlabAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
+	APIKey *GitlabAPIKeyObservation `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
 type GitlabParameters struct {
@@ -1042,11 +2294,78 @@ type GitlabParameters struct {
 	APIKey *GitlabAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
+type GlobalAPIKeyAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type GlobalAPIKeyAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type GlobalAPIKeyAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type GlobalAPITokenInitParameters struct {
 
 	// (String) Email address associated with the Cloudflare account. String length must be at least 1.
 	// Email address associated with the Cloudflare account. String length must be at least 1.
 	AuthEmail *string `json:"authEmail,omitempty" tf:"auth_email,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	AuthEmailAwsSecretsManager *AuthEmailAwsSecretsManagerInitParameters `json:"authEmailAwsSecretsManager,omitempty" tf:"auth_email_aws_secrets_manager,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	GlobalAPIKeyAwsSecretsManager *GlobalAPIKeyAwsSecretsManagerInitParameters `json:"globalApiKeyAwsSecretsManager,omitempty" tf:"global_api_key_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Cloudflare global API key. String length must be at least 1.
 	// Cloudflare global API key. String length must be at least 1.
@@ -1058,6 +2377,12 @@ type GlobalAPITokenObservation struct {
 	// (String) Email address associated with the Cloudflare account. String length must be at least 1.
 	// Email address associated with the Cloudflare account. String length must be at least 1.
 	AuthEmail *string `json:"authEmail,omitempty" tf:"auth_email,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	AuthEmailAwsSecretsManager *AuthEmailAwsSecretsManagerObservation `json:"authEmailAwsSecretsManager,omitempty" tf:"auth_email_aws_secrets_manager,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	GlobalAPIKeyAwsSecretsManager *GlobalAPIKeyAwsSecretsManagerObservation `json:"globalApiKeyAwsSecretsManager,omitempty" tf:"global_api_key_aws_secrets_manager,omitempty"`
 }
 
 type GlobalAPITokenParameters struct {
@@ -1067,13 +2392,85 @@ type GlobalAPITokenParameters struct {
 	// +kubebuilder:validation:Optional
 	AuthEmail *string `json:"authEmail,omitempty" tf:"auth_email,omitempty"`
 
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	AuthEmailAwsSecretsManager *AuthEmailAwsSecretsManagerParameters `json:"authEmailAwsSecretsManager,omitempty" tf:"auth_email_aws_secrets_manager,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	GlobalAPIKeyAwsSecretsManager *GlobalAPIKeyAwsSecretsManagerParameters `json:"globalApiKeyAwsSecretsManager,omitempty" tf:"global_api_key_aws_secrets_manager,omitempty"`
+
 	// (String, Sensitive) Cloudflare global API key. String length must be at least 1.
 	// Cloudflare global API key. String length must be at least 1.
 	// +kubebuilder:validation:Optional
 	GlobalAPIKeySecretRef *v2.LocalSecretKeySelector `json:"globalApiKeySecretRef,omitempty" tf:"-"`
 }
 
+type GreyNoiseAPIKeyAPIKeyAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type GreyNoiseAPIKeyAPIKeyAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type GreyNoiseAPIKeyAPIKeyAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type GreyNoiseAPIKeyInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIKeyAwsSecretsManager *GreyNoiseAPIKeyAPIKeyAwsSecretsManagerInitParameters `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// GreyNoise API key. String length must be at least 1.
@@ -1081,9 +2478,16 @@ type GreyNoiseAPIKeyInitParameters struct {
 }
 
 type GreyNoiseAPIKeyObservation struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIKeyAwsSecretsManager *GreyNoiseAPIKeyAPIKeyAwsSecretsManagerObservation `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 }
 
 type GreyNoiseAPIKeyParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APIKeyAwsSecretsManager *GreyNoiseAPIKeyAPIKeyAwsSecretsManagerParameters `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// GreyNoise API key. String length must be at least 1.
@@ -1102,7 +2506,7 @@ type GreyNoiseObservation struct {
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Configuration for GreyNoise API key authentication
-	APIKey *GreyNoiseAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
+	APIKey *GreyNoiseAPIKeyObservation `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
 type GreyNoiseParameters struct {
@@ -1183,7 +2587,132 @@ type HeaderParameters struct {
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
+type InstanceAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type InstanceAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type InstanceAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type LaunchDarklyAPIKeyAPITokenAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type LaunchDarklyAPIKeyAPITokenAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type LaunchDarklyAPIKeyAPITokenAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type LaunchDarklyAPIKeyInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *LaunchDarklyAPIKeyAPITokenAwsSecretsManagerInitParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// LaunchDarkly API token. String length must be at least 1.
@@ -1191,9 +2720,16 @@ type LaunchDarklyAPIKeyInitParameters struct {
 }
 
 type LaunchDarklyAPIKeyObservation struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *LaunchDarklyAPIKeyAPITokenAwsSecretsManagerObservation `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 }
 
 type LaunchDarklyAPIKeyParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APITokenAwsSecretsManager *LaunchDarklyAPIKeyAPITokenAwsSecretsManagerParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// LaunchDarkly API token. String length must be at least 1.
@@ -1212,7 +2748,7 @@ type LaunchDarklyObservation struct {
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Configuration for LaunchDarkly API key authentication
-	APIKey *LaunchDarklyAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
+	APIKey *LaunchDarklyAPIKeyObservation `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
 type LaunchDarklyParameters struct {
@@ -1223,7 +2759,71 @@ type LaunchDarklyParameters struct {
 	APIKey *LaunchDarklyAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
+type NotionAPIKeyAPITokenAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type NotionAPIKeyAPITokenAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type NotionAPIKeyAPITokenAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type NotionAPIKeyInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *NotionAPIKeyAPITokenAwsSecretsManagerInitParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// Notion API token. String length must be at least 1.
@@ -1231,9 +2831,16 @@ type NotionAPIKeyInitParameters struct {
 }
 
 type NotionAPIKeyObservation struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *NotionAPIKeyAPITokenAwsSecretsManagerObservation `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 }
 
 type NotionAPIKeyParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APITokenAwsSecretsManager *NotionAPIKeyAPITokenAwsSecretsManagerParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// Notion API token. String length must be at least 1.
@@ -1252,7 +2859,7 @@ type NotionObservation struct {
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Configuration for Notion API key authentication
-	APIKey *NotionAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
+	APIKey *NotionAPIKeyObservation `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
 type NotionParameters struct {
@@ -1263,7 +2870,71 @@ type NotionParameters struct {
 	APIKey *NotionAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
+type OktaAPITokenAPITokenAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type OktaAPITokenAPITokenAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type OktaAPITokenAPITokenAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type OktaAPITokenInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *OktaAPITokenAPITokenAwsSecretsManagerInitParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// Okta API token. String length must be at least 1.
@@ -1272,16 +2943,29 @@ type OktaAPITokenInitParameters struct {
 	// (String) Freshservice domain. String length must be at least 1.
 	// Okta domain. String length must be at least 1.
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	DomainAwsSecretsManager *APITokenDomainAwsSecretsManagerInitParameters `json:"domainAwsSecretsManager,omitempty" tf:"domain_aws_secrets_manager,omitempty"`
 }
 
 type OktaAPITokenObservation struct {
 
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *OktaAPITokenAPITokenAwsSecretsManagerObservation `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
+
 	// (String) Freshservice domain. String length must be at least 1.
 	// Okta domain. String length must be at least 1.
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	DomainAwsSecretsManager *APITokenDomainAwsSecretsManagerObservation `json:"domainAwsSecretsManager,omitempty" tf:"domain_aws_secrets_manager,omitempty"`
 }
 
 type OktaAPITokenParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APITokenAwsSecretsManager *OktaAPITokenAPITokenAwsSecretsManagerParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// Okta API token. String length must be at least 1.
@@ -1292,6 +2976,10 @@ type OktaAPITokenParameters struct {
 	// Okta domain. String length must be at least 1.
 	// +kubebuilder:validation:Optional
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	DomainAwsSecretsManager *APITokenDomainAwsSecretsManagerParameters `json:"domainAwsSecretsManager,omitempty" tf:"domain_aws_secrets_manager,omitempty"`
 }
 
 type OktaInitParameters struct {
@@ -1316,7 +3004,71 @@ type OktaParameters struct {
 	APIToken *OktaAPITokenParameters `json:"apiToken,omitempty" tf:"api_token,omitempty"`
 }
 
+type OpenaiAPIKeyAPITokenAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type OpenaiAPIKeyAPITokenAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type OpenaiAPIKeyAPITokenAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type OpenaiAPIKeyInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *OpenaiAPIKeyAPITokenAwsSecretsManagerInitParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// OpenAI API token. String length must be at least 1.
@@ -1324,9 +3076,16 @@ type OpenaiAPIKeyInitParameters struct {
 }
 
 type OpenaiAPIKeyObservation struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APITokenAwsSecretsManager *OpenaiAPIKeyAPITokenAwsSecretsManagerObservation `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 }
 
 type OpenaiAPIKeyParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APITokenAwsSecretsManager *OpenaiAPIKeyAPITokenAwsSecretsManagerParameters `json:"apiTokenAwsSecretsManager,omitempty" tf:"api_token_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Anthropic API token. String length must be at least 1.
 	// OpenAI API token. String length must be at least 1.
@@ -1345,7 +3104,7 @@ type OpenaiObservation struct {
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Configuration for OpenAI API key authentication
-	APIKey *OpenaiAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
+	APIKey *OpenaiAPIKeyObservation `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
 type OpenaiParameters struct {
@@ -1356,7 +3115,193 @@ type OpenaiParameters struct {
 	APIKey *OpenaiAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
+type PasswordAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type PasswordAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type PasswordAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type PrivateKeyAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type PrivateKeyAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type PrivateKeyAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type SdkKeyAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type SdkKeyAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type SdkKeyAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type SdkKeyInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIPasswordAwsSecretsManager *APIPasswordAwsSecretsManagerInitParameters `json:"apiPasswordAwsSecretsManager,omitempty" tf:"api_password_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) ConfigCat Public Management API password. String length must be at least 1.
 	// ConfigCat Public Management API password. String length must be at least 1.
@@ -1365,6 +3310,12 @@ type SdkKeyInitParameters struct {
 	// (String) ConfigCat Public Management API username. String length must be at least 1.
 	// ConfigCat Public Management API username. String length must be at least 1.
 	APIUsername *string `json:"apiUsername,omitempty" tf:"api_username,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIUsernameAwsSecretsManager *APIUsernameAwsSecretsManagerInitParameters `json:"apiUsernameAwsSecretsManager,omitempty" tf:"api_username_aws_secrets_manager,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	SdkKeyAwsSecretsManager *SdkKeyAwsSecretsManagerInitParameters `json:"sdkKeyAwsSecretsManager,omitempty" tf:"sdk_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for ConfigCat SDK key authentication (see below for nested schema)
 	// ConfigCat SDK key. String length must be at least 1.
@@ -1373,12 +3324,25 @@ type SdkKeyInitParameters struct {
 
 type SdkKeyObservation struct {
 
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIPasswordAwsSecretsManager *APIPasswordAwsSecretsManagerObservation `json:"apiPasswordAwsSecretsManager,omitempty" tf:"api_password_aws_secrets_manager,omitempty"`
+
 	// (String) ConfigCat Public Management API username. String length must be at least 1.
 	// ConfigCat Public Management API username. String length must be at least 1.
 	APIUsername *string `json:"apiUsername,omitempty" tf:"api_username,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIUsernameAwsSecretsManager *APIUsernameAwsSecretsManagerObservation `json:"apiUsernameAwsSecretsManager,omitempty" tf:"api_username_aws_secrets_manager,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	SdkKeyAwsSecretsManager *SdkKeyAwsSecretsManagerObservation `json:"sdkKeyAwsSecretsManager,omitempty" tf:"sdk_key_aws_secrets_manager,omitempty"`
 }
 
 type SdkKeyParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APIPasswordAwsSecretsManager *APIPasswordAwsSecretsManagerParameters `json:"apiPasswordAwsSecretsManager,omitempty" tf:"api_password_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) ConfigCat Public Management API password. String length must be at least 1.
 	// ConfigCat Public Management API password. String length must be at least 1.
@@ -1390,13 +3354,85 @@ type SdkKeyParameters struct {
 	// +kubebuilder:validation:Optional
 	APIUsername *string `json:"apiUsername,omitempty" tf:"api_username,omitempty"`
 
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APIUsernameAwsSecretsManager *APIUsernameAwsSecretsManagerParameters `json:"apiUsernameAwsSecretsManager,omitempty" tf:"api_username_aws_secrets_manager,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	SdkKeyAwsSecretsManager *SdkKeyAwsSecretsManagerParameters `json:"sdkKeyAwsSecretsManager,omitempty" tf:"sdk_key_aws_secrets_manager,omitempty"`
+
 	// (Block, Optional) Configuration for ConfigCat SDK key authentication (see below for nested schema)
 	// ConfigCat SDK key. String length must be at least 1.
 	// +kubebuilder:validation:Optional
 	SdkKeySecretRef *v2.LocalSecretKeySelector `json:"sdkKeySecretRef,omitempty" tf:"-"`
 }
 
+type ServiceAccountEmailAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type ServiceAccountEmailAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type ServiceAccountEmailAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type ServiceAccountInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	PrivateKeyAwsSecretsManager *PrivateKeyAwsSecretsManagerInitParameters `json:"privateKeyAwsSecretsManager,omitempty" tf:"private_key_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Google Cloud service account private key. String length must be at least 1.
 	// Google Cloud service account private key. String length must be at least 1.
@@ -1405,16 +3441,29 @@ type ServiceAccountInitParameters struct {
 	// (String) Google Cloud service account email. String length must be at least 1.
 	// Google Cloud service account email. String length must be at least 1.
 	ServiceAccountEmail *string `json:"serviceAccountEmail,omitempty" tf:"service_account_email,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	ServiceAccountEmailAwsSecretsManager *ServiceAccountEmailAwsSecretsManagerInitParameters `json:"serviceAccountEmailAwsSecretsManager,omitempty" tf:"service_account_email_aws_secrets_manager,omitempty"`
 }
 
 type ServiceAccountObservation struct {
 
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	PrivateKeyAwsSecretsManager *PrivateKeyAwsSecretsManagerObservation `json:"privateKeyAwsSecretsManager,omitempty" tf:"private_key_aws_secrets_manager,omitempty"`
+
 	// (String) Google Cloud service account email. String length must be at least 1.
 	// Google Cloud service account email. String length must be at least 1.
 	ServiceAccountEmail *string `json:"serviceAccountEmail,omitempty" tf:"service_account_email,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	ServiceAccountEmailAwsSecretsManager *ServiceAccountEmailAwsSecretsManagerObservation `json:"serviceAccountEmailAwsSecretsManager,omitempty" tf:"service_account_email_aws_secrets_manager,omitempty"`
 }
 
 type ServiceAccountParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	PrivateKeyAwsSecretsManager *PrivateKeyAwsSecretsManagerParameters `json:"privateKeyAwsSecretsManager,omitempty" tf:"private_key_aws_secrets_manager,omitempty"`
 
 	// (String, Sensitive) Google Cloud service account private key. String length must be at least 1.
 	// Google Cloud service account private key. String length must be at least 1.
@@ -1425,6 +3474,10 @@ type ServiceAccountParameters struct {
 	// Google Cloud service account email. String length must be at least 1.
 	// +kubebuilder:validation:Optional
 	ServiceAccountEmail *string `json:"serviceAccountEmail,omitempty" tf:"service_account_email,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	ServiceAccountEmailAwsSecretsManager *ServiceAccountEmailAwsSecretsManagerParameters `json:"serviceAccountEmailAwsSecretsManager,omitempty" tf:"service_account_email_aws_secrets_manager,omitempty"`
 }
 
 type ServiceNowInitParameters struct {
@@ -1449,7 +3502,71 @@ type ServiceNowParameters struct {
 	BasicAuth *BasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 }
 
+type SplitAPIKeyAPIKeyAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type SplitAPIKeyAPIKeyAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type SplitAPIKeyAPIKeyAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type SplitAPIKeyInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIKeyAwsSecretsManager *SplitAPIKeyAPIKeyAwsSecretsManagerInitParameters `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Split API key. String length must be at least 1.
@@ -1457,9 +3574,16 @@ type SplitAPIKeyInitParameters struct {
 }
 
 type SplitAPIKeyObservation struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIKeyAwsSecretsManager *SplitAPIKeyAPIKeyAwsSecretsManagerObservation `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 }
 
 type SplitAPIKeyParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APIKeyAwsSecretsManager *SplitAPIKeyAPIKeyAwsSecretsManagerParameters `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Split API key. String length must be at least 1.
@@ -1478,7 +3602,7 @@ type SplitObservation struct {
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Configuration for Split API key authentication
-	APIKey *SplitAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
+	APIKey *SplitAPIKeyObservation `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
 type SplitParameters struct {
@@ -1489,7 +3613,71 @@ type SplitParameters struct {
 	APIKey *SplitAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
+type StatsigAPIKeyAPIKeyAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type StatsigAPIKeyAPIKeyAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type StatsigAPIKeyAPIKeyAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type StatsigAPIKeyInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIKeyAwsSecretsManager *StatsigAPIKeyAPIKeyAwsSecretsManagerInitParameters `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Statsig API key. String length must be at least 1.
@@ -1497,9 +3685,16 @@ type StatsigAPIKeyInitParameters struct {
 }
 
 type StatsigAPIKeyObservation struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIKeyAwsSecretsManager *StatsigAPIKeyAPIKeyAwsSecretsManagerObservation `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 }
 
 type StatsigAPIKeyParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APIKeyAwsSecretsManager *StatsigAPIKeyAPIKeyAwsSecretsManagerParameters `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Statsig API key. String length must be at least 1.
@@ -1518,7 +3713,7 @@ type StatsigObservation struct {
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Configuration for Statsig API key authentication
-	APIKey *StatsigAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
+	APIKey *StatsigAPIKeyObservation `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
 type StatsigParameters struct {
@@ -1527,6 +3722,67 @@ type StatsigParameters struct {
 	// Configuration for Statsig API key authentication
 	// +kubebuilder:validation:Optional
 	APIKey *StatsigAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
+}
+
+type SubdomainAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type SubdomainAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type SubdomainAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
 }
 
 type TenantInitParameters struct {
@@ -1657,6 +3913,9 @@ type TokenInitParameters struct {
 	// Token type Valid values are `SECRET`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	ValueAwsSecretsManager *ValueAwsSecretsManagerInitParameters `json:"valueAwsSecretsManager,omitempty" tf:"value_aws_secrets_manager,omitempty"`
+
 	// (String) String length must be at least 1.
 	// Token value. String length must be at least 1.
 	ValueSecretRef *v2.LocalSecretKeySelector `json:"valueSecretRef,omitempty" tf:"-"`
@@ -1671,6 +3930,9 @@ type TokenObservation struct {
 	// (String) Token type Valid values are SECRET.
 	// Token type Valid values are `SECRET`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	ValueAwsSecretsManager *ValueAwsSecretsManagerObservation `json:"valueAwsSecretsManager,omitempty" tf:"value_aws_secrets_manager,omitempty"`
 }
 
 type TokenParameters struct {
@@ -1684,6 +3946,10 @@ type TokenParameters struct {
 	// Token type Valid values are `SECRET`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	ValueAwsSecretsManager *ValueAwsSecretsManagerParameters `json:"valueAwsSecretsManager,omitempty" tf:"value_aws_secrets_manager,omitempty"`
 
 	// (String) String length must be at least 1.
 	// Token value. String length must be at least 1.
@@ -1726,7 +3992,193 @@ type URLParameterParameters struct {
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
+type UsernameAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type UsernameAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type UsernameAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type ValueAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type ValueAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type ValueAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type VirusTotalAPIKeyAPIKeyAwsSecretsManagerInitParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type VirusTotalAPIKeyAPIKeyAwsSecretsManagerObservation struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	SecretID *string `json:"secretId,omitempty" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
+type VirusTotalAPIKeyAPIKeyAwsSecretsManagerParameters struct {
+
+	// level JSON key to extract. Omit to use the entire secret string.
+	// Top-level JSON key to extract. Omit to use the entire secret string.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Name or ARN of the secret. String length must be at least 1.
+	// Name or ARN of the secret. String length must be at least 1.
+	// +kubebuilder:validation:Optional
+	SecretID *string `json:"secretId" tf:"secret_id,omitempty"`
+
+	// (String) Secret version ID. Can't be used with version_stage. If neither is set, the current version is used.
+	// Secret version ID. Can't be used with `version_stage`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
+
+	// (String) Secret version staging label. Can't be used with version_id. If neither is set, the current version is used.
+	// Secret version staging label. Can't be used with `version_id`. If neither is set, the current version is used.
+	// +kubebuilder:validation:Optional
+	VersionStage *string `json:"versionStage,omitempty" tf:"version_stage,omitempty"`
+}
+
 type VirusTotalAPIKeyInitParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIKeyAwsSecretsManager *VirusTotalAPIKeyAPIKeyAwsSecretsManagerInitParameters `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// VirusTotal API key. String length must be at least 1.
@@ -1734,9 +4186,16 @@ type VirusTotalAPIKeyInitParameters struct {
 }
 
 type VirusTotalAPIKeyObservation struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	APIKeyAwsSecretsManager *VirusTotalAPIKeyAPIKeyAwsSecretsManagerObservation `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 }
 
 type VirusTotalAPIKeyParameters struct {
+
+	// (Attributes) AWS Secrets Manager reference for this field. To use it, set external_secrets_manager on the connection and omit the literal field. Available only for supported credential tokens on connections that run in Datadog's cloud. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	APIKeyAwsSecretsManager *VirusTotalAPIKeyAPIKeyAwsSecretsManagerParameters `json:"apiKeyAwsSecretsManager,omitempty" tf:"api_key_aws_secrets_manager,omitempty"`
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// VirusTotal API key. String length must be at least 1.
@@ -1755,7 +4214,7 @@ type VirusTotalObservation struct {
 
 	// (Block, Optional) Configuration for Anthropic API key authentication (see below for nested schema)
 	// Configuration for VirusTotal API key authentication
-	APIKey *VirusTotalAPIKeyParameters `json:"apiKey,omitempty" tf:"api_key,omitempty"`
+	APIKey *VirusTotalAPIKeyObservation `json:"apiKey,omitempty" tf:"api_key,omitempty"`
 }
 
 type VirusTotalParameters struct {
@@ -1793,7 +4252,7 @@ type ConnectionStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Connection is the Schema for the Connections API. A connection that can be used in Actions, including in the Workflow Automation and App Builder products. This resource requires a registered application key https://registry.io/providers/DataDog/datadog/latest/docs/resources/app_key_registration.
+// Connection is the Schema for the Connections API. A connection that can be used in Actions, including in the Workflow Automation and App Builder products. This resource creates connections that run in Datadog's cloud. AWS Secrets Manager references are available for supported token-based credentials and HTTP authentication token values. AWS AssumeRole credentials, Azure credentials, and HTTP request metadata don't support AWS Secrets Manager references and must use literal values. This resource requires a registered application key https://registry.io/providers/DataDog/datadog/latest/docs/resources/app_key_registration.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -90,6 +90,10 @@ type AddMetricTagsParameters struct {
 
 type AggregateInitParameters struct {
 
+	// (Block List) Configures how metrics are assigned to aggregation windows. When omitted, metrics are grouped using system time. (see below for nested schema)
+	// Configures how metrics are assigned to aggregation windows. When omitted, metrics are grouped using system time.
+	AggregationTiming []AggregationTimingInitParameters `json:"aggregationTiming,omitempty" tf:"aggregation_timing,omitempty"`
+
 	// (Number) The interval, in seconds, over which metrics are aggregated. Must be between 1 and 60. Value must be between 1 and 60.
 	// The interval, in seconds, over which metrics are aggregated. Must be between 1 and 60. Value must be between 1 and 60.
 	IntervalSecs *float64 `json:"intervalSecs,omitempty" tf:"interval_secs,omitempty"`
@@ -100,6 +104,10 @@ type AggregateInitParameters struct {
 }
 
 type AggregateObservation struct {
+
+	// (Block List) Configures how metrics are assigned to aggregation windows. When omitted, metrics are grouped using system time. (see below for nested schema)
+	// Configures how metrics are assigned to aggregation windows. When omitted, metrics are grouped using system time.
+	AggregationTiming []AggregationTimingObservation `json:"aggregationTiming,omitempty" tf:"aggregation_timing,omitempty"`
 
 	// (Number) The interval, in seconds, over which metrics are aggregated. Must be between 1 and 60. Value must be between 1 and 60.
 	// The interval, in seconds, over which metrics are aggregated. Must be between 1 and 60. Value must be between 1 and 60.
@@ -112,6 +120,11 @@ type AggregateObservation struct {
 
 type AggregateParameters struct {
 
+	// (Block List) Configures how metrics are assigned to aggregation windows. When omitted, metrics are grouped using system time. (see below for nested schema)
+	// Configures how metrics are assigned to aggregation windows. When omitted, metrics are grouped using system time.
+	// +kubebuilder:validation:Optional
+	AggregationTiming []AggregationTimingParameters `json:"aggregationTiming,omitempty" tf:"aggregation_timing,omitempty"`
+
 	// (Number) The interval, in seconds, over which metrics are aggregated. Must be between 1 and 60. Value must be between 1 and 60.
 	// The interval, in seconds, over which metrics are aggregated. Must be between 1 and 60. Value must be between 1 and 60.
 	// +kubebuilder:validation:Optional
@@ -121,6 +134,41 @@ type AggregateParameters struct {
 	// The aggregation mode. One of `auto`, `sum`, `latest`, `count`, `max`, `min`, `mean`. Valid values are `auto`, `sum`, `latest`, `count`, `max`, `min`, `mean`.
 	// +kubebuilder:validation:Optional
 	Mode *string `json:"mode" tf:"mode,omitempty"`
+}
+
+type AggregationTimingInitParameters struct {
+
+	// arriving metrics when using event time. Defaults to 10 seconds when omitted. Value must be between 0 and 3600.
+	// Grace period, in seconds, for late-arriving metrics when using event time. Defaults to 10 seconds when omitted. Value must be between 0 and 3600.
+	AllowedLatenessSecs *float64 `json:"allowedLatenessSecs,omitempty" tf:"allowed_lateness_secs,omitempty"`
+
+	// (String) The encoding type. Valid values are json, parquet.
+	// Determines whether metrics are assigned to aggregation windows based on when they are processed (`system_time`) or their timestamps (`event_time`). Valid values are `system_time`, `event_time`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type AggregationTimingObservation struct {
+
+	// arriving metrics when using event time. Defaults to 10 seconds when omitted. Value must be between 0 and 3600.
+	// Grace period, in seconds, for late-arriving metrics when using event time. Defaults to 10 seconds when omitted. Value must be between 0 and 3600.
+	AllowedLatenessSecs *float64 `json:"allowedLatenessSecs,omitempty" tf:"allowed_lateness_secs,omitempty"`
+
+	// (String) The encoding type. Valid values are json, parquet.
+	// Determines whether metrics are assigned to aggregation windows based on when they are processed (`system_time`) or their timestamps (`event_time`). Valid values are `system_time`, `event_time`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type AggregationTimingParameters struct {
+
+	// arriving metrics when using event time. Defaults to 10 seconds when omitted. Value must be between 0 and 3600.
+	// Grace period, in seconds, for late-arriving metrics when using event time. Defaults to 10 seconds when omitted. Value must be between 0 and 3600.
+	// +kubebuilder:validation:Optional
+	AllowedLatenessSecs *float64 `json:"allowedLatenessSecs,omitempty" tf:"allowed_lateness_secs,omitempty"`
+
+	// (String) The encoding type. Valid values are json, parquet.
+	// Determines whether metrics are assigned to aggregation windows based on when they are processed (`system_time`) or their timestamps (`event_time`). Valid values are `system_time`, `event_time`.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
 }
 
 type AmazonDataFirehoseAuthInitParameters struct {
@@ -177,7 +225,7 @@ type AmazonDataFirehoseInitParameters struct {
 	// Name of the environment variable or secret that holds the listen address.
 	AddressKey *string `json:"addressKey,omitempty" tf:"address_key,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// AWS authentication credentials used for accessing AWS services. If omitted, the system's default credentials are used (for example, the IAM role and environment variables).
 	Auth []AmazonDataFirehoseAuthInitParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -192,7 +240,7 @@ type AmazonDataFirehoseObservation struct {
 	// Name of the environment variable or secret that holds the listen address.
 	AddressKey *string `json:"addressKey,omitempty" tf:"address_key,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// AWS authentication credentials used for accessing AWS services. If omitted, the system's default credentials are used (for example, the IAM role and environment variables).
 	Auth []AmazonDataFirehoseAuthObservation `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -208,7 +256,7 @@ type AmazonDataFirehoseParameters struct {
 	// +kubebuilder:validation:Optional
 	AddressKey *string `json:"addressKey,omitempty" tf:"address_key,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// AWS authentication credentials used for accessing AWS services. If omitted, the system's default credentials are used (for example, the IAM role and environment variables).
 	// +kubebuilder:validation:Optional
 	Auth []AmazonDataFirehoseAuthParameters `json:"auth,omitempty" tf:"auth,omitempty"`
@@ -282,7 +330,8 @@ type AmazonDataFirehoseTLSParameters struct {
 
 type AmazonOpensearchInitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
+	// Authentication settings for the Amazon OpenSearch destination.
 	Auth []AuthInitParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
 	// (Block List) Configuration for buffer settings on destination components. Exactly one of disk or memory must be specified. (see below for nested schema)
@@ -292,11 +341,20 @@ type AmazonOpensearchInitParameters struct {
 	// (String) The index or datastream to write logs to.
 	// The index or datastream to write logs to.
 	BulkIndex *string `json:"bulkIndex,omitempty" tf:"bulk_index,omitempty"`
+
+	// (Block List) Configuration options for writing to Amazon OpenSearch Data Streams instead of a fixed index. (see below for nested schema)
+	// Configuration options for writing to Amazon OpenSearch Data Streams instead of a fixed index.
+	DataStream []DataStreamInitParameters `json:"dataStream,omitempty" tf:"data_stream,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
+	// Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
+	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 }
 
 type AmazonOpensearchObservation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
+	// Authentication settings for the Amazon OpenSearch destination.
 	Auth []AuthObservation `json:"auth,omitempty" tf:"auth,omitempty"`
 
 	// (Block List) Configuration for buffer settings on destination components. Exactly one of disk or memory must be specified. (see below for nested schema)
@@ -306,11 +364,20 @@ type AmazonOpensearchObservation struct {
 	// (String) The index or datastream to write logs to.
 	// The index or datastream to write logs to.
 	BulkIndex *string `json:"bulkIndex,omitempty" tf:"bulk_index,omitempty"`
+
+	// (Block List) Configuration options for writing to Amazon OpenSearch Data Streams instead of a fixed index. (see below for nested schema)
+	// Configuration options for writing to Amazon OpenSearch Data Streams instead of a fixed index.
+	DataStream []DataStreamObservation `json:"dataStream,omitempty" tf:"data_stream,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
+	// Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
+	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 }
 
 type AmazonOpensearchParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
+	// Authentication settings for the Amazon OpenSearch destination.
 	// +kubebuilder:validation:Optional
 	Auth []AuthParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -323,6 +390,16 @@ type AmazonOpensearchParameters struct {
 	// The index or datastream to write logs to.
 	// +kubebuilder:validation:Optional
 	BulkIndex *string `json:"bulkIndex,omitempty" tf:"bulk_index,omitempty"`
+
+	// (Block List) Configuration options for writing to Amazon OpenSearch Data Streams instead of a fixed index. (see below for nested schema)
+	// Configuration options for writing to Amazon OpenSearch Data Streams instead of a fixed index.
+	// +kubebuilder:validation:Optional
+	DataStream []DataStreamParameters `json:"dataStream,omitempty" tf:"data_stream,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
+	// Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
+	// +kubebuilder:validation:Optional
+	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 }
 
 type AmazonS3AuthInitParameters struct {
@@ -611,7 +688,7 @@ type AmazonS3GenericCompressionParameters struct {
 
 type AmazonS3GenericInitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// AWS authentication credentials used for accessing AWS services. If omitted, the system's default credentials are used (for example, the IAM role and environment variables).
 	Auth []AmazonS3GenericAuthInitParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -658,7 +735,7 @@ type AmazonS3GenericInitParameters struct {
 
 type AmazonS3GenericObservation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// AWS authentication credentials used for accessing AWS services. If omitted, the system's default credentials are used (for example, the IAM role and environment variables).
 	Auth []AmazonS3GenericAuthObservation `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -705,7 +782,7 @@ type AmazonS3GenericObservation struct {
 
 type AmazonS3GenericParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// AWS authentication credentials used for accessing AWS services. If omitted, the system's default credentials are used (for example, the IAM role and environment variables).
 	// +kubebuilder:validation:Optional
 	Auth []AmazonS3GenericAuthParameters `json:"auth,omitempty" tf:"auth,omitempty"`
@@ -763,7 +840,7 @@ type AmazonS3GenericParameters struct {
 
 type AmazonS3InitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// AWS authentication credentials used for accessing AWS services. If omitted, the system's default credentials are used (for example, the IAM role and environment variables).
 	Auth []AmazonS3AuthInitParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -802,7 +879,7 @@ type AmazonS3InitParameters struct {
 
 type AmazonS3Observation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// AWS authentication credentials used for accessing AWS services. If omitted, the system's default credentials are used (for example, the IAM role and environment variables).
 	Auth []AmazonS3AuthObservation `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -841,7 +918,7 @@ type AmazonS3Observation struct {
 
 type AmazonS3Parameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// AWS authentication credentials used for accessing AWS services. If omitted, the system's default credentials are used (for example, the IAM role and environment variables).
 	// +kubebuilder:validation:Optional
 	Auth []AmazonS3AuthParameters `json:"auth,omitempty" tf:"auth,omitempty"`
@@ -1116,7 +1193,7 @@ type AmazonSecurityLakeBufferParameters struct {
 
 type AmazonSecurityLakeInitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// AWS authentication credentials used for accessing AWS services. If omitted, the system's default credentials are used (for example, the IAM role and environment variables).
 	Auth []AmazonSecurityLakeAuthInitParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -1143,7 +1220,7 @@ type AmazonSecurityLakeInitParameters struct {
 
 type AmazonSecurityLakeObservation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// AWS authentication credentials used for accessing AWS services. If omitted, the system's default credentials are used (for example, the IAM role and environment variables).
 	Auth []AmazonSecurityLakeAuthObservation `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -1170,7 +1247,7 @@ type AmazonSecurityLakeObservation struct {
 
 type AmazonSecurityLakeParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// AWS authentication credentials used for accessing AWS services. If omitted, the system's default credentials are used (for example, the IAM role and environment variables).
 	// +kubebuilder:validation:Optional
 	Auth []AmazonSecurityLakeAuthParameters `json:"auth,omitempty" tf:"auth,omitempty"`
@@ -1250,6 +1327,10 @@ type AuthInitParameters struct {
 	// External ID for assumed role.
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
 
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
+	// Name of the environment variable or secret that holds the Amazon OpenSearch password (used when `strategy` is `basic`).
+	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
+
 	// (String) Session name for assumed role.
 	// Session name for assumed role.
 	SessionName *string `json:"sessionName,omitempty" tf:"session_name,omitempty"`
@@ -1257,6 +1338,10 @@ type AuthInitParameters struct {
 	// (String) The authentication strategy to use (e.g. aws or basic).
 	// The authentication strategy to use (e.g. aws or basic).
 	Strategy *string `json:"strategy,omitempty" tf:"strategy,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
+	// Name of the environment variable or secret that holds the Amazon OpenSearch username (used when `strategy` is `basic`).
+	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
 
 type AuthObservation struct {
@@ -1273,6 +1358,10 @@ type AuthObservation struct {
 	// External ID for assumed role.
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
 
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
+	// Name of the environment variable or secret that holds the Amazon OpenSearch password (used when `strategy` is `basic`).
+	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
+
 	// (String) Session name for assumed role.
 	// Session name for assumed role.
 	SessionName *string `json:"sessionName,omitempty" tf:"session_name,omitempty"`
@@ -1280,6 +1369,10 @@ type AuthObservation struct {
 	// (String) The authentication strategy to use (e.g. aws or basic).
 	// The authentication strategy to use (e.g. aws or basic).
 	Strategy *string `json:"strategy,omitempty" tf:"strategy,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
+	// Name of the environment variable or secret that holds the Amazon OpenSearch username (used when `strategy` is `basic`).
+	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
 
 type AuthParameters struct {
@@ -1299,6 +1392,11 @@ type AuthParameters struct {
 	// +kubebuilder:validation:Optional
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
 
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
+	// Name of the environment variable or secret that holds the Amazon OpenSearch password (used when `strategy` is `basic`).
+	// +kubebuilder:validation:Optional
+	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
+
 	// (String) Session name for assumed role.
 	// Session name for assumed role.
 	// +kubebuilder:validation:Optional
@@ -1308,6 +1406,386 @@ type AuthParameters struct {
 	// The authentication strategy to use (e.g. aws or basic).
 	// +kubebuilder:validation:Optional
 	Strategy *string `json:"strategy" tf:"strategy,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
+	// Name of the environment variable or secret that holds the Amazon OpenSearch username (used when `strategy` is `basic`).
+	// +kubebuilder:validation:Optional
+	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
+}
+
+type AzureCliInitParameters struct {
+}
+
+type AzureCliObservation struct {
+}
+
+type AzureCliParameters struct {
+}
+
+type AzureDataExplorerAuthInitParameters struct {
+
+	// (Block List) Authenticate using the Azure CLI credentials available in the environment. (see below for nested schema)
+	// Authenticate using the Azure CLI credentials available in the environment.
+	AzureCli []AzureCliInitParameters `json:"azureCli,omitempty" tf:"azure_cli,omitempty"`
+
+	// (Block List) Authenticate using a Microsoft Entra application client certificate. (see below for nested schema)
+	// Authenticate using a Microsoft Entra application client certificate.
+	ClientCertificate []ClientCertificateInitParameters `json:"clientCertificate,omitempty" tf:"client_certificate,omitempty"`
+
+	// (Block List) Authenticate using a Microsoft Entra application client secret. (see below for nested schema)
+	// Authenticate using a Microsoft Entra application client secret.
+	ClientSecret []ClientSecretInitParameters `json:"clientSecret,omitempty" tf:"client_secret,omitempty"`
+
+	// (Block List) Authenticate using an Azure managed identity. (see below for nested schema)
+	// Authenticate using an Azure managed identity.
+	ManagedIdentity []ManagedIdentityInitParameters `json:"managedIdentity,omitempty" tf:"managed_identity,omitempty"`
+
+	// (Block List) Authenticate using a managed identity as a client assertion for a Microsoft Entra application. (see below for nested schema)
+	// Authenticate using a managed identity as a client assertion for a Microsoft Entra application.
+	ManagedIdentityClientAssertion []ManagedIdentityClientAssertionInitParameters `json:"managedIdentityClientAssertion,omitempty" tf:"managed_identity_client_assertion,omitempty"`
+
+	// (Block List) Authenticate using Azure Workload Identity (for example, on Kubernetes). (see below for nested schema)
+	// Authenticate using Azure Workload Identity (for example, on Kubernetes).
+	WorkloadIdentity []WorkloadIdentityInitParameters `json:"workloadIdentity,omitempty" tf:"workload_identity,omitempty"`
+}
+
+type AzureDataExplorerAuthObservation struct {
+
+	// (Block List) Authenticate using the Azure CLI credentials available in the environment. (see below for nested schema)
+	// Authenticate using the Azure CLI credentials available in the environment.
+	AzureCli []AzureCliParameters `json:"azureCli,omitempty" tf:"azure_cli,omitempty"`
+
+	// (Block List) Authenticate using a Microsoft Entra application client certificate. (see below for nested schema)
+	// Authenticate using a Microsoft Entra application client certificate.
+	ClientCertificate []ClientCertificateObservation `json:"clientCertificate,omitempty" tf:"client_certificate,omitempty"`
+
+	// (Block List) Authenticate using a Microsoft Entra application client secret. (see below for nested schema)
+	// Authenticate using a Microsoft Entra application client secret.
+	ClientSecret []ClientSecretObservation `json:"clientSecret,omitempty" tf:"client_secret,omitempty"`
+
+	// (Block List) Authenticate using an Azure managed identity. (see below for nested schema)
+	// Authenticate using an Azure managed identity.
+	ManagedIdentity []ManagedIdentityObservation `json:"managedIdentity,omitempty" tf:"managed_identity,omitempty"`
+
+	// (Block List) Authenticate using a managed identity as a client assertion for a Microsoft Entra application. (see below for nested schema)
+	// Authenticate using a managed identity as a client assertion for a Microsoft Entra application.
+	ManagedIdentityClientAssertion []ManagedIdentityClientAssertionObservation `json:"managedIdentityClientAssertion,omitempty" tf:"managed_identity_client_assertion,omitempty"`
+
+	// (Block List) Authenticate using Azure Workload Identity (for example, on Kubernetes). (see below for nested schema)
+	// Authenticate using Azure Workload Identity (for example, on Kubernetes).
+	WorkloadIdentity []WorkloadIdentityObservation `json:"workloadIdentity,omitempty" tf:"workload_identity,omitempty"`
+}
+
+type AzureDataExplorerAuthParameters struct {
+
+	// (Block List) Authenticate using the Azure CLI credentials available in the environment. (see below for nested schema)
+	// Authenticate using the Azure CLI credentials available in the environment.
+	// +kubebuilder:validation:Optional
+	AzureCli []AzureCliParameters `json:"azureCli,omitempty" tf:"azure_cli,omitempty"`
+
+	// (Block List) Authenticate using a Microsoft Entra application client certificate. (see below for nested schema)
+	// Authenticate using a Microsoft Entra application client certificate.
+	// +kubebuilder:validation:Optional
+	ClientCertificate []ClientCertificateParameters `json:"clientCertificate,omitempty" tf:"client_certificate,omitempty"`
+
+	// (Block List) Authenticate using a Microsoft Entra application client secret. (see below for nested schema)
+	// Authenticate using a Microsoft Entra application client secret.
+	// +kubebuilder:validation:Optional
+	ClientSecret []ClientSecretParameters `json:"clientSecret,omitempty" tf:"client_secret,omitempty"`
+
+	// (Block List) Authenticate using an Azure managed identity. (see below for nested schema)
+	// Authenticate using an Azure managed identity.
+	// +kubebuilder:validation:Optional
+	ManagedIdentity []ManagedIdentityParameters `json:"managedIdentity,omitempty" tf:"managed_identity,omitempty"`
+
+	// (Block List) Authenticate using a managed identity as a client assertion for a Microsoft Entra application. (see below for nested schema)
+	// Authenticate using a managed identity as a client assertion for a Microsoft Entra application.
+	// +kubebuilder:validation:Optional
+	ManagedIdentityClientAssertion []ManagedIdentityClientAssertionParameters `json:"managedIdentityClientAssertion,omitempty" tf:"managed_identity_client_assertion,omitempty"`
+
+	// (Block List) Authenticate using Azure Workload Identity (for example, on Kubernetes). (see below for nested schema)
+	// Authenticate using Azure Workload Identity (for example, on Kubernetes).
+	// +kubebuilder:validation:Optional
+	WorkloadIdentity []WorkloadIdentityParameters `json:"workloadIdentity,omitempty" tf:"workload_identity,omitempty"`
+}
+
+type AzureDataExplorerBufferDiskInitParameters struct {
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the disk buffer (in bytes).
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type AzureDataExplorerBufferDiskObservation struct {
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the disk buffer (in bytes).
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type AzureDataExplorerBufferDiskParameters struct {
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the disk buffer (in bytes).
+	// +kubebuilder:validation:Optional
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	// +kubebuilder:validation:Optional
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type AzureDataExplorerBufferInitParameters struct {
+
+	// (Block List) Options for configuring a disk buffer. Cannot be used with memory. (see below for nested schema)
+	// Options for configuring a disk buffer. Cannot be used with `memory`.
+	Disk []AzureDataExplorerBufferDiskInitParameters `json:"disk,omitempty" tf:"disk,omitempty"`
+
+	// (Block List) Options for configuring a memory buffer. Cannot be used with disk. (see below for nested schema)
+	// Options for configuring a memory buffer. Cannot be used with `disk`.
+	Memory []AzureDataExplorerBufferMemoryInitParameters `json:"memory,omitempty" tf:"memory,omitempty"`
+}
+
+type AzureDataExplorerBufferMemoryInitParameters struct {
+
+	// (Number) Maximum events for the memory buffer.
+	// Maximum events for the memory buffer.
+	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the memory buffer (in bytes).
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type AzureDataExplorerBufferMemoryObservation struct {
+
+	// (Number) Maximum events for the memory buffer.
+	// Maximum events for the memory buffer.
+	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the memory buffer (in bytes).
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type AzureDataExplorerBufferMemoryParameters struct {
+
+	// (Number) Maximum events for the memory buffer.
+	// Maximum events for the memory buffer.
+	// +kubebuilder:validation:Optional
+	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the memory buffer (in bytes).
+	// +kubebuilder:validation:Optional
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	// +kubebuilder:validation:Optional
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type AzureDataExplorerBufferObservation struct {
+
+	// (Block List) Options for configuring a disk buffer. Cannot be used with memory. (see below for nested schema)
+	// Options for configuring a disk buffer. Cannot be used with `memory`.
+	Disk []AzureDataExplorerBufferDiskObservation `json:"disk,omitempty" tf:"disk,omitempty"`
+
+	// (Block List) Options for configuring a memory buffer. Cannot be used with disk. (see below for nested schema)
+	// Options for configuring a memory buffer. Cannot be used with `disk`.
+	Memory []AzureDataExplorerBufferMemoryObservation `json:"memory,omitempty" tf:"memory,omitempty"`
+}
+
+type AzureDataExplorerBufferParameters struct {
+
+	// (Block List) Options for configuring a disk buffer. Cannot be used with memory. (see below for nested schema)
+	// Options for configuring a disk buffer. Cannot be used with `memory`.
+	// +kubebuilder:validation:Optional
+	Disk []AzureDataExplorerBufferDiskParameters `json:"disk,omitempty" tf:"disk,omitempty"`
+
+	// (Block List) Options for configuring a memory buffer. Cannot be used with disk. (see below for nested schema)
+	// Options for configuring a memory buffer. Cannot be used with `disk`.
+	// +kubebuilder:validation:Optional
+	Memory []AzureDataExplorerBufferMemoryParameters `json:"memory,omitempty" tf:"memory,omitempty"`
+}
+
+type AzureDataExplorerCompressionInitParameters struct {
+
+	// (String) Compression algorithm. One of gzip or zstd. Valid values are gzip, zstd.
+	// Compression algorithm. Must be `gzip`. Valid values are `gzip`.
+	Algorithm *string `json:"algorithm,omitempty" tf:"algorithm,omitempty"`
+
+	// 9) and zstd (1-21).
+	// Gzip compression level (1-9). Value must be between 1 and 9.
+	Level *float64 `json:"level,omitempty" tf:"level,omitempty"`
+}
+
+type AzureDataExplorerCompressionObservation struct {
+
+	// (String) Compression algorithm. One of gzip or zstd. Valid values are gzip, zstd.
+	// Compression algorithm. Must be `gzip`. Valid values are `gzip`.
+	Algorithm *string `json:"algorithm,omitempty" tf:"algorithm,omitempty"`
+
+	// 9) and zstd (1-21).
+	// Gzip compression level (1-9). Value must be between 1 and 9.
+	Level *float64 `json:"level,omitempty" tf:"level,omitempty"`
+}
+
+type AzureDataExplorerCompressionParameters struct {
+
+	// (String) Compression algorithm. One of gzip or zstd. Valid values are gzip, zstd.
+	// Compression algorithm. Must be `gzip`. Valid values are `gzip`.
+	// +kubebuilder:validation:Optional
+	Algorithm *string `json:"algorithm" tf:"algorithm,omitempty"`
+
+	// 9) and zstd (1-21).
+	// Gzip compression level (1-9). Value must be between 1 and 9.
+	// +kubebuilder:validation:Optional
+	Level *float64 `json:"level" tf:"level,omitempty"`
+}
+
+type AzureDataExplorerInitParameters struct {
+
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
+	// Authentication configuration for Azure Data Explorer. Exactly one of `azure_cli`, `client_secret`, `client_certificate`, `managed_identity`, `managed_identity_client_assertion`, or `workload_identity` must be specified.
+	Auth []AzureDataExplorerAuthInitParameters `json:"auth,omitempty" tf:"auth,omitempty"`
+
+	// (Block List) Event batching settings for Azure Data Explorer ingestion. (see below for nested schema)
+	// Event batching settings for Azure Data Explorer ingestion.
+	Batch []BatchInitParameters `json:"batch,omitempty" tf:"batch,omitempty"`
+
+	// (Block List) Configuration for buffer settings on destination components. Exactly one of disk or memory must be specified. (see below for nested schema)
+	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
+	Buffer []AzureDataExplorerBufferInitParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
+
+	// (Block List) Compression configuration for archived logs. When omitted, the worker default (gzip) is used. (see below for nested schema)
+	// Compression configuration for ingested data. Only `gzip` is supported.
+	Compression []AzureDataExplorerCompressionInitParameters `json:"compression,omitempty" tf:"compression,omitempty"`
+
+	// (String) The name of the Azure Data Explorer database to ingest into. Supports template syntax.
+	// The name of the Azure Data Explorer database to ingest into. Supports template syntax.
+	Database *string `json:"database,omitempty" tf:"database,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Azure Data Explorer ingestion endpoint URL. Defaults to DESTINATION_AZURE_DATA_EXPLORER_INGESTION_ENDPOINT.
+	// Name of the environment variable or secret that holds the Azure Data Explorer ingestion endpoint URL. Defaults to `DESTINATION_AZURE_DATA_EXPLORER_INGESTION_ENDPOINT`.
+	IngestionEndpointKey *string `json:"ingestionEndpointKey,omitempty" tf:"ingestion_endpoint_key,omitempty"`
+
+	// created ingestion mapping on the table used to map incoming events to columns. Supports template syntax.
+	// The name of a pre-created ingestion mapping on the table used to map incoming events to columns. Supports template syntax.
+	MappingReference *string `json:"mappingReference,omitempty" tf:"mapping_reference,omitempty"`
+
+	// (String) The name of the Azure Data Explorer table to ingest into. Supports template syntax.
+	// The name of the Azure Data Explorer table to ingest into. Supports template syntax.
+	Table *string `json:"table,omitempty" tf:"table,omitempty"`
+
+	// (String) The OAuth scope requested when acquiring an access token for Azure Data Explorer. Defaults to https://kusto.kusto.windows.net/.default.
+	// The OAuth scope requested when acquiring an access token for Azure Data Explorer. Defaults to `https://kusto.kusto.windows.net/.default`.
+	TokenScope *string `json:"tokenScope,omitempty" tf:"token_scope,omitempty"`
+}
+
+type AzureDataExplorerObservation struct {
+
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
+	// Authentication configuration for Azure Data Explorer. Exactly one of `azure_cli`, `client_secret`, `client_certificate`, `managed_identity`, `managed_identity_client_assertion`, or `workload_identity` must be specified.
+	Auth []AzureDataExplorerAuthObservation `json:"auth,omitempty" tf:"auth,omitempty"`
+
+	// (Block List) Event batching settings for Azure Data Explorer ingestion. (see below for nested schema)
+	// Event batching settings for Azure Data Explorer ingestion.
+	Batch []BatchObservation `json:"batch,omitempty" tf:"batch,omitempty"`
+
+	// (Block List) Configuration for buffer settings on destination components. Exactly one of disk or memory must be specified. (see below for nested schema)
+	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
+	Buffer []AzureDataExplorerBufferObservation `json:"buffer,omitempty" tf:"buffer,omitempty"`
+
+	// (Block List) Compression configuration for archived logs. When omitted, the worker default (gzip) is used. (see below for nested schema)
+	// Compression configuration for ingested data. Only `gzip` is supported.
+	Compression []AzureDataExplorerCompressionObservation `json:"compression,omitempty" tf:"compression,omitempty"`
+
+	// (String) The name of the Azure Data Explorer database to ingest into. Supports template syntax.
+	// The name of the Azure Data Explorer database to ingest into. Supports template syntax.
+	Database *string `json:"database,omitempty" tf:"database,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Azure Data Explorer ingestion endpoint URL. Defaults to DESTINATION_AZURE_DATA_EXPLORER_INGESTION_ENDPOINT.
+	// Name of the environment variable or secret that holds the Azure Data Explorer ingestion endpoint URL. Defaults to `DESTINATION_AZURE_DATA_EXPLORER_INGESTION_ENDPOINT`.
+	IngestionEndpointKey *string `json:"ingestionEndpointKey,omitempty" tf:"ingestion_endpoint_key,omitempty"`
+
+	// created ingestion mapping on the table used to map incoming events to columns. Supports template syntax.
+	// The name of a pre-created ingestion mapping on the table used to map incoming events to columns. Supports template syntax.
+	MappingReference *string `json:"mappingReference,omitempty" tf:"mapping_reference,omitempty"`
+
+	// (String) The name of the Azure Data Explorer table to ingest into. Supports template syntax.
+	// The name of the Azure Data Explorer table to ingest into. Supports template syntax.
+	Table *string `json:"table,omitempty" tf:"table,omitempty"`
+
+	// (String) The OAuth scope requested when acquiring an access token for Azure Data Explorer. Defaults to https://kusto.kusto.windows.net/.default.
+	// The OAuth scope requested when acquiring an access token for Azure Data Explorer. Defaults to `https://kusto.kusto.windows.net/.default`.
+	TokenScope *string `json:"tokenScope,omitempty" tf:"token_scope,omitempty"`
+}
+
+type AzureDataExplorerParameters struct {
+
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
+	// Authentication configuration for Azure Data Explorer. Exactly one of `azure_cli`, `client_secret`, `client_certificate`, `managed_identity`, `managed_identity_client_assertion`, or `workload_identity` must be specified.
+	// +kubebuilder:validation:Optional
+	Auth []AzureDataExplorerAuthParameters `json:"auth,omitempty" tf:"auth,omitempty"`
+
+	// (Block List) Event batching settings for Azure Data Explorer ingestion. (see below for nested schema)
+	// Event batching settings for Azure Data Explorer ingestion.
+	// +kubebuilder:validation:Optional
+	Batch []BatchParameters `json:"batch,omitempty" tf:"batch,omitempty"`
+
+	// (Block List) Configuration for buffer settings on destination components. Exactly one of disk or memory must be specified. (see below for nested schema)
+	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
+	// +kubebuilder:validation:Optional
+	Buffer []AzureDataExplorerBufferParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
+
+	// (Block List) Compression configuration for archived logs. When omitted, the worker default (gzip) is used. (see below for nested schema)
+	// Compression configuration for ingested data. Only `gzip` is supported.
+	// +kubebuilder:validation:Optional
+	Compression []AzureDataExplorerCompressionParameters `json:"compression,omitempty" tf:"compression,omitempty"`
+
+	// (String) The name of the Azure Data Explorer database to ingest into. Supports template syntax.
+	// The name of the Azure Data Explorer database to ingest into. Supports template syntax.
+	// +kubebuilder:validation:Optional
+	Database *string `json:"database" tf:"database,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Azure Data Explorer ingestion endpoint URL. Defaults to DESTINATION_AZURE_DATA_EXPLORER_INGESTION_ENDPOINT.
+	// Name of the environment variable or secret that holds the Azure Data Explorer ingestion endpoint URL. Defaults to `DESTINATION_AZURE_DATA_EXPLORER_INGESTION_ENDPOINT`.
+	// +kubebuilder:validation:Optional
+	IngestionEndpointKey *string `json:"ingestionEndpointKey,omitempty" tf:"ingestion_endpoint_key,omitempty"`
+
+	// created ingestion mapping on the table used to map incoming events to columns. Supports template syntax.
+	// The name of a pre-created ingestion mapping on the table used to map incoming events to columns. Supports template syntax.
+	// +kubebuilder:validation:Optional
+	MappingReference *string `json:"mappingReference,omitempty" tf:"mapping_reference,omitempty"`
+
+	// (String) The name of the Azure Data Explorer table to ingest into. Supports template syntax.
+	// The name of the Azure Data Explorer table to ingest into. Supports template syntax.
+	// +kubebuilder:validation:Optional
+	Table *string `json:"table" tf:"table,omitempty"`
+
+	// (String) The OAuth scope requested when acquiring an access token for Azure Data Explorer. Defaults to https://kusto.kusto.windows.net/.default.
+	// The OAuth scope requested when acquiring an access token for Azure Data Explorer. Defaults to `https://kusto.kusto.windows.net/.default`.
+	// +kubebuilder:validation:Optional
+	TokenScope *string `json:"tokenScope,omitempty" tf:"token_scope,omitempty"`
 }
 
 type AzureStorageBufferDiskInitParameters struct {
@@ -1574,35 +2052,48 @@ type BatchEncodingParameters struct {
 
 type BatchInitParameters struct {
 
+	// (Number) Maximum batch size in bytes. Value must be between 1 and 4000000.
+	// Maximum batch size in bytes. Value must be between 1 and 4000000.
+	MaxBytes *float64 `json:"maxBytes,omitempty" tf:"max_bytes,omitempty"`
+
 	// (Number) Maximum events for the memory buffer.
-	// Maximum number of events per batch. Value must be at least 1.
+	// Maximum number of events per batch before it is flushed. Value must be at least 1.
 	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
 
 	// (Number) Maximum number of seconds to wait before flushing the batch.
-	// Maximum time in seconds before a partial batch is flushed. Value must be between 1 and 65535.
+	// Maximum number of seconds to wait before flushing a partial batch. Value must be at least 1.
 	TimeoutSecs *float64 `json:"timeoutSecs,omitempty" tf:"timeout_secs,omitempty"`
 }
 
 type BatchObservation struct {
 
+	// (Number) Maximum batch size in bytes. Value must be between 1 and 4000000.
+	// Maximum batch size in bytes. Value must be between 1 and 4000000.
+	MaxBytes *float64 `json:"maxBytes,omitempty" tf:"max_bytes,omitempty"`
+
 	// (Number) Maximum events for the memory buffer.
-	// Maximum number of events per batch. Value must be at least 1.
+	// Maximum number of events per batch before it is flushed. Value must be at least 1.
 	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
 
 	// (Number) Maximum number of seconds to wait before flushing the batch.
-	// Maximum time in seconds before a partial batch is flushed. Value must be between 1 and 65535.
+	// Maximum number of seconds to wait before flushing a partial batch. Value must be at least 1.
 	TimeoutSecs *float64 `json:"timeoutSecs,omitempty" tf:"timeout_secs,omitempty"`
 }
 
 type BatchParameters struct {
 
+	// (Number) Maximum batch size in bytes. Value must be between 1 and 4000000.
+	// Maximum batch size in bytes. Value must be between 1 and 4000000.
+	// +kubebuilder:validation:Optional
+	MaxBytes *float64 `json:"maxBytes,omitempty" tf:"max_bytes,omitempty"`
+
 	// (Number) Maximum events for the memory buffer.
-	// Maximum number of events per batch. Value must be at least 1.
+	// Maximum number of events per batch before it is flushed. Value must be at least 1.
 	// +kubebuilder:validation:Optional
 	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
 
 	// (Number) Maximum number of seconds to wait before flushing the batch.
-	// Maximum time in seconds before a partial batch is flushed. Value must be between 1 and 65535.
+	// Maximum number of seconds to wait before flushing a partial batch. Value must be at least 1.
 	// +kubebuilder:validation:Optional
 	TimeoutSecs *float64 `json:"timeoutSecs,omitempty" tf:"timeout_secs,omitempty"`
 }
@@ -1784,7 +2275,7 @@ type CharacterDelimitedParameters struct {
 
 type ClickhouseAuthInitParameters struct {
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the ClickHouse password. Defaults to `DESTINATION_CLICKHOUSE_PASSWORD`.
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
@@ -1792,14 +2283,14 @@ type ClickhouseAuthInitParameters struct {
 	// Authentication strategy. Must be `basic`. Valid values are `basic`.
 	Strategy *string `json:"strategy,omitempty" tf:"strategy,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the ClickHouse username. Defaults to `DESTINATION_CLICKHOUSE_USERNAME`.
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
 
 type ClickhouseAuthObservation struct {
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the ClickHouse password. Defaults to `DESTINATION_CLICKHOUSE_PASSWORD`.
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
@@ -1807,14 +2298,14 @@ type ClickhouseAuthObservation struct {
 	// Authentication strategy. Must be `basic`. Valid values are `basic`.
 	Strategy *string `json:"strategy,omitempty" tf:"strategy,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the ClickHouse username. Defaults to `DESTINATION_CLICKHOUSE_USERNAME`.
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
 
 type ClickhouseAuthParameters struct {
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the ClickHouse password. Defaults to `DESTINATION_CLICKHOUSE_PASSWORD`.
 	// +kubebuilder:validation:Optional
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
@@ -1824,10 +2315,45 @@ type ClickhouseAuthParameters struct {
 	// +kubebuilder:validation:Optional
 	Strategy *string `json:"strategy" tf:"strategy,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the ClickHouse username. Defaults to `DESTINATION_CLICKHOUSE_USERNAME`.
 	// +kubebuilder:validation:Optional
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
+}
+
+type ClickhouseBatchInitParameters struct {
+
+	// (Number) Maximum events for the memory buffer.
+	// Maximum number of events per batch. Value must be at least 1.
+	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
+
+	// (Number) Maximum number of seconds to wait before flushing the batch.
+	// Maximum time in seconds before a partial batch is flushed. Value must be between 1 and 65535.
+	TimeoutSecs *float64 `json:"timeoutSecs,omitempty" tf:"timeout_secs,omitempty"`
+}
+
+type ClickhouseBatchObservation struct {
+
+	// (Number) Maximum events for the memory buffer.
+	// Maximum number of events per batch. Value must be at least 1.
+	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
+
+	// (Number) Maximum number of seconds to wait before flushing the batch.
+	// Maximum time in seconds before a partial batch is flushed. Value must be between 1 and 65535.
+	TimeoutSecs *float64 `json:"timeoutSecs,omitempty" tf:"timeout_secs,omitempty"`
+}
+
+type ClickhouseBatchParameters struct {
+
+	// (Number) Maximum events for the memory buffer.
+	// Maximum number of events per batch. Value must be at least 1.
+	// +kubebuilder:validation:Optional
+	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
+
+	// (Number) Maximum number of seconds to wait before flushing the batch.
+	// Maximum time in seconds before a partial batch is flushed. Value must be between 1 and 65535.
+	// +kubebuilder:validation:Optional
+	TimeoutSecs *float64 `json:"timeoutSecs,omitempty" tf:"timeout_secs,omitempty"`
 }
 
 type ClickhouseBufferDiskInitParameters struct {
@@ -1985,13 +2511,13 @@ type ClickhouseCompressionParameters struct {
 
 type ClickhouseInitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Authentication strategy for ClickHouse HTTP requests. Only `basic` strategy is supported.
 	Auth []ClickhouseAuthInitParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
-	// (Block List) Batching configuration for ClickHouse inserts. (see below for nested schema)
+	// (Block List) Event batching settings for Azure Data Explorer ingestion. (see below for nested schema)
 	// Batching configuration for ClickHouse inserts.
-	Batch []BatchInitParameters `json:"batch,omitempty" tf:"batch,omitempty"`
+	Batch []ClickhouseBatchInitParameters `json:"batch,omitempty" tf:"batch,omitempty"`
 
 	// (Block List) Batch encoding configuration. Required when format is arrow_stream. (see below for nested schema)
 	// Batch encoding configuration. Required when `format` is `arrow_stream`.
@@ -2005,7 +2531,7 @@ type ClickhouseInitParameters struct {
 	// Compression for outbound HTTP requests. Use `algorithm = "gzip"` or `algorithm = "none"`.
 	Compression []ClickhouseCompressionInitParameters `json:"compression,omitempty" tf:"compression,omitempty"`
 
-	// (String) Optional name of the ClickHouse database to write to. When omitted, the user's default database is used.
+	// (String) The name of the Azure Data Explorer database to ingest into. Supports template syntax.
 	// Optional name of the ClickHouse database to write to. When omitted, the user's default database is used.
 	Database *string `json:"database,omitempty" tf:"database,omitempty"`
 
@@ -2013,7 +2539,7 @@ type ClickhouseInitParameters struct {
 	// If `true`, enables flexible DateTime parsing on the server side.
 	DateTimeBestEffort *bool `json:"dateTimeBestEffort,omitempty" tf:"date_time_best_effort,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to `DESTINATION_CLICKHOUSE_ENDPOINT_URL`.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -2029,20 +2555,20 @@ type ClickhouseInitParameters struct {
 	// Configuration for enabling TLS encryption between the pipeline component and external services.
 	TLS []ClickhouseTLSInitParameters `json:"tls,omitempty" tf:"tls,omitempty"`
 
-	// (String) Target ClickHouse table name.
+	// (String) The name of the Azure Data Explorer table to ingest into. Supports template syntax.
 	// Target ClickHouse table name.
 	Table *string `json:"table,omitempty" tf:"table,omitempty"`
 }
 
 type ClickhouseObservation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Authentication strategy for ClickHouse HTTP requests. Only `basic` strategy is supported.
 	Auth []ClickhouseAuthObservation `json:"auth,omitempty" tf:"auth,omitempty"`
 
-	// (Block List) Batching configuration for ClickHouse inserts. (see below for nested schema)
+	// (Block List) Event batching settings for Azure Data Explorer ingestion. (see below for nested schema)
 	// Batching configuration for ClickHouse inserts.
-	Batch []BatchObservation `json:"batch,omitempty" tf:"batch,omitempty"`
+	Batch []ClickhouseBatchObservation `json:"batch,omitempty" tf:"batch,omitempty"`
 
 	// (Block List) Batch encoding configuration. Required when format is arrow_stream. (see below for nested schema)
 	// Batch encoding configuration. Required when `format` is `arrow_stream`.
@@ -2056,7 +2582,7 @@ type ClickhouseObservation struct {
 	// Compression for outbound HTTP requests. Use `algorithm = "gzip"` or `algorithm = "none"`.
 	Compression []ClickhouseCompressionObservation `json:"compression,omitempty" tf:"compression,omitempty"`
 
-	// (String) Optional name of the ClickHouse database to write to. When omitted, the user's default database is used.
+	// (String) The name of the Azure Data Explorer database to ingest into. Supports template syntax.
 	// Optional name of the ClickHouse database to write to. When omitted, the user's default database is used.
 	Database *string `json:"database,omitempty" tf:"database,omitempty"`
 
@@ -2064,7 +2590,7 @@ type ClickhouseObservation struct {
 	// If `true`, enables flexible DateTime parsing on the server side.
 	DateTimeBestEffort *bool `json:"dateTimeBestEffort,omitempty" tf:"date_time_best_effort,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to `DESTINATION_CLICKHOUSE_ENDPOINT_URL`.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -2080,22 +2606,22 @@ type ClickhouseObservation struct {
 	// Configuration for enabling TLS encryption between the pipeline component and external services.
 	TLS []ClickhouseTLSObservation `json:"tls,omitempty" tf:"tls,omitempty"`
 
-	// (String) Target ClickHouse table name.
+	// (String) The name of the Azure Data Explorer table to ingest into. Supports template syntax.
 	// Target ClickHouse table name.
 	Table *string `json:"table,omitempty" tf:"table,omitempty"`
 }
 
 type ClickhouseParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Authentication strategy for ClickHouse HTTP requests. Only `basic` strategy is supported.
 	// +kubebuilder:validation:Optional
 	Auth []ClickhouseAuthParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
-	// (Block List) Batching configuration for ClickHouse inserts. (see below for nested schema)
+	// (Block List) Event batching settings for Azure Data Explorer ingestion. (see below for nested schema)
 	// Batching configuration for ClickHouse inserts.
 	// +kubebuilder:validation:Optional
-	Batch []BatchParameters `json:"batch,omitempty" tf:"batch,omitempty"`
+	Batch []ClickhouseBatchParameters `json:"batch,omitempty" tf:"batch,omitempty"`
 
 	// (Block List) Batch encoding configuration. Required when format is arrow_stream. (see below for nested schema)
 	// Batch encoding configuration. Required when `format` is `arrow_stream`.
@@ -2112,7 +2638,7 @@ type ClickhouseParameters struct {
 	// +kubebuilder:validation:Optional
 	Compression []ClickhouseCompressionParameters `json:"compression,omitempty" tf:"compression,omitempty"`
 
-	// (String) Optional name of the ClickHouse database to write to. When omitted, the user's default database is used.
+	// (String) The name of the Azure Data Explorer database to ingest into. Supports template syntax.
 	// Optional name of the ClickHouse database to write to. When omitted, the user's default database is used.
 	// +kubebuilder:validation:Optional
 	Database *string `json:"database,omitempty" tf:"database,omitempty"`
@@ -2122,7 +2648,7 @@ type ClickhouseParameters struct {
 	// +kubebuilder:validation:Optional
 	DateTimeBestEffort *bool `json:"dateTimeBestEffort,omitempty" tf:"date_time_best_effort,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to `DESTINATION_CLICKHOUSE_ENDPOINT_URL`.
 	// +kubebuilder:validation:Optional
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
@@ -2142,7 +2668,7 @@ type ClickhouseParameters struct {
 	// +kubebuilder:validation:Optional
 	TLS []ClickhouseTLSParameters `json:"tls,omitempty" tf:"tls,omitempty"`
 
-	// (String) Target ClickHouse table name.
+	// (String) The name of the Azure Data Explorer table to ingest into. Supports template syntax.
 	// Target ClickHouse table name.
 	// +kubebuilder:validation:Optional
 	Table *string `json:"table" tf:"table,omitempty"`
@@ -2207,6 +2733,115 @@ type ClickhouseTLSParameters struct {
 	// Name of the environment variable or secret that holds the passphrase for the private key file.
 	// +kubebuilder:validation:Optional
 	KeyPassKey *string `json:"keyPassKey,omitempty" tf:"key_pass_key,omitempty"`
+}
+
+type ClientCertificateInitParameters struct {
+
+	// (String) The Microsoft Entra application (client) ID.
+	// The Microsoft Entra application (client) ID.
+	AzureClientID *string `json:"azureClientId,omitempty" tf:"azure_client_id,omitempty"`
+
+	// (String) The Microsoft Entra tenant ID.
+	// The Microsoft Entra tenant ID.
+	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the password for the client certificate.
+	// Name of the environment variable or secret that holds the password for the client certificate.
+	CertificatePasswordKey *string `json:"certificatePasswordKey,omitempty" tf:"certificate_password_key,omitempty"`
+
+	// (String) Path to the .pfx client certificate file on the Worker.
+	// Path to the `.pfx` client certificate file on the Worker.
+	CertificatePath *string `json:"certificatePath,omitempty" tf:"certificate_path,omitempty"`
+}
+
+type ClientCertificateObservation struct {
+
+	// (String) The Microsoft Entra application (client) ID.
+	// The Microsoft Entra application (client) ID.
+	AzureClientID *string `json:"azureClientId,omitempty" tf:"azure_client_id,omitempty"`
+
+	// (String) The Microsoft Entra tenant ID.
+	// The Microsoft Entra tenant ID.
+	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the password for the client certificate.
+	// Name of the environment variable or secret that holds the password for the client certificate.
+	CertificatePasswordKey *string `json:"certificatePasswordKey,omitempty" tf:"certificate_password_key,omitempty"`
+
+	// (String) Path to the .pfx client certificate file on the Worker.
+	// Path to the `.pfx` client certificate file on the Worker.
+	CertificatePath *string `json:"certificatePath,omitempty" tf:"certificate_path,omitempty"`
+}
+
+type ClientCertificateParameters struct {
+
+	// (String) The Microsoft Entra application (client) ID.
+	// The Microsoft Entra application (client) ID.
+	// +kubebuilder:validation:Optional
+	AzureClientID *string `json:"azureClientId" tf:"azure_client_id,omitempty"`
+
+	// (String) The Microsoft Entra tenant ID.
+	// The Microsoft Entra tenant ID.
+	// +kubebuilder:validation:Optional
+	AzureTenantID *string `json:"azureTenantId" tf:"azure_tenant_id,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the password for the client certificate.
+	// Name of the environment variable or secret that holds the password for the client certificate.
+	// +kubebuilder:validation:Optional
+	CertificatePasswordKey *string `json:"certificatePasswordKey,omitempty" tf:"certificate_password_key,omitempty"`
+
+	// (String) Path to the .pfx client certificate file on the Worker.
+	// Path to the `.pfx` client certificate file on the Worker.
+	// +kubebuilder:validation:Optional
+	CertificatePath *string `json:"certificatePath" tf:"certificate_path,omitempty"`
+}
+
+type ClientSecretInitParameters struct {
+
+	// (String) The Microsoft Entra application (client) ID.
+	// The Microsoft Entra application (client) ID.
+	AzureClientID *string `json:"azureClientId,omitempty" tf:"azure_client_id,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Microsoft Entra application client secret.
+	// Name of the environment variable or secret that holds the Microsoft Entra application client secret.
+	AzureClientSecretKey *string `json:"azureClientSecretKey,omitempty" tf:"azure_client_secret_key,omitempty"`
+
+	// (String) The Microsoft Entra tenant ID.
+	// The Microsoft Entra tenant ID.
+	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
+}
+
+type ClientSecretObservation struct {
+
+	// (String) The Microsoft Entra application (client) ID.
+	// The Microsoft Entra application (client) ID.
+	AzureClientID *string `json:"azureClientId,omitempty" tf:"azure_client_id,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Microsoft Entra application client secret.
+	// Name of the environment variable or secret that holds the Microsoft Entra application client secret.
+	AzureClientSecretKey *string `json:"azureClientSecretKey,omitempty" tf:"azure_client_secret_key,omitempty"`
+
+	// (String) The Microsoft Entra tenant ID.
+	// The Microsoft Entra tenant ID.
+	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
+}
+
+type ClientSecretParameters struct {
+
+	// (String) The Microsoft Entra application (client) ID.
+	// The Microsoft Entra application (client) ID.
+	// +kubebuilder:validation:Optional
+	AzureClientID *string `json:"azureClientId" tf:"azure_client_id,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Microsoft Entra application client secret.
+	// Name of the environment variable or secret that holds the Microsoft Entra application client secret.
+	// +kubebuilder:validation:Optional
+	AzureClientSecretKey *string `json:"azureClientSecretKey" tf:"azure_client_secret_key,omitempty"`
+
+	// (String) The Microsoft Entra tenant ID.
+	// The Microsoft Entra tenant ID.
+	// +kubebuilder:validation:Optional
+	AzureTenantID *string `json:"azureTenantId" tf:"azure_tenant_id,omitempty"`
 }
 
 type CloudPremBufferDiskInitParameters struct {
@@ -2333,7 +2968,7 @@ type CloudPremInitParameters struct {
 	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
 	Buffer []CloudPremBufferInitParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -2348,7 +2983,7 @@ type CloudPremObservation struct {
 	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
 	Buffer []CloudPremBufferObservation `json:"buffer,omitempty" tf:"buffer,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -2364,7 +2999,7 @@ type CloudPremParameters struct {
 	// +kubebuilder:validation:Optional
 	Buffer []CloudPremBufferParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the endpoint URL.
 	// +kubebuilder:validation:Optional
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
@@ -2490,8 +3125,8 @@ type ConfigInitParameters struct {
 	// List of destinations.
 	Destination []DestinationInitParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
-	// (String) The type of data being ingested. Defaults to logs if not specified. Valid values are logs, metrics.
-	// The type of data being ingested. Defaults to `logs` if not specified. Valid values are `logs`, `metrics`.
+	// (String) The type of data being ingested. Defaults to logs if not specified. Valid values are logs, metrics, traces.
+	// The type of data being ingested. Defaults to `logs` if not specified. Valid values are `logs`, `metrics`, `traces`.
 	PipelineType *string `json:"pipelineType,omitempty" tf:"pipeline_type,omitempty"`
 
 	// (Block List) A processor group containing common configuration and nested processors. (see below for nested schema)
@@ -2500,7 +3135,7 @@ type ConfigInitParameters struct {
 
 	// (Block List) List of sources. (see below for nested schema)
 	// List of sources.
-	Source []SourceInitParameters `json:"source,omitempty" tf:"source,omitempty"`
+	Source []ConfigSourceInitParameters `json:"source,omitempty" tf:"source,omitempty"`
 
 	// (Boolean) Set to true to continue using the legacy search syntax while migrating filter queries. After migrating all queries to the new syntax, set to false. The legacy syntax is deprecated and will eventually be removed. Requires Observability Pipelines Worker 2.11 or later. Only applies to logs pipelines. This field is ignored for metrics pipelines. See https://docs.datadoghq.com/observability_pipelines/guide/upgrade_your_filter_queries_to_the_new_search_syntax/ for more information.
 	// Set to `true` to continue using the legacy search syntax while migrating filter queries. After migrating all queries to the new syntax, set to `false`. The legacy syntax is deprecated and will eventually be removed. Requires Observability Pipelines Worker 2.11 or later. Only applies to `logs` pipelines. This field is ignored for `metrics` pipelines. See https://docs.datadoghq.com/observability_pipelines/guide/upgrade_your_filter_queries_to_the_new_search_syntax/ for more information.
@@ -2513,8 +3148,8 @@ type ConfigObservation struct {
 	// List of destinations.
 	Destination []DestinationObservation `json:"destination,omitempty" tf:"destination,omitempty"`
 
-	// (String) The type of data being ingested. Defaults to logs if not specified. Valid values are logs, metrics.
-	// The type of data being ingested. Defaults to `logs` if not specified. Valid values are `logs`, `metrics`.
+	// (String) The type of data being ingested. Defaults to logs if not specified. Valid values are logs, metrics, traces.
+	// The type of data being ingested. Defaults to `logs` if not specified. Valid values are `logs`, `metrics`, `traces`.
 	PipelineType *string `json:"pipelineType,omitempty" tf:"pipeline_type,omitempty"`
 
 	// (Block List) A processor group containing common configuration and nested processors. (see below for nested schema)
@@ -2523,7 +3158,7 @@ type ConfigObservation struct {
 
 	// (Block List) List of sources. (see below for nested schema)
 	// List of sources.
-	Source []SourceObservation `json:"source,omitempty" tf:"source,omitempty"`
+	Source []ConfigSourceObservation `json:"source,omitempty" tf:"source,omitempty"`
 
 	// (Boolean) Set to true to continue using the legacy search syntax while migrating filter queries. After migrating all queries to the new syntax, set to false. The legacy syntax is deprecated and will eventually be removed. Requires Observability Pipelines Worker 2.11 or later. Only applies to logs pipelines. This field is ignored for metrics pipelines. See https://docs.datadoghq.com/observability_pipelines/guide/upgrade_your_filter_queries_to_the_new_search_syntax/ for more information.
 	// Set to `true` to continue using the legacy search syntax while migrating filter queries. After migrating all queries to the new syntax, set to `false`. The legacy syntax is deprecated and will eventually be removed. Requires Observability Pipelines Worker 2.11 or later. Only applies to `logs` pipelines. This field is ignored for `metrics` pipelines. See https://docs.datadoghq.com/observability_pipelines/guide/upgrade_your_filter_queries_to_the_new_search_syntax/ for more information.
@@ -2537,8 +3172,8 @@ type ConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	Destination []DestinationParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
-	// (String) The type of data being ingested. Defaults to logs if not specified. Valid values are logs, metrics.
-	// The type of data being ingested. Defaults to `logs` if not specified. Valid values are `logs`, `metrics`.
+	// (String) The type of data being ingested. Defaults to logs if not specified. Valid values are logs, metrics, traces.
+	// The type of data being ingested. Defaults to `logs` if not specified. Valid values are `logs`, `metrics`, `traces`.
 	// +kubebuilder:validation:Optional
 	PipelineType *string `json:"pipelineType,omitempty" tf:"pipeline_type,omitempty"`
 
@@ -2550,12 +3185,281 @@ type ConfigParameters struct {
 	// (Block List) List of sources. (see below for nested schema)
 	// List of sources.
 	// +kubebuilder:validation:Optional
-	Source []SourceParameters `json:"source,omitempty" tf:"source,omitempty"`
+	Source []ConfigSourceParameters `json:"source,omitempty" tf:"source,omitempty"`
 
 	// (Boolean) Set to true to continue using the legacy search syntax while migrating filter queries. After migrating all queries to the new syntax, set to false. The legacy syntax is deprecated and will eventually be removed. Requires Observability Pipelines Worker 2.11 or later. Only applies to logs pipelines. This field is ignored for metrics pipelines. See https://docs.datadoghq.com/observability_pipelines/guide/upgrade_your_filter_queries_to_the_new_search_syntax/ for more information.
 	// Set to `true` to continue using the legacy search syntax while migrating filter queries. After migrating all queries to the new syntax, set to `false`. The legacy syntax is deprecated and will eventually be removed. Requires Observability Pipelines Worker 2.11 or later. Only applies to `logs` pipelines. This field is ignored for `metrics` pipelines. See https://docs.datadoghq.com/observability_pipelines/guide/upgrade_your_filter_queries_to_the_new_search_syntax/ for more information.
 	// +kubebuilder:validation:Optional
 	UseLegacySearchSyntax *bool `json:"useLegacySearchSyntax,omitempty" tf:"use_legacy_search_syntax,omitempty"`
+}
+
+type ConfigSourceInitParameters struct {
+
+	// (Block List) The amazon_data_firehose source ingests logs from AWS Data Firehose. (see below for nested schema)
+	// The `amazon_data_firehose` source ingests logs from AWS Data Firehose.
+	AmazonDataFirehose []AmazonDataFirehoseInitParameters `json:"amazonDataFirehose,omitempty" tf:"amazon_data_firehose,omitempty"`
+
+	// rehydratable format to an Amazon S3 bucket for archiving. (see below for nested schema)
+	// The `amazon_s3` source ingests logs from an Amazon S3 bucket. It supports AWS authentication, TLS encryption, and configurable compression.
+	AmazonS3 []SourceAmazonS3InitParameters `json:"amazonS3,omitempty" tf:"amazon_s3,omitempty"`
+
+	// (Block List) The datadog_agent source collects logs from the Datadog Agent. (see below for nested schema)
+	// The `datadog_agent` source collects logs from the Datadog Agent.
+	DatadogAgent []DatadogAgentInitParameters `json:"datadogAgent,omitempty" tf:"datadog_agent,omitempty"`
+
+	// (Block List) The fluent_bit source ingests logs from Fluent Bit. (see below for nested schema)
+	// The `fluent_bit` source ingests logs from Fluent Bit.
+	FluentBit []FluentBitInitParameters `json:"fluentBit,omitempty" tf:"fluent_bit,omitempty"`
+
+	// compatible service. (see below for nested schema)
+	// The `fluentd` source ingests logs from a Fluentd-compatible service.
+	Fluentd []FluentdInitParameters `json:"fluentd,omitempty" tf:"fluentd,omitempty"`
+
+	// (Block List) The google_pubsub destination publishes logs to a Google Cloud Pub/Sub topic. (see below for nested schema)
+	// The `google_pubsub` source ingests logs from a Google Cloud Pub/Sub subscription.
+	GooglePubsub []SourceGooglePubsubInitParameters `json:"googlePubsub,omitempty" tf:"google_pubsub,omitempty"`
+
+	// (Block List) The http_client destination sends data to an HTTP endpoint. (see below for nested schema)
+	// The `http_client` source scrapes logs from HTTP endpoints at regular intervals.
+	HTTPClient []SourceHTTPClientInitParameters `json:"httpClient,omitempty" tf:"http_client,omitempty"`
+
+	// (Block List) The http_server source collects logs over HTTP POST from external services. (see below for nested schema)
+	// The `http_server` source collects logs over HTTP POST from external services.
+	HTTPServer []HTTPServerInitParameters `json:"httpServer,omitempty" tf:"http_server,omitempty"`
+
+	// (String) The ID of this resource.
+	// The unique identifier for this source.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Block List) The kafka destination sends logs to Apache Kafka topics. (see below for nested schema)
+	// The `kafka` source ingests data from Apache Kafka topics.
+	Kafka []SourceKafkaInitParameters `json:"kafka,omitempty" tf:"kafka,omitempty"`
+
+	// (Block List) The logstash source ingests logs from a Logstash forwarder. (see below for nested schema)
+	// The `logstash` source ingests logs from a Logstash forwarder.
+	Logstash []LogstashInitParameters `json:"logstash,omitempty" tf:"logstash,omitempty"`
+
+	// (Block List) The opentelemetry destination forwards metrics or traces using the OpenTelemetry Protocol (OTLP) over HTTP. (see below for nested schema)
+	// The `opentelemetry` source receives telemetry data using the OpenTelemetry Protocol (OTLP) over gRPC and HTTP.
+	Opentelemetry []SourceOpentelemetryInitParameters `json:"opentelemetry,omitempty" tf:"opentelemetry,omitempty"`
+
+	// (Block List) The prometheus_remote_write destination sends metrics to a Prometheus Remote Write compatible endpoint. (see below for nested schema)
+	// The `prometheus_remote_write` source ingests metrics pushed over the Prometheus Remote Write protocol.
+	PrometheusRemoteWrite []SourcePrometheusRemoteWriteInitParameters `json:"prometheusRemoteWrite,omitempty" tf:"prometheus_remote_write,omitempty"`
+
+	// (Block List) The rsyslog destination forwards logs to an external rsyslog server over TCP or UDP using the syslog protocol. (see below for nested schema)
+	// The `rsyslog` source listens for logs over TCP or UDP from an `rsyslog` server using the syslog protocol.
+	Rsyslog []SourceRsyslogInitParameters `json:"rsyslog,omitempty" tf:"rsyslog,omitempty"`
+
+	// (Block List) The socket destination sends logs over TCP or UDP to a remote server. (see below for nested schema)
+	// The `socket` source ingests logs over TCP or UDP.
+	Socket []SourceSocketInitParameters `json:"socket,omitempty" tf:"socket,omitempty"`
+
+	// (Block List) The splunk_hec destination forwards logs to Splunk using the HTTP Event Collector (HEC). (see below for nested schema)
+	// The `splunk_hec` source implements the Splunk HTTP Event Collector (HEC) API.
+	SplunkHec []SourceSplunkHecInitParameters `json:"splunkHec,omitempty" tf:"splunk_hec,omitempty"`
+
+	// (Block List) The splunk_tcp source receives logs from a Splunk Universal Forwarder over TCP. TLS is supported for secure transmission. (see below for nested schema)
+	// The `splunk_tcp` source receives logs from a Splunk Universal Forwarder over TCP. TLS is supported for secure transmission.
+	SplunkTCP []SplunkTCPInitParameters `json:"splunkTcp,omitempty" tf:"splunk_tcp,omitempty"`
+
+	// (Block List) The sumo_logic destination forwards logs to Sumo Logic. (see below for nested schema)
+	// The `sumo_logic` source receives logs from Sumo Logic collectors.
+	SumoLogic []SourceSumoLogicInitParameters `json:"sumoLogic,omitempty" tf:"sumo_logic,omitempty"`
+
+	// ng server over TCP or UDP using the syslog protocol. (see below for nested schema)
+	// The `syslog_ng` source listens for logs over TCP or UDP from a `syslog-ng` server using the syslog protocol.
+	SyslogNg []SourceSyslogNgInitParameters `json:"syslogNg,omitempty" tf:"syslog_ng,omitempty"`
+
+	// (Block List) The websocket source establishes a persistent WebSocket connection to a remote endpoint and ingests log events as they are pushed by the server. (see below for nested schema)
+	// The `websocket` source establishes a persistent WebSocket connection to a remote endpoint and ingests log events as they are pushed by the server.
+	Websocket []WebsocketInitParameters `json:"websocket,omitempty" tf:"websocket,omitempty"`
+}
+
+type ConfigSourceObservation struct {
+
+	// (Block List) The amazon_data_firehose source ingests logs from AWS Data Firehose. (see below for nested schema)
+	// The `amazon_data_firehose` source ingests logs from AWS Data Firehose.
+	AmazonDataFirehose []AmazonDataFirehoseObservation `json:"amazonDataFirehose,omitempty" tf:"amazon_data_firehose,omitempty"`
+
+	// rehydratable format to an Amazon S3 bucket for archiving. (see below for nested schema)
+	// The `amazon_s3` source ingests logs from an Amazon S3 bucket. It supports AWS authentication, TLS encryption, and configurable compression.
+	AmazonS3 []SourceAmazonS3Observation `json:"amazonS3,omitempty" tf:"amazon_s3,omitempty"`
+
+	// (Block List) The datadog_agent source collects logs from the Datadog Agent. (see below for nested schema)
+	// The `datadog_agent` source collects logs from the Datadog Agent.
+	DatadogAgent []DatadogAgentObservation `json:"datadogAgent,omitempty" tf:"datadog_agent,omitempty"`
+
+	// (Block List) The fluent_bit source ingests logs from Fluent Bit. (see below for nested schema)
+	// The `fluent_bit` source ingests logs from Fluent Bit.
+	FluentBit []FluentBitObservation `json:"fluentBit,omitempty" tf:"fluent_bit,omitempty"`
+
+	// compatible service. (see below for nested schema)
+	// The `fluentd` source ingests logs from a Fluentd-compatible service.
+	Fluentd []FluentdObservation `json:"fluentd,omitempty" tf:"fluentd,omitempty"`
+
+	// (Block List) The google_pubsub destination publishes logs to a Google Cloud Pub/Sub topic. (see below for nested schema)
+	// The `google_pubsub` source ingests logs from a Google Cloud Pub/Sub subscription.
+	GooglePubsub []SourceGooglePubsubObservation `json:"googlePubsub,omitempty" tf:"google_pubsub,omitempty"`
+
+	// (Block List) The http_client destination sends data to an HTTP endpoint. (see below for nested schema)
+	// The `http_client` source scrapes logs from HTTP endpoints at regular intervals.
+	HTTPClient []SourceHTTPClientObservation `json:"httpClient,omitempty" tf:"http_client,omitempty"`
+
+	// (Block List) The http_server source collects logs over HTTP POST from external services. (see below for nested schema)
+	// The `http_server` source collects logs over HTTP POST from external services.
+	HTTPServer []HTTPServerObservation `json:"httpServer,omitempty" tf:"http_server,omitempty"`
+
+	// (String) The ID of this resource.
+	// The unique identifier for this source.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (Block List) The kafka destination sends logs to Apache Kafka topics. (see below for nested schema)
+	// The `kafka` source ingests data from Apache Kafka topics.
+	Kafka []SourceKafkaObservation `json:"kafka,omitempty" tf:"kafka,omitempty"`
+
+	// (Block List) The logstash source ingests logs from a Logstash forwarder. (see below for nested schema)
+	// The `logstash` source ingests logs from a Logstash forwarder.
+	Logstash []LogstashObservation `json:"logstash,omitempty" tf:"logstash,omitempty"`
+
+	// (Block List) The opentelemetry destination forwards metrics or traces using the OpenTelemetry Protocol (OTLP) over HTTP. (see below for nested schema)
+	// The `opentelemetry` source receives telemetry data using the OpenTelemetry Protocol (OTLP) over gRPC and HTTP.
+	Opentelemetry []SourceOpentelemetryObservation `json:"opentelemetry,omitempty" tf:"opentelemetry,omitempty"`
+
+	// (Block List) The prometheus_remote_write destination sends metrics to a Prometheus Remote Write compatible endpoint. (see below for nested schema)
+	// The `prometheus_remote_write` source ingests metrics pushed over the Prometheus Remote Write protocol.
+	PrometheusRemoteWrite []SourcePrometheusRemoteWriteObservation `json:"prometheusRemoteWrite,omitempty" tf:"prometheus_remote_write,omitempty"`
+
+	// (Block List) The rsyslog destination forwards logs to an external rsyslog server over TCP or UDP using the syslog protocol. (see below for nested schema)
+	// The `rsyslog` source listens for logs over TCP or UDP from an `rsyslog` server using the syslog protocol.
+	Rsyslog []SourceRsyslogObservation `json:"rsyslog,omitempty" tf:"rsyslog,omitempty"`
+
+	// (Block List) The socket destination sends logs over TCP or UDP to a remote server. (see below for nested schema)
+	// The `socket` source ingests logs over TCP or UDP.
+	Socket []SourceSocketObservation `json:"socket,omitempty" tf:"socket,omitempty"`
+
+	// (Block List) The splunk_hec destination forwards logs to Splunk using the HTTP Event Collector (HEC). (see below for nested schema)
+	// The `splunk_hec` source implements the Splunk HTTP Event Collector (HEC) API.
+	SplunkHec []SourceSplunkHecObservation `json:"splunkHec,omitempty" tf:"splunk_hec,omitempty"`
+
+	// (Block List) The splunk_tcp source receives logs from a Splunk Universal Forwarder over TCP. TLS is supported for secure transmission. (see below for nested schema)
+	// The `splunk_tcp` source receives logs from a Splunk Universal Forwarder over TCP. TLS is supported for secure transmission.
+	SplunkTCP []SplunkTCPObservation `json:"splunkTcp,omitempty" tf:"splunk_tcp,omitempty"`
+
+	// (Block List) The sumo_logic destination forwards logs to Sumo Logic. (see below for nested schema)
+	// The `sumo_logic` source receives logs from Sumo Logic collectors.
+	SumoLogic []SourceSumoLogicObservation `json:"sumoLogic,omitempty" tf:"sumo_logic,omitempty"`
+
+	// ng server over TCP or UDP using the syslog protocol. (see below for nested schema)
+	// The `syslog_ng` source listens for logs over TCP or UDP from a `syslog-ng` server using the syslog protocol.
+	SyslogNg []SourceSyslogNgObservation `json:"syslogNg,omitempty" tf:"syslog_ng,omitempty"`
+
+	// (Block List) The websocket source establishes a persistent WebSocket connection to a remote endpoint and ingests log events as they are pushed by the server. (see below for nested schema)
+	// The `websocket` source establishes a persistent WebSocket connection to a remote endpoint and ingests log events as they are pushed by the server.
+	Websocket []WebsocketObservation `json:"websocket,omitempty" tf:"websocket,omitempty"`
+}
+
+type ConfigSourceParameters struct {
+
+	// (Block List) The amazon_data_firehose source ingests logs from AWS Data Firehose. (see below for nested schema)
+	// The `amazon_data_firehose` source ingests logs from AWS Data Firehose.
+	// +kubebuilder:validation:Optional
+	AmazonDataFirehose []AmazonDataFirehoseParameters `json:"amazonDataFirehose,omitempty" tf:"amazon_data_firehose,omitempty"`
+
+	// rehydratable format to an Amazon S3 bucket for archiving. (see below for nested schema)
+	// The `amazon_s3` source ingests logs from an Amazon S3 bucket. It supports AWS authentication, TLS encryption, and configurable compression.
+	// +kubebuilder:validation:Optional
+	AmazonS3 []SourceAmazonS3Parameters `json:"amazonS3,omitempty" tf:"amazon_s3,omitempty"`
+
+	// (Block List) The datadog_agent source collects logs from the Datadog Agent. (see below for nested schema)
+	// The `datadog_agent` source collects logs from the Datadog Agent.
+	// +kubebuilder:validation:Optional
+	DatadogAgent []DatadogAgentParameters `json:"datadogAgent,omitempty" tf:"datadog_agent,omitempty"`
+
+	// (Block List) The fluent_bit source ingests logs from Fluent Bit. (see below for nested schema)
+	// The `fluent_bit` source ingests logs from Fluent Bit.
+	// +kubebuilder:validation:Optional
+	FluentBit []FluentBitParameters `json:"fluentBit,omitempty" tf:"fluent_bit,omitempty"`
+
+	// compatible service. (see below for nested schema)
+	// The `fluentd` source ingests logs from a Fluentd-compatible service.
+	// +kubebuilder:validation:Optional
+	Fluentd []FluentdParameters `json:"fluentd,omitempty" tf:"fluentd,omitempty"`
+
+	// (Block List) The google_pubsub destination publishes logs to a Google Cloud Pub/Sub topic. (see below for nested schema)
+	// The `google_pubsub` source ingests logs from a Google Cloud Pub/Sub subscription.
+	// +kubebuilder:validation:Optional
+	GooglePubsub []SourceGooglePubsubParameters `json:"googlePubsub,omitempty" tf:"google_pubsub,omitempty"`
+
+	// (Block List) The http_client destination sends data to an HTTP endpoint. (see below for nested schema)
+	// The `http_client` source scrapes logs from HTTP endpoints at regular intervals.
+	// +kubebuilder:validation:Optional
+	HTTPClient []SourceHTTPClientParameters `json:"httpClient,omitempty" tf:"http_client,omitempty"`
+
+	// (Block List) The http_server source collects logs over HTTP POST from external services. (see below for nested schema)
+	// The `http_server` source collects logs over HTTP POST from external services.
+	// +kubebuilder:validation:Optional
+	HTTPServer []HTTPServerParameters `json:"httpServer,omitempty" tf:"http_server,omitempty"`
+
+	// (String) The ID of this resource.
+	// The unique identifier for this source.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+
+	// (Block List) The kafka destination sends logs to Apache Kafka topics. (see below for nested schema)
+	// The `kafka` source ingests data from Apache Kafka topics.
+	// +kubebuilder:validation:Optional
+	Kafka []SourceKafkaParameters `json:"kafka,omitempty" tf:"kafka,omitempty"`
+
+	// (Block List) The logstash source ingests logs from a Logstash forwarder. (see below for nested schema)
+	// The `logstash` source ingests logs from a Logstash forwarder.
+	// +kubebuilder:validation:Optional
+	Logstash []LogstashParameters `json:"logstash,omitempty" tf:"logstash,omitempty"`
+
+	// (Block List) The opentelemetry destination forwards metrics or traces using the OpenTelemetry Protocol (OTLP) over HTTP. (see below for nested schema)
+	// The `opentelemetry` source receives telemetry data using the OpenTelemetry Protocol (OTLP) over gRPC and HTTP.
+	// +kubebuilder:validation:Optional
+	Opentelemetry []SourceOpentelemetryParameters `json:"opentelemetry,omitempty" tf:"opentelemetry,omitempty"`
+
+	// (Block List) The prometheus_remote_write destination sends metrics to a Prometheus Remote Write compatible endpoint. (see below for nested schema)
+	// The `prometheus_remote_write` source ingests metrics pushed over the Prometheus Remote Write protocol.
+	// +kubebuilder:validation:Optional
+	PrometheusRemoteWrite []SourcePrometheusRemoteWriteParameters `json:"prometheusRemoteWrite,omitempty" tf:"prometheus_remote_write,omitempty"`
+
+	// (Block List) The rsyslog destination forwards logs to an external rsyslog server over TCP or UDP using the syslog protocol. (see below for nested schema)
+	// The `rsyslog` source listens for logs over TCP or UDP from an `rsyslog` server using the syslog protocol.
+	// +kubebuilder:validation:Optional
+	Rsyslog []SourceRsyslogParameters `json:"rsyslog,omitempty" tf:"rsyslog,omitempty"`
+
+	// (Block List) The socket destination sends logs over TCP or UDP to a remote server. (see below for nested schema)
+	// The `socket` source ingests logs over TCP or UDP.
+	// +kubebuilder:validation:Optional
+	Socket []SourceSocketParameters `json:"socket,omitempty" tf:"socket,omitempty"`
+
+	// (Block List) The splunk_hec destination forwards logs to Splunk using the HTTP Event Collector (HEC). (see below for nested schema)
+	// The `splunk_hec` source implements the Splunk HTTP Event Collector (HEC) API.
+	// +kubebuilder:validation:Optional
+	SplunkHec []SourceSplunkHecParameters `json:"splunkHec,omitempty" tf:"splunk_hec,omitempty"`
+
+	// (Block List) The splunk_tcp source receives logs from a Splunk Universal Forwarder over TCP. TLS is supported for secure transmission. (see below for nested schema)
+	// The `splunk_tcp` source receives logs from a Splunk Universal Forwarder over TCP. TLS is supported for secure transmission.
+	// +kubebuilder:validation:Optional
+	SplunkTCP []SplunkTCPParameters `json:"splunkTcp,omitempty" tf:"splunk_tcp,omitempty"`
+
+	// (Block List) The sumo_logic destination forwards logs to Sumo Logic. (see below for nested schema)
+	// The `sumo_logic` source receives logs from Sumo Logic collectors.
+	// +kubebuilder:validation:Optional
+	SumoLogic []SourceSumoLogicParameters `json:"sumoLogic,omitempty" tf:"sumo_logic,omitempty"`
+
+	// ng server over TCP or UDP using the syslog protocol. (see below for nested schema)
+	// The `syslog_ng` source listens for logs over TCP or UDP from a `syslog-ng` server using the syslog protocol.
+	// +kubebuilder:validation:Optional
+	SyslogNg []SourceSyslogNgParameters `json:"syslogNg,omitempty" tf:"syslog_ng,omitempty"`
+
+	// (Block List) The websocket source establishes a persistent WebSocket connection to a remote endpoint and ingests log events as they are pushed by the server. (see below for nested schema)
+	// The `websocket` source establishes a persistent WebSocket connection to a remote endpoint and ingests log events as they are pushed by the server.
+	// +kubebuilder:validation:Optional
+	Websocket []WebsocketParameters `json:"websocket,omitempty" tf:"websocket,omitempty"`
 }
 
 type CrowdstrikeNextGenSiemBufferDiskInitParameters struct {
@@ -2725,7 +3629,7 @@ type CrowdstrikeNextGenSiemInitParameters struct {
 	// Encoding format for log events. Valid values are `json`, `raw_message`.
 	Encoding *string `json:"encoding,omitempty" tf:"encoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -2752,7 +3656,7 @@ type CrowdstrikeNextGenSiemObservation struct {
 	// Encoding format for log events. Valid values are `json`, `raw_message`.
 	Encoding *string `json:"encoding,omitempty" tf:"encoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -2782,7 +3686,7 @@ type CrowdstrikeNextGenSiemParameters struct {
 	// +kubebuilder:validation:Optional
 	Encoding *string `json:"encoding" tf:"encoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the endpoint URL.
 	// +kubebuilder:validation:Optional
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
@@ -3101,81 +4005,55 @@ type CustomProcessorParameters struct {
 
 type DataStreamInitParameters struct {
 
-	// (Boolean) When true, automatically routes events to the appropriate data stream based on the event content.
-	// When `true`, automatically routes events to the appropriate data stream based on the event content.
-	AutoRouting *bool `json:"autoRouting,omitempty" tf:"auto_routing,omitempty"`
-
-	// (String) The data stream dataset. This groups events by their source or application.
-	// The data stream dataset. This groups events by their source or application.
+	// (String) The data stream dataset for your logs. This groups logs by their source or application.
+	// The data stream dataset for your logs. This groups logs by their source or application.
 	Dataset *string `json:"dataset,omitempty" tf:"dataset,omitempty"`
 
-	// (String) The data stream type. This determines how events are categorized within the data stream.
-	// The data stream type. This determines how events are categorized within the data stream.
+	// (String) The data stream type for your logs. This determines how logs are categorized within the data stream.
+	// The data stream type for your logs. This determines how logs are categorized within the data stream.
 	Dtype *string `json:"dtype,omitempty" tf:"dtype,omitempty"`
 
-	// (String) The data stream namespace. This separates events into different environments or domains.
-	// The data stream namespace. This separates events into different environments or domains.
+	// (String) The data stream namespace for your logs. This separates logs into different environments or domains.
+	// The data stream namespace for your logs. This separates logs into different environments or domains.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
-
-	// (Boolean) When true, synchronizes data stream fields with the Elasticsearch index mapping.
-	// When `true`, synchronizes data stream fields with the Elasticsearch index mapping.
-	SyncFields *bool `json:"syncFields,omitempty" tf:"sync_fields,omitempty"`
 }
 
 type DataStreamObservation struct {
 
-	// (Boolean) When true, automatically routes events to the appropriate data stream based on the event content.
-	// When `true`, automatically routes events to the appropriate data stream based on the event content.
-	AutoRouting *bool `json:"autoRouting,omitempty" tf:"auto_routing,omitempty"`
-
-	// (String) The data stream dataset. This groups events by their source or application.
-	// The data stream dataset. This groups events by their source or application.
+	// (String) The data stream dataset for your logs. This groups logs by their source or application.
+	// The data stream dataset for your logs. This groups logs by their source or application.
 	Dataset *string `json:"dataset,omitempty" tf:"dataset,omitempty"`
 
-	// (String) The data stream type. This determines how events are categorized within the data stream.
-	// The data stream type. This determines how events are categorized within the data stream.
+	// (String) The data stream type for your logs. This determines how logs are categorized within the data stream.
+	// The data stream type for your logs. This determines how logs are categorized within the data stream.
 	Dtype *string `json:"dtype,omitempty" tf:"dtype,omitempty"`
 
-	// (String) The data stream namespace. This separates events into different environments or domains.
-	// The data stream namespace. This separates events into different environments or domains.
+	// (String) The data stream namespace for your logs. This separates logs into different environments or domains.
+	// The data stream namespace for your logs. This separates logs into different environments or domains.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
-
-	// (Boolean) When true, synchronizes data stream fields with the Elasticsearch index mapping.
-	// When `true`, synchronizes data stream fields with the Elasticsearch index mapping.
-	SyncFields *bool `json:"syncFields,omitempty" tf:"sync_fields,omitempty"`
 }
 
 type DataStreamParameters struct {
 
-	// (Boolean) When true, automatically routes events to the appropriate data stream based on the event content.
-	// When `true`, automatically routes events to the appropriate data stream based on the event content.
-	// +kubebuilder:validation:Optional
-	AutoRouting *bool `json:"autoRouting,omitempty" tf:"auto_routing,omitempty"`
-
-	// (String) The data stream dataset. This groups events by their source or application.
-	// The data stream dataset. This groups events by their source or application.
+	// (String) The data stream dataset for your logs. This groups logs by their source or application.
+	// The data stream dataset for your logs. This groups logs by their source or application.
 	// +kubebuilder:validation:Optional
 	Dataset *string `json:"dataset,omitempty" tf:"dataset,omitempty"`
 
-	// (String) The data stream type. This determines how events are categorized within the data stream.
-	// The data stream type. This determines how events are categorized within the data stream.
+	// (String) The data stream type for your logs. This determines how logs are categorized within the data stream.
+	// The data stream type for your logs. This determines how logs are categorized within the data stream.
 	// +kubebuilder:validation:Optional
 	Dtype *string `json:"dtype,omitempty" tf:"dtype,omitempty"`
 
-	// (String) The data stream namespace. This separates events into different environments or domains.
-	// The data stream namespace. This separates events into different environments or domains.
+	// (String) The data stream namespace for your logs. This separates logs into different environments or domains.
+	// The data stream namespace for your logs. This separates logs into different environments or domains.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
-
-	// (Boolean) When true, synchronizes data stream fields with the Elasticsearch index mapping.
-	// When `true`, synchronizes data stream fields with the Elasticsearch index mapping.
-	// +kubebuilder:validation:Optional
-	SyncFields *bool `json:"syncFields,omitempty" tf:"sync_fields,omitempty"`
 }
 
 type DatabricksZerobusAuthInitParameters struct {
 
-	// (String) The OAuth client ID used to authenticate with Databricks.
+	// (String) The client ID of the Microsoft Entra application. If omitted, it is read from the environment.
 	// The OAuth client ID used to authenticate with Databricks.
 	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
 
@@ -3186,7 +4064,7 @@ type DatabricksZerobusAuthInitParameters struct {
 
 type DatabricksZerobusAuthObservation struct {
 
-	// (String) The OAuth client ID used to authenticate with Databricks.
+	// (String) The client ID of the Microsoft Entra application. If omitted, it is read from the environment.
 	// The OAuth client ID used to authenticate with Databricks.
 	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
 
@@ -3197,7 +4075,7 @@ type DatabricksZerobusAuthObservation struct {
 
 type DatabricksZerobusAuthParameters struct {
 
-	// (String) The OAuth client ID used to authenticate with Databricks.
+	// (String) The client ID of the Microsoft Entra application. If omitted, it is read from the environment.
 	// The OAuth client ID used to authenticate with Databricks.
 	// +kubebuilder:validation:Optional
 	ClientID *string `json:"clientId" tf:"client_id,omitempty"`
@@ -3210,11 +4088,11 @@ type DatabricksZerobusAuthParameters struct {
 
 type DatabricksZerobusInitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// OAuth client credentials used to authenticate with Databricks.
 	Auth []DatabricksZerobusAuthInitParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
-	// (String) The name of the secret or environment variable holding the Databricks Zerobus ingestion endpoint URL.
+	// (String) Name of the environment variable or secret that holds the Azure Data Explorer ingestion endpoint URL. Defaults to DESTINATION_AZURE_DATA_EXPLORER_INGESTION_ENDPOINT.
 	// The name of the secret or environment variable holding the Databricks Zerobus ingestion endpoint URL.
 	IngestionEndpointKey *string `json:"ingestionEndpointKey,omitempty" tf:"ingestion_endpoint_key,omitempty"`
 
@@ -3229,11 +4107,11 @@ type DatabricksZerobusInitParameters struct {
 
 type DatabricksZerobusObservation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// OAuth client credentials used to authenticate with Databricks.
 	Auth []DatabricksZerobusAuthObservation `json:"auth,omitempty" tf:"auth,omitempty"`
 
-	// (String) The name of the secret or environment variable holding the Databricks Zerobus ingestion endpoint URL.
+	// (String) Name of the environment variable or secret that holds the Azure Data Explorer ingestion endpoint URL. Defaults to DESTINATION_AZURE_DATA_EXPLORER_INGESTION_ENDPOINT.
 	// The name of the secret or environment variable holding the Databricks Zerobus ingestion endpoint URL.
 	IngestionEndpointKey *string `json:"ingestionEndpointKey,omitempty" tf:"ingestion_endpoint_key,omitempty"`
 
@@ -3248,12 +4126,12 @@ type DatabricksZerobusObservation struct {
 
 type DatabricksZerobusParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// OAuth client credentials used to authenticate with Databricks.
 	// +kubebuilder:validation:Optional
 	Auth []DatabricksZerobusAuthParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
-	// (String) The name of the secret or environment variable holding the Databricks Zerobus ingestion endpoint URL.
+	// (String) Name of the environment variable or secret that holds the Azure Data Explorer ingestion endpoint URL. Defaults to DESTINATION_AZURE_DATA_EXPLORER_INGESTION_ENDPOINT.
 	// The name of the secret or environment variable holding the Databricks Zerobus ingestion endpoint URL.
 	// +kubebuilder:validation:Optional
 	IngestionEndpointKey *string `json:"ingestionEndpointKey,omitempty" tf:"ingestion_endpoint_key,omitempty"`
@@ -3518,13 +4396,144 @@ type DatadogLogsParameters struct {
 	Routes []RoutesParameters `json:"routes,omitempty" tf:"routes,omitempty"`
 }
 
+type DatadogMetricsBufferDiskInitParameters struct {
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the disk buffer (in bytes).
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type DatadogMetricsBufferDiskObservation struct {
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the disk buffer (in bytes).
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type DatadogMetricsBufferDiskParameters struct {
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the disk buffer (in bytes).
+	// +kubebuilder:validation:Optional
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	// +kubebuilder:validation:Optional
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type DatadogMetricsBufferInitParameters struct {
+
+	// (Block List) Options for configuring a disk buffer. Cannot be used with memory. (see below for nested schema)
+	// Options for configuring a disk buffer. Cannot be used with `memory`.
+	Disk []DatadogMetricsBufferDiskInitParameters `json:"disk,omitempty" tf:"disk,omitempty"`
+
+	// (Block List) Options for configuring a memory buffer. Cannot be used with disk. (see below for nested schema)
+	// Options for configuring a memory buffer. Cannot be used with `disk`.
+	Memory []DatadogMetricsBufferMemoryInitParameters `json:"memory,omitempty" tf:"memory,omitempty"`
+}
+
+type DatadogMetricsBufferMemoryInitParameters struct {
+
+	// (Number) Maximum events for the memory buffer.
+	// Maximum events for the memory buffer.
+	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the memory buffer (in bytes).
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type DatadogMetricsBufferMemoryObservation struct {
+
+	// (Number) Maximum events for the memory buffer.
+	// Maximum events for the memory buffer.
+	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the memory buffer (in bytes).
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type DatadogMetricsBufferMemoryParameters struct {
+
+	// (Number) Maximum events for the memory buffer.
+	// Maximum events for the memory buffer.
+	// +kubebuilder:validation:Optional
+	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the memory buffer (in bytes).
+	// +kubebuilder:validation:Optional
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	// +kubebuilder:validation:Optional
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type DatadogMetricsBufferObservation struct {
+
+	// (Block List) Options for configuring a disk buffer. Cannot be used with memory. (see below for nested schema)
+	// Options for configuring a disk buffer. Cannot be used with `memory`.
+	Disk []DatadogMetricsBufferDiskObservation `json:"disk,omitempty" tf:"disk,omitempty"`
+
+	// (Block List) Options for configuring a memory buffer. Cannot be used with disk. (see below for nested schema)
+	// Options for configuring a memory buffer. Cannot be used with `disk`.
+	Memory []DatadogMetricsBufferMemoryObservation `json:"memory,omitempty" tf:"memory,omitempty"`
+}
+
+type DatadogMetricsBufferParameters struct {
+
+	// (Block List) Options for configuring a disk buffer. Cannot be used with memory. (see below for nested schema)
+	// Options for configuring a disk buffer. Cannot be used with `memory`.
+	// +kubebuilder:validation:Optional
+	Disk []DatadogMetricsBufferDiskParameters `json:"disk,omitempty" tf:"disk,omitempty"`
+
+	// (Block List) Options for configuring a memory buffer. Cannot be used with disk. (see below for nested schema)
+	// Options for configuring a memory buffer. Cannot be used with `disk`.
+	// +kubebuilder:validation:Optional
+	Memory []DatadogMetricsBufferMemoryParameters `json:"memory,omitempty" tf:"memory,omitempty"`
+}
+
 type DatadogMetricsInitParameters struct {
+
+	// (Block List) Configuration for buffer settings on destination components. Exactly one of disk or memory must be specified. (see below for nested schema)
+	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
+	Buffer []DatadogMetricsBufferInitParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
 }
 
 type DatadogMetricsObservation struct {
+
+	// (Block List) Configuration for buffer settings on destination components. Exactly one of disk or memory must be specified. (see below for nested schema)
+	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
+	Buffer []DatadogMetricsBufferObservation `json:"buffer,omitempty" tf:"buffer,omitempty"`
 }
 
 type DatadogMetricsParameters struct {
+
+	// (Block List) Configuration for buffer settings on destination components. Exactly one of disk or memory must be specified. (see below for nested schema)
+	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
+	// +kubebuilder:validation:Optional
+	Buffer []DatadogMetricsBufferParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
 }
 
 type DatadogTagsInitParameters struct {
@@ -3570,6 +4579,146 @@ type DatadogTagsParameters struct {
 	// Valid values are `filter`.
 	// +kubebuilder:validation:Optional
 	Mode *string `json:"mode" tf:"mode,omitempty"`
+}
+
+type DatadogTracesBufferDiskInitParameters struct {
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the disk buffer (in bytes).
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type DatadogTracesBufferDiskObservation struct {
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the disk buffer (in bytes).
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type DatadogTracesBufferDiskParameters struct {
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the disk buffer (in bytes).
+	// +kubebuilder:validation:Optional
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	// +kubebuilder:validation:Optional
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type DatadogTracesBufferInitParameters struct {
+
+	// (Block List) Options for configuring a disk buffer. Cannot be used with memory. (see below for nested schema)
+	// Options for configuring a disk buffer. Cannot be used with `memory`.
+	Disk []DatadogTracesBufferDiskInitParameters `json:"disk,omitempty" tf:"disk,omitempty"`
+
+	// (Block List) Options for configuring a memory buffer. Cannot be used with disk. (see below for nested schema)
+	// Options for configuring a memory buffer. Cannot be used with `disk`.
+	Memory []DatadogTracesBufferMemoryInitParameters `json:"memory,omitempty" tf:"memory,omitempty"`
+}
+
+type DatadogTracesBufferMemoryInitParameters struct {
+
+	// (Number) Maximum events for the memory buffer.
+	// Maximum events for the memory buffer.
+	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the memory buffer (in bytes).
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type DatadogTracesBufferMemoryObservation struct {
+
+	// (Number) Maximum events for the memory buffer.
+	// Maximum events for the memory buffer.
+	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the memory buffer (in bytes).
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type DatadogTracesBufferMemoryParameters struct {
+
+	// (Number) Maximum events for the memory buffer.
+	// Maximum events for the memory buffer.
+	// +kubebuilder:validation:Optional
+	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the memory buffer (in bytes).
+	// +kubebuilder:validation:Optional
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	// +kubebuilder:validation:Optional
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type DatadogTracesBufferObservation struct {
+
+	// (Block List) Options for configuring a disk buffer. Cannot be used with memory. (see below for nested schema)
+	// Options for configuring a disk buffer. Cannot be used with `memory`.
+	Disk []DatadogTracesBufferDiskObservation `json:"disk,omitempty" tf:"disk,omitempty"`
+
+	// (Block List) Options for configuring a memory buffer. Cannot be used with disk. (see below for nested schema)
+	// Options for configuring a memory buffer. Cannot be used with `disk`.
+	Memory []DatadogTracesBufferMemoryObservation `json:"memory,omitempty" tf:"memory,omitempty"`
+}
+
+type DatadogTracesBufferParameters struct {
+
+	// (Block List) Options for configuring a disk buffer. Cannot be used with memory. (see below for nested schema)
+	// Options for configuring a disk buffer. Cannot be used with `memory`.
+	// +kubebuilder:validation:Optional
+	Disk []DatadogTracesBufferDiskParameters `json:"disk,omitempty" tf:"disk,omitempty"`
+
+	// (Block List) Options for configuring a memory buffer. Cannot be used with disk. (see below for nested schema)
+	// Options for configuring a memory buffer. Cannot be used with `disk`.
+	// +kubebuilder:validation:Optional
+	Memory []DatadogTracesBufferMemoryParameters `json:"memory,omitempty" tf:"memory,omitempty"`
+}
+
+type DatadogTracesInitParameters struct {
+
+	// (Block List) Configuration for buffer settings on destination components. Exactly one of disk or memory must be specified. (see below for nested schema)
+	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
+	Buffer []DatadogTracesBufferInitParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
+}
+
+type DatadogTracesObservation struct {
+
+	// (Block List) Configuration for buffer settings on destination components. Exactly one of disk or memory must be specified. (see below for nested schema)
+	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
+	Buffer []DatadogTracesBufferObservation `json:"buffer,omitempty" tf:"buffer,omitempty"`
+}
+
+type DatadogTracesParameters struct {
+
+	// (Block List) Configuration for buffer settings on destination components. Exactly one of disk or memory must be specified. (see below for nested schema)
+	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
+	// +kubebuilder:validation:Optional
+	Buffer []DatadogTracesBufferParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
 }
 
 type DedupeInitParameters struct {
@@ -3625,6 +4774,10 @@ type DestinationInitParameters struct {
 	// The `amazon_security_lake` destination sends your logs to Amazon Security Lake.
 	AmazonSecurityLake []AmazonSecurityLakeInitParameters `json:"amazonSecurityLake,omitempty" tf:"amazon_security_lake,omitempty"`
 
+	// (Block List) The azure_data_explorer destination sends log events to an Azure Data Explorer table. (see below for nested schema)
+	// The `azure_data_explorer` destination sends log events to an Azure Data Explorer table.
+	AzureDataExplorer []AzureDataExplorerInitParameters `json:"azureDataExplorer,omitempty" tf:"azure_data_explorer,omitempty"`
+
 	// (Block List) The azure_storage destination forwards logs to an Azure Blob Storage container. (see below for nested schema)
 	// The `azure_storage` destination forwards logs to an Azure Blob Storage container.
 	AzureStorage []AzureStorageInitParameters `json:"azureStorage,omitempty" tf:"azure_storage,omitempty"`
@@ -3652,6 +4805,10 @@ type DestinationInitParameters struct {
 	// (Block List) The datadog_metrics destination forwards metrics to Datadog. (see below for nested schema)
 	// The `datadog_metrics` destination forwards metrics to Datadog.
 	DatadogMetrics []DatadogMetricsInitParameters `json:"datadogMetrics,omitempty" tf:"datadog_metrics,omitempty"`
+
+	// (Block List) The datadog_traces destination forwards traces to Datadog. (see below for nested schema)
+	// The `datadog_traces` destination forwards traces to Datadog.
+	DatadogTraces []DatadogTracesInitParameters `json:"datadogTraces,omitempty" tf:"datadog_traces,omitempty"`
 
 	// (Block List) The elasticsearch destination writes logs or metrics to an Elasticsearch cluster. (see below for nested schema)
 	// The `elasticsearch` destination writes logs or metrics to an Elasticsearch cluster.
@@ -3697,9 +4854,13 @@ type DestinationInitParameters struct {
 	// The `opensearch` destination writes logs to an OpenSearch cluster.
 	Opensearch []OpensearchInitParameters `json:"opensearch,omitempty" tf:"opensearch,omitempty"`
 
-	// (Block List) The opentelemetry destination forwards metrics using the OpenTelemetry Protocol (OTLP) over HTTP. (see below for nested schema)
-	// The `opentelemetry` destination forwards metrics using the OpenTelemetry Protocol (OTLP) over HTTP.
+	// (Block List) The opentelemetry destination forwards metrics or traces using the OpenTelemetry Protocol (OTLP) over HTTP. (see below for nested schema)
+	// The `opentelemetry` destination forwards metrics or traces using the OpenTelemetry Protocol (OTLP) over HTTP.
 	Opentelemetry []OpentelemetryInitParameters `json:"opentelemetry,omitempty" tf:"opentelemetry,omitempty"`
+
+	// (Block List) The prometheus_remote_write destination sends metrics to a Prometheus Remote Write compatible endpoint. (see below for nested schema)
+	// The `prometheus_remote_write` destination sends metrics to a Prometheus Remote Write compatible endpoint.
+	PrometheusRemoteWrite []PrometheusRemoteWriteInitParameters `json:"prometheusRemoteWrite,omitempty" tf:"prometheus_remote_write,omitempty"`
 
 	// (Block List) The rsyslog destination forwards logs to an external rsyslog server over TCP or UDP using the syslog protocol. (see below for nested schema)
 	// The `rsyslog` destination forwards logs to an external `rsyslog` server over TCP or UDP using the syslog protocol.
@@ -3748,6 +4909,10 @@ type DestinationObservation struct {
 	// The `amazon_security_lake` destination sends your logs to Amazon Security Lake.
 	AmazonSecurityLake []AmazonSecurityLakeObservation `json:"amazonSecurityLake,omitempty" tf:"amazon_security_lake,omitempty"`
 
+	// (Block List) The azure_data_explorer destination sends log events to an Azure Data Explorer table. (see below for nested schema)
+	// The `azure_data_explorer` destination sends log events to an Azure Data Explorer table.
+	AzureDataExplorer []AzureDataExplorerObservation `json:"azureDataExplorer,omitempty" tf:"azure_data_explorer,omitempty"`
+
 	// (Block List) The azure_storage destination forwards logs to an Azure Blob Storage container. (see below for nested schema)
 	// The `azure_storage` destination forwards logs to an Azure Blob Storage container.
 	AzureStorage []AzureStorageObservation `json:"azureStorage,omitempty" tf:"azure_storage,omitempty"`
@@ -3774,7 +4939,11 @@ type DestinationObservation struct {
 
 	// (Block List) The datadog_metrics destination forwards metrics to Datadog. (see below for nested schema)
 	// The `datadog_metrics` destination forwards metrics to Datadog.
-	DatadogMetrics []DatadogMetricsParameters `json:"datadogMetrics,omitempty" tf:"datadog_metrics,omitempty"`
+	DatadogMetrics []DatadogMetricsObservation `json:"datadogMetrics,omitempty" tf:"datadog_metrics,omitempty"`
+
+	// (Block List) The datadog_traces destination forwards traces to Datadog. (see below for nested schema)
+	// The `datadog_traces` destination forwards traces to Datadog.
+	DatadogTraces []DatadogTracesObservation `json:"datadogTraces,omitempty" tf:"datadog_traces,omitempty"`
 
 	// (Block List) The elasticsearch destination writes logs or metrics to an Elasticsearch cluster. (see below for nested schema)
 	// The `elasticsearch` destination writes logs or metrics to an Elasticsearch cluster.
@@ -3820,9 +4989,13 @@ type DestinationObservation struct {
 	// The `opensearch` destination writes logs to an OpenSearch cluster.
 	Opensearch []OpensearchObservation `json:"opensearch,omitempty" tf:"opensearch,omitempty"`
 
-	// (Block List) The opentelemetry destination forwards metrics using the OpenTelemetry Protocol (OTLP) over HTTP. (see below for nested schema)
-	// The `opentelemetry` destination forwards metrics using the OpenTelemetry Protocol (OTLP) over HTTP.
+	// (Block List) The opentelemetry destination forwards metrics or traces using the OpenTelemetry Protocol (OTLP) over HTTP. (see below for nested schema)
+	// The `opentelemetry` destination forwards metrics or traces using the OpenTelemetry Protocol (OTLP) over HTTP.
 	Opentelemetry []OpentelemetryObservation `json:"opentelemetry,omitempty" tf:"opentelemetry,omitempty"`
+
+	// (Block List) The prometheus_remote_write destination sends metrics to a Prometheus Remote Write compatible endpoint. (see below for nested schema)
+	// The `prometheus_remote_write` destination sends metrics to a Prometheus Remote Write compatible endpoint.
+	PrometheusRemoteWrite []PrometheusRemoteWriteObservation `json:"prometheusRemoteWrite,omitempty" tf:"prometheus_remote_write,omitempty"`
 
 	// (Block List) The rsyslog destination forwards logs to an external rsyslog server over TCP or UDP using the syslog protocol. (see below for nested schema)
 	// The `rsyslog` destination forwards logs to an external `rsyslog` server over TCP or UDP using the syslog protocol.
@@ -3875,6 +5048,11 @@ type DestinationParameters struct {
 	// +kubebuilder:validation:Optional
 	AmazonSecurityLake []AmazonSecurityLakeParameters `json:"amazonSecurityLake,omitempty" tf:"amazon_security_lake,omitempty"`
 
+	// (Block List) The azure_data_explorer destination sends log events to an Azure Data Explorer table. (see below for nested schema)
+	// The `azure_data_explorer` destination sends log events to an Azure Data Explorer table.
+	// +kubebuilder:validation:Optional
+	AzureDataExplorer []AzureDataExplorerParameters `json:"azureDataExplorer,omitempty" tf:"azure_data_explorer,omitempty"`
+
 	// (Block List) The azure_storage destination forwards logs to an Azure Blob Storage container. (see below for nested schema)
 	// The `azure_storage` destination forwards logs to an Azure Blob Storage container.
 	// +kubebuilder:validation:Optional
@@ -3909,6 +5087,11 @@ type DestinationParameters struct {
 	// The `datadog_metrics` destination forwards metrics to Datadog.
 	// +kubebuilder:validation:Optional
 	DatadogMetrics []DatadogMetricsParameters `json:"datadogMetrics,omitempty" tf:"datadog_metrics,omitempty"`
+
+	// (Block List) The datadog_traces destination forwards traces to Datadog. (see below for nested schema)
+	// The `datadog_traces` destination forwards traces to Datadog.
+	// +kubebuilder:validation:Optional
+	DatadogTraces []DatadogTracesParameters `json:"datadogTraces,omitempty" tf:"datadog_traces,omitempty"`
 
 	// (Block List) The elasticsearch destination writes logs or metrics to an Elasticsearch cluster. (see below for nested schema)
 	// The `elasticsearch` destination writes logs or metrics to an Elasticsearch cluster.
@@ -3965,10 +5148,15 @@ type DestinationParameters struct {
 	// +kubebuilder:validation:Optional
 	Opensearch []OpensearchParameters `json:"opensearch,omitempty" tf:"opensearch,omitempty"`
 
-	// (Block List) The opentelemetry destination forwards metrics using the OpenTelemetry Protocol (OTLP) over HTTP. (see below for nested schema)
-	// The `opentelemetry` destination forwards metrics using the OpenTelemetry Protocol (OTLP) over HTTP.
+	// (Block List) The opentelemetry destination forwards metrics or traces using the OpenTelemetry Protocol (OTLP) over HTTP. (see below for nested schema)
+	// The `opentelemetry` destination forwards metrics or traces using the OpenTelemetry Protocol (OTLP) over HTTP.
 	// +kubebuilder:validation:Optional
 	Opentelemetry []OpentelemetryParameters `json:"opentelemetry,omitempty" tf:"opentelemetry,omitempty"`
+
+	// (Block List) The prometheus_remote_write destination sends metrics to a Prometheus Remote Write compatible endpoint. (see below for nested schema)
+	// The `prometheus_remote_write` destination sends metrics to a Prometheus Remote Write compatible endpoint.
+	// +kubebuilder:validation:Optional
+	PrometheusRemoteWrite []PrometheusRemoteWriteParameters `json:"prometheusRemoteWrite,omitempty" tf:"prometheus_remote_write,omitempty"`
 
 	// (Block List) The rsyslog destination forwards logs to an external rsyslog server over TCP or UDP using the syslog protocol. (see below for nested schema)
 	// The `rsyslog` destination forwards logs to an external `rsyslog` server over TCP or UDP using the syslog protocol.
@@ -4043,7 +5231,7 @@ type DiskParameters struct {
 
 type ElasticsearchAuthInitParameters struct {
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the Elasticsearch password (used when `strategy` is `basic`).
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
@@ -4051,14 +5239,14 @@ type ElasticsearchAuthInitParameters struct {
 	// The authentication strategy to use. Valid values are `basic`, `aws`.
 	Strategy *string `json:"strategy,omitempty" tf:"strategy,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the Elasticsearch username (used when `strategy` is `basic`).
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
 
 type ElasticsearchAuthObservation struct {
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the Elasticsearch password (used when `strategy` is `basic`).
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
@@ -4066,14 +5254,14 @@ type ElasticsearchAuthObservation struct {
 	// The authentication strategy to use. Valid values are `basic`, `aws`.
 	Strategy *string `json:"strategy,omitempty" tf:"strategy,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the Elasticsearch username (used when `strategy` is `basic`).
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
 
 type ElasticsearchAuthParameters struct {
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the Elasticsearch password (used when `strategy` is `basic`).
 	// +kubebuilder:validation:Optional
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
@@ -4083,7 +5271,7 @@ type ElasticsearchAuthParameters struct {
 	// +kubebuilder:validation:Optional
 	Strategy *string `json:"strategy" tf:"strategy,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the Elasticsearch username (used when `strategy` is `basic`).
 	// +kubebuilder:validation:Optional
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
@@ -4242,13 +5430,87 @@ type ElasticsearchCompressionParameters struct {
 	Level *float64 `json:"level,omitempty" tf:"level,omitempty"`
 }
 
+type ElasticsearchDataStreamInitParameters struct {
+
+	// (Boolean) When true, automatically routes events to the appropriate data stream based on the event content.
+	// When `true`, automatically routes events to the appropriate data stream based on the event content.
+	AutoRouting *bool `json:"autoRouting,omitempty" tf:"auto_routing,omitempty"`
+
+	// (String) The data stream dataset for your logs. This groups logs by their source or application.
+	// The data stream dataset. This groups events by their source or application.
+	Dataset *string `json:"dataset,omitempty" tf:"dataset,omitempty"`
+
+	// (String) The data stream type for your logs. This determines how logs are categorized within the data stream.
+	// The data stream type. This determines how events are categorized within the data stream.
+	Dtype *string `json:"dtype,omitempty" tf:"dtype,omitempty"`
+
+	// (String) The data stream namespace for your logs. This separates logs into different environments or domains.
+	// The data stream namespace. This separates events into different environments or domains.
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// (Boolean) When true, synchronizes data stream fields with the Elasticsearch index mapping.
+	// When `true`, synchronizes data stream fields with the Elasticsearch index mapping.
+	SyncFields *bool `json:"syncFields,omitempty" tf:"sync_fields,omitempty"`
+}
+
+type ElasticsearchDataStreamObservation struct {
+
+	// (Boolean) When true, automatically routes events to the appropriate data stream based on the event content.
+	// When `true`, automatically routes events to the appropriate data stream based on the event content.
+	AutoRouting *bool `json:"autoRouting,omitempty" tf:"auto_routing,omitempty"`
+
+	// (String) The data stream dataset for your logs. This groups logs by their source or application.
+	// The data stream dataset. This groups events by their source or application.
+	Dataset *string `json:"dataset,omitempty" tf:"dataset,omitempty"`
+
+	// (String) The data stream type for your logs. This determines how logs are categorized within the data stream.
+	// The data stream type. This determines how events are categorized within the data stream.
+	Dtype *string `json:"dtype,omitempty" tf:"dtype,omitempty"`
+
+	// (String) The data stream namespace for your logs. This separates logs into different environments or domains.
+	// The data stream namespace. This separates events into different environments or domains.
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// (Boolean) When true, synchronizes data stream fields with the Elasticsearch index mapping.
+	// When `true`, synchronizes data stream fields with the Elasticsearch index mapping.
+	SyncFields *bool `json:"syncFields,omitempty" tf:"sync_fields,omitempty"`
+}
+
+type ElasticsearchDataStreamParameters struct {
+
+	// (Boolean) When true, automatically routes events to the appropriate data stream based on the event content.
+	// When `true`, automatically routes events to the appropriate data stream based on the event content.
+	// +kubebuilder:validation:Optional
+	AutoRouting *bool `json:"autoRouting,omitempty" tf:"auto_routing,omitempty"`
+
+	// (String) The data stream dataset for your logs. This groups logs by their source or application.
+	// The data stream dataset. This groups events by their source or application.
+	// +kubebuilder:validation:Optional
+	Dataset *string `json:"dataset,omitempty" tf:"dataset,omitempty"`
+
+	// (String) The data stream type for your logs. This determines how logs are categorized within the data stream.
+	// The data stream type. This determines how events are categorized within the data stream.
+	// +kubebuilder:validation:Optional
+	Dtype *string `json:"dtype,omitempty" tf:"dtype,omitempty"`
+
+	// (String) The data stream namespace for your logs. This separates logs into different environments or domains.
+	// The data stream namespace. This separates events into different environments or domains.
+	// +kubebuilder:validation:Optional
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// (Boolean) When true, synchronizes data stream fields with the Elasticsearch index mapping.
+	// When `true`, synchronizes data stream fields with the Elasticsearch index mapping.
+	// +kubebuilder:validation:Optional
+	SyncFields *bool `json:"syncFields,omitempty" tf:"sync_fields,omitempty"`
+}
+
 type ElasticsearchInitParameters struct {
 
 	// detect. Valid values are auto, v6, v7, v8.
 	// The Elasticsearch API version to use. Set to `auto` to auto-detect. Valid values are `auto`, `v6`, `v7`, `v8`.
 	APIVersion *string `json:"apiVersion,omitempty" tf:"api_version,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Authentication settings for the Elasticsearch destination.
 	Auth []ElasticsearchAuthInitParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -4264,11 +5526,11 @@ type ElasticsearchInitParameters struct {
 	// Compression configuration for the Elasticsearch destination.
 	Compression []ElasticsearchCompressionInitParameters `json:"compression,omitempty" tf:"compression,omitempty"`
 
-	// (Block List) Configuration options for writing to Elasticsearch Data Streams instead of a fixed index. (see below for nested schema)
+	// (Block List) Configuration options for writing to Amazon OpenSearch Data Streams instead of a fixed index. (see below for nested schema)
 	// Configuration options for writing to Elasticsearch Data Streams instead of a fixed index.
-	DataStream []DataStreamInitParameters `json:"dataStream,omitempty" tf:"data_stream,omitempty"`
+	DataStream []ElasticsearchDataStreamInitParameters `json:"dataStream,omitempty" tf:"data_stream,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Elasticsearch endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -4295,7 +5557,7 @@ type ElasticsearchObservation struct {
 	// The Elasticsearch API version to use. Set to `auto` to auto-detect. Valid values are `auto`, `v6`, `v7`, `v8`.
 	APIVersion *string `json:"apiVersion,omitempty" tf:"api_version,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Authentication settings for the Elasticsearch destination.
 	Auth []ElasticsearchAuthObservation `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -4311,11 +5573,11 @@ type ElasticsearchObservation struct {
 	// Compression configuration for the Elasticsearch destination.
 	Compression []ElasticsearchCompressionObservation `json:"compression,omitempty" tf:"compression,omitempty"`
 
-	// (Block List) Configuration options for writing to Elasticsearch Data Streams instead of a fixed index. (see below for nested schema)
+	// (Block List) Configuration options for writing to Amazon OpenSearch Data Streams instead of a fixed index. (see below for nested schema)
 	// Configuration options for writing to Elasticsearch Data Streams instead of a fixed index.
-	DataStream []DataStreamObservation `json:"dataStream,omitempty" tf:"data_stream,omitempty"`
+	DataStream []ElasticsearchDataStreamObservation `json:"dataStream,omitempty" tf:"data_stream,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Elasticsearch endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -4343,7 +5605,7 @@ type ElasticsearchParameters struct {
 	// +kubebuilder:validation:Optional
 	APIVersion *string `json:"apiVersion,omitempty" tf:"api_version,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Authentication settings for the Elasticsearch destination.
 	// +kubebuilder:validation:Optional
 	Auth []ElasticsearchAuthParameters `json:"auth,omitempty" tf:"auth,omitempty"`
@@ -4363,12 +5625,12 @@ type ElasticsearchParameters struct {
 	// +kubebuilder:validation:Optional
 	Compression []ElasticsearchCompressionParameters `json:"compression,omitempty" tf:"compression,omitempty"`
 
-	// (Block List) Configuration options for writing to Elasticsearch Data Streams instead of a fixed index. (see below for nested schema)
+	// (Block List) Configuration options for writing to Amazon OpenSearch Data Streams instead of a fixed index. (see below for nested schema)
 	// Configuration options for writing to Elasticsearch Data Streams instead of a fixed index.
 	// +kubebuilder:validation:Optional
-	DataStream []DataStreamParameters `json:"dataStream,omitempty" tf:"data_stream,omitempty"`
+	DataStream []ElasticsearchDataStreamParameters `json:"dataStream,omitempty" tf:"data_stream,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Elasticsearch endpoint URL.
 	// +kubebuilder:validation:Optional
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
@@ -4690,6 +5952,41 @@ type FileInitParameters struct {
 	// (String) Path to the CSV file.
 	// Path to the CSV file.
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+}
+
+type FileKeyInitParameters struct {
+
+	// (String) The items column.
+	// The CSV column name or index to match against the lookup value.
+	Column *string `json:"column,omitempty" tf:"column,omitempty"`
+
+	// (Block List) List of sources. (see below for nested schema)
+	// Specifies the source of the key value used for metric enrichment table lookups. The lookup key can be either the metric name or a metric tag.
+	Source []SourceInitParameters `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type FileKeyObservation struct {
+
+	// (String) The items column.
+	// The CSV column name or index to match against the lookup value.
+	Column *string `json:"column,omitempty" tf:"column,omitempty"`
+
+	// (Block List) List of sources. (see below for nested schema)
+	// Specifies the source of the key value used for metric enrichment table lookups. The lookup key can be either the metric name or a metric tag.
+	Source []SourceObservation `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type FileKeyParameters struct {
+
+	// (String) The items column.
+	// The CSV column name or index to match against the lookup value.
+	// +kubebuilder:validation:Optional
+	Column *string `json:"column" tf:"column,omitempty"`
+
+	// (Block List) List of sources. (see below for nested schema)
+	// Specifies the source of the key value used for metric enrichment table lookups. The lookup key can be either the metric name or a metric tag.
+	// +kubebuilder:validation:Optional
+	Source []SourceParameters `json:"source,omitempty" tf:"source,omitempty"`
 }
 
 type FileObservation struct {
@@ -5031,6 +6328,10 @@ type GenerateDatadogMetricsParameters struct {
 
 type GenerateMetricsInitParameters struct {
 
+	// (Boolean) [Recommended] Indicates whether generated metrics are automatically aggregated and enriched with the worker_uuid tag before being sent to the metric destination.
+	// [Recommended] Indicates whether generated metrics are automatically aggregated and enriched with the `worker_uuid` tag before being sent to the metric destination.
+	EnabledMetricAggregation *bool `json:"enabledMetricAggregation,omitempty" tf:"enabled_metric_aggregation,omitempty"`
+
 	// (Block List) Configuration for generating individual metrics. (see below for nested schema)
 	// Configuration for generating individual metrics.
 	Metric []GenerateMetricsMetricInitParameters `json:"metric,omitempty" tf:"metric,omitempty"`
@@ -5112,12 +6413,21 @@ type GenerateMetricsMetricParameters struct {
 
 type GenerateMetricsObservation struct {
 
+	// (Boolean) [Recommended] Indicates whether generated metrics are automatically aggregated and enriched with the worker_uuid tag before being sent to the metric destination.
+	// [Recommended] Indicates whether generated metrics are automatically aggregated and enriched with the `worker_uuid` tag before being sent to the metric destination.
+	EnabledMetricAggregation *bool `json:"enabledMetricAggregation,omitempty" tf:"enabled_metric_aggregation,omitempty"`
+
 	// (Block List) Configuration for generating individual metrics. (see below for nested schema)
 	// Configuration for generating individual metrics.
 	Metric []GenerateMetricsMetricObservation `json:"metric,omitempty" tf:"metric,omitempty"`
 }
 
 type GenerateMetricsParameters struct {
+
+	// (Boolean) [Recommended] Indicates whether generated metrics are automatically aggregated and enriched with the worker_uuid tag before being sent to the metric destination.
+	// [Recommended] Indicates whether generated metrics are automatically aggregated and enriched with the `worker_uuid` tag before being sent to the metric destination.
+	// +kubebuilder:validation:Optional
+	EnabledMetricAggregation *bool `json:"enabledMetricAggregation,omitempty" tf:"enabled_metric_aggregation,omitempty"`
 
 	// (Block List) Configuration for generating individual metrics. (see below for nested schema)
 	// Configuration for generating individual metrics.
@@ -5354,7 +6664,7 @@ type GoogleCloudStorageInitParameters struct {
 	// Access control list setting for objects written to the bucket.
 	ACL *string `json:"acl,omitempty" tf:"acl,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Google Cloud credentials used to authenticate with Google Cloud services.
 	Auth []GoogleCloudStorageAuthInitParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -5389,7 +6699,7 @@ type GoogleCloudStorageObservation struct {
 	// Access control list setting for objects written to the bucket.
 	ACL *string `json:"acl,omitempty" tf:"acl,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Google Cloud credentials used to authenticate with Google Cloud services.
 	Auth []GoogleCloudStorageAuthObservation `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -5425,7 +6735,7 @@ type GoogleCloudStorageParameters struct {
 	// +kubebuilder:validation:Optional
 	ACL *string `json:"acl,omitempty" tf:"acl,omitempty"`
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Google Cloud credentials used to authenticate with Google Cloud services.
 	// +kubebuilder:validation:Optional
 	Auth []GoogleCloudStorageAuthParameters `json:"auth,omitempty" tf:"auth,omitempty"`
@@ -5603,7 +6913,7 @@ type GooglePubsubBufferParameters struct {
 
 type GooglePubsubInitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Google Cloud credentials used to authenticate with Google Cloud services.
 	Auth []GooglePubsubAuthInitParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -5615,7 +6925,7 @@ type GooglePubsubInitParameters struct {
 	// Encoding format for log events. Valid values: `json`, `raw_message`.
 	Encoding *string `json:"encoding,omitempty" tf:"encoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Google Cloud Pub/Sub endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -5634,7 +6944,7 @@ type GooglePubsubInitParameters struct {
 
 type GooglePubsubObservation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Google Cloud credentials used to authenticate with Google Cloud services.
 	Auth []GooglePubsubAuthObservation `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -5646,7 +6956,7 @@ type GooglePubsubObservation struct {
 	// Encoding format for log events. Valid values: `json`, `raw_message`.
 	Encoding *string `json:"encoding,omitempty" tf:"encoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Google Cloud Pub/Sub endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -5665,7 +6975,7 @@ type GooglePubsubObservation struct {
 
 type GooglePubsubParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Google Cloud credentials used to authenticate with Google Cloud services.
 	// +kubebuilder:validation:Optional
 	Auth []GooglePubsubAuthParameters `json:"auth,omitempty" tf:"auth,omitempty"`
@@ -5680,7 +6990,7 @@ type GooglePubsubParameters struct {
 	// +kubebuilder:validation:Optional
 	Encoding *string `json:"encoding" tf:"encoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Google Cloud Pub/Sub endpoint URL.
 	// +kubebuilder:validation:Optional
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
@@ -5904,7 +7214,7 @@ type GoogleSecopsBufferParameters struct {
 
 type GoogleSecopsInitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Google Cloud credentials used to authenticate with Google Cloud services.
 	Auth []GoogleSecopsAuthInitParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -5920,7 +7230,7 @@ type GoogleSecopsInitParameters struct {
 	// The encoding format for the logs sent to Google SecOps. Valid values are `json`, `raw_message`.
 	Encoding *string `json:"encoding,omitempty" tf:"encoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Google Chronicle endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -5931,7 +7241,7 @@ type GoogleSecopsInitParameters struct {
 
 type GoogleSecopsObservation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Google Cloud credentials used to authenticate with Google Cloud services.
 	Auth []GoogleSecopsAuthObservation `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -5947,7 +7257,7 @@ type GoogleSecopsObservation struct {
 	// The encoding format for the logs sent to Google SecOps. Valid values are `json`, `raw_message`.
 	Encoding *string `json:"encoding,omitempty" tf:"encoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Google Chronicle endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -5958,7 +7268,7 @@ type GoogleSecopsObservation struct {
 
 type GoogleSecopsParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Google Cloud credentials used to authenticate with Google Cloud services.
 	// +kubebuilder:validation:Optional
 	Auth []GoogleSecopsAuthParameters `json:"auth,omitempty" tf:"auth,omitempty"`
@@ -5978,7 +7288,7 @@ type GoogleSecopsParameters struct {
 	// +kubebuilder:validation:Optional
 	Encoding *string `json:"encoding" tf:"encoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Google Chronicle endpoint URL.
 	// +kubebuilder:validation:Optional
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
@@ -6131,8 +7441,8 @@ type HTTPClientCompressionParameters struct {
 
 type HTTPClientInitParameters struct {
 
-	// (String) HTTP authentication strategy. Valid values are none, basic, bearer.
-	// HTTP authentication strategy. Valid values are `none`, `basic`, `bearer`.
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
+	// HTTP authentication strategy. Valid values are `none`, `basic`, `bearer`, `custom`.
 	AuthStrategy *string `json:"authStrategy,omitempty" tf:"auth_strategy,omitempty"`
 
 	// (Block List) Configuration for buffer settings on destination components. Exactly one of disk or memory must be specified. (see below for nested schema)
@@ -6143,11 +7453,15 @@ type HTTPClientInitParameters struct {
 	// Compression configuration for HTTP requests.
 	Compression []HTTPClientCompressionInitParameters `json:"compression,omitempty" tf:"compression,omitempty"`
 
+	// (String) Name of the environment variable or secret that holds the custom authentication header value. Used with the custom auth strategy.
+	// Name of the environment variable or secret that holds the custom authentication header value. Used with the `custom` auth strategy.
+	CustomKey *string `json:"customKey,omitempty" tf:"custom_key,omitempty"`
+
 	// (Block List) Encoding format for the destination. (see below for nested schema)
 	// Encoding format for events. Valid values are `json`.
 	Encoding *string `json:"encoding,omitempty" tf:"encoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the password.
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
@@ -6163,15 +7477,15 @@ type HTTPClientInitParameters struct {
 	// Name of the environment variable or secret that holds the request URI.
 	URIKey *string `json:"uriKey,omitempty" tf:"uri_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the username.
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
 
 type HTTPClientObservation struct {
 
-	// (String) HTTP authentication strategy. Valid values are none, basic, bearer.
-	// HTTP authentication strategy. Valid values are `none`, `basic`, `bearer`.
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
+	// HTTP authentication strategy. Valid values are `none`, `basic`, `bearer`, `custom`.
 	AuthStrategy *string `json:"authStrategy,omitempty" tf:"auth_strategy,omitempty"`
 
 	// (Block List) Configuration for buffer settings on destination components. Exactly one of disk or memory must be specified. (see below for nested schema)
@@ -6182,11 +7496,15 @@ type HTTPClientObservation struct {
 	// Compression configuration for HTTP requests.
 	Compression []HTTPClientCompressionObservation `json:"compression,omitempty" tf:"compression,omitempty"`
 
+	// (String) Name of the environment variable or secret that holds the custom authentication header value. Used with the custom auth strategy.
+	// Name of the environment variable or secret that holds the custom authentication header value. Used with the `custom` auth strategy.
+	CustomKey *string `json:"customKey,omitempty" tf:"custom_key,omitempty"`
+
 	// (Block List) Encoding format for the destination. (see below for nested schema)
 	// Encoding format for events. Valid values are `json`.
 	Encoding *string `json:"encoding,omitempty" tf:"encoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the password.
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
@@ -6202,15 +7520,15 @@ type HTTPClientObservation struct {
 	// Name of the environment variable or secret that holds the request URI.
 	URIKey *string `json:"uriKey,omitempty" tf:"uri_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the username.
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
 
 type HTTPClientParameters struct {
 
-	// (String) HTTP authentication strategy. Valid values are none, basic, bearer.
-	// HTTP authentication strategy. Valid values are `none`, `basic`, `bearer`.
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
+	// HTTP authentication strategy. Valid values are `none`, `basic`, `bearer`, `custom`.
 	// +kubebuilder:validation:Optional
 	AuthStrategy *string `json:"authStrategy,omitempty" tf:"auth_strategy,omitempty"`
 
@@ -6224,12 +7542,17 @@ type HTTPClientParameters struct {
 	// +kubebuilder:validation:Optional
 	Compression []HTTPClientCompressionParameters `json:"compression,omitempty" tf:"compression,omitempty"`
 
+	// (String) Name of the environment variable or secret that holds the custom authentication header value. Used with the custom auth strategy.
+	// Name of the environment variable or secret that holds the custom authentication header value. Used with the `custom` auth strategy.
+	// +kubebuilder:validation:Optional
+	CustomKey *string `json:"customKey,omitempty" tf:"custom_key,omitempty"`
+
 	// (Block List) Encoding format for the destination. (see below for nested schema)
 	// Encoding format for events. Valid values are `json`.
 	// +kubebuilder:validation:Optional
 	Encoding *string `json:"encoding" tf:"encoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the password.
 	// +kubebuilder:validation:Optional
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
@@ -6249,7 +7572,7 @@ type HTTPClientParameters struct {
 	// +kubebuilder:validation:Optional
 	URIKey *string `json:"uriKey,omitempty" tf:"uri_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the username.
 	// +kubebuilder:validation:Optional
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
@@ -6335,7 +7658,7 @@ type HTTPServerInitParameters struct {
 	// Name of the environment variable or secret that holds the listen address.
 	AddressKey *string `json:"addressKey,omitempty" tf:"address_key,omitempty"`
 
-	// (String) HTTP authentication strategy. Valid values are none, basic, bearer.
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
 	// HTTP authentication method. Valid values are `none`, `plain`.
 	AuthStrategy *string `json:"authStrategy,omitempty" tf:"auth_strategy,omitempty"`
 
@@ -6343,7 +7666,7 @@ type HTTPServerInitParameters struct {
 	// The decoding format used to interpret incoming logs. Valid values are `json`, `gelf`, `syslog`, `bytes`.
 	Decoding *string `json:"decoding,omitempty" tf:"decoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the password.
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
@@ -6351,7 +7674,7 @@ type HTTPServerInitParameters struct {
 	// Configuration for enabling TLS encryption between the pipeline component and external connecting clients.
 	TLS []HTTPServerTLSInitParameters `json:"tls,omitempty" tf:"tls,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the username.
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 
@@ -6366,7 +7689,7 @@ type HTTPServerObservation struct {
 	// Name of the environment variable or secret that holds the listen address.
 	AddressKey *string `json:"addressKey,omitempty" tf:"address_key,omitempty"`
 
-	// (String) HTTP authentication strategy. Valid values are none, basic, bearer.
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
 	// HTTP authentication method. Valid values are `none`, `plain`.
 	AuthStrategy *string `json:"authStrategy,omitempty" tf:"auth_strategy,omitempty"`
 
@@ -6374,7 +7697,7 @@ type HTTPServerObservation struct {
 	// The decoding format used to interpret incoming logs. Valid values are `json`, `gelf`, `syslog`, `bytes`.
 	Decoding *string `json:"decoding,omitempty" tf:"decoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the password.
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
@@ -6382,7 +7705,7 @@ type HTTPServerObservation struct {
 	// Configuration for enabling TLS encryption between the pipeline component and external connecting clients.
 	TLS []HTTPServerTLSObservation `json:"tls,omitempty" tf:"tls,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the username.
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 
@@ -6398,7 +7721,7 @@ type HTTPServerParameters struct {
 	// +kubebuilder:validation:Optional
 	AddressKey *string `json:"addressKey,omitempty" tf:"address_key,omitempty"`
 
-	// (String) HTTP authentication strategy. Valid values are none, basic, bearer.
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
 	// HTTP authentication method. Valid values are `none`, `plain`.
 	// +kubebuilder:validation:Optional
 	AuthStrategy *string `json:"authStrategy" tf:"auth_strategy,omitempty"`
@@ -6408,7 +7731,7 @@ type HTTPServerParameters struct {
 	// +kubebuilder:validation:Optional
 	Decoding *string `json:"decoding" tf:"decoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the password.
 	// +kubebuilder:validation:Optional
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
@@ -6418,7 +7741,7 @@ type HTTPServerParameters struct {
 	// +kubebuilder:validation:Optional
 	TLS []HTTPServerTLSParameters `json:"tls,omitempty" tf:"tls,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the username.
 	// +kubebuilder:validation:Optional
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
@@ -6967,11 +8290,11 @@ type KafkaSaslInitParameters struct {
 	// SASL mechanism to use (e.g., PLAIN, SCRAM-SHA-256, SCRAM-SHA-512). Valid values are `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`.
 	Mechanism *string `json:"mechanism,omitempty" tf:"mechanism,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the SASL password.
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the SASL username.
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
@@ -6982,11 +8305,11 @@ type KafkaSaslObservation struct {
 	// SASL mechanism to use (e.g., PLAIN, SCRAM-SHA-256, SCRAM-SHA-512). Valid values are `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`.
 	Mechanism *string `json:"mechanism,omitempty" tf:"mechanism,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the SASL password.
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the SASL username.
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
@@ -6998,12 +8321,12 @@ type KafkaSaslParameters struct {
 	// +kubebuilder:validation:Optional
 	Mechanism *string `json:"mechanism" tf:"mechanism,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the SASL password.
 	// +kubebuilder:validation:Optional
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the SASL username.
 	// +kubebuilder:validation:Optional
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
@@ -7177,6 +8500,41 @@ type KeyParameters struct {
 	// Specifies the source of the key value for enrichment table lookups. Set exactly one of `string_path`, `event`, `vrl`, or `secret`.
 	// +kubebuilder:validation:Optional
 	Field []KeyFieldParameters `json:"field,omitempty" tf:"field,omitempty"`
+}
+
+type KeySourceInitParameters struct {
+
+	// (String) The pipeline name.
+	// The Datadog tag key used as the lookup key. Required when `type` is `tag`.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The encoding type. Valid values are json, parquet.
+	// The lookup source type. Use `metric_name` to look up the metric name, or `tag` to look up the value of the metric tag set in `name`. Valid values are `metric_name`, `tag`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type KeySourceObservation struct {
+
+	// (String) The pipeline name.
+	// The Datadog tag key used as the lookup key. Required when `type` is `tag`.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The encoding type. Valid values are json, parquet.
+	// The lookup source type. Use `metric_name` to look up the metric name, or `tag` to look up the value of the metric tag set in `name`. Valid values are `metric_name`, `tag`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type KeySourceParameters struct {
+
+	// (String) The pipeline name.
+	// The Datadog tag key used as the lookup key. Required when `type` is `tag`.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The encoding type. Valid values are json, parquet.
+	// The lookup source type. Use `metric_name` to look up the metric name, or `tag` to look up the value of the metric tag set in `name`. Valid values are `metric_name`, `tag`.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
 }
 
 type KeywordOptionsInitParameters struct {
@@ -7447,7 +8805,7 @@ type LookupInitParameters struct {
 	// The default value to use if no lookup match is found.
 	Default *string `json:"default,omitempty" tf:"default,omitempty"`
 
-	// (String) Target ClickHouse table name.
+	// (String) The name of the Azure Data Explorer table to ingest into. Supports template syntax.
 	// A list of lookup table entries for value transformation.
 	Table []TableInitParameters `json:"table,omitempty" tf:"table,omitempty"`
 }
@@ -7458,7 +8816,7 @@ type LookupObservation struct {
 	// The default value to use if no lookup match is found.
 	Default *string `json:"default,omitempty" tf:"default,omitempty"`
 
-	// (String) Target ClickHouse table name.
+	// (String) The name of the Azure Data Explorer table to ingest into. Supports template syntax.
 	// A list of lookup table entries for value transformation.
 	Table []TableObservation `json:"table,omitempty" tf:"table,omitempty"`
 }
@@ -7470,10 +8828,106 @@ type LookupParameters struct {
 	// +kubebuilder:validation:Optional
 	Default *string `json:"default,omitempty" tf:"default,omitempty"`
 
-	// (String) Target ClickHouse table name.
+	// (String) The name of the Azure Data Explorer table to ingest into. Supports template syntax.
 	// A list of lookup table entries for value transformation.
 	// +kubebuilder:validation:Optional
 	Table []TableParameters `json:"table,omitempty" tf:"table,omitempty"`
+}
+
+type ManagedIdentityClientAssertionInitParameters struct {
+
+	// (String) The client ID of the Microsoft Entra application that trusts the managed identity.
+	// The client ID of the Microsoft Entra application that trusts the managed identity.
+	ClientAssertionClientID *string `json:"clientAssertionClientId,omitempty" tf:"client_assertion_client_id,omitempty"`
+
+	// (String) The tenant ID of the Microsoft Entra application that trusts the managed identity.
+	// The tenant ID of the Microsoft Entra application that trusts the managed identity.
+	ClientAssertionTenantID *string `json:"clientAssertionTenantId,omitempty" tf:"client_assertion_tenant_id,omitempty"`
+
+	// assigned managed identity. If omitted, the system-assigned managed identity is used.
+	// The ID of the user-assigned managed identity. If omitted, the system-assigned managed identity is used.
+	UserAssignedManagedIdentityID *string `json:"userAssignedManagedIdentityId,omitempty" tf:"user_assigned_managed_identity_id,omitempty"`
+
+	// assigned managed identity ID. Valid values are client_id, object_id, and resource_id. Valid values are client_id, object_id, resource_id.
+	// The type of the user-assigned managed identity ID. Valid values are `client_id`, `object_id`, and `resource_id`. Valid values are `client_id`, `object_id`, `resource_id`.
+	UserAssignedManagedIdentityIDType *string `json:"userAssignedManagedIdentityIdType,omitempty" tf:"user_assigned_managed_identity_id_type,omitempty"`
+}
+
+type ManagedIdentityClientAssertionObservation struct {
+
+	// (String) The client ID of the Microsoft Entra application that trusts the managed identity.
+	// The client ID of the Microsoft Entra application that trusts the managed identity.
+	ClientAssertionClientID *string `json:"clientAssertionClientId,omitempty" tf:"client_assertion_client_id,omitempty"`
+
+	// (String) The tenant ID of the Microsoft Entra application that trusts the managed identity.
+	// The tenant ID of the Microsoft Entra application that trusts the managed identity.
+	ClientAssertionTenantID *string `json:"clientAssertionTenantId,omitempty" tf:"client_assertion_tenant_id,omitempty"`
+
+	// assigned managed identity. If omitted, the system-assigned managed identity is used.
+	// The ID of the user-assigned managed identity. If omitted, the system-assigned managed identity is used.
+	UserAssignedManagedIdentityID *string `json:"userAssignedManagedIdentityId,omitempty" tf:"user_assigned_managed_identity_id,omitempty"`
+
+	// assigned managed identity ID. Valid values are client_id, object_id, and resource_id. Valid values are client_id, object_id, resource_id.
+	// The type of the user-assigned managed identity ID. Valid values are `client_id`, `object_id`, and `resource_id`. Valid values are `client_id`, `object_id`, `resource_id`.
+	UserAssignedManagedIdentityIDType *string `json:"userAssignedManagedIdentityIdType,omitempty" tf:"user_assigned_managed_identity_id_type,omitempty"`
+}
+
+type ManagedIdentityClientAssertionParameters struct {
+
+	// (String) The client ID of the Microsoft Entra application that trusts the managed identity.
+	// The client ID of the Microsoft Entra application that trusts the managed identity.
+	// +kubebuilder:validation:Optional
+	ClientAssertionClientID *string `json:"clientAssertionClientId" tf:"client_assertion_client_id,omitempty"`
+
+	// (String) The tenant ID of the Microsoft Entra application that trusts the managed identity.
+	// The tenant ID of the Microsoft Entra application that trusts the managed identity.
+	// +kubebuilder:validation:Optional
+	ClientAssertionTenantID *string `json:"clientAssertionTenantId" tf:"client_assertion_tenant_id,omitempty"`
+
+	// assigned managed identity. If omitted, the system-assigned managed identity is used.
+	// The ID of the user-assigned managed identity. If omitted, the system-assigned managed identity is used.
+	// +kubebuilder:validation:Optional
+	UserAssignedManagedIdentityID *string `json:"userAssignedManagedIdentityId,omitempty" tf:"user_assigned_managed_identity_id,omitempty"`
+
+	// assigned managed identity ID. Valid values are client_id, object_id, and resource_id. Valid values are client_id, object_id, resource_id.
+	// The type of the user-assigned managed identity ID. Valid values are `client_id`, `object_id`, and `resource_id`. Valid values are `client_id`, `object_id`, `resource_id`.
+	// +kubebuilder:validation:Optional
+	UserAssignedManagedIdentityIDType *string `json:"userAssignedManagedIdentityIdType,omitempty" tf:"user_assigned_managed_identity_id_type,omitempty"`
+}
+
+type ManagedIdentityInitParameters struct {
+
+	// assigned managed identity. If omitted, the system-assigned managed identity is used.
+	// The ID of the user-assigned managed identity. If omitted, the system-assigned managed identity is used.
+	UserAssignedManagedIdentityID *string `json:"userAssignedManagedIdentityId,omitempty" tf:"user_assigned_managed_identity_id,omitempty"`
+
+	// assigned managed identity ID. Valid values are client_id, object_id, and resource_id. Valid values are client_id, object_id, resource_id.
+	// The type of the user-assigned managed identity ID. Valid values are `client_id`, `object_id`, and `resource_id`. Valid values are `client_id`, `object_id`, `resource_id`.
+	UserAssignedManagedIdentityIDType *string `json:"userAssignedManagedIdentityIdType,omitempty" tf:"user_assigned_managed_identity_id_type,omitempty"`
+}
+
+type ManagedIdentityObservation struct {
+
+	// assigned managed identity. If omitted, the system-assigned managed identity is used.
+	// The ID of the user-assigned managed identity. If omitted, the system-assigned managed identity is used.
+	UserAssignedManagedIdentityID *string `json:"userAssignedManagedIdentityId,omitempty" tf:"user_assigned_managed_identity_id,omitempty"`
+
+	// assigned managed identity ID. Valid values are client_id, object_id, and resource_id. Valid values are client_id, object_id, resource_id.
+	// The type of the user-assigned managed identity ID. Valid values are `client_id`, `object_id`, and `resource_id`. Valid values are `client_id`, `object_id`, `resource_id`.
+	UserAssignedManagedIdentityIDType *string `json:"userAssignedManagedIdentityIdType,omitempty" tf:"user_assigned_managed_identity_id_type,omitempty"`
+}
+
+type ManagedIdentityParameters struct {
+
+	// assigned managed identity. If omitted, the system-assigned managed identity is used.
+	// The ID of the user-assigned managed identity. If omitted, the system-assigned managed identity is used.
+	// +kubebuilder:validation:Optional
+	UserAssignedManagedIdentityID *string `json:"userAssignedManagedIdentityId,omitempty" tf:"user_assigned_managed_identity_id,omitempty"`
+
+	// assigned managed identity ID. Valid values are client_id, object_id, and resource_id. Valid values are client_id, object_id, resource_id.
+	// The type of the user-assigned managed identity ID. Valid values are `client_id`, `object_id`, and `resource_id`. Valid values are `client_id`, `object_id`, `resource_id`.
+	// +kubebuilder:validation:Optional
+	UserAssignedManagedIdentityIDType *string `json:"userAssignedManagedIdentityIdType,omitempty" tf:"user_assigned_managed_identity_id_type,omitempty"`
 }
 
 type MappingInitParameters struct {
@@ -7675,6 +9129,198 @@ type MetadataParameters struct {
 	// The metadata value.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
+}
+
+type MetricEnrichmentTableFileEncodingInitParameters struct {
+
+	// (String) A single ASCII character used as a delimiter.
+	// The single character that separates columns in the file.
+	Delimiter *string `json:"delimiter,omitempty" tf:"delimiter,omitempty"`
+
+	// (Boolean) The encoding includes_headers.
+	// Whether the first row of the file contains column headers.
+	IncludesHeaders *bool `json:"includesHeaders,omitempty" tf:"includes_headers,omitempty"`
+
+	// (String) The encoding type. Valid values are json, parquet.
+	// The encoding format of the file. The value should always be `csv`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type MetricEnrichmentTableFileEncodingObservation struct {
+
+	// (String) A single ASCII character used as a delimiter.
+	// The single character that separates columns in the file.
+	Delimiter *string `json:"delimiter,omitempty" tf:"delimiter,omitempty"`
+
+	// (Boolean) The encoding includes_headers.
+	// Whether the first row of the file contains column headers.
+	IncludesHeaders *bool `json:"includesHeaders,omitempty" tf:"includes_headers,omitempty"`
+
+	// (String) The encoding type. Valid values are json, parquet.
+	// The encoding format of the file. The value should always be `csv`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type MetricEnrichmentTableFileEncodingParameters struct {
+
+	// (String) A single ASCII character used as a delimiter.
+	// The single character that separates columns in the file.
+	// +kubebuilder:validation:Optional
+	Delimiter *string `json:"delimiter" tf:"delimiter,omitempty"`
+
+	// (Boolean) The encoding includes_headers.
+	// Whether the first row of the file contains column headers.
+	// +kubebuilder:validation:Optional
+	IncludesHeaders *bool `json:"includesHeaders" tf:"includes_headers,omitempty"`
+
+	// (String) The encoding type. Valid values are json, parquet.
+	// The encoding format of the file. The value should always be `csv`.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type MetricEnrichmentTableFileInitParameters struct {
+
+	// (Block List) Encoding format for the destination. (see below for nested schema)
+	// File encoding format.
+	Encoding []MetricEnrichmentTableFileEncodingInitParameters `json:"encoding,omitempty" tf:"encoding,omitempty"`
+
+	// (Block List) Key fields used to look up enrichment values. (see below for nested schema)
+	// Defines how to map a metric lookup value to a CSV column during enrichment table lookups.
+	Key []FileKeyInitParameters `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Path to the CSV file.
+	// Path to the CSV file.
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+}
+
+type MetricEnrichmentTableFileObservation struct {
+
+	// (Block List) Encoding format for the destination. (see below for nested schema)
+	// File encoding format.
+	Encoding []MetricEnrichmentTableFileEncodingObservation `json:"encoding,omitempty" tf:"encoding,omitempty"`
+
+	// (Block List) Key fields used to look up enrichment values. (see below for nested schema)
+	// Defines how to map a metric lookup value to a CSV column during enrichment table lookups.
+	Key []FileKeyObservation `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Path to the CSV file.
+	// Path to the CSV file.
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+}
+
+type MetricEnrichmentTableFileParameters struct {
+
+	// (Block List) Encoding format for the destination. (see below for nested schema)
+	// File encoding format.
+	// +kubebuilder:validation:Optional
+	Encoding []MetricEnrichmentTableFileEncodingParameters `json:"encoding,omitempty" tf:"encoding,omitempty"`
+
+	// (Block List) Key fields used to look up enrichment values. (see below for nested schema)
+	// Defines how to map a metric lookup value to a CSV column during enrichment table lookups.
+	// +kubebuilder:validation:Optional
+	Key []FileKeyParameters `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) Path to the CSV file.
+	// Path to the CSV file.
+	// +kubebuilder:validation:Optional
+	Path *string `json:"path" tf:"path,omitempty"`
+}
+
+type MetricEnrichmentTableInitParameters struct {
+
+	// (Block List) Defines a static enrichment table loaded from a CSV file. (see below for nested schema)
+	// Defines a static enrichment table loaded from a CSV file for metric enrichment.
+	File []MetricEnrichmentTableFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
+
+	// (Block List) Uses a Datadog reference table to enrich logs. (see below for nested schema)
+	// Uses a Datadog reference table to enrich metrics.
+	ReferenceTable []MetricEnrichmentTableReferenceTableInitParameters `json:"referenceTable,omitempty" tf:"reference_table,omitempty"`
+}
+
+type MetricEnrichmentTableObservation struct {
+
+	// (Block List) Defines a static enrichment table loaded from a CSV file. (see below for nested schema)
+	// Defines a static enrichment table loaded from a CSV file for metric enrichment.
+	File []MetricEnrichmentTableFileObservation `json:"file,omitempty" tf:"file,omitempty"`
+
+	// (Block List) Uses a Datadog reference table to enrich logs. (see below for nested schema)
+	// Uses a Datadog reference table to enrich metrics.
+	ReferenceTable []MetricEnrichmentTableReferenceTableObservation `json:"referenceTable,omitempty" tf:"reference_table,omitempty"`
+}
+
+type MetricEnrichmentTableParameters struct {
+
+	// (Block List) Defines a static enrichment table loaded from a CSV file. (see below for nested schema)
+	// Defines a static enrichment table loaded from a CSV file for metric enrichment.
+	// +kubebuilder:validation:Optional
+	File []MetricEnrichmentTableFileParameters `json:"file,omitempty" tf:"file,omitempty"`
+
+	// (Block List) Uses a Datadog reference table to enrich logs. (see below for nested schema)
+	// Uses a Datadog reference table to enrich metrics.
+	// +kubebuilder:validation:Optional
+	ReferenceTable []MetricEnrichmentTableReferenceTableParameters `json:"referenceTable,omitempty" tf:"reference_table,omitempty"`
+}
+
+type MetricEnrichmentTableReferenceTableInitParameters struct {
+
+	// (String) Name of the environment variable or secret that holds the Datadog application key for the reference table.
+	// The name of the environment variable or secret that holds the Datadog application key used to access the reference table.
+	AppKeyKey *string `json:"appKeyKey,omitempty" tf:"app_key_key,omitempty"`
+
+	// (List of String) List of column names to include from the reference table. If not provided, all columns are included.
+	// A list of column names to include from the reference table. If not provided, all columns are included.
+	Columns []*string `json:"columns,omitempty" tf:"columns,omitempty"`
+
+	// (Block List) Key fields used to look up enrichment values. (see below for nested schema)
+	// Defines the metric lookup value used as the reference-table row ID.
+	Key []ReferenceTableKeyInitParameters `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) The unique identifier of the reference table.
+	// The unique identifier of the reference table.
+	TableID *string `json:"tableId,omitempty" tf:"table_id,omitempty"`
+}
+
+type MetricEnrichmentTableReferenceTableObservation struct {
+
+	// (String) Name of the environment variable or secret that holds the Datadog application key for the reference table.
+	// The name of the environment variable or secret that holds the Datadog application key used to access the reference table.
+	AppKeyKey *string `json:"appKeyKey,omitempty" tf:"app_key_key,omitempty"`
+
+	// (List of String) List of column names to include from the reference table. If not provided, all columns are included.
+	// A list of column names to include from the reference table. If not provided, all columns are included.
+	Columns []*string `json:"columns,omitempty" tf:"columns,omitempty"`
+
+	// (Block List) Key fields used to look up enrichment values. (see below for nested schema)
+	// Defines the metric lookup value used as the reference-table row ID.
+	Key []ReferenceTableKeyObservation `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) The unique identifier of the reference table.
+	// The unique identifier of the reference table.
+	TableID *string `json:"tableId,omitempty" tf:"table_id,omitempty"`
+}
+
+type MetricEnrichmentTableReferenceTableParameters struct {
+
+	// (String) Name of the environment variable or secret that holds the Datadog application key for the reference table.
+	// The name of the environment variable or secret that holds the Datadog application key used to access the reference table.
+	// +kubebuilder:validation:Optional
+	AppKeyKey *string `json:"appKeyKey,omitempty" tf:"app_key_key,omitempty"`
+
+	// (List of String) List of column names to include from the reference table. If not provided, all columns are included.
+	// A list of column names to include from the reference table. If not provided, all columns are included.
+	// +kubebuilder:validation:Optional
+	Columns []*string `json:"columns,omitempty" tf:"columns,omitempty"`
+
+	// (Block List) Key fields used to look up enrichment values. (see below for nested schema)
+	// Defines the metric lookup value used as the reference-table row ID.
+	// +kubebuilder:validation:Optional
+	Key []ReferenceTableKeyParameters `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String) The unique identifier of the reference table.
+	// The unique identifier of the reference table.
+	// +kubebuilder:validation:Optional
+	TableID *string `json:"tableId" tf:"table_id,omitempty"`
 }
 
 type MetricInitParameters struct {
@@ -7932,7 +9578,7 @@ type MicrosoftSentinelInitParameters struct {
 	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
 	Buffer []MicrosoftSentinelBufferInitParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
 
-	// (String) The OAuth client ID used to authenticate with Databricks.
+	// (String) The client ID of the Microsoft Entra application. If omitted, it is read from the environment.
 	// Azure AD client ID used for authentication.
 	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
 
@@ -7948,11 +9594,11 @@ type MicrosoftSentinelInitParameters struct {
 	// The immutable ID of the Data Collection Rule (DCR).
 	DcrImmutableID *string `json:"dcrImmutableId,omitempty" tf:"dcr_immutable_id,omitempty"`
 
-	// (String) Target ClickHouse table name.
+	// (String) The name of the Azure Data Explorer table to ingest into. Supports template syntax.
 	// The name of the Log Analytics table where logs will be sent.
 	Table *string `json:"table,omitempty" tf:"table,omitempty"`
 
-	// (String) Azure AD tenant ID.
+	// (String) The Microsoft Entra tenant ID. If omitted, it is read from the environment.
 	// Azure AD tenant ID.
 	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
 }
@@ -7963,7 +9609,7 @@ type MicrosoftSentinelObservation struct {
 	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
 	Buffer []MicrosoftSentinelBufferObservation `json:"buffer,omitempty" tf:"buffer,omitempty"`
 
-	// (String) The OAuth client ID used to authenticate with Databricks.
+	// (String) The client ID of the Microsoft Entra application. If omitted, it is read from the environment.
 	// Azure AD client ID used for authentication.
 	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
 
@@ -7979,11 +9625,11 @@ type MicrosoftSentinelObservation struct {
 	// The immutable ID of the Data Collection Rule (DCR).
 	DcrImmutableID *string `json:"dcrImmutableId,omitempty" tf:"dcr_immutable_id,omitempty"`
 
-	// (String) Target ClickHouse table name.
+	// (String) The name of the Azure Data Explorer table to ingest into. Supports template syntax.
 	// The name of the Log Analytics table where logs will be sent.
 	Table *string `json:"table,omitempty" tf:"table,omitempty"`
 
-	// (String) Azure AD tenant ID.
+	// (String) The Microsoft Entra tenant ID. If omitted, it is read from the environment.
 	// Azure AD tenant ID.
 	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
 }
@@ -7995,7 +9641,7 @@ type MicrosoftSentinelParameters struct {
 	// +kubebuilder:validation:Optional
 	Buffer []MicrosoftSentinelBufferParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
 
-	// (String) The OAuth client ID used to authenticate with Databricks.
+	// (String) The client ID of the Microsoft Entra application. If omitted, it is read from the environment.
 	// Azure AD client ID used for authentication.
 	// +kubebuilder:validation:Optional
 	ClientID *string `json:"clientId" tf:"client_id,omitempty"`
@@ -8015,15 +9661,120 @@ type MicrosoftSentinelParameters struct {
 	// +kubebuilder:validation:Optional
 	DcrImmutableID *string `json:"dcrImmutableId" tf:"dcr_immutable_id,omitempty"`
 
-	// (String) Target ClickHouse table name.
+	// (String) The name of the Azure Data Explorer table to ingest into. Supports template syntax.
 	// The name of the Log Analytics table where logs will be sent.
 	// +kubebuilder:validation:Optional
 	Table *string `json:"table" tf:"table,omitempty"`
 
-	// (String) Azure AD tenant ID.
+	// (String) The Microsoft Entra tenant ID. If omitted, it is read from the environment.
 	// Azure AD tenant ID.
 	// +kubebuilder:validation:Optional
 	TenantID *string `json:"tenantId" tf:"tenant_id,omitempty"`
+}
+
+type MinimalThresholdInitParameters struct {
+
+	// (Number) The minimum volume, in bytes, that must be observed within 24 hours before spike protection can activate for the matching partition. Used only when type is threshold.
+	// The minimum volume, in bytes, that must be observed within 24 hours before spike protection can activate for the matching partition. Used only when `type` is `threshold`.
+	Bytes *float64 `json:"bytes,omitempty" tf:"bytes,omitempty"`
+
+	// (String) The encoding type. Valid values are json, parquet.
+	// The minimal threshold type. One of `threshold`, `always_keep`. `always_keep` exempts the matching partition from spike protection. Valid values are `threshold`, `always_keep`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type MinimalThresholdObservation struct {
+
+	// (Number) The minimum volume, in bytes, that must be observed within 24 hours before spike protection can activate for the matching partition. Used only when type is threshold.
+	// The minimum volume, in bytes, that must be observed within 24 hours before spike protection can activate for the matching partition. Used only when `type` is `threshold`.
+	Bytes *float64 `json:"bytes,omitempty" tf:"bytes,omitempty"`
+
+	// (String) The encoding type. Valid values are json, parquet.
+	// The minimal threshold type. One of `threshold`, `always_keep`. `always_keep` exempts the matching partition from spike protection. Valid values are `threshold`, `always_keep`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type MinimalThresholdOverrideFieldInitParameters struct {
+
+	// (String) The pipeline name.
+	// The field name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The metadata value.
+	// The field value.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type MinimalThresholdOverrideFieldObservation struct {
+
+	// (String) The pipeline name.
+	// The field name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The metadata value.
+	// The field value.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type MinimalThresholdOverrideFieldParameters struct {
+
+	// (String) The pipeline name.
+	// The field name.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (String) The metadata value.
+	// The field value.
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value" tf:"value,omitempty"`
+}
+
+type MinimalThresholdOverrideInitParameters struct {
+
+	// (String) The target field in the log event.
+	// The set of field matchers that identifies the partition this override applies to. Every field name listed must also appear in `partition_fields`.
+	Field []MinimalThresholdOverrideFieldInitParameters `json:"field,omitempty" tf:"field,omitempty"`
+
+	// (Number) The minimum volume, in bytes, that must be observed within 24 hours before spike protection can activate. Defaults to 100 GiB.
+	// The minimal threshold to apply to the matching partition.
+	MinimalThreshold []MinimalThresholdInitParameters `json:"minimalThreshold,omitempty" tf:"minimal_threshold,omitempty"`
+}
+
+type MinimalThresholdOverrideObservation struct {
+
+	// (String) The target field in the log event.
+	// The set of field matchers that identifies the partition this override applies to. Every field name listed must also appear in `partition_fields`.
+	Field []MinimalThresholdOverrideFieldObservation `json:"field,omitempty" tf:"field,omitempty"`
+
+	// (Number) The minimum volume, in bytes, that must be observed within 24 hours before spike protection can activate. Defaults to 100 GiB.
+	// The minimal threshold to apply to the matching partition.
+	MinimalThreshold []MinimalThresholdObservation `json:"minimalThreshold,omitempty" tf:"minimal_threshold,omitempty"`
+}
+
+type MinimalThresholdOverrideParameters struct {
+
+	// (String) The target field in the log event.
+	// The set of field matchers that identifies the partition this override applies to. Every field name listed must also appear in `partition_fields`.
+	// +kubebuilder:validation:Optional
+	Field []MinimalThresholdOverrideFieldParameters `json:"field,omitempty" tf:"field,omitempty"`
+
+	// (Number) The minimum volume, in bytes, that must be observed within 24 hours before spike protection can activate. Defaults to 100 GiB.
+	// The minimal threshold to apply to the matching partition.
+	// +kubebuilder:validation:Optional
+	MinimalThreshold []MinimalThresholdParameters `json:"minimalThreshold,omitempty" tf:"minimal_threshold,omitempty"`
+}
+
+type MinimalThresholdParameters struct {
+
+	// (Number) The minimum volume, in bytes, that must be observed within 24 hours before spike protection can activate for the matching partition. Used only when type is threshold.
+	// The minimum volume, in bytes, that must be observed within 24 hours before spike protection can activate for the matching partition. Used only when `type` is `threshold`.
+	// +kubebuilder:validation:Optional
+	Bytes *float64 `json:"bytes,omitempty" tf:"bytes,omitempty"`
+
+	// (String) The encoding type. Valid values are json, parquet.
+	// The minimal threshold type. One of `threshold`, `always_keep`. `always_keep` exempts the matching partition from spike protection. Valid values are `threshold`, `always_keep`.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
 }
 
 type NewRelicBufferDiskInitParameters struct {
@@ -8328,7 +10079,7 @@ type OnMatchParameters struct {
 
 type OpensearchAuthInitParameters struct {
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the OpenSearch password (used when `strategy` is `basic`).
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
@@ -8336,14 +10087,14 @@ type OpensearchAuthInitParameters struct {
 	// The authentication strategy to use. Valid values are `basic`, `aws`.
 	Strategy *string `json:"strategy,omitempty" tf:"strategy,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the OpenSearch username (used when `strategy` is `basic`).
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
 
 type OpensearchAuthObservation struct {
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the OpenSearch password (used when `strategy` is `basic`).
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
@@ -8351,14 +10102,14 @@ type OpensearchAuthObservation struct {
 	// The authentication strategy to use. Valid values are `basic`, `aws`.
 	Strategy *string `json:"strategy,omitempty" tf:"strategy,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the OpenSearch username (used when `strategy` is `basic`).
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
 
 type OpensearchAuthParameters struct {
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the OpenSearch password (used when `strategy` is `basic`).
 	// +kubebuilder:validation:Optional
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
@@ -8368,7 +10119,7 @@ type OpensearchAuthParameters struct {
 	// +kubebuilder:validation:Optional
 	Strategy *string `json:"strategy" tf:"strategy,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the OpenSearch username (used when `strategy` is `basic`).
 	// +kubebuilder:validation:Optional
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
@@ -8494,47 +10245,47 @@ type OpensearchBufferParameters struct {
 
 type OpensearchDataStreamInitParameters struct {
 
-	// (String) The data stream dataset. This groups events by their source or application.
+	// (String) The data stream dataset for your logs. This groups logs by their source or application.
 	// The data stream dataset for your logs. This groups logs by their source or application.
 	Dataset *string `json:"dataset,omitempty" tf:"dataset,omitempty"`
 
-	// (String) The data stream type. This determines how events are categorized within the data stream.
+	// (String) The data stream type for your logs. This determines how logs are categorized within the data stream.
 	// The data stream type for your logs. This determines how logs are categorized within the data stream.
 	Dtype *string `json:"dtype,omitempty" tf:"dtype,omitempty"`
 
-	// (String) The data stream namespace. This separates events into different environments or domains.
+	// (String) The data stream namespace for your logs. This separates logs into different environments or domains.
 	// The data stream namespace for your logs. This separates logs into different environments or domains.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 }
 
 type OpensearchDataStreamObservation struct {
 
-	// (String) The data stream dataset. This groups events by their source or application.
+	// (String) The data stream dataset for your logs. This groups logs by their source or application.
 	// The data stream dataset for your logs. This groups logs by their source or application.
 	Dataset *string `json:"dataset,omitempty" tf:"dataset,omitempty"`
 
-	// (String) The data stream type. This determines how events are categorized within the data stream.
+	// (String) The data stream type for your logs. This determines how logs are categorized within the data stream.
 	// The data stream type for your logs. This determines how logs are categorized within the data stream.
 	Dtype *string `json:"dtype,omitempty" tf:"dtype,omitempty"`
 
-	// (String) The data stream namespace. This separates events into different environments or domains.
+	// (String) The data stream namespace for your logs. This separates logs into different environments or domains.
 	// The data stream namespace for your logs. This separates logs into different environments or domains.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
 }
 
 type OpensearchDataStreamParameters struct {
 
-	// (String) The data stream dataset. This groups events by their source or application.
+	// (String) The data stream dataset for your logs. This groups logs by their source or application.
 	// The data stream dataset for your logs. This groups logs by their source or application.
 	// +kubebuilder:validation:Optional
 	Dataset *string `json:"dataset,omitempty" tf:"dataset,omitempty"`
 
-	// (String) The data stream type. This determines how events are categorized within the data stream.
+	// (String) The data stream type for your logs. This determines how logs are categorized within the data stream.
 	// The data stream type for your logs. This determines how logs are categorized within the data stream.
 	// +kubebuilder:validation:Optional
 	Dtype *string `json:"dtype,omitempty" tf:"dtype,omitempty"`
 
-	// (String) The data stream namespace. This separates events into different environments or domains.
+	// (String) The data stream namespace for your logs. This separates logs into different environments or domains.
 	// The data stream namespace for your logs. This separates logs into different environments or domains.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
@@ -8542,7 +10293,7 @@ type OpensearchDataStreamParameters struct {
 
 type OpensearchInitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Authentication settings for the OpenSearch destination.
 	Auth []OpensearchAuthInitParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -8554,18 +10305,18 @@ type OpensearchInitParameters struct {
 	// The index or datastream to write logs to.
 	BulkIndex *string `json:"bulkIndex,omitempty" tf:"bulk_index,omitempty"`
 
-	// (Block List) Configuration options for writing to Elasticsearch Data Streams instead of a fixed index. (see below for nested schema)
+	// (Block List) Configuration options for writing to Amazon OpenSearch Data Streams instead of a fixed index. (see below for nested schema)
 	// Configuration options for writing to OpenSearch Data Streams instead of a fixed index.
 	DataStream []OpensearchDataStreamInitParameters `json:"dataStream,omitempty" tf:"data_stream,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the OpenSearch endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 }
 
 type OpensearchObservation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Authentication settings for the OpenSearch destination.
 	Auth []OpensearchAuthObservation `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -8577,18 +10328,18 @@ type OpensearchObservation struct {
 	// The index or datastream to write logs to.
 	BulkIndex *string `json:"bulkIndex,omitempty" tf:"bulk_index,omitempty"`
 
-	// (Block List) Configuration options for writing to Elasticsearch Data Streams instead of a fixed index. (see below for nested schema)
+	// (Block List) Configuration options for writing to Amazon OpenSearch Data Streams instead of a fixed index. (see below for nested schema)
 	// Configuration options for writing to OpenSearch Data Streams instead of a fixed index.
 	DataStream []OpensearchDataStreamObservation `json:"dataStream,omitempty" tf:"data_stream,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the OpenSearch endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 }
 
 type OpensearchParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Authentication settings for the OpenSearch destination.
 	// +kubebuilder:validation:Optional
 	Auth []OpensearchAuthParameters `json:"auth,omitempty" tf:"auth,omitempty"`
@@ -8603,12 +10354,12 @@ type OpensearchParameters struct {
 	// +kubebuilder:validation:Optional
 	BulkIndex *string `json:"bulkIndex,omitempty" tf:"bulk_index,omitempty"`
 
-	// (Block List) Configuration options for writing to Elasticsearch Data Streams instead of a fixed index. (see below for nested schema)
+	// (Block List) Configuration options for writing to Amazon OpenSearch Data Streams instead of a fixed index. (see below for nested schema)
 	// Configuration options for writing to OpenSearch Data Streams instead of a fixed index.
 	// +kubebuilder:validation:Optional
 	DataStream []OpensearchDataStreamParameters `json:"dataStream,omitempty" tf:"data_stream,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the OpenSearch endpoint URL.
 	// +kubebuilder:validation:Optional
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
@@ -8738,8 +10489,8 @@ type OpentelemetryInitParameters struct {
 	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
 	Buffer []OpentelemetryBufferInitParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
 
-	// (String) Environment variable name containing the URI of the OTLP HTTP endpoint to send metrics to.
-	// Environment variable name containing the URI of the OTLP HTTP endpoint to send metrics to.
+	// (String) Environment variable name containing the URI of the OTLP HTTP endpoint to send metrics or traces to.
+	// Environment variable name containing the URI of the OTLP HTTP endpoint to send metrics or traces to.
 	HTTPClientURIKey *string `json:"httpClientUriKey,omitempty" tf:"http_client_uri_key,omitempty"`
 
 	// (Block List) Configuration for enabling TLS encryption between the pipeline component and external services. (see below for nested schema)
@@ -8753,8 +10504,8 @@ type OpentelemetryObservation struct {
 	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
 	Buffer []OpentelemetryBufferObservation `json:"buffer,omitempty" tf:"buffer,omitempty"`
 
-	// (String) Environment variable name containing the URI of the OTLP HTTP endpoint to send metrics to.
-	// Environment variable name containing the URI of the OTLP HTTP endpoint to send metrics to.
+	// (String) Environment variable name containing the URI of the OTLP HTTP endpoint to send metrics or traces to.
+	// Environment variable name containing the URI of the OTLP HTTP endpoint to send metrics or traces to.
 	HTTPClientURIKey *string `json:"httpClientUriKey,omitempty" tf:"http_client_uri_key,omitempty"`
 
 	// (Block List) Configuration for enabling TLS encryption between the pipeline component and external services. (see below for nested schema)
@@ -8769,8 +10520,8 @@ type OpentelemetryParameters struct {
 	// +kubebuilder:validation:Optional
 	Buffer []OpentelemetryBufferParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
 
-	// (String) Environment variable name containing the URI of the OTLP HTTP endpoint to send metrics to.
-	// Environment variable name containing the URI of the OTLP HTTP endpoint to send metrics to.
+	// (String) Environment variable name containing the URI of the OTLP HTTP endpoint to send metrics or traces to.
+	// Environment variable name containing the URI of the OTLP HTTP endpoint to send metrics or traces to.
 	// +kubebuilder:validation:Optional
 	HTTPClientURIKey *string `json:"httpClientUriKey,omitempty" tf:"http_client_uri_key,omitempty"`
 
@@ -9550,12 +11301,14 @@ type ProcessorInitParameters struct {
 	// The `filter` processor allows conditional processing of logs based on a Datadog search query. Logs that match the `include` query are passed through; others are discarded.
 	Filter []FilterInitParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
-	// (Block List) The generate_datadog_metrics processor creates custom metrics from logs. Metrics can be counters, gauges, or distributions and optionally grouped by log fields. (see below for nested schema)
+	// (Block List, Deprecated) The generate_datadog_metrics processor creates custom metrics from logs. Metrics can be counters, gauges, or distributions and optionally grouped by log fields.
 	// The `generate_datadog_metrics` processor creates custom metrics from logs. Metrics can be counters, gauges, or distributions and optionally grouped by log fields.
+	//
+	// **Deprecated:** This processor is deprecated, you should now use the `generate_metrics` processor.
 	GenerateDatadogMetrics []GenerateDatadogMetricsInitParameters `json:"generateDatadogMetrics,omitempty" tf:"generate_datadog_metrics,omitempty"`
 
-	// id>.metrics. (see below for nested schema)
-	// The `generate_metrics` processor creates custom metrics from logs. The generated metrics must be routed to a metrics destination using the input `<processor-id>.metrics`.
+	// id>.metrics suffix to route the generated metrics. All destination types normally supported for metrics pipelines are also supported as metrics destinations in logs pipelines. (see below for nested schema)
+	// The `generate_metrics` processor creates custom metrics from logs. Metrics can be counters, gauges, or distributions and optionally grouped by log fields. There must be a destination whose `inputs` reference this processor with the `<processor-id>.metrics` suffix to route the generated metrics. All destination types normally supported for `metrics` pipelines are also supported as metrics destinations in `logs` pipelines.
 	GenerateMetrics []GenerateMetricsInitParameters `json:"generateMetrics,omitempty" tf:"generate_metrics,omitempty"`
 
 	// (String) The ID of this resource.
@@ -9565,6 +11318,10 @@ type ProcessorInitParameters struct {
 	// (String) A Datadog search query that determines which logs are forwarded using this route.
 	// A Datadog search query used to determine which logs this processor targets.
 	Include *string `json:"include,omitempty" tf:"include,omitempty"`
+
+	// (Block List) Configures the enrichment_table processor for metrics pipelines. The processor enriches metrics with tags from a static CSV file or a Datadog reference table. It looks up a row using the metric name or a metric tag value. It then adds each column of the matching row as a metric tag, overwriting any existing tag with the same key. Exactly one of file or reference_table must be configured. (see below for nested schema)
+	// Configures the `enrichment_table` processor for `metrics` pipelines. The processor enriches metrics with tags from a static CSV file or a Datadog reference table. It looks up a row using the metric name or a metric tag value. It then adds each column of the matching row as a metric tag, overwriting any existing tag with the same key. Exactly one of `file` or `reference_table` must be configured.
+	MetricEnrichmentTable []MetricEnrichmentTableInitParameters `json:"metricEnrichmentTable,omitempty" tf:"metric_enrichment_table,omitempty"`
 
 	// (Block List) The metric_tags processor filters metrics based on their tags using Datadog tag key patterns. (see below for nested schema)
 	// The `metric_tags` processor filters metrics based on their tags using Datadog tag key patterns.
@@ -9613,6 +11370,10 @@ type ProcessorInitParameters struct {
 	// (Block List) The sensitive_data_scanner processor detects and optionally redacts sensitive data in log events. (see below for nested schema)
 	// The `sensitive_data_scanner` processor detects and optionally redacts sensitive data in log events.
 	SensitiveDataScanner []SensitiveDataScannerInitParameters `json:"sensitiveDataScanner,omitempty" tf:"sensitive_data_scanner,omitempty"`
+
+	// (Block List) The spike_protection processor learns the normal log volume and detects spikes, optionally dropping or rerouting the excess events. (see below for nested schema)
+	// The `spike_protection` processor learns the normal log volume and detects spikes, optionally dropping or rerouting the excess events.
+	SpikeProtection []SpikeProtectionInitParameters `json:"spikeProtection,omitempty" tf:"spike_protection,omitempty"`
 
 	// (Block List) The split_array processor splits array fields into separate events based on configured rules. (see below for nested schema)
 	// The `split_array` processor splits array fields into separate events based on configured rules.
@@ -9676,12 +11437,14 @@ type ProcessorObservation struct {
 	// The `filter` processor allows conditional processing of logs based on a Datadog search query. Logs that match the `include` query are passed through; others are discarded.
 	Filter []FilterParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
-	// (Block List) The generate_datadog_metrics processor creates custom metrics from logs. Metrics can be counters, gauges, or distributions and optionally grouped by log fields. (see below for nested schema)
+	// (Block List, Deprecated) The generate_datadog_metrics processor creates custom metrics from logs. Metrics can be counters, gauges, or distributions and optionally grouped by log fields.
 	// The `generate_datadog_metrics` processor creates custom metrics from logs. Metrics can be counters, gauges, or distributions and optionally grouped by log fields.
+	//
+	// **Deprecated:** This processor is deprecated, you should now use the `generate_metrics` processor.
 	GenerateDatadogMetrics []GenerateDatadogMetricsObservation `json:"generateDatadogMetrics,omitempty" tf:"generate_datadog_metrics,omitempty"`
 
-	// id>.metrics. (see below for nested schema)
-	// The `generate_metrics` processor creates custom metrics from logs. The generated metrics must be routed to a metrics destination using the input `<processor-id>.metrics`.
+	// id>.metrics suffix to route the generated metrics. All destination types normally supported for metrics pipelines are also supported as metrics destinations in logs pipelines. (see below for nested schema)
+	// The `generate_metrics` processor creates custom metrics from logs. Metrics can be counters, gauges, or distributions and optionally grouped by log fields. There must be a destination whose `inputs` reference this processor with the `<processor-id>.metrics` suffix to route the generated metrics. All destination types normally supported for `metrics` pipelines are also supported as metrics destinations in `logs` pipelines.
 	GenerateMetrics []GenerateMetricsObservation `json:"generateMetrics,omitempty" tf:"generate_metrics,omitempty"`
 
 	// (String) The ID of this resource.
@@ -9691,6 +11454,10 @@ type ProcessorObservation struct {
 	// (String) A Datadog search query that determines which logs are forwarded using this route.
 	// A Datadog search query used to determine which logs this processor targets.
 	Include *string `json:"include,omitempty" tf:"include,omitempty"`
+
+	// (Block List) Configures the enrichment_table processor for metrics pipelines. The processor enriches metrics with tags from a static CSV file or a Datadog reference table. It looks up a row using the metric name or a metric tag value. It then adds each column of the matching row as a metric tag, overwriting any existing tag with the same key. Exactly one of file or reference_table must be configured. (see below for nested schema)
+	// Configures the `enrichment_table` processor for `metrics` pipelines. The processor enriches metrics with tags from a static CSV file or a Datadog reference table. It looks up a row using the metric name or a metric tag value. It then adds each column of the matching row as a metric tag, overwriting any existing tag with the same key. Exactly one of `file` or `reference_table` must be configured.
+	MetricEnrichmentTable []MetricEnrichmentTableObservation `json:"metricEnrichmentTable,omitempty" tf:"metric_enrichment_table,omitempty"`
 
 	// (Block List) The metric_tags processor filters metrics based on their tags using Datadog tag key patterns. (see below for nested schema)
 	// The `metric_tags` processor filters metrics based on their tags using Datadog tag key patterns.
@@ -9739,6 +11506,10 @@ type ProcessorObservation struct {
 	// (Block List) The sensitive_data_scanner processor detects and optionally redacts sensitive data in log events. (see below for nested schema)
 	// The `sensitive_data_scanner` processor detects and optionally redacts sensitive data in log events.
 	SensitiveDataScanner []SensitiveDataScannerObservation `json:"sensitiveDataScanner,omitempty" tf:"sensitive_data_scanner,omitempty"`
+
+	// (Block List) The spike_protection processor learns the normal log volume and detects spikes, optionally dropping or rerouting the excess events. (see below for nested schema)
+	// The `spike_protection` processor learns the normal log volume and detects spikes, optionally dropping or rerouting the excess events.
+	SpikeProtection []SpikeProtectionObservation `json:"spikeProtection,omitempty" tf:"spike_protection,omitempty"`
 
 	// (Block List) The split_array processor splits array fields into separate events based on configured rules. (see below for nested schema)
 	// The `split_array` processor splits array fields into separate events based on configured rules.
@@ -9814,13 +11585,15 @@ type ProcessorParameters struct {
 	// +kubebuilder:validation:Optional
 	Filter []FilterParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
-	// (Block List) The generate_datadog_metrics processor creates custom metrics from logs. Metrics can be counters, gauges, or distributions and optionally grouped by log fields. (see below for nested schema)
+	// (Block List, Deprecated) The generate_datadog_metrics processor creates custom metrics from logs. Metrics can be counters, gauges, or distributions and optionally grouped by log fields.
 	// The `generate_datadog_metrics` processor creates custom metrics from logs. Metrics can be counters, gauges, or distributions and optionally grouped by log fields.
+	//
+	// **Deprecated:** This processor is deprecated, you should now use the `generate_metrics` processor.
 	// +kubebuilder:validation:Optional
 	GenerateDatadogMetrics []GenerateDatadogMetricsParameters `json:"generateDatadogMetrics,omitempty" tf:"generate_datadog_metrics,omitempty"`
 
-	// id>.metrics. (see below for nested schema)
-	// The `generate_metrics` processor creates custom metrics from logs. The generated metrics must be routed to a metrics destination using the input `<processor-id>.metrics`.
+	// id>.metrics suffix to route the generated metrics. All destination types normally supported for metrics pipelines are also supported as metrics destinations in logs pipelines. (see below for nested schema)
+	// The `generate_metrics` processor creates custom metrics from logs. Metrics can be counters, gauges, or distributions and optionally grouped by log fields. There must be a destination whose `inputs` reference this processor with the `<processor-id>.metrics` suffix to route the generated metrics. All destination types normally supported for `metrics` pipelines are also supported as metrics destinations in `logs` pipelines.
 	// +kubebuilder:validation:Optional
 	GenerateMetrics []GenerateMetricsParameters `json:"generateMetrics,omitempty" tf:"generate_metrics,omitempty"`
 
@@ -9833,6 +11606,11 @@ type ProcessorParameters struct {
 	// A Datadog search query used to determine which logs this processor targets.
 	// +kubebuilder:validation:Optional
 	Include *string `json:"include" tf:"include,omitempty"`
+
+	// (Block List) Configures the enrichment_table processor for metrics pipelines. The processor enriches metrics with tags from a static CSV file or a Datadog reference table. It looks up a row using the metric name or a metric tag value. It then adds each column of the matching row as a metric tag, overwriting any existing tag with the same key. Exactly one of file or reference_table must be configured. (see below for nested schema)
+	// Configures the `enrichment_table` processor for `metrics` pipelines. The processor enriches metrics with tags from a static CSV file or a Datadog reference table. It looks up a row using the metric name or a metric tag value. It then adds each column of the matching row as a metric tag, overwriting any existing tag with the same key. Exactly one of `file` or `reference_table` must be configured.
+	// +kubebuilder:validation:Optional
+	MetricEnrichmentTable []MetricEnrichmentTableParameters `json:"metricEnrichmentTable,omitempty" tf:"metric_enrichment_table,omitempty"`
 
 	// (Block List) The metric_tags processor filters metrics based on their tags using Datadog tag key patterns. (see below for nested schema)
 	// The `metric_tags` processor filters metrics based on their tags using Datadog tag key patterns.
@@ -9894,6 +11672,11 @@ type ProcessorParameters struct {
 	// +kubebuilder:validation:Optional
 	SensitiveDataScanner []SensitiveDataScannerParameters `json:"sensitiveDataScanner,omitempty" tf:"sensitive_data_scanner,omitempty"`
 
+	// (Block List) The spike_protection processor learns the normal log volume and detects spikes, optionally dropping or rerouting the excess events. (see below for nested schema)
+	// The `spike_protection` processor learns the normal log volume and detects spikes, optionally dropping or rerouting the excess events.
+	// +kubebuilder:validation:Optional
+	SpikeProtection []SpikeProtectionParameters `json:"spikeProtection,omitempty" tf:"spike_protection,omitempty"`
+
 	// (Block List) The split_array processor splits array fields into separate events based on configured rules. (see below for nested schema)
 	// The `split_array` processor splits array fields into separate events based on configured rules.
 	// +kubebuilder:validation:Optional
@@ -9908,6 +11691,372 @@ type ProcessorParameters struct {
 	// The `throttle` processor limits the number of events that pass through over a given time window.
 	// +kubebuilder:validation:Optional
 	Throttle []ThrottleParameters `json:"throttle,omitempty" tf:"throttle,omitempty"`
+}
+
+type PrometheusRemoteWriteBufferDiskInitParameters struct {
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the disk buffer (in bytes).
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type PrometheusRemoteWriteBufferDiskObservation struct {
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the disk buffer (in bytes).
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type PrometheusRemoteWriteBufferDiskParameters struct {
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the disk buffer (in bytes).
+	// +kubebuilder:validation:Optional
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	// +kubebuilder:validation:Optional
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type PrometheusRemoteWriteBufferInitParameters struct {
+
+	// (Block List) Options for configuring a disk buffer. Cannot be used with memory. (see below for nested schema)
+	// Options for configuring a disk buffer. Cannot be used with `memory`.
+	Disk []PrometheusRemoteWriteBufferDiskInitParameters `json:"disk,omitempty" tf:"disk,omitempty"`
+
+	// (Block List) Options for configuring a memory buffer. Cannot be used with disk. (see below for nested schema)
+	// Options for configuring a memory buffer. Cannot be used with `disk`.
+	Memory []PrometheusRemoteWriteBufferMemoryInitParameters `json:"memory,omitempty" tf:"memory,omitempty"`
+}
+
+type PrometheusRemoteWriteBufferMemoryInitParameters struct {
+
+	// (Number) Maximum events for the memory buffer.
+	// Maximum events for the memory buffer.
+	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the memory buffer (in bytes).
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type PrometheusRemoteWriteBufferMemoryObservation struct {
+
+	// (Number) Maximum events for the memory buffer.
+	// Maximum events for the memory buffer.
+	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the memory buffer (in bytes).
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type PrometheusRemoteWriteBufferMemoryParameters struct {
+
+	// (Number) Maximum events for the memory buffer.
+	// Maximum events for the memory buffer.
+	// +kubebuilder:validation:Optional
+	MaxEvents *float64 `json:"maxEvents,omitempty" tf:"max_events,omitempty"`
+
+	// (Number) Maximum size of the disk buffer (in bytes).
+	// Maximum size of the memory buffer (in bytes).
+	// +kubebuilder:validation:Optional
+	MaxSize *float64 `json:"maxSize,omitempty" tf:"max_size,omitempty"`
+
+	// (String) Behavior when the buffer is full. Valid values are block or drop_newest. Defaults to "block".
+	// Behavior when the buffer is full. Valid values are `block` or `drop_newest`. Defaults to `"block"`.
+	// +kubebuilder:validation:Optional
+	WhenFull *string `json:"whenFull,omitempty" tf:"when_full,omitempty"`
+}
+
+type PrometheusRemoteWriteBufferObservation struct {
+
+	// (Block List) Options for configuring a disk buffer. Cannot be used with memory. (see below for nested schema)
+	// Options for configuring a disk buffer. Cannot be used with `memory`.
+	Disk []PrometheusRemoteWriteBufferDiskObservation `json:"disk,omitempty" tf:"disk,omitempty"`
+
+	// (Block List) Options for configuring a memory buffer. Cannot be used with disk. (see below for nested schema)
+	// Options for configuring a memory buffer. Cannot be used with `disk`.
+	Memory []PrometheusRemoteWriteBufferMemoryObservation `json:"memory,omitempty" tf:"memory,omitempty"`
+}
+
+type PrometheusRemoteWriteBufferParameters struct {
+
+	// (Block List) Options for configuring a disk buffer. Cannot be used with memory. (see below for nested schema)
+	// Options for configuring a disk buffer. Cannot be used with `memory`.
+	// +kubebuilder:validation:Optional
+	Disk []PrometheusRemoteWriteBufferDiskParameters `json:"disk,omitempty" tf:"disk,omitempty"`
+
+	// (Block List) Options for configuring a memory buffer. Cannot be used with disk. (see below for nested schema)
+	// Options for configuring a memory buffer. Cannot be used with `disk`.
+	// +kubebuilder:validation:Optional
+	Memory []PrometheusRemoteWriteBufferMemoryParameters `json:"memory,omitempty" tf:"memory,omitempty"`
+}
+
+type PrometheusRemoteWriteInitParameters struct {
+
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
+	// The authentication strategy to use for outgoing Prometheus Remote Write requests. Valid values are `none`, `basic`, `bearer`.
+	AuthStrategy *string `json:"authStrategy,omitempty" tf:"auth_strategy,omitempty"`
+
+	// (Block List) Configuration for buffer settings on destination components. Exactly one of disk or memory must be specified. (see below for nested schema)
+	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
+	Buffer []PrometheusRemoteWriteBufferInitParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
+
+	// (String) The default namespace to prefix onto metric names that don't already have one.
+	// The default namespace to prefix onto metric names that don't already have one.
+	DefaultNamespace *string `json:"defaultNamespace,omitempty" tf:"default_namespace,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
+	// Name of the environment variable or secret that holds the Prometheus Remote Write endpoint URL.
+	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
+	// Name of the environment variable or secret that holds the password. Used when `auth_strategy` is `basic`.
+	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
+
+	// (Block List) Configuration for enabling TLS encryption between the pipeline component and external services. (see below for nested schema)
+	// Configuration for enabling TLS encryption between the pipeline component and external services.
+	TLS []PrometheusRemoteWriteTLSInitParameters `json:"tls,omitempty" tf:"tls,omitempty"`
+
+	// (String) The Microsoft Entra tenant ID. If omitted, it is read from the environment.
+	// The tenant ID to include with outgoing requests. Used by multi-tenant Prometheus Remote Write receivers.
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the authentication token.
+	// Name of the environment variable or secret that holds the bearer token. Used when `auth_strategy` is `bearer`.
+	TokenKey *string `json:"tokenKey,omitempty" tf:"token_key,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
+	// Name of the environment variable or secret that holds the username. Used when `auth_strategy` is `basic`.
+	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
+}
+
+type PrometheusRemoteWriteObservation struct {
+
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
+	// The authentication strategy to use for outgoing Prometheus Remote Write requests. Valid values are `none`, `basic`, `bearer`.
+	AuthStrategy *string `json:"authStrategy,omitempty" tf:"auth_strategy,omitempty"`
+
+	// (Block List) Configuration for buffer settings on destination components. Exactly one of disk or memory must be specified. (see below for nested schema)
+	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
+	Buffer []PrometheusRemoteWriteBufferObservation `json:"buffer,omitempty" tf:"buffer,omitempty"`
+
+	// (String) The default namespace to prefix onto metric names that don't already have one.
+	// The default namespace to prefix onto metric names that don't already have one.
+	DefaultNamespace *string `json:"defaultNamespace,omitempty" tf:"default_namespace,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
+	// Name of the environment variable or secret that holds the Prometheus Remote Write endpoint URL.
+	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
+	// Name of the environment variable or secret that holds the password. Used when `auth_strategy` is `basic`.
+	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
+
+	// (Block List) Configuration for enabling TLS encryption between the pipeline component and external services. (see below for nested schema)
+	// Configuration for enabling TLS encryption between the pipeline component and external services.
+	TLS []PrometheusRemoteWriteTLSObservation `json:"tls,omitempty" tf:"tls,omitempty"`
+
+	// (String) The Microsoft Entra tenant ID. If omitted, it is read from the environment.
+	// The tenant ID to include with outgoing requests. Used by multi-tenant Prometheus Remote Write receivers.
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the authentication token.
+	// Name of the environment variable or secret that holds the bearer token. Used when `auth_strategy` is `bearer`.
+	TokenKey *string `json:"tokenKey,omitempty" tf:"token_key,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
+	// Name of the environment variable or secret that holds the username. Used when `auth_strategy` is `basic`.
+	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
+}
+
+type PrometheusRemoteWriteParameters struct {
+
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
+	// The authentication strategy to use for outgoing Prometheus Remote Write requests. Valid values are `none`, `basic`, `bearer`.
+	// +kubebuilder:validation:Optional
+	AuthStrategy *string `json:"authStrategy,omitempty" tf:"auth_strategy,omitempty"`
+
+	// (Block List) Configuration for buffer settings on destination components. Exactly one of disk or memory must be specified. (see below for nested schema)
+	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
+	// +kubebuilder:validation:Optional
+	Buffer []PrometheusRemoteWriteBufferParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
+
+	// (String) The default namespace to prefix onto metric names that don't already have one.
+	// The default namespace to prefix onto metric names that don't already have one.
+	// +kubebuilder:validation:Optional
+	DefaultNamespace *string `json:"defaultNamespace,omitempty" tf:"default_namespace,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
+	// Name of the environment variable or secret that holds the Prometheus Remote Write endpoint URL.
+	// +kubebuilder:validation:Optional
+	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
+	// Name of the environment variable or secret that holds the password. Used when `auth_strategy` is `basic`.
+	// +kubebuilder:validation:Optional
+	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
+
+	// (Block List) Configuration for enabling TLS encryption between the pipeline component and external services. (see below for nested schema)
+	// Configuration for enabling TLS encryption between the pipeline component and external services.
+	// +kubebuilder:validation:Optional
+	TLS []PrometheusRemoteWriteTLSParameters `json:"tls,omitempty" tf:"tls,omitempty"`
+
+	// (String) The Microsoft Entra tenant ID. If omitted, it is read from the environment.
+	// The tenant ID to include with outgoing requests. Used by multi-tenant Prometheus Remote Write receivers.
+	// +kubebuilder:validation:Optional
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the authentication token.
+	// Name of the environment variable or secret that holds the bearer token. Used when `auth_strategy` is `bearer`.
+	// +kubebuilder:validation:Optional
+	TokenKey *string `json:"tokenKey,omitempty" tf:"token_key,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
+	// Name of the environment variable or secret that holds the username. Used when `auth_strategy` is `basic`.
+	// +kubebuilder:validation:Optional
+	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
+}
+
+type PrometheusRemoteWriteTLSInitParameters struct {
+
+	// (String) Path to the Certificate Authority (CA) file used to validate the server's TLS certificate.
+	// Path to the Certificate Authority (CA) file used to validate the server's TLS certificate.
+	CAFile *string `json:"caFile,omitempty" tf:"ca_file,omitempty"`
+
+	// (String) Path to the TLS client certificate file used to authenticate the pipeline component with upstream or downstream services.
+	// Path to the TLS client certificate file used to authenticate the pipeline component with upstream or downstream services.
+	CrtFile *string `json:"crtFile,omitempty" tf:"crt_file,omitempty"`
+
+	// (String) Path to the private key file associated with the TLS client certificate. Used for mutual TLS authentication.
+	// Path to the private key file associated with the TLS client certificate. Used for mutual TLS authentication.
+	KeyFile *string `json:"keyFile,omitempty" tf:"key_file,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the passphrase for the private key file.
+	// Name of the environment variable or secret that holds the passphrase for the private key file.
+	KeyPassKey *string `json:"keyPassKey,omitempty" tf:"key_pass_key,omitempty"`
+
+	// (String) Server name to use for Server Name Indication (SNI) and to verify against the certificate presented by the remote host. Use this when the address you connect to doesn't match the certificate's Common Name or Subject Alternative Name.
+	// Server name to use for Server Name Indication (SNI) and to verify against the certificate presented by the remote host. Use this when the address you connect to doesn't match the certificate's Common Name or Subject Alternative Name.
+	ServerName *string `json:"serverName,omitempty" tf:"server_name,omitempty"`
+}
+
+type PrometheusRemoteWriteTLSObservation struct {
+
+	// (String) Path to the Certificate Authority (CA) file used to validate the server's TLS certificate.
+	// Path to the Certificate Authority (CA) file used to validate the server's TLS certificate.
+	CAFile *string `json:"caFile,omitempty" tf:"ca_file,omitempty"`
+
+	// (String) Path to the TLS client certificate file used to authenticate the pipeline component with upstream or downstream services.
+	// Path to the TLS client certificate file used to authenticate the pipeline component with upstream or downstream services.
+	CrtFile *string `json:"crtFile,omitempty" tf:"crt_file,omitempty"`
+
+	// (String) Path to the private key file associated with the TLS client certificate. Used for mutual TLS authentication.
+	// Path to the private key file associated with the TLS client certificate. Used for mutual TLS authentication.
+	KeyFile *string `json:"keyFile,omitempty" tf:"key_file,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the passphrase for the private key file.
+	// Name of the environment variable or secret that holds the passphrase for the private key file.
+	KeyPassKey *string `json:"keyPassKey,omitempty" tf:"key_pass_key,omitempty"`
+
+	// (String) Server name to use for Server Name Indication (SNI) and to verify against the certificate presented by the remote host. Use this when the address you connect to doesn't match the certificate's Common Name or Subject Alternative Name.
+	// Server name to use for Server Name Indication (SNI) and to verify against the certificate presented by the remote host. Use this when the address you connect to doesn't match the certificate's Common Name or Subject Alternative Name.
+	ServerName *string `json:"serverName,omitempty" tf:"server_name,omitempty"`
+}
+
+type PrometheusRemoteWriteTLSParameters struct {
+
+	// (String) Path to the Certificate Authority (CA) file used to validate the server's TLS certificate.
+	// Path to the Certificate Authority (CA) file used to validate the server's TLS certificate.
+	// +kubebuilder:validation:Optional
+	CAFile *string `json:"caFile,omitempty" tf:"ca_file,omitempty"`
+
+	// (String) Path to the TLS client certificate file used to authenticate the pipeline component with upstream or downstream services.
+	// Path to the TLS client certificate file used to authenticate the pipeline component with upstream or downstream services.
+	// +kubebuilder:validation:Optional
+	CrtFile *string `json:"crtFile" tf:"crt_file,omitempty"`
+
+	// (String) Path to the private key file associated with the TLS client certificate. Used for mutual TLS authentication.
+	// Path to the private key file associated with the TLS client certificate. Used for mutual TLS authentication.
+	// +kubebuilder:validation:Optional
+	KeyFile *string `json:"keyFile,omitempty" tf:"key_file,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the passphrase for the private key file.
+	// Name of the environment variable or secret that holds the passphrase for the private key file.
+	// +kubebuilder:validation:Optional
+	KeyPassKey *string `json:"keyPassKey,omitempty" tf:"key_pass_key,omitempty"`
+
+	// (String) Server name to use for Server Name Indication (SNI) and to verify against the certificate presented by the remote host. Use this when the address you connect to doesn't match the certificate's Common Name or Subject Alternative Name.
+	// Server name to use for Server Name Indication (SNI) and to verify against the certificate presented by the remote host. Use this when the address you connect to doesn't match the certificate's Common Name or Subject Alternative Name.
+	// +kubebuilder:validation:Optional
+	ServerName *string `json:"serverName,omitempty" tf:"server_name,omitempty"`
+}
+
+type PrometheusRemoteWriteValidTokenInitParameters struct {
+
+	// (Boolean) Whether this processor group is enabled.
+	// Whether this token is currently accepted. Defaults to `true`.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// in source or header to read it from a request header. (see below for nested schema)
+	// Specifies where the worker extracts the token from the incoming HTTP request. Set either `location` for a built-in source or `header` to read it from a request header.
+	PathToToken []ValidTokenPathToTokenInitParameters `json:"pathToToken,omitempty" tf:"path_to_token,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the authentication token.
+	// Name of the environment variable or secret that holds the expected token value.
+	TokenKey *string `json:"tokenKey,omitempty" tf:"token_key,omitempty"`
+}
+
+type PrometheusRemoteWriteValidTokenObservation struct {
+
+	// (Boolean) Whether this processor group is enabled.
+	// Whether this token is currently accepted. Defaults to `true`.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// in source or header to read it from a request header. (see below for nested schema)
+	// Specifies where the worker extracts the token from the incoming HTTP request. Set either `location` for a built-in source or `header` to read it from a request header.
+	PathToToken []ValidTokenPathToTokenObservation `json:"pathToToken,omitempty" tf:"path_to_token,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the authentication token.
+	// Name of the environment variable or secret that holds the expected token value.
+	TokenKey *string `json:"tokenKey,omitempty" tf:"token_key,omitempty"`
+}
+
+type PrometheusRemoteWriteValidTokenParameters struct {
+
+	// (Boolean) Whether this processor group is enabled.
+	// Whether this token is currently accepted. Defaults to `true`.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// in source or header to read it from a request header. (see below for nested schema)
+	// Specifies where the worker extracts the token from the incoming HTTP request. Set either `location` for a built-in source or `header` to read it from a request header.
+	// +kubebuilder:validation:Optional
+	PathToToken []ValidTokenPathToTokenParameters `json:"pathToToken,omitempty" tf:"path_to_token,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the authentication token.
+	// Name of the environment variable or secret that holds the expected token value.
+	// +kubebuilder:validation:Optional
+	TokenKey *string `json:"tokenKey" tf:"token_key,omitempty"`
 }
 
 type QuotaInitParameters struct {
@@ -9927,8 +12076,8 @@ type QuotaInitParameters struct {
 	// The name of the quota.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The action to take when the quota is exceeded: drop, no_action, or overflow_routing.
-	// The action to take when the quota is exceeded: `drop`, `no_action`, or `overflow_routing`.
+	// id>.overflow_events suffix to route the overflowing events. Only the following destination types support overflow inputs: amazon_s3_generic, amazon_s3, google_cloud_storage, and azure_storage.
+	// The action to take when the quota is exceeded: `drop`, `no_action`, or `overflow_routing`. When `overflow_routing` is used, there must be a destination whose `inputs` reference this processor with the `<processor-id>.overflow_events` suffix to route the overflowing events. Only the following destination types support overflow inputs: `amazon_s3_generic`, `amazon_s3`, `google_cloud_storage`, and `azure_storage`.
 	OverflowAction *string `json:"overflowAction,omitempty" tf:"overflow_action,omitempty"`
 
 	// specific quotas. (see below for nested schema)
@@ -9961,8 +12110,8 @@ type QuotaObservation struct {
 	// The name of the quota.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The action to take when the quota is exceeded: drop, no_action, or overflow_routing.
-	// The action to take when the quota is exceeded: `drop`, `no_action`, or `overflow_routing`.
+	// id>.overflow_events suffix to route the overflowing events. Only the following destination types support overflow inputs: amazon_s3_generic, amazon_s3, google_cloud_storage, and azure_storage.
+	// The action to take when the quota is exceeded: `drop`, `no_action`, or `overflow_routing`. When `overflow_routing` is used, there must be a destination whose `inputs` reference this processor with the `<processor-id>.overflow_events` suffix to route the overflowing events. Only the following destination types support overflow inputs: `amazon_s3_generic`, `amazon_s3`, `google_cloud_storage`, and `azure_storage`.
 	OverflowAction *string `json:"overflowAction,omitempty" tf:"overflow_action,omitempty"`
 
 	// specific quotas. (see below for nested schema)
@@ -9999,8 +12148,8 @@ type QuotaParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// (String) The action to take when the quota is exceeded: drop, no_action, or overflow_routing.
-	// The action to take when the quota is exceeded: `drop`, `no_action`, or `overflow_routing`.
+	// id>.overflow_events suffix to route the overflowing events. Only the following destination types support overflow inputs: amazon_s3_generic, amazon_s3, google_cloud_storage, and azure_storage.
+	// The action to take when the quota is exceeded: `drop`, `no_action`, or `overflow_routing`. When `overflow_routing` is used, there must be a destination whose `inputs` reference this processor with the `<processor-id>.overflow_events` suffix to route the overflowing events. Only the following destination types support overflow inputs: `amazon_s3_generic`, `amazon_s3`, `google_cloud_storage`, and `azure_storage`.
 	// +kubebuilder:validation:Optional
 	OverflowAction *string `json:"overflowAction,omitempty" tf:"overflow_action,omitempty"`
 
@@ -10094,6 +12243,28 @@ type ReferenceTableInitParameters struct {
 	// (String) The unique identifier of the reference table.
 	// The unique identifier of the reference table.
 	TableID *string `json:"tableId,omitempty" tf:"table_id,omitempty"`
+}
+
+type ReferenceTableKeyInitParameters struct {
+
+	// (Block List) List of sources. (see below for nested schema)
+	// Specifies the source of the key value used for metric enrichment table lookups. The lookup key can be either the metric name or a metric tag.
+	Source []KeySourceInitParameters `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type ReferenceTableKeyObservation struct {
+
+	// (Block List) List of sources. (see below for nested schema)
+	// Specifies the source of the key value used for metric enrichment table lookups. The lookup key can be either the metric name or a metric tag.
+	Source []KeySourceObservation `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type ReferenceTableKeyParameters struct {
+
+	// (Block List) List of sources. (see below for nested schema)
+	// Specifies the source of the key value used for metric enrichment table lookups. The lookup key can be either the metric name or a metric tag.
+	// +kubebuilder:validation:Optional
+	Source []KeySourceParameters `json:"source,omitempty" tf:"source,omitempty"`
 }
 
 type ReferenceTableObservation struct {
@@ -10677,7 +12848,7 @@ type RsyslogInitParameters struct {
 	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
 	Buffer []RsyslogBufferInitParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the rsyslog endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -10696,7 +12867,7 @@ type RsyslogObservation struct {
 	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
 	Buffer []RsyslogBufferObservation `json:"buffer,omitempty" tf:"buffer,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the rsyslog endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -10716,7 +12887,7 @@ type RsyslogParameters struct {
 	// +kubebuilder:validation:Optional
 	Buffer []RsyslogBufferParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the rsyslog endpoint URL.
 	// +kubebuilder:validation:Optional
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
@@ -10965,11 +13136,11 @@ type SaslInitParameters struct {
 	// SASL authentication mechanism. Valid values are `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`.
 	Mechanism *string `json:"mechanism,omitempty" tf:"mechanism,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the SASL password.
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the SASL username.
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
@@ -10980,11 +13151,11 @@ type SaslObservation struct {
 	// SASL authentication mechanism. Valid values are `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`.
 	Mechanism *string `json:"mechanism,omitempty" tf:"mechanism,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the SASL password.
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the SASL username.
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
@@ -10996,12 +13167,12 @@ type SaslParameters struct {
 	// +kubebuilder:validation:Optional
 	Mechanism *string `json:"mechanism" tf:"mechanism,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the SASL password.
 	// +kubebuilder:validation:Optional
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the SASL username.
 	// +kubebuilder:validation:Optional
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
@@ -11694,7 +13865,7 @@ type SourceAmazonS3AuthParameters struct {
 
 type SourceAmazonS3InitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// AWS authentication credentials used for accessing AWS services. If omitted, the system's default credentials are used (for example, the IAM role and environment variables).
 	Auth []SourceAmazonS3AuthInitParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -11717,7 +13888,7 @@ type SourceAmazonS3InitParameters struct {
 
 type SourceAmazonS3Observation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// AWS authentication credentials used for accessing AWS services. If omitted, the system's default credentials are used (for example, the IAM role and environment variables).
 	Auth []SourceAmazonS3AuthObservation `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -11740,7 +13911,7 @@ type SourceAmazonS3Observation struct {
 
 type SourceAmazonS3Parameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// AWS authentication credentials used for accessing AWS services. If omitted, the system's default credentials are used (for example, the IAM role and environment variables).
 	// +kubebuilder:validation:Optional
 	Auth []SourceAmazonS3AuthParameters `json:"auth,omitempty" tf:"auth,omitempty"`
@@ -11790,7 +13961,7 @@ type SourceGooglePubsubAuthParameters struct {
 
 type SourceGooglePubsubInitParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Google Cloud credentials used to authenticate with Google Cloud services.
 	Auth []SourceGooglePubsubAuthInitParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -11813,7 +13984,7 @@ type SourceGooglePubsubInitParameters struct {
 
 type SourceGooglePubsubObservation struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Google Cloud credentials used to authenticate with Google Cloud services.
 	Auth []SourceGooglePubsubAuthObservation `json:"auth,omitempty" tf:"auth,omitempty"`
 
@@ -11836,7 +14007,7 @@ type SourceGooglePubsubObservation struct {
 
 type SourceGooglePubsubParameters struct {
 
-	// (Block List) (see below for nested schema)
+	// (Block List) Authentication settings for the Amazon OpenSearch destination. (see below for nested schema)
 	// Google Cloud credentials used to authenticate with Google Cloud services.
 	// +kubebuilder:validation:Optional
 	Auth []SourceGooglePubsubAuthParameters `json:"auth,omitempty" tf:"auth,omitempty"`
@@ -11925,11 +14096,11 @@ type SourceGooglePubsubTLSParameters struct {
 
 type SourceHTTPClientInitParameters struct {
 
-	// (String) HTTP authentication strategy. Valid values are none, basic, bearer.
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
 	// Optional authentication strategy for HTTP requests. Valid values are `none`, `basic`, `bearer`, `custom`.
 	AuthStrategy *string `json:"authStrategy,omitempty" tf:"auth_strategy,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds a custom header value (used with custom auth strategies).
+	// (String) Name of the environment variable or secret that holds the custom authentication header value. Used with the custom auth strategy.
 	// Name of the environment variable or secret that holds a custom header value (used with custom auth strategies).
 	CustomKey *string `json:"customKey,omitempty" tf:"custom_key,omitempty"`
 
@@ -11937,11 +14108,11 @@ type SourceHTTPClientInitParameters struct {
 	// The decoding format used to interpret incoming logs.
 	Decoding *string `json:"decoding,omitempty" tf:"decoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the HTTP endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the password.
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
@@ -11961,18 +14132,18 @@ type SourceHTTPClientInitParameters struct {
 	// Name of the environment variable or secret that holds the authentication token.
 	TokenKey *string `json:"tokenKey,omitempty" tf:"token_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the username.
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
 
 type SourceHTTPClientObservation struct {
 
-	// (String) HTTP authentication strategy. Valid values are none, basic, bearer.
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
 	// Optional authentication strategy for HTTP requests. Valid values are `none`, `basic`, `bearer`, `custom`.
 	AuthStrategy *string `json:"authStrategy,omitempty" tf:"auth_strategy,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds a custom header value (used with custom auth strategies).
+	// (String) Name of the environment variable or secret that holds the custom authentication header value. Used with the custom auth strategy.
 	// Name of the environment variable or secret that holds a custom header value (used with custom auth strategies).
 	CustomKey *string `json:"customKey,omitempty" tf:"custom_key,omitempty"`
 
@@ -11980,11 +14151,11 @@ type SourceHTTPClientObservation struct {
 	// The decoding format used to interpret incoming logs.
 	Decoding *string `json:"decoding,omitempty" tf:"decoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the HTTP endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the password.
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
@@ -12004,19 +14175,19 @@ type SourceHTTPClientObservation struct {
 	// Name of the environment variable or secret that holds the authentication token.
 	TokenKey *string `json:"tokenKey,omitempty" tf:"token_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the username.
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
 
 type SourceHTTPClientParameters struct {
 
-	// (String) HTTP authentication strategy. Valid values are none, basic, bearer.
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
 	// Optional authentication strategy for HTTP requests. Valid values are `none`, `basic`, `bearer`, `custom`.
 	// +kubebuilder:validation:Optional
 	AuthStrategy *string `json:"authStrategy,omitempty" tf:"auth_strategy,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds a custom header value (used with custom auth strategies).
+	// (String) Name of the environment variable or secret that holds the custom authentication header value. Used with the custom auth strategy.
 	// Name of the environment variable or secret that holds a custom header value (used with custom auth strategies).
 	// +kubebuilder:validation:Optional
 	CustomKey *string `json:"customKey,omitempty" tf:"custom_key,omitempty"`
@@ -12026,12 +14197,12 @@ type SourceHTTPClientParameters struct {
 	// +kubebuilder:validation:Optional
 	Decoding *string `json:"decoding" tf:"decoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the HTTP endpoint URL.
 	// +kubebuilder:validation:Optional
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the password.
 	// +kubebuilder:validation:Optional
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
@@ -12056,7 +14227,7 @@ type SourceHTTPClientParameters struct {
 	// +kubebuilder:validation:Optional
 	TokenKey *string `json:"tokenKey,omitempty" tf:"token_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the username.
 	// +kubebuilder:validation:Optional
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
@@ -12138,81 +14309,13 @@ type SourceHTTPClientTLSParameters struct {
 
 type SourceInitParameters struct {
 
-	// (Block List) The amazon_data_firehose source ingests logs from AWS Data Firehose. (see below for nested schema)
-	// The `amazon_data_firehose` source ingests logs from AWS Data Firehose.
-	AmazonDataFirehose []AmazonDataFirehoseInitParameters `json:"amazonDataFirehose,omitempty" tf:"amazon_data_firehose,omitempty"`
+	// (String) The pipeline name.
+	// The Datadog tag key used as the lookup key. Required when `type` is `tag`.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// rehydratable format to an Amazon S3 bucket for archiving. (see below for nested schema)
-	// The `amazon_s3` source ingests logs from an Amazon S3 bucket. It supports AWS authentication, TLS encryption, and configurable compression.
-	AmazonS3 []SourceAmazonS3InitParameters `json:"amazonS3,omitempty" tf:"amazon_s3,omitempty"`
-
-	// (Block List) The datadog_agent source collects logs from the Datadog Agent. (see below for nested schema)
-	// The `datadog_agent` source collects logs from the Datadog Agent.
-	DatadogAgent []DatadogAgentInitParameters `json:"datadogAgent,omitempty" tf:"datadog_agent,omitempty"`
-
-	// (Block List) The fluent_bit source ingests logs from Fluent Bit. (see below for nested schema)
-	// The `fluent_bit` source ingests logs from Fluent Bit.
-	FluentBit []FluentBitInitParameters `json:"fluentBit,omitempty" tf:"fluent_bit,omitempty"`
-
-	// compatible service. (see below for nested schema)
-	// The `fluentd` source ingests logs from a Fluentd-compatible service.
-	Fluentd []FluentdInitParameters `json:"fluentd,omitempty" tf:"fluentd,omitempty"`
-
-	// (Block List) The google_pubsub destination publishes logs to a Google Cloud Pub/Sub topic. (see below for nested schema)
-	// The `google_pubsub` source ingests logs from a Google Cloud Pub/Sub subscription.
-	GooglePubsub []SourceGooglePubsubInitParameters `json:"googlePubsub,omitempty" tf:"google_pubsub,omitempty"`
-
-	// (Block List) The http_client destination sends data to an HTTP endpoint. (see below for nested schema)
-	// The `http_client` source scrapes logs from HTTP endpoints at regular intervals.
-	HTTPClient []SourceHTTPClientInitParameters `json:"httpClient,omitempty" tf:"http_client,omitempty"`
-
-	// (Block List) The http_server source collects logs over HTTP POST from external services. (see below for nested schema)
-	// The `http_server` source collects logs over HTTP POST from external services.
-	HTTPServer []HTTPServerInitParameters `json:"httpServer,omitempty" tf:"http_server,omitempty"`
-
-	// (String) The ID of this resource.
-	// The unique identifier for this source.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// (Block List) The kafka destination sends logs to Apache Kafka topics. (see below for nested schema)
-	// The `kafka` source ingests data from Apache Kafka topics.
-	Kafka []SourceKafkaInitParameters `json:"kafka,omitempty" tf:"kafka,omitempty"`
-
-	// (Block List) The logstash source ingests logs from a Logstash forwarder. (see below for nested schema)
-	// The `logstash` source ingests logs from a Logstash forwarder.
-	Logstash []LogstashInitParameters `json:"logstash,omitempty" tf:"logstash,omitempty"`
-
-	// (Block List) The opentelemetry destination forwards metrics using the OpenTelemetry Protocol (OTLP) over HTTP. (see below for nested schema)
-	// The `opentelemetry` source receives telemetry data using the OpenTelemetry Protocol (OTLP) over gRPC and HTTP.
-	Opentelemetry []SourceOpentelemetryInitParameters `json:"opentelemetry,omitempty" tf:"opentelemetry,omitempty"`
-
-	// (Block List) The rsyslog destination forwards logs to an external rsyslog server over TCP or UDP using the syslog protocol. (see below for nested schema)
-	// The `rsyslog` source listens for logs over TCP or UDP from an `rsyslog` server using the syslog protocol.
-	Rsyslog []SourceRsyslogInitParameters `json:"rsyslog,omitempty" tf:"rsyslog,omitempty"`
-
-	// (Block List) The socket destination sends logs over TCP or UDP to a remote server. (see below for nested schema)
-	// The `socket` source ingests logs over TCP or UDP.
-	Socket []SourceSocketInitParameters `json:"socket,omitempty" tf:"socket,omitempty"`
-
-	// (Block List) The splunk_hec destination forwards logs to Splunk using the HTTP Event Collector (HEC). (see below for nested schema)
-	// The `splunk_hec` source implements the Splunk HTTP Event Collector (HEC) API.
-	SplunkHec []SourceSplunkHecInitParameters `json:"splunkHec,omitempty" tf:"splunk_hec,omitempty"`
-
-	// (Block List) The splunk_tcp source receives logs from a Splunk Universal Forwarder over TCP. TLS is supported for secure transmission. (see below for nested schema)
-	// The `splunk_tcp` source receives logs from a Splunk Universal Forwarder over TCP. TLS is supported for secure transmission.
-	SplunkTCP []SplunkTCPInitParameters `json:"splunkTcp,omitempty" tf:"splunk_tcp,omitempty"`
-
-	// (Block List) The sumo_logic destination forwards logs to Sumo Logic. (see below for nested schema)
-	// The `sumo_logic` source receives logs from Sumo Logic collectors.
-	SumoLogic []SourceSumoLogicInitParameters `json:"sumoLogic,omitempty" tf:"sumo_logic,omitempty"`
-
-	// ng server over TCP or UDP using the syslog protocol. (see below for nested schema)
-	// The `syslog_ng` source listens for logs over TCP or UDP from a `syslog-ng` server using the syslog protocol.
-	SyslogNg []SourceSyslogNgInitParameters `json:"syslogNg,omitempty" tf:"syslog_ng,omitempty"`
-
-	// (Block List) The websocket source establishes a persistent WebSocket connection to a remote endpoint and ingests log events as they are pushed by the server. (see below for nested schema)
-	// The `websocket` source establishes a persistent WebSocket connection to a remote endpoint and ingests log events as they are pushed by the server.
-	Websocket []WebsocketInitParameters `json:"websocket,omitempty" tf:"websocket,omitempty"`
+	// (String) The encoding type. Valid values are json, parquet.
+	// The lookup source type. Use `metric_name` to look up the metric name, or `tag` to look up the value of the metric tag set in `name`. Valid values are `metric_name`, `tag`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type SourceKafkaInitParameters struct {
@@ -12365,81 +14468,13 @@ type SourceKafkaTLSParameters struct {
 
 type SourceObservation struct {
 
-	// (Block List) The amazon_data_firehose source ingests logs from AWS Data Firehose. (see below for nested schema)
-	// The `amazon_data_firehose` source ingests logs from AWS Data Firehose.
-	AmazonDataFirehose []AmazonDataFirehoseObservation `json:"amazonDataFirehose,omitempty" tf:"amazon_data_firehose,omitempty"`
+	// (String) The pipeline name.
+	// The Datadog tag key used as the lookup key. Required when `type` is `tag`.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// rehydratable format to an Amazon S3 bucket for archiving. (see below for nested schema)
-	// The `amazon_s3` source ingests logs from an Amazon S3 bucket. It supports AWS authentication, TLS encryption, and configurable compression.
-	AmazonS3 []SourceAmazonS3Observation `json:"amazonS3,omitempty" tf:"amazon_s3,omitempty"`
-
-	// (Block List) The datadog_agent source collects logs from the Datadog Agent. (see below for nested schema)
-	// The `datadog_agent` source collects logs from the Datadog Agent.
-	DatadogAgent []DatadogAgentObservation `json:"datadogAgent,omitempty" tf:"datadog_agent,omitempty"`
-
-	// (Block List) The fluent_bit source ingests logs from Fluent Bit. (see below for nested schema)
-	// The `fluent_bit` source ingests logs from Fluent Bit.
-	FluentBit []FluentBitObservation `json:"fluentBit,omitempty" tf:"fluent_bit,omitempty"`
-
-	// compatible service. (see below for nested schema)
-	// The `fluentd` source ingests logs from a Fluentd-compatible service.
-	Fluentd []FluentdObservation `json:"fluentd,omitempty" tf:"fluentd,omitempty"`
-
-	// (Block List) The google_pubsub destination publishes logs to a Google Cloud Pub/Sub topic. (see below for nested schema)
-	// The `google_pubsub` source ingests logs from a Google Cloud Pub/Sub subscription.
-	GooglePubsub []SourceGooglePubsubObservation `json:"googlePubsub,omitempty" tf:"google_pubsub,omitempty"`
-
-	// (Block List) The http_client destination sends data to an HTTP endpoint. (see below for nested schema)
-	// The `http_client` source scrapes logs from HTTP endpoints at regular intervals.
-	HTTPClient []SourceHTTPClientObservation `json:"httpClient,omitempty" tf:"http_client,omitempty"`
-
-	// (Block List) The http_server source collects logs over HTTP POST from external services. (see below for nested schema)
-	// The `http_server` source collects logs over HTTP POST from external services.
-	HTTPServer []HTTPServerObservation `json:"httpServer,omitempty" tf:"http_server,omitempty"`
-
-	// (String) The ID of this resource.
-	// The unique identifier for this source.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// (Block List) The kafka destination sends logs to Apache Kafka topics. (see below for nested schema)
-	// The `kafka` source ingests data from Apache Kafka topics.
-	Kafka []SourceKafkaObservation `json:"kafka,omitempty" tf:"kafka,omitempty"`
-
-	// (Block List) The logstash source ingests logs from a Logstash forwarder. (see below for nested schema)
-	// The `logstash` source ingests logs from a Logstash forwarder.
-	Logstash []LogstashObservation `json:"logstash,omitempty" tf:"logstash,omitempty"`
-
-	// (Block List) The opentelemetry destination forwards metrics using the OpenTelemetry Protocol (OTLP) over HTTP. (see below for nested schema)
-	// The `opentelemetry` source receives telemetry data using the OpenTelemetry Protocol (OTLP) over gRPC and HTTP.
-	Opentelemetry []SourceOpentelemetryObservation `json:"opentelemetry,omitempty" tf:"opentelemetry,omitempty"`
-
-	// (Block List) The rsyslog destination forwards logs to an external rsyslog server over TCP or UDP using the syslog protocol. (see below for nested schema)
-	// The `rsyslog` source listens for logs over TCP or UDP from an `rsyslog` server using the syslog protocol.
-	Rsyslog []SourceRsyslogObservation `json:"rsyslog,omitempty" tf:"rsyslog,omitempty"`
-
-	// (Block List) The socket destination sends logs over TCP or UDP to a remote server. (see below for nested schema)
-	// The `socket` source ingests logs over TCP or UDP.
-	Socket []SourceSocketObservation `json:"socket,omitempty" tf:"socket,omitempty"`
-
-	// (Block List) The splunk_hec destination forwards logs to Splunk using the HTTP Event Collector (HEC). (see below for nested schema)
-	// The `splunk_hec` source implements the Splunk HTTP Event Collector (HEC) API.
-	SplunkHec []SourceSplunkHecObservation `json:"splunkHec,omitempty" tf:"splunk_hec,omitempty"`
-
-	// (Block List) The splunk_tcp source receives logs from a Splunk Universal Forwarder over TCP. TLS is supported for secure transmission. (see below for nested schema)
-	// The `splunk_tcp` source receives logs from a Splunk Universal Forwarder over TCP. TLS is supported for secure transmission.
-	SplunkTCP []SplunkTCPObservation `json:"splunkTcp,omitempty" tf:"splunk_tcp,omitempty"`
-
-	// (Block List) The sumo_logic destination forwards logs to Sumo Logic. (see below for nested schema)
-	// The `sumo_logic` source receives logs from Sumo Logic collectors.
-	SumoLogic []SourceSumoLogicObservation `json:"sumoLogic,omitempty" tf:"sumo_logic,omitempty"`
-
-	// ng server over TCP or UDP using the syslog protocol. (see below for nested schema)
-	// The `syslog_ng` source listens for logs over TCP or UDP from a `syslog-ng` server using the syslog protocol.
-	SyslogNg []SourceSyslogNgObservation `json:"syslogNg,omitempty" tf:"syslog_ng,omitempty"`
-
-	// (Block List) The websocket source establishes a persistent WebSocket connection to a remote endpoint and ingests log events as they are pushed by the server. (see below for nested schema)
-	// The `websocket` source establishes a persistent WebSocket connection to a remote endpoint and ingests log events as they are pushed by the server.
-	Websocket []WebsocketObservation `json:"websocket,omitempty" tf:"websocket,omitempty"`
+	// (String) The encoding type. Valid values are json, parquet.
+	// The lookup source type. Use `metric_name` to look up the metric name, or `tag` to look up the value of the metric tag set in `name`. Valid values are `metric_name`, `tag`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type SourceOpentelemetryInitParameters struct {
@@ -12566,100 +14601,189 @@ type SourceOpentelemetryTLSParameters struct {
 
 type SourceParameters struct {
 
-	// (Block List) The amazon_data_firehose source ingests logs from AWS Data Firehose. (see below for nested schema)
-	// The `amazon_data_firehose` source ingests logs from AWS Data Firehose.
+	// (String) The pipeline name.
+	// The Datadog tag key used as the lookup key. Required when `type` is `tag`.
 	// +kubebuilder:validation:Optional
-	AmazonDataFirehose []AmazonDataFirehoseParameters `json:"amazonDataFirehose,omitempty" tf:"amazon_data_firehose,omitempty"`
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// rehydratable format to an Amazon S3 bucket for archiving. (see below for nested schema)
-	// The `amazon_s3` source ingests logs from an Amazon S3 bucket. It supports AWS authentication, TLS encryption, and configurable compression.
+	// (String) The encoding type. Valid values are json, parquet.
+	// The lookup source type. Use `metric_name` to look up the metric name, or `tag` to look up the value of the metric tag set in `name`. Valid values are `metric_name`, `tag`.
 	// +kubebuilder:validation:Optional
-	AmazonS3 []SourceAmazonS3Parameters `json:"amazonS3,omitempty" tf:"amazon_s3,omitempty"`
+	Type *string `json:"type" tf:"type,omitempty"`
+}
 
-	// (Block List) The datadog_agent source collects logs from the Datadog Agent. (see below for nested schema)
-	// The `datadog_agent` source collects logs from the Datadog Agent.
-	// +kubebuilder:validation:Optional
-	DatadogAgent []DatadogAgentParameters `json:"datadogAgent,omitempty" tf:"datadog_agent,omitempty"`
+type SourcePrometheusRemoteWriteInitParameters struct {
 
-	// (Block List) The fluent_bit source ingests logs from Fluent Bit. (see below for nested schema)
-	// The `fluent_bit` source ingests logs from Fluent Bit.
-	// +kubebuilder:validation:Optional
-	FluentBit []FluentBitParameters `json:"fluentBit,omitempty" tf:"fluent_bit,omitempty"`
+	// (String) Name of the environment variable or secret that holds the socket address (host:port).
+	// Name of the environment variable or secret that holds the listen address for the Prometheus Remote Write endpoint.
+	AddressKey *string `json:"addressKey,omitempty" tf:"address_key,omitempty"`
 
-	// compatible service. (see below for nested schema)
-	// The `fluentd` source ingests logs from a Fluentd-compatible service.
-	// +kubebuilder:validation:Optional
-	Fluentd []FluentdParameters `json:"fluentd,omitempty" tf:"fluentd,omitempty"`
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
+	// HTTP authentication method. Valid values are `none`, `plain`.
+	AuthStrategy *string `json:"authStrategy,omitempty" tf:"auth_strategy,omitempty"`
 
-	// (Block List) The google_pubsub destination publishes logs to a Google Cloud Pub/Sub topic. (see below for nested schema)
-	// The `google_pubsub` source ingests logs from a Google Cloud Pub/Sub subscription.
-	// +kubebuilder:validation:Optional
-	GooglePubsub []SourceGooglePubsubParameters `json:"googlePubsub,omitempty" tf:"google_pubsub,omitempty"`
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
+	// Name of the environment variable or secret that holds the password. Used when `auth_strategy` is `plain`.
+	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
-	// (Block List) The http_client destination sends data to an HTTP endpoint. (see below for nested schema)
-	// The `http_client` source scrapes logs from HTTP endpoints at regular intervals.
-	// +kubebuilder:validation:Optional
-	HTTPClient []SourceHTTPClientParameters `json:"httpClient,omitempty" tf:"http_client,omitempty"`
+	// (String) Path to the CSV file.
+	// The HTTP path on which the source listens for incoming Prometheus Remote Write requests.
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
-	// (Block List) The http_server source collects logs over HTTP POST from external services. (see below for nested schema)
-	// The `http_server` source collects logs over HTTP POST from external services.
-	// +kubebuilder:validation:Optional
-	HTTPServer []HTTPServerParameters `json:"httpServer,omitempty" tf:"http_server,omitempty"`
+	// (Block List) Configuration for enabling TLS encryption between the pipeline component and external services. (see below for nested schema)
+	// Configuration for enabling TLS encryption between the pipeline component and external connecting clients.
+	TLS []SourcePrometheusRemoteWriteTLSInitParameters `json:"tls,omitempty" tf:"tls,omitempty"`
 
-	// (String) The ID of this resource.
-	// The unique identifier for this source.
-	// +kubebuilder:validation:Optional
-	ID *string `json:"id" tf:"id,omitempty"`
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
+	// Name of the environment variable or secret that holds the username. Used when `auth_strategy` is `plain`.
+	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 
-	// (Block List) The kafka destination sends logs to Apache Kafka topics. (see below for nested schema)
-	// The `kafka` source ingests data from Apache Kafka topics.
-	// +kubebuilder:validation:Optional
-	Kafka []SourceKafkaParameters `json:"kafka,omitempty" tf:"kafka,omitempty"`
+	// (Block List) A token accepted for authenticating incoming HTTP requests. Cannot be combined with the plain auth strategy. (see below for nested schema)
+	// A token accepted for authenticating incoming Prometheus Remote Write requests. When set, the source rejects any request whose token does not match an enabled entry in this list.
+	ValidToken []PrometheusRemoteWriteValidTokenInitParameters `json:"validToken,omitempty" tf:"valid_token,omitempty"`
+}
 
-	// (Block List) The logstash source ingests logs from a Logstash forwarder. (see below for nested schema)
-	// The `logstash` source ingests logs from a Logstash forwarder.
-	// +kubebuilder:validation:Optional
-	Logstash []LogstashParameters `json:"logstash,omitempty" tf:"logstash,omitempty"`
+type SourcePrometheusRemoteWriteObservation struct {
 
-	// (Block List) The opentelemetry destination forwards metrics using the OpenTelemetry Protocol (OTLP) over HTTP. (see below for nested schema)
-	// The `opentelemetry` source receives telemetry data using the OpenTelemetry Protocol (OTLP) over gRPC and HTTP.
-	// +kubebuilder:validation:Optional
-	Opentelemetry []SourceOpentelemetryParameters `json:"opentelemetry,omitempty" tf:"opentelemetry,omitempty"`
+	// (String) Name of the environment variable or secret that holds the socket address (host:port).
+	// Name of the environment variable or secret that holds the listen address for the Prometheus Remote Write endpoint.
+	AddressKey *string `json:"addressKey,omitempty" tf:"address_key,omitempty"`
 
-	// (Block List) The rsyslog destination forwards logs to an external rsyslog server over TCP or UDP using the syslog protocol. (see below for nested schema)
-	// The `rsyslog` source listens for logs over TCP or UDP from an `rsyslog` server using the syslog protocol.
-	// +kubebuilder:validation:Optional
-	Rsyslog []SourceRsyslogParameters `json:"rsyslog,omitempty" tf:"rsyslog,omitempty"`
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
+	// HTTP authentication method. Valid values are `none`, `plain`.
+	AuthStrategy *string `json:"authStrategy,omitempty" tf:"auth_strategy,omitempty"`
 
-	// (Block List) The socket destination sends logs over TCP or UDP to a remote server. (see below for nested schema)
-	// The `socket` source ingests logs over TCP or UDP.
-	// +kubebuilder:validation:Optional
-	Socket []SourceSocketParameters `json:"socket,omitempty" tf:"socket,omitempty"`
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
+	// Name of the environment variable or secret that holds the password. Used when `auth_strategy` is `plain`.
+	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
-	// (Block List) The splunk_hec destination forwards logs to Splunk using the HTTP Event Collector (HEC). (see below for nested schema)
-	// The `splunk_hec` source implements the Splunk HTTP Event Collector (HEC) API.
-	// +kubebuilder:validation:Optional
-	SplunkHec []SourceSplunkHecParameters `json:"splunkHec,omitempty" tf:"splunk_hec,omitempty"`
+	// (String) Path to the CSV file.
+	// The HTTP path on which the source listens for incoming Prometheus Remote Write requests.
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
-	// (Block List) The splunk_tcp source receives logs from a Splunk Universal Forwarder over TCP. TLS is supported for secure transmission. (see below for nested schema)
-	// The `splunk_tcp` source receives logs from a Splunk Universal Forwarder over TCP. TLS is supported for secure transmission.
-	// +kubebuilder:validation:Optional
-	SplunkTCP []SplunkTCPParameters `json:"splunkTcp,omitempty" tf:"splunk_tcp,omitempty"`
+	// (Block List) Configuration for enabling TLS encryption between the pipeline component and external services. (see below for nested schema)
+	// Configuration for enabling TLS encryption between the pipeline component and external connecting clients.
+	TLS []SourcePrometheusRemoteWriteTLSObservation `json:"tls,omitempty" tf:"tls,omitempty"`
 
-	// (Block List) The sumo_logic destination forwards logs to Sumo Logic. (see below for nested schema)
-	// The `sumo_logic` source receives logs from Sumo Logic collectors.
-	// +kubebuilder:validation:Optional
-	SumoLogic []SourceSumoLogicParameters `json:"sumoLogic,omitempty" tf:"sumo_logic,omitempty"`
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
+	// Name of the environment variable or secret that holds the username. Used when `auth_strategy` is `plain`.
+	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 
-	// ng server over TCP or UDP using the syslog protocol. (see below for nested schema)
-	// The `syslog_ng` source listens for logs over TCP or UDP from a `syslog-ng` server using the syslog protocol.
-	// +kubebuilder:validation:Optional
-	SyslogNg []SourceSyslogNgParameters `json:"syslogNg,omitempty" tf:"syslog_ng,omitempty"`
+	// (Block List) A token accepted for authenticating incoming HTTP requests. Cannot be combined with the plain auth strategy. (see below for nested schema)
+	// A token accepted for authenticating incoming Prometheus Remote Write requests. When set, the source rejects any request whose token does not match an enabled entry in this list.
+	ValidToken []PrometheusRemoteWriteValidTokenObservation `json:"validToken,omitempty" tf:"valid_token,omitempty"`
+}
 
-	// (Block List) The websocket source establishes a persistent WebSocket connection to a remote endpoint and ingests log events as they are pushed by the server. (see below for nested schema)
-	// The `websocket` source establishes a persistent WebSocket connection to a remote endpoint and ingests log events as they are pushed by the server.
+type SourcePrometheusRemoteWriteParameters struct {
+
+	// (String) Name of the environment variable or secret that holds the socket address (host:port).
+	// Name of the environment variable or secret that holds the listen address for the Prometheus Remote Write endpoint.
 	// +kubebuilder:validation:Optional
-	Websocket []WebsocketParameters `json:"websocket,omitempty" tf:"websocket,omitempty"`
+	AddressKey *string `json:"addressKey,omitempty" tf:"address_key,omitempty"`
+
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
+	// HTTP authentication method. Valid values are `none`, `plain`.
+	// +kubebuilder:validation:Optional
+	AuthStrategy *string `json:"authStrategy" tf:"auth_strategy,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
+	// Name of the environment variable or secret that holds the password. Used when `auth_strategy` is `plain`.
+	// +kubebuilder:validation:Optional
+	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
+
+	// (String) Path to the CSV file.
+	// The HTTP path on which the source listens for incoming Prometheus Remote Write requests.
+	// +kubebuilder:validation:Optional
+	Path *string `json:"path" tf:"path,omitempty"`
+
+	// (Block List) Configuration for enabling TLS encryption between the pipeline component and external services. (see below for nested schema)
+	// Configuration for enabling TLS encryption between the pipeline component and external connecting clients.
+	// +kubebuilder:validation:Optional
+	TLS []SourcePrometheusRemoteWriteTLSParameters `json:"tls,omitempty" tf:"tls,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
+	// Name of the environment variable or secret that holds the username. Used when `auth_strategy` is `plain`.
+	// +kubebuilder:validation:Optional
+	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
+
+	// (Block List) A token accepted for authenticating incoming HTTP requests. Cannot be combined with the plain auth strategy. (see below for nested schema)
+	// A token accepted for authenticating incoming Prometheus Remote Write requests. When set, the source rejects any request whose token does not match an enabled entry in this list.
+	// +kubebuilder:validation:Optional
+	ValidToken []PrometheusRemoteWriteValidTokenParameters `json:"validToken,omitempty" tf:"valid_token,omitempty"`
+}
+
+type SourcePrometheusRemoteWriteTLSInitParameters struct {
+
+	// (String) Path to the Certificate Authority (CA) file used to validate the server's TLS certificate.
+	// Path to the Certificate Authority (CA) file used to validate connecting clients' TLS certificates.
+	CAFile *string `json:"caFile,omitempty" tf:"ca_file,omitempty"`
+
+	// (String) Path to the TLS client certificate file used to authenticate the pipeline component with upstream or downstream services.
+	// Path to the TLS server certificate file used to identify the pipeline component to connecting clients.
+	CrtFile *string `json:"crtFile,omitempty" tf:"crt_file,omitempty"`
+
+	// (String) Path to the private key file associated with the TLS client certificate. Used for mutual TLS authentication.
+	// Path to the private key file associated with the TLS server certificate.
+	KeyFile *string `json:"keyFile,omitempty" tf:"key_file,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the passphrase for the private key file.
+	// Name of the environment variable or secret that holds the passphrase for the private key file.
+	KeyPassKey *string `json:"keyPassKey,omitempty" tf:"key_pass_key,omitempty"`
+
+	// (Boolean) When true, requires client connections to present a valid certificate, enabling mutual TLS authentication.
+	// When `true`, requires client connections to present a valid certificate, enabling mutual TLS authentication.
+	VerifyCertificate *bool `json:"verifyCertificate,omitempty" tf:"verify_certificate,omitempty"`
+}
+
+type SourcePrometheusRemoteWriteTLSObservation struct {
+
+	// (String) Path to the Certificate Authority (CA) file used to validate the server's TLS certificate.
+	// Path to the Certificate Authority (CA) file used to validate connecting clients' TLS certificates.
+	CAFile *string `json:"caFile,omitempty" tf:"ca_file,omitempty"`
+
+	// (String) Path to the TLS client certificate file used to authenticate the pipeline component with upstream or downstream services.
+	// Path to the TLS server certificate file used to identify the pipeline component to connecting clients.
+	CrtFile *string `json:"crtFile,omitempty" tf:"crt_file,omitempty"`
+
+	// (String) Path to the private key file associated with the TLS client certificate. Used for mutual TLS authentication.
+	// Path to the private key file associated with the TLS server certificate.
+	KeyFile *string `json:"keyFile,omitempty" tf:"key_file,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the passphrase for the private key file.
+	// Name of the environment variable or secret that holds the passphrase for the private key file.
+	KeyPassKey *string `json:"keyPassKey,omitempty" tf:"key_pass_key,omitempty"`
+
+	// (Boolean) When true, requires client connections to present a valid certificate, enabling mutual TLS authentication.
+	// When `true`, requires client connections to present a valid certificate, enabling mutual TLS authentication.
+	VerifyCertificate *bool `json:"verifyCertificate,omitempty" tf:"verify_certificate,omitempty"`
+}
+
+type SourcePrometheusRemoteWriteTLSParameters struct {
+
+	// (String) Path to the Certificate Authority (CA) file used to validate the server's TLS certificate.
+	// Path to the Certificate Authority (CA) file used to validate connecting clients' TLS certificates.
+	// +kubebuilder:validation:Optional
+	CAFile *string `json:"caFile,omitempty" tf:"ca_file,omitempty"`
+
+	// (String) Path to the TLS client certificate file used to authenticate the pipeline component with upstream or downstream services.
+	// Path to the TLS server certificate file used to identify the pipeline component to connecting clients.
+	// +kubebuilder:validation:Optional
+	CrtFile *string `json:"crtFile" tf:"crt_file,omitempty"`
+
+	// (String) Path to the private key file associated with the TLS client certificate. Used for mutual TLS authentication.
+	// Path to the private key file associated with the TLS server certificate.
+	// +kubebuilder:validation:Optional
+	KeyFile *string `json:"keyFile,omitempty" tf:"key_file,omitempty"`
+
+	// (String) Name of the environment variable or secret that holds the passphrase for the private key file.
+	// Name of the environment variable or secret that holds the passphrase for the private key file.
+	// +kubebuilder:validation:Optional
+	KeyPassKey *string `json:"keyPassKey,omitempty" tf:"key_pass_key,omitempty"`
+
+	// (Boolean) When true, requires client connections to present a valid certificate, enabling mutual TLS authentication.
+	// When `true`, requires client connections to present a valid certificate, enabling mutual TLS authentication.
+	// +kubebuilder:validation:Optional
+	VerifyCertificate *bool `json:"verifyCertificate,omitempty" tf:"verify_certificate,omitempty"`
 }
 
 type SourceRsyslogInitParameters struct {
@@ -13124,6 +15248,106 @@ type SourceSyslogNgTLSParameters struct {
 	VerifyCertificate *bool `json:"verifyCertificate,omitempty" tf:"verify_certificate,omitempty"`
 }
 
+type SpikeProtectionInitParameters struct {
+
+	// (String) The action to take when an event is missing one of the partition_fields. One of ignore, default_bucket. Valid values are ignore, default_bucket. Defaults to "ignore".
+	// The action to take when an event is missing one of the `partition_fields`. One of `ignore`, `default_bucket`. Valid values are `ignore`, `default_bucket`. Defaults to `"ignore"`.
+	ActionWhenMissingPartitions *string `json:"actionWhenMissingPartitions,omitempty" tf:"action_when_missing_partitions,omitempty"`
+
+	// (Number) The minimum volume, in bytes, that must be observed within 24 hours before spike protection can activate. Defaults to 100 GiB.
+	// The minimum volume, in bytes, that must be observed within 24 hours before spike protection can activate. Defaults to 100 GiB.
+	MinimalThreshold *float64 `json:"minimalThreshold,omitempty" tf:"minimal_threshold,omitempty"`
+
+	// partition overrides for the minimal threshold, identified by matching field values. Requires partition_fields to be set. (see below for nested schema)
+	// A list of per-partition overrides for the minimal threshold, identified by matching field values. Requires `partition_fields` to be set.
+	MinimalThresholdOverride []MinimalThresholdOverrideInitParameters `json:"minimalThresholdOverride,omitempty" tf:"minimal_threshold_override,omitempty"`
+
+	// (String) The pipeline name.
+	// Name of the spike protection rule.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (List of String) List of partition fields.
+	// A list of fields used to segment log traffic. Volume is learned and evaluated independently for each unique combination of these field values. A maximum of five fields is supported.
+	PartitionFields []*string `json:"partitionFields,omitempty" tf:"partition_fields,omitempty"`
+
+	// id>.overflow_events suffix to route the overflowing events. Valid values are drop, no_action, overflow_routing.
+	// The action to take when a spike is detected. One of `drop`, `no_action`, `overflow_routing`. When `overflow_routing` is used, there must be a destination whose `inputs` reference this processor with the `<processor-id>.overflow_events` suffix to route the overflowing events. Valid values are `drop`, `no_action`, `overflow_routing`.
+	SpikeAction *string `json:"spikeAction,omitempty" tf:"spike_action,omitempty"`
+
+	// (Number) The number of standard deviations above the learned mean volume that must be exceeded before a spike is detected. Defaults to 5.
+	// The number of standard deviations above the learned mean volume that must be exceeded before a spike is detected. Defaults to `5`.
+	SpikeThreshold *float64 `json:"spikeThreshold,omitempty" tf:"spike_threshold,omitempty"`
+}
+
+type SpikeProtectionObservation struct {
+
+	// (String) The action to take when an event is missing one of the partition_fields. One of ignore, default_bucket. Valid values are ignore, default_bucket. Defaults to "ignore".
+	// The action to take when an event is missing one of the `partition_fields`. One of `ignore`, `default_bucket`. Valid values are `ignore`, `default_bucket`. Defaults to `"ignore"`.
+	ActionWhenMissingPartitions *string `json:"actionWhenMissingPartitions,omitempty" tf:"action_when_missing_partitions,omitempty"`
+
+	// (Number) The minimum volume, in bytes, that must be observed within 24 hours before spike protection can activate. Defaults to 100 GiB.
+	// The minimum volume, in bytes, that must be observed within 24 hours before spike protection can activate. Defaults to 100 GiB.
+	MinimalThreshold *float64 `json:"minimalThreshold,omitempty" tf:"minimal_threshold,omitempty"`
+
+	// partition overrides for the minimal threshold, identified by matching field values. Requires partition_fields to be set. (see below for nested schema)
+	// A list of per-partition overrides for the minimal threshold, identified by matching field values. Requires `partition_fields` to be set.
+	MinimalThresholdOverride []MinimalThresholdOverrideObservation `json:"minimalThresholdOverride,omitempty" tf:"minimal_threshold_override,omitempty"`
+
+	// (String) The pipeline name.
+	// Name of the spike protection rule.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (List of String) List of partition fields.
+	// A list of fields used to segment log traffic. Volume is learned and evaluated independently for each unique combination of these field values. A maximum of five fields is supported.
+	PartitionFields []*string `json:"partitionFields,omitempty" tf:"partition_fields,omitempty"`
+
+	// id>.overflow_events suffix to route the overflowing events. Valid values are drop, no_action, overflow_routing.
+	// The action to take when a spike is detected. One of `drop`, `no_action`, `overflow_routing`. When `overflow_routing` is used, there must be a destination whose `inputs` reference this processor with the `<processor-id>.overflow_events` suffix to route the overflowing events. Valid values are `drop`, `no_action`, `overflow_routing`.
+	SpikeAction *string `json:"spikeAction,omitempty" tf:"spike_action,omitempty"`
+
+	// (Number) The number of standard deviations above the learned mean volume that must be exceeded before a spike is detected. Defaults to 5.
+	// The number of standard deviations above the learned mean volume that must be exceeded before a spike is detected. Defaults to `5`.
+	SpikeThreshold *float64 `json:"spikeThreshold,omitempty" tf:"spike_threshold,omitempty"`
+}
+
+type SpikeProtectionParameters struct {
+
+	// (String) The action to take when an event is missing one of the partition_fields. One of ignore, default_bucket. Valid values are ignore, default_bucket. Defaults to "ignore".
+	// The action to take when an event is missing one of the `partition_fields`. One of `ignore`, `default_bucket`. Valid values are `ignore`, `default_bucket`. Defaults to `"ignore"`.
+	// +kubebuilder:validation:Optional
+	ActionWhenMissingPartitions *string `json:"actionWhenMissingPartitions,omitempty" tf:"action_when_missing_partitions,omitempty"`
+
+	// (Number) The minimum volume, in bytes, that must be observed within 24 hours before spike protection can activate. Defaults to 100 GiB.
+	// The minimum volume, in bytes, that must be observed within 24 hours before spike protection can activate. Defaults to 100 GiB.
+	// +kubebuilder:validation:Optional
+	MinimalThreshold *float64 `json:"minimalThreshold,omitempty" tf:"minimal_threshold,omitempty"`
+
+	// partition overrides for the minimal threshold, identified by matching field values. Requires partition_fields to be set. (see below for nested schema)
+	// A list of per-partition overrides for the minimal threshold, identified by matching field values. Requires `partition_fields` to be set.
+	// +kubebuilder:validation:Optional
+	MinimalThresholdOverride []MinimalThresholdOverrideParameters `json:"minimalThresholdOverride,omitempty" tf:"minimal_threshold_override,omitempty"`
+
+	// (String) The pipeline name.
+	// Name of the spike protection rule.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (List of String) List of partition fields.
+	// A list of fields used to segment log traffic. Volume is learned and evaluated independently for each unique combination of these field values. A maximum of five fields is supported.
+	// +kubebuilder:validation:Optional
+	PartitionFields []*string `json:"partitionFields,omitempty" tf:"partition_fields,omitempty"`
+
+	// id>.overflow_events suffix to route the overflowing events. Valid values are drop, no_action, overflow_routing.
+	// The action to take when a spike is detected. One of `drop`, `no_action`, `overflow_routing`. When `overflow_routing` is used, there must be a destination whose `inputs` reference this processor with the `<processor-id>.overflow_events` suffix to route the overflowing events. Valid values are `drop`, `no_action`, `overflow_routing`.
+	// +kubebuilder:validation:Optional
+	SpikeAction *string `json:"spikeAction" tf:"spike_action,omitempty"`
+
+	// (Number) The number of standard deviations above the learned mean volume that must be exceeded before a spike is detected. Defaults to 5.
+	// The number of standard deviations above the learned mean volume that must be exceeded before a spike is detected. Defaults to `5`.
+	// +kubebuilder:validation:Optional
+	SpikeThreshold *float64 `json:"spikeThreshold,omitempty" tf:"spike_threshold,omitempty"`
+}
+
 type SplitArrayInitParameters struct {
 
 	// (Block List) A list of array split configurations. (see below for nested schema)
@@ -13282,7 +15506,7 @@ type SplunkHecInitParameters struct {
 	// The Splunk HEC endpoint to send events to. Use `event` to send structured events to the `/event` endpoint, or `raw` to send the raw message to the `/raw` endpoint. Valid values are `event`, `raw`.
 	EndpointTarget *string `json:"endpointTarget,omitempty" tf:"endpoint_target,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Splunk HEC endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -13435,11 +15659,11 @@ type SplunkHecMetricsInitParameters struct {
 	// Compression algorithm applied when sending metrics to Splunk HEC. Valid values are `none`, `gzip`.
 	Compression *string `json:"compression,omitempty" tf:"compression,omitempty"`
 
-	// (String) Optional default namespace for metrics sent to Splunk HEC.
+	// (String) The default namespace to prefix onto metric names that don't already have one.
 	// Optional default namespace for metrics sent to Splunk HEC.
 	DefaultNamespace *string `json:"defaultNamespace,omitempty" tf:"default_namespace,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Splunk HEC endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -13474,11 +15698,11 @@ type SplunkHecMetricsObservation struct {
 	// Compression algorithm applied when sending metrics to Splunk HEC. Valid values are `none`, `gzip`.
 	Compression *string `json:"compression,omitempty" tf:"compression,omitempty"`
 
-	// (String) Optional default namespace for metrics sent to Splunk HEC.
+	// (String) The default namespace to prefix onto metric names that don't already have one.
 	// Optional default namespace for metrics sent to Splunk HEC.
 	DefaultNamespace *string `json:"defaultNamespace,omitempty" tf:"default_namespace,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Splunk HEC endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -13515,12 +15739,12 @@ type SplunkHecMetricsParameters struct {
 	// +kubebuilder:validation:Optional
 	Compression *string `json:"compression,omitempty" tf:"compression,omitempty"`
 
-	// (String) Optional default namespace for metrics sent to Splunk HEC.
+	// (String) The default namespace to prefix onto metric names that don't already have one.
 	// Optional default namespace for metrics sent to Splunk HEC.
 	// +kubebuilder:validation:Optional
 	DefaultNamespace *string `json:"defaultNamespace,omitempty" tf:"default_namespace,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Splunk HEC endpoint URL.
 	// +kubebuilder:validation:Optional
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
@@ -13630,7 +15854,7 @@ type SplunkHecObservation struct {
 	// The Splunk HEC endpoint to send events to. Use `event` to send structured events to the `/event` endpoint, or `raw` to send the raw message to the `/raw` endpoint. Valid values are `event`, `raw`.
 	EndpointTarget *string `json:"endpointTarget,omitempty" tf:"endpoint_target,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Splunk HEC endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -13677,7 +15901,7 @@ type SplunkHecParameters struct {
 	// +kubebuilder:validation:Optional
 	EndpointTarget *string `json:"endpointTarget,omitempty" tf:"endpoint_target,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Splunk HEC endpoint URL.
 	// +kubebuilder:validation:Optional
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
@@ -13836,6 +16060,10 @@ type SplunkTCPInitParameters struct {
 	// Name of the environment variable or secret that holds the listen address for the Splunk TCP receiver.
 	AddressKey *string `json:"addressKey,omitempty" tf:"address_key,omitempty"`
 
+	// (Number) Maximum duration, in seconds, that a connection can remain open before it is closed. When unset, connections can remain open indefinitely.
+	// Maximum duration, in seconds, that a connection can remain open before it is closed. When unset, connections can remain open indefinitely.
+	MaxConnectionDurationSecs *float64 `json:"maxConnectionDurationSecs,omitempty" tf:"max_connection_duration_secs,omitempty"`
+
 	// (Block List) Configuration for enabling TLS encryption between the pipeline component and external services. (see below for nested schema)
 	// Configuration for enabling TLS encryption between the pipeline component and external connecting clients.
 	TLS []SplunkTCPTLSInitParameters `json:"tls,omitempty" tf:"tls,omitempty"`
@@ -13846,6 +16074,10 @@ type SplunkTCPObservation struct {
 	// (String) Name of the environment variable or secret that holds the socket address (host:port).
 	// Name of the environment variable or secret that holds the listen address for the Splunk TCP receiver.
 	AddressKey *string `json:"addressKey,omitempty" tf:"address_key,omitempty"`
+
+	// (Number) Maximum duration, in seconds, that a connection can remain open before it is closed. When unset, connections can remain open indefinitely.
+	// Maximum duration, in seconds, that a connection can remain open before it is closed. When unset, connections can remain open indefinitely.
+	MaxConnectionDurationSecs *float64 `json:"maxConnectionDurationSecs,omitempty" tf:"max_connection_duration_secs,omitempty"`
 
 	// (Block List) Configuration for enabling TLS encryption between the pipeline component and external services. (see below for nested schema)
 	// Configuration for enabling TLS encryption between the pipeline component and external connecting clients.
@@ -13858,6 +16090,11 @@ type SplunkTCPParameters struct {
 	// Name of the environment variable or secret that holds the listen address for the Splunk TCP receiver.
 	// +kubebuilder:validation:Optional
 	AddressKey *string `json:"addressKey,omitempty" tf:"address_key,omitempty"`
+
+	// (Number) Maximum duration, in seconds, that a connection can remain open before it is closed. When unset, connections can remain open indefinitely.
+	// Maximum duration, in seconds, that a connection can remain open before it is closed. When unset, connections can remain open indefinitely.
+	// +kubebuilder:validation:Optional
+	MaxConnectionDurationSecs *float64 `json:"maxConnectionDurationSecs,omitempty" tf:"max_connection_duration_secs,omitempty"`
 
 	// (Block List) Configuration for enabling TLS encryption between the pipeline component and external services. (see below for nested schema)
 	// Configuration for enabling TLS encryption between the pipeline component and external connecting clients.
@@ -14067,7 +16304,7 @@ type SumoLogicInitParameters struct {
 	// The output encoding format.
 	Encoding *string `json:"encoding,omitempty" tf:"encoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Sumo Logic endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -14098,7 +16335,7 @@ type SumoLogicObservation struct {
 	// The output encoding format.
 	Encoding *string `json:"encoding,omitempty" tf:"encoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Sumo Logic endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -14131,7 +16368,7 @@ type SumoLogicParameters struct {
 	// +kubebuilder:validation:Optional
 	Encoding *string `json:"encoding,omitempty" tf:"encoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the Sumo Logic endpoint URL.
 	// +kubebuilder:validation:Optional
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
@@ -14316,7 +16553,7 @@ type SyslogNgInitParameters struct {
 	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
 	Buffer []SyslogNgBufferInitParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the syslog-ng endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -14335,7 +16572,7 @@ type SyslogNgObservation struct {
 	// Configuration for buffer settings on destination components. Exactly one of `disk` or `memory` must be specified.
 	Buffer []SyslogNgBufferObservation `json:"buffer,omitempty" tf:"buffer,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the syslog-ng endpoint URL.
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
 
@@ -14355,7 +16592,7 @@ type SyslogNgParameters struct {
 	// +kubebuilder:validation:Optional
 	Buffer []SyslogNgBufferParameters `json:"buffer,omitempty" tf:"buffer,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse HTTP endpoint URL. Defaults to DESTINATION_CLICKHOUSE_ENDPOINT_URL.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch endpoint URL.
 	// Name of the environment variable or secret that holds the syslog-ng endpoint URL.
 	// +kubebuilder:validation:Optional
 	EndpointURLKey *string `json:"endpointUrlKey,omitempty" tf:"endpoint_url_key,omitempty"`
@@ -14855,6 +17092,41 @@ type ValidTokenParameters struct {
 	TokenKey *string `json:"tokenKey" tf:"token_key,omitempty"`
 }
 
+type ValidTokenPathToTokenInitParameters struct {
+
+	// (String) The name of the HTTP header that carries the token.
+	// The name of the HTTP header that carries the token. Exactly one of `location` or `header` must be set.
+	Header *string `json:"header,omitempty" tf:"header,omitempty"`
+
+	// in token location on the incoming HTTP request. One of path, address. Valid values are path, address.
+	// Built-in token location on the incoming HTTP request. One of `path`, `address`. Exactly one of `location` or `header` must be set. Valid values are `path`, `address`.
+	Location *string `json:"location,omitempty" tf:"location,omitempty"`
+}
+
+type ValidTokenPathToTokenObservation struct {
+
+	// (String) The name of the HTTP header that carries the token.
+	// The name of the HTTP header that carries the token. Exactly one of `location` or `header` must be set.
+	Header *string `json:"header,omitempty" tf:"header,omitempty"`
+
+	// in token location on the incoming HTTP request. One of path, address. Valid values are path, address.
+	// Built-in token location on the incoming HTTP request. One of `path`, `address`. Exactly one of `location` or `header` must be set. Valid values are `path`, `address`.
+	Location *string `json:"location,omitempty" tf:"location,omitempty"`
+}
+
+type ValidTokenPathToTokenParameters struct {
+
+	// (String) The name of the HTTP header that carries the token.
+	// The name of the HTTP header that carries the token. Exactly one of `location` or `header` must be set.
+	// +kubebuilder:validation:Optional
+	Header *string `json:"header,omitempty" tf:"header,omitempty"`
+
+	// in token location on the incoming HTTP request. One of path, address. Valid values are path, address.
+	// Built-in token location on the incoming HTTP request. One of `path`, `address`. Exactly one of `location` or `header` must be set. Valid values are `path`, `address`.
+	// +kubebuilder:validation:Optional
+	Location *string `json:"location,omitempty" tf:"location,omitempty"`
+}
+
 type ValueInitParameters struct {
 
 	// (String) The target field in the log event.
@@ -14927,11 +17199,11 @@ type VariableParameters struct {
 
 type WebsocketInitParameters struct {
 
-	// (String) HTTP authentication strategy. Valid values are none, basic, bearer.
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
 	// The authentication strategy used when connecting to the WebSocket server. Valid values are `none`, `basic`, `bearer`, `custom`.
 	AuthStrategy *string `json:"authStrategy,omitempty" tf:"auth_strategy,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds a custom header value (used with custom auth strategies).
+	// (String) Name of the environment variable or secret that holds the custom authentication header value. Used with the custom auth strategy.
 	// Name of the environment variable or secret that holds a custom header value. Used when `auth_strategy` is `custom`.
 	CustomKey *string `json:"customKey,omitempty" tf:"custom_key,omitempty"`
 
@@ -14939,7 +17211,7 @@ type WebsocketInitParameters struct {
 	// The decoding format used to interpret incoming log events. Valid values are `bytes`, `gelf`, `json`, `syslog`.
 	Decoding *string `json:"decoding,omitempty" tf:"decoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the password. Used when `auth_strategy` is `basic`.
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
@@ -14955,18 +17227,18 @@ type WebsocketInitParameters struct {
 	// Name of the environment variable or secret that holds the WebSocket URI to connect to.
 	URIKey *string `json:"uriKey,omitempty" tf:"uri_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the username. Used when `auth_strategy` is `basic`.
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
 
 type WebsocketObservation struct {
 
-	// (String) HTTP authentication strategy. Valid values are none, basic, bearer.
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
 	// The authentication strategy used when connecting to the WebSocket server. Valid values are `none`, `basic`, `bearer`, `custom`.
 	AuthStrategy *string `json:"authStrategy,omitempty" tf:"auth_strategy,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds a custom header value (used with custom auth strategies).
+	// (String) Name of the environment variable or secret that holds the custom authentication header value. Used with the custom auth strategy.
 	// Name of the environment variable or secret that holds a custom header value. Used when `auth_strategy` is `custom`.
 	CustomKey *string `json:"customKey,omitempty" tf:"custom_key,omitempty"`
 
@@ -14974,7 +17246,7 @@ type WebsocketObservation struct {
 	// The decoding format used to interpret incoming log events. Valid values are `bytes`, `gelf`, `json`, `syslog`.
 	Decoding *string `json:"decoding,omitempty" tf:"decoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the password. Used when `auth_strategy` is `basic`.
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
 
@@ -14990,19 +17262,19 @@ type WebsocketObservation struct {
 	// Name of the environment variable or secret that holds the WebSocket URI to connect to.
 	URIKey *string `json:"uriKey,omitempty" tf:"uri_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the username. Used when `auth_strategy` is `basic`.
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
 }
 
 type WebsocketParameters struct {
 
-	// (String) HTTP authentication strategy. Valid values are none, basic, bearer.
+	// (String) HTTP authentication strategy. Valid values are none, basic, bearer, custom.
 	// The authentication strategy used when connecting to the WebSocket server. Valid values are `none`, `basic`, `bearer`, `custom`.
 	// +kubebuilder:validation:Optional
 	AuthStrategy *string `json:"authStrategy" tf:"auth_strategy,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds a custom header value (used with custom auth strategies).
+	// (String) Name of the environment variable or secret that holds the custom authentication header value. Used with the custom auth strategy.
 	// Name of the environment variable or secret that holds a custom header value. Used when `auth_strategy` is `custom`.
 	// +kubebuilder:validation:Optional
 	CustomKey *string `json:"customKey,omitempty" tf:"custom_key,omitempty"`
@@ -15012,7 +17284,7 @@ type WebsocketParameters struct {
 	// +kubebuilder:validation:Optional
 	Decoding *string `json:"decoding" tf:"decoding,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse password. Defaults to DESTINATION_CLICKHOUSE_PASSWORD.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch password (used when strategy is basic).
 	// Name of the environment variable or secret that holds the password. Used when `auth_strategy` is `basic`.
 	// +kubebuilder:validation:Optional
 	PasswordKey *string `json:"passwordKey,omitempty" tf:"password_key,omitempty"`
@@ -15032,7 +17304,7 @@ type WebsocketParameters struct {
 	// +kubebuilder:validation:Optional
 	URIKey *string `json:"uriKey,omitempty" tf:"uri_key,omitempty"`
 
-	// (String) Name of the environment variable or secret that holds the ClickHouse username. Defaults to DESTINATION_CLICKHOUSE_USERNAME.
+	// (String) Name of the environment variable or secret that holds the Amazon OpenSearch username (used when strategy is basic).
 	// Name of the environment variable or secret that holds the username. Used when `auth_strategy` is `basic`.
 	// +kubebuilder:validation:Optional
 	UsernameKey *string `json:"usernameKey,omitempty" tf:"username_key,omitempty"`
@@ -15110,6 +17382,54 @@ type WebsocketTLSParameters struct {
 	// The TLS mode. Use `enabled` for server-only TLS, or `with_client_cert` for mutual TLS with a client certificate. Valid values are `enabled`, `with_client_cert`.
 	// +kubebuilder:validation:Optional
 	Mode *string `json:"mode" tf:"mode,omitempty"`
+}
+
+type WorkloadIdentityInitParameters struct {
+
+	// (String) The client ID of the Microsoft Entra application. If omitted, it is read from the environment.
+	// The client ID of the Microsoft Entra application. If omitted, it is read from the environment.
+	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
+
+	// (String) The Microsoft Entra tenant ID. If omitted, it is read from the environment.
+	// The Microsoft Entra tenant ID. If omitted, it is read from the environment.
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+
+	// (String) Path to the federated token file. If omitted, it is read from the environment.
+	// Path to the federated token file. If omitted, it is read from the environment.
+	TokenFilePath *string `json:"tokenFilePath,omitempty" tf:"token_file_path,omitempty"`
+}
+
+type WorkloadIdentityObservation struct {
+
+	// (String) The client ID of the Microsoft Entra application. If omitted, it is read from the environment.
+	// The client ID of the Microsoft Entra application. If omitted, it is read from the environment.
+	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
+
+	// (String) The Microsoft Entra tenant ID. If omitted, it is read from the environment.
+	// The Microsoft Entra tenant ID. If omitted, it is read from the environment.
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+
+	// (String) Path to the federated token file. If omitted, it is read from the environment.
+	// Path to the federated token file. If omitted, it is read from the environment.
+	TokenFilePath *string `json:"tokenFilePath,omitempty" tf:"token_file_path,omitempty"`
+}
+
+type WorkloadIdentityParameters struct {
+
+	// (String) The client ID of the Microsoft Entra application. If omitted, it is read from the environment.
+	// The client ID of the Microsoft Entra application. If omitted, it is read from the environment.
+	// +kubebuilder:validation:Optional
+	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
+
+	// (String) The Microsoft Entra tenant ID. If omitted, it is read from the environment.
+	// The Microsoft Entra tenant ID. If omitted, it is read from the environment.
+	// +kubebuilder:validation:Optional
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+
+	// (String) Path to the federated token file. If omitted, it is read from the environment.
+	// Path to the federated token file. If omitted, it is read from the environment.
+	// +kubebuilder:validation:Optional
+	TokenFilePath *string `json:"tokenFilePath,omitempty" tf:"token_file_path,omitempty"`
 }
 
 // ObservabilityPipelineSpec defines the desired state of ObservabilityPipeline

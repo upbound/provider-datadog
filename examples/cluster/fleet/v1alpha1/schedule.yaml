@@ -1,0 +1,21 @@
+apiVersion: fleet.datadog.upbound.io/v1alpha1
+kind: Schedule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: fleet/v1alpha1/schedule
+  labels:
+    testing.upbound.io/example-name: nonproduction
+  name: nonproduction
+spec:
+  forProvider:
+    name: Non-production Agent upgrades
+    query: env:staging service:example
+    rule:
+      daysOfWeek:
+      - Tue
+      - Thu
+      maintenanceWindowDuration: 120
+      startMaintenanceWindow: "03:00"
+      timezone: America/New_York
+    status: inactive
+    versionToLatest: 1

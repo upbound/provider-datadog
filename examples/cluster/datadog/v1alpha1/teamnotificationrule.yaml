@@ -10,6 +10,7 @@ spec:
   forProvider:
     email:
       enabled: true
+      recipientEmail: team-alerts@example.com
     msTeams:
       connectorName: test-teams-handle
     pagerduty:

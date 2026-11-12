@@ -53,5 +53,12 @@ spec:
             timeZone: America/New_York
           urgency: low
       query: tags.service:payment
+    - action:
+      - rerouteToTeam:
+        - destinationTeamId: 00000000-aba2-0000-0000-000000000001
+      - sendSlackMessage:
+        - channel: channel
+          workspace: workspace
+      query: tags.service:checkout
     - escalationPolicy: 00000000-aba2-0000-0000-000000000000
       urgency: dynamic

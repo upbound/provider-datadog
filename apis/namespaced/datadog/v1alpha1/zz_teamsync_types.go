@@ -16,34 +16,34 @@ import (
 type ExternalIDInitParameters struct {
 
 	// (String) The type of synchronization operation. link connects teams by matching names. provision creates new teams when no match is found. Valid values are link, provision.
-	// The type of external identifier. Valid values are `team`, `organization`.
+	// The type of external identifier. For GitHub, `team` refers to a GitHub team and `organization` refers to a GitHub organization. For ServiceNow, `team` refers to a ServiceNow group and `organization` refers to a ServiceNow instance. Valid values are `team`, `organization`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) The external identifier value from the source platform (e.g. a GitHub organization ID or team ID).
-	// The external identifier value from the source platform (e.g. a GitHub organization ID or team ID).
+	// (String) The external identifier value from the source platform. For GitHub, this is the string representation of a GitHub organization ID or team ID. For ServiceNow, this is the instance name for organization, or <instance_name>/<sys_id> of the group for team.
+	// The external identifier value from the source platform. For GitHub, this is the string representation of a GitHub organization ID or team ID. For ServiceNow, this is the instance name for `organization`, or `<instance_name>/<sys_id>` of the group for `team`.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type ExternalIDObservation struct {
 
 	// (String) The type of synchronization operation. link connects teams by matching names. provision creates new teams when no match is found. Valid values are link, provision.
-	// The type of external identifier. Valid values are `team`, `organization`.
+	// The type of external identifier. For GitHub, `team` refers to a GitHub team and `organization` refers to a GitHub organization. For ServiceNow, `team` refers to a ServiceNow group and `organization` refers to a ServiceNow instance. Valid values are `team`, `organization`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) The external identifier value from the source platform (e.g. a GitHub organization ID or team ID).
-	// The external identifier value from the source platform (e.g. a GitHub organization ID or team ID).
+	// (String) The external identifier value from the source platform. For GitHub, this is the string representation of a GitHub organization ID or team ID. For ServiceNow, this is the instance name for organization, or <instance_name>/<sys_id> of the group for team.
+	// The external identifier value from the source platform. For GitHub, this is the string representation of a GitHub organization ID or team ID. For ServiceNow, this is the instance name for `organization`, or `<instance_name>/<sys_id>` of the group for `team`.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type ExternalIDParameters struct {
 
 	// (String) The type of synchronization operation. link connects teams by matching names. provision creates new teams when no match is found. Valid values are link, provision.
-	// The type of external identifier. Valid values are `team`, `organization`.
+	// The type of external identifier. For GitHub, `team` refers to a GitHub team and `organization` refers to a GitHub organization. For ServiceNow, `team` refers to a ServiceNow group and `organization` refers to a ServiceNow instance. Valid values are `team`, `organization`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 
-	// (String) The external identifier value from the source platform (e.g. a GitHub organization ID or team ID).
-	// The external identifier value from the source platform (e.g. a GitHub organization ID or team ID).
+	// (String) The external identifier value from the source platform. For GitHub, this is the string representation of a GitHub organization ID or team ID. For ServiceNow, this is the instance name for organization, or <instance_name>/<sys_id> of the group for team.
+	// The external identifier value from the source platform. For GitHub, this is the string representation of a GitHub organization ID or team ID. For ServiceNow, this is the instance name for `organization`, or `<instance_name>/<sys_id>` of the group for `team`.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
 }
@@ -106,8 +106,8 @@ type TeamSyncInitParameters struct {
 	// Specifies which teams or organizations to sync. When provided, synchronization is limited to the specified items and their subtrees.
 	SelectionState []SelectionStateInitParameters `json:"selectionState,omitempty" tf:"selection_state,omitempty"`
 
-	// (String) The external source platform for team synchronization. Valid values are github.
-	// The external source platform for team synchronization. Valid values are `github`.
+	// (String) The external source platform for team synchronization. Valid values are github, servicenow.
+	// The external source platform for team synchronization. Valid values are `github`, `servicenow`.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// (Boolean) Whether to sync members from the external team to the Datadog team. Defaults to false.
@@ -132,8 +132,8 @@ type TeamSyncObservation struct {
 	// Specifies which teams or organizations to sync. When provided, synchronization is limited to the specified items and their subtrees.
 	SelectionState []SelectionStateObservation `json:"selectionState,omitempty" tf:"selection_state,omitempty"`
 
-	// (String) The external source platform for team synchronization. Valid values are github.
-	// The external source platform for team synchronization. Valid values are `github`.
+	// (String) The external source platform for team synchronization. Valid values are github, servicenow.
+	// The external source platform for team synchronization. Valid values are `github`, `servicenow`.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// (Boolean) Whether to sync members from the external team to the Datadog team. Defaults to false.
@@ -157,8 +157,8 @@ type TeamSyncParameters struct {
 	// +kubebuilder:validation:Optional
 	SelectionState []SelectionStateParameters `json:"selectionState,omitempty" tf:"selection_state,omitempty"`
 
-	// (String) The external source platform for team synchronization. Valid values are github.
-	// The external source platform for team synchronization. Valid values are `github`.
+	// (String) The external source platform for team synchronization. Valid values are github, servicenow.
+	// The external source platform for team synchronization. Valid values are `github`, `servicenow`.
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
@@ -200,7 +200,7 @@ type TeamSyncStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// TeamSync is the Schema for the TeamSyncs API. Provides a Datadog Team Sync resource. This can be used to configure team synchronization from external sources (e.g. GitHub) into Datadog.
+// TeamSync is the Schema for the TeamSyncs API. Provides a Datadog Team Sync resource. This can be used to configure team synchronization from external sources (e.g. GitHub or ServiceNow) into Datadog.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

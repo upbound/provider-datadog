@@ -16,46 +16,46 @@ import (
 type ConnectedTeamInitParameters struct {
 
 	// (String) The ID of this resource.
-	// The ID of the external connected team.
+	// The ID of the external connected team. For GitHub teams, this is `@<organization>/<team-slug>`. For ServiceNow groups, this is `<instance_name>/<sys_id>`.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The resource type of the external connected team. Valid values are github_team.
-	// The resource type of the external connected team. Valid values are `github_team`.
+	// (String) The resource type of the external connected team. Valid values are github_team, servicenow_team.
+	// The resource type of the external connected team. Valid values are `github_team`, `servicenow_team`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type ConnectedTeamObservation struct {
 
 	// (String) The ID of this resource.
-	// The ID of the external connected team.
+	// The ID of the external connected team. For GitHub teams, this is `@<organization>/<team-slug>`. For ServiceNow groups, this is `<instance_name>/<sys_id>`.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The resource type of the external connected team. Valid values are github_team.
-	// The resource type of the external connected team. Valid values are `github_team`.
+	// (String) The resource type of the external connected team. Valid values are github_team, servicenow_team.
+	// The resource type of the external connected team. Valid values are `github_team`, `servicenow_team`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type ConnectedTeamParameters struct {
 
 	// (String) The ID of this resource.
-	// The ID of the external connected team.
+	// The ID of the external connected team. For GitHub teams, this is `@<organization>/<team-slug>`. For ServiceNow groups, this is `<instance_name>/<sys_id>`.
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id" tf:"id,omitempty"`
 
-	// (String) The resource type of the external connected team. Valid values are github_team.
-	// The resource type of the external connected team. Valid values are `github_team`.
+	// (String) The resource type of the external connected team. Valid values are github_team, servicenow_team.
+	// The resource type of the external connected team. Valid values are `github_team`, `servicenow_team`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
 type TeamConnectionInitParameters struct {
 
-	// (Block, Optional) The external connected team reference (e.g. a GitHub team). (see below for nested schema)
-	// The external connected team reference (e.g. a GitHub team).
+	// (Block, Optional) The external connected team reference (e.g. a GitHub team or a ServiceNow group). (see below for nested schema)
+	// The external connected team reference (e.g. a GitHub team or a ServiceNow group).
 	ConnectedTeam *ConnectedTeamInitParameters `json:"connectedTeam,omitempty" tf:"connected_team,omitempty"`
 
-	// (String) The source of the connection (e.g. github).
-	// The source of the connection (e.g. github).
+	// (String) The name of the external source, such as github or servicenow.
+	// The name of the external source, such as `github` or `servicenow`.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// (Block, Optional) The Datadog team reference. (see below for nested schema)
@@ -65,15 +65,15 @@ type TeamConnectionInitParameters struct {
 
 type TeamConnectionObservation struct {
 
-	// (Block, Optional) The external connected team reference (e.g. a GitHub team). (see below for nested schema)
-	// The external connected team reference (e.g. a GitHub team).
+	// (Block, Optional) The external connected team reference (e.g. a GitHub team or a ServiceNow group). (see below for nested schema)
+	// The external connected team reference (e.g. a GitHub team or a ServiceNow group).
 	ConnectedTeam *ConnectedTeamObservation `json:"connectedTeam,omitempty" tf:"connected_team,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The source of the connection (e.g. github).
-	// The source of the connection (e.g. github).
+	// (String) The name of the external source, such as github or servicenow.
+	// The name of the external source, such as `github` or `servicenow`.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// (Block, Optional) The Datadog team reference. (see below for nested schema)
@@ -83,13 +83,13 @@ type TeamConnectionObservation struct {
 
 type TeamConnectionParameters struct {
 
-	// (Block, Optional) The external connected team reference (e.g. a GitHub team). (see below for nested schema)
-	// The external connected team reference (e.g. a GitHub team).
+	// (Block, Optional) The external connected team reference (e.g. a GitHub team or a ServiceNow group). (see below for nested schema)
+	// The external connected team reference (e.g. a GitHub team or a ServiceNow group).
 	// +kubebuilder:validation:Optional
 	ConnectedTeam *ConnectedTeamParameters `json:"connectedTeam,omitempty" tf:"connected_team,omitempty"`
 
-	// (String) The source of the connection (e.g. github).
-	// The source of the connection (e.g. github).
+	// (String) The name of the external source, such as github or servicenow.
+	// The name of the external source, such as `github` or `servicenow`.
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
@@ -115,7 +115,7 @@ type TeamConnectionTeamInitParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v2.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
-	// (String) The resource type of the external connected team. Valid values are github_team.
+	// (String) The resource type of the external connected team. Valid values are github_team, servicenow_team.
 	// The resource type of the Datadog team. Valid values are `team`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -126,7 +126,7 @@ type TeamConnectionTeamObservation struct {
 	// The ID of the Datadog team.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The resource type of the external connected team. Valid values are github_team.
+	// (String) The resource type of the external connected team. Valid values are github_team, servicenow_team.
 	// The resource type of the Datadog team. Valid values are `team`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -148,7 +148,7 @@ type TeamConnectionTeamParameters struct {
 	// +kubebuilder:validation:Optional
 	IDSelector *v2.NamespacedSelector `json:"idSelector,omitempty" tf:"-"`
 
-	// (String) The resource type of the external connected team. Valid values are github_team.
+	// (String) The resource type of the external connected team. Valid values are github_team, servicenow_team.
 	// The resource type of the Datadog team. Valid values are `team`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
@@ -181,7 +181,7 @@ type TeamConnectionStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// TeamConnection is the Schema for the TeamConnections API. Provides a Datadog Team Connection resource. This can be used to create and manage connections between a Datadog team and an external team (e.g. GitHub).
+// TeamConnection is the Schema for the TeamConnections API. Provides a Datadog Team Connection resource. This can be used to create and manage connections between a Datadog team and an external team (e.g. a GitHub team or a ServiceNow group).
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

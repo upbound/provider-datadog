@@ -38,13 +38,17 @@ type GCPSTSInitParameters struct {
 	// +listType=set
 	HostFilters []*string `json:"hostFilters,omitempty" tf:"host_filters,omitempty"`
 
-	// (Boolean) Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires resource_collection_enabled to also be enabled.
-	// Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires `resource_collection_enabled` to also be enabled.
+	// (Boolean) Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires resource_collection_enabled or is_org_folder_resource_collection_enabled to also be enabled.
+	// Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires `resource_collection_enabled` or `is_org_folder_resource_collection_enabled` to also be enabled.
 	IsCspmEnabled *bool `json:"isCspmEnabled,omitempty" tf:"is_cspm_enabled,omitempty"`
 
 	// (Boolean) When enabled, Datadog collects metrics where location is explicitly stated as 'global' or where location information cannot be deduced from GCP.
 	// When enabled, Datadog collects metrics where location is explicitly stated as 'global' or where location information cannot be deduced from GCP.
 	IsGlobalLocationEnabled *bool `json:"isGlobalLocationEnabled,omitempty" tf:"is_global_location_enabled,omitempty"`
+
+	// level resources under the organization the Service Account lives in.
+	// When enabled, Datadog scans for organization and folder-level resources under the organization the Service Account lives in.
+	IsOrgFolderResourceCollectionEnabled *bool `json:"isOrgFolderResourceCollectionEnabled,omitempty" tf:"is_org_folder_resource_collection_enabled,omitempty"`
 
 	// Goog-User-Project header to attribute Google Cloud billing and quota usage to the monitored project instead of the default service account project.
 	// When enabled, Datadog includes the `X-Goog-User-Project` header to attribute Google Cloud billing and quota usage to the monitored project instead of the default service account project.
@@ -71,8 +75,8 @@ type GCPSTSInitParameters struct {
 	// +listType=set
 	RegionFilterConfigs []*string `json:"regionFilterConfigs,omitempty" tf:"region_filter_configs,omitempty"`
 
-	// (Boolean) When enabled, Datadog scans for all resources in your GCP environment.
-	// When enabled, Datadog scans for all resources in your GCP environment.
+	// level resources in your GCP environment.
+	// When enabled, Datadog scans for all project-level resources in your GCP environment.
 	ResourceCollectionEnabled *bool `json:"resourceCollectionEnabled,omitempty" tf:"resource_collection_enabled,omitempty"`
 }
 
@@ -140,13 +144,17 @@ type GCPSTSObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Boolean) Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires resource_collection_enabled to also be enabled.
-	// Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires `resource_collection_enabled` to also be enabled.
+	// (Boolean) Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires resource_collection_enabled or is_org_folder_resource_collection_enabled to also be enabled.
+	// Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires `resource_collection_enabled` or `is_org_folder_resource_collection_enabled` to also be enabled.
 	IsCspmEnabled *bool `json:"isCspmEnabled,omitempty" tf:"is_cspm_enabled,omitempty"`
 
 	// (Boolean) When enabled, Datadog collects metrics where location is explicitly stated as 'global' or where location information cannot be deduced from GCP.
 	// When enabled, Datadog collects metrics where location is explicitly stated as 'global' or where location information cannot be deduced from GCP.
 	IsGlobalLocationEnabled *bool `json:"isGlobalLocationEnabled,omitempty" tf:"is_global_location_enabled,omitempty"`
+
+	// level resources under the organization the Service Account lives in.
+	// When enabled, Datadog scans for organization and folder-level resources under the organization the Service Account lives in.
+	IsOrgFolderResourceCollectionEnabled *bool `json:"isOrgFolderResourceCollectionEnabled,omitempty" tf:"is_org_folder_resource_collection_enabled,omitempty"`
 
 	// Goog-User-Project header to attribute Google Cloud billing and quota usage to the monitored project instead of the default service account project.
 	// When enabled, Datadog includes the `X-Goog-User-Project` header to attribute Google Cloud billing and quota usage to the monitored project instead of the default service account project.
@@ -173,8 +181,8 @@ type GCPSTSObservation struct {
 	// +listType=set
 	RegionFilterConfigs []*string `json:"regionFilterConfigs,omitempty" tf:"region_filter_configs,omitempty"`
 
-	// (Boolean) When enabled, Datadog scans for all resources in your GCP environment.
-	// When enabled, Datadog scans for all resources in your GCP environment.
+	// level resources in your GCP environment.
+	// When enabled, Datadog scans for all project-level resources in your GCP environment.
 	ResourceCollectionEnabled *bool `json:"resourceCollectionEnabled,omitempty" tf:"resource_collection_enabled,omitempty"`
 }
 
@@ -208,8 +216,8 @@ type GCPSTSParameters struct {
 	// +listType=set
 	HostFilters []*string `json:"hostFilters,omitempty" tf:"host_filters,omitempty"`
 
-	// (Boolean) Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires resource_collection_enabled to also be enabled.
-	// Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires `resource_collection_enabled` to also be enabled.
+	// (Boolean) Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires resource_collection_enabled or is_org_folder_resource_collection_enabled to also be enabled.
+	// Whether Datadog collects cloud security posture management resources from your GCP project. If enabled, requires `resource_collection_enabled` or `is_org_folder_resource_collection_enabled` to also be enabled.
 	// +kubebuilder:validation:Optional
 	IsCspmEnabled *bool `json:"isCspmEnabled,omitempty" tf:"is_cspm_enabled,omitempty"`
 
@@ -217,6 +225,11 @@ type GCPSTSParameters struct {
 	// When enabled, Datadog collects metrics where location is explicitly stated as 'global' or where location information cannot be deduced from GCP.
 	// +kubebuilder:validation:Optional
 	IsGlobalLocationEnabled *bool `json:"isGlobalLocationEnabled,omitempty" tf:"is_global_location_enabled,omitempty"`
+
+	// level resources under the organization the Service Account lives in.
+	// When enabled, Datadog scans for organization and folder-level resources under the organization the Service Account lives in.
+	// +kubebuilder:validation:Optional
+	IsOrgFolderResourceCollectionEnabled *bool `json:"isOrgFolderResourceCollectionEnabled,omitempty" tf:"is_org_folder_resource_collection_enabled,omitempty"`
 
 	// Goog-User-Project header to attribute Google Cloud billing and quota usage to the monitored project instead of the default service account project.
 	// When enabled, Datadog includes the `X-Goog-User-Project` header to attribute Google Cloud billing and quota usage to the monitored project instead of the default service account project.
@@ -249,8 +262,8 @@ type GCPSTSParameters struct {
 	// +listType=set
 	RegionFilterConfigs []*string `json:"regionFilterConfigs,omitempty" tf:"region_filter_configs,omitempty"`
 
-	// (Boolean) When enabled, Datadog scans for all resources in your GCP environment.
-	// When enabled, Datadog scans for all resources in your GCP environment.
+	// level resources in your GCP environment.
+	// When enabled, Datadog scans for all project-level resources in your GCP environment.
 	// +kubebuilder:validation:Optional
 	ResourceCollectionEnabled *bool `json:"resourceCollectionEnabled,omitempty" tf:"resource_collection_enabled,omitempty"`
 }
