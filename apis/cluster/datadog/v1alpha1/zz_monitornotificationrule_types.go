@@ -171,6 +171,9 @@ type MonitorNotificationRuleInitParameters struct {
 	// List of recipients to notify. Cannot be used with `conditional_recipients`.
 	// +listType=set
 	Recipients []*string `json:"recipients,omitempty" tf:"recipients,omitempty"`
+
+	// (Attributes) Additional options for the monitor notification rule. If omitted, the value stored in Datadog is kept. (see below for nested schema)
+	RuleOptions *RuleOptionsInitParameters `json:"ruleOptions,omitempty" tf:"rule_options,omitempty"`
 }
 
 type MonitorNotificationRuleObservation struct {
@@ -198,6 +201,9 @@ type MonitorNotificationRuleObservation struct {
 	// List of recipients to notify. Cannot be used with `conditional_recipients`.
 	// +listType=set
 	Recipients []*string `json:"recipients,omitempty" tf:"recipients,omitempty"`
+
+	// (Attributes) Additional options for the monitor notification rule. If omitted, the value stored in Datadog is kept. (see below for nested schema)
+	RuleOptions *RuleOptionsObservation `json:"ruleOptions,omitempty" tf:"rule_options,omitempty"`
 }
 
 type MonitorNotificationRuleParameters struct {
@@ -227,6 +233,32 @@ type MonitorNotificationRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Recipients []*string `json:"recipients,omitempty" tf:"recipients,omitempty"`
+
+	// (Attributes) Additional options for the monitor notification rule. If omitted, the value stored in Datadog is kept. (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	RuleOptions *RuleOptionsParameters `json:"ruleOptions,omitempty" tf:"rule_options,omitempty"`
+}
+
+type RuleOptionsInitParameters struct {
+
+	// up notifications for the same monitor alert are posted in Slack as replies to the first notification. Cannot be true when bundle_config is set.
+	// Whether notifications from this rule are threaded. When `true`, follow-up notifications for the same monitor alert are posted in Slack as replies to the first notification. Cannot be `true` when `bundle_config` is set.
+	IsThreaded *bool `json:"isThreaded,omitempty" tf:"is_threaded,omitempty"`
+}
+
+type RuleOptionsObservation struct {
+
+	// up notifications for the same monitor alert are posted in Slack as replies to the first notification. Cannot be true when bundle_config is set.
+	// Whether notifications from this rule are threaded. When `true`, follow-up notifications for the same monitor alert are posted in Slack as replies to the first notification. Cannot be `true` when `bundle_config` is set.
+	IsThreaded *bool `json:"isThreaded,omitempty" tf:"is_threaded,omitempty"`
+}
+
+type RuleOptionsParameters struct {
+
+	// up notifications for the same monitor alert are posted in Slack as replies to the first notification. Cannot be true when bundle_config is set.
+	// Whether notifications from this rule are threaded. When `true`, follow-up notifications for the same monitor alert are posted in Slack as replies to the first notification. Cannot be `true` when `bundle_config` is set.
+	// +kubebuilder:validation:Optional
+	IsThreaded *bool `json:"isThreaded" tf:"is_threaded,omitempty"`
 }
 
 // MonitorNotificationRuleSpec defines the desired state of MonitorNotificationRule

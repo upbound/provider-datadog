@@ -79,6 +79,24 @@ func (l *ConfluentResourceList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this DatabricksAccountList.
+func (l *DatabricksAccountList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this ElasticCloudAccountList.
+func (l *ElasticCloudAccountList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this FastlyAccountList.
 func (l *FastlyAccountList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -162,6 +180,24 @@ func (l *PagerdutyServiceObjectList) GetItems() []resource.Managed {
 
 // GetItems of this SlackChannelList.
 func (l *SlackChannelList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SnowflakeAccountList.
+func (l *SnowflakeAccountList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this TwilioAccountList.
+func (l *TwilioAccountList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

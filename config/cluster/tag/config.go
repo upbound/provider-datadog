@@ -2,8 +2,6 @@ package tag
 
 import (
 	"github.com/crossplane/upjet/v2/pkg/config"
-
-	"github.com/upbound/provider-datadog/config/common"
 )
 
 const tagDatadog = "tag.datadog"
@@ -19,8 +17,6 @@ func Configure(p *config.Provider) {
 		// CRDs gets written.
 		r.Kind = "TagPipelineRuleset"
 		r.ShortGroup = tagDatadog
-		// Plugin-framework single-nested blocks; see common.EmbedSingleNestedBlocks.
-		common.EmbedSingleNestedBlocks(r, "rules.mapping", "rules.query", "rules.query.addition", "rules.reference_table")
 	})
 	p.AddResourceConfigurator("datadog_tag_pipeline_rulesets", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for

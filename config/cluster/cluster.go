@@ -18,12 +18,14 @@ import (
 	"github.com/upbound/provider-datadog/config/cluster/authn"
 	"github.com/upbound/provider-datadog/config/cluster/child"
 	"github.com/upbound/provider-datadog/config/cluster/cloud"
+	"github.com/upbound/provider-datadog/config/cluster/cloudauth"
 	"github.com/upbound/provider-datadog/config/cluster/cloudcost"
 	"github.com/upbound/provider-datadog/config/cluster/compliance"
 	"github.com/upbound/provider-datadog/config/cluster/csmthreats"
 	"github.com/upbound/provider-datadog/config/cluster/dashboard"
 	"github.com/upbound/provider-datadog/config/cluster/data"
 	"github.com/upbound/provider-datadog/config/cluster/downtime"
+	"github.com/upbound/provider-datadog/config/cluster/fleet"
 	"github.com/upbound/provider-datadog/config/cluster/governance"
 	"github.com/upbound/provider-datadog/config/cluster/incident"
 	"github.com/upbound/provider-datadog/config/cluster/integration"
@@ -67,12 +69,14 @@ var Configurators = []func(*ujconfig.Provider){
 	authn.Configure,
 	child.Configure,
 	cloud.Configure,
+	cloudauth.Configure,
 	cloudcost.Configure,
 	compliance.Configure,
 	csmthreats.Configure,
 	dashboard.Configure,
 	data.Configure,
 	downtime.Configure,
+	fleet.Configure,
 	governance.Configure,
 	incident.Configure,
 	integration.Configure,

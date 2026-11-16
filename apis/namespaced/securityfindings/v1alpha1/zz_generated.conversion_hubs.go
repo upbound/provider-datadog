@@ -7,10 +7,19 @@ Copyright 2026 Upbound Inc.
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
+func (tr *DefaultInboxRule) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *DueDateRule) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *InboxRule) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *MuteRule) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SeverityModifierRule) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *TicketCreationRule) Hub() {}

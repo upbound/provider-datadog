@@ -21,7 +21,7 @@ Every resource is implemented by exactly one of the two; `config/external_name.g
 - For a **plugin SDK** resource, `r.TerraformResource` at runtime *is* the live `*schema.Resource` used by that resource's controller for real CRUD. Mutating its `.Schema` in place (changing a field's type, deleting a field, flipping `.Sensitive`) corrupts the live client.
 - For a **plugin framework** resource, runtime CRUD goes through a separate framework client; `r.TerraformResource.Schema` is only used to derive the CRD and is safe to mutate.
 - `GetProvider`/`GetProviderNamespaced` take a `generationProvider bool`. When `true` (only `cmd/generator`), `sdkProvider` is swapped for a throwaway provider built from the JSON schema document (`codegenSDKProvider`) before any configurator runs, so schema mutations for plugin SDK resources are safe there and unsafe everywhere else. `config/codegen.go`'s `codegenConfigurators` map holds exactly the mutations that need this gate; new schema-mutating configurators for a plugin SDK resource belong there, not in a group's `config.go`.
-- `config/common/single_block.go`'s `MarkSingleNestedBlockConfigurable`/`EmbedSingleNestedBlocks` mutate `TerraformResource.Schema` unconditionally — safe only for plugin framework resources (its doc comment predates the in-process switch and is stale on this point; verify SDK vs. framework per resource before reusing it on a new one).
+- `config/common/single_block.go`'s `MarkSingleNestedBlockConfigurable` mutate `TerraformResource.Schema` unconditionally — safe only for plugin framework resources (its doc comment predates the in-process switch and is stale on this point; verify SDK vs. framework per resource before reusing it on a new one).
 
 ### Dual-scope generation
 

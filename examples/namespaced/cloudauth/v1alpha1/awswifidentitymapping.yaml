@@ -1,0 +1,14 @@
+apiVersion: cloudauth.datadog.m.upbound.io/v1alpha1
+kind: AWSWIFIdentityMapping
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudauth/v1alpha1/awswifidentitymapping
+    upjet.upbound.io/manual-intervention: "Requires an AWS account that is already integrated with Datadog; the account id in arnPattern must be replaced with that account."
+  labels:
+    testing.upbound.io/example-name: terraform
+  name: terraform
+  namespace: upbound-system
+spec:
+  forProvider:
+    accountIdentifier: ${data.datadog_service_account.uptest.id}
+    arnPattern: arn:aws:sts::123456789012:assumed-role/terraform-runner/*

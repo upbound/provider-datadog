@@ -17,6 +17,7 @@ spec:
     message: Notify @pagerduty
     name: An Uptime test on example.org
     optionsList:
+      bitsAiAutoInvestigate: false
       monitorOptions:
         renotifyInterval: 120
       retry:

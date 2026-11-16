@@ -1,0 +1,12 @@
+apiVersion: securityfindings.datadog.m.upbound.io/v1alpha1
+kind: DefaultInboxRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: securityfindings/v1alpha1/defaultinboxrule
+  labels:
+    testing.upbound.io/example-name: secret
+  name: secret
+  namespace: upbound-system
+spec:
+  forProvider:
+    enabled: true

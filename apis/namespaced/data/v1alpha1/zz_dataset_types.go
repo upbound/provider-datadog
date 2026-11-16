@@ -19,8 +19,8 @@ type DatasetInitParameters struct {
 	// The name of the dataset.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Set of String) An array of principals. A principal is a subject or group of subjects. Each principal is formatted as type:id. Supported types: role and team.
-	// An array of principals. A principal is a subject or group of subjects. Each principal is formatted as `type:id`. Supported types: `role` and `team`.
+	// (Set of String) An array of principals. A principal is a subject or group of subjects. Each principal is formatted as type:id. Supported types: role, team, and user. user principals are supported only for Agents and Automated Processes.
+	// An array of principals. A principal is a subject or group of subjects. Each principal is formatted as `type:id`. Supported types: `role`, `team`, and `user`. `user` principals are supported only for Agents and Automated Processes.
 	// +listType=set
 	Principals []*string `json:"principals,omitempty" tf:"principals,omitempty"`
 
@@ -45,8 +45,8 @@ type DatasetObservation struct {
 	// The name of the dataset.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Set of String) An array of principals. A principal is a subject or group of subjects. Each principal is formatted as type:id. Supported types: role and team.
-	// An array of principals. A principal is a subject or group of subjects. Each principal is formatted as `type:id`. Supported types: `role` and `team`.
+	// (Set of String) An array of principals. A principal is a subject or group of subjects. Each principal is formatted as type:id. Supported types: role, team, and user. user principals are supported only for Agents and Automated Processes.
+	// An array of principals. A principal is a subject or group of subjects. Each principal is formatted as `type:id`. Supported types: `role`, `team`, and `user`. `user` principals are supported only for Agents and Automated Processes.
 	// +listType=set
 	Principals []*string `json:"principals,omitempty" tf:"principals,omitempty"`
 
@@ -61,8 +61,8 @@ type DatasetParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Set of String) An array of principals. A principal is a subject or group of subjects. Each principal is formatted as type:id. Supported types: role and team.
-	// An array of principals. A principal is a subject or group of subjects. Each principal is formatted as `type:id`. Supported types: `role` and `team`.
+	// (Set of String) An array of principals. A principal is a subject or group of subjects. Each principal is formatted as type:id. Supported types: role, team, and user. user principals are supported only for Agents and Automated Processes.
+	// An array of principals. A principal is a subject or group of subjects. Each principal is formatted as `type:id`. Supported types: `role`, `team`, and `user`. `user` principals are supported only for Agents and Automated Processes.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Principals []*string `json:"principals,omitempty" tf:"principals,omitempty"`

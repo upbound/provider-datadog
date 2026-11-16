@@ -1,0 +1,21 @@
+apiVersion: integration.datadog.upbound.io/v1alpha1
+kind: TwilioAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/twilioaccount
+    upjet.upbound.io/manual-intervention: "Requires a real Twilio account; accountSid, username and the referenced secret must be replaced with its values."
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    authentication:
+      twilioIntegrationAccountBasicAuth:
+        passwordSecretRef:
+          key: example-key
+          name: example-secret
+          namespace: upbound-system
+        username: SK00000000000000000000000000000000
+    name: example-twilio
+    settings:
+      accountSid: AC00000000000000000000000000000000

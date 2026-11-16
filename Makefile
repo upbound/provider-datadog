@@ -15,7 +15,7 @@ export TERRAFORM_PROVIDER_REPO ?= https://github.com/DataDog/terraform-provider-
 # The provider runs the Terraform provider in-process (the Go module pinned in
 # go.mod); Terraform and the provider version below only feed code generation:
 # the provider schema document and the documentation clone.
-export TERRAFORM_PROVIDER_VERSION ?= 4.21.0
+export TERRAFORM_PROVIDER_VERSION ?= 4.30.0
 export TERRAFORM_DOCS_PATH ?= docs/resources
 
 PLATFORMS ?= linux_amd64 linux_arm64

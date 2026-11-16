@@ -11,6 +11,8 @@ spec:
     name: Example Workflow
     description: An example workflow managed by Crossplane
     published: false
+    runAs:
+      type: owner
     tags:
     - team:backend
     # specJson is the workflow definition only (handle, triggers, steps); the

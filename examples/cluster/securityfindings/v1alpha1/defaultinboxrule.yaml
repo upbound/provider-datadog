@@ -1,0 +1,13 @@
+apiVersion: securityfindings.datadog.upbound.io/v1alpha1
+kind: DefaultInboxRule
+metadata:
+  annotations:
+    crossplane.io/external-name: 00000000-0000-0000-0000-000000000000
+    meta.upbound.io/example-id: securityfindings/v1alpha1/defaultinboxrule
+    upjet.upbound.io/manual-intervention: "A default inbox rule can't be created or deleted; the external name must be replaced with the id of one of the organization's default inbox rules."
+  labels:
+    testing.upbound.io/example-name: secret
+  name: secret
+spec:
+  forProvider:
+    enabled: true

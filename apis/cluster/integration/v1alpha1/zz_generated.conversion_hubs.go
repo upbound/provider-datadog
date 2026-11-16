@@ -31,6 +31,12 @@ func (tr *ConfluentAccount) Hub() {}
 func (tr *ConfluentResource) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *DatabricksAccount) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *ElasticCloudAccount) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *FastlyAccount) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -59,3 +65,9 @@ func (tr *PagerdutyServiceObject) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *SlackChannel) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SnowflakeAccount) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *TwilioAccount) Hub() {}

@@ -2,8 +2,6 @@ package oncall
 
 import (
 	"github.com/crossplane/upjet/v2/pkg/config"
-
-	"github.com/upbound/provider-datadog/config/common"
 )
 
 const onCallDatadog = "oncall.datadog"
@@ -21,8 +19,6 @@ func Configure(p *config.Provider) {
 		// this resource, which would be "datadog"
 		r.Kind = "Schedule"
 		r.ShortGroup = onCallDatadog
-		// Plugin-framework single-nested blocks; see common.EmbedSingleNestedBlocks.
-		common.EmbedSingleNestedBlocks(r, "layer.interval")
 	})
 	p.AddResourceConfigurator("datadog_on_call_team_routing_rules", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for
@@ -38,8 +34,6 @@ func Configure(p *config.Provider) {
 		r.References["rule.action.escalation_policy.policy_id"] = config.Reference{
 			TerraformName: "datadog_on_call_escalation_policy",
 		}
-		// Plugin-framework single-nested blocks; see common.EmbedSingleNestedBlocks.
-		common.EmbedSingleNestedBlocks(r, "rule.action.escalation_policy", "rule.action.escalation_policy.support_hours", "rule.action.send_slack_message", "rule.action.send_teams_message", "rule.action.trigger_workflow_automation", "rule.time_restrictions")
 	})
 	p.AddResourceConfigurator("datadog_on_call_user_notification_channel", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for
@@ -49,8 +43,6 @@ func Configure(p *config.Provider) {
 		r.References["user_id"] = config.Reference{
 			TerraformName: "datadog_user",
 		}
-		// Plugin-framework single-nested blocks; see common.EmbedSingleNestedBlocks.
-		common.EmbedSingleNestedBlocks(r, "email", "phone")
 	})
 	p.AddResourceConfigurator("datadog_on_call_user_notification_rule", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for
@@ -63,7 +55,5 @@ func Configure(p *config.Provider) {
 		r.References["user_id"] = config.Reference{
 			TerraformName: "datadog_user",
 		}
-		// Plugin-framework single-nested blocks; see common.EmbedSingleNestedBlocks.
-		common.EmbedSingleNestedBlocks(r, "phone")
 	})
 }

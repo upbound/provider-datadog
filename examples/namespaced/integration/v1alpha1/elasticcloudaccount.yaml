@@ -1,0 +1,21 @@
+apiVersion: integration.datadog.m.upbound.io/v1alpha1
+kind: ElasticCloudAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: integration/v1alpha1/elasticcloudaccount
+    upjet.upbound.io/manual-intervention: "Requires a real Elastic Cloud deployment; url, username and the referenced secret must be replaced with its values."
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    authentication:
+      elasticCloudIntegrationAccountBasicAuth:
+        passwordSecretRef:
+          key: example-key
+          name: example-secret
+        username: datadog
+    name: example-elastic-cloud
+    settings:
+      url: https://example.es.us-east-1.aws.found.io

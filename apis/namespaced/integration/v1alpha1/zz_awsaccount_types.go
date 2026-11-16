@@ -424,6 +424,10 @@ type MetricsConfigInitParameters struct {
 	// Enable custom metrics collection Defaults to `false`.
 	CollectCustomMetrics *bool `json:"collectCustomMetrics,omitempty" tf:"collect_custom_metrics,omitempty"`
 
+	// (Boolean) Enable Service Quotas collection. Incurs CloudWatch GetMetricData charges on your AWS bill. Requires resources_config.extended_collection to be set to true, and the Datadog AWS integration role must allow servicequotas:ListServices, servicequotas:ListServiceQuotas and servicequotas:ListRequestedServiceQuotaChangeHistory. Defaults to false.
+	// Enable Service Quotas collection. Incurs CloudWatch `GetMetricData` charges on your AWS bill. Requires `resources_config.extended_collection` to be set to `true`, and the Datadog AWS integration role must allow `servicequotas:ListServices`, `servicequotas:ListServiceQuotas` and `servicequotas:ListRequestedServiceQuotaChangeHistory`. Defaults to `false`.
+	CollectServiceQuotas *bool `json:"collectServiceQuotas,omitempty" tf:"collect_service_quotas,omitempty"`
+
 	// (Boolean) Enable AWS metrics collection Defaults to true.
 	// Enable AWS metrics collection Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -435,6 +439,10 @@ type MetricsConfigInitParameters struct {
 	// set exclude_only list if block is empty. (see below for nested schema)
 	// AWS Metrics namespace filters. Defaults to a pre-set `exclude_only` list if block is empty.
 	NamespaceFilters *NamespaceFiltersInitParameters `json:"namespaceFilters,omitempty" tf:"namespace_filters,omitempty"`
+
+	// east-1. (see below for nested schema)
+	// AWS Metrics Collection resource type tag filters list. Each entry defines a tag filter expression applied when collecting metrics for a specific AWS resource type. Wildcards, such as `?` (match a single character) and `*` (match multiple characters), and exclusion using `!` before the tag are supported. For example, `env:production AND !region:us-east-1`.
+	ResourceTypeTagFilters []ResourceTypeTagFiltersInitParameters `json:"resourceTypeTagFilters,omitempty" tf:"resource_type_tag_filters,omitempty"`
 
 	// (Block List) AWS Logs Collection tag filters list. (see below for nested schema)
 	// AWS Metrics Collection tag filters list. The array of custom AWS resource tags (in the form `key:value`) defines a filter that Datadog uses when collecting metrics from a specified service. Wildcards, such as `?` (match a single character) and `*` (match multiple characters), and exclusion using `!` before the tag are supported. For EC2, only hosts that match one of the defined tags will be imported into Datadog. The rest will be ignored. For example, `env:production,instance-type:c?.*,!region:us-east-1`.
@@ -455,6 +463,10 @@ type MetricsConfigObservation struct {
 	// Enable custom metrics collection Defaults to `false`.
 	CollectCustomMetrics *bool `json:"collectCustomMetrics,omitempty" tf:"collect_custom_metrics,omitempty"`
 
+	// (Boolean) Enable Service Quotas collection. Incurs CloudWatch GetMetricData charges on your AWS bill. Requires resources_config.extended_collection to be set to true, and the Datadog AWS integration role must allow servicequotas:ListServices, servicequotas:ListServiceQuotas and servicequotas:ListRequestedServiceQuotaChangeHistory. Defaults to false.
+	// Enable Service Quotas collection. Incurs CloudWatch `GetMetricData` charges on your AWS bill. Requires `resources_config.extended_collection` to be set to `true`, and the Datadog AWS integration role must allow `servicequotas:ListServices`, `servicequotas:ListServiceQuotas` and `servicequotas:ListRequestedServiceQuotaChangeHistory`. Defaults to `false`.
+	CollectServiceQuotas *bool `json:"collectServiceQuotas,omitempty" tf:"collect_service_quotas,omitempty"`
+
 	// (Boolean) Enable AWS metrics collection Defaults to true.
 	// Enable AWS metrics collection Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -466,6 +478,10 @@ type MetricsConfigObservation struct {
 	// set exclude_only list if block is empty. (see below for nested schema)
 	// AWS Metrics namespace filters. Defaults to a pre-set `exclude_only` list if block is empty.
 	NamespaceFilters *NamespaceFiltersObservation `json:"namespaceFilters,omitempty" tf:"namespace_filters,omitempty"`
+
+	// east-1. (see below for nested schema)
+	// AWS Metrics Collection resource type tag filters list. Each entry defines a tag filter expression applied when collecting metrics for a specific AWS resource type. Wildcards, such as `?` (match a single character) and `*` (match multiple characters), and exclusion using `!` before the tag are supported. For example, `env:production AND !region:us-east-1`.
+	ResourceTypeTagFilters []ResourceTypeTagFiltersObservation `json:"resourceTypeTagFilters,omitempty" tf:"resource_type_tag_filters,omitempty"`
 
 	// (Block List) AWS Logs Collection tag filters list. (see below for nested schema)
 	// AWS Metrics Collection tag filters list. The array of custom AWS resource tags (in the form `key:value`) defines a filter that Datadog uses when collecting metrics from a specified service. Wildcards, such as `?` (match a single character) and `*` (match multiple characters), and exclusion using `!` before the tag are supported. For EC2, only hosts that match one of the defined tags will be imported into Datadog. The rest will be ignored. For example, `env:production,instance-type:c?.*,!region:us-east-1`.
@@ -489,6 +505,11 @@ type MetricsConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	CollectCustomMetrics *bool `json:"collectCustomMetrics,omitempty" tf:"collect_custom_metrics,omitempty"`
 
+	// (Boolean) Enable Service Quotas collection. Incurs CloudWatch GetMetricData charges on your AWS bill. Requires resources_config.extended_collection to be set to true, and the Datadog AWS integration role must allow servicequotas:ListServices, servicequotas:ListServiceQuotas and servicequotas:ListRequestedServiceQuotaChangeHistory. Defaults to false.
+	// Enable Service Quotas collection. Incurs CloudWatch `GetMetricData` charges on your AWS bill. Requires `resources_config.extended_collection` to be set to `true`, and the Datadog AWS integration role must allow `servicequotas:ListServices`, `servicequotas:ListServiceQuotas` and `servicequotas:ListRequestedServiceQuotaChangeHistory`. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	CollectServiceQuotas *bool `json:"collectServiceQuotas,omitempty" tf:"collect_service_quotas,omitempty"`
+
 	// (Boolean) Enable AWS metrics collection Defaults to true.
 	// Enable AWS metrics collection Defaults to `true`.
 	// +kubebuilder:validation:Optional
@@ -503,6 +524,11 @@ type MetricsConfigParameters struct {
 	// AWS Metrics namespace filters. Defaults to a pre-set `exclude_only` list if block is empty.
 	// +kubebuilder:validation:Optional
 	NamespaceFilters *NamespaceFiltersParameters `json:"namespaceFilters,omitempty" tf:"namespace_filters,omitempty"`
+
+	// east-1. (see below for nested schema)
+	// AWS Metrics Collection resource type tag filters list. Each entry defines a tag filter expression applied when collecting metrics for a specific AWS resource type. Wildcards, such as `?` (match a single character) and `*` (match multiple characters), and exclusion using `!` before the tag are supported. For example, `env:production AND !region:us-east-1`.
+	// +kubebuilder:validation:Optional
+	ResourceTypeTagFilters []ResourceTypeTagFiltersParameters `json:"resourceTypeTagFilters,omitempty" tf:"resource_type_tag_filters,omitempty"`
 
 	// (Block List) AWS Logs Collection tag filters list. (see below for nested schema)
 	// AWS Metrics Collection tag filters list. The array of custom AWS resource tags (in the form `key:value`) defines a filter that Datadog uses when collecting metrics from a specified service. Wildcards, such as `?` (match a single character) and `*` (match multiple characters), and exclusion using `!` before the tag are supported. For EC2, only hosts that match one of the defined tags will be imported into Datadog. The rest will be ignored. For example, `env:production,instance-type:c?.*,!region:us-east-1`.
@@ -578,6 +604,67 @@ type NamespaceFiltersParameters struct {
 	// Include only these namespaces for metrics collection. Use [`datadog_integration_aws_available_namespaces` data source](https://registry.io/providers/DataDog/datadog/latest/docs/data-sources/integration_aws_available_namespaces) to get allowed values.
 	// +kubebuilder:validation:Optional
 	IncludeOnly []*string `json:"includeOnly,omitempty" tf:"include_only,omitempty"`
+}
+
+type ResourceTypeTagFiltersInitParameters struct {
+
+	// (Boolean) Whether this filter applies to custom resources.
+	// Whether this filter applies to custom resources.
+	Custom *bool `json:"custom,omitempty" tf:"custom,omitempty"`
+
+	// (String) The tag filter expression used when collecting metrics for the specified resource types.
+	// The tag filter expression used when collecting metrics for the specified resource types.
+	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
+
+	// (List of String) The AWS resource types within service for which the tag filter expression is applied.
+	// The AWS resource types within `service` for which the tag filter expression is applied.
+	ResourceTypes []*string `json:"resourceTypes,omitempty" tf:"resource_types,omitempty"`
+
+	// (String) The AWS service for which the tag filter expression is applied.
+	// The AWS service for which the tag filter expression is applied.
+	Service *string `json:"service,omitempty" tf:"service,omitempty"`
+}
+
+type ResourceTypeTagFiltersObservation struct {
+
+	// (Boolean) Whether this filter applies to custom resources.
+	// Whether this filter applies to custom resources.
+	Custom *bool `json:"custom,omitempty" tf:"custom,omitempty"`
+
+	// (String) The tag filter expression used when collecting metrics for the specified resource types.
+	// The tag filter expression used when collecting metrics for the specified resource types.
+	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
+
+	// (List of String) The AWS resource types within service for which the tag filter expression is applied.
+	// The AWS resource types within `service` for which the tag filter expression is applied.
+	ResourceTypes []*string `json:"resourceTypes,omitempty" tf:"resource_types,omitempty"`
+
+	// (String) The AWS service for which the tag filter expression is applied.
+	// The AWS service for which the tag filter expression is applied.
+	Service *string `json:"service,omitempty" tf:"service,omitempty"`
+}
+
+type ResourceTypeTagFiltersParameters struct {
+
+	// (Boolean) Whether this filter applies to custom resources.
+	// Whether this filter applies to custom resources.
+	// +kubebuilder:validation:Optional
+	Custom *bool `json:"custom,omitempty" tf:"custom,omitempty"`
+
+	// (String) The tag filter expression used when collecting metrics for the specified resource types.
+	// The tag filter expression used when collecting metrics for the specified resource types.
+	// +kubebuilder:validation:Optional
+	Expression *string `json:"expression" tf:"expression,omitempty"`
+
+	// (List of String) The AWS resource types within service for which the tag filter expression is applied.
+	// The AWS resource types within `service` for which the tag filter expression is applied.
+	// +kubebuilder:validation:Optional
+	ResourceTypes []*string `json:"resourceTypes,omitempty" tf:"resource_types,omitempty"`
+
+	// (String) The AWS service for which the tag filter expression is applied.
+	// The AWS service for which the tag filter expression is applied.
+	// +kubebuilder:validation:Optional
+	Service *string `json:"service,omitempty" tf:"service,omitempty"`
 }
 
 type ResourcesConfigInitParameters struct {

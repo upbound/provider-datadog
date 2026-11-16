@@ -18,6 +18,10 @@ type EmailInitParameters struct {
 	// (Boolean) Whether to send email notifications to team members when alerts are triggered.
 	// Whether to send email notifications to team members when alerts are triggered.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (String) A single email address to send notifications to instead of all team members. Requires enabled to be true. When omitted, notifications are sent to all team members.
+	// A single email address to send notifications to instead of all team members. Requires `enabled` to be `true`. When omitted, notifications are sent to all team members.
+	RecipientEmail *string `json:"recipientEmail,omitempty" tf:"recipient_email,omitempty"`
 }
 
 type EmailObservation struct {
@@ -25,6 +29,10 @@ type EmailObservation struct {
 	// (Boolean) Whether to send email notifications to team members when alerts are triggered.
 	// Whether to send email notifications to team members when alerts are triggered.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (String) A single email address to send notifications to instead of all team members. Requires enabled to be true. When omitted, notifications are sent to all team members.
+	// A single email address to send notifications to instead of all team members. Requires `enabled` to be `true`. When omitted, notifications are sent to all team members.
+	RecipientEmail *string `json:"recipientEmail,omitempty" tf:"recipient_email,omitempty"`
 }
 
 type EmailParameters struct {
@@ -33,6 +41,11 @@ type EmailParameters struct {
 	// Whether to send email notifications to team members when alerts are triggered.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (String) A single email address to send notifications to instead of all team members. Requires enabled to be true. When omitted, notifications are sent to all team members.
+	// A single email address to send notifications to instead of all team members. Requires `enabled` to be `true`. When omitted, notifications are sent to all team members.
+	// +kubebuilder:validation:Optional
+	RecipientEmail *string `json:"recipientEmail,omitempty" tf:"recipient_email,omitempty"`
 }
 
 type MsTeamsInitParameters struct {
@@ -77,6 +90,28 @@ type PagerdutyParameters struct {
 	// PagerDuty service name to send incident notifications to. The service name can be found in your PagerDuty service settings.
 	// +kubebuilder:validation:Optional
 	ServiceName *string `json:"serviceName,omitempty" tf:"service_name,omitempty"`
+}
+
+type ServicenowInitParameters struct {
+
+	// (List of String) ServiceNow template handle names to use for notifications.
+	// ServiceNow template handle names to use for notifications.
+	Templates []*string `json:"templates,omitempty" tf:"templates,omitempty"`
+}
+
+type ServicenowObservation struct {
+
+	// (List of String) ServiceNow template handle names to use for notifications.
+	// ServiceNow template handle names to use for notifications.
+	Templates []*string `json:"templates,omitempty" tf:"templates,omitempty"`
+}
+
+type ServicenowParameters struct {
+
+	// (List of String) ServiceNow template handle names to use for notifications.
+	// ServiceNow template handle names to use for notifications.
+	// +kubebuilder:validation:Optional
+	Templates []*string `json:"templates,omitempty" tf:"templates,omitempty"`
 }
 
 type SlackInitParameters struct {
@@ -128,6 +163,10 @@ type TeamNotificationRuleInitParameters struct {
 	// The PagerDuty notification settings.
 	Pagerduty *PagerdutyInitParameters `json:"pagerduty,omitempty" tf:"pagerduty,omitempty"`
 
+	// (Block, Optional) The ServiceNow notification settings. (see below for nested schema)
+	// The ServiceNow notification settings.
+	Servicenow *ServicenowInitParameters `json:"servicenow,omitempty" tf:"servicenow,omitempty"`
+
 	// (Block, Optional) The Slack notification settings. (see below for nested schema)
 	// The Slack notification settings.
 	Slack *SlackInitParameters `json:"slack,omitempty" tf:"slack,omitempty"`
@@ -163,6 +202,10 @@ type TeamNotificationRuleObservation struct {
 	// The PagerDuty notification settings.
 	Pagerduty *PagerdutyObservation `json:"pagerduty,omitempty" tf:"pagerduty,omitempty"`
 
+	// (Block, Optional) The ServiceNow notification settings. (see below for nested schema)
+	// The ServiceNow notification settings.
+	Servicenow *ServicenowObservation `json:"servicenow,omitempty" tf:"servicenow,omitempty"`
+
 	// (Block, Optional) The Slack notification settings. (see below for nested schema)
 	// The Slack notification settings.
 	Slack *SlackObservation `json:"slack,omitempty" tf:"slack,omitempty"`
@@ -188,6 +231,11 @@ type TeamNotificationRuleParameters struct {
 	// The PagerDuty notification settings.
 	// +kubebuilder:validation:Optional
 	Pagerduty *PagerdutyParameters `json:"pagerduty,omitempty" tf:"pagerduty,omitempty"`
+
+	// (Block, Optional) The ServiceNow notification settings. (see below for nested schema)
+	// The ServiceNow notification settings.
+	// +kubebuilder:validation:Optional
+	Servicenow *ServicenowParameters `json:"servicenow,omitempty" tf:"servicenow,omitempty"`
 
 	// (Block, Optional) The Slack notification settings. (see below for nested schema)
 	// The Slack notification settings.

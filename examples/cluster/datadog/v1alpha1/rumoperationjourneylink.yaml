@@ -1,0 +1,66 @@
+apiVersion: datadog.upbound.io/v1alpha1
+kind: RUMOperationJourneyLink
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/rumoperationjourneylink
+    upjet.upbound.io/manual-intervention: "Requires an existing RUM journey; journeyId must be replaced with its id."
+  labels:
+    testing.upbound.io/example-name: checkout
+  name: checkout
+spec:
+  forProvider:
+    journeyId: 00000000-0000-0000-0000-000000000000
+    operationIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: rumoperationjourneylink-checkout
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: RUMOperation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/rumoperationjourneylink
+  labels:
+    testing.upbound.io/example-name: rumoperationjourneylink-checkout
+  name: rumoperationjourneylink-checkout
+spec:
+  forProvider:
+    applicationIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: rumoperationjourneylink-app
+    category: form_submission
+    description: From the cart to the order confirmation page.
+    displayName: Checkout
+    name: journey-link-checkout
+    steps:
+    - nodes:
+      - query: '@view.name:/cart @action.name:checkout'
+      type: start
+    - nodes:
+      - query: '@view.name:/order/confirmation'
+      type: stop
+    - composite:
+        kind: in_order
+        maxWindowMs: 60000
+        predicates:
+        - query: '@type:action @action.name:pay'
+        - query: '@type:error @error.message:*declined*'
+      type: error
+    tags:
+    - team:payments
+
+---
+
+apiVersion: datadog.upbound.io/v1alpha1
+kind: RUMApplication
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/rumoperationjourneylink
+  labels:
+    testing.upbound.io/example-name: rumoperationjourneylink-app
+  name: rumoperationjourneylink-app
+spec:
+  forProvider:
+    name: rumoperationjourneylink-app
+    type: browser

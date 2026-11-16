@@ -12,6 +12,8 @@ spec:
     description: 'This workflow alerts me by email when my monitor goes off. '
     name: Send Email when Monitor Alerts
     published: true
+    runAs:
+      type: owner
     specJson: |-
       ${jsonencode(
           {

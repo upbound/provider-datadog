@@ -1,0 +1,20 @@
+apiVersion: metric.datadog.upbound.io/v1alpha1
+kind: DerivedMetric
+metadata:
+  annotations:
+    meta.upbound.io/example-id: metric/v1alpha1/derivedmetric
+  labels:
+    testing.upbound.io/example-name: cpu_total
+  name: cpu-total
+spec:
+  forProvider:
+    definition:
+      formula: a + b
+      queries:
+      - dataSource: metrics
+        name: a
+        query: avg:system.cpu.user{*}
+      - dataSource: metrics
+        name: b
+        query: avg:system.cpu.system{*}
+    name: custom.cpu.total

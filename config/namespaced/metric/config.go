@@ -14,4 +14,10 @@ func Configure(p *config.Provider) {
 		// this resource, which would be "datadog"
 		r.ShortGroup = "metric.datadog"
 	})
+	p.AddResourceConfigurator("datadog_derived_metric", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "DerivedMetric"
+		r.ShortGroup = "metric.datadog"
+	})
 }

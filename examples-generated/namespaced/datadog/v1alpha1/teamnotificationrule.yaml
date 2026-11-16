@@ -11,10 +11,14 @@ spec:
   forProvider:
     email:
     - enabled: true
+      recipientEmail: team-alerts@example.com
     msTeams:
     - connectorName: test-teams-handle
     pagerduty:
     - serviceName: my-service
+    servicenow:
+    - templates:
+      - incident-template
     slack:
     - channel: test-channel
       workspace: Datadog

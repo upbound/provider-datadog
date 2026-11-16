@@ -1,0 +1,15 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: RUMOperationJourneyLink
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/rumoperationjourneylink
+  labels:
+    testing.upbound.io/example-name: checkout
+  name: checkout
+  namespace: upbound-system
+spec:
+  forProvider:
+    journeyId: <journey_id>
+    operationIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: checkout

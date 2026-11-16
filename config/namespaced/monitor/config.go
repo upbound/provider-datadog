@@ -2,8 +2,6 @@ package monitor
 
 import (
 	"github.com/crossplane/upjet/v2/pkg/config"
-
-	"github.com/upbound/provider-datadog/config/common"
 )
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
@@ -31,12 +29,5 @@ func Configure(p *config.Provider) {
 		// this resource, which would be "datadog"
 		r.Kind = "MonitorNotificationRule"
 		r.ShortGroup = "datadog"
-		// bundle_config, conditional_recipients, and filter are
-		// plugin-framework single-nested blocks; see
-		// common.EmbedSingleNestedBlocks.
-		common.EmbedSingleNestedBlocks(r, "bundle_config", "conditional_recipients", "filter")
-		// conditional_recipients has a required descendant, which upjet's tfjson conversion
-		// otherwise pushes into status.atProvider only; optional upstream.
-		common.MarkSingleNestedBlockConfigurable(r, "conditional_recipients", true)
 	})
 }

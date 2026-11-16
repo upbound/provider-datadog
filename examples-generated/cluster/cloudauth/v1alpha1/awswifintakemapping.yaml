@@ -1,0 +1,11 @@
+apiVersion: cloudauth.datadog.upbound.io/v1alpha1
+kind: AWSWIFIntakeMapping
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudauth/v1alpha1/awswifintakemapping
+  labels:
+    testing.upbound.io/example-name: agent
+  name: agent
+spec:
+  forProvider:
+    arnPattern: arn:aws:sts::${var.agent_aws_account_id}:assumed-role/DatadogAgentRole/*

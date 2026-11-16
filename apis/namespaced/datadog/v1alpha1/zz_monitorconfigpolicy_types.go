@@ -13,10 +13,36 @@ import (
 	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
+type DowntimePolicyInitParameters struct {
+
+	// (Number) The maximum allowed downtime duration, in milliseconds
+	// The maximum allowed downtime duration, in milliseconds
+	MaxDurationMs *float64 `json:"maxDurationMs,omitempty" tf:"max_duration_ms,omitempty"`
+}
+
+type DowntimePolicyObservation struct {
+
+	// (Number) The maximum allowed downtime duration, in milliseconds
+	// The maximum allowed downtime duration, in milliseconds
+	MaxDurationMs *float64 `json:"maxDurationMs,omitempty" tf:"max_duration_ms,omitempty"`
+}
+
+type DowntimePolicyParameters struct {
+
+	// (Number) The maximum allowed downtime duration, in milliseconds
+	// The maximum allowed downtime duration, in milliseconds
+	// +kubebuilder:validation:Optional
+	MaxDurationMs *float64 `json:"maxDurationMs" tf:"max_duration_ms,omitempty"`
+}
+
 type MonitorConfigPolicyInitParameters struct {
 
-	// (String) The monitor config policy type Valid values are tag.
-	// The monitor config policy type Valid values are `tag`.
+	// (Block List, Max: 1) Config for a downtime duration policy. Only set if policy_type is downtime. (see below for nested schema)
+	// Config for a downtime duration policy. Only set if `policy_type` is `downtime`.
+	DowntimePolicy *DowntimePolicyInitParameters `json:"downtimePolicy,omitempty" tf:"downtime_policy,omitempty"`
+
+	// (String) The monitor config policy type Valid values are tag, downtime.
+	// The monitor config policy type Valid values are `tag`, `downtime`.
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 
 	// (Block List, Max: 1) Config for a tag policy. Only set if policy_type is tag. (see below for nested schema)
@@ -26,11 +52,15 @@ type MonitorConfigPolicyInitParameters struct {
 
 type MonitorConfigPolicyObservation struct {
 
+	// (Block List, Max: 1) Config for a downtime duration policy. Only set if policy_type is downtime. (see below for nested schema)
+	// Config for a downtime duration policy. Only set if `policy_type` is `downtime`.
+	DowntimePolicy *DowntimePolicyObservation `json:"downtimePolicy,omitempty" tf:"downtime_policy,omitempty"`
+
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The monitor config policy type Valid values are tag.
-	// The monitor config policy type Valid values are `tag`.
+	// (String) The monitor config policy type Valid values are tag, downtime.
+	// The monitor config policy type Valid values are `tag`, `downtime`.
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 
 	// (Block List, Max: 1) Config for a tag policy. Only set if policy_type is tag. (see below for nested schema)
@@ -40,8 +70,13 @@ type MonitorConfigPolicyObservation struct {
 
 type MonitorConfigPolicyParameters struct {
 
-	// (String) The monitor config policy type Valid values are tag.
-	// The monitor config policy type Valid values are `tag`.
+	// (Block List, Max: 1) Config for a downtime duration policy. Only set if policy_type is downtime. (see below for nested schema)
+	// Config for a downtime duration policy. Only set if `policy_type` is `downtime`.
+	// +kubebuilder:validation:Optional
+	DowntimePolicy *DowntimePolicyParameters `json:"downtimePolicy,omitempty" tf:"downtime_policy,omitempty"`
+
+	// (String) The monitor config policy type Valid values are tag, downtime.
+	// The monitor config policy type Valid values are `tag`, `downtime`.
 	// +kubebuilder:validation:Optional
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 

@@ -6,8 +6,6 @@ package integration
 
 import (
 	"github.com/crossplane/upjet/v2/pkg/config"
-
-	"github.com/upbound/provider-datadog/config/common"
 )
 
 const integrationDatadog = "integration.datadog"
@@ -19,15 +17,6 @@ func Configure(p *config.Provider) {
 		// this resource, which would be "datadog"
 		r.Kind = "AWSAccount"
 		r.ShortGroup = integrationDatadog
-		// Plugin-framework single-nested blocks; see common.EmbedSingleNestedBlocks.
-		common.EmbedSingleNestedBlocks(r, "auth_config", "auth_config.aws_auth_config_keys", "auth_config.aws_auth_config_role", "aws_regions", "logs_config", "logs_config.lambda_forwarder")
-		common.EmbedSingleNestedBlocks(r, "logs_config.lambda_forwarder.log_source_config", "metrics_config", "metrics_config.namespace_filters", "resources_config", "traces_config", "traces_config.xray_services")
-		// These blocks have required descendants, which upjet's tfjson conversion
-		// otherwise pushes into status.atProvider only; they are optional upstream.
-		common.MarkSingleNestedBlockConfigurable(r, "logs_config", true)
-		common.MarkSingleNestedBlockConfigurable(r, "logs_config.lambda_forwarder", true)
-		common.MarkSingleNestedBlockConfigurable(r, "logs_config.lambda_forwarder.log_source_config", true)
-		common.MarkSingleNestedBlockConfigurable(r, "metrics_config", true)
 	})
 	p.AddResourceConfigurator("datadog_integration_aws_account_ccm_config", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for
@@ -37,8 +26,6 @@ func Configure(p *config.Provider) {
 		r.References["aws_account_config_id"] = config.Reference{
 			TerraformName: "datadog_integration_aws_account",
 		}
-		// Plugin-framework single-nested blocks; see common.EmbedSingleNestedBlocks.
-		common.EmbedSingleNestedBlocks(r, "ccm_config")
 	})
 	p.AddResourceConfigurator("datadog_integration_aws_event_bridge", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for
@@ -141,6 +128,30 @@ func Configure(p *config.Provider) {
 		// We need to override the default group that upjet generated for
 		// this resource, which would be "datadog"
 		r.Kind = "SlackChannel"
+		r.ShortGroup = integrationDatadog
+	})
+	p.AddResourceConfigurator("datadog_integration_databricks_account", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "DatabricksAccount"
+		r.ShortGroup = integrationDatadog
+	})
+	p.AddResourceConfigurator("datadog_integration_elastic_cloud_account", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "ElasticCloudAccount"
+		r.ShortGroup = integrationDatadog
+	})
+	p.AddResourceConfigurator("datadog_integration_snowflake_account", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "SnowflakeAccount"
+		r.ShortGroup = integrationDatadog
+	})
+	p.AddResourceConfigurator("datadog_integration_twilio_account", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "TwilioAccount"
 		r.ShortGroup = integrationDatadog
 	})
 }

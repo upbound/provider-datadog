@@ -34,6 +34,7 @@ spec:
     - automuteEnabled: true
       collectCloudwatchAlarms: true
       collectCustomMetrics: true
+      collectServiceQuotas: true
       enabled: true
       metricNameFilters:
       - includeOnly:

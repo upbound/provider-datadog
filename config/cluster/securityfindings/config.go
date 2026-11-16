@@ -24,4 +24,22 @@ func Configure(p *config.Provider) {
 		r.Kind = "TicketCreationRule"
 		r.ShortGroup = securityFindingsDatadog
 	})
+	p.AddResourceConfigurator("datadog_security_findings_default_inbox_rule", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "DefaultInboxRule"
+		r.ShortGroup = securityFindingsDatadog
+	})
+	p.AddResourceConfigurator("datadog_security_findings_inbox_rule", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "InboxRule"
+		r.ShortGroup = securityFindingsDatadog
+	})
+	p.AddResourceConfigurator("datadog_security_findings_severity_modifier_rule", func(r *config.Resource) {
+		// We need to override the default group that upjet generated for
+		// this resource, which would be "datadog"
+		r.Kind = "SeverityModifierRule"
+		r.ShortGroup = securityFindingsDatadog
+	})
 }

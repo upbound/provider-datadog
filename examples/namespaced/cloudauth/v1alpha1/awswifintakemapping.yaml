@@ -1,0 +1,13 @@
+apiVersion: cloudauth.datadog.m.upbound.io/v1alpha1
+kind: AWSWIFIntakeMapping
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudauth/v1alpha1/awswifintakemapping
+    upjet.upbound.io/manual-intervention: "Requires an AWS account that is already integrated with Datadog; the account id in arnPattern must be replaced with that account."
+  labels:
+    testing.upbound.io/example-name: agent
+  name: agent
+  namespace: upbound-system
+spec:
+  forProvider:
+    arnPattern: arn:aws:sts::123456789012:assumed-role/DatadogAgentRole/*

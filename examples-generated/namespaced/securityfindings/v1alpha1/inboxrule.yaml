@@ -1,0 +1,19 @@
+apiVersion: securityfindings.datadog.m.upbound.io/v1alpha1
+kind: InboxRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: securityfindings/v1alpha1/inboxrule
+  labels:
+    testing.upbound.io/example-name: triage_production_misconfigurations
+  name: triage-production-misconfigurations
+  namespace: upbound-system
+spec:
+  forProvider:
+    action:
+      description: Needs triage
+    enabled: true
+    name: Triage production misconfigurations
+    rule:
+      findingTypes:
+      - misconfiguration
+      query: env:prod team:platform

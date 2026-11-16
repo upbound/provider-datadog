@@ -65,8 +65,8 @@ type AzureInitParameters struct {
 	// Configuration settings applied to resources from the specified Azure resource providers.
 	ResourceProviderConfigs []ResourceProviderConfigsInitParameters `json:"resourceProviderConfigs,omitempty" tf:"resource_provider_configs,omitempty"`
 
-	// (Boolean) (Preview) When enabled, Datadog authenticates to this app registration using federated workload identity credentials instead of a client secret. The app registration must have a Datadog federated credential for this to work. When true, client_secret should be omitted. Defaults to false.
-	// (Preview) When enabled, Datadog authenticates to this app registration using federated workload identity credentials instead of a client secret. The app registration must have a Datadog federated credential for this to work. When `true`, `client_secret` should be omitted. Defaults to `false`.
+	// (Boolean) When enabled, Datadog authenticates to this app registration using federated workload identity credentials instead of a client secret. You also need to set up a federated credential in your Azure App Registration with the proper External ID. Migration instructions can be found in the general tab by clicking 'Set Up Secretless Auth'. When true, client_secret should be omitted. Defaults to false.
+	// When enabled, Datadog authenticates to this app registration using federated workload identity credentials instead of a client secret. You also need to set up a federated credential in your Azure App Registration with the proper External ID.datadoghq.com/integrations/azure/add) or [migrate](https://app.datadoghq.com/integrations/azure). Migration instructions can be found in the general tab by clicking 'Set Up Secretless Auth'. When `true`, `client_secret` should be omitted. Defaults to `false`.
 	SecretlessAuthEnabled *bool `json:"secretlessAuthEnabled,omitempty" tf:"secretless_auth_enabled,omitempty"`
 
 	// (String) Your Azure Active Directory ID.
@@ -129,8 +129,8 @@ type AzureObservation struct {
 	// Configuration settings applied to resources from the specified Azure resource providers.
 	ResourceProviderConfigs []ResourceProviderConfigsObservation `json:"resourceProviderConfigs,omitempty" tf:"resource_provider_configs,omitempty"`
 
-	// (Boolean) (Preview) When enabled, Datadog authenticates to this app registration using federated workload identity credentials instead of a client secret. The app registration must have a Datadog federated credential for this to work. When true, client_secret should be omitted. Defaults to false.
-	// (Preview) When enabled, Datadog authenticates to this app registration using federated workload identity credentials instead of a client secret. The app registration must have a Datadog federated credential for this to work. When `true`, `client_secret` should be omitted. Defaults to `false`.
+	// (Boolean) When enabled, Datadog authenticates to this app registration using federated workload identity credentials instead of a client secret. You also need to set up a federated credential in your Azure App Registration with the proper External ID. Migration instructions can be found in the general tab by clicking 'Set Up Secretless Auth'. When true, client_secret should be omitted. Defaults to false.
+	// When enabled, Datadog authenticates to this app registration using federated workload identity credentials instead of a client secret. You also need to set up a federated credential in your Azure App Registration with the proper External ID.datadoghq.com/integrations/azure/add) or [migrate](https://app.datadoghq.com/integrations/azure). Migration instructions can be found in the general tab by clicking 'Set Up Secretless Auth'. When `true`, `client_secret` should be omitted. Defaults to `false`.
 	SecretlessAuthEnabled *bool `json:"secretlessAuthEnabled,omitempty" tf:"secretless_auth_enabled,omitempty"`
 
 	// (String) Your Azure Active Directory ID.
@@ -206,8 +206,8 @@ type AzureParameters struct {
 	// +kubebuilder:validation:Optional
 	ResourceProviderConfigs []ResourceProviderConfigsParameters `json:"resourceProviderConfigs,omitempty" tf:"resource_provider_configs,omitempty"`
 
-	// (Boolean) (Preview) When enabled, Datadog authenticates to this app registration using federated workload identity credentials instead of a client secret. The app registration must have a Datadog federated credential for this to work. When true, client_secret should be omitted. Defaults to false.
-	// (Preview) When enabled, Datadog authenticates to this app registration using federated workload identity credentials instead of a client secret. The app registration must have a Datadog federated credential for this to work. When `true`, `client_secret` should be omitted. Defaults to `false`.
+	// (Boolean) When enabled, Datadog authenticates to this app registration using federated workload identity credentials instead of a client secret. You also need to set up a federated credential in your Azure App Registration with the proper External ID. Migration instructions can be found in the general tab by clicking 'Set Up Secretless Auth'. When true, client_secret should be omitted. Defaults to false.
+	// When enabled, Datadog authenticates to this app registration using federated workload identity credentials instead of a client secret. You also need to set up a federated credential in your Azure App Registration with the proper External ID.datadoghq.com/integrations/azure/add) or [migrate](https://app.datadoghq.com/integrations/azure). Migration instructions can be found in the general tab by clicking 'Set Up Secretless Auth'. When `true`, `client_secret` should be omitted. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	SecretlessAuthEnabled *bool `json:"secretlessAuthEnabled,omitempty" tf:"secretless_auth_enabled,omitempty"`
 

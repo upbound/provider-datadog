@@ -1,0 +1,14 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: MonitorConfigPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/monitorconfigpolicy-downtime
+  labels:
+    testing.upbound.io/example-name: downtime
+  name: downtime
+  namespace: upbound-system
+spec:
+  forProvider:
+    downtimePolicy:
+      maxDurationMs: 3600000
+    policyType: downtime

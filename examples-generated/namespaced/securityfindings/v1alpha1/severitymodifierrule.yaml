@@ -1,0 +1,21 @@
+apiVersion: securityfindings.datadog.m.upbound.io/v1alpha1
+kind: SeverityModifierRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: securityfindings/v1alpha1/severitymodifierrule
+  labels:
+    testing.upbound.io/example-name: escalate_prod_secrets
+  name: escalate-prod-secrets
+  namespace: upbound-system
+spec:
+  forProvider:
+    action:
+      set:
+        description: Secrets in production are always treated as critical.
+        severity: critical
+    enabled: true
+    name: Escalate secrets found in production
+    rule:
+      findingTypes:
+      - secret
+      query: env:prod

@@ -6,8 +6,6 @@ package apm
 
 import (
 	"github.com/crossplane/upjet/v2/pkg/config"
-
-	"github.com/upbound/provider-datadog/config/common"
 )
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
@@ -17,7 +15,6 @@ func Configure(p *config.Provider) {
 		// this resource, which would be "datadog"
 		r.Kind = "RetentionFilter"
 		r.ShortGroup = "apm.datadog"
-		common.EmbedSingleNestedBlocks(r, "filter")
 	})
 	p.AddResourceConfigurator("datadog_apm_retention_filter_order", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for

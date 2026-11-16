@@ -1,0 +1,50 @@
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: RUMOperation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/rumoperation
+  labels:
+    testing.upbound.io/example-name: checkout
+  name: checkout
+  namespace: upbound-system
+spec:
+  forProvider:
+    applicationIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: rumoperation-checkout
+    category: form_submission
+    description: From the cart to the order confirmation page.
+    displayName: Checkout
+    name: checkout
+    steps:
+    - nodes:
+      - query: '@view.name:/cart @action.name:checkout'
+      type: start
+    - nodes:
+      - query: '@view.name:/order/confirmation'
+      type: stop
+    - composite:
+        kind: in_order
+        maxWindowMs: 60000
+        predicates:
+        - query: '@type:action @action.name:pay'
+        - query: '@type:error @error.message:*declined*'
+      type: error
+    tags:
+    - team:payments
+
+---
+
+apiVersion: datadog.m.upbound.io/v1alpha1
+kind: RUMApplication
+metadata:
+  annotations:
+    meta.upbound.io/example-id: datadog/v1alpha1/rumoperation
+  labels:
+    testing.upbound.io/example-name: rumoperation-checkout
+  name: rumoperation-checkout
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: rumoperation-checkout
+    type: browser
