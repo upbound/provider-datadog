@@ -2,8 +2,6 @@ package securitymonitoring
 
 import (
 	"github.com/crossplane/upjet/v2/pkg/config"
-
-	"github.com/upbound/provider-datadog/config/common"
 )
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
@@ -49,10 +47,5 @@ func Configure(p *config.Provider) {
 		// this resource, which would be "datadog"
 		r.Kind = "NotificationRule"
 		r.ShortGroup = "securitymonitoring.datadog"
-		// Plugin-framework single-nested blocks; see common.EmbedSingleNestedBlocks.
-		common.EmbedSingleNestedBlocks(r, "selectors")
-		// selectors has a required descendant, which upjet's tfjson conversion
-		// otherwise pushes into status.atProvider only; required upstream (objectvalidator.IsRequired).
-		common.MarkSingleNestedBlockConfigurable(r, "selectors", false)
 	})
 }

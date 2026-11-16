@@ -6,8 +6,6 @@ package cloudauth
 
 import (
 	"github.com/crossplane/upjet/v2/pkg/config"
-
-	"github.com/upbound/provider-datadog/config/common"
 )
 
 const cloudAuthDatadog = "cloudauth.datadog"
@@ -37,15 +35,11 @@ func Configure(p *config.Provider) {
 		r.References["account_identifier"] = config.Reference{
 			TerraformName: "datadog_service_account",
 		}
-		// Plugin-framework single-nested block; see common.EmbedSingleNestedBlocks.
-		common.EmbedSingleNestedBlocks(r, "claim_matchers")
 	})
 	p.AddResourceConfigurator("datadog_github_oidc_intake_mapping", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for
 		// this resource, which would be "datadog"
 		r.Kind = "GitHubOIDCIntakeMapping"
 		r.ShortGroup = cloudAuthDatadog
-		// Plugin-framework single-nested block; see common.EmbedSingleNestedBlocks.
-		common.EmbedSingleNestedBlocks(r, "claim_matchers")
 	})
 }

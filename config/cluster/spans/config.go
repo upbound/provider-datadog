@@ -6,8 +6,6 @@ package spans
 
 import (
 	"github.com/crossplane/upjet/v2/pkg/config"
-
-	"github.com/upbound/provider-datadog/config/common"
 )
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
@@ -17,7 +15,5 @@ func Configure(p *config.Provider) {
 		// this resource, which would be "datadog"
 		r.Kind = "SpansMetric"
 		r.ShortGroup = "datadog"
-		common.EmbedSingleNestedBlocks(r, "compute", "filter")
-		common.MarkSingleNestedBlockConfigurable(r, "compute", false)
 	})
 }
