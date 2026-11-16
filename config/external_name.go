@@ -10,7 +10,9 @@ import (
 
 	"github.com/crossplane/upjet/v2/pkg/config"
 	"github.com/google/uuid"
+	rschema "github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-go/tfprotov6"
+	"github.com/hashicorp/terraform-plugin-go/tftypes"
 )
 
 // terraformPluginSDKExternalNameConfigs contains the external name
@@ -190,8 +192,11 @@ var terraformPluginFrameworkExternalNameConfigs = map[string]config.ExternalName
 	"datadog_security_notification_rule":         datadogExternalNameWithInjectedUUIDAndNotFoundDiagnostics("404 Not Found"),
 	"datadog_sensitive_data_scanner_group_order": config.IdentifierFromProvider,
 	"datadog_service_access_token":               datadogExternalNameWithInjectedUUID(),
-	"datadog_service_account":                    datadogExternalNameWithInjectedUUID(),
-	"datadog_service_account_application_key":    config.IdentifierFromProvider,
+	// The upstream Read keeps the state of a service account that answers
+	// 404, so "does not exist" is detected from the placeholder id; see
+	// terraformPluginFrameworkIsStateEmptyFns.
+	"datadog_service_account":                 datadogExternalNameWithInjectedNilUUID(),
+	"datadog_service_account_application_key": config.IdentifierFromProvider,
 	// The Terraform id is the entity reference "<kind>:<name>"; the API
 	// answers 400 to any other shape, so the stub keeps it.
 	"datadog_software_catalog":                 datadogExternalNameWithInjectedRef("service"),
@@ -255,6 +260,45 @@ func datadogExternalNameWithInjectedUUID() config.ExternalName {
 		return externalName, nil
 	}
 	return e
+}
+
+// datadogExternalNameWithInjectedNilUUID injects the nil UUID when there is
+// no external name. No external resource has that id, so a state that still
+// contains it after Read belongs to a resource that has not been created; pair
+// it with stateHasNilUUID in terraformPluginFrameworkIsStateEmptyFns.
+func datadogExternalNameWithInjectedNilUUID() config.ExternalName {
+	e := config.IdentifierFromProvider
+	e.GetIDFn = func(_ context.Context, externalName string, _ map[string]any, _ map[string]any) (string, error) {
+		if len(externalName) == 0 {
+			return uuid.Nil.String(), nil
+		}
+		return externalName, nil
+	}
+	return e
+}
+
+// terraformPluginFrameworkIsStateEmptyFns contains the plugin framework
+// resources whose upstream Read returns on a 404 without removing the resource
+// from state. Upjet would take the unchanged state for an existing external
+// resource and update it instead of creating one, so these resources report
+// "does not exist" from the state itself.
+var terraformPluginFrameworkIsStateEmptyFns = map[string]config.TerraformPluginFrameworkIsStateEmptyFn{
+	// https://github.com/upbound/provider-datadog/issues/81
+	"datadog_service_account": stateHasNilUUID,
+}
+
+// stateHasNilUUID reports a state as empty when its id is the placeholder
+// that datadogExternalNameWithInjectedNilUUID injects.
+func stateHasNilUUID(_ context.Context, state tftypes.Value, _ rschema.Schema) (bool, error) {
+	var attrs map[string]tftypes.Value
+	if err := state.As(&attrs); err != nil {
+		return false, err
+	}
+	var id string
+	if err := attrs["id"].As(&id); err != nil {
+		return false, err
+	}
+	return id == uuid.Nil.String(), nil
 }
 
 // datadogExternalNameWithInjectedRef is for resources whose Terraform id is
@@ -321,6 +365,9 @@ func resourceConfigurator() config.ResourceOption {
 		}
 		if e, ok := terraformPluginFrameworkExternalNameConfigs[r.Name]; ok {
 			r.ExternalName = e
+		}
+		if fn, ok := terraformPluginFrameworkIsStateEmptyFns[r.Name]; ok {
+			r.TerraformPluginFrameworkIsStateEmptyFn = fn
 		}
 	}
 }
