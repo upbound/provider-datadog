@@ -70,39 +70,41 @@ var terraformPluginSDKExternalNameConfigs = map[string]config.ExternalName{
 // implements in the wrapped Datadog provider version. Their controllers use
 // the plugin framework client.
 var terraformPluginFrameworkExternalNameConfigs = map[string]config.ExternalName{
-	"datadog_action_connection":                     datadogExternalNameWithInjectedUUID(),
-	"datadog_agentless_scanning_aws_scan_options":   datadogExternalNameWithInjectedUUID(),
-	"datadog_agentless_scanning_azure_scan_options": datadogExternalNameWithInjectedUUID(),
-	"datadog_agentless_scanning_gcp_scan_options":   datadogExternalNameWithInjectedUUID(),
+	"datadog_action_connection":                     datadogExternalNameWithInjectedNilUUID(),
+	"datadog_agentless_scanning_aws_scan_options":   datadogExternalNameWithInjectedNilUUID(),
+	"datadog_agentless_scanning_azure_scan_options": datadogExternalNameWithInjectedNilUUID(),
+	"datadog_agentless_scanning_gcp_scan_options":   datadogExternalNameWithInjectedNilUUID(),
 	// Import requires using a randomly generated ID from provider: nl-2e21sda
-	"datadog_api_key":                    datadogExternalNameWithInjectedUUID(),
-	"datadog_apm_retention_filter":       datadogExternalNameWithInjectedUUID(),
+	"datadog_api_key":                    datadogExternalNameWithInjectedNilUUID(),
+	"datadog_apm_retention_filter":       datadogExternalNameWithInjectedNilUUID(),
 	"datadog_apm_retention_filter_order": config.IdentifierFromProvider,
-	"datadog_app_builder_app":            datadogExternalNameWithInjectedUUID(),
+	"datadog_app_builder_app":            datadogExternalNameWithInjectedNilUUID(),
 	// id is the id of an existing Application Key; see the reference on this
 	// field in the resource configurator.
 	"datadog_app_key_registration":                  config.TemplatedStringAsIdentifier("id", "{{ .parameters.id }}"),
 	"datadog_application_key":                       datadogExternalNameWithInjectedID(),
-	"datadog_appsec_waf_custom_rule":                datadogExternalNameWithInjectedUUID(),
-	"datadog_appsec_waf_exclusion_filter":           datadogExternalNameWithInjectedUUID(),
-	"datadog_aws_wif_identity_mapping":              datadogExternalNameWithInjectedUUID(),
-	"datadog_aws_wif_intake_mapping":                datadogExternalNameWithInjectedUUID(),
-	"datadog_aws_cur_config":                        datadogExternalNameWithInjectedUUID(),
-	"datadog_azure_uc_config":                       datadogExternalNameWithInjectedUUID(),
-	"datadog_cloud_inventory_sync_config":           datadogExternalNameWithInjectedUUID(),
-	"datadog_compliance_custom_framework":           datadogExternalNameWithInjectedUUID(),
-	"datadog_compliance_resource_evaluation_filter": datadogExternalNameWithInjectedUUID(),
+	"datadog_appsec_waf_custom_rule":                datadogExternalNameWithInjectedNilUUID(),
+	"datadog_appsec_waf_exclusion_filter":           datadogExternalNameWithInjectedNilUUID(),
+	"datadog_aws_wif_identity_mapping":              datadogExternalNameWithInjectedNilUUID(),
+	"datadog_aws_wif_intake_mapping":                datadogExternalNameWithInjectedNilUUID(),
+	"datadog_aws_cur_config":                        datadogExternalNameWithInjectedNilUUID(),
+	"datadog_azure_uc_config":                       datadogExternalNameWithInjectedNilUUID(),
+	"datadog_cloud_inventory_sync_config":           datadogExternalNameWithInjectedNilUUID(),
+	"datadog_compliance_custom_framework":           datadogExternalNameWithInjectedNilUUID(),
+	"datadog_compliance_resource_evaluation_filter": datadogExternalNameWithInjectedNilUUID(),
 	// id is optional and computed upstream (a caller may supply one); an
 	// omitted id is sent as unset, not empty, so the plain stub works.
 	"datadog_cost_budget":             datadogExternalNameWithInjectedUUIDAndNotFoundDiagnostics("404 Not Found"),
-	"datadog_cost_custom_forecast":    datadogExternalNameWithInjectedUUID(),
-	"datadog_csm_threats_agent_rule":  datadogExternalNameWithInjectedUUID(),
-	"datadog_csm_threats_policy":      datadogExternalNameWithInjectedUUID(),
+	"datadog_cost_custom_forecast":    datadogExternalNameWithInjectedNilUUID(),
+	"datadog_csm_threats_agent_rule":  datadogExternalNameWithInjectedNilUUID(),
+	"datadog_csm_threats_policy":      datadogExternalNameWithInjectedNilUUID(),
 	"datadog_custom_allocation_rule":  datadogExternalNameWithInjectedID(),
-	"datadog_custom_allocation_rules": datadogExternalNameWithInjectedUUID(),
+	"datadog_custom_allocation_rules": datadogExternalNameWithInjectedNilUUID(),
 	"datadog_dashboard_list":          datadogExternalNameWithInjectedID(),
-	"datadog_dataset":                 datadogExternalNameWithInjectedUUID(),
-	"datadog_datastore":               datadogExternalNameWithInjectedUUID(),
+	// The API validates the dataset id on Read and answers 400 to the nil
+	// UUID, so the stub is a random one.
+	"datadog_dataset":   datadogExternalNameWithInjectedUUID(),
+	"datadog_datastore": datadogExternalNameWithInjectedNilUUID(),
 	// The Terraform id is "<datastore id>:<item key>" and the external name is
 	// the item key alone. The template must reference .external_name: with
 	// .parameters.item_key instead, upjet takes the whole id as the external
@@ -113,85 +115,85 @@ var terraformPluginFrameworkExternalNameConfigs = map[string]config.ExternalName
 	// The Terraform id is the metric name, which the API validates on Read: a
 	// UUID stub answers 400.
 	"datadog_derived_metric":                                config.TemplatedStringAsIdentifier("", "{{ .parameters.name }}"),
-	"datadog_domain_allowlist":                              datadogExternalNameWithInjectedUUID(),
-	"datadog_downtime_schedule":                             datadogExternalNameWithInjectedUUID(),
-	"datadog_fleet_schedule":                                datadogExternalNameWithInjectedUUID(),
-	"datadog_gcp_uc_config":                                 datadogExternalNameWithInjectedUUID(),
-	"datadog_github_oidc_identity_mapping":                  datadogExternalNameWithInjectedUUID(),
-	"datadog_github_oidc_intake_mapping":                    datadogExternalNameWithInjectedUUID(),
-	"datadog_governance_control":                            datadogExternalNameWithInjectedUUID(),
-	"datadog_incident_notification_rule":                    datadogExternalNameWithInjectedUUID(),
-	"datadog_incident_notification_template":                datadogExternalNameWithInjectedUUID(),
-	"datadog_incident_type":                                 datadogExternalNameWithInjectedUUID(),
-	"datadog_incident_user_defined_field":                   datadogExternalNameWithInjectedUUID(),
-	"datadog_incident_user_defined_role":                    datadogExternalNameWithInjectedUUID(),
-	"datadog_integration_aws_account":                       datadogExternalNameWithInjectedUUID(),
-	"datadog_integration_aws_account_ccm_config":            datadogExternalNameWithInjectedUUID(),
+	"datadog_domain_allowlist":                              datadogExternalNameWithInjectedNilUUID(),
+	"datadog_downtime_schedule":                             datadogExternalNameWithInjectedNilUUID(),
+	"datadog_fleet_schedule":                                datadogExternalNameWithInjectedNilUUID(),
+	"datadog_gcp_uc_config":                                 datadogExternalNameWithInjectedNilUUID(),
+	"datadog_github_oidc_identity_mapping":                  datadogExternalNameWithInjectedNilUUID(),
+	"datadog_github_oidc_intake_mapping":                    datadogExternalNameWithInjectedNilUUID(),
+	"datadog_governance_control":                            datadogExternalNameWithInjectedNilUUID(),
+	"datadog_incident_notification_rule":                    datadogExternalNameWithInjectedNilUUID(),
+	"datadog_incident_notification_template":                datadogExternalNameWithInjectedNilUUID(),
+	"datadog_incident_type":                                 datadogExternalNameWithInjectedNilUUID(),
+	"datadog_incident_user_defined_field":                   datadogExternalNameWithInjectedNilUUID(),
+	"datadog_incident_user_defined_role":                    datadogExternalNameWithInjectedNilUUID(),
+	"datadog_integration_aws_account":                       datadogExternalNameWithInjectedNilUUID(),
+	"datadog_integration_aws_account_ccm_config":            datadogExternalNameWithInjectedNilUUID(),
 	"datadog_integration_aws_event_bridge":                  config.IdentifierFromProvider,
-	"datadog_integration_aws_external_id":                   datadogExternalNameWithInjectedUUID(),
+	"datadog_integration_aws_external_id":                   datadogExternalNameWithInjectedNilUUID(),
 	"datadog_integration_azure":                             config.IdentifierFromProvider,
-	"datadog_integration_cloudflare_account":                datadogExternalNameWithInjectedUUID(),
-	"datadog_integration_confluent_account":                 datadogExternalNameWithInjectedUUID(),
+	"datadog_integration_cloudflare_account":                datadogExternalNameWithInjectedNilUUID(),
+	"datadog_integration_confluent_account":                 datadogExternalNameWithInjectedNilUUID(),
 	"datadog_integration_confluent_resource":                datadogExternalNameWithInjectedUUIDPair(),
-	"datadog_integration_databricks_account":                datadogExternalNameWithInjectedUUID(),
-	"datadog_integration_elastic_cloud_account":             datadogExternalNameWithInjectedUUID(),
-	"datadog_integration_fastly_account":                    datadogExternalNameWithInjectedUUID(),
+	"datadog_integration_databricks_account":                datadogExternalNameWithInjectedNilUUID(),
+	"datadog_integration_elastic_cloud_account":             datadogExternalNameWithInjectedNilUUID(),
+	"datadog_integration_fastly_account":                    datadogExternalNameWithInjectedNilUUID(),
 	"datadog_integration_fastly_service":                    datadogExternalNameWithInjectedUUIDPair(),
 	"datadog_integration_gcp":                               config.IdentifierFromProvider,
 	"datadog_integration_gcp_sts":                           config.IdentifierFromProvider,
-	"datadog_integration_ms_teams_tenant_based_handle":      datadogExternalNameWithInjectedUUID(),
-	"datadog_integration_ms_teams_workflows_webhook_handle": datadogExternalNameWithInjectedUUID(),
-	"datadog_integration_snowflake_account":                 datadogExternalNameWithInjectedUUID(),
-	"datadog_integration_twilio_account":                    datadogExternalNameWithInjectedUUID(),
+	"datadog_integration_ms_teams_tenant_based_handle":      datadogExternalNameWithInjectedNilUUID(),
+	"datadog_integration_ms_teams_workflows_webhook_handle": datadogExternalNameWithInjectedNilUUID(),
+	"datadog_integration_snowflake_account":                 datadogExternalNameWithInjectedNilUUID(),
+	"datadog_integration_twilio_account":                    datadogExternalNameWithInjectedNilUUID(),
 	"datadog_ip_allowlist":                                  config.IdentifierFromProvider,
-	"datadog_logs_custom_destination":                       datadogExternalNameWithInjectedUUID(),
-	"datadog_logs_restriction_query":                        datadogExternalNameWithInjectedUUID(),
-	"datadog_monitor_notification_rule":                     datadogExternalNameWithInjectedUUID(),
-	"datadog_observability_pipeline":                        datadogExternalNameWithInjectedUUID(),
-	"datadog_on_call_escalation_policy":                     datadogExternalNameWithInjectedUUID(),
-	"datadog_on_call_schedule":                              datadogExternalNameWithInjectedUUID(),
+	"datadog_logs_custom_destination":                       datadogExternalNameWithInjectedNilUUID(),
+	"datadog_logs_restriction_query":                        datadogExternalNameWithInjectedNilUUID(),
+	"datadog_monitor_notification_rule":                     datadogExternalNameWithInjectedNilUUID(),
+	"datadog_observability_pipeline":                        datadogExternalNameWithInjectedNilUUID(),
+	"datadog_on_call_escalation_policy":                     datadogExternalNameWithInjectedNilUUID(),
+	"datadog_on_call_schedule":                              datadogExternalNameWithInjectedNilUUID(),
 	// id is the id of the team the routing rules belong to; see the reference
 	// on this field in the resource configurator.
 	"datadog_on_call_team_routing_rules":        config.TemplatedStringAsIdentifier("id", "{{ .parameters.id }}"),
-	"datadog_on_call_user_notification_channel": datadogExternalNameWithInjectedUUID(),
-	"datadog_on_call_user_notification_rule":    datadogExternalNameWithInjectedUUID(),
-	"datadog_org_connection":                    datadogExternalNameWithInjectedUUID(),
-	"datadog_org_group":                         datadogExternalNameWithInjectedUUID(),
-	"datadog_org_group_membership":              datadogExternalNameWithInjectedUUID(),
-	"datadog_org_group_policy":                  datadogExternalNameWithInjectedUUID(),
-	"datadog_org_group_policy_override":         datadogExternalNameWithInjectedUUID(),
-	"datadog_reference_table":                   datadogExternalNameWithInjectedUUID(),
+	"datadog_on_call_user_notification_channel": datadogExternalNameWithInjectedNilUUID(),
+	"datadog_on_call_user_notification_rule":    datadogExternalNameWithInjectedNilUUID(),
+	"datadog_org_connection":                    datadogExternalNameWithInjectedNilUUID(),
+	"datadog_org_group":                         datadogExternalNameWithInjectedNilUUID(),
+	"datadog_org_group_membership":              datadogExternalNameWithInjectedNilUUID(),
+	"datadog_org_group_policy":                  datadogExternalNameWithInjectedNilUUID(),
+	"datadog_org_group_policy_override":         datadogExternalNameWithInjectedNilUUID(),
+	"datadog_reference_table":                   datadogExternalNameWithInjectedNilUUID(),
 	"datadog_restriction_policy":                config.IdentifierFromProvider,
 	"datadog_rum_application":                   datadogExternalNameWithInjectedID(),
-	"datadog_rum_exclusion_filter":              datadogExternalNameWithInjectedUUID(),
-	"datadog_rum_metric":                        datadogExternalNameWithInjectedUUID(),
-	"datadog_rum_operation":                     datadogExternalNameWithInjectedUUID(),
+	"datadog_rum_exclusion_filter":              datadogExternalNameWithInjectedNilUUID(),
+	"datadog_rum_metric":                        datadogExternalNameWithInjectedNilUUID(),
+	"datadog_rum_operation":                     datadogExternalNameWithInjectedNilUUID(),
 	// The Terraform id is "<operation id>:<journey id>"; Read and Delete work
 	// from the two attributes.
 	"datadog_rum_operation_journey_link": config.TemplatedStringAsIdentifier("", "{{ .parameters.operation_id }}:{{ .parameters.journey_id }}"),
-	"datadog_rum_retention_filter":       datadogExternalNameWithInjectedUUID(),
-	"datadog_rum_retention_quota":        datadogExternalNameWithInjectedUUID(),
-	"datadog_saml_idp_metadata":          datadogExternalNameWithInjectedUUID(),
-	"datadog_secure_embed_dashboard":     datadogExternalNameWithInjectedUUID(),
+	"datadog_rum_retention_filter":       datadogExternalNameWithInjectedNilUUID(),
+	"datadog_rum_retention_quota":        datadogExternalNameWithInjectedNilUUID(),
+	"datadog_saml_idp_metadata":          datadogExternalNameWithInjectedNilUUID(),
+	"datadog_secure_embed_dashboard":     datadogExternalNameWithInjectedNilUUID(),
 	// A default inbox rule exists in every organization and cannot be created
 	// or deleted: the external name must be the id of an existing rule.
-	"datadog_security_findings_default_inbox_rule":     datadogExternalNameWithInjectedUUID(),
-	"datadog_security_findings_due_date_rule":          datadogExternalNameWithInjectedUUID(),
-	"datadog_security_findings_inbox_rule":             datadogExternalNameWithInjectedUUID(),
-	"datadog_security_findings_mute_rule":              datadogExternalNameWithInjectedUUID(),
-	"datadog_security_findings_severity_modifier_rule": datadogExternalNameWithInjectedUUID(),
-	"datadog_security_findings_ticket_creation_rule":   datadogExternalNameWithInjectedUUID(),
-	"datadog_security_monitoring_critical_asset":       datadogExternalNameWithInjectedUUID(),
+	"datadog_security_findings_default_inbox_rule":     datadogExternalNameWithInjectedNilUUID(),
+	"datadog_security_findings_due_date_rule":          datadogExternalNameWithInjectedNilUUID(),
+	"datadog_security_findings_inbox_rule":             datadogExternalNameWithInjectedNilUUID(),
+	"datadog_security_findings_mute_rule":              datadogExternalNameWithInjectedNilUUID(),
+	"datadog_security_findings_severity_modifier_rule": datadogExternalNameWithInjectedNilUUID(),
+	"datadog_security_findings_ticket_creation_rule":   datadogExternalNameWithInjectedNilUUID(),
+	"datadog_security_monitoring_critical_asset":       datadogExternalNameWithInjectedNilUUID(),
 	"datadog_security_monitoring_default_rule":         config.IdentifierFromProvider,
-	"datadog_security_monitoring_filter":               datadogExternalNameWithInjectedUUID(),
-	"datadog_security_monitoring_rule":                 datadogExternalNameWithInjectedUUID(),
-	"datadog_security_monitoring_rule_json":            datadogExternalNameWithInjectedUUID(),
-	"datadog_security_monitoring_suppression":          datadogExternalNameWithInjectedUUID(),
+	"datadog_security_monitoring_filter":               datadogExternalNameWithInjectedNilUUID(),
+	"datadog_security_monitoring_rule":                 datadogExternalNameWithInjectedNilUUID(),
+	"datadog_security_monitoring_rule_json":            datadogExternalNameWithInjectedNilUUID(),
+	"datadog_security_monitoring_suppression":          datadogExternalNameWithInjectedNilUUID(),
 	// Read reports the 404 for the UUID stub as an error instead of removing
 	// the resource, so the not-found diagnostic lets Create run.
 	"datadog_security_notification_rule":         datadogExternalNameWithInjectedUUIDAndNotFoundDiagnostics("404 Not Found"),
 	"datadog_sensitive_data_scanner_group_order": config.IdentifierFromProvider,
-	"datadog_service_access_token":               datadogExternalNameWithInjectedUUID(),
+	"datadog_service_access_token":               datadogExternalNameWithInjectedNilUUID(),
 	// The upstream Read keeps the state of a service account that answers
 	// 404, so "does not exist" is detected from the placeholder id; see
 	// terraformPluginFrameworkIsStateEmptyFns.
@@ -201,33 +203,33 @@ var terraformPluginFrameworkExternalNameConfigs = map[string]config.ExternalName
 	// answers 400 to any other shape, so the stub keeps it.
 	"datadog_software_catalog":                 datadogExternalNameWithInjectedRef("service"),
 	"datadog_spans_metric":                     datadogExternalNameWithInjectedID(),
-	"datadog_status_page":                      datadogExternalNameWithInjectedUUID(),
-	"datadog_status_page_component":            datadogExternalNameWithInjectedUUID(),
-	"datadog_status_page_degradation_template": datadogExternalNameWithInjectedUUID(),
-	"datadog_status_page_maintenance_template": datadogExternalNameWithInjectedUUID(),
+	"datadog_status_page":                      datadogExternalNameWithInjectedNilUUID(),
+	"datadog_status_page_component":            datadogExternalNameWithInjectedNilUUID(),
+	"datadog_status_page_degradation_template": datadogExternalNameWithInjectedNilUUID(),
+	"datadog_status_page_maintenance_template": datadogExternalNameWithInjectedNilUUID(),
 	"datadog_synthetics_concurrency_cap":       config.IdentifierFromProvider,
-	"datadog_synthetics_global_variable":       datadogExternalNameWithInjectedUUID(),
-	"datadog_synthetics_private_location":      datadogExternalNameWithInjectedUUID(),
-	"datadog_synthetics_suite":                 datadogExternalNameWithInjectedUUID(),
-	"datadog_tag_pipeline_ruleset":             datadogExternalNameWithInjectedUUID(),
-	"datadog_tag_pipeline_rulesets":            datadogExternalNameWithInjectedUUID(),
+	"datadog_synthetics_global_variable":       datadogExternalNameWithInjectedNilUUID(),
+	"datadog_synthetics_private_location":      datadogExternalNameWithInjectedNilUUID(),
+	"datadog_synthetics_suite":                 datadogExternalNameWithInjectedNilUUID(),
+	"datadog_tag_pipeline_ruleset":             datadogExternalNameWithInjectedNilUUID(),
+	"datadog_tag_pipeline_rulesets":            datadogExternalNameWithInjectedNilUUID(),
 	"datadog_tag_rule":                         datadogExternalNameWithInjectedUUIDAndNotFoundDiagnostics("invalid policy_id"),
 	"datadog_team":                             datadogExternalNameWithInjectedID(),
-	"datadog_team_connection":                  datadogExternalNameWithInjectedUUID(),
-	"datadog_team_hierarchy_links":             datadogExternalNameWithInjectedUUID(),
+	"datadog_team_connection":                  datadogExternalNameWithInjectedNilUUID(),
+	"datadog_team_hierarchy_links":             datadogExternalNameWithInjectedNilUUID(),
 	"datadog_team_link":                        datadogExternalNameWithInjectedID(),
 	"datadog_team_membership":                  config.IdentifierFromProvider,
-	"datadog_team_notification_rule":           datadogExternalNameWithInjectedUUID(),
+	"datadog_team_notification_rule":           datadogExternalNameWithInjectedNilUUID(),
 	// The framework resource resolves an empty id from team_id and action and
 	// stores the API identifier of the setting, which exists as soon as its
 	// team does; a stub id only produces a not-found error.
 	"datadog_team_permission_setting":           config.IdentifierFromProvider,
-	"datadog_team_sync":                         datadogExternalNameWithInjectedUUID(),
-	"datadog_user_role":                         datadogExternalNameWithInjectedUUID(),
+	"datadog_team_sync":                         datadogExternalNameWithInjectedNilUUID(),
+	"datadog_user_role":                         datadogExternalNameWithInjectedNilUUID(),
 	"datadog_webhook":                           config.IdentifierFromProvider,
 	"datadog_webhook_custom_variable":           config.IdentifierFromProvider,
-	"datadog_webhook_oauth2_client_credentials": datadogExternalNameWithInjectedUUID(),
-	"datadog_workflow_automation":               datadogExternalNameWithInjectedUUID(),
+	"datadog_webhook_oauth2_client_credentials": datadogExternalNameWithInjectedNilUUID(),
+	"datadog_workflow_automation":               datadogExternalNameWithInjectedNilUUID(),
 }
 
 // datadogExternalNameWithInjectedID injects an id when there is none.
@@ -285,6 +287,9 @@ func datadogExternalNameWithInjectedNilUUID() config.ExternalName {
 var terraformPluginFrameworkIsStateEmptyFns = map[string]config.TerraformPluginFrameworkIsStateEmptyFn{
 	// https://github.com/upbound/provider-datadog/issues/81
 	"datadog_service_account": stateHasNilUUID,
+	// The upstream Read is a no-op, so the placeholder state is all there is
+	// until Create runs.
+	"datadog_integration_aws_external_id": stateHasNilUUID,
 }
 
 // stateHasNilUUID reports a state as empty when its id is the placeholder
@@ -310,7 +315,7 @@ func datadogExternalNameWithInjectedRef(kind string) config.ExternalName {
 	e := config.IdentifierFromProvider
 	e.GetIDFn = func(_ context.Context, externalName string, _ map[string]any, _ map[string]any) (string, error) {
 		if len(externalName) == 0 {
-			return kind + ":" + uuid.New().String(), nil
+			return kind + ":" + uuid.Nil.String(), nil
 		}
 		return externalName, nil
 	}
@@ -325,7 +330,7 @@ func datadogExternalNameWithInjectedUUIDPair() config.ExternalName {
 	e := config.IdentifierFromProvider
 	e.GetIDFn = func(_ context.Context, externalName string, _ map[string]any, _ map[string]any) (string, error) {
 		if len(externalName) == 0 {
-			return uuid.New().String() + ":" + uuid.New().String(), nil
+			return uuid.Nil.String() + ":" + uuid.Nil.String(), nil
 		}
 		return externalName, nil
 	}
@@ -333,12 +338,12 @@ func datadogExternalNameWithInjectedUUIDPair() config.ExternalName {
 }
 
 // datadogExternalNameWithInjectedUUIDAndNotFoundDiagnostics is
-// datadogExternalNameWithInjectedUUID for a plugin framework resource whose
+// datadogExternalNameWithInjectedNilUUID for a plugin framework resource whose
 // Read reports a missing object as an error diagnostic instead of removing it
 // from state: an error diagnostic whose summary or detail contains any of the
 // substrings is treated as "not found", so that Create runs.
 func datadogExternalNameWithInjectedUUIDAndNotFoundDiagnostics(substrings ...string) config.ExternalName {
-	e := datadogExternalNameWithInjectedUUID()
+	e := datadogExternalNameWithInjectedNilUUID()
 	e.IsNotFoundDiagnosticFn = func(diags []*tfprotov6.Diagnostic) bool {
 		for _, d := range diags {
 			if d == nil || d.Severity != tfprotov6.DiagnosticSeverityError {
