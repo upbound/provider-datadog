@@ -61,7 +61,7 @@ KUBECTL_VALIDATE_VERSION ?= v0.0.4
 # release available on releases.crossplane.io.
 CROSSPLANE_CLI_VERSION = v2.5.0
 # for e2e testing
-CROSSPLANE_VERSION = 2.4.3
+CROSSPLANE_VERSION = 2.5.0
 -include build/makelib/k8s_tools.mk
 
 # ====================================================================================
